@@ -1,0 +1,49 @@
++++
+title = "The Fibonacci Sequence"
+draft = false
+mathjax = true
+meta = "false"
+date = "2018-07-24"
++++
+
+&nbsp;
+
+Hi. Here is a short guide on the Fibonacci sequence of numbers.
+
+&nbsp;
+
+A sequence is a list of ordered objects. In a lot of cases, sequences are lists of ordered numbers. One example of a sequence is the set of even numbers such as 2, 4, 6, 8, etc. The first term in the sequence is 2, the second term being 4 and so on.
+
+&nbsp;
+
+The Fibonacci sequence starts with the first two terms being 1 and 1 (or 0 and 1 as an alternate version). The third term would be the sum of the previous two terms which would be \\(1 + 1 = 2\\). The next term would be \\(1 + 2 = 3\\). The term after the 3 would be \\(3 + 2 = 5\\). The pattern continues by adding the previous two terms together to get the next term.
+
+&nbsp;
+
+The Fibonacci sequence of numbers is an infinite (never-ending) sequence of numbers. Here are the first 10 terms of the Fibonacci sequence.
+
+&nbsp;
+
+$$1, 1, 2, 3, 5, 8, 13, 21, 34, 55, ...$$
+
+&nbsp;
+
+---
+
+**The Fibonacci Number Sequence (Simplified)**
+
+1) Start with the numbers 1 and 1 (or 0 and 1) as the first two terms (Base Case).
+
+2) Add the previous two terms together to obtain the next term in the sequence.
+
+&nbsp;
+
+---
+
+**The Fibonacci Number Sequence (Mathematical Version)**
+
+Assume that \\( a\_{n} \\) for \\(n = \{1, 2, 3, ...\}\\) is the n-th term in the Fibonacci sequence. For example we have \\(a\_{1} = 1\\) and \\(a_{5} = 5\\).
+
+1) Start with \\(a\_{1} = 1\\) and \\(a\_{2} = 1\\) (or \\(a\_{1} = 0\\) and \\(a\_{2} = 1\\)) as the first two terms.
+
+2) For \\(j = \{3, 4, ...\}\\), the next term \\(a\_{j}\\) can be obtained using the formula \\(a\_{j} = a\_{j - 1} + a\_{j - 2}\\).

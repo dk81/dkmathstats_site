@@ -1,0 +1,83 @@
++++
+title = "Factorials"
+draft = false
+mathjax = true
+meta = "false"
+date = "2018-07-24"
++++
+
+Hello. Here is a short guide on factorials.
+
+### The Factorial
+---
+
+Before going into the definition of factorials. Here are some examples of factorials.
+
+&nbsp;
+
+\\[3! = 3 \times 2 \times 1 = 1 \times 2 \times 3 = 6\\]
+
+\\[5! = 5 \times 4 \times 3 \times 2 \times 1 = 1 \times 2 \times 3 \times 4 \times 5 = 120\\]
+
+&nbsp;
+
+As you can see, a factorial is a compact way of expressing the multiplication of descending (or ascending) positive whole numbers.
+
+With factorials, the general case is:
+
+&nbsp;
+
+\\[n! = n \times (n - 1) \times (n - 2) \times ... \times 1\\]
+
+&nbsp;
+
+or
+
+&nbsp;
+
+\\[n! = 1 \times 2 \times ... \times (n -1) \times n\\]
+
+&nbsp;
+
+for \\(n = \{2, 3, 4, 5, ...\}.\\)
+
+There are also some special cases with \\(1! = 1\\) and \\(0! = 1\\).
+
+### Division With Factorials
+---
+
+You may encounter fractions with factorials in the numerator and in the denominator. Here are some examples.
+
+&nbsp;
+
+**Example One**
+
+&nbsp;
+
+\\[\dfrac{4!}{2!} = \dfrac{4 \times 3 \times 2 \times 1}{2 \times 1} = 4 \times 3 = 12\\]
+
+&nbsp;
+
+**Example Two**
+
+&nbsp;
+
+$$\dfrac{10!}{9!} = \dfrac{10 \times 9!}{9!} = 10$$
+
+&nbsp;
+
+**Example Three**
+
+&nbsp;
+
+$$\dfrac{8!}{4! \times 2!} = \dfrac{8 \times 7 \times 6 \times 5 \times 4!}{4! \times 2!} = \dfrac{8 \times 7 \times 6 \times 5 }{2} = 7 \times 6 \times 5 \times 4 = 840$$
+
+&nbsp;
+
+**Example Four**
+
+&nbsp;
+
+$$\dfrac{4! \times 5!}{6!} = \dfrac{4! \times 5 \times 4 \times 3 \times 2 \times 1}{6 \times 5 \times 4!} = \dfrac{4 \times 3 \times 2 \times 1}{6} = \dfrac{24}{6} = 4$$
+
+&nbsp;

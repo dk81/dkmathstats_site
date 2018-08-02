@@ -3,3 +3,8 @@ title: "R Programming Projects"
 ---
 
 This page contains links on a bunch of R programming projects. 
+
+[Stringr Work In R](./stringr_work.Rmd)
+
+[Order Of Operations / BEDMAS](./bedmas.Rmd)
+

@@ -1,0 +1,208 @@
++++
+title = "The Quadratic Formula In R"
+meta = "false"
+mathjax = true
+draft = false
+date = "2018-07-29"
++++
+
+
+Hi. This page will be about the quadratic formula in R. Since I come from a mathematics and a statistics background I am more familiar with the statistical program R. This guide can also be for people who use Python and other programming languages.
+
+### Table Of Contents
+---
+
+* The Quadratic Formula
+* The Discriminant And Three Cases
+* Creating The Quadratic Formula Function In R
+* Examples Of Using The Quadratic Formula In R
+
+### What Is The Quadratic Formula?
+---
+The quadratic formula is a useful formula for solving x-intercepts of quadratic equations in the form of
+
+&nbsp;
+
+$$ y = ax^2 + bx + c$$
+
+&nbsp;
+
+The quadratic formula (with $a \neq 0$) is:
+
+&nbsp;
+
+$$x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$
+
+&nbsp;
+
+It is preferable to use the quadratic formula when factoring techniques do not work.
+
+&nbsp;
+
+### The Discriminant And Three Cases
+---
+
+Notice how in the quadratic formula there is a square root part after the plus and minus sign (\\(\pm\\)). The part inside the square root (\\(b^2 - 4ac\\)) is called the discriminant.
+
+An important property of square roots is that square roots take on numbers which are at least 0 (non-negative). A negative number inside the square root is undefined (in the real numbers).
+
+There are three cases for the discriminant. Each case determines the number of solutions in a quadratic equation.
+
+&nbsp;
+
+If \\((b^2 - 4ac) > 0\\) then there would be 2 distinct solutions for \\(x\\) (or x-intercepts) in the equation \\( 0 = ax^2 + bx + c\\).
+
+If \\((b^2 - 4ac) = 0\\) then there would be one value for \\(x\\) in the equation \\(0 = ax^2 + bx + c\\).
+
+If \\((b^2 - 4ac) < 0\\), we would have a negative value inside the square root. The square root of a negative value is undefined. There would be no real-numbered values for \\(x\\) in the equation \\(0 = ax^2 + bx + c\\).
+
+&nbsp;
+
+
+### Creating The Quadratic Formula Function In R
+---
+
+
+In R, a function has the following format.
+
+&nbsp;
+
+```{r}
+functionName <- function(arg_1, arg_2, ..., arg_n) {
+     < Put Code Here >
+}
+```
+
+&nbsp;
+
+Since the quadratic formula has three cases with the discriminant we need if, else if and else statements. The usage of print and paste0() allows for printing strings in R.
+
+Here is my full code in R.
+
+&nbsp;
+
+```{r}
+# Quadratic Formula In R:
+
+# Reference: http://stackoverflow.com/questions/15589601/print-string-and-variable-contents-on-the-same-line-in-r
+
+# Quadratic equation form of ax^2 + bx + c
+
+# Create quadratic formula function:
+
+quadraticRoots <- function(a, b, c) {
+
+  print(paste0("You have chosen the quadratic equation ", a, "x^2 + ", b, "x + ", c, "."))
+
+  discriminant <- (b^2) - (4*a*c)
+
+  if(discriminant < 0) {
+    return(paste0("This quadratic equation has no real numbered roots."))
+  }
+  else if(discriminant > 0) {
+    x_int_plus <- (-b + sqrt(discriminant)) / (2*a)
+    x_int_neg <- (-b - sqrt(discriminant)) / (2*a)
+
+    return(paste0("The two x-intercepts for the quadratic equation are ",
+                  format(round(x_int_plus, 5), nsmall = 5), " and ",
+                  format(round(x_int_neg, 5), nsmall = 5), "."))
+  }
+  else #discriminant = 0  case
+    x_int <- (-b) / (2*a)
+    return(paste0("The quadratic equation has only one root. This root is ",
+                  x_int))
+}
+```
+
+&nbsp;
+
+The `format()` function with `round()` is used to round the answers (x-intercepts) to five decimal places.
+
+&nbsp;
+
+### Using The Quadratic Formula Through Examples
+---
+
+The quadratic formula can be applied to any quadratic equation in the form \\(y = ax^2 + bx + c\\) (\\(a \neq 0\\)). It does not really matter whether the quadratic form can be factored or not.
+
+&nbsp;
+
+**Example One**
+
+In this example, the quadratic formula is used for the equation \\(y = x^2 + 5\\). In this case we have \\(a = 1\\), \\(b= 0\\) and \\(c = 5\\). The function call in R would be `quadraticRoots(1, 0 , 5)`.
+
+&nbsp;
+
+```{r}
+> # Test Cases:
+>
+> quadraticRoots(1, 0, 5)
+[1] "You have chosen the quadratic equation 1x^2 + 0x + 5."
+[1] "This quadratic equation has no real numbered roots."
+This quadratic equation has no real roots. The discriminant would be $-4 \times 1 \times 5 = -20$.
+```
+
+&nbsp;
+
+**Example Two**
+
+The quadratic formula applied to the equation \\(y = x^2 + 7x + 5\\) yields:
+
+&nbsp;
+
+```{r}
+quadraticRoots(1, 7, 5)
+[1] "You have chosen the quadratic equation 1x^2 + 7x + 5."
+[1] "The two x-intercepts for the quadratic equation are -0.80742 and -6.19258."
+```
+&nbsp;
+
+**Example Three**
+
+In the equation \\(y = 2x^2 + 1.5x + 2\\) we get:
+
+&nbsp;
+
+```{r}
+> quadraticRoots(2, 1.5, 2)
+[1] "You have chosen the quadratic equation 2x^2 + 1.5x + 2."
+[1] "This quadratic equation has no real numbered roots."
+```
+
+&nbsp;
+
+**Example Four**
+
+&nbsp;
+
+```{r}
+> quadraticRoots(-3, -5, 7)
+[1] "You have chosen the quadratic equation -3x^2 + -5x + 7."
+[1] "The two x-intercepts for the quadratic equation are -2.57338 and 0.90672."
+```
+
+&nbsp;
+
+**Example Five**
+
+&nbsp;
+
+```{r}
+> quadraticRoots(2, 4, 2)
+[1] "You have chosen the quadratic equation 2x^2 + 4x + 2."
+[1] "The quadratic equation has only one root. This root is -1"
+```
+
+&nbsp;
+
+**Example Six**
+
+&nbsp;
+
+```{r}
+> quadraticRoots(1, 2, 1)
+[1] "You have chosen the quadratic equation 1x^2 + 2x + 1."
+[1] "The quadratic equation has only one root. This root is -1"
+```
+
+&nbsp;
