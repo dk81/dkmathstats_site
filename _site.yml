@@ -1,0 +1,15 @@
+name: "dkmathstats-website"
+output_dir: "."
+navbar:
+  title: "dkmathstats Website"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "R Programming Projects"     
+      href: projects.html
+    - text: "About Me"
+      href: about.html
+output:
+  html_document:
+    theme: flatly
+    css: style.css
