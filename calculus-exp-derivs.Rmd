@@ -1,13 +1,10 @@
 ---
-title = "calculus-trig-derivs"
+title: "Derivatives Of Trigonometric Functions"
+output: html_document
 ---
 
-&nbsp;
-
-# <u>Derivatives Of Trigonometric Functions</u>
 
 &nbsp;
-
 
 ### <u>Table of Contents</u>
 

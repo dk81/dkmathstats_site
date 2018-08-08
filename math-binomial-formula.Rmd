@@ -1,12 +1,10 @@
 ---
-title = "math-binomial-formula"
+title: "The Binomial Formula"
+output: html_document
 ---
 
 &nbsp;
 
-# <u>The Binomial Formula</u>
-
-&nbsp;
 
 Hello. This is a math post about the binomial formula. The binomial formula algebra technique allows us to expand binomials such as $(a + b)^{n}$ where $n \geq 2$.
 

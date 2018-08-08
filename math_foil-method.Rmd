@@ -1,10 +1,7 @@
 ---
-title = "The FOIL Method For Multiplying Two Binomials"
+title: "The FOIL Method For Multiplying Two Binomials"
+output: html_document
 ---
-
-&nbsp;
-
-# <u>The FOIL Method For Multiplying Two Binomials</u>
 
 &nbsp;
 

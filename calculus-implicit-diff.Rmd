@@ -1,12 +1,11 @@
 ---
-title = "calculus-implicit-differentiation"
+title: "Implicit Differentiation"
+output: html_document
 ---
 
 &nbsp;
 
-# <u>Implicit Differentiation</u>
 
-&nbsp;
 
 This page is about implicit differentiation in calculus. Implicit differentiation can be found in calculus books and in many introductory calculus courses (depending on the instructor, degree program/major). It is assumed that the reader has a good grasp on calculus derivatives.
 

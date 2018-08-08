@@ -1,10 +1,7 @@
 ---
-title = "The Fibonacci Sequence"
+title: "The Fibonacci Sequence"
+output: html_document
 ---
-
-&nbsp;
-
-# <u>The Fibonacci Sequence</u>
 
 &nbsp;
 

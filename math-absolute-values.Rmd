@@ -1,10 +1,8 @@
 ---
-title = "math-absolute-values"
+title: "Absolute Values: An Introduction"
+output: html_document
 ---
 
-&nbsp;
-
-# <u>Absolute Values: An Introduction</u>
 
 &nbsp;
 

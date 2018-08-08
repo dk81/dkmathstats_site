@@ -1,5 +1,6 @@
 ---
 title: "Python Programming Projects"
+output: html_document
 ---
 
 &nbsp;

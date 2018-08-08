@@ -1,10 +1,7 @@
 ---
-title = "rational-functions"
+title: "An Introduction To Rational Functions"
+output: html_document
 ---
-
-&nbsp;
-
-# <u>An Introduction To Rational Functions</u>
 
 &nbsp;
 

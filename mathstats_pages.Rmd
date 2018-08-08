@@ -1,5 +1,6 @@
 ---
-title = "Math & Stats Pages"
+title: "Math & Stats Pages"
+output: html_document
 ---
 
 &nbsp;

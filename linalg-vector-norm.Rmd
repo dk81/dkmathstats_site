@@ -1,12 +1,10 @@
 ---
-title = "linalg-vector-norm"
+title: "The Norm Of A Vector"
+output: html_document
 ---
 
 &nbsp;
 
-# <u>The Norm Of A Vector</u>
-
-&nbsp;
 
 This post will be about the norm of a vector. It is assumed that the reader knows about vectors where a vector in $\mathbb{R}^{n}$ is of the form $\textbf{v} = (v_1, v_2, \dots, v_{n})$.
 

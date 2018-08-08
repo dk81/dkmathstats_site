@@ -1,10 +1,8 @@
 ---
-title = "linalg-dot-products"
+title: "A Guide To Dot Products"
+output: html_document
 ---
 
-&nbsp;
-
-# <u>A Guide To Dot Products</u>
 
 &nbsp;
 

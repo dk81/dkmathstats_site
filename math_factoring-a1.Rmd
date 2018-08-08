@@ -1,12 +1,10 @@
 ---
-title = "Factoring Quadratic Equations (a = 1 Case)"
+title: "Factoring Quadratic Equations (a = 1 Case)"
+output: html_document
 ---
 
 &nbsp;
 
-# <u>Factoring Quadratic Equations (a = 1 Case)</u>
-
-&nbsp;
 
 Hi. This page will be about factoring quadratic equations when a = 1 in $y = ax^2 + bx + c$.
 

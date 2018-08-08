@@ -1,5 +1,6 @@
 ---
-title = "Difference Of Squares Factoring Guide"
+title: "Difference Of Squares Factoring Guide"
+output: html_document
 ---
 
 &nbsp;

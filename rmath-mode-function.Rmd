@@ -1,15 +1,15 @@
-+++
-title = "Mode Function In R"
-draft = false
-meta = "false"
-date = "2018-07-25"
-+++
+---
+title: "Mode Function In R"
+output: html_document
+---
+
+&nbsp;
 
 This page is on creating a mode function in R. There is no built in function for the mode in R so you have to create one yourself.
 
 &nbsp;
 
-```r
+```
 # Computing mode in R:
 
 # Found online
@@ -20,7 +20,7 @@ names(sort(-table(x))[1])
 
 &nbsp;
 
-```r
+```{r, echo = TRUE}
 ## Function:
 
 getMode <- function(x) {
@@ -38,7 +38,7 @@ Here are some test cases for finding the mode with the function we made. The med
 
 &nbsp;
 
-```{r}
+```{r, echo = TRUE}
 
 ## -----------------
 # Test Cases :

@@ -1,10 +1,8 @@
 ---
-title = "Midpoint Of A Line"
+title: "The Midpoint Of A Line"
+output: html_document
 ---
 
-&nbsp;
-
-# <u>The Midpoint Of A Line</u>
 
 &nbsp;
 

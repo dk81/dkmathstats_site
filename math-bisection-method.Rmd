@@ -1,12 +1,10 @@
 ---
-title = "math-bisection-method"
+title: "The Bisection Method"
+output: html_document
 ---
 
 &nbsp;
 
-# <u>The Bisection Method</u>
-
-&nbsp;
 
 Hi there. This page is about the bisection method for finding approximate roots or x-intercepts to polynomial equations.
 

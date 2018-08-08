@@ -1,14 +1,7 @@
 ---
-title = "The Order Of Operations & BEDMAS"
-output =  html_document
+title: "The Order Of Operations & BEDMAS"
+output:  html_document
 ---
-
-&nbsp;
-
-# <u>The Order Of Operations & BEDMAS</u>
-
-
-&nbsp;
 
 &nbsp;
 

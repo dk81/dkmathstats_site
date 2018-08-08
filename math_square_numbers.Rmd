@@ -1,12 +1,10 @@
 ---
-title = "Square Numbers & Square Roots"
+title: "Square Numbers And Square Roots"
+output: html_document
 ---
 
 &nbsp;
 
-# <u>Square Numbers And Square Roots</u>
-
-&nbsp;
 
 Hello. This page will be about square numbers such as 1, 4, 9 and so on and its associated square roots.
 

@@ -1,10 +1,7 @@
 ---
-title = "Factoring Quadratic Equations Using The Decomposition Method"
+title: "Factoring Quadratic Equations Using The Decomposition Method"
+output: html_document
 ---
-
-&nbsp;
-
-# <u>Factoring Quadratic Equations Using The Decomposition Method</u>
 
 &nbsp;
 
@@ -27,25 +24,27 @@ Hi. This page will be about factoring quadratic equations when in \\(y = ax^2 + 
 
 ### <u>Introduction</u>
 
+&nbsp;
 
-I have made a previous mathematics page about factoring quadratic equations when \\(a = 1\\) in \\(y = ax^2 + bx + c\\). The decomposition method is somewhat similar to factoring quadratics when \\(a = 1\\) in \\(y = ax^2 + bx + c\\). When \\(a\\) is something like 2,7 or 10, it is more preferable to using the decomposition factoring method.
+The decomposition method is somewhat similar to factoring quadratics when $a = 1$ in $y = ax^2 + bx + c$. When $a$ is something like 2,7 or 10, it is more preferable to using the decomposition factoring method.
 
 There is another method called the box method. I might have learned this in my student days and have recently reviewed this method. Personally, I do not like it very much as it takes longer versus the decomposition factoring method.
 
-It is assumed that the reader knows common factoring and factoring quadratic equations when \\(a = 1\\).
+It is assumed that the reader knows common factoring and factoring quadratic equations when $a = 1$.
 
 &nbsp;
 
 ### <u>The Decomposition Factoring Method</u>
 
+&nbsp;
 
 Before we mention the decomposition factoring method, it is important to explore the math trick of decomposition. As an example, we can break down a number like 10 into 5 and 5, 3 and 7 or even 6 and 4. It changes the form but it is still 10.
 
-Suppose that we are given \\(y = 4x^2 + 13x + 3\\). We need two numbers \\(j\\) and \\(k\\) which are factors of \\(4 \times 3 = 12\\) and satisfy \\(j \times k = 12\\) and \\(j + k = 13\\). The two numbers which fit that criteria are 12 and 1 since \\(12 \times 1 = 12\\) and \\(12 + 1 = 13\\).
+Suppose that we are given $y = 4x^2 + 13x + 3$. We need two numbers $j$ and $k$ which are factors of $4 \times 3 = 12$ and satisfy $j \times k = 12$ and $j + k = 13$. The two numbers which fit that criteria are 12 and 1 since $12 \times 1 = 12$ and $12 + 1 = 13$.
 
-Unlike the factoring method when \\(a = 1\\), we add another step before the final factored form. Using the numbers 12 and 1 we can decompose the \\(13x\\) into \\(12x\\) and \\(x\\) which matches the 12 and 1. The equation is now \\(y = 4x^2 + 12x + x + 3\\).
+Unlike the factoring method when $a = 1$, we add another step before the final factored form. Using the numbers 12 and 1 we can decompose the $13x$ into $12x$ and $x$ which matches the 12 and 1. The equation is now $y = 4x^2 + 12x + x + 3$.
 
-From \\(y = 4x^2 + 12x + x + 3\\) we do common factoring twice. The first common factoring is on the first two terms and the second common factoring would be applied on the third and fourth terms. It would look something like this.
+From $y = 4x^2 + 12x + x + 3$ we do common factoring twice. The first common factoring is on the first two terms and the second common factoring would be applied on the third and fourth terms. It would look something like this.
 
 &nbsp;
 
@@ -53,7 +52,7 @@ $$y = 4x^2 + 12x + x + 3 = (4x^2 + 12x) + (x + 3) = 4x(x + 3) + 1(x +3) $$
 
 &nbsp;
 
-Notice that we now have a common factor of \\((x + 3)\\). Factoring out the \\((x + 3)\\) gives us the factored form.
+Notice that we now have a common factor of $(x + 3)$. Factoring out the $(x + 3)$ gives us the factored form.
 
 &nbsp;
 
@@ -61,7 +60,7 @@ $$4x(x + 3) + 1(x +3) = (x + 3)(4x + 1)$$
 
 &nbsp;
 
-To check that \\(y = (x + 3)(4x + 1)\\) is indeed the factored form of \\(y = 4x^2 + 13x + 3\\), we use the FOIL method when multiplying binomials.
+To check that $y = (x + 3)(4x + 1)$ is indeed the factored form of $y = 4x^2 + 13x + 3$, we use the FOIL method when multiplying binomials.
 
 &nbsp;
 
@@ -89,7 +88,7 @@ $$y  =  (x + 3)(4x + 1) $$
 
 **Note**
 
-We can also break down the \\(13x\\) into \\(x + 12x\\) instead of \\(12x + x\\). The final answer would still be the same but the steps would be slightly different.
+We can also break down the $13x$ into $x + 12x$ instead of $12x + x$. The final answer would still be the same but the steps would be slightly different.
 
 &nbsp;
 
@@ -109,11 +108,11 @@ $$y  =  (4x + 1)(x + 3) $$
 
 &nbsp;
 
-Here are the steps of factoring a quadratic equation in the form of \\(y = ax^2 + bx + c\\) through decomposition.
+Here are the steps of factoring a quadratic equation in the form of $y = ax^2 + bx + c$ through decomposition.
 
-Determine two numbers \\(j\\) and \\(k\\) such that \\(jk = ac\\) and \\(j + k = b\\).
+Determine two numbers $j$ and $k$ such that $jk = ac$ and $j + k = b$.
 
-Using the numbers \\(j\\) and \\(k\\) decompose \\(bx\\) into \\(jx + kx\\) or \\(kx + jx\\).
+Using the numbers $j$ and $k$ decompose $bx$ into $jx + kx$ or $kx + jx$.
 
 Notice how there are now four terms instead of three terms. Consider the first terms as one pair and the last two terms as another pair.
 
@@ -130,13 +129,13 @@ Common factor one more time to achieve the factored form.
 
 **Example One**
 
-Factor \\(y = 3x^2 + 8x + 4\\).
+Factor $y = 3x^2 + 8x + 4$.
 
 &nbsp;
 
 Answer:
 
-We seek two numbers which multiply to \\(3 \times 4 = 12\\) and add up to \\(b = 8\\). The two numbers which satisfy these conditions are 6 and 2 (since \\(6 \times 2 = 12\\) and \\(6 + 2 = 8\\)). The full steps can be found below.
+We seek two numbers which multiply to $3 \times 4 = 12$ and add up to $b = 8$. The two numbers which satisfy these conditions are 6 and 2 (since $6 \times 2 = 12$ and $6 + 2 = 8$). The full steps can be found below.
 
 &nbsp;
 
@@ -164,9 +163,9 @@ $$y  =  3x^2 + 8x + 4$$
 
 **Example Two**
 
-Factor \\(y = 8x^2 + 10x + 2\\).
+Factor $y = 8x^2 + 10x + 2$.
 
-We have \\(ac = 8 \times 2 = 16\\) and \\(b = 10\\). The two numbers here would be 8 and 2.
+We have $ac = 8 \times 2 = 16$ and $b = 10$. The two numbers here would be 8 and 2.
 
 &nbsp;
 
@@ -194,13 +193,13 @@ $$y  =  8x^2 + 10x + 2$$
 
 **Example Three**
 
-Factor \\(y = 4x^2 - 14x - 8\\).
+Factor $y = 4x^2 - 14x - 8$.
 
 &nbsp;
 
-Notice how we have even numbers in 4, -14 and -8. We first use a common factor of 2. The equation is now \\(y = 2(2x^2 - 7x - 4)\\)
+Notice how we have even numbers in 4, -14 and -8. We first use a common factor of 2. The equation is now $y = 2(2x^2 - 7x - 4)$.
 
-We have \\(ac = 2 \times -4 = -8\\) and \\(b = -7\\). The two numbers here would be -8 and 1.
+We have $ac = 2 \times -4 = -8$ and $b = -7$. The two numbers here would be -8 and 1.
 
 &nbsp;
 

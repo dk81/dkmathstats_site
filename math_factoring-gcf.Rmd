@@ -1,10 +1,7 @@
 ---
-title = "Factoring Equations Using Greatest Common Factors"
+title: "Factoring Equations Using Greatest Common Factors"
+output: html_document
 ---
-
-&nbsp;
-
-# <u>Factoring Equations Using Greatest Common Factors</u>
 
 &nbsp;
 

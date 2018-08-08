@@ -1,12 +1,9 @@
 ---
-title = "calculus-chain-rule"
+title: "Calculus Chain Rule"
+output: html_document
 ---
 
-&nbsp;
 
-# <u>Chain Rule</u>
-
-&nbsp;
 
 <center><img src="http://www.mindonwaves.com/wp-content/uploads/2015/06/chains1.jpg" /></center>
 <center><a href="http://www.mindonwaves.com/wp-content/uploads/2015/06/chains1.jpg">Image Source</a></center>

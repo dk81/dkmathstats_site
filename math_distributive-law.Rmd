@@ -1,15 +1,7 @@
 ---
-title = "Distributive Law"
+title: "The Distributive Law"
+output: html_document
 ---
-
-&nbsp;
-
-# <u>The Distributive Law</u>
-
-&nbsp;
-
-<center><img src="https://www.mathsisfun.com/numbers/images/distributive-law.gif" /></center>
-<center><a href="https://www.mathsisfun.com/numbers/images/distributive-law.gif">Image Source: Math Is Fun</a></center>
 
 &nbsp;
 

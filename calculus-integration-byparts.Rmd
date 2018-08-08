@@ -1,14 +1,13 @@
 ---
-title = "calculus-integration-byparts"
+title: "Integration By Parts"
+output: html_document
 ---
 
 &nbsp;
 
-# <u>Integration By Parts</u>
-
-&nbsp;
 
 Here is a guide on Integration by Parts. It is a tricky Calculus topic at first but it gets easier with practice.
+
 Before continuing, one should be familiar with antiderivatives, the product rule and substitutions with integrals.
 
 Topics

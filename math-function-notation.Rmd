@@ -1,10 +1,7 @@
 ---
-title = "math-function-notation"
+title: "Function Notation"
+output: html_document
 ---
-
-&nbsp;
-
-# <u>Function Notation</u>
 
 &nbsp;
 

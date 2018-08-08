@@ -1,13 +1,10 @@
 ---
-title = "calculus-power-rule"
-
+title: "The Power Rule For Calculus Derivatives"
+output: html_document
 ---
 
 &nbsp;
 
-# <u>The Power Rule For Calculus Derivatives</u>
-
-&nbsp;
 
 A big part of calculus involves rates of change. Rates of changes involves the ratio of the differences in one variable when there is a change in another variable.
 

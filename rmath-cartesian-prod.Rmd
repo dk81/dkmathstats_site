@@ -1,10 +1,7 @@
 ---
-title = "Cartesian Products In R"
+title: "Cartesian Products In R"
+output: html_document
 ---
-
-&nbsp;
-
-# <u>Cartesian Products In R</u>
 
 &nbsp;
 

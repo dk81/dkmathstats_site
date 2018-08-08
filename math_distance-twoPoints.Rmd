@@ -1,16 +1,15 @@
 ---
-title = "The Distance Between Two Points"
+title: "The Distance Between Two Points"
+output: html_document
 ---
-
-&nbsp;
-
-# <u> The Distance Between Two Points </u>
 
 &nbsp;
 
 This topic is about the distance between two points in the two dimensional system.
 
 ---
+
+&nbsp;
 
 Suppose we are given a point $A$ with the co-ordinate ($x_1$, $y_1$) and a point $B$ with the co-ordinate ($x_2$, $y_2$). We want to find the distance between point $A$ and point $B$.
 

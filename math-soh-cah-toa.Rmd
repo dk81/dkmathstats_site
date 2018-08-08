@@ -1,16 +1,15 @@
 ---
-title = "Right Angle Triangles & SOH CAH TOA"
+title: "Right Angle Triangles & SOH CAH TOA"
+output: html_document
 ---
-
-&nbsp;
-
-# <u>Right Angle Triangles & SOH CAH TOA</u>
 
 &nbsp;
 
 This topic is about right angle triangles and the memory aid SOH CAH TOA. This topic is typically found in (Canadian) high school mathematics.
 
-### Table Of Contents
+&nbsp;
+
+### <u>Table Of Contents</u>
 
 
 &nbsp;

@@ -1,13 +1,9 @@
 ---
 title: "R Programming Projects"
+output: html_document
 ---
 
 &nbsp;
-
-# <u>R Programming Projects</u>
-
-&nbsp;
-
 
 This page contains links on a bunch of R programming projects. 
 

@@ -1,16 +1,12 @@
 ---
-title = "calculus-sum-notation"
+title: "Sum (Sigma) Notation"
+output: html_document
 ---
 
 &nbsp;
 
-# <u>Sum (Sigma) Notation</u>
 
-&nbsp;
-
-Hello. This post will be on sigma notation. Instead of having $1 + 2 + 3 + 4 + \dots + 100$, you can use sigma notation such as $\displaystyle \sum_{i = 1}^{100} i$ to save space, ink and paper.
-
-When it comes to Sigma notation, one must have a keen eye in identifying patterns in numbers.
+Hello. This post will be on sigma notation. Instead of having $1 + 2 + 3 + 4 + \dots + 100$, you can use sigma notation such as $\displaystyle \sum_{i = 1}^{100} i$ to save space, ink and paper. When it comes to Sigma notation, one must have a keen eye in identifying patterns in numbers.
 
 &nbsp;
 

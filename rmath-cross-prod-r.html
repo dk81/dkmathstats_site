@@ -11,7 +11,7 @@
 
 
 
-<title>Factorials</title>
+<title>Vector Cross Products In R</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -208,57 +208,51 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Factorials</h1>
+<h1 class="title toc-ignore">Vector Cross Products In R</h1>
 
 </div>
 
 
 <p> </p>
-<p>Hello. Here is a short guide on factorials.</p>
+<p>Hi there. This page is about being able to compute vector cross products in the statistical programming language R. The very helpful link was from <a href="http://stackoverflow.com/questions/36798301/r-compute-cross-product-of-vectors-physics" class="uri">http://stackoverflow.com/questions/36798301/r-compute-cross-product-of-vectors-physics</a>. The last comment of the link mentions using the <code>pracma</code> package for computing vector cross product.</p>
+<p>To install the pracma package in R, you can type in <code>install.packages(&quot;pracma&quot;)</code>.</p>
+<p>After installing the pracma package in R you need to load the pracma package in order to use the cross product function in the package. You can load pracma into R using</p>
 <p> </p>
-<div id="the-factorial" class="section level2">
-<h2>The Factorial</h2>
+<pre class="r"><code>require(&quot;pracma&quot;)</code></pre>
 <p> </p>
-<p>Before going into the definition of factorials. Here are some examples of factorials.</p>
+<p>or by using</p>
 <p> </p>
-<p><span class="math inline">\(3! = 3 \times 2 \times 1 = 1 \times 2 \times 3 = 6\)</span></p>
-<p><span class="math inline">\(5! = 5 \times 4 \times 3 \times 2 \times 1 = 1 \times 2 \times 3 \times 4 \times 5 = 120\)</span></p>
+<pre><code>library(pracma)</code></pre>
 <p> </p>
-<p>As you can see, a factorial is a compact way of expressing the multiplication of descending (or ascending) positive whole numbers.</p>
-<p>With factorials, the general case is:</p>
+<hr />
+<p><strong>Example</strong></p>
+<p>Suppose we have the vectors <span class="math inline">\(\textbf{u} = (2, 0, -8)\)</span> and <span class="math inline">\(\textbf{v} = (0, 0, 1)\)</span>. The vector which is perpendicular/orthogonal (90 degrees) to both vectors <span class="math inline">\(\textbf{u}\)</span> and <span class="math inline">\(\textbf{v}\)</span> is the cross product vector. The cross product vector can be determined using the <code>pracma</code> package in R.</p>
 <p> </p>
-<p><span class="math display">\[n! = n \times (n - 1) \times (n - 2) \times ... \times 1\]</span></p>
+<pre class="r"><code># Example:
+
+# Finding the cross product of the two vectors
+# u = (2, 0, -8) and v = (0, 0, 1)
+
+u &lt;- c(2, 0, -8)
+v &lt;- c(0, 0, 1)
+
+crossProd1 &lt;- cross(u, v)
+
+crossProd1</code></pre>
+<pre><code>## [1]  0 -2  0</code></pre>
 <p> </p>
-<p>or</p>
+<p>We can check (algebraically) that the cross product vector of <span class="math inline">\((0, -2, 0)\)</span> is orthogonal to vectors <span class="math inline">\(\textbf{u}\)</span> and <span class="math inline">\(\textbf{v}\)</span>.</p>
 <p> </p>
-<p><span class="math display">\[n! = 1 \times 2 \times ... \times (n -1) \times n\]</span></p>
+<pre class="r"><code># Checking that the cross product is perpendicular/orthogonal to
+# vectors u and v.
+# If dot product is zero, two vectors are orthogonal (90 degrees) to each other.
+
+sum(u * crossProd1)</code></pre>
+<pre><code>## [1] 0</code></pre>
+<pre class="r"><code>sum(v * crossProd1)</code></pre>
+<pre><code>## [1] 0</code></pre>
 <p> </p>
-<p>for <span class="math inline">\(n = \{2, 3, 4, 5, ...\}\)</span>.</p>
-<p>There are also some special cases with <span class="math inline">\(1! = 1\)</span> and <span class="math inline">\(0! = 1\)</span>.</p>
-<p> </p>
-</div>
-<div id="division-with-factorials" class="section level2">
-<h2>Division With Factorials</h2>
-<p> </p>
-<p>You may encounter fractions with factorials in the numerator and in the denominator. Here are some examples.</p>
-<p> </p>
-<p><strong>Example One</strong></p>
-<p> </p>
-<p><span class="math display">\[\dfrac{4!}{2!} = \dfrac{4 \times 3 \times 2 \times 1}{2 \times 1} = 4 \times 3 = 12\]</span></p>
-<p> </p>
-<p><strong>Example Two</strong></p>
-<p> </p>
-<p><span class="math display">\[\dfrac{10!}{9!} = \dfrac{10 \times 9!}{9!} = 10\]</span></p>
-<p> </p>
-<p><strong>Example Three</strong></p>
-<p> </p>
-<p><span class="math display">\[\dfrac{8!}{4! \times 2!} = \dfrac{8 \times 7 \times 6 \times 5 \times 4!}{4! \times 2!} = \dfrac{8 \times 7 \times 6 \times 5 }{2} = 7 \times 6 \times 5 \times 4 = 840\]</span></p>
-<p> </p>
-<p><strong>Example Four</strong></p>
-<p> </p>
-<p><span class="math display">\[\dfrac{4! \times 5!}{6!} = \dfrac{4! \times 5 \times 4 \times 3 \times 2 \times 1}{6 \times 5 \times 4!} = \dfrac{4 \times 3 \times 2 \times 1}{6} = \dfrac{24}{6} = 4\]</span></p>
-<p> </p>
-</div>
+<p>The cross product vector <span class="math inline">\((0, -2, 0)\)</span> is valid as both dot products are both zero.</p>
 
 
 

@@ -1,10 +1,7 @@
 ---
-title = "A Guide To Completing The Square"
+title: "A Guide To Completing The Square"
+output: html_document
 ---
-
-&nbsp;
-
-# <u>A Guide To Completing The Square</u>
 
 &nbsp;
 
@@ -12,15 +9,18 @@ This article will be about the algebra technique called completing the square. T
 
 &nbsp;
 
-### Prerequisites
+### <u>Prerequisites</u>
+
+&nbsp;
 
 
 One should be comfortable with arithmetic and algebra techniques such as factoring and expanding.
 
 &nbsp;
 
-### What Is Completing The Square?
+### <u>What Is Completing The Square?</u>
 
+&nbsp;
 
 Sometimes in order to succeed in mathematics, you need to know its secrets and tricks. Before I talk about the actual complete the square technique, I will first provide the motivation behind it.
 
@@ -30,8 +30,9 @@ Recall that $(a + b)^2$ is equal to $(a + b)(a + b) = a^2 + 2ab + b^2$. How do w
 
 &nbsp;
 
-### The General Case and Method
+### <u>The General Case and Method</u>
 
+&nbsp;
 
 If you are not interested in the theory, you can skip to the examples section two sections below on how to use the complete the square technique.
 
@@ -51,12 +52,15 @@ $$\displaystyle y = a ((x + \dfrac{b}{2a})^2 - \dfrac{b^2}{4a^2}) + c $$
 
 $$\displaystyle y = a(x + \dfrac{b}{2a})^2 - \dfrac{b^2}{4a} + c $$
 
+&nbsp;
+
 The last line is the general formula for completing the square. You can either choose to memorize the last line or memorize the procedure to get to the last line. This method will make sense with examples.
 
 &nbsp;
 
-### Examples
+### <u>Examples</u>
 
+&nbsp;
 
 In these examples, the complete the square technique is used to find the minimum or maximum point of a parabola.
 
@@ -85,6 +89,8 @@ The roots of $f(x)$ when $f(x) = 0$ are $x = 0$ and $x = -2$. The vertex of this
 **Example Two**
 
 Here is another example with $g(x) = 2x^2 + 6x + 10$. Factoring the 2 from the first and second terms gives us:
+
+&nbsp;
 
 $$\displaystyle g(x) = 2(x^2 + 3x) + 10$$
 
@@ -116,7 +122,7 @@ The vertex is  (-$\dfrac{3}{2}, \dfrac{11}{2}$) which is a minimum.
 
 &nbsp;
 
-### Notes
+### <u>Notes</u>
 
 
 &nbsp;
