@@ -1,0 +1,147 @@
+---
+title = "calculus-implicit-differentiation"
+---
+
+&nbsp;
+
+# <u>Implicit Differentiation</u>
+
+&nbsp;
+
+This page is about implicit differentiation in calculus. Implicit differentiation can be found in calculus books and in many introductory calculus courses (depending on the instructor, degree program/major). It is assumed that the reader has a good grasp on calculus derivatives.
+
+&nbsp;
+
+### <u>Topics</u>
+
+&nbsp;
+
+* What Is Implicit Differentiation
+* Implicit Differentiation: The Steps
+* Examples
+
+&nbsp;
+
+### <u>What Is Implicit Differentiation?</u>
+
+&nbsp;
+
+Implicit differentiation is a more general form of regular differentiation when we are not able to take derivatives in the $y = \dots$ format.
+
+&nbsp;
+
+<u>**Explicit Form**</u>
+
+&nbsp;
+
+A function is expressed in explicit form when it is expressed in a form such as:
+
+$$y = \dots $$
+
+or 
+
+$$f(x) = \dots$$
+
+where the independent variable $y$ or $f(x)$ is isolated on its own.
+
+For those who start out in calculus, derivatives are taken form from functions in explicit form. Explicit function forms make it easy for us to compute derivatives. For example, we can find the derivative of $y = x^2$ with respect to the variable $x$. The derivative would be $y' = 2x$.
+
+&nbsp;
+
+<u>**Implicit Form**</u>
+
+&nbsp;
+
+A function not in explicit form is in implicit form as the independent variable such as $y$ or $f(x)$ is not isolated on its own.
+
+For example, with $\dfrac{y}{x} = 24$, we cannot find the derivative right away as we need to isolate for $y$. Rearrangement yields $y = 24x$. The derivative would then be $y' = 24$.
+
+The example given was a simple case but what if we are given something such as $\cos(y) + y= 2x$ and want to find the derivative of $y$ with respect to x? There is no explicit form so we need a new method of taking derivatives of implicit form equations.
+
+We can also think of $y$ as $y(x)$ as $y$ is a function of $x$. In here, $y$ is the same as $y(x)$ and $y'$ is the same as $\dfrac{dy}{dx}$.
+
+&nbsp;
+
+### <u>Implicit Differentiation: The Steps</u>
+
+&nbsp;
+
+Given an equation in implicit form where the dependent variable such as $y$ or $f(x)$ cannot be isolated, we have the method for implicit differentiation.
+
+&nbsp;
+
+1a) Take derivatives of both sides of the equation with respect to the independent variable (which is usually $x$ or $t$).
+
+1b) Remember that taking the derivative of a dependent variable such as $y$ of $f(x)$ will include a $y'$ (or its corresponding derivative).
+
+2) Solve for the derivative (such as $\dfrac{dy}{dx}$, $y'$). In other words, set the equation into explicit form.
+
+&nbsp;
+
+### <u>Examples</u>
+
+&nbsp;
+
+To solidify the concepts, definitions and theory, we have some examples.
+
+&nbsp;
+
+**Example One**
+
+&nbsp;
+
+Suppose we are given the equation of a circle in the form of $x^2 + y^2 = r^2$. (The radius $r$ is a real numbered constant.) Rearranging for $y$ can be done here but chain rule would be needed. Implicit differentiation would be easier in this case. We use implicit differentiation by taking the derivative with respect to x for all terms on both sides.
+
+&nbsp;
+
+$$\displaystyle \begin{array} {lcl} \dfrac{d}{dx} x^2 + \dfrac{d}{dx} y^2 & = & \dfrac{d}{dx} r^2 \\ 2x+ 2y \cdot y' & = & 0 \\ 2y \cdot y' & = & -2x \\ y' & = & \dfrac{-2x}{2y} \\ y' & = & \dfrac{-x}{y} \\ \end{array} \\ $$
+
+&nbsp;
+
+Remember that the derivative of a real numbered constant such as $r$ is zero.
+
+&nbsp;
+
+**Example Two**
+
+&nbsp;
+
+Find $y'$ from the equation $2^y + y^2 = 8$.
+
+Answer:
+
+This equation does not really allow us to isolate for $y$ and then take the derivative of $y$ to get $y'$. We use implicit differentiation.
+
+&nbsp;
+
+$$\displaystyle \begin{array} {lcl} \dfrac{d}{dx} 2^y + \dfrac{d}{dx} y^2 + \dfrac{d}{dx} x^4 & = & \dfrac{d}{dx} 8\\ \text{ln}(2) \cdot 2^y \cdot y' + 2yy' + 4x^3 & = & 0 \\ \text{ln}(2) \cdot 2^y \cdot y' + 2yy' & = & -4x^3 \\ y' (\text{ln}(2) \cdot 2^y + 2y) & = & -4x^3\\ y' & = & - \dfrac{4x^3}{(\text{ln}(2) \cdot 2^y + 2y) }\end{array} $$
+
+&nbsp;
+
+&nbsp;
+
+**Example Three**
+
+&nbsp;
+
+Given the equation $\cos(y^2) + y^2 + x^3 = 64$, find $y'$.
+
+Implicit differentiation is used here.
+
+&nbsp;
+
+$$\displaystyle \begin{array} {lcl} \dfrac{d}{dx} \cos(y^2) +\dfrac{d}{dx} y^2 + \dfrac{d}{dx} x^3 & = &\dfrac{d}{dx } 64\\ - \sin(y^2) \cdot 2yy' + 2yy' + 3x^2 & = & 0 \\ - \sin(y^2) \cdot 2yy' + 2yy' & = & - 3x^2\\ 2yy' (1 - \sin(y^2)) & = & -3x^2 \\ y' & = & -\dfrac{3x^2}{2y (1 - \sin(y^2))} \\ \end{array} \\ $$
+
+&nbsp;
+
+Implicit differentiation is heavy with the algebra so attention to detail is crucial here. The derivative $y'$ for example can contain the dependent variable ($y$).
+
+&nbsp;
+
+### <u>References</u>
+
+&nbsp;
+
+James Stewart's Calculus: Early Transcendentals (8th Edition)
+
+The featured image is from https://ecourses.ou.edu/ebook/math/ch02/sec025/media/ma02522.gif.

@@ -1,0 +1,200 @@
+---
+title = "Factoring Quadratic Equations (a = 1 Case)"
+---
+
+&nbsp;
+
+# <u>Factoring Quadratic Equations (a = 1 Case)</u>
+
+&nbsp;
+
+Hi. This page will be about factoring quadratic equations when a = 1 in $y = ax^2 + bx + c$.
+
+&nbsp;
+
+### <u>Table Of Contents</u>
+
+
+&nbsp;
+
+* Introduction
+* The Factoring Method
+* Examples
+* Practice Problems
+* Answers
+
+&nbsp;
+
+### <u>Introduction</u>
+
+&nbsp;
+
+Another factoring method for quadratic equations will be shown here. We deal with the case of $a = 1$ in $y = ax^2 + bx + c$. If $a \neq 1$ then another method may be needed. (Also if $a = 0$ then we no longer have a quadratic equation.)
+
+It is assumed that the reader is familiar with common factoring.
+
+&nbsp;
+
+### <u>The Factoring Method</u>
+
+&nbsp;
+
+To illustrate the method, an example will be used.
+
+Suppose that we are given $y = x^2 + 5x + 4$. We need two numbers $j$ and $k$ which are factors of 4 and satisfy $j \times k$ = 4 and $j + k = 5$. The two numbers which fit that criteria are 1 and 4 (or 4 and 1) since $1 \times 4 = 4$ and $4 + 1 = 5$.
+
+&nbsp;
+
+Using the numbers 1 and 4 we can factor $y = x^2 + 5x + 4$ into $y = (x + 1)(x + 4)$. The equation $y = (x + 1)(x + 4)$ follows the factored form format of $y = (x + j)(x + k)$.
+
+&nbsp;
+
+To check that $y = (x + 1)(x + 4)$ is indeed the factored form of $y = x^2 + 5x + 4$, we use the FOIL method when multiplying binomials.
+
+&nbsp;
+
+$$y = (x + 1)(x + 4) = x^2 + 4x + x + 4 = x^2 + 5x + 4$$
+
+&nbsp;
+
+There are times when $j = k$. As an example, the factored form of $y = x^2 +2x + 1$ is $y = (x + 1)(x + 1) = (x + 1)^2$.
+
+&nbsp;
+
+**The General Method**
+
+Given a quadratic equation of the form $y = ax^2 + bx + c$, we can factor it into the form $y = (x + j)(x + k)$. To determine what $j$ and $k$, we seek two numbers $j$ and $k$ such that $jk = ac = 1c = c$ (since $a =1$ here and $j + k = b$.
+
+The examples below will illustrate how the general method works.
+
+&nbsp;
+
+### <u>Examples</u>
+
+&nbsp;
+
+&nbsp;
+
+**Example One**
+
+Factor $y = x^2 + 7x + 12$.
+
+Answer:
+
+Two factors of 12 which multiply to 12 are 1 and 12, 2 and 6, 3 and 4 (you can include the reverse ordered pairs too). Out of the pairs which multiply to 12, 3 and 4 sum to 7. The quadratic equation would be factored as $y = (x + 3)(x + 4)$.
+
+Checking Our Answer:
+
+&nbsp;
+
+$$y = (x + 3)(x + 4) = x^2 + 4x + 3x + 12 = x^2 + 7x + 12$$
+
+&nbsp;
+
+---
+
+**Example Two**
+
+Factor $y = x^2 + 20x + 99$.
+
+&nbsp;
+
+Factors of 99 are 1 and 99, 3 and 33, 9 and 11. The two numbers which multiply together to get 99 and add together to get 20 are 9 and 11. The factored form of $y = x^2 + 20x + 99$ would be $y = (x + 9)(x + 11)$.
+
+Checking Our Answer:
+
+&nbsp;
+
+$$y = (x + 9)(x + 11) = x^2 + 11x + 9x + 99 = x^2 + 20x + 99$$
+
+&nbsp;
+
+---
+
+**Example Three**
+
+Factor $y = -x^2 - 3x - 2$ by factoring out $(-1)$ as a common factor first.
+
+Answer:
+
+&nbsp;
+
+$$y = -x^2 - 3x - 2 = -1(x^2 + 3x + 2)$$
+
+&nbsp;
+
+From factoring out the (-1), we have a factorable quadratic in the brackets. The only factors of 2 are 1 and 2. We can factor $y = -1(x^2 + 3x + 2)$ into $y = -(x + 2)(x + 1)$.
+
+Checking Our Answer:
+
+&nbsp;
+
+$$y = -(x + 2)(x + 1) = -(x^2 + x + 2x + 2) $$
+
+$$y = -(x^2 + 3x + 2) $$
+
+$$ y =  -x^2 -3x -2 $$
+
+&nbsp;
+
+---
+
+**Example Four**
+
+Factor $y = x^2 - x - 6$.
+
+Answer:
+
+In this equation we have $a = 1$, $b = -1$ and $c = -6$ in $y = ax^2 + bx + c$. Unlike examples one and two, we have to be careful with signs. I prefer to ignore the negative and look at the factors of $c = 6$.
+
+Factors of 6 are 1 and 6, 2 and 3. Now, we consider the signs. One of the two numbers in the factor pair is negative. The pair 6 and 1 would not work as 6 - 1 = 5 and 1 - 6 = -5. With 2 and 3, we have 2 - 3 = -1 and 3 - 2 = 1. We go with 2 and -3.
+
+The factored form of $y = x^2 - x - 6$ is $y = (x + 2)(x - 3)$.
+
+Checking Our Answer:
+
+&nbsp;
+
+$$y = (x + 2)(x - 3) = x^2 - 3x + 2x + (2)(-3) = x^2 - x - 6$$
+
+&nbsp;
+
+### <u>Practice Problems</u>
+
+&nbsp;
+
+Here are some practice problems to build understanding.
+
+1) Factor $y = x^2 + 4x + 4$.
+
+2) Factor $y = x^2 + 5x + 6$.
+
+3) Factor $y = x^2 + 25x + 100$.
+
+4) Factor $y = x^2 - x - 12$.
+
+5) Factor $y = x^2 - 9x + 20$.
+
+6) In $y = -x^2 - 6x - 5$, factor a (-1) first and then factor using the method described in this page.
+
+7) Using common factoring first, factor $y = 3x^2 + 15x + 18$.
+
+&nbsp;
+
+### <u>Answers</u>
+
+&nbsp;
+
+1) $y = x^2 + 4x + 4 = (x + 2)(x + 2) = (x + 2)^2$
+
+2) $y = x^2 + 5x + 6 = (x + 3)(x + 2)$
+
+3) $y = x^2 + 25x + 100 = (x + 20)(x + 5)$
+
+4) $y = x^2 - x - 12 = (x - 4)(x + 3)$
+
+5) $y = x^2 - 9x + 20 = (x - 5)(x - 4)$
+
+6) $y = -x^2 - 6x - 5 = -1(x^2 + 6x + 5) = -(x + 5)(x + 1)$
+
+7) $y = 3x^2 + 15x + 18 = 3(x^2 + 5x + 6) = 3(x + 3)(x + 2)$

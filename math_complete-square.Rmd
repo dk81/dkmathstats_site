@@ -1,0 +1,127 @@
+---
+title = "A Guide To Completing The Square"
+---
+
+&nbsp;
+
+# <u>A Guide To Completing The Square</u>
+
+&nbsp;
+
+This article will be about the algebra technique called completing the square. This technique is useful for finding the vertex form of a quadratic equation.
+
+&nbsp;
+
+### Prerequisites
+
+
+One should be comfortable with arithmetic and algebra techniques such as factoring and expanding.
+
+&nbsp;
+
+### What Is Completing The Square?
+
+
+Sometimes in order to succeed in mathematics, you need to know its secrets and tricks. Before I talk about the actual complete the square technique, I will first provide the motivation behind it.
+
+Say I have $y = 2$. The value 2 is stored in the y variable. If I did y = 2 + 0, I still have two. Likewise, y = 2 + 4 - 4 for example still gives me two. All I have is changed the form (or how it looks) without changing the actual value of y.
+
+Recall that $(a + b)^2$ is equal to $(a + b)(a + b) = a^2 + 2ab + b^2$. How do we go from a quadratic equation such as $a^2 + 2ab + b^2$ into a factored form such as $(x - b)^2$? We use the complete the square technique.
+
+&nbsp;
+
+### The General Case and Method
+
+
+If you are not interested in the theory, you can skip to the examples section two sections below on how to use the complete the square technique.
+
+Let's say we have a general quadratic equation such as:
+
+$y = ax^2 + bx + c$ and we want it in factored form such as $y = (k + j)^2$ (k and j are used instead of a and b).
+
+We start with $y = ax^2 + bx + c$. Factoring the first two terms by $a$ gives us:
+
+$$\displaystyle y = a (x^2 + \dfrac{b}{a}x) + c$$
+
+We look for the coefficient that is with the $x$ which is $\dfrac{b}{a}$. This $\dfrac{b}{a}$ is divided by 2 and its square is taken to obtain $(\dfrac{b}{2a})^2$ which is $\dfrac{b^2}{4a^2}$. Add and subtract by this amount as follows:
+
+$$\displaystyle y = a (x^2 + \dfrac{b}{a}x + \dfrac{b^2}{4a^2} - \dfrac{b^2}{4a^2} ) + c $$
+
+$$\displaystyle y = a ((x + \dfrac{b}{2a})^2 - \dfrac{b^2}{4a^2}) + c $$
+
+$$\displaystyle y = a(x + \dfrac{b}{2a})^2 - \dfrac{b^2}{4a} + c $$
+
+The last line is the general formula for completing the square. You can either choose to memorize the last line or memorize the procedure to get to the last line. This method will make sense with examples.
+
+&nbsp;
+
+### Examples
+
+
+In these examples, the complete the square technique is used to find the minimum or maximum point of a parabola.
+
+&nbsp;
+
+**Example One**
+
+Suppose you are given the function $\displaystyle f(x) = x^2 + 2x$.
+
+The coefficient with $x$ is $b = 2$. Half of two is 1 and one squared is 1. We add and subtract by 1 as follows:
+
+&nbsp;
+
+$$\displaystyle f(x) = x^2 + 2x + 1 - 1$$
+
+$$\displaystyle f(x) = (x^2 + 2x + 1) - 1 $$
+
+$$\displaystyle f(x) = (x + 1)^2 - 1 $$
+
+&nbsp;
+
+The roots of $f(x)$ when $f(x) = 0$ are $x = 0$ and $x = -2$. The vertex of this quadratic function is (-1, -1) which is a minimum.
+
+&nbsp;
+
+**Example Two**
+
+Here is another example with $g(x) = 2x^2 + 6x + 10$. Factoring the 2 from the first and second terms gives us:
+
+$$\displaystyle g(x) = 2(x^2 + 3x) + 10$$
+
+&nbsp;
+
+The coefficient with x is 3. Three divided by 2 is $\dfrac{3}{2}$ and $(\dfrac{3}{2})^2$ is $\dfrac{9}{4}$. Adding and subtracting by $\dfrac{9}{4}$ gives us:
+
+&nbsp;
+
+$$\displaystyle g(x) = 2(x^2 + 3x + \dfrac{9}{4} - \dfrac{9}{4}) + 10$$
+
+$$\displaystyle g(x) = 2((x + \dfrac{3}{2})^2 - \dfrac{9}{4}) + 10 $$
+
+&nbsp;
+
+Expanding and simplifying gives:
+
+&nbsp;
+
+$$\displaystyle g(x) = 2(x + \dfrac{3}{2})^2 - \dfrac{18}{4} + 10 $$
+
+$$\displaystyle g(x) = 2(x + \dfrac{3}{2})^2 - \dfrac{18}{4} + \dfrac{40}{4} $$
+
+$$\displaystyle g(x) = 2(x + \dfrac{3}{2})^2 + \dfrac{22}{4} $$
+
+$$\displaystyle g(x) = 2(x + \dfrac{3}{2})^2 + \dfrac{11}{2} $$
+
+The vertex is  (-$\dfrac{3}{2}, \dfrac{11}{2}$) which is a minimum.
+
+&nbsp;
+
+### Notes
+
+
+&nbsp;
+
+1) You can add by "zero". Remember that it is add and then subtract.
+2) Completing the square may be needed to find an inverse of a function.
+3) You don't have to memorize the general formula. It is probably easier to memorize the procedures of completing the square.
+4) I was taught to factor the first two terms and not the constant $c$ term. You can factor all three terms if you wish if you would like to do that variation.

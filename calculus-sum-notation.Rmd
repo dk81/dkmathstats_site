@@ -1,0 +1,322 @@
+---
+title = "calculus-sum-notation"
+---
+
+&nbsp;
+
+# <u>Sum (Sigma) Notation</u>
+
+&nbsp;
+
+Hello. This post will be on sigma notation. Instead of having $1 + 2 + 3 + 4 + \dots + 100$, you can use sigma notation such as $\displaystyle \sum_{i = 1}^{100} i$ to save space, ink and paper.
+
+When it comes to Sigma notation, one must have a keen eye in identifying patterns in numbers.
+
+&nbsp;
+
+### <u>Table Of Contents</u>
+
+&nbsp;
+
+* Finite Sums
+* Infinite Sums
+* Some Properties
+* Sum Formulas
+* Examples
+* Practice Problems
+* Hints To Practice Problems
+* Solutions To Practice Problems
+* Notes
+
+&nbsp;
+
+### <u>Finite Sums</u>
+
+&nbsp;
+
+To illustrate finite sums/series, an example will be shown.
+
+&nbsp;
+
+$$1 + 2 + 3 + 4 + 5 = \displaystyle \sum_{i = 1}^{5} i = 25 \text{ is an example of a finite sum/series. }$$
+
+&nbsp;
+
+
+In a finite sum/series there are a finite number of terms.
+
+In the sigma (sum) notation $\displaystyle \sum_{i = 1}^{5} i $ we start from substituting $i = 1$ to get 1 as the first term. The next case is when $i = 2$ to get 2, then $i = 3$ to get 3 all the way to the upper limit of $i = 5$.
+
+Another version of a finite sum is where the upper limit is an arbitrary positive integer. As an example we can have:
+
+&nbsp;
+
+$$1 + 2 + 3 + \dots + (n-1) + n= \displaystyle \sum_{i = 1}^{n} i $$
+
+&nbsp;
+
+A more generalized version of a finite sum is where we add unknown integers from $m$ to $n$ (where $m < n$) such as:
+
+&nbsp;
+
+$$m + (m + 1) + (m + 2) + \dots + (n-1) + n= \displaystyle \sum_{i = m}^{n} i $$
+
+&nbsp;
+
+Sometimes we deal with the sum of variables with increasing numeric subscripts. Consider this example:
+
+&nbsp;
+
+$$x_{1} + x_{2} + x_{3} + \dots + x_{n-1} + x_{n}= \displaystyle \sum_{i = 1}^{n}x_{i} $$
+
+&nbsp;
+
+### <u>Infinite Sums</u>
+
+&nbsp;
+
+In an infinite sum/series, there is an infinite (never-ending) number of terms. As an example we can have:
+
+$$2 + 4 + 6 + 8 + 10 + \dots = \displaystyle \sum_{i = 1}^{\infty} 2i = 2 \displaystyle \sum_{i = 1}^{\infty} i $$
+
+The sum above computes to positive infinity and can be considered an infinite sum.
+
+&nbsp;
+
+### <u>Some Properties</u>
+
+&nbsp;
+
+There are a lot of properties when it comes to sigma/summation notation. Here are a couple.
+
+&nbsp;
+
+$$1) \displaystyle \sum_{i = j}^{j} x_{i} = x_{j} \text{ (One term in the sum where i = j) }$$
+
+$$2) \displaystyle \sum_{i = m}^{n} x_{i} \text{ has (n - m + 1) terms in its sum}.$$
+
+$$3) \displaystyle \sum_{i = 1}^{n} kx_{i} = k \displaystyle \sum_{i = 1}^{n} x_{i} \text{ where k is a numeric constant. }$$
+
+$$4) \text{ Assuming k is a numeric constant we have: } \displaystyle \sum_{i = m}^{n} k = k \displaystyle \sum_{i = m}^{n} 1 = (n - m + 1)k$$
+
+$$5) \text{ (Splitting One Sum Into Two) } \displaystyle \sum_{i = m}^{n} x_{i} = \displaystyle \sum_{i = m}^{p} x_{i} + \displaystyle \sum_{i = p + 1}^{n} x_{i} \text{ for } m < p < n$$
+
+$$6) \displaystyle \sum_{i = m}^{n} (x_{i} + y_{i}) = \displaystyle \sum_{i = m}^{n} x_{i} + \displaystyle \sum_{i = m}^{n} y_{i} $$
+
+&nbsp;
+
+### <u>Sum Formulas</u>
+
+&nbsp;
+
+This section will briefly look at sum formulas. A more extensive look at sum formulas can be found in a university level Calculus course which focuses on Sequences and Series.
+
+Here are a few sum formulas.
+
+&nbsp;
+
+$$\displaystyle \sum_{i = 1}^{n} 1 = n$$
+
+$$\text{ Assuming k is a constant: }\displaystyle \sum_{i = 1}^{n} k = \displaystyle k \sum_{i = 1}^{n} 1 = nk $$
+
+$$\displaystyle \sum_{i = 1}^{n} i = \dfrac{n(n + 1)}{2}$$
+
+$$\displaystyle \sum_{i = 1}^{n} i^{2} = \dfrac{n(n + 1)(2n + 1)}{6}$$
+
+$$\displaystyle \sum_{i = 1}^{n} i^{3} = \Bigg(\dfrac{n(n + 1)}{2}\Bigg)^{2}$$
+
+&nbsp;
+
+### <u>Examples</u>
+
+&nbsp;
+
+**Example One**
+
+&nbsp;
+
+The sum $1 + 2 + 3 + 4 + \dots + 100$ can be represented by $\displaystyle \sum_{i = 1}^{100} i$. Using the third formula from the previous section, this sum is equal to $\dfrac{100(100 + 1)}{2} = \dfrac{(100)(101)}{2} = \dfrac{10100}{2} = 5050$
+
+---
+
+**Example Two**
+
+&nbsp;
+
+If we add even numbers starting from 2 up to 50 we have:
+
+$$2 + 4 + 6 + 8 + 10 + \dots + 48 + 50$$.
+
+Factoring out a 2 from each term we have:
+
+$$2(1 + 2 + 3 + 4 + 5 + \dots + 23 + 24 + 25)$$
+
+In sigma notation, the above can be represented as:
+
+$$2 \displaystyle \sum_{i = 1}^{25} i$$
+
+This sum evaluates to:
+
+$$2 \times \dfrac{25(26)}{2} = 25(26) = 650$$
+
+---
+
+**Example Three (Fractions)**
+
+&nbsp;
+
+There are cases where we add fractions. Consider this example.
+
+&nbsp;
+
+$$1 + \dfrac{1}{2} + \dfrac{1}{3} + \dfrac{1}{4} +\dots + \dfrac{1}{9} + \dfrac{1}{10}$$
+
+From term to term, the denominator increases by one. The sum above can be represented as:
+
+&nbsp;
+
+$$\displaystyle \sum_{i = 1}^{10} \dfrac{1}{i}$$
+
+&nbsp;
+
+---
+
+**Example Four (Alternating Sums)**
+
+This example is a more involved example (more for university calculus students).
+
+When we think of sums adding is usually involved. However we can "add" negative numbers. There are cases where the sign is alternating. One such example is:
+
+&nbsp;
+
+$$1 - 2 + 3 - 4 + 5 - 6 + \dots + 19 - 20 = \displaystyle \sum_{i = 1}^{20} (-i)^{(i + 1)}$$
+
+&nbsp;
+
+When we add positive numbers from 1 to 20 the $(-i)^{(i + 1)}$ was needed. Since we have alternating sums we need the $(-i)^{(i + 1)}$ part in the sum. Remember that $(-1)^{\text{even exponent}} = 1$. Since every second term is negative, we have $(i + 1)$ in the exponent of $(-i)$.
+
+One can notice that we have two sums within this alternating signs sum. We have odd numbers and even numbers. Given a positive whole number $k$ an odd number is the form of $(2k + 1)$ (or $2k - 1$) and an even number is of the form of $(2k)$. Using these ideas in mind the sum can be separated into two.
+
+The sum of odd numbers ($1 + 3 + 5 + \dots + 17 + 19$) can be represented as:
+
+&nbsp;
+
+$$\displaystyle \sum_{i = 1}^{10} (2i - 1)$$
+
+The sum of (negative) even numbers ($-2 -4 -6 -8 -10 - \dots - 18 - 20$) can be represented as:
+
+&nbsp;
+
+$$\displaystyle \sum_{i = 1}^{10} (-2i) = -2 \displaystyle \sum_{i = 1}^{10} i$$
+
+The original sum can be split into two sums. One sum has the positive odd numbers from 1 to 20 and the other sum has negative numbers from 1 to 20.
+
+&nbsp;
+
+$$\displaystyle \sum_{i = 1}^{20} (-i)^{(n + 1)} = \displaystyle \sum_{i = 1}^{10} (2i - 1) - 2 \displaystyle \sum_{i = 1}^{10} i$$
+
+Using summation properties the above can be simplified and evaluated.
+
+&nbsp;
+
+$$\displaystyle \sum_{i = 1}^{10} (2i - 1) - 2 \displaystyle \sum_{i = 1}^{10} i = \displaystyle \sum_{i = 1}^{10} (2i - 1) + \displaystyle \sum_{i = 1}^{10} (-2i) = \displaystyle \sum_{i = 1}^{10} (2i -1 ) - 2i = \displaystyle \sum_{i = 1}^{10} (-1) = 10(-1) = -10$$
+
+The sum $1 - 2 + 3 - 4 + 5 - 6 + \dots + 19 - 20$ computes to -10. This makes sense since the first pair of 1 - 2 is -1, the next pair of 3 - 4 is -1. This happens eight more times so we add (-1) ten times to get -10.
+
+&nbsp;
+
+### <u>Practice Problems</u>
+
+&nbsp;
+
+Here are some practice problems. The summation properties and formulas will come in handy. Hints and solutions are provided in the next sections.
+
+1) Find the sum of the numbers from 1 to 15 (including 1 and 15).
+
+2) Find the sum of the numbers from 1 to 500 (including 1 and 500).
+
+3) Evaluate the sum $1 + 4 + 9 + 16 + 25 + 36 + 49 + 64 + 81 + 100 + 121 + 144$ using summation notation, properties and/or formulas.
+
+4) Find the sum of $1 + 8 + 27 + 64 + 125 + 216 + 343 + 512$ using summation notation, properties and/or formulas.
+
+5) Evaluate $-2 + 4 - 6 + 8 - 10 + \dots - 22 + 24$ using summation notation and properties.
+
+6) Is $\displaystyle \sum_{i = 1}^{10} (i + 3)$ greater than $(-10 + 20 - 30 + 40 - 50 + 60 - 70 + 80)$?
+
+7) Evaluate $\displaystyle \sum_{i = 1}^{16} (i^2 + 3i - 7)$.
+
+8) Evaluate $\displaystyle \sum_{i = 1}^{12} (2i^3 + 4i^2 - 2i + 1)$.
+
+&nbsp;
+
+### <u>Hints To Practice Problems</u>
+
+&nbsp;
+
+1) Use the formula $\displaystyle \sum_{i = 1}^{n} i = \dfrac{n(n + 1)}{2}$.
+
+2) Use the formula $\displaystyle \sum_{i = 1}^{n} i = \dfrac{n(n + 1)}{2}$.
+
+3) Notice how each term in the sum is a squared number.
+
+4) Each term in the sum is a cubed number.
+
+5) This is an alternating signs case.
+
+6) The first sum can be simplified and evaluated. The second sum is similar to the alternating signs example.
+
+7) Use properties and formulas to evaluate the sum.
+
+8) Use properties and formulas to evaluate the sum.
+
+&nbsp;
+
+### <u>Solutions To Practice Problems</u>
+
+&nbsp;
+
+1) 120
+
+2) 125250
+
+3) 650
+
+4) 1296
+
+5) $$-2 + 4 - 6 + 8 - 10 + \dots - 22 + 24 = 2(-1 + 2 - 3 + \dots -11 + 12) = 2[ (-1 -3 - 5 -7 -9 -11) + (2 + 4 + 6 + 8 + 10 + 12)]$$
+
+The original sum can be split into two sums. One sum has negative odd numbers and the other sum has positive even numbers. Here are the calculations.
+
+$$2 \displaystyle \sum_{i = 1}^{6} -(2i - 1) + 2 \displaystyle \sum_{i = 1}^{6} (2i)$$
+
+$$-2 \displaystyle \sum_{i = 1}^{6} (2i - 1) + 4 \displaystyle \sum_{i = 1}^{6} i$$
+
+$$-4 \displaystyle \sum_{i = 1}^{6} i + \displaystyle \sum_{i = 1}^{6} 2 + 4 \displaystyle \sum_{i = 1}^{6} i $$
+
+$$\displaystyle \sum_{i = 1}^{6} 2 = 6(2) = 12$$
+
+6) The first sum $\displaystyle \sum_{i = 1}^{10} (i + 3)$ computes to:
+
+$$\displaystyle \sum_{i = 1}^{10} (i + 3) = \displaystyle \sum_{i = 1}^{10} i + \displaystyle \sum_{i = 1}^{10} 3 = \dfrac{(10)(11)}{2} + 3(10) = 55 + 30 = 85 $$
+
+The second sum $(-10 + 20 - 30 + 40 - 50 + 60 - 70 + 80) = 10(-1 + 2 -3 + 4 - 5 + 6 - 7 + 8)$ can be represented as:
+
+$$-10 \displaystyle \sum_{i = 1}^{4} (2i - 1) + 10 \displaystyle \sum_{i = 1}^{4} (2i)$$
+
+The above can be simplified and evaluated as follows.
+
+$$-10 \displaystyle \sum_{i = 1}^{4} (2i) + \displaystyle \sum_{i = 1}^{4} 10 + 10 \displaystyle \sum_{i = 1}^{4} (2i) = \displaystyle \sum_{i = 1}^{4} 10 = 10(4) = 40$$
+
+7) $$\displaystyle \sum_{i = 1}^{16} (i^2 + 3i - 7) = \displaystyle \sum_{i = 1}^{16} i^2 + 3 \displaystyle \sum_{i = 1}^{16} i - \displaystyle \sum_{i = 1}^{16} 7 = \dfrac{(16)(17)(33)}{6} + 3 \dfrac{(16)(17)}{2} - (16)(7) = 1792 $$
+
+8) This question is similar to number seven.
+
+$$\displaystyle \sum_{i = 1}^{12} (i^3 + 2i^2 - i - 5) = \Bigg(\dfrac{(12)(13)}{2}\Bigg)^{2} + 2\dfrac{(12)(13)(25)}{6} - \dfrac{(12)(13)}{2} - 60 = 7246$$
+
+&nbsp;
+
+### <u>Notes</u>
+
+&nbsp;
+
+There are more topics related to sigma notation, series and other types of sums which are not covered here. (i.e Arithmetic series, geometric series, Taylor series, etc.)

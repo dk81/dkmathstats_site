@@ -1,0 +1,111 @@
+---
+title = "calculus-chain-rule"
+---
+
+&nbsp;
+
+# <u>Chain Rule</u>
+
+&nbsp;
+
+<center><img src="http://www.mindonwaves.com/wp-content/uploads/2015/06/chains1.jpg" /></center>
+<center><a href="http://www.mindonwaves.com/wp-content/uploads/2015/06/chains1.jpg">Image Source</a></center>
+
+&nbsp;
+
+This post will be about the chain rule. The chain rule was one of those topics that took a bit of time for me to understand when I was a younger math student. It is assumed that the reader knows about the product rule.
+
+&nbsp;
+
+### <u>A Motivating Example</u>
+
+&nbsp;
+
+Consider a simple function such as $f(x) = x^3$. The derivative would be simply $f'(x) = 3x^2$.
+
+But what if was expressed as $f'(x) = 3x^2 * 1$? Where did this 1 come from? Let's try this:
+
+&nbsp;
+
+$$f'(x) = 3x^2 \dfrac{d}{dx} x$$
+
+&nbsp;
+
+The 1came from the derivative of x with respect to x.
+
+So what did we do above? We took the derivative of $x^3$ and then multiplied it by the derivative of $x$.
+
+&nbsp;
+
+### <u>The Chain Rule</u>
+
+&nbsp;
+
+Given a (continuous) function $h(x) = f(g(x))$ where and $f(x)$ and $g(x)$ are different (continuous) functions. Then 
+
+&nbsp;
+
+$$\displaystyle h'(x) = f'( g(x) ) g'(x)$$.
+
+&nbsp;
+
+This means we take the derivative of the outside function $f(g(x)$ and then take the derivative of the inside function $g(x)$. It can be possible that the function inside $g(x)$ can be a different function such as $k(x)$ which is different from $x$.
+
+&nbsp;
+
+### <u>Examples</u>
+
+&nbsp;
+
+**Example 1**
+
+&nbsp;
+
+The function $x^3$ from earlier has $g(x) = x$, $f(x) = x^3$, $f'(x) = 3x^2$ and $g'(x) = 1$. The derivative of $x^3$ is simply $3x^2$.
+
+&nbsp;
+
+**Example 2**
+
+&nbsp;
+
+Consider the function $h(x) = \sin(2x)$. The outside function is $f(x) = \sin(x)$ with $f'(x) = \cos(x)$. The inside function is $g(x) = 2x$ with $g'(x) = 2$.
+
+By Chain Rule, the derivative $h'(x)$ is $2 \cos(2x)$.
+
+&nbsp;
+
+**Example 3 (Combining with Product Rule)**
+
+&nbsp;
+
+Suppose that we have $h(x) = x e^{x^2}$. Through product rule and chain rule on the derivative of $e^{x^2}$ gives:
+
+&nbsp;
+
+$$\begin{array}{lcl} h'(x) & = & e^{x^2} + x \times e^{x^2} \times 2x \\ & = & e^{x^2} (1 + 2x^2) \\ \end{array}$$
+
+&nbsp;
+
+**Example 4 (Multiple Chain Rule)**
+
+&nbsp;
+
+There are cases when you may have to use multiple chain rules along with product rules, quotient rules and so on.
+
+Consider $h(x) = \cos((2x + 1)^2)$. The derivative $h'(x)$ is:
+
+&nbsp;
+
+$$\begin{array}{lcl} h'(x) & = & - \sin(x^2) \dfrac{d}{dx} (2x + 1)^{2} \\ & = & - \sin(x^2) \times 2(2x + 1) \times \dfrac{d}{dx} (2x + 1) \\ & = & -2 \sin(x^2) (2x + 1) \times 2\\ & = & -4 \sin(x^2) (2x + 1) \end{array}$$
+&nbsp;
+
+### <u>Tips for Learning Chain Rule</u>
+
+&nbsp;
+
+Take it one step at a time.
+
+Identify the outside function(s) and inside function(s). Start from the outside to the inside.
+
+Practice with the simple functions such as $x$, $\cos(x)$, $\dfrac{1}{x}$ and so on.

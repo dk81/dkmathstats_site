@@ -1,0 +1,121 @@
+---
+title = "Difference Of Squares Factoring Guide"
+---
+
+&nbsp;
+
+# <u>Difference Of Squares Factoring Guide</u>
+
+&nbsp;
+
+Factoring is a method that allows to see expressions in a different way or form. A factored form can allow us to simplify expressions which can help us in finding solutions to equations.
+
+If we are given the form $a^{2} - b^2$, we can express this as a factored form as follows:
+
+$$\displaystyle (a^{2} - b^2) = (a + b)(a - b)$$
+
+If we were to verify this by going in the reverse way by expanding $(a + b)(a - b)$, the calculations would be like this:
+
+$$\displaystyle (a + b)(a - b) = a^2 - ab + ab - b^2 = a^{2} - b^2 $$
+
+&nbsp;
+
+### Examples
+
+
+Let's demonstrate this factoring method through many examples.
+
+**Example 1**
+
+&nbsp;
+
+Factor $x^2 - 9$.
+
+&nbsp;
+
+*Solution*
+
+We have $a^2 = x^2$ and $b^2 = 9$. So $a = x$ and the positive part of the square root of 9 is 3 so $b = 3$. The factored form of $x^2 - 9$ is simply $(x + 3)(x - 3)$.
+
+&nbsp;
+
+---
+
+**Example 2**
+
+&nbsp;
+
+Solve the equation $x^2 - 144 = 0$.
+
+&nbsp;
+
+*Solution*
+
+$$x^2 - 144 = 0$$
+
+$$(x + 12)(x - 12) = 0$$
+
+$$x = \pm 12$$
+
+&nbsp;
+
+In this one, it wants you to solve the equation. In other words, find x-values such that $x^2 - 144 = 0$. To do this, we factor first and solve for the x-values from the factors.
+
+We have $a^2 = x^2$ and $b^2 = 144$. So $a = x$ and the positive part of the square root of 144 is 12 so $b = 12$. The factored form of $x^2 - 144$ is simply $(x + 12)(x - 12)$.
+
+From $x^2 - 144 = 0$, we have $(x + 12)(x - 12) = 0$. Now we equate each factor to zero and solve for $x$.
+In $(x + 12) = 0, x = -12$ and in $(x - 12) = 0, x = 12$. Our solutions for $x$ are 12 and -12.
+
+&nbsp;
+
+--------------------------
+
+**Example 3**
+
+Factor $x^4 - 16$.
+
+*Solution*
+
+$$x^4 - 16 = (x^2 + 4)(x^2 - 4) = (x^2 + 4)(x - 2)(x + 2)$$
+
+&nbsp;
+
+This one does not look as obvious but if you know your exponent laws well, $x^4 - 16$ can be expressed as $(x^2)^2 - (4)^2$.
+
+Here we have $a^2 = x^4$ and $b^2 = 16$. The factored form of $x^4 - 16$ is $(x^2 + 4)(x^2 - 4)$.
+
+Notice that we can factor further by factoring $(x^2 - 4)$ to $(x + 2)(x - 2)$.
+
+&nbsp;
+
+---
+
+**Example 4 ("Complex" Case)**
+
+Solve for $x$ in the equation $x^2 = -1$.
+
+*Solution*
+
+$$x^2 = -1$$
+
+$$x = \pm \sqrt{-1}$$
+
+$$x = \pm i$$
+
+
+
+Here we do not have a difference of squares situation. The expression $x^2 + 1$ cannot be factored. If we were to take the square root of -1, it would not exist in the real numbers.
+
+However, if we use complex/imaginary numbers where $i = \sqrt{-1}$ then we can factor. Then we have $x^2 + 1 = (x + i)(x - i)$. The imaginary numbered solutions to $x^2 = -1$ are $\pm \sqrt{-1} = \pm i$.
+
+&nbsp;
+
+### Notes
+
+
+&nbsp;
+
+
+It is important to note that $(a^{2} - b^2)$ is not the same as $(b^2 - a^2)$. This is because order matters and factoring a (-1) from $(b^2 - a^2)$ gives $- (a^2 - b^2)$.
+
+If you are new to factoring difference of squares, practice is recommended. Know your square numbers such as 1, 4, 9 ,16 , 25, 36 ,49,64, 81, 100, 121, 144, and 169 really well.

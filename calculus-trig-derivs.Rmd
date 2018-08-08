@@ -1,0 +1,114 @@
+---
+title = "calculus-trig-derivs"
+---
+
+&nbsp;
+
+# <u>Derivatives Of Trigonometric Derivatives</u>
+
+&nbsp;
+
+Source: http://wmueller.com/precalculus/newfunc/images/triggraphs.gif
+
+&nbsp;
+
+This post will be about derivatives of trigonometric functions. It is assumed that the reader knows about $\sin(x)$, $\cos(x)$, and $\tan(x)$ along with the reciprocal trigonometric functions $\sec(x)$, $\cot(x)$ and $\csc(x)$. Knowledge of the chain rule is not assumed here.
+
+&nbsp;
+
+### <u>Table Of Contents</u>
+
+&nbsp;
+
+* Derivatives of Trigonometric Functions
+* Memory Aids
+* Examples
+* Notes
+
+&nbsp;
+
+### <u>Derivatives of Trigonometric Functions</u>
+
+&nbsp;
+
+When it comes to derivatives of trigonometric functions, it is mostly memorizing. Here is the list of the derivatives.
+
+1) $$\displaystyle \dfrac{d}{dx} \sin(x) = \cos(x) $$
+
+2) $$\displaystyle \dfrac{d}{dx} \cos(x) = - \sin(x)$$
+
+3) $$\displaystyle \dfrac{d}{dx} \tan(x) = \sec^{2}(x) $$
+
+4) $$\displaystyle \dfrac{d}{dx} \sec(x) = \sec(x) \cdot \tan(x)$$
+
+5) $$\displaystyle \dfrac{d}{dx} \csc(x) = - \csc(x) \cdot \cot(x)$$
+
+6) $$\displaystyle \dfrac{d}{dx} \cot(x) = - \csc^{2}(x)$$
+
+The proofs of the derivatives are not provided here. They are somewhat technical. One can find such proofs at http://www.math.brown.edu/UTRA/trigderivs.html.
+
+&nbsp;
+
+### <u>Memory Aids</u>
+
+&nbsp;
+
+If memorizing the six derivatives is a bit of a hassle, consider these memory aids.
+
+The ones that start with the letter c have a negative in their derivatives. (I found this very useful.)
+
+Derivatives of $\tan(x)$ and $\cot(x)$ have squares.
+
+Note that $\sin(x)$ and $\cos(x)$ are alternating with each other. Watch for that pesky negative sign!
+
+The derivatives of $\sec(x)$ and $\csc(x)$ have two terms in the product with one of them being itself (respectively).
+
+You could use abbreviations such as sc, cns, ts2, sst, cncc and cc2 or something.
+
+&nbsp;
+
+### <u>Examples</u>
+
+&nbsp;
+
+Here are some examples.
+
+&nbsp;
+
+**Example One**
+
+&nbsp;
+
+$\displaystyle f(x) = -\cos(x)$
+
+$$\displaystyle \begin{array} {lcl} f'(x) & = & - \dfrac{d}{dx} \cos(x) \\ & = & - ( - \sin(x) )\\ & = & \sin(x) \\ \end{array} \\ $$
+&nbsp;
+
+**Example Two (Product Rule)**
+
+&nbsp;
+
+$\displaystyle f(x) = \sin(x) \cdot \tan(x)$
+
+$$\displaystyle \begin{array} {lcl} f'(x) & = & \dfrac{d}{dx} \sin(x) \cdot \tan(x) + \sin(x) \cdot \dfrac{d}{dx} \tan(x) \\ & = & \cos(x) \cdot \tan(x) + \sin(x) \cdot \sec^{2}(x) \\ & = & \cos(x) \cdot \dfrac{\sin(x)}{\cos(x)} + \sin(x) \cdot \sec^{2}(x) \\ & = & \sin(x) + \sin(x) \cdot \sec^{2}(x) \\ & = & \sin(x) \cdot (1 + \sec^{2}(x)) \\ \end{array}$$
+
+&nbsp;
+
+**Example Three (Quotient Rule)**
+
+&nbsp;
+
+$\displaystyle f(x) = \dfrac{\sin(x)}{\cos(x)}$
+
+$$\displaystyle \begin{array} {lcl} f'(x) & = & \dfrac{\dfrac{d}{dx} \sin(x) \cdot \cos(x) - \sin(x) \cdot \dfrac{d}{dx} \cos(x)}{\cos^{2}(x)}\\ & = & \dfrac{\cos^{2}(x) - \sin(x) \cdot (- \sin(x)) }{\cos^{2}(x)}\\ & = & \dfrac{\cos^{2}(x) + \sin^{2}(x)}{\cos^{2}(x)}\\ & = & 1 + \dfrac{\sin^{2}(x)}{\cos^{2}(x)}\\ & = & 1 + (\dfrac{\sin(x)}{\cos(x)})^{2}\\ & = & 1 + \tan^{2}(x) \\
+\end{array} $$
+
+&nbsp;
+
+**Notes**
+
+&nbsp;
+
+Dealing with trigonometric functions and derivatives can be tricky. When you add in chain rule, product rule and quotient rule, one has to be really careful.
+
+The featured image is taken from http://wmueller.com/precalculus/newfunc/images/triggraphs.gif.

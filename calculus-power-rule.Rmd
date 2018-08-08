@@ -1,0 +1,193 @@
+---
+title = "calculus-power-rule"
+
+---
+
+&nbsp;
+
+# <u>The Power Rule For Calculus Derivatives</u>
+
+&nbsp;
+
+A big part of calculus involves rates of change. Rates of changes involves the ratio of the differences in one variable when there is a change in another variable.
+
+Calculus derivatives focus on the instantaneous rate of change at a point on the function's domain. Given a step size or a small increment of $h$, as $h$ approaches zero, the derivative at a point is obtained. This gives the limit definition of the derivative at a point $a$ (in the function $f(x)$).
+
+&nbsp;
+
+---
+
+&nbsp;
+
+**Limit Definition**
+
+&nbsp;
+
+$$f'(a) = \displaystyle{\lim_{h \to 0}}\dfrac{f(a + h) - f(a)}{h}$$
+
+&nbsp;
+
+### <u>Examples</u>
+
+&nbsp;
+
+$\textbf{Example One}$
+
+With the limit definition of the derivative, find the derivative of $g(x) = 3x$ at the point $x = 2$.
+
+
+$$g'(2)   =  \displaystyle{\lim_{h \to 0}} \dfrac{g(2 + h) - g(2)}{h}$$
+$$g'(2)   =  \displaystyle{\lim_{h \to 0}} \dfrac{3(2 + h) - 3(2)}{h}$$
+
+$$g'(2)   =  \displaystyle{\lim_{h \to 0}} \dfrac{6 + 3h - 6}{h}$$
+$$g'(2)   =  \displaystyle{\lim_{h \to 0}} \dfrac{3h}{h}$$
+
+$$g'(2)   =  \displaystyle{\lim_{h \to 0}} 3$$
+
+$$g'(2)   =  3$$
+
+The derivative of $g(x) = 3x$ at $x = 2$ is simply 3. This three represents the slope at the point $x = 2$. Furthermore, this slope of three represents the slope for all x-values in $g(x)$.
+
+&nbsp;
+
+$\textbf{Example Two}$
+
+&nbsp;
+
+With the limit definition of the derivative, find the derivative of $f(x) = -2x^2$ for any value of $x$.
+
+&nbsp;
+
+$$f'(x) = \displaystyle{\lim_{h \to 0}} \dfrac{f(x + h) - f(x)}{h}$$
+
+$$f'(x) = \displaystyle{\lim_{h \to 0}} \dfrac{-2(x + h)^2 - -2x^2}{h}$$
+
+$$f'(x) = \displaystyle{\lim_{h \to 0}} \dfrac{-2(x^2 + 2hx + h^2) +2x^2}{h}$$
+
+$$f'(x) = \displaystyle{\lim_{h \to 0}} \dfrac{-2x^2 - 4hx - 2h^2 + 2x^2}{h}$$
+
+$$f'(x) = \displaystyle{\lim_{h \to 0}} \dfrac{-4hx - 2h^2}{h}$$
+
+$$f'(x) = \displaystyle{\lim_{h \to 0}} \dfrac{-2h(2x - h)}{h}$$
+
+$$f'(x) = \displaystyle{\lim_{h \to 0}} -2(2x - h)$$
+
+$$f'(x) = \displaystyle{\lim_{h \to 0}} (-4x) + \lim_{h \to 0} 2h$$
+
+$$f'(x) = -4x + 0$$
+
+&nbsp;
+
+The derivative of $f(x) = -2x^2$ is $f'(x) = -4x$. In this second example, there is more algebra involved. The main goal is to use algebra and factoring to eliminate the h on the bottom. Once the h on the bottom of the fraction is removed, you can apply the limit as h approaches zero.
+
+
+Source: https://www.flexiprep.com/NCERT-Exercise-Solutions/Mathematics/Class-11/posts/Ch-13-Limits-And-Derivatives-Exercise-13-2-Solutions-Part-6/Definition-of-derivative.png
+
+&nbsp;
+
+## <u>Power Rule</u>
+
+&nbsp;
+
+The limit definition of the derivative helps in understanding where the derivative comes from but it is not the fastest. A more efficient way and common way of obtaining derivatives is through the power rule for polynomials.
+
+Consider the polynomial function $f(x)$ where:
+
+$$f(x) = a_{n}x^{n} + a_{n - 1}x^{n - 1} + ... + a_{3}x^3 + a_{2}x^2 + a_{1}x + a_{0}$$
+
+where $a_{n}$ to $a_{0}$ are numeric constant coefficients.
+
+The derivative $f'(x)$ of the above polynomial function would be:
+
+$$f'(x) = a_{n}n x^{n - 1} + a_{n - 1} (n - 1) x^{n - 2} + ... + 3 a_{3}x^2 + 2 a_{2}x^1 + a_{1}$$
+
+Notice that the $a_{0}$ intercept term goes away. In addition, the terms are multiplied by the exponent and the exponent decreases by one. The examples below will give a better idea on how this all works.
+
+&nbsp;
+
+## <u>Addition, Subtraction Rules For Derivatives</u>
+
+&nbsp;
+
+For calculus derivatives, they can operate with addition and subtraction signs. Here are some basic rules.
+
+&nbsp;
+
+1) If $h(x) = f(x) + g(x)$ then $h'(x) = f'(x) + g'(x)$.
+
+2) If $h(x) = f(x) - g(x)$ then $h'(x) = f'(x) - g'(x)$.
+
+3) If $g(x) = f_1(x) + f_2(x) + f_3(x) + \dots + f_n(x)$ then $g'(x) = f'_1(x) + f'_2(x) + f'_3(x) + \dots + f'_n(x)$. This also holds true for the subtraction case.
+
+
+
+&nbsp;
+
+## <u>Derivatives Examples</u>
+
+&nbsp;
+
+Here are some examples of finding derivatives of functions. Note that $f'(x)$ refers to the same derivative as $\dfrac{d}{dx} f(x)$.
+
+&nbsp;
+
+$\textbf{Example One}$
+
+Find the derivative of the function $f(x) = 2x$.
+
+
+$$\begin{array}{lcl} f'(x) & = & \dfrac{d}{dx} 2x^1 \\ & = & 2 \dfrac{d}{dx} x^1 \\ & = &
+2 \times 1 \times x^{1 - 1} \\ & = & 2 \times 1 \times 1 \\ & = & 2
+\end{array}$$
+
+
+
+
+&nbsp;
+
+$\textbf{Example Two}$
+
+&nbsp;
+
+Given $f(x) = 3x^3$ what is $f'(x)$?
+
+
+$$\begin{array}{lcl} f'(x) & = & \dfrac{d}{dx} 3x^3 \\ & = & 3 \dfrac{d}{dx} x^3 \\ & = &
+3 \times 3x^2 \\ & = & 9x^2
+\end{array}$$
+
+&nbsp;
+
+$\textbf{Example Three}$
+
+&nbsp;
+
+What is the derivative of $f(x) = x^{\pi}$?
+
+$$ f'(x) = \pi x^{\pi - 1} $$
+
+Remember that $\pi \approx 3.14$ is a number.
+
+&nbsp;
+
+$\textbf{Example Four}$
+
+&nbsp;
+
+What is the derivative of $g(x) = x(x^2 - 4x + 2)$?
+
+This particular example looks scary but it is actually not too bad. The distributive law is applied first and derivatives can be taken separately.
+
+Rewrite $g(x)$ as:
+
+$$g(x) = x(x^2 - 4x + 2) = x^3 - 4x^2 + 2x$$
+
+Then you can take the derivatives of each term.
+
+$$g'(x) = \dfrac{d}{dx}(x^3 - 4x^2 + 2x)$$
+
+$$g'(x) = \dfrac{d}{dx} x^3 - \dfrac{d}{dx} 4x^2 + \dfrac{d}{dx} 2x$$
+
+$$g'(x) = 3x^2 - 8x + 2$$
+
+

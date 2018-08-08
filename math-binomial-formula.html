@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="projects.html">R Programming Projects</a>
+</li>
+<li>
+  <a href="python_projects.html">Python Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<p> </p>
+<div id="the-binomial-formula" class="section level1">
+<h1><u>The Binomial Formula</u></h1>
+<p> </p>
+<p>Hello. This is a math post about the binomial formula. The binomial formula algebra technique allows us to expand binomials such as <span class="math inline">\((a + b)^{n}\)</span> where <span class="math inline">\(n \geq 2\)</span>.</p>
+<p> </p>
+<div id="table-of-contents" class="section level3">
+<h3><u>Table of Contents</u></h3>
+<p> </p>
+<ul>
+<li>Factorials</li>
+<li>Binomial Coefficient</li>
+<li>Pascal’s Triangle</li>
+<li>The Binomial Formula</li>
+<li>Examples</li>
+</ul>
+<p> </p>
+</div>
+<div id="factorials" class="section level3">
+<h3><u>Factorials</u></h3>
+<p> </p>
+<p>Before we get right into the binomial formula, we need the ingredients first. We start with the factorial.</p>
+<p>Suppose we have something like <span class="math inline">\(3 \cdot 2 \cdot 1 = 6\)</span> and <span class="math inline">\(5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 = 120\)</span>. We would like a more compact form of writing this (especially for larger numbers).</p>
+<p>The factorial form is expressed as <span class="math inline">\(n!\)</span> where <span class="math inline">\(n \geq 1\)</span> and:</p>
+<p><span class="math inline">\(\displaystyle n! = n \cdot (n - 1) \cdot (n - 2) \text{ ... } \cdot 1\)</span> The alternative formula is:</p>
+<p><span class="math inline">\(\displaystyle n! = \prod_{k = 1}^{n} k = 1 \cdot 2 \cdot \text{ ... } \cdot (n-1) \cdot n\)</span> We can express <span class="math inline">\(3 \cdot 2 \cdot 1 = 6\)</span> as <span class="math inline">\(3! = 6\)</span> and <span class="math inline">\(5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 = 120\)</span> as <span class="math inline">\(5! = 120\)</span>.</p>
+<p> </p>
+<p><strong>Some Factorial Properties</strong></p>
+<p><span class="math display">\[n! = n \cdot (n -1)!\]</span></p>
+<p><span class="math display">\[0! = 1\]</span></p>
+<p> </p>
+</div>
+<div id="binomial-coefficient" class="section level3">
+<h3><u>Binomial Coefficient</u></h3>
+<p>The next piece we need is the binomial coefficient. In terms of practical applications, this binomial coefficient represents the number of ways (combinations) of choosing <span class="math inline">\(k\)</span> unordered items from <span class="math inline">\(n\)</span> choices.</p>
+<p>Mathematically, the binomial coefficient is represented as:</p>
+<p><span class="math inline">\(\binom{n}{k} = \dfrac{n!}{k! (n-k)!}\)</span></p>
+<p> </p>
+<p><strong>Some Properties</strong></p>
+<p> </p>
+<p><span class="math inline">\(\binom{n}{n} = \binom{n}{0} = 1\)</span> for integers <span class="math inline">\(n \geq 0\)</span>.</p>
+<p><span class="math inline">\(\binom{0}{0} = 1\)</span> (Corollary/Special Case from the above)</p>
+<p> </p>
+</div>
+<div id="pascals-triangle" class="section level3">
+<h3><u>Pascal’s Triangle</u></h3>
+<p> </p>
+<p>We now look at Pascal’s Triangle. Pascal’s triangle is related to the coefficients from the binomial formula. Refer to the image below.</p>
+<center>
+<img src="http://www.101computing.net/wp/wp-content/uploads/Pascal-Triangle.png" />
+</center>
+<center>
+<a href="http://www.101computing.net/wp/wp-content/uploads/Pascal-Triangle.png">Image Source</a>
+</center>
+<p> </p>
+<p>The numbers in Pascal’s triangle can also be expressed using binomial coefficients and the <span class="math inline">\(\binom{n}{k}\)</span> notation.</p>
+<p> </p>
+</div>
+<div id="the-binomial-formula-1" class="section level3">
+<h3><u>The Binomial Formula</u></h3>
+<p> </p>
+<p>Now we have the necessary ingredients. Here is the binomial formula for <span class="math inline">\(n \geq 1\)</span></p>
+<p><span class="math display">\[\begin{array} {lcl} \displaystyle (a + b)^{n} &amp; = &amp; \sum_{k = 0}^{n} \binom{n}{k} a^{n-k}b^{k} \\ &amp; = &amp; \binom{n}{0}a^{n} + \binom{n}{1} a^{n-1}b + \text{ ...} + \binom{n}{n} b^{n} \\ &amp; = &amp; a^{n} + na^{n-1}b + \text{ ...} + b^{n} \end{array}\]</span></p>
+<p> </p>
+</div>
+<div id="examples" class="section level3">
+<h3><u>Examples</u></h3>
+<p> </p>
+<p>Here are a few examples which apply the binomial formula.</p>
+<hr />
+<ol style="list-style-type: decimal">
+<li>Example One: <span class="math inline">\((x + 2)^2\)</span></li>
+</ol>
+<p><span class="math display">\[\displaystyle \begin{array} {lcl} (x + 2)^{2} &amp; = &amp; \sum_{k = 0}^{n = 2} \binom{2}{k} x^{2-k}2^{k}\\ &amp; = &amp; \binom{2}{0} x^{2}2^{0} + \binom{2}{1} x^{1}2^{1} + \binom{2}{2} x^{0}2^{2}\\ &amp; = &amp; 1\cdot x^2 + 2 \cdot 2x + 1 \cdot 4\\ &amp; = &amp; x^2 + 4x + 4\\ \end{array}\]</span></p>
+<hr />
+<ol start="2" style="list-style-type: decimal">
+<li>Example Two: <span class="math inline">\((x - 5)^3\)</span></li>
+</ol>
+<p><span class="math display">\[\displaystyle \begin{array} {lcl} (x - 5)^{3} &amp; = &amp; \sum_{k = 0}^{n = 3} \binom{3}{k} x^{3-k}(-5)^{k}\\ &amp; = &amp; \binom{3}{0} x^{3}(-5)^{0} + \binom{3}{1} x^{2}(-5)^{1} + \binom{3}{2} x^{1}(-5)^{2} + \binom{3}{3} x^{0}(-5)^{3}\\ &amp; = &amp; 1\cdot x^3 - 3 \cdot 5x^2 + 3 \cdot 25x - 1 \cdot 125\\ &amp; = &amp; x^3 - 15x^2 + 75x - 125\\ \end{array}\]</span></p>
+<hr />
+<ol start="3" style="list-style-type: decimal">
+<li>Example Three: <span class="math inline">\((a - b)^4\)</span></li>
+</ol>
+<p><span class="math display">\[\displaystyle \begin{array} {lcl} (a - b)^{4} &amp; = &amp; \sum_{k = 0}^{n = 4} \binom{4}{k} a^{4-k} (-b)^{k}\\ &amp; = &amp; \binom{4}{0} a^{4}(-b)^{0} + \binom{4}{1} a^{3}(-b)^{1} + \binom{4}{2} a^{2}(-b)^{2} + \binom{4}{3} a^{1}(-b)^{3} + \binom{4}{4} a^{0}(-b)^{4}\\ &amp; = &amp; 1 \cdot a^4 - 4 \cdot a^{3}b + 6 \cdot a^2 b^2 - 4ab^3 + 1 \cdot (-b)^{4}\\ &amp; = &amp; a^4 - 4 a^{3}b + 6 a^2 b^2 - 4ab^3 + b^{4}\\ \end{array}\]</span></p>
+<hr />
+<p>Notice that with binomials with one positive term and one negative term the signs are alternating in the sum. This is seen in examples two and three.</p>
+<p>The featured image is from <a href="http://exchangedownloads.smarttech.com/public/content/2b/2b616ad0-d9ab-496d-b82b-a2c2dc5dc381/previews/medium/0001.png" class="uri">http://exchangedownloads.smarttech.com/public/content/2b/2b616ad0-d9ab-496d-b82b-a2c2dc5dc381/previews/medium/0001.png</a>.</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

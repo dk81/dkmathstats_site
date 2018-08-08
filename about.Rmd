@@ -4,4 +4,4 @@ title: "About Me"
 
 - __Name:__ David
 - __Ocupation:__ "Student"
-- __Interests:__ Learning software development instead of studying for exams.
+- __Interests:__ R Programming, Python programming

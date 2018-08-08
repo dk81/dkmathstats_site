@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="projects.html">R Programming Projects</a>
+</li>
+<li>
+  <a href="python_projects.html">Python Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<p> </p>
+<div id="understanding-logarithmic-functions" class="section level1">
+<h1><u>Understanding Logarithmic Functions</u></h1>
+<p> </p>
+<p>This article will be about logarithmic functions. This particular concept is typically taught in pre-calculus/calculus courses. I also made a post about logarithms here.</p>
+<p> </p>
+<div id="a-short-review-of-exponential-functions" class="section level3">
+<h3><u>A Short Review of Exponential Functions</u></h3>
+<p> </p>
+<p>An exponential function is a function of the form:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle a^{x}\]</span></p>
+<p> </p>
+<p>where <span class="math inline">\(a\)</span> is a non-zero number and <span class="math inline">\(x\)</span> is a variable.</p>
+<p>When we are given <span class="math inline">\(2^4\)</span> we know that it is <span class="math inline">\(2 \cdot 2 \cdot 2 \cdot 2 = 16\)</span>. But what if we have to find the exponent <span class="math inline">\(a\)</span> such that <span class="math inline">\(5^a = 26\)</span>? We know that <span class="math inline">\(5^2 =25\)</span> and <span class="math inline">\(5^3 = 125\)</span> but we do not know for sure (without a calculator). It is not ideal to guess and test values as it is better to be precise. This is where logarithms come in.</p>
+<p> </p>
+</div>
+<div id="the-logarithmic-function" class="section level3">
+<h3><u>The Logarithmic Function</u></h3>
+<p> </p>
+<p>The logarithmic function is the inverse function of the exponential function and is of the form:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \log_a (x)\]</span></p>
+<p> </p>
+<p>where the base <span class="math inline">\(a\)</span> is a non-zero number and <span class="math inline">\(x\)</span> is a variable.</p>
+<p>Given the base of the exponential, a known answer and an unknown exponent, the logarithm helps us find the unknown exponent.</p>
+<p>The picture below illustrates how the exponential and the logarithmic functions are inverse functions of each other. They are both mirror images of each other where the middle is the y = x line.</p>
+<p>Source: <a href="http://portal.tpu.ru/SHARED/k/KONVAL/Sites/English_sites/Site3_M/img/log-exp1.png" class="uri">http://portal.tpu.ru/SHARED/k/KONVAL/Sites/English_sites/Site3_M/img/log-exp1.png</a></p>
+<p> </p>
+</div>
+<div id="a-memory-aid" class="section level3">
+<h3><u>A Memory Aid</u></h3>
+<p> </p>
+<p>In a more easy to understand manner the relation between exponential functions and logarithmic functions is like this:</p>
+<p> </p>
+<p>[Exponential Function] <span class="math inline">\(base^{exponent} = answer\)</span></p>
+<p>[Logarithmic Function] <span class="math inline">\(\log_{base}(answer) = exponent\)</span></p>
+<p> </p>
+<p>A more simpler memory aid would be to use the first letter:</p>
+<p> </p>
+<p>[Exponential Function] <span class="math inline">\(b^{e} = a\)</span></p>
+<p>[Logarithmic Function] <span class="math inline">\(\log_{b}(a) = e\)</span></p>
+<p> </p>
+<p>You could use a memory aid such bea and bae or ebea and lbae to help you. Note that this e is not Euler’s constant of <span class="math inline">\(e \approx 2.71828\)</span>. One could use the letter p for power instead of e for exponent.</p>
+<p> </p>
+</div>
+<div id="domain-and-range-of-logarithmic-functions" class="section level3">
+<h3><u>Domain and Range of Logarithmic Functions</u></h3>
+<p> </p>
+<p>Recall that with the exponential function has a domain of <span class="math inline">\(x \in (-\infty, +\infty)\)</span> and a range of <span class="math inline">\(\text{e}^{x} \in (0, +\infty)\)</span>. That is, <span class="math inline">\(x\)</span> can take on any real number and <span class="math inline">\(\text{e}^{x}\)</span> is non-negative or at least zero.</p>
+<p>Since the logarithmic function is the inverse of the exponential function, the domain and range would be reversed for the logarithmic function. That is, the domain of the logarithmic function is <span class="math inline">\(x \in (0, +\infty)\)</span> (all positive numbers for <span class="math inline">\(x\)</span>) and <span class="math inline">\(\text{log}(x) \in (- \infty, +\infty)\)</span></p>
+<p> </p>
+</div>
+<div id="properties-of-logarithmic-functions" class="section level3">
+<h3><u>Properties of Logarithmic Functions</u></h3>
+<p> </p>
+<p>Here are some properties of the logarithm function:</p>
+<p><span class="math display">\[\displaystyle \log_{a}(x \cdot y) = \log_{a}(x) + \log_{a}(y)\]</span></p>
+<p><span class="math display">\[\displaystyle \log_{a}(x / y) = \log_{a}(x) - \log_{a}(y)\]</span></p>
+<p><span class="math display">\[\displaystyle \log_{a}(x^{b}) = b \cdot \log_{a}(x)\]</span></p>
+<p><span class="math display">\[\displaystyle \log_{a}(1) = 0\]</span></p>
+<p><span class="math display">\[\displaystyle \log_{a}(a) = 1\]</span></p>
+<p><span class="math display">\[\displaystyle \lim_{x \rightarrow +\infty} \log_{a}(x) = +\infty\]</span></p>
+<p><span class="math display">\[\displaystyle \lim_{x \rightarrow 0^{+}} \log_{a}(x) = -\infty\]</span></p>
+<p> </p>
+</div>
+<div id="the-change-of-base-formula" class="section level3">
+<h3><u>The Change of Base Formula</u></h3>
+<p> </p>
+<p>The common bases for logarithms are base e, base 10 (and base 2 for some areas of mathematics). What if we want to evaluate logs for non-common bases? The change of base formula comes in handy. It allows us to evaluate logarithms with non-common bases using logarithms with known bases. Logarithms with known bases are calculator-friendly.</p>
+<p><span class="math display">\[\displaystyle \log_{b}(x) = \dfrac{\log_{c}(x)}{\log_{c}(b)}\]</span></p>
+<p>Alternatively, one could use natural logarithms or ln(x) in the change of base formula.</p>
+<p><span class="math display">\[\displaystyle \log_{b}(x) = \dfrac{\text{ln}(x)}{\text{ln}(b)}\]</span></p>
+<p> </p>
+</div>
+<div id="examples" class="section level3">
+<h3><u>Examples</u></h3>
+<p> </p>
+<p>To put the theory into practice, here are some examples.</p>
+<p><strong>Example One</strong></p>
+<p>If <span class="math inline">\(100 = 10^{x}\)</span>, what is <span class="math inline">\(x\)</span>?</p>
+<p>Taking the logarithms (of base 10) of both sides of the equation and solving for <span class="math inline">\(x\)</span> gives us:</p>
+<p><span class="math display">\[\displaystyle \begin{array} {lcl} 100 &amp; = &amp; 10^{x} \\ \log_{10}(100) &amp; = &amp; \log_{10}(10^{x})\\ 2 &amp; = &amp; x \cdot \log_{10}(10)\\ 2 &amp; = &amp; x \cdot 1\\ x &amp; = &amp; 2 \\ \end{array} \]</span></p>
+<hr />
+<p><strong>Example Two</strong></p>
+<p>If <span class="math inline">\(8 = e^{2x}\)</span>, what is <span class="math inline">\(x\)</span>?</p>
+<p>Here we take logarithms of base e of both sides of the equation.</p>
+<p><span class="math display">\[\displaystyle \begin{array} {lcl} 8 &amp; = &amp; e^{2x} \\ \text{ln}(8) &amp; = &amp; \text{ln}(e^{2x})\\ \text{ln}(8) &amp; = &amp; 2x \cdot \text{ln}(e)\\ 2.0794 &amp; \approx &amp; 2x \cdot 1\\ \dfrac{2.0794}{2} &amp; \approx &amp; x\\ x &amp; \approx &amp; 1.0397 \\ \end{array} \\ \]</span></p>
+<hr />
+<p><strong>Example Three</strong></p>
+<p>Evaluate <span class="math inline">\(\text{log}_{5}(e^3)\)</span> using the change of base formula.</p>
+<p>Answer:</p>
+<p><span class="math display">\[\displaystyle \begin{array} {lcl} \log_{5}(e^3) &amp; = &amp; \dfrac{\text{ln}(e^3)}{\text{ln}(5)} \\ \log_{5}(e^3) &amp; = &amp; \dfrac{3}{\text{ln}(5)} \\ \log_{5}(e^3) &amp; \approx &amp; \dfrac{3}{1.6094} \\ \log_{5}(e^3) &amp; \approx &amp; 1.8640 \\ \end{array} \\ \]</span></p>
+<hr />
+<p><strong>Example Four</strong></p>
+<p>Evaluate the binary logarithm <span class="math inline">\(\log_{2}(25)\)</span>.</p>
+<p>Answer:</p>
+<p><span class="math display">\[\displaystyle \begin{array} {lcl} \log_{2}(25) &amp; = &amp; \dfrac{\text{ln}(25)}{\text{ln}(2)} \\ \log_{2}(25) &amp; \approx &amp; \dfrac{3.2189}{0.6931} \\ \log_{2}(25) &amp; \approx &amp; 4.6442\\\end{array} \\ \]</span></p>
+<hr />
+<p>Reference: <a href="http://www.purplemath.com/modules/logrules5.htm" class="uri">http://www.purplemath.com/modules/logrules5.htm</a></p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

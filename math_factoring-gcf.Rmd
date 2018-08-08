@@ -1,0 +1,160 @@
+---
+title = "Factoring Equations Using Greatest Common Factors"
+---
+
+&nbsp;
+
+# <u>Factoring Equations Using Greatest Common Factors</u>
+
+&nbsp;
+
+Hi. This page will be about factoring using greatest common factors. This page assumes the reader knows about greatest common factors (GCF). Knowledge of exponent laws help too.
+
+&nbsp;
+
+### <u>Table Of Contents</u>
+
+&nbsp;
+
+* <a href="#gcf">Factoring Equations Using Greatest Common Factors</a>
+* <a href="#examples">Examples</a>
+* <a href="#practice">Practice Problems</a>
+* <a href="#answers">Answers</a>
+
+&nbsp;
+
+<a name="gcf"></a>
+
+### <u>Factoring Equations Using Greatest Common Factors</u>
+
+&nbsp;
+
+Factoring using greatest common factors (GCFs) helps us simplify equations. To get an idea of factoring, it is important to revisit the distributive law.
+
+The distributive law allows us to multiply through brackets. Something like $6(x + 3)$ turns into $6x + 18$. Factoring does the opposite of the distributive law. From $6x + 18$, the greatest common factor is 6. Each term is multiplied by one in the form of $\dfrac{6}{6}$. The 6 is taken out as a common factor which yields the result of $6(x + 3)$ which is the original. The factoring steps would be like this.
+
+$$6x + 18 = (\dfrac{6}{6}) 6x + (\dfrac{6}{6}) 18 = 6(\dfrac{6x}{6} + \dfrac{18}{6}) = 6(x + 3)$$
+
+&nbsp;
+
+<a name="examples"></a>
+
+
+### <u>Examples</u>
+
+&nbsp;
+
+Here are a few examples.
+
+&nbsp;
+
+**Example One**
+
+We are given $y = x^2 + x$. Here, $a = 1$, $b = 1$ and $c = 0$ in $y = ax^2 + bx + c$. The greatest common factor between $x^2$ and $x$ is simply $x$. We multiply by one by using the fraction $\dfrac{x}{x}$ when we factor. Here are the steps.
+
+&nbsp;
+
+$$y = x^2 + x = (\dfrac{x}{x}) x^2 + (\dfrac{x}{x}) x = x \dfrac{x^2}{x} + \dfrac{x}{x} x = x(x + 1)$$
+
+&nbsp;
+
+In summary, we determined that the GCF is $x$. Then, we multiplied by one using the fraction $\dfrac{x}{x}$ to $x^2 + x$. The fraction $\dfrac{x}{x}$ was later separated into $x \cdot \dfrac{1}{x}$. The distributive law is then applied with the $\dfrac{1}{x}$ to $(x^2 + x)$.
+
+&nbsp;
+
+**Example Two**
+
+Suppose we have the quadratic equation $2x^2 + 10x + 8$. We notice that each term is a multiple of 2. This 2 is a factor and we multiply top and bottom of each term by $\dfrac{2}{2} = 1$.
+
+&nbsp;
+
+$$2x^2 + 10x + 8 = (\dfrac{2}{2}) 2x^2 + (\dfrac{2}{2}) 10x + (\dfrac{2}{2}) 1 = (\dfrac{2}{2}) 2x^2$$
+
+$$2x^2 + 10x + 8 = 2 \dfrac{2x^2}{2} + 2 \dfrac{10x}{2} + 2 \dfrac{1}{2} $$
+
+$$2x^2 + 10x + 8 = 2 (x^2 + 5x + 4) $$
+
+&nbsp;
+
+The result gives us something in the form of $y = a(x^2 + \dfrac{b}{a}x + \dfrac{c}{a})$. Another technique would be needed for further factoring (if possible).
+
+&nbsp;
+
+**Example Three**
+
+After much practice with factoring, it is not necessary to list every step.
+
+Given $y = 5x^2 + 10x$, you could quickly identify that the GCF is between the two terms is $5x$. The factored form is $y = 5x(x + 2)$.
+
+&nbsp;
+
+
+**Example Four (Negative Exponents)**
+
+This example features factoring for negative exponents.
+
+When we factored before we were mostly dealing with positive whole numbered exponents. Whatever was factored had an exponent that was equal or lower than the highest power from all terms. (i.e. $x^2 + x = x(x + 1)$ where the x is factored out and $x < x^2$).
+
+Suppose we have $y = x^{-1} + x^{-2} + x^{-3} = \dfrac{1}{x} + \dfrac{1}{x^2} + \dfrac{1}{x^3}$. We factor out $x^{-3}$ to obtain the factored form as follows:
+
+&nbsp;
+
+$$y = x^{-1} + x^{-2} + x^{-3} = x^{-3}(x^{-1 - (-3)} + x^{-2 - (-3)} + x^{-3 - (-3)}) = x^{-3}(x^{2} + x + 1)$$
+
+&nbsp;
+
+<a name="practice"></a>
+
+### <u>Practice Problems</u>
+
+&nbsp;
+
+Here are several practice problems. Factoring does apply to more than terms and powers greater than 2. Questions 4, 5, 6 and 7 may be beyond the typical grade 10 level (in Ontario, Canada) but they are good practice questions.
+
+&nbsp;
+
+1) Factor $y = 3x^2 + 9x + 12$.
+
+2) Factor $y = 2x^2 + 8x + 6$.
+
+3) Factor $y = x^3 - 2x^2 + 7x$.
+
+4) Using factoring simplify $\dfrac{x^2 + 5x}{-3x}$.
+
+5) Using factoring simplify $\sqrt{x^4 + x^2}$. Note that $\sqrt{x} = x^{1/2}$.
+
+6) Factor $y = x^{-1} + x^{2} + x^{-3}$.
+
+&nbsp;
+
+<a name="answers"></a>
+
+### Answers
+
+&nbsp;
+
+1) The GCF here is 3. We factor $y = 3x^2 + 9x + 12$ into $y = 3(x^2 + 3x + 4)$.
+
+2) $y = 2x^2 + 8x + 6 = 2(x^2 + 4x + 3)$
+
+3) The greatest common factor here is $x$. Factoring $y = x^3 - 2x^2 + 7x$ gives us $y = x(x^2 -2x + 7)$.
+
+4) One could divide the terms on the top by ($-3x$) but that is not the factoring method. In the numerator, the GCF is $x$. The steps would be as follows:
+
+&nbsp;
+
+$$\dfrac{x^2 + 5x}{-3x} = \dfrac{x(x + 5)}{-3x} = \dfrac{-(x + 5)}{3}$$
+
+&nbsp;
+
+5) Inside the square root $x^2$ would be the GCF. We then can use property of square roots/exponents. The steps are shown below:
+
+&nbsp;
+
+$$ \sqrt{x^4 + x^2} = \sqrt{x^2(x^2 + 1)} = \sqrt{x^2}\sqrt{(x^2 + 1)} = x\sqrt{(x^2 + 1)}$$
+
+&nbsp;
+
+6) Note that the common factor has the term with the most negative exponent. In this case, $x^{-3}$ is factored out.
+
+$$y = x^{-1} + x^{2} + x^{-3} = x^{-3}(x^2 + x^5 + 1)$$

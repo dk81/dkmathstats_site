@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="projects.html">R Programming Projects</a>
+</li>
+<li>
+  <a href="python_projects.html">Python Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<p> </p>
+<div id="the-power-rule-for-calculus-derivatives" class="section level1">
+<h1><u>The Power Rule For Calculus Derivatives</u></h1>
+<p> </p>
+<p>A big part of calculus involves rates of change. Rates of changes involves the ratio of the differences in one variable when there is a change in another variable.</p>
+<p>Calculus derivatives focus on the instantaneous rate of change at a point on the function’s domain. Given a step size or a small increment of <span class="math inline">\(h\)</span>, as <span class="math inline">\(h\)</span> approaches zero, the derivative at a point is obtained. This gives the limit definition of the derivative at a point <span class="math inline">\(a\)</span> (in the function <span class="math inline">\(f(x)\)</span>).</p>
+<p> </p>
+<hr />
+<p> </p>
+<p><strong>Limit Definition</strong></p>
+<p> </p>
+<p><span class="math display">\[f&#39;(a) = \displaystyle{\lim_{h \to 0}}\dfrac{f(a + h) - f(a)}{h}\]</span></p>
+<p> </p>
+<div id="examples" class="section level3">
+<h3><u>Examples</u></h3>
+<p> </p>
+<p><span class="math inline">\(\textbf{Example One}\)</span></p>
+<p>With the limit definition of the derivative, find the derivative of <span class="math inline">\(g(x) = 3x\)</span> at the point <span class="math inline">\(x = 2\)</span>.</p>
+<p><span class="math display">\[g&#39;(2)   =  \displaystyle{\lim_{h \to 0}} \dfrac{g(2 + h) - g(2)}{h}\]</span> <span class="math display">\[g&#39;(2)   =  \displaystyle{\lim_{h \to 0}} \dfrac{3(2 + h) - 3(2)}{h}\]</span></p>
+<p><span class="math display">\[g&#39;(2)   =  \displaystyle{\lim_{h \to 0}} \dfrac{6 + 3h - 6}{h}\]</span> <span class="math display">\[g&#39;(2)   =  \displaystyle{\lim_{h \to 0}} \dfrac{3h}{h}\]</span></p>
+<p><span class="math display">\[g&#39;(2)   =  \displaystyle{\lim_{h \to 0}} 3\]</span></p>
+<p><span class="math display">\[g&#39;(2)   =  3\]</span></p>
+<p>The derivative of <span class="math inline">\(g(x) = 3x\)</span> at <span class="math inline">\(x = 2\)</span> is simply 3. This three represents the slope at the point <span class="math inline">\(x = 2\)</span>. Furthermore, this slope of three represents the slope for all x-values in <span class="math inline">\(g(x)\)</span>.</p>
+<p> </p>
+<p><span class="math inline">\(\textbf{Example Two}\)</span></p>
+<p> </p>
+<p>With the limit definition of the derivative, find the derivative of <span class="math inline">\(f(x) = -2x^2\)</span> for any value of <span class="math inline">\(x\)</span>.</p>
+<p> </p>
+<p><span class="math display">\[f&#39;(x) = \displaystyle{\lim_{h \to 0}} \dfrac{f(x + h) - f(x)}{h}\]</span></p>
+<p><span class="math display">\[f&#39;(x) = \displaystyle{\lim_{h \to 0}} \dfrac{-2(x + h)^2 - -2x^2}{h}\]</span></p>
+<p><span class="math display">\[f&#39;(x) = \displaystyle{\lim_{h \to 0}} \dfrac{-2(x^2 + 2hx + h^2) +2x^2}{h}\]</span></p>
+<p><span class="math display">\[f&#39;(x) = \displaystyle{\lim_{h \to 0}} \dfrac{-2x^2 - 4hx - 2h^2 + 2x^2}{h}\]</span></p>
+<p><span class="math display">\[f&#39;(x) = \displaystyle{\lim_{h \to 0}} \dfrac{-4hx - 2h^2}{h}\]</span></p>
+<p><span class="math display">\[f&#39;(x) = \displaystyle{\lim_{h \to 0}} \dfrac{-2h(2x - h)}{h}\]</span></p>
+<p><span class="math display">\[f&#39;(x) = \displaystyle{\lim_{h \to 0}} -2(2x - h)\]</span></p>
+<p><span class="math display">\[f&#39;(x) = \displaystyle{\lim_{h \to 0}} (-4x) + \lim_{h \to 0} 2h\]</span></p>
+<p><span class="math display">\[f&#39;(x) = -4x + 0\]</span></p>
+<p> </p>
+<p>The derivative of <span class="math inline">\(f(x) = -2x^2\)</span> is <span class="math inline">\(f&#39;(x) = -4x\)</span>. In this second example, there is more algebra involved. The main goal is to use algebra and factoring to eliminate the h on the bottom. Once the h on the bottom of the fraction is removed, you can apply the limit as h approaches zero.</p>
+<p>Source: <a href="https://www.flexiprep.com/NCERT-Exercise-Solutions/Mathematics/Class-11/posts/Ch-13-Limits-And-Derivatives-Exercise-13-2-Solutions-Part-6/Definition-of-derivative.png" class="uri">https://www.flexiprep.com/NCERT-Exercise-Solutions/Mathematics/Class-11/posts/Ch-13-Limits-And-Derivatives-Exercise-13-2-Solutions-Part-6/Definition-of-derivative.png</a></p>
+<p> </p>
+</div>
+<div id="power-rule" class="section level2">
+<h2><u>Power Rule</u></h2>
+<p> </p>
+<p>The limit definition of the derivative helps in understanding where the derivative comes from but it is not the fastest. A more efficient way and common way of obtaining derivatives is through the power rule for polynomials.</p>
+<p>Consider the polynomial function <span class="math inline">\(f(x)\)</span> where:</p>
+<p><span class="math display">\[f(x) = a_{n}x^{n} + a_{n - 1}x^{n - 1} + ... + a_{3}x^3 + a_{2}x^2 + a_{1}x + a_{0}\]</span></p>
+<p>where <span class="math inline">\(a_{n}\)</span> to <span class="math inline">\(a_{0}\)</span> are numeric constant coefficients.</p>
+<p>The derivative <span class="math inline">\(f&#39;(x)\)</span> of the above polynomial function would be:</p>
+<p><span class="math display">\[f&#39;(x) = a_{n}n x^{n - 1} + a_{n - 1} (n - 1) x^{n - 2} + ... + 3 a_{3}x^2 + 2 a_{2}x^1 + a_{1}\]</span></p>
+<p>Notice that the <span class="math inline">\(a_{0}\)</span> intercept term goes away. In addition, the terms are multiplied by the exponent and the exponent decreases by one. The examples below will give a better idea on how this all works.</p>
+<p> </p>
+</div>
+<div id="addition-subtraction-rules-for-derivatives" class="section level2">
+<h2><u>Addition, Subtraction Rules For Derivatives</u></h2>
+<p> </p>
+<p>For calculus derivatives, they can operate with addition and subtraction signs. Here are some basic rules.</p>
+<p> </p>
+<ol style="list-style-type: decimal">
+<li><p>If <span class="math inline">\(h(x) = f(x) + g(x)\)</span> then <span class="math inline">\(h&#39;(x) = f&#39;(x) + g&#39;(x)\)</span>.</p></li>
+<li><p>If <span class="math inline">\(h(x) = f(x) - g(x)\)</span> then <span class="math inline">\(h&#39;(x) = f&#39;(x) - g&#39;(x)\)</span>.</p></li>
+<li><p>If <span class="math inline">\(g(x) = f_1(x) + f_2(x) + f_3(x) + \dots + f_n(x)\)</span> then <span class="math inline">\(g&#39;(x) = f&#39;_1(x) + f&#39;_2(x) + f&#39;_3(x) + \dots + f&#39;_n(x)\)</span>. This also holds true for the subtraction case.</p></li>
+</ol>
+<p> </p>
+</div>
+<div id="derivatives-examples" class="section level2">
+<h2><u>Derivatives Examples</u></h2>
+<p> </p>
+<p>Here are some examples of finding derivatives of functions. Note that <span class="math inline">\(f&#39;(x)\)</span> refers to the same derivative as <span class="math inline">\(\dfrac{d}{dx} f(x)\)</span>.</p>
+<p> </p>
+<p><span class="math inline">\(\textbf{Example One}\)</span></p>
+<p>Find the derivative of the function <span class="math inline">\(f(x) = 2x\)</span>.</p>
+<p><span class="math display">\[\begin{array}{lcl} f&#39;(x) &amp; = &amp; \dfrac{d}{dx} 2x^1 \\ &amp; = &amp; 2 \dfrac{d}{dx} x^1 \\ &amp; = &amp;
+2 \times 1 \times x^{1 - 1} \\ &amp; = &amp; 2 \times 1 \times 1 \\ &amp; = &amp; 2
+\end{array}\]</span></p>
+<p> </p>
+<p><span class="math inline">\(\textbf{Example Two}\)</span></p>
+<p> </p>
+<p>Given <span class="math inline">\(f(x) = 3x^3\)</span> what is <span class="math inline">\(f&#39;(x)\)</span>?</p>
+<p><span class="math display">\[\begin{array}{lcl} f&#39;(x) &amp; = &amp; \dfrac{d}{dx} 3x^3 \\ &amp; = &amp; 3 \dfrac{d}{dx} x^3 \\ &amp; = &amp;
+3 \times 3x^2 \\ &amp; = &amp; 9x^2
+\end{array}\]</span></p>
+<p> </p>
+<p><span class="math inline">\(\textbf{Example Three}\)</span></p>
+<p> </p>
+<p>What is the derivative of <span class="math inline">\(f(x) = x^{\pi}\)</span>?</p>
+<p><span class="math display">\[ f&#39;(x) = \pi x^{\pi - 1} \]</span></p>
+<p>Remember that <span class="math inline">\(\pi \approx 3.14\)</span> is a number.</p>
+<p> </p>
+<p><span class="math inline">\(\textbf{Example Four}\)</span></p>
+<p> </p>
+<p>What is the derivative of <span class="math inline">\(g(x) = x(x^2 - 4x + 2)\)</span>?</p>
+<p>This particular example looks scary but it is actually not too bad. The distributive law is applied first and derivatives can be taken separately.</p>
+<p>Rewrite <span class="math inline">\(g(x)\)</span> as:</p>
+<p><span class="math display">\[g(x) = x(x^2 - 4x + 2) = x^3 - 4x^2 + 2x\]</span></p>
+<p>Then you can take the derivatives of each term.</p>
+<p><span class="math display">\[g&#39;(x) = \dfrac{d}{dx}(x^3 - 4x^2 + 2x)\]</span></p>
+<p><span class="math display">\[g&#39;(x) = \dfrac{d}{dx} x^3 - \dfrac{d}{dx} 4x^2 + \dfrac{d}{dx} 2x\]</span></p>
+<p><span class="math display">\[g&#39;(x) = 3x^2 - 8x + 2\]</span></p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,141 @@
+---
+title = "The FOIL Method For Multiplying Two Binomials"
+---
+
+&nbsp;
+
+# <u>The FOIL Method For Multiplying Two Binomials</u>
+
+&nbsp;
+
+Hi there. This is a short page on multiplying binomials using the FOIL method. This algebra method is taught in high school mathematics (in Ontario, Canada). Note that the math curriculum may be different now versus before.
+
+One may want to refer to my previous post on the [distributive Law](./math_distributive-law.html) as a refresher.
+
+&nbsp;
+
+<center><img src="http://www.coolmath.com/sites/cmat/files/images/05-Radicals-02.gif" /></center>
+<center><a href="http://www.coolmath.com/sites/cmat/files/images/05-Radicals-02.gif">Image Source</a></center>
+
+&nbsp;
+
+The featured FOIL image is from http://www.coolmath.com/sites/cmat/files/images/05-Radicals-02.gif.
+
+&nbsp;
+
+## Table of Contents
+
+
+&nbsp;
+
+* <a href="#what">What Is A Binomial?</a>
+* <a href="#expanding">Expanding Two Binomials and the FOIL Method</a>
+* <a href="#examples">Examples</a>
+
+&nbsp;
+
+<a name="what"></a>
+
+### What Is A Binomial?
+
+
+A binomial is an expression which has two terms such as $\displaystyle x + 3$.
+
+It is known that 5 multiplied by 10 gives 50. We can express it like this:
+
+&nbsp;
+
+$$50 = 5 \times 10 = (2 + 3) \times (6 + 4)$$
+
+&nbsp;
+
+We just decomposed the 5 into 2 and 3 and the 10 into 6 and 4. We multiplied the 2 with the 6 and then the 4. The second 3 in the first binomial is then multiplied to then 6 and then the 4. The numbers are added to get the 50.
+
+You might be wondering why would I want to decompose numbers and expand them to get the answer the long way? Well, when it comes to mathematics, you do not get numbers all the time. You will see below.
+
+&nbsp;
+
+<a name="expanding"></a>
+
+### Expanding Two Binomials and the FOIL Method
+
+
+&nbsp;
+
+Now we have the general case or the theory:
+
+Given real numbers $a$, $b$, $c$ and $d$, the general formula for multiplying two binomials is as follows:
+
+(1.1) $$ \displaystyle (a + b) \times (c + d) = ac + ad + bc + bd $$
+
+We start with the $a$ in the first binomial and have it multiplied by $c$ and then by $d$. The term $b$ as the second term in the first binomial is multiplied by $c$ and then by $d$.
+
+If the above statement makes no sense, then the FOIL acronym/mnemonic/memory aid can help here. It is as follows:
+
+&nbsp;
+
+$$\displaystyle \text{F: First }$$
+$$\displaystyle \text{O: Outer }$$
+$$\displaystyle \text{I: Inner }$$
+$$\displaystyle \text{L: Last }$$
+
+&nbsp;
+
+From (1.1) the first terms are $a$ and $c$ so we get $ac$ as the first term.
+The outer terms are $a$ and $d$ so we get $ad$ as the second term.
+The inner terms are $b$ and $c$ so we get $bc$ as the third term.
+The outer terms are $b$ and $d$ so we get $bd$ as the last term.
+
+Remember that the FOIL method is for multiplying two binomials. If we have three or more binomials, the FOIL method does not work and we would have to expand many terms.
+
+&nbsp;
+
+<a name="examples"></a>
+
+### Examples
+
+
+Here are some examples which we apply the FOIL method for multiplying two binomials.
+
+**Example One: $(x + 3)(x + 4)$**
+
+&nbsp;
+
+$$(x + 3)(x + 4) = x^{2} + 4x + 3x +12$$
+
+$$(x + 3)(x + 4)  = x^{2} + 7x +12$$
+
+
+&nbsp;
+
+---
+
+**Example Two: $(x + 2)(y + 8)$**
+
+&nbsp;
+
+$$(x + 2)(y + 8)  =  xy + 8x + 2y + 16$$
+
+&nbsp;
+
+---
+
+**Example Three: $(x + 5)^{2}$**
+
+&nbsp;
+
+Note that $(x + 5)^{2} \neq x^{2} + 25$ because...
+
+&nbsp;
+
+$$\displaystyle (x + 5)^{2} = (x + 5)(x + 5) = x^{2} + 5x + 5x + 25 =  x^{2} + 10x + 25$$
+
+&nbsp;
+
+---
+
+**Example Four: $(x^{2} + 5)(x + 1)$**
+
+&nbsp;
+
+$$(x^{2} + 5)(x + 1) =  x^{3} + x^{2} + 5x + 5 \\ $$

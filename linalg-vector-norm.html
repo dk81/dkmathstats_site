@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="projects.html">R Programming Projects</a>
+</li>
+<li>
+  <a href="python_projects.html">Python Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<p> </p>
+<div id="the-norm-of-a-vector" class="section level1">
+<h1><u>The Norm Of A Vector</u></h1>
+<p> </p>
+<p>This post will be about the norm of a vector. It is assumed that the reader knows about vectors where a vector in <span class="math inline">\(\mathbb{R}^{n}\)</span> is of the form <span class="math inline">\(\textbf{v} = (v_1, v_2, \dots, v_{n})\)</span>.</p>
+<p> </p>
+<div id="definition-of-a-norm" class="section level3">
+<h3><u>Definition Of A Norm</u></h3>
+<p> </p>
+<p>The norm of a vector <span class="math inline">\(\textbf{v} = (v_1, v_2, \dots, v_{n})\)</span> in <span class="math inline">\(\mathbb{R}^{n}\)</span> is defined as:</p>
+<p><span class="math display">\[ \displaystyle ||\textbf{v}|| = \sqrt{v_1^2 + v_2^2 + v_3^2 + \dots + v_{n}^2}\]</span></p>
+<p> </p>
+<p>Sometimes the norm of a vector <span class="math inline">\(\textbf{v}\)</span> is referred as the length of <span class="math inline">\(\textbf{v}\)</span> or the magnitude of <span class="math inline">\(\textbf{v}.\)</span></p>
+<p>In three dimensions, a vector in <span class="math inline">\(\mathbb{R}^{3}\)</span> is <span class="math inline">\(\textbf{v} = (v_1, v_2, v_{3})\)</span> with the norm as:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle ||\textbf{v}|| = \sqrt{v_1^2 + v_2^2 + v_3^2}\]</span></p>
+<p> </p>
+<p>In two dimensions, we have a vector <span class="math inline">\(\textbf{v} = (v_1, v_2)\)</span> in <span class="math inline">\(\mathbb{R}^{2}\)</span>. Its norm is:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle ||\textbf{v}|| = \sqrt{v_1^2 + v_2^2}\]</span>  </p>
+<p>In one dimension, we have a the vector <span class="math inline">\(\textbf{v}\)</span> is just <span class="math inline">\(v\)</span> on the real line <span class="math inline">\(\mathbb{R}\)</span>. The absolute value is a special case of the norm and it is expressed as:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle ||\textbf{v}|| = \sqrt{v^{2}} = |v|\]</span>  </p>
+<p>Note that we square the number to ensure a positive number and then take the square root. Doing this is the same as taking the absolute value.</p>
+<p>The norm is no longer a vector as it is a scalar/number (with no direction).</p>
+<p> </p>
+</div>
+<div id="some-properties-of-the-norm" class="section level3">
+<h3><u>Some Properties Of The Norm</u></h3>
+<p> </p>
+<p>Here are some properties of a vector <span class="math inline">\(\textbf{v}\)</span> in <span class="math inline">\(\mathbb{R}^{n}\)</span> with a scalar (real number) <span class="math inline">\(k\)</span>.</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle || \textbf{v}|| \geq 0\]</span></p>
+<p><span class="math display">\[\displaystyle ||\textbf{v}|| = 0 \text{ if and only if (iff)} ||\textbf{v}|| = \textbf{0}\]</span></p>
+<p><span class="math display">\[\displaystyle ||k \cdot \textbf{v}|| = |k| \cdot ||\textbf{v}||\]</span></p>
+<p> </p>
+</div>
+<div id="unit-vectors" class="section level3">
+<h3><u>Unit Vectors</u></h3>
+<p>A vector of a norm of 1 is a unit vector. Unit vectors are of use when length is not relevant. The unit vector <span class="math inline">\(\textbf{u}\)</span> is defined as:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \textbf{u} = \dfrac{1}{|| \textbf{v}||} \cdot \textbf{v}\]</span></p>
+<p> </p>
+<p>where v is a non-zero vector in <span class="math inline">\(\mathbb{R}^{n}\)</span>.</p>
+<p>When we obtain a unit vector u from v, it is called normalizing v.</p>
+<p> </p>
+<p><strong>Example One</strong></p>
+<p>Normalize the vector <span class="math inline">\(\textbf{v} = (-3, 4)\)</span>.</p>
+<p>Answer:</p>
+<p>The norm of <span class="math inline">\(\textbf{v} = (-3, 4)\)</span> is:</p>
+<p><span class="math display">\[\displaystyle \begin{array} {lcl} || \textbf{v}|| &amp; = &amp; \sqrt{ (3)^2 + (-4)^2} \\ &amp; = &amp; \sqrt{9 + 16} \\ &amp; = &amp; \sqrt{25} \\ &amp; = &amp; 5 \\ \end{array} \\ \]</span></p>
+<p>The unit vector u with the same direction as v will be:</p>
+<p><span class="math display">\[\displaystyle \textbf{u} = \dfrac{1}{5} \cdot (-3, 4) = (-\dfrac{3}{5}, \dfrac{4}{5})\]</span></p>
+<hr />
+<p><strong>Example Two</strong></p>
+<p> </p>
+<p>Given the vector <span class="math inline">\(\textbf{v} = (1, 5, -2)\)</span>. Find the unit vector u such that it has the same direction as v.</p>
+<p>Answer:</p>
+<p>The norm of <span class="math inline">\(\textbf{v} = (1, 5, -2)\)</span> is:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \begin{array} {lcl} || \textbf{v}|| &amp; = &amp; \sqrt{ (1)^2 + (5)^2 + (-2)^2} \\ &amp; = &amp; \sqrt{1 + 25 + 4} \\ &amp; = &amp; \sqrt{30} \\ \end{array} \]</span></p>
+<p> </p>
+<p>Our unit vector u will be:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \textbf{u} = \dfrac{1}{\sqrt{30}} \cdot (1, 5, -2) = (\dfrac{1}{\sqrt{30}}, \dfrac{5}{\sqrt{30}}, \dfrac{-2}{\sqrt{30}})\]</span></p>
+<p> </p>
+</div>
+<div id="standard-unit-vectors" class="section level3">
+<h3><u>Standard Unit Vectors</u></h3>
+<p>You may encounter standard unit vectors (of norm 1) in the form of:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \textbf{i} = (1, 0) \text{ and } \textbf{j} = (0, 1)\]</span></p>
+<p> </p>
+<p>in <span class="math inline">\(\mathbb{R}^{2}\)</span>. For <span class="math inline">\(\mathbb{R}^{3}\)</span>, you may see:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \textbf{i} = (1, 0, 0) \text{ , } \textbf{j} = (0, 1, 0) \text{ and } \textbf{j} = (0, 0, 1)\]</span>.</p>
+<p> </p>
+<p>For example, we can express the vector (2, 1) as <span class="math inline">\(2 \cdot \textbf{i} + \textbf{j}\)</span>. Likewise, the vector (-3, -1, 5) can be expressed as <span class="math inline">\(-3 \cdot \textbf{i} - \textbf{j} + 5 \cdot \textbf{k}\)</span>.</p>
+<p>In the general case in <span class="math inline">\(\mathbb{R}^{n}\)</span>, the standard unit vectors would be:</p>
+<p> </p>
+<p><span class="math display">\[ \displaystyle \textbf{e}_1 = (1, 0, 0, \dots , 0) \]</span></p>
+<p><span class="math display">\[ \displaystyle \textbf{e}_2 = (0, 1, 0, \dots , 0) \]</span></p>
+<p><span class="math display">\[ \displaystyle \textbf{e}_3 = (0, 0, 1, \dots , 0) \]</span></p>
+<p><span class="math display">\[ \displaystyle \vdots\]</span></p>
+<p><span class="math display">\[\displaystyle \textbf{e}_n = (0, 0, 0, \dots , n) \]</span></p>
+<p> </p>
+<p>and any vector <span class="math inline">\(\textbf{v} = (v_1, v_2, \dots, v_{n})\)</span> can be expressed as a linear combination as follows:</p>
+<p><span class="math display">\[\displaystyle \textbf{v} = v_1 \cdot \textbf{e}_1 + v_2 \cdot \textbf{e}_2 + \dots + v_{n} \cdot \textbf{e}_n \]</span></p>
+<p> </p>
+</div>
+<div id="distance-between-two-vectors" class="section level3">
+<h3><u>Distance Between Two Vectors</u></h3>
+<p> </p>
+<p>Recall that the distance between points <span class="math inline">\(P_1(x_1, y_1)\)</span> and <span class="math inline">\(P_2(x_2, y_2)\)</span> in 2-space is:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle d(\textbf{a}, \textbf{b}) = ||\overrightarrow{P_1 P_2}|| = \sqrt{ (x_2 - x_1)^2 + (y_2 - y_1)^2}\]</span></p>
+<p> </p>
+<p>In a three-dimensional setting, the distance between points <span class="math inline">\(P_1(x_1, y_1, z_1)\)</span> and <span class="math inline">\(P_2(x_2, y_2, z_2)\)</span> is:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle d(\textbf{a}, \textbf{b}) = ||\overrightarrow{P_1 P_2}|| = \sqrt{ (x_2 - x_1)^2 + (y_2 - y_1)^2 + (z_2 - z_1)^2}\]</span></p>
+<p> </p>
+<p>We can now extend this to n-th dimensional space <span class="math inline">\(\mathbb{R}^{n}\)</span>.</p>
+<p>In <span class="math inline">\(\mathbb{R}^{n}\)</span>, the distance between vectors <span class="math inline">\(\textbf{a} = (a_1, a_2, a_3, \dots, a_n)\)</span> and <span class="math inline">\(\textbf{b} = (b_1, b_2, b_3, \dots, b_n)\)</span> is</p>
+<p><span class="math display">\[\displaystyle d(\textbf{a}, \textbf{b}) = ||\textbf{a} - \textbf{b}|| = \sqrt{ (a_1 - b_1)^2 + (a_2 - b_2)^2 + (a_3 - b_3)^2 + \dots + (a_n - b_n)^2\]</span></p>
+<p> </p>
+<hr />
+<p><strong>Example</strong></p>
+<p>Calculate the distance between the vectors <span class="math inline">\(\textbf{v} = (10, 5, -2, -1)\)</span> and <span class="math inline">\(\textbf{w} = (-1, 0, 2, 1)\)</span> in <span class="math inline">\(\mathbb{R}^{4}\)</span>.</p>
+<p>Answer:</p>
+<p>We apply the distance formula.</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \begin{array} {lcl} d(\textbf{v}, \textbf{w}) &amp; = &amp; \sqrt{ (v_1 - w_1)^2 + (v_2 - w_2)^2 + (v_3 - w_3)^2 + (v_4 - w_4)^2} \\ &amp; = &amp; \sqrt{ (10 - (-1))^2 + (5 - 0)^2 + (-2 - 2)^2 + (-1 - 1)^2} \\ &amp; = &amp; \sqrt{ (11)^2 + (5)^2 + (-4)^2 + (-2)^2} \\ &amp; = &amp; \sqrt{ 121 + 25 + 16 + 4} \\ &amp; = &amp; \sqrt{166} \\ &amp; \approx &amp; 12.8841 \text{ units} \\ \end{array} \]</span>  </p>
+<p>Reference: Elementary Linear Algebra (10th Editon) by Howard Anton</p>
+<p>The image is taken from <a href="https://www.mathsisfun.com/algebra/images/vector-mag-dir.gif" class="uri">https://www.mathsisfun.com/algebra/images/vector-mag-dir.gif</a></p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,123 @@
+---
+title = "calculus-product-quotient-rule"
+---
+
+&nbsp;
+
+# <u>Understanding Product Rule and Quotient Rule</u>
+
+&nbsp;
+
+Here is a quick lesson covering the Product Rule, and the Quotient Rule in Calculus.
+
+&nbsp;
+
+**Prerequisite**
+
+&nbsp;
+
+This lesson assumes that the student knows what a calculus derivative is and is familiar with derivatives of functions such as $x^2 $, $\sin(x)$ and so on.
+
+---
+
+### <u>Product Rule</u>
+
+The product rule is used when you want to take the derivative of one function $f(x)$ multiplied by another (different) $g(x)$ function. We have:
+
+&nbsp;
+
+$$h(x) = f(x) g(x)$$
+
+&nbsp;
+
+The derivative of $h(x)$ is $h'(x)$ and the form is as follows:
+
+&nbsp;
+
+$$h'(x) = f'(x) g(x) + f(x) g'(x)$$
+&nbsp;
+
+Think of the derivative $h'(x)$ in (1.2) as:
+
+&nbsp;
+
+$$ \text{(derivative of the first times the second function)} + 
+\text{(first function times the derivative of the second function)}$$
+
+&nbsp;
+
+---
+
+**<u>Example of Product Rule</u>**
+
+&nbsp;
+
+Suppose that $h(x) = x \cos(x)$ and $h(x)$ is in the form of $h(x) = f(x) g(x)$.
+
+Here we have $f(x) = x$ with $f'(x) = 1$ and $g(x) = \cos(x)$ with $g'(x) = - \sin(x)$.
+
+Substituting the components into the product rule formula in (1.2) would give $h'(x)$ as follows:
+
+&nbsp;
+
+$$h'(x) = \cos(x) - x \sin(x)$$
+
+&nbsp;
+
+---
+
+### <u>Quotient Rule</u>
+
+&nbsp;
+
+The quotient rule is similar to the product rule but it has more steps. It is used when you want to take the derivative of one function $f(x)$ divided by another (different) $g(x)$ function. We have:
+
+&nbsp;
+
+$$h(x) = \dfrac{f(x)}{g(x)}$$
+
+&nbsp;
+
+The derivative of h(x) is h'(x) and the form is as follows:
+
+&nbsp;
+
+$$h'(x) = \dfrac{f'(x) g(x) - f(x) g'(x)}{(g'(x))^2}$$
+
+&nbsp;
+
+This time, think of the derivative $h'(x)$ in (1.2) as:
+
+$$\dfrac{\text{(derivative of the first times the second function)} - \text{(first function times the derivative of the second function)}}{\text{second function squared}}$$
+&nbsp;
+
+---
+
+**<u>Example of Quotient Rule</u>**
+
+&nbsp;
+
+Suppose that $h(x) = \dfrac{\sin(x)}{x^{2}}$ and $h(x)$ is in the form of $h(x) = \dfrac{f(x)}{g(x)}$.
+
+Here we have $f(x) = \sin(x)$ with $f'(x) = \cos(x)$ and $g(x) = x^{2}$ with $g'(x) = 2x$ and $(g(x))^{2} = (x^{2})^{2}= x^{4}$.
+
+Substituting the components into the quotient rule formula in with some factoring and simplifying would yield:
+
+&nbsp;
+
+$$h'(x) = \dfrac{x \cos(x) - 2\sin(x)}{x^{3}} \text{ or } h'(x) = \dfrac{\cos(x)}{x^{2}} - \dfrac {2\sin(x)}{x^{3}}$$.
+
+&nbsp;
+
+### <u>An Easy Way To Remember Product and Quotient Rule</u>
+
+&nbsp;
+
+I personally use this memory trick often for both product rule and quotient rule. Instead of using the argument $x$ in $f(x)$, I use just $f$.
+
+Instead of $h'(x) = f'(x) g(x) + f(x) g'(x)$, an easier way is to use $h' = f' g + fg'$.
+
+For the quotient rule it would be: $h' = \dfrac{f'g - f g'}{(g')^2}$.
+
+Note that when using the shorthand notation, one should know what the independent variable is. In this case, it would be $x$.
+

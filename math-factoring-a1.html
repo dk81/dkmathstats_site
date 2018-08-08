@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="projects.html">R Programming Projects</a>
+</li>
+<li>
+  <a href="python_projects.html">Python Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<p> </p>
+<div id="factoring-quadratic-equations-a-1-case" class="section level1">
+<h1><u>Factoring Quadratic Equations (a = 1 Case)</u></h1>
+<p> </p>
+<p>Hi. This page will be about factoring quadratic equations when a = 1 in <span class="math inline">\(y = ax^2 + bx + c\)</span>.</p>
+<p> </p>
+<div id="table-of-contents" class="section level3">
+<h3><u>Table Of Contents</u></h3>
+<p> </p>
+<ul>
+<li><a href="#intro">Introduction</a></li>
+<li><a href="#factoring">The Factoring Method</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#practice">Practice Problems</a></li>
+<li><a href="#answers">Answers</a></li>
+</ul>
+<p> </p>
+<p><a name="intro"></a></p>
+</div>
+<div id="introduction" class="section level3">
+<h3><u>Introduction</u></h3>
+<p> </p>
+<p>Another factoring method for quadratic equations will be shown here. We deal with the case of <span class="math inline">\(a = 1\)</span> in <span class="math inline">\(y = ax^2 + bx + c\)</span>. If <span class="math inline">\(a \neq 1\)</span> then another method may be needed. (Also if <span class="math inline">\(a = 0\)</span> then we no longer have a quadratic equation.)</p>
+<p>It is assumed that the reader is familiar with common factoring.</p>
+<p> </p>
+<p><a name="factoring"></a></p>
+</div>
+<div id="the-factoring-method" class="section level3">
+<h3><u>The Factoring Method</u></h3>
+<p> </p>
+<p>To illustrate the method, an example will be used.</p>
+<p>Suppose that we are given <span class="math inline">\(y = x^2 + 5x + 4\)</span>. We need two numbers <span class="math inline">\(j\)</span> and <span class="math inline">\(k\)</span> which are factors of 4 and satisfy <span class="math inline">\(j \times k\)</span> = 4 and <span class="math inline">\(j + k = 5\)</span>. The two numbers which fit that criteria are 1 and 4 (or 4 and 1) since <span class="math inline">\(1 \times 4 = 4\)</span> and <span class="math inline">\(4 + 1 = 5\)</span>.</p>
+<p> </p>
+<p>Using the numbers 1 and 4 we can factor <span class="math inline">\(y = x^2 + 5x + 4\)</span> into <span class="math inline">\(y = (x + 1)(x + 4)\)</span>. The equation <span class="math inline">\(y = (x + 1)(x + 4)\)</span> follows the factored form format of <span class="math inline">\(y = (x + j)(x + k)\)</span>.</p>
+<p> </p>
+<p>To check that <span class="math inline">\(y = (x + 1)(x + 4)\)</span> is indeed the factored form of <span class="math inline">\(y = x^2 + 5x + 4\)</span>, we use the FOIL method when multiplying binomials.</p>
+<p> </p>
+<p><span class="math display">\[y = (x + 1)(x + 4) = x^2 + 4x + x + 4 = x^2 + 5x + 4\]</span></p>
+<p> </p>
+<p>There are times when <span class="math inline">\(j = k\)</span>. As an example, the factored form of <span class="math inline">\(y = x^2 +2x + 1\)</span> is <span class="math inline">\(y = (x + 1)(x + 1) = (x + 1)^2\)</span>.</p>
+<p> </p>
+<p><strong>The General Method</strong></p>
+<p>Given a quadratic equation of the form <span class="math inline">\(y = ax^2 + bx + c\)</span>, we can factor it into the form <span class="math inline">\(y = (x + j)(x + k)\)</span>. To determine what <span class="math inline">\(j\)</span> and <span class="math inline">\(k\)</span>, we seek two numbers <span class="math inline">\(j\)</span> and <span class="math inline">\(k\)</span> such that <span class="math inline">\(jk = ac = 1c = c\)</span> (since <span class="math inline">\(a =1\)</span> here and <span class="math inline">\(j + k = b\)</span>).</p>
+<p>The examples below will illustrate how the general method works.</p>
+<p> </p>
+<p><a name="examples"></a></p>
+</div>
+<div id="examples" class="section level3">
+<h3>Examples</h3>
+<p> </p>
+<p><strong>Example One</strong></p>
+<p>Factor <span class="math inline">\(y = x^2 + 7x + 12\)</span>.</p>
+<p>Answer:</p>
+<p>Two factors of 12 which multiply to 12 are 1 and 12, 2 and 6, 3 and 4 (you can include the reverse ordered pairs too). Out of the pairs which multiply to 12, 3 and 4 sum to 7. The quadratic equation would be factored as <span class="math inline">\(y = (x + 3)(x + 4)\)</span>.</p>
+<p>Checking Our Answer:</p>
+<p> </p>
+<p><span class="math display">\[y = (x + 3)(x + 4) = x^2 + 4x + 3x + 12 = x^2 + 7x + 12\]</span></p>
+<p> </p>
+<hr />
+<p><strong>Example Two</strong></p>
+<p>Factor <span class="math inline">\(y = x^2 + 20x + 99\)</span>.</p>
+<p> </p>
+<p>Factors of 99 are 1 and 99, 3 and 33, 9 and 11. The two numbers which multiply together to get 99 and add together to get 20 are 9 and 11. The factored form of <span class="math inline">\(y = x^2 + 20x + 99\)</span> would be <span class="math inline">\(y = (x + 9)(x + 11)\)</span>.</p>
+<p>Checking Our Answer:</p>
+<p> </p>
+<p><span class="math display">\[y = (x + 9)(x + 11) = x^2 + 11x + 9x + 99 = x^2 + 20x + 99\]</span></p>
+<p> </p>
+<hr />
+<p><strong>Example Three</strong></p>
+<p>Factor <span class="math inline">\(y = -x^2 - 3x - 2\)</span> by factoring out <span class="math inline">\((-1)\)</span> as a common factor first.</p>
+<p>Answer:</p>
+<p> </p>
+<p><span class="math display">\[y = -x^2 - 3x - 2 = -1(x^2 + 3x + 2)\]</span></p>
+<p> </p>
+<p>From factoring out the (-1), we have a factorable quadratic in the brackets. The only factors of 2 are 1 and 2. We can factor <span class="math inline">\(y = -1(x^2 + 3x + 2)\)</span> into <span class="math inline">\(y = -(x + 2)(x + 1)\)</span>.</p>
+<p>Checking Our Answer:</p>
+<p> </p>
+<p><span class="math display">\[y = -(x + 2)(x + 1) = -(x^2 + x + 2x + 2) \]</span></p>
+<p><span class="math display">\[y = -(x^2 + 3x + 2) \]</span></p>
+<p><span class="math display">\[ y =  -x^2 -3x -2 \]</span></p>
+<p> </p>
+<hr />
+<p><strong>Example Four</strong></p>
+<p>Factor <span class="math inline">\(y = x^2 - x - 6\)</span>.</p>
+<p>Answer:</p>
+<p>In this equation we have <span class="math inline">\(a = 1\)</span>, <span class="math inline">\(b = -1\)</span> and <span class="math inline">\(c = -6\)</span> in <span class="math inline">\(y = ax^2 + bx + c\)</span>. Unlike examples one and two, we have to be careful with signs. I prefer to ignore the negative and look at the factors of <span class="math inline">\(c = 6\)</span>.</p>
+<p>Factors of 6 are 1 and 6, 2 and 3. Now, we consider the signs. One of the two numbers in the factor pair is negative. The pair 6 and 1 would not work as 6 - 1 = 5 and 1 - 6 = -5. With 2 and 3, we have 2 - 3 = -1 and 3 - 2 = 1. We go with 2 and -3.</p>
+<p>The factored form of <span class="math inline">\(y = x^2 - x - 6\)</span> is <span class="math inline">\(y = (x + 2)(x - 3)\)</span>.</p>
+<p>Checking Our Answer:</p>
+<p> </p>
+<p><span class="math display">\[y = (x + 2)(x - 3) = x^2 - 3x + 2x + (2)(-3) = x^2 - x - 6\]</span></p>
+<p><a name="practice"></a></p>
+<p> </p>
+</div>
+<div id="practice-problems" class="section level3">
+<h3><u>Practice Problems</u></h3>
+<p> </p>
+<p>Here are some practice problems to build understanding.</p>
+<ol style="list-style-type: decimal">
+<li><p>Factor <span class="math inline">\(y = x^2 + 4x + 4\)</span>.</p></li>
+<li><p>Factor <span class="math inline">\(y = x^2 + 5x + 6\)</span>.</p></li>
+<li><p>Factor <span class="math inline">\(y = x^2 + 25x + 100\)</span>.</p></li>
+<li><p>Factor <span class="math inline">\(y = x^2 - x - 12\)</span>.</p></li>
+<li><p>Factor <span class="math inline">\(y = x^2 - 9x + 20\)</span>.</p></li>
+<li><p>In <span class="math inline">\(y = -x^2 - 6x - 5\)</span>, factor a (-1) first and then factor using the method described in this page.</p></li>
+<li><p>Using common factoring first, factor <span class="math inline">\(y = 3x^2 + 15x + 18\)</span>.</p></li>
+</ol>
+<p> </p>
+<p><a name="answers"></a></p>
+</div>
+<div id="answers" class="section level3">
+<h3><u>Answers</u></h3>
+<p> </p>
+<ol style="list-style-type: decimal">
+<li><p><span class="math inline">\(y = x^2 + 4x + 4 = (x + 2)(x + 2) = (x + 2)^2\)</span></p></li>
+<li><p><span class="math inline">\(y = x^2 + 5x + 6 = (x + 3)(x + 2)\)</span></p></li>
+<li><p><span class="math inline">\(y = x^2 + 25x + 100 = (x + 20)(x + 5)\)</span></p></li>
+<li><p><span class="math inline">\(y = x^2 - x - 12 = (x - 4)(x + 3)\)</span></p></li>
+<li><p><span class="math inline">\(y = x^2 - 9x + 20 = (x - 5)(x - 4)\)</span></p></li>
+<li><p><span class="math inline">\(y = -x^2 - 6x - 5 = -1(x^2 + 6x + 5) = -(x + 5)(x + 1)\)</span></p></li>
+<li><p><span class="math inline">\(y = 3x^2 + 15x + 18 = 3(x^2 + 5x + 6) = 3(x + 3)(x + 2)\)</span></p></li>
+</ol>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

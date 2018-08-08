@@ -1,0 +1,207 @@
+---
+title = "The Quadratic Formula"
+---
+
+&nbsp;
+
+# The Quadratic Formula
+
+&nbsp;
+
+Hi. This page will be about the quadratic formula which is commonly taught in high school mathematics (in Canada).
+
+&nbsp;
+
+### Table Of Contents
+---
+
+&nbsp;
+
+* What Is The Quadratic Formula?
+
+* Deriving The Quadratic Formula
+
+* The Discriminant And Three Cases
+
+* Using The Quadratic Formula Through Examples
+
+&nbsp;
+
+### What Is The Quadratic Formula?
+---
+
+The quadratic formula is a useful formula for solving x-intercepts of quadratic equations in the form of
+
+&nbsp;
+
+$$ y = ax^2 + bx + c$$
+
+&nbsp;
+
+The quadratic formula (with $a \neq 0$) is:
+
+&nbsp;
+
+$$x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$
+
+&nbsp;
+
+It is preferable to use the quadratic formula when factoring techniques do not work.
+
+&nbsp;
+
+### Deriving The Quadratic Formula
+---
+
+For many (highschool) students, it is not expected to know how to come up with the quadratic formula. This proof is more of a reference to help you see where this formula comes from.
+
+We start with the quadratic form of $y = ax^2 + bx + c$. Factoring the first two terms by $a$ gives us:
+
+&nbsp;
+
+$$ y = a (x^2 + \dfrac{b}{a}x) + c $$
+
+&nbsp;
+
+The coefficient that is with $x$ is $\dfrac{b}{a}$. This $\dfrac{b}{a}$ is divided by 2 gives us $\dfrac{b}{2a}$. The square of $\dfrac{b}{2a}$ yields $(\dfrac{b}{2a})^2$ or $\dfrac{b^2}{4a^2}$. Adding and subtracting by $\dfrac{b^2}{4a^2}$ gives us:
+
+&nbsp;
+
+$$y = a (x^2 + \dfrac{b}{a}x + \dfrac{b^2}{4a^2} - \dfrac{b^2}{4a^2} ) + c$$
+
+&nbsp;
+
+We then factor the first three terms. That is, we factor $x^2 + \dfrac{b}{a}x + \dfrac{b^2}{4a^2}$ into $(x + \dfrac{b}{2a})^2$.
+
+&nbsp;
+
+$$y = a ((x + \dfrac{b}{2a})^2 - \dfrac{b^2}{4a^2}) + c \qquad \text{(Factoring the first three terms.)} $$
+
+&nbsp;
+
+The distributive law is applied such that $a$ is expanded to the first two terms.
+
+&nbsp;
+
+$$y = a(x + \dfrac{b}{2a})^2 - \dfrac{ab^2}{4a^2} + c \qquad \text{(Expand $a$ to the first two terms.)} $$
+
+&nbsp;
+
+Next, we simplify the $\dfrac{ab^2}{4a^2}$ term.
+
+&nbsp;
+
+$$y = a(x + \dfrac{b}{2a})^2 - \dfrac{b^2}{4a} + c $$
+
+&nbsp;
+
+Because we want to find x-intercepts, we set $y = 0$ and solve for $x$.
+
+&nbsp;
+
+$$ 0 = a(x + \dfrac{b}{2a})^2 - \dfrac{b^2}{4a} + c $$
+
+
+$$ a(x + \dfrac{b}{2a})^2 = \dfrac{b^2}{4a} - c \qquad \text{(Rearranging)}$$
+
+$$(x + \dfrac{b}{2a}) = \pm \sqrt{\dfrac{b^2}{4a^2} - \dfrac{c}{a}} \qquad \text{(Divide by $a$ and take the square root on both sides.)}$$
+
+$$x = -\dfrac{b}{2a} \pm \sqrt{\dfrac{b^2 - 4ac}{4a^2}} \qquad \text{(Rearrange and find common denominator.)}$$
+
+$$x = -\dfrac{b}{2a} \pm \dfrac{\sqrt{b^2 - 4ac}}{2a} \qquad \text{(Square root of top and bottom)}$$
+
+$$x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
+
+&nbsp;
+
+The final line is the quadratic formula or the $x$ value such that it makes $y = 0$ in $y = ax^2 + bx + c$.
+
+&nbsp;
+
+### The Discriminant And Three Cases
+---
+
+Notice how in the quadratic formula there is a square root part after the plus and minus sign ($\pm$). The part inside the square root ($b^2 - 4ac$) is called the discriminant.
+
+An important property of square roots is that square roots take on numbers which are at least 0 (non-negative). A negative number inside the square root is undefined (in the real numbers).
+
+We look at three cases for the discriminant and what each case means.
+
+If $(b^2 - 4ac) > 0$ then there would be 2 distinct solutions for $x$ (or x-intercepts) in the equation $ 0 = ax^2 + bx + c$.\
+
+If $(b^2 - 4ac) = 0$ then there would be one value for $x$ in the equation $0 = ax^2 + bx + c$.
+
+If $(b^2 - 4ac) < 0$, we would have a negative value inside the square root. The square root of a negative value is undefined. There would be no real-numbered values for $x$ in the equation $0 = ax^2 + bx + c$.
+
+&nbsp;
+
+### Using The Quadratic Formula Through Examples
+---
+
+The quadratic formula can be applied to any quadratic equation in the form $y = ax^2 + bx + c$. It does not really matter whether the quadratic form can be factored or not.
+
+&nbsp;
+
+**Example One**
+
+Given the quadratic equation $y = x^2 + x - 1$, what are the x-intercepts?
+
+From $y = x^2 + x - 1$, we have $a = 1$, $b = 1$ and $c = -1$. Using these values, the quadratic formula is as follows:
+
+&nbsp;
+
+$$x  =  \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$
+
+$$x  =  \dfrac{-1 \pm \sqrt{1^2 - 4(1)(-1)}}{2(1)}$$
+
+$$x  =  \dfrac{-1 \pm \sqrt{1 + 4}}{2}$$
+
+$$x  =  \dfrac{-1 \pm \sqrt{5}}{2}$$
+
+&nbsp;
+
+The x-intercepts (when $y = 0$) for $y = x^2 + x - 1$ are $x = \dfrac{-1 + \sqrt{5}}{2}$ (or $\approx$ 0.618034) and $x = \dfrac{-1 - \sqrt{5}}{2}$ (or $\approx$ -1.618034). You can choose to use exact values or using the decimal of the answers (with a calculator).
+
+&nbsp;
+
+**Example Two**
+
+Apply the quadratic formula to find x-intercepts for the equation $y = 2x^2 -3x - 1$.
+
+Here, we have $a = 2$, $b = -3$ and $c = -1$.
+
+&nbsp;
+
+$$ x & = & \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$
+
+$$x  =  \dfrac{-(-3) \pm \sqrt{(-3)^2 - 4(2)(-1)}}{2(2)}$$
+
+$$x  =  \dfrac{3 \pm \sqrt{9 + 8}}{4}$$
+
+$$x  =  \dfrac{3 \pm \sqrt{17}}{4}$$
+
+&nbsp;
+
+The x-intercepts are $x = \dfrac{3 + \sqrt{17}}{4}$ (or $\approx$ 1.780776) and $x = \dfrac{3 - \sqrt{17}}{4}$ (or $\approx$ -0.2807764).
+
+&nbsp;
+
+**Example Three**
+
+Show that the equation $y = x^2 -2x + 5$ has no x-intercepts.
+
+You can use the quadratic formula right away here. However, it is a bit easier and faster to check the discriminant $(b^2 - 4ac)$.
+
+&nbsp;
+
+$$b^2 - 4ac  =  (-2)^2 -4(1)(5)$$
+
+$$b^2 - 4ac  =  4 - 20 $$
+
+$$b^2 - 4ac  =  -16 $$
+
+$$b^2 - 4ac  <  0 $$
+
+&nbsp;
+
+Since the discriminant $(b^2 - 4ac)$ is negative, we have a negative inside the square root of the quadratic formula. The equation $y = x^2 -2x + 5$ has no x-intercepts.

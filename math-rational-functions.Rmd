@@ -1,0 +1,74 @@
+---
+title = "rational-functions"
+---
+
+&nbsp;
+
+# <u>An Introduction To Rational Functions</u>
+
+&nbsp;
+
+Hi. Here is an introduction to rational functions. This page will go as far as defining rational functions and will show examples of rational functions. It is assumed the reader is familiar with fractions, polynomials, domain and range.
+
+&nbsp;
+
+### <u>Table Of Contents</u>
+
+&nbsp;
+
+* What Is A Rational Function?
+
+* Examples Of Rational Functions
+
+* A Brief Introduction to The Domain and Range of Rational Functions
+
+&nbsp;
+
+### <u>What Is A Rational Function?</u>
+
+A rational function is a fraction $f(x)$ in the form of
+
+$$f(x) = \dfrac{P(x)}{Q(x)}$$
+
+where $P(x)$ and $Q(x)$ are different polynomials where $Q(x)$ cannot be 0 ($Q(x) \neq 0$).
+
+&nbsp;
+
+### <u>Examples Of Rational Functions</u>
+
+&nbsp;
+
+Rational functions can be tricky to grasp and understand to those who are first learning about this topic. Functions of this type can be simple or can be really complex filled with higher-order polynomials. Remember that rational functions are based on ratios where ratios is another way of saying fractions.
+
+1) $$\dfrac{1}{x}$$
+
+2) $$\dfrac{5}{x^2}$$
+
+3) $$\dfrac{x}{x^2 + 4}$$
+
+4) $$\dfrac{x^3}{x^2 + 1}$$
+
+5) $$\dfrac{x^2 -x - 2}{x^2 + 1}$$
+
+6) $$\dfrac{x^3 - x^2 - x + 1}{x^2 - 9}$$
+
+In a handful of cases, it is preferable to simplify the fraction and factor where possible. One example of a rational function in which it is simplified is $\dfrac{1}{(x - 1)(x+ 2)}$ which comes from $\dfrac{1}{x^2 + x - 2}$.
+
+&nbsp;
+
+### <u>A Brief Introduction to The Domain and Range of Rational Functions</u>
+
+&nbsp;
+
+A full explanation of the domain and range of rational functions is beyond the scope of this page. Here are a few basic ideas about the domain and range of rational functions.
+
+The domain of a rational function is all $x$-values such that the denominator $Q(x) \neq 0$.
+
+When it comes to the range of rational functions, there is no universal rule. The range of the rational functions varies as there are also restrictions on the values of $f(x) = \dfrac{P(x)}{Q(x)}$. To find such restrictions on the range, the concept of limits would be needed which is beyond the scope of this page.
+
+Here are a few visual examples of rational functions.
+
+<center><img src="http://image.mathcaptain.com/cms/images/88/vertical-asymptote1.jpg" /></center>
+<center><a href="http://image.mathcaptain.com/cms/images/88/vertical-asymptote1.jpg">Image Source</a></center>
+
+

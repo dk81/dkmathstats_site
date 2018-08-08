@@ -5,10 +5,14 @@ navbar:
   left:
     - text: "Home"
       href: index.html
+    - text: "About"
+      href: about.html
+    - text: "Math & Stats Pages"
+      href: mathstats_pages.html
     - text: "R Programming Projects"     
       href: projects.html
-    - text: "About Me"
-      href: about.html
+    - text: "Python Programming Projects"     
+      href: python_projects.html
 output:
   html_document:
     theme: flatly

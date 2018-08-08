@@ -1,0 +1,111 @@
+---
+title = "calculus-integration-byparts"
+---
+
+&nbsp;
+
+# <u>Integration By Parts</u>
+
+&nbsp;
+
+Here is a guide on Integration by Parts. It is a tricky Calculus topic at first but it gets easier with practice.
+Before continuing, one should be familiar with antiderivatives, the product rule and substitutions with integrals.
+
+Topics
+
+What is Integration by Parts?
+Integration by Parts: The Formula
+The LIATE Memory Aid for Integration by Parts
+Some Examples of Integration by Parts with LIATE
+
+What is Integration by Parts?
+
+Integration by Parts is an integration method for integrating functions like this:
+
+$\displaystyle \int x \cdot \text{e}^{x}\, dx$
+Here $x$ is a polynomial and $\text{e}^{x}$ is an exponential function. Another example is:
+
+$\displaystyle \int \sin(x) \cdot \text{ln}(x) \, dx$
+The natural question is how do I integrate these things!? We have to use a technique called Integration By Parts.
+
+
+Intergration by Parts: The Formula
+
+The formula for Integration by Parts is:
+
+(1) $\displaystyle \int u \, dv = u\, v - \int v \, du$
+
+One could ask what are $u$, $v$, $du$, and $dv$? We will look at the derivation of the formula.
+
+To start, the product rule gives us:
+
+$\displaystyle (f(x) \, g(x))' = f(x) \, g'(x) + f'(x) \, g(x)$
+
+Integrating both sides gives us:
+
+$\displaystyle \int (f(x) \, g(x))' dx = \int f(x) \, g'(x) dx + \int f'(x) \, g(x) dx$
+
+By the Fundamental Theorem of Calculus, the integral of a derivative is the function (integrand) itself. The left side is just $(f(x) \, g(x))$ as follows:
+
+$\displaystyle f(x) \, g(x) = \int f(x) \, g'(x) dx + \int f'(x) \, g(x) dx$
+
+The substitutions $u = f(x)$, $v = g(x)$ along with $du = f'(x) \, dx$ and $dv = g'(x) \, dx$ turn the above line into:
+
+(2) $\displaystyle u \, v = \int u \, dv + \int v \, du$
+
+Rearranging the terms in (2) would give the integration by parts formula as given in (1) above.
+
+
+The LIATE Memory Aid for Integration by Parts
+
+You now know what $u$, $v$, $du$, and $dv$ are. A natural question would be how do I know which function should be $u$ and $dv$ in the substitution for Integration by Parts? The LIATE principle can help determine what to pick for $u$ and $dv$. The acronym LIATE stands for:
+
+
+
+$\displaystyle \text{L: Logarithmic Functions}$
+$\displaystyle \text{I: Inverse Trigonometric Functions}$
+$\displaystyle \text{A: Algebraic (or Polynomial such as } x^2)$
+$\displaystyle \text{T: Trigonometric Functions}$
+$\displaystyle \text{E: Exponential (}e^x \text{ for example)}$
+Top choices for $u$ start from the letter L and go down and the top choices for $dv$ start from the letter E for exponential and go up.
+
+The rationale behind the LIATE principle is that logarithms have no known antiderivative so they are a common choice for the $u$ substitution and that the antiderivative of an exponential such as $e^x$ is an exponential.
+
+An alternate acronym is LIPTE where the only difference is that the A for algebraic turns into P for polynomial.
+
+
+Some Examples of Integration by Parts with LIATE
+
+Example One
+
+From before we had:
+
+$\displaystyle \int x \cdot \text{e}^{x} \text{ d}x$
+
+The algebraic function is $x$ and $\text{e}^{x}$ is the exponential function. Our choice for $u$ is $x$ (algebraic is higher than exponential) and $dv$ would be $\text{e}^{x} \, dx}$. We would then have $v = \text{e}^{x}$ and $du = 1 \cdot dx$.
+
+Substituting the components $u$, $du$, $v$, and $dv$ into the Integration By Parts formula $\displaystyle \int u \, dv = u\, v - \int v \, du$ gives us:
+
+
+Source: http://quicklatex.com/cache3/86/ql_72b65e5e9d6688cc2c58c1d6939f4c86_l3.png
+Example Two
+
+$\displaystyle \int \sin(x) \cdot \text{ln}(x) \text{ d}x$
+
+The logarithm $\text{ln}(x)$ would be the choice for $u$ and we would have $dv = \sin(x) \, dx$. The derivative of $\text{ln}(x)$ is $\dfrac{1}{x} \, dx$ and the integral of $\sin(x) \, dx$ is $\, -\cos(x)$.
+
+Example Three
+
+$$\displaystyle \int \arctan(x) \cdot x \text{ d}x$$
+
+We have an inverse trigonometry function such as $\arctan(x) = \tan^{-1}(x)$ and an algebraic/polynomial function such as $x$. The choice for $u$ is $\arctan(x)$ and we would have $dv = x \, dx$. The other components would be $du = \dfrac{1}{1 + x^2} \, dx$ and $v = \dfrac{x^2}{2}$.
+
+&nbsp;
+
+### <u>Notes</u>
+
+&nbsp;
+
+The examples above were simple cases. Do be aware that product rule, quotient rule, and chain rule may be needed for determining $du$ from $u$.
+
+Multiple integration by parts may be needed at times.

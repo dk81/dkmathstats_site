@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="projects.html">R Programming Projects</a>
+</li>
+<li>
+  <a href="python_projects.html">Python Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<p> </p>
+<div id="the-quadratic-formula" class="section level1">
+<h1>The Quadratic Formula</h1>
+<p> </p>
+<p>Hi. This page will be about the quadratic formula which is commonly taught in high school mathematics (in Canada).</p>
+<p> </p>
+<div id="table-of-contents" class="section level2">
+<h2>### Table Of Contents</h2>
+<p> </p>
+<ul>
+<li><p>What Is The Quadratic Formula?</p></li>
+<li><p>Deriving The Quadratic Formula</p></li>
+<li><p>The Discriminant And Three Cases</p></li>
+<li><p>Using The Quadratic Formula Through Examples</p></li>
+</ul>
+<p> </p>
+</div>
+<div id="what-is-the-quadratic-formula" class="section level2">
+<h2>### What Is The Quadratic Formula?</h2>
+<p>The quadratic formula is a useful formula for solving x-intercepts of quadratic equations in the form of</p>
+<p> </p>
+<p><span class="math display">\[ y = ax^2 + bx + c\]</span></p>
+<p> </p>
+<p>The quadratic formula (with <span class="math inline">\(a \neq 0\)</span>) is:</p>
+<p> </p>
+<p><span class="math display">\[x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a}\]</span></p>
+<p> </p>
+<p>It is preferable to use the quadratic formula when factoring techniques do not work.</p>
+<p> </p>
+</div>
+<div id="deriving-the-quadratic-formula" class="section level2">
+<h2>### Deriving The Quadratic Formula</h2>
+<p>For many (highschool) students, it is not expected to know how to come up with the quadratic formula. This proof is more of a reference to help you see where this formula comes from.</p>
+<p>We start with the quadratic form of <span class="math inline">\(y = ax^2 + bx + c\)</span>. Factoring the first two terms by <span class="math inline">\(a\)</span> gives us:</p>
+<p> </p>
+<p><span class="math display">\[ y = a (x^2 + \dfrac{b}{a}x) + c \]</span></p>
+<p> </p>
+<p>The coefficient that is with <span class="math inline">\(x\)</span> is <span class="math inline">\(\dfrac{b}{a}\)</span>. This <span class="math inline">\(\dfrac{b}{a}\)</span> is divided by 2 gives us <span class="math inline">\(\dfrac{b}{2a}\)</span>. The square of <span class="math inline">\(\dfrac{b}{2a}\)</span> yields <span class="math inline">\((\dfrac{b}{2a})^2\)</span> or <span class="math inline">\(\dfrac{b^2}{4a^2}\)</span>. Adding and subtracting by <span class="math inline">\(\dfrac{b^2}{4a^2}\)</span> gives us:</p>
+<p> </p>
+<p><span class="math display">\[y = a (x^2 + \dfrac{b}{a}x + \dfrac{b^2}{4a^2} - \dfrac{b^2}{4a^2} ) + c\]</span></p>
+<p> </p>
+<p>We then factor the first three terms. That is, we factor <span class="math inline">\(x^2 + \dfrac{b}{a}x + \dfrac{b^2}{4a^2}\)</span> into <span class="math inline">\((x + \dfrac{b}{2a})^2\)</span>.</p>
+<p> </p>
+<p><span class="math display">\[y = a ((x + \dfrac{b}{2a})^2 - \dfrac{b^2}{4a^2}) + c \qquad \text{(Factoring the first three terms.)} \]</span></p>
+<p> </p>
+<p>The distributive law is applied such that <span class="math inline">\(a\)</span> is expanded to the first two terms.</p>
+<p> </p>
+<p><span class="math display">\[y = a(x + \dfrac{b}{2a})^2 - \dfrac{ab^2}{4a^2} + c \qquad \text{(Expand $a$ to the first two terms.)} \]</span></p>
+<p> </p>
+<p>Next, we simplify the <span class="math inline">\(\dfrac{ab^2}{4a^2}\)</span> term.</p>
+<p> </p>
+<p><span class="math display">\[y = a(x + \dfrac{b}{2a})^2 - \dfrac{b^2}{4a} + c \]</span></p>
+<p> </p>
+<p>Because we want to find x-intercepts, we set <span class="math inline">\(y = 0\)</span> and solve for <span class="math inline">\(x\)</span>.</p>
+<p> </p>
+<p><span class="math display">\[ 0 = a(x + \dfrac{b}{2a})^2 - \dfrac{b^2}{4a} + c \]</span></p>
+<p><span class="math display">\[ a(x + \dfrac{b}{2a})^2 = \dfrac{b^2}{4a} - c \qquad \text{(Rearranging)}\]</span></p>
+<p><span class="math display">\[(x + \dfrac{b}{2a}) = \pm \sqrt{\dfrac{b^2}{4a^2} - \dfrac{c}{a}} \qquad \text{(Divide by $a$ and take the square root on both sides.)}\]</span></p>
+<p><span class="math display">\[x = -\dfrac{b}{2a} \pm \sqrt{\dfrac{b^2 - 4ac}{4a^2}} \qquad \text{(Rearrange and find common denominator.)}\]</span></p>
+<p><span class="math display">\[x = -\dfrac{b}{2a} \pm \dfrac{\sqrt{b^2 - 4ac}}{2a} \qquad \text{(Square root of top and bottom)}\]</span></p>
+<p><span class="math display">\[x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a} \]</span></p>
+<p> </p>
+<p>The final line is the quadratic formula or the <span class="math inline">\(x\)</span> value such that it makes <span class="math inline">\(y = 0\)</span> in <span class="math inline">\(y = ax^2 + bx + c\)</span>.</p>
+<p> </p>
+</div>
+<div id="the-discriminant-and-three-cases" class="section level2">
+<h2>### The Discriminant And Three Cases</h2>
+<p>Notice how in the quadratic formula there is a square root part after the plus and minus sign (<span class="math inline">\(\pm\)</span>). The part inside the square root (<span class="math inline">\(b^2 - 4ac\)</span>) is called the discriminant.</p>
+<p>An important property of square roots is that square roots take on numbers which are at least 0 (non-negative). A negative number inside the square root is undefined (in the real numbers).</p>
+<p>We look at three cases for the discriminant and what each case means.</p>
+<p>If <span class="math inline">\((b^2 - 4ac) &gt; 0\)</span> then there would be 2 distinct solutions for <span class="math inline">\(x\)</span> (or x-intercepts) in the equation $ 0 = ax^2 + bx + c$.<br />
+If <span class="math inline">\((b^2 - 4ac) = 0\)</span> then there would be one value for <span class="math inline">\(x\)</span> in the equation <span class="math inline">\(0 = ax^2 + bx + c\)</span>.</p>
+<p>If <span class="math inline">\((b^2 - 4ac) &lt; 0\)</span>, we would have a negative value inside the square root. The square root of a negative value is undefined. There would be no real-numbered values for <span class="math inline">\(x\)</span> in the equation <span class="math inline">\(0 = ax^2 + bx + c\)</span>.</p>
+<p> </p>
+</div>
+<div id="using-the-quadratic-formula-through-examples" class="section level2">
+<h2>### Using The Quadratic Formula Through Examples</h2>
+<p>The quadratic formula can be applied to any quadratic equation in the form <span class="math inline">\(y = ax^2 + bx + c\)</span>. It does not really matter whether the quadratic form can be factored or not.</p>
+<p> </p>
+<p><strong>Example One</strong></p>
+<p>Given the quadratic equation <span class="math inline">\(y = x^2 + x - 1\)</span>, what are the x-intercepts?</p>
+<p>From <span class="math inline">\(y = x^2 + x - 1\)</span>, we have <span class="math inline">\(a = 1\)</span>, <span class="math inline">\(b = 1\)</span> and <span class="math inline">\(c = -1\)</span>. Using these values, the quadratic formula is as follows:</p>
+<p> </p>
+<p><span class="math display">\[x  =  \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a}\]</span></p>
+<p><span class="math display">\[x  =  \dfrac{-1 \pm \sqrt{1^2 - 4(1)(-1)}}{2(1)}\]</span></p>
+<p><span class="math display">\[x  =  \dfrac{-1 \pm \sqrt{1 + 4}}{2}\]</span></p>
+<p><span class="math display">\[x  =  \dfrac{-1 \pm \sqrt{5}}{2}\]</span></p>
+<p> </p>
+<p>The x-intercepts (when <span class="math inline">\(y = 0\)</span>) for <span class="math inline">\(y = x^2 + x - 1\)</span> are <span class="math inline">\(x = \dfrac{-1 + \sqrt{5}}{2}\)</span> (or <span class="math inline">\(\approx\)</span> 0.618034) and <span class="math inline">\(x = \dfrac{-1 - \sqrt{5}}{2}\)</span> (or <span class="math inline">\(\approx\)</span> -1.618034). You can choose to use exact values or using the decimal of the answers (with a calculator).</p>
+<p> </p>
+<p><strong>Example Two</strong></p>
+<p>Apply the quadratic formula to find x-intercepts for the equation <span class="math inline">\(y = 2x^2 -3x - 1\)</span>.</p>
+<p>Here, we have <span class="math inline">\(a = 2\)</span>, <span class="math inline">\(b = -3\)</span> and <span class="math inline">\(c = -1\)</span>.</p>
+<p> </p>
+<p><span class="math display">\[ x &amp; = &amp; \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a}\]</span></p>
+<p><span class="math display">\[x  =  \dfrac{-(-3) \pm \sqrt{(-3)^2 - 4(2)(-1)}}{2(2)}\]</span></p>
+<p><span class="math display">\[x  =  \dfrac{3 \pm \sqrt{9 + 8}}{4}\]</span></p>
+<p><span class="math display">\[x  =  \dfrac{3 \pm \sqrt{17}}{4}\]</span></p>
+<p> </p>
+<p>The x-intercepts are <span class="math inline">\(x = \dfrac{3 + \sqrt{17}}{4}\)</span> (or <span class="math inline">\(\approx\)</span> 1.780776) and <span class="math inline">\(x = \dfrac{3 - \sqrt{17}}{4}\)</span> (or <span class="math inline">\(\approx\)</span> -0.2807764).</p>
+<p> </p>
+<p><strong>Example Three</strong></p>
+<p>Show that the equation <span class="math inline">\(y = x^2 -2x + 5\)</span> has no x-intercepts.</p>
+<p>You can use the quadratic formula right away here. However, it is a bit easier and faster to check the discriminant <span class="math inline">\((b^2 - 4ac)\)</span>.</p>
+<p> </p>
+<p><span class="math display">\[b^2 - 4ac  =  (-2)^2 -4(1)(5)\]</span></p>
+<p><span class="math display">\[b^2 - 4ac  =  4 - 20 \]</span></p>
+<p><span class="math display">\[b^2 - 4ac  =  -16 \]</span></p>
+<p><span class="math display">\[b^2 - 4ac  &lt;  0 \]</span></p>
+<p> </p>
+<p>Since the discriminant <span class="math inline">\((b^2 - 4ac)\)</span> is negative, we have a negative inside the square root of the quadratic formula. The equation <span class="math inline">\(y = x^2 -2x + 5\)</span> has no x-intercepts.</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

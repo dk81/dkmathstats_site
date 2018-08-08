@@ -1,0 +1,53 @@
+---
+title = "Midpoint Of A Line"
+---
+
+&nbsp;
+
+# <u>The Midpoint Of A Line</u>
+
+&nbsp;
+
+This page is on the midpoint of a line. This topic is typically found in (Canadian) high school mathematics.
+
+Suppose we are given a point $A$ with the co-ordinate ($x_1$, $y_1$) and a point $B$ with the co-ordinate ($x_2$, $y_2$). The line segment $AB$ connects the point $A$ to the point $B$.
+
+The midpoint $C$ as the co-ordinate ($x_m$, $y_m$) is the point on the $AB$ line which is in the middle of the line. In other words, the distance from the midpoint to $A$ is the same distance from the midpoint to $B$.
+
+To compute the midpoint $C$ for two points (in the xy-plane) is simply:
+
+&nbsp;
+
+$$(\dfrac{x_1 + x_2}{2}, \dfrac{y_1 + y_2}{2})$$
+
+&nbsp;
+
+In the midpoint formula, we add up the two x-values and divide by 2 and we add up the y-values and divide by 2.
+
+A picture image can be found online (not mine) such as this [image](https://images.tutorvista.com/cms/images/113/midpoint-formula.png).
+
+&nbsp;
+
+### Examples
+
+&nbsp;
+
+**Example One**
+
+Given the point $A$ as (-5, 2) and the point $B$ as (2, 3), the midpoint $C$ on the line $AB$ is:
+
+&nbsp;
+
+$$( \dfrac{-5 + 2}{2}, \dfrac{2 + 3}{2}) = ( \dfrac{-3}{2}, \dfrac{5}{2})$$
+
+&nbsp;
+
+**Example Two**
+
+Suppose that the point $A$ is (1, 4) and the point $B$ is (2, 2), the midpoint $C$ on the line $AB$ is:
+
+&nbsp;
+
+$$( \dfrac{1 + 2}{2}, \dfrac{4 + 2}{2}) = ( \dfrac{3}{2}, 3)$$
+
+&nbsp;

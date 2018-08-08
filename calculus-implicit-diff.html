@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="projects.html">R Programming Projects</a>
+</li>
+<li>
+  <a href="python_projects.html">Python Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<p> </p>
+<div id="implicit-differentiation" class="section level1">
+<h1><u>Implicit Differentiation</u></h1>
+<p> </p>
+<p>This page is about implicit differentiation in calculus. Implicit differentiation can be found in calculus books and in many introductory calculus courses (depending on the instructor, degree program/major). It is assumed that the reader has a good grasp on calculus derivatives.</p>
+<p> </p>
+<div id="topics" class="section level3">
+<h3><u>Topics</u></h3>
+<p> </p>
+<ul>
+<li>What Is Implicit Differentiation</li>
+<li>Implicit Differentiation: The Steps</li>
+<li>Examples</li>
+</ul>
+<p> </p>
+</div>
+<div id="what-is-implicit-differentiation" class="section level3">
+<h3><u>What Is Implicit Differentiation?</u></h3>
+<p> </p>
+<p>Implicit differentiation is a more general form of regular differentiation when we are not able to take derivatives in the <span class="math inline">\(y = \dots\)</span> format.</p>
+<p> </p>
+<p><u><strong>Explicit Form</strong></u></p>
+<p> </p>
+<p>A function is expressed in explicit form when it is expressed in a form such as:</p>
+<p><span class="math display">\[y = \dots \]</span></p>
+<p>or</p>
+<p><span class="math display">\[f(x) = \dots\]</span></p>
+<p>where the independent variable <span class="math inline">\(y\)</span> or <span class="math inline">\(f(x)\)</span> is isolated on its own.</p>
+<p>For those who start out in calculus, derivatives are taken form from functions in explicit form. Explicit function forms make it easy for us to compute derivatives. For example, we can find the derivative of <span class="math inline">\(y = x^2\)</span> with respect to the variable <span class="math inline">\(x\)</span>. The derivative would be <span class="math inline">\(y&#39; = 2x\)</span>.</p>
+<p> </p>
+<p><u><strong>Implicit Form</strong></u></p>
+<p> </p>
+<p>A function not in explicit form is in implicit form as the independent variable such as <span class="math inline">\(y\)</span> or <span class="math inline">\(f(x)\)</span> is not isolated on its own.</p>
+<p>For example, with <span class="math inline">\(\dfrac{y}{x} = 24\)</span>, we cannot find the derivative right away as we need to isolate for <span class="math inline">\(y\)</span>. Rearrangement yields <span class="math inline">\(y = 24x\)</span>. The derivative would then be <span class="math inline">\(y&#39; = 24\)</span>.</p>
+<p>The example given was a simple case but what if we are given something such as <span class="math inline">\(\cos(y) + y= 2x\)</span> and want to find the derivative of <span class="math inline">\(y\)</span> with respect to x? There is no explicit form so we need a new method of taking derivatives of implicit form equations.</p>
+<p>We can also think of <span class="math inline">\(y\)</span> as <span class="math inline">\(y(x)\)</span> as <span class="math inline">\(y\)</span> is a function of <span class="math inline">\(x\)</span>. In here, <span class="math inline">\(y\)</span> is the same as <span class="math inline">\(y(x)\)</span> and <span class="math inline">\(y&#39;\)</span> is the same as <span class="math inline">\(\dfrac{dy}{dx}\)</span>.</p>
+<p> </p>
+</div>
+<div id="implicit-differentiation-the-steps" class="section level3">
+<h3><u>Implicit Differentiation: The Steps</u></h3>
+<p> </p>
+<p>Given an equation in implicit form where the dependent variable such as <span class="math inline">\(y\)</span> or <span class="math inline">\(f(x)\)</span> cannot be isolated, we have the method for implicit differentiation.</p>
+<p> </p>
+<p>1a) Take derivatives of both sides of the equation with respect to the independent variable (which is usually <span class="math inline">\(x\)</span> or <span class="math inline">\(t\)</span>).</p>
+<p>1b) Remember that taking the derivative of a dependent variable such as <span class="math inline">\(y\)</span> of <span class="math inline">\(f(x)\)</span> will include a <span class="math inline">\(y&#39;\)</span> (or its corresponding derivative).</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Solve for the derivative (such as <span class="math inline">\(\dfrac{dy}{dx}\)</span>, <span class="math inline">\(y&#39;\)</span>). In other words, set the equation into explicit form.</li>
+</ol>
+<p> </p>
+</div>
+<div id="examples" class="section level3">
+<h3><u>Examples</u></h3>
+<p> </p>
+<p>To solidify the concepts, definitions and theory, we have some examples.</p>
+<p> </p>
+<p><strong>Example One</strong></p>
+<p> </p>
+<p>Suppose we are given the equation of a circle in the form of <span class="math inline">\(x^2 + y^2 = r^2\)</span>. (The radius <span class="math inline">\(r\)</span> is a real numbered constant.) Rearranging for <span class="math inline">\(y\)</span> can be done here but chain rule would be needed. Implicit differentiation would be easier in this case. We use implicit differentiation by taking the derivative with respect to x for all terms on both sides.</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \begin{array} {lcl} \dfrac{d}{dx} x^2 + \dfrac{d}{dx} y^2 &amp; = &amp; \dfrac{d}{dx} r^2 \\ 2x+ 2y \cdot y&#39; &amp; = &amp; 0 \\ 2y \cdot y&#39; &amp; = &amp; -2x \\ y&#39; &amp; = &amp; \dfrac{-2x}{2y} \\ y&#39; &amp; = &amp; \dfrac{-x}{y} \\ \end{array} \\ \]</span></p>
+<p> </p>
+<p>Remember that the derivative of a real numbered constant such as <span class="math inline">\(r\)</span> is zero.</p>
+<p> </p>
+<p><strong>Example Two</strong></p>
+<p> </p>
+<p>Find <span class="math inline">\(y&#39;\)</span> from the equation <span class="math inline">\(2^y + y^2 = 8\)</span>.</p>
+<p>Answer:</p>
+<p>This equation does not really allow us to isolate for <span class="math inline">\(y\)</span> and then take the derivative of <span class="math inline">\(y\)</span> to get <span class="math inline">\(y&#39;\)</span>. We use implicit differentiation.</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \begin{array} {lcl} \dfrac{d}{dx} 2^y + \dfrac{d}{dx} y^2 + \dfrac{d}{dx} x^4 &amp; = &amp; \dfrac{d}{dx} 8\\ \text{ln}(2) \cdot 2^y \cdot y&#39; + 2yy&#39; + 4x^3 &amp; = &amp; 0 \\ \text{ln}(2) \cdot 2^y \cdot y&#39; + 2yy&#39; &amp; = &amp; -4x^3 \\ y&#39; (\text{ln}(2) \cdot 2^y + 2y) &amp; = &amp; -4x^3\\ y&#39; &amp; = &amp; - \dfrac{4x^3}{(\text{ln}(2) \cdot 2^y + 2y) }\end{array} \]</span></p>
+<p> </p>
+<p> </p>
+<p><strong>Example Three</strong></p>
+<p> </p>
+<p>Given the equation <span class="math inline">\(\cos(y^2) + y^2 + x^3 = 64\)</span>, find <span class="math inline">\(y&#39;\)</span>.</p>
+<p>Implicit differentiation is used here.</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \begin{array} {lcl} \dfrac{d}{dx} \cos(y^2) +\dfrac{d}{dx} y^2 + \dfrac{d}{dx} x^3 &amp; = &amp;\dfrac{d}{dx } 64\\ - \sin(y^2) \cdot 2yy&#39; + 2yy&#39; + 3x^2 &amp; = &amp; 0 \\ - \sin(y^2) \cdot 2yy&#39; + 2yy&#39; &amp; = &amp; - 3x^2\\ 2yy&#39; (1 - \sin(y^2)) &amp; = &amp; -3x^2 \\ y&#39; &amp; = &amp; -\dfrac{3x^2}{2y (1 - \sin(y^2))} \\ \end{array} \\ \]</span></p>
+<p> </p>
+<p>Implicit differentiation is heavy with the algebra so attention to detail is crucial here. The derivative <span class="math inline">\(y&#39;\)</span> for example can contain the dependent variable (<span class="math inline">\(y\)</span>).</p>
+<p> </p>
+</div>
+<div id="references" class="section level3">
+<h3><u>References</u></h3>
+<p> </p>
+<p>James Stewart’s Calculus: Early Transcendentals (8th Edition)</p>
+<p>The featured image is from <a href="https://ecourses.ou.edu/ebook/math/ch02/sec025/media/ma02522.gif" class="uri">https://ecourses.ou.edu/ebook/math/ch02/sec025/media/ma02522.gif</a>.</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

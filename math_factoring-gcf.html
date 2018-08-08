@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="projects.html">R Programming Projects</a>
+</li>
+<li>
+  <a href="python_projects.html">Python Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<p> </p>
+<div id="factoring-equations-using-greatest-common-factors" class="section level1">
+<h1><u>Factoring Equations Using Greatest Common Factors</u></h1>
+<p> </p>
+<p>Hi. This page will be about factoring using greatest common factors. This page assumes the reader knows about greatest common factors (GCF). Knowledge of exponent laws help too.</p>
+<p> </p>
+<div id="table-of-contents" class="section level3">
+<h3><u>Table Of Contents</u></h3>
+<p> </p>
+<ul>
+<li><a href="#gcf">Factoring Equations Using Greatest Common Factors</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#practice">Practice Problems</a></li>
+<li><a href="#answers">Answers</a></li>
+</ul>
+<p> </p>
+<p><a name="gcf"></a></p>
+</div>
+<div id="factoring-equations-using-greatest-common-factors-1" class="section level3">
+<h3><u>Factoring Equations Using Greatest Common Factors</u></h3>
+<p> </p>
+<p>Factoring using greatest common factors (GCFs) helps us simplify equations. To get an idea of factoring, it is important to revisit the distributive law.</p>
+<p>The distributive law allows us to multiply through brackets. Something like <span class="math inline">\(6(x + 3)\)</span> turns into <span class="math inline">\(6x + 18\)</span>. Factoring does the opposite of the distributive law. From <span class="math inline">\(6x + 18\)</span>, the greatest common factor is 6. Each term is multiplied by one in the form of <span class="math inline">\(\dfrac{6}{6}\)</span>. The 6 is taken out as a common factor which yields the result of <span class="math inline">\(6(x + 3)\)</span> which is the original. The factoring steps would be like this.</p>
+<p><span class="math display">\[6x + 18 = (\dfrac{6}{6}) 6x + (\dfrac{6}{6}) 18 = 6(\dfrac{6x}{6} + \dfrac{18}{6}) = 6(x + 3)\]</span></p>
+<p> </p>
+<p><a name="examples"></a></p>
+</div>
+<div id="examples" class="section level3">
+<h3><u>Examples</u></h3>
+<p> </p>
+<p>Here are a few examples.</p>
+<p> </p>
+<p><strong>Example One</strong></p>
+<p>We are given <span class="math inline">\(y = x^2 + x\)</span>. Here, <span class="math inline">\(a = 1\)</span>, <span class="math inline">\(b = 1\)</span> and <span class="math inline">\(c = 0\)</span> in <span class="math inline">\(y = ax^2 + bx + c\)</span>. The greatest common factor between <span class="math inline">\(x^2\)</span> and <span class="math inline">\(x\)</span> is simply <span class="math inline">\(x\)</span>. We multiply by one by using the fraction <span class="math inline">\(\dfrac{x}{x}\)</span> when we factor. Here are the steps.</p>
+<p> </p>
+<p><span class="math display">\[y = x^2 + x = (\dfrac{x}{x}) x^2 + (\dfrac{x}{x}) x = x \dfrac{x^2}{x} + \dfrac{x}{x} x = x(x + 1)\]</span></p>
+<p> </p>
+<p>In summary, we determined that the GCF is <span class="math inline">\(x\)</span>. Then, we multiplied by one using the fraction <span class="math inline">\(\dfrac{x}{x}\)</span> to <span class="math inline">\(x^2 + x\)</span>. The fraction <span class="math inline">\(\dfrac{x}{x}\)</span> was later separated into <span class="math inline">\(x \cdot \dfrac{1}{x}\)</span>. The distributive law is then applied with the <span class="math inline">\(\dfrac{1}{x}\)</span> to <span class="math inline">\((x^2 + x)\)</span>.</p>
+<p> </p>
+<p><strong>Example Two</strong></p>
+<p>Suppose we have the quadratic equation <span class="math inline">\(2x^2 + 10x + 8\)</span>. We notice that each term is a multiple of 2. This 2 is a factor and we multiply top and bottom of each term by <span class="math inline">\(\dfrac{2}{2} = 1\)</span>.</p>
+<p> </p>
+<p><span class="math display">\[2x^2 + 10x + 8 = (\dfrac{2}{2}) 2x^2 + (\dfrac{2}{2}) 10x + (\dfrac{2}{2}) 1 = (\dfrac{2}{2}) 2x^2\]</span></p>
+<p><span class="math display">\[2x^2 + 10x + 8 = 2 \dfrac{2x^2}{2} + 2 \dfrac{10x}{2} + 2 \dfrac{1}{2} \]</span></p>
+<p><span class="math display">\[2x^2 + 10x + 8 = 2 (x^2 + 5x + 4) \]</span></p>
+<p> </p>
+<p>The result gives us something in the form of <span class="math inline">\(y = a(x^2 + \dfrac{b}{a}x + \dfrac{c}{a})\)</span>. Another technique would be needed for further factoring (if possible).</p>
+<p> </p>
+<p><strong>Example Three</strong></p>
+<p>After much practice with factoring, it is not necessary to list every step.</p>
+<p>Given <span class="math inline">\(y = 5x^2 + 10x\)</span>, you could quickly identify that the GCF is between the two terms is <span class="math inline">\(5x\)</span>. The factored form is <span class="math inline">\(y = 5x(x + 2)\)</span>.</p>
+<p> </p>
+<p><strong>Example Four (Negative Exponents)</strong></p>
+<p>This example features factoring for negative exponents.</p>
+<p>When we factored before we were mostly dealing with positive whole numbered exponents. Whatever was factored had an exponent that was equal or lower than the highest power from all terms. (i.e. <span class="math inline">\(x^2 + x = x(x + 1)\)</span> where the x is factored out and <span class="math inline">\(x &lt; x^2\)</span>).</p>
+<p>Suppose we have <span class="math inline">\(y = x^{-1} + x^{-2} + x^{-3} = \dfrac{1}{x} + \dfrac{1}{x^2} + \dfrac{1}{x^3}\)</span>. We factor out <span class="math inline">\(x^{-3}\)</span> to obtain the factored form as follows:</p>
+<p> </p>
+<p><span class="math display">\[y = x^{-1} + x^{-2} + x^{-3} = x^{-3}(x^{-1 - (-3)} + x^{-2 - (-3)} + x^{-3 - (-3)}) = x^{-3}(x^{2} + x + 1)\]</span></p>
+<p> </p>
+<p><a name="practice"></a></p>
+</div>
+<div id="practice-problems" class="section level3">
+<h3><u>Practice Problems</u></h3>
+<p> </p>
+<p>Here are several practice problems. Factoring does apply to more than terms and powers greater than 2. Questions 4, 5, 6 and 7 may be beyond the typical grade 10 level (in Ontario, Canada) but they are good practice questions.</p>
+<p> </p>
+<ol style="list-style-type: decimal">
+<li><p>Factor <span class="math inline">\(y = 3x^2 + 9x + 12\)</span>.</p></li>
+<li><p>Factor <span class="math inline">\(y = 2x^2 + 8x + 6\)</span>.</p></li>
+<li><p>Factor <span class="math inline">\(y = x^3 - 2x^2 + 7x\)</span>.</p></li>
+<li><p>Using factoring simplify <span class="math inline">\(\dfrac{x^2 + 5x}{-3x}\)</span>.</p></li>
+<li><p>Using factoring simplify <span class="math inline">\(\sqrt{x^4 + x^2}\)</span>. Note that <span class="math inline">\(\sqrt{x} = x^{1/2}\)</span>.</p></li>
+<li><p>Factor <span class="math inline">\(y = x^{-1} + x^{2} + x^{-3}\)</span>.</p></li>
+</ol>
+<p> </p>
+<p><a name="answers"></a></p>
+</div>
+<div id="answers" class="section level3">
+<h3>Answers</h3>
+<p> </p>
+<ol style="list-style-type: decimal">
+<li><p>The GCF here is 3. We factor <span class="math inline">\(y = 3x^2 + 9x + 12\)</span> into <span class="math inline">\(y = 3(x^2 + 3x + 4)\)</span>.</p></li>
+<li><p><span class="math inline">\(y = 2x^2 + 8x + 6 = 2(x^2 + 4x + 3)\)</span></p></li>
+<li><p>The greatest common factor here is <span class="math inline">\(x\)</span>. Factoring <span class="math inline">\(y = x^3 - 2x^2 + 7x\)</span> gives us <span class="math inline">\(y = x(x^2 -2x + 7)\)</span>.</p></li>
+<li><p>One could divide the terms on the top by (<span class="math inline">\(-3x\)</span>) but that is not the factoring method. In the numerator, the GCF is <span class="math inline">\(x\)</span>. The steps would be as follows:</p></li>
+</ol>
+<p> </p>
+<p><span class="math display">\[\dfrac{x^2 + 5x}{-3x} = \dfrac{x(x + 5)}{-3x} = \dfrac{-(x + 5)}{3}\]</span></p>
+<p> </p>
+<ol start="5" style="list-style-type: decimal">
+<li>Inside the square root <span class="math inline">\(x^2\)</span> would be the GCF. We then can use property of square roots/exponents. The steps are shown below:</li>
+</ol>
+<p> </p>
+<p><span class="math display">\[ \sqrt{x^4 + x^2} = \sqrt{x^2(x^2 + 1)} = \sqrt{x^2}\sqrt{(x^2 + 1)} = x\sqrt{(x^2 + 1)}\]</span></p>
+<p> </p>
+<ol start="6" style="list-style-type: decimal">
+<li>Note that the common factor has the term with the most negative exponent. In this case, <span class="math inline">\(x^{-3}\)</span> is factored out.</li>
+</ol>
+<p><span class="math display">\[y = x^{-1} + x^{2} + x^{-3} = x^{-3}(x^2 + x^5 + 1)\]</span></p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

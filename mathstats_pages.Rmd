@@ -1,0 +1,143 @@
+---
+title = "Math & Stats Pages"
+---
+
+&nbsp;
+
+# <u>Math, Probability and Statistics Pages</u>
+
+&nbsp;
+
+## Mathematics Topics
+
+&nbsp;
+
+### <u>Unsorted</u>
+
+&nbsp;
+
+[Order Of Operations / BEDMAS](./math_bedmas.html)
+
+[A Guide To Factorials](./math_factorials.html)
+
+[The Fibonacci Sequence](./math_fibonacci_seq.html)
+
+[Square Numbers](./math_square_numbers.html)
+
+
+&nbsp;
+
+### <u>Grade Nine</u>
+
+&nbsp;
+
+[Distributive Law](./math_distributive-law.html)
+
+[Slope Of A Line With Two Points](./math_slope-line.html)
+
+[Working With Exponents](./math_exponents.html)
+
+
+
+&nbsp;
+
+### <u>Grade Ten</u>
+
+&nbsp;
+
+[Completing The Square Guide](./math_complete-square.html)
+
+[Difference Of Squares Factoring Guide](./math_diff_squares.html)
+
+[The Distance Between Two Points](./math_distance-twoPoints.html)
+
+[The FOIL Method For Multiplying Two Binomials](./math_foil-method.html)
+
+[The Midpoint Of A Line](./math-midpoint-line.html)
+
+[Right Angle Triangles & SOH CAH TOA](./math-soh-cah-toa.html)
+
+[The Quadratic Formula](./math-quadratic-formula.html)
+
+[Factoring Equations Using Greatest Common Factors](./math-factoring-gcf.html)
+
+[Factoring Quadratic Equations (a = 1 Case)](./math-factoring-a1.html)
+
+[Factoring Quadratic Equations Using The Decomposition Method](./math-factoring-decomp.html)
+
+&nbsp;
+
+### <u>Grade Eleven</u>
+
+&nbsp;
+
+[Function Notation](./math-function-notation.html)
+
+[An Introduction To Rational Functions](./math-rational-functions.html)
+
+&nbsp;
+
+### <u>Grade Twelve</u>
+
+&nbsp;
+
+[Understanding Logarithmic Functions](./math-log-functions.html)
+
+[Absolute Values: An Introduction](./math-absolute-values.html)
+
+[The Binomial Formula](./math-binomial-formula.html)
+
+&nbsp;
+
+### <u>Calculus (Grade 12/First Year University Level)</u>
+
+&nbsp;
+
+[The Power Rule For Calculus Derivatives](./calculus-power-rule.html)
+
+[Derivatives Of Trigonometric Functions](./calculus-trig-derivs.html)
+
+[Derivatives Of Exponential Functions](./calculus-exp-derivs.html)
+
+[Derivatives Of Logarithmic Functions](./calculus-log-derivs.html)
+
+[Understanding Product Rule and Quotient Rule](./calculus-product-quotient-rule.html)
+
+[Chain Rule](./calculus-chain-rule.html)
+
+[Implicit Differentiation](./calculus-implicit-diff.html)
+
+&nbsp;
+
+### <u>Linear Algebra</u>
+
+&nbsp;
+
+[The Norm Of A Vector](./linalg-vector-norm.html)
+
+&nbsp;
+
+### <u>Set Theory</u>
+
+&nbsp;
+
+&nbsp;
+
+### <u>Financial Topics</u>
+
+&nbsp;
+
+
+---
+
+## Probability Topics
+
+
+
+
+
+
+---
+
+## Statistics Topics
+

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="projects.html">R Programming Projects</a>
+</li>
+<li>
+  <a href="python_projects.html">Python Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<p> </p>
+<div id="right-angle-triangles-soh-cah-toa" class="section level1">
+<h1><u>Right Angle Triangles &amp; SOH CAH TOA</u></h1>
+<p> </p>
+<p>This topic is about right angle triangles and the memory aid SOH CAH TOA. This topic is typically found in (Canadian) high school mathematics.</p>
+<div id="table-of-contents" class="section level3">
+<h3>Table Of Contents</h3>
+<p> </p>
+<ul>
+<li>Right Angle Triangles</li>
+<li>Finding Angles &amp; Side Lengths</li>
+<li>SOH CAH TOA Memory Aid</li>
+<li>Examples</li>
+</ul>
+<p> </p>
+</div>
+<div id="right-angle-triangles" class="section level3">
+<h3>Right Angle Triangles</h3>
+<p>A right angle triangle has three sides and three angles with one of the three angles being a 90 degree (right) angle. The three angles inside a (right) triangle add up to 180 degrees. Also, the sides of the right angled triangle obey the formula <span class="math inline">\(c^2 = a^2 + b^2\)</span> (Pythagorean Theorem) where <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span> and <span class="math inline">\(c\)</span> are side lengths of the triangle. (Recall that <span class="math inline">\(c\)</span> is the hypotenuse and the longest side of a right angle triangle.</p>
+<p>Here is an example of a right angled triangle:</p>
+<p> </p>
+<center>
+<img src="http://kineticmaths.com/images/7/76/Findangle.jpg" />
+</center>
+<center>
+<a href="http://kineticmaths.com/images/7/76/Findangle.jpg">Image Source</a>
+</center>
+<p>Image Source: <a href="http://kineticmaths.com/images/7/76/Findangle.jpg" class="uri">http://kineticmaths.com/images/7/76/Findangle.jpg</a></p>
+<p> </p>
+</div>
+<div id="finding-angles-and-side-lengths" class="section level3">
+<h3>Finding Angles and Side Lengths</h3>
+<p>When dealing with triangles, we sometimes do not know all the angles and all the side lengths of a triangle. If we are given just enough information (i.e. 2 angles and 1 side length), we can use the following formulas to determine the unknown angle(s) and the unknown side length(s).</p>
+<p>The sine of an angle <span class="math inline">\(\theta\)</span> (theta) is the ratio of the side length opposite to the angle <span class="math inline">\(\theta\)</span> over the length of the hypotenuse. The equation is as follows.</p>
+<p> </p>
+<p><span class="math display">\[ \sin(\theta) = \dfrac{Opposite}{Hypotenuse} \]</span></p>
+<p> </p>
+<p>The cosine of an angle <span class="math inline">\(\theta\)</span> (theta) is the ratio of the side length which is adjacent to the angle <span class="math inline">\(\theta\)</span> over the length of the hypotenuse. Note that the adjacent side to the angle <span class="math inline">\(\theta\)</span> is NOT the hypotenuse.</p>
+<p> </p>
+<p><span class="math display">\[ \cos(\theta) = \dfrac{Adjacent}{Hypotenuse} \]</span></p>
+<p> </p>
+<p>The tangent of an angle <span class="math inline">\(\theta\)</span> (theta) is the ratio of the side length which is opposite to the angle <span class="math inline">\(\theta\)</span> over the side length which is adjacent to the angle <span class="math inline">\(\theta\)</span>.</p>
+<p> </p>
+<p><span class="math display">\[ \tan(\theta) = \dfrac{Opposite}{Adjacent} \]</span></p>
+<p> </p>
+</div>
+<div id="soh-cah-toa-memory-aid" class="section level3">
+<h3>SOH CAH TOA Memory Aid</h3>
+<p>The three formulas can be hard to memorize and follow. A very neat memory aid is SOH CAH TOA. In SOH, the letter S refers to the sine function, the letter O refers to the side length opposite to the angle <span class="math inline">\(\theta\)</span> and H refers to the hypotenuse side length. The same logic applies to CAH and TOA.</p>
+<p>Here is a picture which provides a good summary.</p>
+<p>Source: <a href="http://www.mathwarehouse.com/trigonometry/images/sohcohtoa/sohcahtoa-all.png" class="uri">http://www.mathwarehouse.com/trigonometry/images/sohcohtoa/sohcahtoa-all.png</a></p>
+<p> </p>
+</div>
+<div id="examples" class="section level3">
+<h3>Examples</h3>
+<p>These examples will show how SOH CAH TOA can help in finding unknown side lengths and angles of right angled triangles. The pictures are my own and from my phone.</p>
+<p><strong>Example One</strong></p>
+<p>In the given picture, we have a right angle triangle with known side lengths and just the known right angle which is angle C.</p>
+<p> </p>
+<div class="figure">
+<img src="/img/triangle1.jpg" alt="example-one" />
+<p class="caption">example-one</p>
+</div>
+<p> </p>
+<p>Referring to the angle <span class="math inline">\(\theta\)</span> we can determine the ratios using sine, cosine and tangent.</p>
+<p> </p>
+<p><span class="math display">\[ \sin(\theta) = \dfrac{Opposite}{Hypotenuse} = \dfrac{6}{10} = 0.6\]</span></p>
+<p><span class="math display">\[ \cos(\theta) = \dfrac{Adjacent}{Hypotenuse} = \dfrac{8}{10} = 0.8\]</span></p>
+<p><span class="math display">\[ \tan(\theta) = \dfrac{Opposite}{Adjacent} = \dfrac{6}{8} = 0.75\]</span></p>
+<p> </p>
+<p>We have the ratios but not the angle <span class="math inline">\(\theta\)</span>. To find the angle <span class="math inline">\(\theta\)</span> we need to use the respective inverse trigonometric function. For example, the inverse sine function <span class="math inline">\(\sin^{-1}(x)\)</span> would be used to find the angle <span class="math inline">\(\theta\)</span> given a (valid) numeric value <span class="math inline">\(x\)</span>.</p>
+<p> </p>
+<p><span class="math display">\[\sin(\theta)  =  0.6\]</span> <span class="math display">\[\sin^{-1}(\sin(\theta)) =  \sin^{-1}(0.6)\]</span> <span class="math display">\[ \theta  \approx  36.87^{\circ} \]</span></p>
+<p> </p>
+<p><span class="math display">\[\cos(\theta)  =  0.8\]</span> <span class="math display">\[\cos^{-1}(\cos(\theta))  =  \cos^{-1}(0.8)\]</span> <span class="math display">\[\theta  \approx  36.87^{\circ} \]</span></p>
+<p> </p>
+<p><span class="math display">\[\tan(\theta)  = 0.75\]</span> <span class="math display">\[\tan^{-1}(\tan(\theta))  =  \tan^{-1}(0.75)\]</span> <span class="math display">\[\theta  \approx  36.87^{\circ} \]</span></p>
+<p> </p>
+<p>Note that the inverse function of the original function is the argument inside the function. In this case, the inverse trigonometric function of the trigonometric function is the angle <span class="math inline">\(\theta\)</span>. Since the angle <span class="math inline">\(\theta\)</span> is found, we can now find the angle B. Angle B would be <span class="math inline">\(180^{\circ} - 36.87^{\circ} - 90^{\circ} = 53.13^{\circ}\)</span>.</p>
+<p> </p>
+<p><strong>Example Two</strong></p>
+<p>In this second example, we have only one known side length and know two of three angles in this right triangle.</p>
+<p> </p>
+<div class="figure">
+<img src="/img/triangle2.jpg" alt="example-two" />
+<p class="caption">example-two</p>
+</div>
+<p> </p>
+<p>The side <span class="math inline">\(KL\)</span> is known at 2 units with angle L at <span class="math inline">\(35^{\circ}\)</span> and angle <span class="math inline">\(K\)</span> being a right angle. The angle <span class="math inline">\(J\)</span> can be determined as <span class="math inline">\(180^{\circ} - 35^{\circ} - 90^{\circ} = 55^{\circ}\)</span>.</p>
+<p>One way of finding the side length <span class="math inline">\(x\)</span> is to use the tangent ratio. In this case, <span class="math inline">\(x\)</span> is adjacent to the angle <span class="math inline">\(55^{\circ}\)</span> and the side <span class="math inline">\(KL\)</span> is the opposite side at length 2. Solving for <span class="math inline">\(x\)</span> gives us:</p>
+<p> </p>
+<p><span class="math display">\[\tan(55^{\circ})  =  \dfrac{Opposite}{Adjacent} \]</span> <span class="math display">\[ \tan(55^{\circ})  =  \dfrac{2}{x}\]</span> <span class="math display">\[x \tan(55^{\circ})  =  2\]</span> <span class="math display">\[x  =  \dfrac{2}{\tan(55^{\circ})} \]</span> <span class="math display">\[x  \approx  2 \div 1.428148 \]</span> <span class="math display">\[x \approx  1.4004 \]</span></p>
+<p> </p>
+<p>Another way of solving for <span class="math inline">\(x\)</span> is using the tangent of <span class="math inline">\(35^{\circ}\)</span>. The adjacent side of angle <span class="math inline">\(35^{\circ}\)</span> is <span class="math inline">\(KL\)</span> with length 2 and the opposite side length is <span class="math inline">\(x\)</span>.</p>
+<p> </p>
+<p><span class="math display">\[ \tan(35^{\circ})  =  \dfrac{Opposite}{Adjacent} \]</span> <span class="math display">\[\tan(35^{\circ})  =  \dfrac{x}{2}\]</span> <span class="math display">\[2 \tan(35^{\circ})  =  x\]</span> <span class="math display">\[2 (0.7002)  \approx  x \]</span> <span class="math display">\[ 1.4004  \approx  x \]</span></p>
+<p> </p>
+<p>Assuming the tangent formula is used correctly when solving for the unknown side length <span class="math inline">\(x\)</span>, the choice of (acute) angle does not matter too much.</p>
+<p>If we had wanted to find the length of the hypotenuse instead of <span class="math inline">\(x\)</span>, we would use the cosine of <span class="math inline">\(35^{\circ}\)</span>.</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

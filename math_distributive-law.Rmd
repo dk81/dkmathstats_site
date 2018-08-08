@@ -1,0 +1,132 @@
+---
+title = "Distributive Law"
+---
+
+&nbsp;
+
+# <u>The Distributive Law</u>
+
+&nbsp;
+
+<center><img src="https://www.mathsisfun.com/numbers/images/distributive-law.gif" /></center>
+<center><a href="https://www.mathsisfun.com/numbers/images/distributive-law.gif">Image Source: Math Is Fun</a></center>
+
+&nbsp;
+
+### BEDMAS Review
+
+&nbsp;
+
+Recall the order of operations and BEDMAS:
+
+&nbsp;
+
+* B: Brackets
+
+* E: Exponents
+
+* D: Division
+
+* M: Multiplication
+
+* A: Addition
+
+* S: Subtraction
+
+&nbsp;
+
+In the event where there is both multiplication and division, one can do multiplication before division. Likewise with addition and subtraction.
+
+Sometimes BEDMAS is referred to as PEDMAS where the only difference is the letter P. The letter P stands for parantheses, a synonym for brackets.
+
+&nbsp;
+
+### The Distributive Law
+
+&nbsp;
+
+The Distributive Law is a useful algebra technique which allows us to multiply terms through brackets such as these $6 (x + 3)$.
+
+It is known that 7 multiplied by 10 gives 70. We can express it like this:
+
+$$7 \times 10 = 7 \times (5 + 5) = (7 \times 5) + (7 \times 5) = 35 + 35 = 70$$
+
+We just decomposed the 10 into 5 plus 5, multiplied 7 by 5 twice and added the resulting 35s together to get 70.
+
+---
+
+&nbsp;
+
+Consider this example.
+
+$$\displaystyle 4 \times (22) = 4 \times (20 + 2) = (4 \times 20) + (4 \times 2) = 80 + 8 = 88$$
+
+Here in this case, we just decomposed the 22 into 20 plus 2, had 4 multiplied by 20 and 4 multiplied by 2, added their products together to get 88.
+
+&nbsp;
+
+---
+
+&nbsp;
+
+**The General Case**
+
+Here is the general case.
+
+Given real numbers $a$, $b$, and $c$, we have the general case of:
+
+$$a \times (b + c) = ab + ac$$
+
+The term $a$ multiplied by $b$ plus the term $a$ multiplied by $c$.
+
+We can extend this further with more terms in the bracket (introducing $d$ and $e$):
+
+$$ a \times (b + c + d + e) = ab + ac + ad + ae $$
+
+If we really want to we can use all the letters of the English alphabet (and maybe add some Greek letters too!). You get the idea of the distributive law.
+
+&nbsp;
+
+### Examples
+
+
+Here are some examples in which we apply the distributive law.
+
+&nbsp;
+
+**Example 1**
+
+Expanding the expression $6(x+3)$ through the distributive law gives us $6x + 6(3) = 6x + 18$.
+
+&nbsp;
+
+**Example 2**
+
+From $12(x + 2)$, we have $12x + 12 \times 2 = 12x + 24$.
+
+&nbsp;
+
+**Example 3**
+
+From $x(y + 2)$, we have $xy + 2x$.
+
+&nbsp;
+
+**Example 4**
+
+From $\dfrac{(x + 6)}{2}$, we have $\dfrac{x}{2}+ \dfrac{6}{2} = \dfrac{x}{2} + 3$.
+
+&nbsp;
+
+**Example 5**
+
+Here is a more involved example. Suppose we want to solve for the value $x$. We are given the equation $7(x + 2) = 10$. Solving for $x$ can be down with the distributive law as follows:
+
+&nbsp;
+
+$$
+\begin{align} 7(x + 2) & = 10 \\\\ 7x + 14 & = 10 \\\\ 7x & = 10 - 14 \\\\ 7x & = -4 \\\\ x & = -\dfrac{4}{7} \\\\
+\end{align}
+$$
+
+&nbsp;

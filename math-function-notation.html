@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="projects.html">R Programming Projects</a>
+</li>
+<li>
+  <a href="python_projects.html">Python Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<p> </p>
+<div id="function-notation" class="section level1">
+<h1><u>Function Notation</u></h1>
+<p> </p>
+<p>Hi. This math page will be about function notation.</p>
+<p> </p>
+<div id="table-of-contents" class="section level3">
+<h3><u>Table Of Contents</u></h3>
+<ul>
+<li><p>Introduction and Motivation</p></li>
+<li><p>The Function Notation Form</p></li>
+<li><p>Examples</p></li>
+<li><p>Practice Problems</p></li>
+<li><p>Answers</p></li>
+</ul>
+<p> </p>
+</div>
+<div id="introduction-and-motivation" class="section level3">
+<h3><u>Introduction and Motivation</u></h3>
+<p> </p>
+<p>In my experience, the function notation <span class="math inline">\(f(x)\)</span> was introduced to me in one of my later years of high school mathematics. When and how this topic is taught varies between regions, school boards and countries.</p>
+<p>When it comes to equations we usually use the variable <span class="math inline">\(y\)</span> to represent the dependent variable. There are times when there are multiple equations such as <span class="math inline">\(y = 2x + 5\)</span> and <span class="math inline">\(y = x^2 + 4x + 3\)</span>. With those equations, when we substitute a value of 2 for <span class="math inline">\(x\)</span> for example we need to specify which equation this <span class="math inline">\(x = 2\)</span> needs to be applied to.</p>
+<p>Function notation makes it easier for the math reader/student to identify which equation is being used for the substitution. Instead of <span class="math inline">\(y\)</span>, we would use use <span class="math inline">\(f(x) = 2x +5\)</span> and <span class="math inline">\(g(x) = x^2 + 4x + 3\)</span> instead.</p>
+<p> </p>
+</div>
+<div id="the-function-notation-form" class="section level3">
+<h3><u>The Function Notation Form</u></h3>
+<p> </p>
+<p>Suppose we have a simple linear function of the form <span class="math inline">\(f(x) = x + 2\)</span> (instead of <span class="math inline">\(y = x + 2\)</span>). When we are substituting <span class="math inline">\(x = 3\)</span>, we use the notation of <span class="math inline">\(f(3) = 3 + 2 = 5\)</span>. With substitutions in the function notation form, the independent variable <span class="math inline">\(x\)</span> is replaced by 3. This is much more efficient than writing down substituting <span class="math inline">\(x = 3\)</span> into <span class="math inline">\(y = x + 2\)</span>.</p>
+<p>In <span class="math inline">\(f(x) = x + 2\)</span>, we have <span class="math inline">\(x\)</span> as the independent variable and <span class="math inline">\(y = f(x)\)</span> as the dependent variable. We can also view the variable <span class="math inline">\(x\)</span> as an input into the function (machine) <span class="math inline">\(f\)</span> which gives a corresponding output <span class="math inline">\(y = f(x)\)</span></p>
+<center>
+<img src="https://s-media-cache-ak0.pinimg.com/originals/54/86/13/54861315402fa1605a5d570b2d1770d0.jpg" />
+</center>
+<center>
+<a href="https://s-media-cache-ak0.pinimg.com/originals/54/86/13/54861315402fa1605a5d570b2d1770d0.jpg">Imae Source</a>
+</center>
+<p>Source: <a href="https://s-media-cache-ak0.pinimg.com/originals/54/86/13/54861315402fa1605a5d570b2d1770d0.jpg" class="uri">https://s-media-cache-ak0.pinimg.com/originals/54/86/13/54861315402fa1605a5d570b2d1770d0.jpg</a></p>
+<p>Suppose we have another function. We call this function <span class="math inline">\(g(x) = x^2 + 5\)</span>. (You can use a different letter other than f.) Setting <span class="math inline">\(x = 5\)</span> yields <span class="math inline">\(g(5) = 5^2 + 5 = 25 + 5 = 30\)</span>.</p>
+<p> </p>
+</div>
+<div id="examples" class="section level3">
+<h3><u>Examples</u></h3>
+<p> </p>
+<p>Here are a few more examples.</p>
+<p>Suppose we have <span class="math inline">\(h(x) = x^2 + 2x - 3\)</span>.</p>
+<hr />
+<p><strong>Example One</strong></p>
+<p>What is <span class="math inline">\(h(-2)\)</span>?</p>
+<p><span class="math display">\[h(-2) = (-2)^2 + 2(-2) - 3 = 4 - 4 - 3 = -3\]</span></p>
+<hr />
+<p><strong>Example Two</strong></p>
+<p>What is <span class="math inline">\(h(1 + 3 * 2)\)</span>?</p>
+<p>We first evaluate the quantity inside the bracket of the function <span class="math inline">\(h\)</span>.</p>
+<p><span class="math display">\[h(1 + 3 * 2) = h(1 + 6) = h(7) = 7^2 + 2(7) - 3 = 49 + 14 - 3 = 60\]</span></p>
+<hr />
+<p><strong>Example Three</strong></p>
+<p>What is h(a) where <span class="math inline">\(a\)</span> is some number?</p>
+<p>Before, we substitute <span class="math inline">\(x\)</span> with a number. Here we do a similar procedure and substitute <span class="math inline">\(x\)</span> with <span class="math inline">\(a\)</span>.</p>
+<p><span class="math display">\[h(a) = a^2 + 2a - 3\]</span></p>
+<hr />
+<p><strong>Example Four</strong></p>
+<p>Suppose we want to double the quantity of our input. What is <span class="math inline">\(h(2x)\)</span>?</p>
+<p>Instead of <span class="math inline">\(x\)</span>, we have <span class="math inline">\(2x\)</span>. Whenever there is an <span class="math inline">\(x\)</span>, replace it with <span class="math inline">\(2x\)</span>.</p>
+<p><span class="math display">\[h(2x) = (2x)^2 + 2(2x) - 3 = 4x^2 + 4x - 3\]</span></p>
+<p> </p>
+</div>
+<div id="practice-questions" class="section level3">
+<h3><u>Practice Questions</u></h3>
+<p>Suppose we have the functions <span class="math inline">\(f(x) = x + 7\)</span> and <span class="math inline">\(g(x) = x^2 - 3\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li><p>What is <span class="math inline">\(f(-4)\)</span>?</p></li>
+<li><p>Evaluate <span class="math inline">\(g(1)\)</span>.</p></li>
+<li><p>Evaluate <span class="math inline">\(g(2^3 + 1)\)</span>.</p></li>
+<li><p>Evaluate <span class="math inline">\(f(x + h)\)</span>.</p></li>
+<li><p>Evaluate <span class="math inline">\(g(f(1))\)</span>. (Composition Functions: First evaluate <span class="math inline">\(f(1)\)</span> and then <span class="math inline">\(g(f(1))\)</span>.)</p></li>
+</ol>
+<p> </p>
+</div>
+<div id="answers" class="section level3">
+<h3><u>Answers</u></h3>
+<p> </p>
+<ol style="list-style-type: decimal">
+<li><p><span class="math inline">\(f(-4) = 3\)</span>.</p></li>
+<li><p><span class="math inline">\(g(1) = -2\)</span>.</p></li>
+<li><p><span class="math inline">\(g(2^3 + 1) = g(8 + 1) = g(9) = 81 - 3 = 78\)</span>.</p></li>
+<li><p><span class="math inline">\(f(x + h) = x + h + 7\)</span>.</p></li>
+<li><p><span class="math inline">\(f(1) = 8\)</span>. Then <span class="math inline">\(g(f(1)) = g(8) = 64 - 3 = 61.\)</span></p></li>
+</ol>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

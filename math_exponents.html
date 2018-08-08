@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="projects.html">R Programming Projects</a>
+</li>
+<li>
+  <a href="python_projects.html">Python Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<p> </p>
+<div id="working-with-exponents" class="section level1">
+<h1><u>Working With Exponents</u></h1>
+<p> </p>
+<p>Hi. This page will be about exponent laws and algebra. This guide is more suited for a high school audience and can be used as a refresher for pre-calculus and calculus students.</p>
+<p> </p>
+<div id="table-of-contents" class="section level3">
+<h3>Table Of Contents</h3>
+<p> </p>
+<ul>
+<li>What Is An Exponent?</li>
+<li>Exponent Laws</li>
+<li>Notes</li>
+<li>Examples</li>
+<li>Practice Problems</li>
+<li>Answers</li>
+</ul>
+<p> </p>
+</div>
+<div id="what-is-an-exponent" class="section level3">
+<h3>What Is An Exponent?</h3>
+<p> </p>
+<p>Suppose I want to multiply the number 2 by itself 4 times. I can write this as <span class="math inline">\(2 \times 2 \times 2 \times 2\)</span>. If I wanted to multiply 2 by itself 20 times, that would take up a lot of space. Instead of doing <span class="math inline">\(2 \times 2 \times 2 \times 2 ... \times 2\)</span> with 20 twos and 19 multiplication signs we can expressed this as <span class="math inline">\(2^{20}\)</span>. The 2 is a base while the superscripted number 20 is the exponent.</p>
+<p>If I wanted to multiply 5 by itself 4 times I can write <span class="math inline">\(5 \times 5 \times 5 \times 5\)</span> or simply <span class="math inline">\(5^{4} = 625\)</span>. The 4 here is like a counter of how many times the base number 5 is multiplied by itself. An alternate view would be <span class="math inline">\(25 \times 25 = 5^{2} \times 5^{2} = 5^{4} = 625\)</span>. In this case I can add the exponents 2 and 2 to get 4 as long as the bases are the same.</p>
+<p> </p>
+</div>
+<div id="exponent-laws" class="section level3">
+<h3>Exponent Laws</h3>
+<p>Mathematics contains a lot of rules (axioms). Some could say that mathematics is like a language. Here are the rules/laws of exponents. (<span class="math inline">\(m\)</span> and <span class="math inline">\(n\)</span>) are typically whole numbers)</p>
+<p> </p>
+<p><strong>Multiplying Numbers of The Same Base</strong></p>
+<p> </p>
+<p><span class="math display">\[a^{m} \times a^{n} = a^{m + n}\]</span></p>
+<p> </p>
+<p><strong>Dividing Numbers of The Same Base</strong></p>
+<p> </p>
+<p><span class="math display">\[\dfrac{a^{m}}{a^{n}} = a^{m - n}\]</span></p>
+<p> </p>
+<p><strong>Power of A Power (Power Rule)</strong></p>
+<p> </p>
+<p><span class="math display">\[(a^{m})^{n} = a^{mn}\]</span></p>
+<p> </p>
+<p><strong>Zero Exponent</strong></p>
+<p> </p>
+<p><span class="math display">\[a^{0} = 1\]</span></p>
+<p> </p>
+<p>because <span class="math inline">\(\dfrac{a^{m}}{a^{m}} = a^{m - m} = a^{0} = 1\)</span></p>
+<p> </p>
+<p><strong>Negative Exponents</strong></p>
+<p> </p>
+<p><span class="math display">\[a^{-m} = \dfrac{1}{a^m} \text{ and }\dfrac{1}{a^{-m}} = a^{m}\]</span></p>
+<p> </p>
+<p><strong>Negative Exponents (Version 2)</strong></p>
+<p> </p>
+<p><span class="math display">\[ab^{-m} = \dfrac{a}{b^m} \text{ and } \dfrac{a}{b^{-m}} = ab^{m}\]</span></p>
+<p> </p>
+</div>
+<div id="notes" class="section level3">
+<h3>Notes</h3>
+<p> </p>
+<p>There are times when you may have to apply multiple exponent laws. For example we could have <span class="math inline">\((\dfrac{a}{b^{2}})^{-2} = (\dfrac{b^2}{a})^{2} = \dfrac{(b^2)^{2}}{a^2} = \dfrac{b^4}{a^2}\)</span>. This example applies the negative exponent then the power rule.</p>
+<p> </p>
+<p>It is important to note that that <span class="math inline">\((ab)^2 = a^{2}b^{2}\)</span> which is different from <span class="math inline">\(ab^2\)</span>. The exponent 2 is applied to <span class="math inline">\(ab\)</span> inside the bracket in <span class="math inline">\((ab)^2\)</span> while the exponent 2 is applied to only <span class="math inline">\(b\)</span> in <span class="math inline">\(ab^2\)</span>.</p>
+<p> </p>
+<p>In general, the n<span class="math inline">\(^{th}\)</span> root <span class="math inline">\(\sqrt[n]{x} = x^{1/n}\)</span>. With a square root you would have <span class="math inline">\(n = 2\)</span>.</p>
+<p> </p>
+<p>Recall that <span class="math inline">\(\dfrac{a}{b} \div \dfrac{c}{d} = \dfrac{a}{b} \times \dfrac{d}{c}\)</span>. A special case of this would be <span class="math inline">\(\dfrac{1}{1} \div \dfrac{1}{a} = 1 \div \dfrac{1}{a} = 1 \times \dfrac{a}{1} = 1 \times a = a\)</span>.</p>
+<p> </p>
+</div>
+<div id="examples" class="section level3">
+<h3>Examples</h3>
+<p>Here are some examples using various exponent laws.</p>
+<p> </p>
+<p><strong>Example One</strong></p>
+<p>Convert <span class="math inline">\(\dfrac{x^{-2}y^2}{z^{-1}}\)</span> from negative exponents to positive exponents.</p>
+<p> </p>
+<p>Answer:</p>
+<p><span class="math display">\[\dfrac{x^{-2}y^2}{z^{-1}} = y^2 \times \dfrac{1}{\dfrac{1}{z}} \times \dfrac{1}{x^2} = y^2 \times z \times \dfrac{1}{x^2} = \dfrac{y^2z}{x^2} \]</span></p>
+<p> </p>
+<p><strong>Example Two</strong></p>
+<p>Simplify <span class="math inline">\(\dfrac{x^2}{y^{-5}} \times \dfrac{x^3}{y^2}\)</span>.</p>
+<p> </p>
+<p>Answer:</p>
+<p><span class="math display">\[\dfrac{x^2}{y^{-5}} \times \dfrac{x^3}{y^2} = x^{2 + 3} \times y^5 \times \dfrac{1}{y^2} = x^{5} \times \dfrac{y^5}{y^2} = x^5y^{5 - 2} = x^{5}y^{3}\]</span></p>
+<p> </p>
+<p><strong>Example Three</strong></p>
+<p>Evaluate <span class="math inline">\((\dfrac{2}{3})^{-2}\)</span>.</p>
+<p> </p>
+<p>Answer:</p>
+<p><span class="math display">\[(\dfrac{2}{3})^{-2} = (\dfrac{3}{2})^{2} = \dfrac{3^2}{2^2} = \dfrac{9}{4} \text{ or } 2\dfrac{1}{4}\]</span></p>
+<p> </p>
+</div>
+<div id="practice-problems" class="section level3">
+<h3>Practice Problems</h3>
+<p>Here are some practice problems to test your understanding and build your skills. The answers are in the next section.</p>
+<p> </p>
+<ol style="list-style-type: decimal">
+<li><p>Convert <span class="math inline">\(x^{-2}y^{-10}\)</span> from negative exponents to positive exponents.</p></li>
+<li><p>Evaluate <span class="math inline">\((\dfrac{2}{5})^{-3}\)</span>.</p></li>
+<li><p>Convert <span class="math inline">\(\dfrac{x^{-1}}{z^{-2}}\)</span> from negative exponents to positive exponents.</p></li>
+<li><p>Convert the fractions <span class="math inline">\(\dfrac{1}{x^4}\)</span> and <span class="math inline">\(\dfrac{2}{y^3}\)</span> into non-fractions with negative exponents.</p></li>
+<li><p>Simplify <span class="math inline">\(\dfrac{x^3y^{-2}}{x^7y}\)</span>.</p></li>
+<li><p>Simplify <span class="math inline">\((\dfrac{x^8}{y^2})^{1/2}\)</span>.</p></li>
+<li><p>Evaluate <span class="math inline">\((\dfrac{100}{9})^{-1/2}\)</span>.</p></li>
+</ol>
+<p> </p>
+</div>
+<div id="answers" class="section level3">
+<h3>Answers</h3>
+<ol style="list-style-type: decimal">
+<li><p><span class="math inline">\(x^{-2}y^{-10} = \dfrac{1}{x^{2}y^{10}}\)</span></p></li>
+<li><p><span class="math inline">\(\dfrac{2}{5})^{-3} = (\dfrac{5}{2})^{3} = \dfrac{5^3}{2^3} = \dfrac{125}{8} = 15.625\)</span></p></li>
+<li><p><span class="math inline">\(\dfrac{x^{-1}}{z^{-2}} = \dfrac{z^2}{x}\)</span></p></li>
+<li><p><span class="math inline">\(\dfrac{1}{x^4} = x^{-4}\)</span> and <span class="math inline">\(\dfrac{2}{y^3} = 2y^{-3}\)</span></p></li>
+<li><p><span class="math inline">\(\dfrac{x^3y^{-2}}{x^7y} = x^{3 -7}y^{-2 - 1} = x^{-4}y^{-3} \text{ or } \dfrac{1}{x^4y^3}\)</span></p></li>
+<li><p><span class="math inline">\((\dfrac{x^8}{y^2})^{1/2} = \dfrac{(x^{8})^{1/2}}{(y^2)^{1/2}} = \dfrac{x^{8/2}}{y^{2/2}} = \dfrac{x^4}{y}\)</span></p></li>
+<li><p><span class="math inline">\((\dfrac{100}{9})^{-1/2} = (\dfrac{9}{100})^{1/2} = \dfrac{9^{1/2}}{100^{1/2}} = \dfrac{\sqrt{9}}{\sqrt{100}} = \dfrac{3}{10}\)</span></p></li>
+</ol>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

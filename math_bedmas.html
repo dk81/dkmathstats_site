@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="projects.html">R Programming Projects</a>
+</li>
+<li>
+  <a href="python_projects.html">Python Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<p> </p>
+<div id="the-order-of-operations-bedmas" class="section level1">
+<h1><u>The Order Of Operations &amp; BEDMAS</u></h1>
+<p> </p>
+<p> </p>
+<p>Hi. This page will be about the order of operations and BEDMAS in algebra. The reader should be familiar with exponents, brackets (parantheses), multiplication, subtraction, addition and subtraction.</p>
+<hr />
+<p><strong>Contents</strong></p>
+<p> </p>
+<ul>
+<li><p>What Is The Order Of Operations and BEDMAS?</p></li>
+<li><p>How BEDMAS Works</p></li>
+<li><p>Examples</p></li>
+<li><p>Practice Questions</p></li>
+<li><p>Solutions</p></li>
+</ul>
+<p> </p>
+<hr />
+<p><strong>What Is The Order Of Operations and BEDMAS?</strong></p>
+<p> </p>
+<p>The order of operations is a mathematical and algebraic rule in which we follow when we have a combination of addition, subtraction, multiplication, division, exponents and brackets. The term and memory aid BEDMAS stands for brackets, exponents, division, multiplication, addition and subtraction.</p>
+<p>An alternative to BEDMAS is PEDMAS where brackets is replaced by parantheses (which is the same thing in mathematics).</p>
+<ul>
+<li>Brackets</li>
+<li>Exponents</li>
+<li>Division</li>
+<li>Multiplication</li>
+<li>Addition</li>
+<li>Subtraction</li>
+</ul>
+<p>Brackets have the highest priority and should be dealt with first. We go from left to right in BEDMAS/PEDMAS (or from top to bottom as displayed above).</p>
+<p> </p>
+<hr />
+<p><strong>Examples</strong></p>
+<p> </p>
+<p><em>Example One (Simple Example)</em></p>
+<p> </p>
+<p><span class="math inline">\(8 - 9 + 6 = -1 + 6 = 5\)</span></p>
+<p>     </p>
+<p><em>Example Two</em></p>
+<p> </p>
+<p><span class="math inline">\((11 - 3) + 7 = 8 + 7 = 15\)</span></p>
+<p> </p>
+<p>Because of the bracket, we compute <span class="math inline">\(11 - 3\)</span>) to get 8 first and then add 7.</p>
+<p> </p>
+<p><em>Example Three</em></p>
+<p> </p>
+<p><span class="math inline">\(5^2 + (7 - 8) = 5^2 - 1 = 25 - 1 = 24\)</span></p>
+<p>  We have a bracket and an exponent. The bracket is computed first before dealing with <span class="math inline">\(5^2\)</span>. We subtract 1 from <span class="math inline">\(5^2 = 25\)</span> to get 24.</p>
+<p> </p>
+<p><em>Example Four</em></p>
+<p>   </p>
+<p><span class="math display">\[(\frac{1}{2} \times 5) - 1 + 4 = \frac{5}{2} -1 + 4 = \frac{5}{2} + 3 = \frac{5}{2} + \frac{6}{2} = \frac{5 + 6}{2} = \frac{11}{2}\]</span></p>
+<p> </p>
+<p>The bracket is evaluated first where the 5 is multiplied by the half. After adding and subtraction (with fractions), we get the answer of <span class="math inline">\(\dfrac{11}{2} = 5.5\)</span>.</p>
+<p> </p>
+<p><em>Example Five</em></p>
+<p>   </p>
+<p><span class="math display">\[(2 \times 10) - (3^2 - 4) + 1 = 20 - (9 - 4) + 1 = 20 - 5 + 1 = 16\]</span></p>
+<p> </p>
+<p>This example features a combination of BEDMAS components. We first deal with each of the two brackets. The first bracket can be solved with multiplication. In the second bracket, the term with the exponent is evaluated first. After evaluating the brackets, we add and subtract the terms to obtain the answer of 16.</p>
+<p> </p>
+<p><em>Example Six</em></p>
+<p>   </p>
+<p>There are case where there are embedded brackets. We deal with the most inside bracket first.</p>
+<p><span class="math display">\[((2 \times 4) - 2 + 3) + 5 = (8 - 2 + 3) + 5 = 9 + 5 = 14\]</span></p>
+<p> </p>
+<hr />
+<p><strong>Practice Questions</strong></p>
+<p>Here are some practice questions to build understanding of BEDMAS and the order of operations.</p>
+<ol style="list-style-type: decimal">
+<li><p><span class="math inline">\(1 - 4 \div 2\)</span></p></li>
+<li><p><span class="math inline">\((5 - 3 \div 3) + 2 - 2^2\)</span></p></li>
+<li><p><span class="math inline">\(2^2 \div 4 + 1 - 7 \times 2\)</span></p></li>
+<li><p><span class="math inline">\(1 + 7 - (2^2 \times 3)\)</span></p></li>
+<li><p><span class="math inline">\((6 - 3 + 2)^2\)</span></p></li>
+<li><p><span class="math inline">\(9 \div 3 \times 2 - (2 \times 10 \div 5)\)</span></p></li>
+<li><p><span class="math inline">\(5 \times 2 \div 2 - (3^2 + 1 - 3 \times 2)\)</span></p></li>
+<li><p><span class="math inline">\(1 - \dfrac{25}{5^2} + 3 - (2^3 + 1 - 4)\)</span></p></li>
+</ol>
+<p> </p>
+<hr />
+<p><strong>Solutions</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>-1</p></li>
+<li><p>2</p></li>
+<li><p>-12</p></li>
+<li><p>-4</p></li>
+<li><p>25</p></li>
+<li><p>2</p></li>
+<li><p>1</p></li>
+<li><p>-2</p></li>
+</ol>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

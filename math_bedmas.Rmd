@@ -1,0 +1,181 @@
+---
+title = "The Order Of Operations & BEDMAS"
+output =  html_document
+---
+
+&nbsp;
+
+# <u>The Order Of Operations & BEDMAS</u>
+
+
+&nbsp;
+
+&nbsp;
+
+Hi. This page will be about the order of operations and BEDMAS in algebra. The reader should be familiar with exponents, brackets (parantheses), multiplication, subtraction, addition and subtraction.
+
+---
+
+**Contents**
+
+
+&nbsp;
+
+* What Is The Order Of Operations and BEDMAS?
+
+* How BEDMAS Works
+
+* Examples
+
+* Practice Questions
+
+* Solutions
+
+&nbsp;
+
+---
+
+**What Is The Order Of Operations and BEDMAS?**
+
+
+&nbsp;
+
+The order of operations is a mathematical and algebraic rule in which we follow when we have a combination of addition, subtraction, multiplication, division, exponents and brackets. The term and memory aid BEDMAS stands for brackets, exponents, division, multiplication, addition and subtraction.
+
+An alternative to BEDMAS is PEDMAS where brackets is replaced by parantheses (which is the same thing in mathematics).
+
+* Brackets
+* Exponents
+* Division
+* Multiplication
+* Addition
+* Subtraction
+
+Brackets have the highest priority and should be dealt with first. We go from left to right in BEDMAS/PEDMAS (or from top to bottom as displayed above).
+
+&nbsp;
+
+---
+
+**Examples**
+
+&nbsp;
+
+
+*Example One (Simple Example)*
+
+&nbsp;
+
+$8 - 9 + 6 = -1 + 6 = 5$
+
+&nbsp;
+&nbsp;
+&nbsp;
+
+*Example Two*
+
+&nbsp;
+
+$(11 - 3) + 7 = 8 + 7 = 15$
+
+&nbsp;
+
+Because of the bracket, we compute $11 - 3$) to get 8 first and then add 7.
+
+&nbsp;
+
+*Example Three*
+
+&nbsp;
+
+$5^2 + (7 - 8) = 5^2 - 1 = 25 - 1 = 24$
+
+&nbsp;
+We have a bracket and an exponent. The bracket is computed first before dealing with $5^2$. We subtract 1 from $5^2 = 25$ to get 24.
+
+&nbsp;
+
+*Example Four*
+
+&nbsp;
+&nbsp;
+
+$$(\frac{1}{2} \times 5) - 1 + 4 = \frac{5}{2} -1 + 4 = \frac{5}{2} + 3 = \frac{5}{2} + \frac{6}{2} = \frac{5 + 6}{2} = \frac{11}{2}$$
+
+&nbsp;
+
+The bracket is evaluated first where the 5 is multiplied by the half. After adding and subtraction (with fractions), we get the answer of $\dfrac{11}{2} = 5.5$.
+
+&nbsp;
+
+*Example Five*
+
+&nbsp;
+&nbsp;
+
+$$(2 \times 10) - (3^2 - 4) + 1 = 20 - (9 - 4) + 1 = 20 - 5 + 1 = 16$$
+
+
+
+&nbsp;
+
+This example features a combination of BEDMAS components. We first deal with each of the two brackets. The first bracket can be solved with multiplication. In the second bracket, the term with the exponent is evaluated first. After evaluating the brackets, we add and subtract the terms to obtain the answer of 16.
+
+&nbsp;
+
+*Example Six*
+
+&nbsp;
+&nbsp;
+
+There are case where there are embedded brackets. We deal with the most inside bracket first.
+
+$$((2 \times 4) - 2 + 3) + 5 = (8 - 2 + 3) + 5 = 9 + 5 = 14$$
+
+&nbsp;
+
+---
+
+**Practice Questions**
+
+
+Here are some practice questions to build understanding of BEDMAS and the order of operations.
+
+1) $1 - 4 \div 2$
+
+2) $(5 - 3 \div 3) + 2 - 2^2$
+
+3) $2^2 \div 4 + 1 - 7 \times 2$
+
+4) $1 + 7 - (2^2 \times 3)$
+
+5) $(6 - 3 + 2)^2$
+
+6) $9 \div 3 \times 2 - (2 \times 10 \div 5)$
+
+7) $5 \times 2 \div 2 - (3^2 + 1 - 3 \times 2)$
+
+8) $1 - \dfrac{25}{5^2} + 3 - (2^3 + 1 - 4)$
+
+&nbsp;
+
+---
+
+**Solutions**
+
+
+1) -1
+
+2) 2
+
+3) -12
+
+4) -4
+
+5) 25
+
+6) 2
+
+7) 1
+
+8) -2

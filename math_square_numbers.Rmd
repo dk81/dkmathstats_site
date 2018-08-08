@@ -1,0 +1,108 @@
+---
+title = "Square Numbers & Square Roots"
+---
+
+&nbsp;
+
+# <u>Square Numbers And Square Roots</u>
+
+&nbsp;
+
+Hello. This page will be about square numbers such as 1, 4, 9 and so on and its associated square roots.
+
+&nbsp;
+
+### Table Of Contents
+
+
+&nbsp;
+
+* <a href="#area">The Area Of A Square</a>
+* <a href="#perfect">Perfect Square Numbers</a>
+* <a href="#roots">Square Roots</a>
+* <a href="#examples">Examples</a>
+
+&nbsp;
+
+<a name="area"></a>
+
+### The Area Of A Square
+
+
+A square has 4 sides with equal length in each of the 4 sides. Also the square has 4 corners and at each corner two adjacent lines form a 90 degree angle.
+
+The area of a square is the length multiplied by the width of a square. Since the length of a square is equal to the width of the square, we use $length \times length$ or $(length)^2$. You can use $width \times width$ or $(width)^2$ if you are using the width of the square.
+
+<center><img src="http://www.clker.com/cliparts/b/e/c/3/131406375432193858green%20square-md.png" /></center>
+<center><a href="http://www.clker.com/cliparts/b/e/c/3/131406375432193858green%20square-md.png">Image Source</a></center>
+
+
+&nbsp;
+
+<a name="perfect"></a>
+
+### Perfect Square Numbers
+
+
+&nbsp;
+
+A square number is the product of a positive whole number multiplied by itself. One example of a square number is 64 as $8 \times 8 = 8^2 = 64$. Other examples of perfect square numbers include 1, 4, 9, 16, 25, 36, and 49.
+
+Here is a sample table of square numbers.
+
+Integer | Perfect Square 
+--- | --- 
+1 | 1
+2 | 4 
+3 | 9 
+4 | 16 
+5 | 25
+6 | 36
+7 | 49
+8 | 64
+9 | 81
+10 | 100 
+
+<a name="roots"></a>
+
+&nbsp;
+
+### Square Roots
+
+
+&nbsp;
+
+To obtain a perfect square we multiply a positive whole number by itself. If we want to go from a perfect square and obtain that original whole number, the square root will be needed.
+
+The square root works on non-negative numbers and is expressed as $\sqrt{x}$. Sometimes $\sqrt{x}$ is expressed as $x^{\frac{1}{2}}$.
+
+The sample table of square numbers with its square roots is shown below.
+
+Perfect Square  | Square Root Integer
+--- | ---
+1 | 1
+4 | 2
+9 | 3
+16 | 4
+25 | 5
+36 | 6
+49| 7
+64 | 8
+81 | 9
+100 | 10
+121 | 11
+144 | 12
+
+&nbsp;
+
+<a name="examples"></a>
+
+### Examples
+
+&nbsp;
+
+Here are a few more examples of squares and square roots.
+
+The square of $x$ is $x^2$, the square of $x^2$ is $x^4$. In general the square of $x^{a}$ where the exponent $a$ is a real number is $x^{2a}$.
+
+The square root of $^2$ is $x$ and the square root of $x^4$ is $x^2$. In general, the square root of $x^{a}$ is $x^{a/2}$ where $a$ is a real number.

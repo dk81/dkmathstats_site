@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="projects.html">R Programming Projects</a>
+</li>
+<li>
+  <a href="python_projects.html">Python Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<p> </p>
+<div id="sum-sigma-notation" class="section level1">
+<h1><u>Sum (Sigma) Notation</u></h1>
+<p> </p>
+<p>Hello. This post will be on sigma notation. Instead of having <span class="math inline">\(1 + 2 + 3 + 4 + \dots + 100\)</span>, you can use sigma notation such as <span class="math inline">\(\displaystyle \sum_{i = 1}^{100} i\)</span> to save space, ink and paper.</p>
+<p>When it comes to Sigma notation, one must have a keen eye in identifying patterns in numbers.</p>
+<p> </p>
+<div id="table-of-contents" class="section level3">
+<h3><u>Table Of Contents</u></h3>
+<p> </p>
+<ul>
+<li>Finite Sums</li>
+<li>Infinite Sums</li>
+<li>Some Properties</li>
+<li>Sum Formulas</li>
+<li>Examples</li>
+<li>Practice Problems</li>
+<li>Hints To Practice Problems</li>
+<li>Solutions To Practice Problems</li>
+<li>Notes</li>
+</ul>
+<p> </p>
+</div>
+<div id="finite-sums" class="section level3">
+<h3><u>Finite Sums</u></h3>
+<p> </p>
+<p>To illustrate finite sums/series, an example will be shown.</p>
+<p> </p>
+<p><span class="math display">\[1 + 2 + 3 + 4 + 5 = \displaystyle \sum_{i = 1}^{5} i = 25 \text{ is an example of a finite sum/series. }\]</span></p>
+<p> </p>
+<p>In a finite sum/series there are a finite number of terms.</p>
+<p>In the sigma (sum) notation $_{i = 1}^{5} i $ we start from substituting <span class="math inline">\(i = 1\)</span> to get 1 as the first term. The next case is when <span class="math inline">\(i = 2\)</span> to get 2, then <span class="math inline">\(i = 3\)</span> to get 3 all the way to the upper limit of <span class="math inline">\(i = 5\)</span>.</p>
+<p>Another version of a finite sum is where the upper limit is an arbitrary positive integer. As an example we can have:</p>
+<p> </p>
+<p><span class="math display">\[1 + 2 + 3 + \dots + (n-1) + n= \displaystyle \sum_{i = 1}^{n} i \]</span></p>
+<p> </p>
+<p>A more generalized version of a finite sum is where we add unknown integers from <span class="math inline">\(m\)</span> to <span class="math inline">\(n\)</span> (where <span class="math inline">\(m &lt; n\)</span>) such as:</p>
+<p> </p>
+<p><span class="math display">\[m + (m + 1) + (m + 2) + \dots + (n-1) + n= \displaystyle \sum_{i = m}^{n} i \]</span></p>
+<p> </p>
+<p>Sometimes we deal with the sum of variables with increasing numeric subscripts. Consider this example:</p>
+<p> </p>
+<p><span class="math display">\[x_{1} + x_{2} + x_{3} + \dots + x_{n-1} + x_{n}= \displaystyle \sum_{i = 1}^{n}x_{i} \]</span></p>
+<p> </p>
+</div>
+<div id="infinite-sums" class="section level3">
+<h3><u>Infinite Sums</u></h3>
+<p> </p>
+<p>In an infinite sum/series, there is an infinite (never-ending) number of terms. As an example we can have:</p>
+<p><span class="math display">\[2 + 4 + 6 + 8 + 10 + \dots = \displaystyle \sum_{i = 1}^{\infty} 2i = 2 \displaystyle \sum_{i = 1}^{\infty} i \]</span></p>
+<p>The sum above computes to positive infinity and can be considered an infinite sum.</p>
+<p> </p>
+</div>
+<div id="some-properties" class="section level3">
+<h3><u>Some Properties</u></h3>
+<p> </p>
+<p>There are a lot of properties when it comes to sigma/summation notation. Here are a couple.</p>
+<p> </p>
+<p><span class="math display">\[1) \displaystyle \sum_{i = j}^{j} x_{i} = x_{j} \text{ (One term in the sum where i = j) }\]</span></p>
+<p><span class="math display">\[2) \displaystyle \sum_{i = m}^{n} x_{i} \text{ has (n - m + 1) terms in its sum}.\]</span></p>
+<p><span class="math display">\[3) \displaystyle \sum_{i = 1}^{n} kx_{i} = k \displaystyle \sum_{i = 1}^{n} x_{i} \text{ where k is a numeric constant. }\]</span></p>
+<p><span class="math display">\[4) \text{ Assuming k is a numeric constant we have: } \displaystyle \sum_{i = m}^{n} k = k \displaystyle \sum_{i = m}^{n} 1 = (n - m + 1)k\]</span></p>
+<p><span class="math display">\[5) \text{ (Splitting One Sum Into Two) } \displaystyle \sum_{i = m}^{n} x_{i} = \displaystyle \sum_{i = m}^{p} x_{i} + \displaystyle \sum_{i = p + 1}^{n} x_{i} \text{ for } m &lt; p &lt; n\]</span></p>
+<p><span class="math display">\[6) \displaystyle \sum_{i = m}^{n} (x_{i} + y_{i}) = \displaystyle \sum_{i = m}^{n} x_{i} + \displaystyle \sum_{i = m}^{n} y_{i} \]</span></p>
+<p> </p>
+</div>
+<div id="sum-formulas" class="section level3">
+<h3><u>Sum Formulas</u></h3>
+<p> </p>
+<p>This section will briefly look at sum formulas. A more extensive look at sum formulas can be found in a university level Calculus course which focuses on Sequences and Series.</p>
+<p>Here are a few sum formulas.</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \sum_{i = 1}^{n} 1 = n\]</span></p>
+<p><span class="math display">\[\text{ Assuming k is a constant: }\displaystyle \sum_{i = 1}^{n} k = \displaystyle k \sum_{i = 1}^{n} 1 = nk \]</span></p>
+<p><span class="math display">\[\displaystyle \sum_{i = 1}^{n} i = \dfrac{n(n + 1)}{2}\]</span></p>
+<p><span class="math display">\[\displaystyle \sum_{i = 1}^{n} i^{2} = \dfrac{n(n + 1)(2n + 1)}{6}\]</span></p>
+<p><span class="math display">\[\displaystyle \sum_{i = 1}^{n} i^{3} = \Bigg(\dfrac{n(n + 1)}{2}\Bigg)^{2}\]</span></p>
+<p> </p>
+</div>
+<div id="examples" class="section level3">
+<h3><u>Examples</u></h3>
+<p> </p>
+<p><strong>Example One</strong></p>
+<p> </p>
+<p>The sum <span class="math inline">\(1 + 2 + 3 + 4 + \dots + 100\)</span> can be represented by <span class="math inline">\(\displaystyle \sum_{i = 1}^{100} i\)</span>. Using the third formula from the previous section, this sum is equal to <span class="math inline">\(\dfrac{100(100 + 1)}{2} = \dfrac{(100)(101)}{2} = \dfrac{10100}{2} = 5050\)</span></p>
+<hr />
+<p><strong>Example Two</strong></p>
+<p> </p>
+<p>If we add even numbers starting from 2 up to 50 we have:</p>
+<p><span class="math display">\[2 + 4 + 6 + 8 + 10 + \dots + 48 + 50\]</span>.</p>
+<p>Factoring out a 2 from each term we have:</p>
+<p><span class="math display">\[2(1 + 2 + 3 + 4 + 5 + \dots + 23 + 24 + 25)\]</span></p>
+<p>In sigma notation, the above can be represented as:</p>
+<p><span class="math display">\[2 \displaystyle \sum_{i = 1}^{25} i\]</span></p>
+<p>This sum evaluates to:</p>
+<p><span class="math display">\[2 \times \dfrac{25(26)}{2} = 25(26) = 650\]</span></p>
+<hr />
+<p><strong>Example Three (Fractions)</strong></p>
+<p> </p>
+<p>There are cases where we add fractions. Consider this example.</p>
+<p> </p>
+<p><span class="math display">\[1 + \dfrac{1}{2} + \dfrac{1}{3} + \dfrac{1}{4} +\dots + \dfrac{1}{9} + \dfrac{1}{10}\]</span></p>
+<p>From term to term, the denominator increases by one. The sum above can be represented as:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \sum_{i = 1}^{10} \dfrac{1}{i}\]</span></p>
+<p> </p>
+<hr />
+<p><strong>Example Four (Alternating Sums)</strong></p>
+<p>This example is a more involved example (more for university calculus students).</p>
+<p>When we think of sums adding is usually involved. However we can “add” negative numbers. There are cases where the sign is alternating. One such example is:</p>
+<p> </p>
+<p><span class="math display">\[1 - 2 + 3 - 4 + 5 - 6 + \dots + 19 - 20 = \displaystyle \sum_{i = 1}^{20} (-i)^{(i + 1)}\]</span></p>
+<p> </p>
+<p>When we add positive numbers from 1 to 20 the <span class="math inline">\((-i)^{(i + 1)}\)</span> was needed. Since we have alternating sums we need the <span class="math inline">\((-i)^{(i + 1)}\)</span> part in the sum. Remember that <span class="math inline">\((-1)^{\text{even exponent}} = 1\)</span>. Since every second term is negative, we have <span class="math inline">\((i + 1)\)</span> in the exponent of <span class="math inline">\((-i)\)</span>.</p>
+<p>One can notice that we have two sums within this alternating signs sum. We have odd numbers and even numbers. Given a positive whole number <span class="math inline">\(k\)</span> an odd number is the form of <span class="math inline">\((2k + 1)\)</span> (or <span class="math inline">\(2k - 1\)</span>) and an even number is of the form of <span class="math inline">\((2k)\)</span>. Using these ideas in mind the sum can be separated into two.</p>
+<p>The sum of odd numbers (<span class="math inline">\(1 + 3 + 5 + \dots + 17 + 19\)</span>) can be represented as:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \sum_{i = 1}^{10} (2i - 1)\]</span></p>
+<p>The sum of (negative) even numbers (<span class="math inline">\(-2 -4 -6 -8 -10 - \dots - 18 - 20\)</span>) can be represented as:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \sum_{i = 1}^{10} (-2i) = -2 \displaystyle \sum_{i = 1}^{10} i\]</span></p>
+<p>The original sum can be split into two sums. One sum has the positive odd numbers from 1 to 20 and the other sum has negative numbers from 1 to 20.</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \sum_{i = 1}^{20} (-i)^{(n + 1)} = \displaystyle \sum_{i = 1}^{10} (2i - 1) - 2 \displaystyle \sum_{i = 1}^{10} i\]</span></p>
+<p>Using summation properties the above can be simplified and evaluated.</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \sum_{i = 1}^{10} (2i - 1) - 2 \displaystyle \sum_{i = 1}^{10} i = \displaystyle \sum_{i = 1}^{10} (2i - 1) + \displaystyle \sum_{i = 1}^{10} (-2i) = \displaystyle \sum_{i = 1}^{10} (2i -1 ) - 2i = \displaystyle \sum_{i = 1}^{10} (-1) = 10(-1) = -10\]</span></p>
+<p>The sum <span class="math inline">\(1 - 2 + 3 - 4 + 5 - 6 + \dots + 19 - 20\)</span> computes to -10. This makes sense since the first pair of 1 - 2 is -1, the next pair of 3 - 4 is -1. This happens eight more times so we add (-1) ten times to get -10.</p>
+<p> </p>
+</div>
+<div id="practice-problems" class="section level3">
+<h3><u>Practice Problems</u></h3>
+<p> </p>
+<p>Here are some practice problems. The summation properties and formulas will come in handy. Hints and solutions are provided in the next sections.</p>
+<ol style="list-style-type: decimal">
+<li><p>Find the sum of the numbers from 1 to 15 (including 1 and 15).</p></li>
+<li><p>Find the sum of the numbers from 1 to 500 (including 1 and 500).</p></li>
+<li><p>Evaluate the sum <span class="math inline">\(1 + 4 + 9 + 16 + 25 + 36 + 49 + 64 + 81 + 100 + 121 + 144\)</span> using summation notation, properties and/or formulas.</p></li>
+<li><p>Find the sum of <span class="math inline">\(1 + 8 + 27 + 64 + 125 + 216 + 343 + 512\)</span> using summation notation, properties and/or formulas.</p></li>
+<li><p>Evaluate <span class="math inline">\(-2 + 4 - 6 + 8 - 10 + \dots - 22 + 24\)</span> using summation notation and properties.</p></li>
+<li><p>Is <span class="math inline">\(\displaystyle \sum_{i = 1}^{10} (i + 3)\)</span> greater than <span class="math inline">\((-10 + 20 - 30 + 40 - 50 + 60 - 70 + 80)\)</span>?</p></li>
+<li><p>Evaluate <span class="math inline">\(\displaystyle \sum_{i = 1}^{16} (i^2 + 3i - 7)\)</span>.</p></li>
+<li><p>Evaluate <span class="math inline">\(\displaystyle \sum_{i = 1}^{12} (2i^3 + 4i^2 - 2i + 1)\)</span>.</p></li>
+</ol>
+<p> </p>
+</div>
+<div id="hints-to-practice-problems" class="section level3">
+<h3><u>Hints To Practice Problems</u></h3>
+<p> </p>
+<ol style="list-style-type: decimal">
+<li><p>Use the formula <span class="math inline">\(\displaystyle \sum_{i = 1}^{n} i = \dfrac{n(n + 1)}{2}\)</span>.</p></li>
+<li><p>Use the formula <span class="math inline">\(\displaystyle \sum_{i = 1}^{n} i = \dfrac{n(n + 1)}{2}\)</span>.</p></li>
+<li><p>Notice how each term in the sum is a squared number.</p></li>
+<li><p>Each term in the sum is a cubed number.</p></li>
+<li><p>This is an alternating signs case.</p></li>
+<li><p>The first sum can be simplified and evaluated. The second sum is similar to the alternating signs example.</p></li>
+<li><p>Use properties and formulas to evaluate the sum.</p></li>
+<li><p>Use properties and formulas to evaluate the sum.</p></li>
+</ol>
+<p> </p>
+</div>
+<div id="solutions-to-practice-problems" class="section level3">
+<h3><u>Solutions To Practice Problems</u></h3>
+<p> </p>
+<ol style="list-style-type: decimal">
+<li><p>120</p></li>
+<li><p>125250</p></li>
+<li><p>650</p></li>
+<li><p>1296</p></li>
+<li><p><span class="math display">\[-2 + 4 - 6 + 8 - 10 + \dots - 22 + 24 = 2(-1 + 2 - 3 + \dots -11 + 12) = 2[ (-1 -3 - 5 -7 -9 -11) + (2 + 4 + 6 + 8 + 10 + 12)]\]</span></p></li>
+</ol>
+<p>The original sum can be split into two sums. One sum has negative odd numbers and the other sum has positive even numbers. Here are the calculations.</p>
+<p><span class="math display">\[2 \displaystyle \sum_{i = 1}^{6} -(2i - 1) + 2 \displaystyle \sum_{i = 1}^{6} (2i)\]</span></p>
+<p><span class="math display">\[-2 \displaystyle \sum_{i = 1}^{6} (2i - 1) + 4 \displaystyle \sum_{i = 1}^{6} i\]</span></p>
+<p><span class="math display">\[-4 \displaystyle \sum_{i = 1}^{6} i + \displaystyle \sum_{i = 1}^{6} 2 + 4 \displaystyle \sum_{i = 1}^{6} i \]</span></p>
+<p><span class="math display">\[\displaystyle \sum_{i = 1}^{6} 2 = 6(2) = 12\]</span></p>
+<ol start="6" style="list-style-type: decimal">
+<li>The first sum <span class="math inline">\(\displaystyle \sum_{i = 1}^{10} (i + 3)\)</span> computes to:</li>
+</ol>
+<p><span class="math display">\[\displaystyle \sum_{i = 1}^{10} (i + 3) = \displaystyle \sum_{i = 1}^{10} i + \displaystyle \sum_{i = 1}^{10} 3 = \dfrac{(10)(11)}{2} + 3(10) = 55 + 30 = 85 \]</span></p>
+<p>The second sum <span class="math inline">\((-10 + 20 - 30 + 40 - 50 + 60 - 70 + 80) = 10(-1 + 2 -3 + 4 - 5 + 6 - 7 + 8)\)</span> can be represented as:</p>
+<p><span class="math display">\[-10 \displaystyle \sum_{i = 1}^{4} (2i - 1) + 10 \displaystyle \sum_{i = 1}^{4} (2i)\]</span></p>
+<p>The above can be simplified and evaluated as follows.</p>
+<p><span class="math display">\[-10 \displaystyle \sum_{i = 1}^{4} (2i) + \displaystyle \sum_{i = 1}^{4} 10 + 10 \displaystyle \sum_{i = 1}^{4} (2i) = \displaystyle \sum_{i = 1}^{4} 10 = 10(4) = 40\]</span></p>
+<ol start="7" style="list-style-type: decimal">
+<li><p><span class="math display">\[\displaystyle \sum_{i = 1}^{16} (i^2 + 3i - 7) = \displaystyle \sum_{i = 1}^{16} i^2 + 3 \displaystyle \sum_{i = 1}^{16} i - \displaystyle \sum_{i = 1}^{16} 7 = \dfrac{(16)(17)(33)}{6} + 3 \dfrac{(16)(17)}{2} - (16)(7) = 1792 \]</span></p></li>
+<li><p>This question is similar to number seven.</p></li>
+</ol>
+<p><span class="math display">\[\displaystyle \sum_{i = 1}^{12} (i^3 + 2i^2 - i - 5) = \Bigg(\dfrac{(12)(13)}{2}\Bigg)^{2} + 2\dfrac{(12)(13)(25)}{6} - \dfrac{(12)(13)}{2} - 60 = 7246\]</span></p>
+<p> </p>
+</div>
+<div id="notes" class="section level3">
+<h3><u>Notes</u></h3>
+<p> </p>
+<p>There are more topics related to sigma notation, series and other types of sums which are not covered here. (i.e Arithmetic series, geometric series, Taylor series, etc.)</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="projects.html">R Programming Projects</a>
+</li>
+<li>
+  <a href="python_projects.html">Python Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<p> </p>
+<div id="chain-rule" class="section level1">
+<h1><u>Chain Rule</u></h1>
+<p> </p>
+<center>
+<img src="http://www.mindonwaves.com/wp-content/uploads/2015/06/chains1.jpg" />
+</center>
+<center>
+<a href="http://www.mindonwaves.com/wp-content/uploads/2015/06/chains1.jpg">Image Source</a>
+</center>
+<p> </p>
+<p>This post will be about the chain rule. The chain rule was one of those topics that took a bit of time for me to understand when I was a younger math student. It is assumed that the reader knows about the product rule.</p>
+<p> </p>
+<div id="a-motivating-example" class="section level3">
+<h3><u>A Motivating Example</u></h3>
+<p> </p>
+<p>Consider a simple function such as <span class="math inline">\(f(x) = x^3\)</span>. The derivative would be simply <span class="math inline">\(f&#39;(x) = 3x^2\)</span>.</p>
+<p>But what if was expressed as <span class="math inline">\(f&#39;(x) = 3x^2 * 1\)</span>? Where did this 1 come from? Let’s try this:</p>
+<p> </p>
+<p><span class="math display">\[f&#39;(x) = 3x^2 \dfrac{d}{dx} x\]</span></p>
+<p> </p>
+<p>The 1came from the derivative of x with respect to x.</p>
+<p>So what did we do above? We took the derivative of <span class="math inline">\(x^3\)</span> and then multiplied it by the derivative of <span class="math inline">\(x\)</span>.</p>
+<p> </p>
+</div>
+<div id="the-chain-rule" class="section level3">
+<h3><u>The Chain Rule</u></h3>
+<p> </p>
+<p>Given a (continuous) function <span class="math inline">\(h(x) = f(g(x))\)</span> where and <span class="math inline">\(f(x)\)</span> and <span class="math inline">\(g(x)\)</span> are different (continuous) functions. Then</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle h&#39;(x) = f&#39;( g(x) ) g&#39;(x)\]</span>.</p>
+<p> </p>
+<p>This means we take the derivative of the outside function <span class="math inline">\(f(g(x)\)</span> and then take the derivative of the inside function <span class="math inline">\(g(x)\)</span>. It can be possible that the function inside <span class="math inline">\(g(x)\)</span> can be a different function such as <span class="math inline">\(k(x)\)</span> which is different from <span class="math inline">\(x\)</span>.</p>
+<p> </p>
+</div>
+<div id="examples" class="section level3">
+<h3><u>Examples</u></h3>
+<p> </p>
+<p><strong>Example 1</strong></p>
+<p> </p>
+<p>The function <span class="math inline">\(x^3\)</span> from earlier has <span class="math inline">\(g(x) = x\)</span>, <span class="math inline">\(f(x) = x^3\)</span>, <span class="math inline">\(f&#39;(x) = 3x^2\)</span> and <span class="math inline">\(g&#39;(x) = 1\)</span>. The derivative of <span class="math inline">\(x^3\)</span> is simply <span class="math inline">\(3x^2\)</span>.</p>
+<p> </p>
+<p><strong>Example 2</strong></p>
+<p> </p>
+<p>Consider the function <span class="math inline">\(h(x) = \sin(2x)\)</span>. The outside function is <span class="math inline">\(f(x) = \sin(x)\)</span> with <span class="math inline">\(f&#39;(x) = \cos(x)\)</span>. The inside function is <span class="math inline">\(g(x) = 2x\)</span> with <span class="math inline">\(g&#39;(x) = 2\)</span>.</p>
+<p>By Chain Rule, the derivative <span class="math inline">\(h&#39;(x)\)</span> is <span class="math inline">\(2 \cos(2x)\)</span>.</p>
+<p> </p>
+<p><strong>Example 3 (Combining with Product Rule)</strong></p>
+<p> </p>
+<p>Suppose that we have <span class="math inline">\(h(x) = x e^{x^2}\)</span>. Through product rule and chain rule on the derivative of <span class="math inline">\(e^{x^2}\)</span> gives:</p>
+<p> </p>
+<p><span class="math display">\[\begin{array}{lcl} h&#39;(x) &amp; = &amp; e^{x^2} + x \times e^{x^2} \times 2x \\ &amp; = &amp; e^{x^2} (1 + 2x^2) \\ \end{array}\]</span></p>
+<p> </p>
+<p><strong>Example 4 (Multiple Chain Rule)</strong></p>
+<p> </p>
+<p>There are cases when you may have to use multiple chain rules along with product rules, quotient rules and so on.</p>
+<p>Consider <span class="math inline">\(h(x) = \cos((2x + 1)^2)\)</span>. The derivative <span class="math inline">\(h&#39;(x)\)</span> is:</p>
+<p> </p>
+<p><span class="math display">\[\begin{array}{lcl} h&#39;(x) &amp; = &amp; - \sin(x^2) \dfrac{d}{dx} (2x + 1)^{2} \\ &amp; = &amp; - \sin(x^2) \times 2(2x + 1) \times \dfrac{d}{dx} (2x + 1) \\ &amp; = &amp; -2 \sin(x^2) (2x + 1) \times 2\\ &amp; = &amp; -4 \sin(x^2) (2x + 1) \end{array}\]</span>  </p>
+</div>
+<div id="tips-for-learning-chain-rule" class="section level3">
+<h3><u>Tips for Learning Chain Rule</u></h3>
+<p> </p>
+<p>Take it one step at a time.</p>
+<p>Identify the outside function(s) and inside function(s). Start from the outside to the inside.</p>
+<p>Practice with the simple functions such as <span class="math inline">\(x\)</span>, <span class="math inline">\(\cos(x)\)</span>, <span class="math inline">\(\dfrac{1}{x}\)</span> and so on.</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

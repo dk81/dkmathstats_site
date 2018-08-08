@@ -1,0 +1,136 @@
+---
+title = "math-function-notation"
+---
+
+&nbsp;
+
+# <u>Function Notation</u>
+
+&nbsp;
+
+Hi. This math page will be about function notation.
+
+&nbsp;
+
+### <u>Table Of Contents</u>
+
+* Introduction and Motivation
+
+* The Function Notation Form
+
+* Examples
+
+* Practice Problems
+
+* Answers
+
+&nbsp;
+
+### <u>Introduction and Motivation</u>
+
+&nbsp;
+
+In my experience, the function notation $f(x)$ was introduced to me in one of my later years of high school mathematics. When and how this topic is taught varies between regions, school boards and countries.
+
+When it comes to equations we usually use the variable $y$ to represent the dependent variable. There are times when there are multiple equations such as $y = 2x + 5$ and $y = x^2 + 4x + 3$. With those equations, when we substitute a value of 2 for $x$ for example we need to specify which equation this $x = 2$ needs to be applied to.
+
+Function notation makes it easier for the math reader/student to identify which equation is being used for the substitution. Instead of $y$, we would use use $f(x) = 2x +5$ and $g(x) = x^2 + 4x + 3$ instead.
+
+&nbsp;
+
+### <u>The Function Notation Form</u>
+
+&nbsp;
+
+Suppose we have a simple linear function of the form $f(x) = x + 2$ (instead of $y = x + 2$). When we are substituting $x = 3$, we use the notation of $f(3) = 3 + 2 = 5$. With substitutions in the function notation form, the independent variable $x$ is replaced by 3. This is much more efficient than writing down substituting $x = 3$ into $y = x + 2$.
+
+In $f(x) = x + 2$, we have $x$ as the independent variable and $y = f(x)$ as the dependent variable. We can also view the variable $x$ as an input into the function (machine) $f$ which gives a corresponding output $y = f(x)$
+
+<center><img src="https://s-media-cache-ak0.pinimg.com/originals/54/86/13/54861315402fa1605a5d570b2d1770d0.jpg" /></center>
+<center><a href="https://s-media-cache-ak0.pinimg.com/originals/54/86/13/54861315402fa1605a5d570b2d1770d0.jpg">Imae Source</a></center>
+
+
+Source: https://s-media-cache-ak0.pinimg.com/originals/54/86/13/54861315402fa1605a5d570b2d1770d0.jpg
+
+
+Suppose we have another function. We call this function $g(x) = x^2 + 5$. (You can use a different letter other than f.) Setting $x = 5$ yields $g(5) = 5^2 + 5 = 25 + 5 = 30$.
+
+&nbsp;
+
+### <u>Examples</u>
+
+&nbsp;
+
+Here are a few more examples.
+
+Suppose we have $h(x) = x^2 + 2x - 3$.
+
+-----
+
+**Example One**
+
+What is $h(-2)$?
+
+$$h(-2) = (-2)^2 + 2(-2) - 3 = 4 - 4 - 3 = -3$$
+
+-----
+
+**Example Two**
+
+What is $h(1 + 3 * 2)$?
+
+We first evaluate the quantity inside the bracket of the function $h$.
+
+$$h(1 + 3 * 2) = h(1 + 6) = h(7) = 7^2 + 2(7) - 3 = 49 + 14 - 3 = 60$$
+
+-----
+
+**Example Three**
+
+What is h(a) where $a$ is some number?
+
+Before, we substitute $x$ with a number. Here we do a similar procedure and substitute $x$ with $a$.
+
+$$h(a) = a^2 + 2a - 3$$
+
+-----
+
+**Example Four**
+
+Suppose we want to double the quantity of our input. What is $h(2x)$?
+
+Instead of $x$, we have $2x$. Whenever there is an $x$, replace it with $2x$.
+
+$$h(2x) = (2x)^2 + 2(2x) - 3 = 4x^2 + 4x - 3$$
+
+&nbsp;
+
+### <u>Practice Questions</u>
+
+Suppose we have the functions $f(x) = x + 7$ and $g(x) = x^2 - 3$.
+
+1) What is $f(-4)$?
+
+2) Evaluate $g(1)$.
+
+3) Evaluate $g(2^3 + 1)$.
+
+4) Evaluate $f(x + h)$.
+
+5) Evaluate $g(f(1))$. (Composition Functions: First evaluate $f(1)$ and then $g(f(1))$.)
+
+&nbsp;
+
+### <u>Answers</u>
+
+&nbsp;
+
+1) $f(-4) = 3$.
+
+2) $g(1) = -2$.
+
+3) $g(2^3 + 1) = g(8 + 1) = g(9) = 81 - 3 = 78$.
+
+4) $f(x + h) = x + h + 7$.
+
+5) $f(1) = 8$. Then $g(f(1)) = g(8) = 64 - 3 = 61.$

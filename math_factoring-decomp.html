@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="projects.html">R Programming Projects</a>
+</li>
+<li>
+  <a href="python_projects.html">Python Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<p> </p>
+<div id="factoring-quadratic-equations-using-the-decomposition-method" class="section level1">
+<h1><u>Factoring Quadratic Equations Using The Decomposition Method</u></h1>
+<p> </p>
+<p>Hi. This page will be about factoring quadratic equations when in \(y = ax^2 + bx + c\) through the decomposition method.</p>
+<p> </p>
+<div id="table-of-contents" class="section level3">
+<h3><u>Table Of Contents</u></h3>
+<p> </p>
+<ul>
+<li>Introduction</li>
+<li>The Decomposition Factoring Method</li>
+<li>Examples</li>
+<li>Practice Problems</li>
+<li>Answers</li>
+</ul>
+<p> </p>
+</div>
+<div id="introduction" class="section level3">
+<h3><u>Introduction</u></h3>
+<p>I have made a previous mathematics page about factoring quadratic equations when \(a = 1\) in \(y = ax^2 + bx + c\). The decomposition method is somewhat similar to factoring quadratics when \(a = 1\) in \(y = ax^2 + bx + c\). When \(a\) is something like 2,7 or 10, it is more preferable to using the decomposition factoring method.</p>
+<p>There is another method called the box method. I might have learned this in my student days and have recently reviewed this method. Personally, I do not like it very much as it takes longer versus the decomposition factoring method.</p>
+<p>It is assumed that the reader knows common factoring and factoring quadratic equations when \(a = 1\).</p>
+<p> </p>
+</div>
+<div id="the-decomposition-factoring-method" class="section level3">
+<h3><u>The Decomposition Factoring Method</u></h3>
+<p>Before we mention the decomposition factoring method, it is important to explore the math trick of decomposition. As an example, we can break down a number like 10 into 5 and 5, 3 and 7 or even 6 and 4. It changes the form but it is still 10.</p>
+<p>Suppose that we are given \(y = 4x^2 + 13x + 3\). We need two numbers \(j\) and \(k\) which are factors of \(4 3 = 12\) and satisfy \(j k = 12\) and \(j + k = 13\). The two numbers which fit that criteria are 12 and 1 since \(12 1 = 12\) and \(12 + 1 = 13\).</p>
+<p>Unlike the factoring method when \(a = 1\), we add another step before the final factored form. Using the numbers 12 and 1 we can decompose the \(13x\) into \(12x\) and \(x\) which matches the 12 and 1. The equation is now \(y = 4x^2 + 12x + x + 3\).</p>
+<p>From \(y = 4x^2 + 12x + x + 3\) we do common factoring twice. The first common factoring is on the first two terms and the second common factoring would be applied on the third and fourth terms. It would look something like this.</p>
+<p> </p>
+<p><span class="math display">\[y = 4x^2 + 12x + x + 3 = (4x^2 + 12x) + (x + 3) = 4x(x + 3) + 1(x +3) \]</span></p>
+<p> </p>
+<p>Notice that we now have a common factor of \((x + 3)\). Factoring out the \((x + 3)\) gives us the factored form.</p>
+<p> </p>
+<p><span class="math display">\[4x(x + 3) + 1(x +3) = (x + 3)(4x + 1)\]</span></p>
+<p> </p>
+<p>To check that \(y = (x + 3)(4x + 1)\) is indeed the factored form of \(y = 4x^2 + 13x + 3\), we use the FOIL method when multiplying binomials.</p>
+<p> </p>
+<p><span class="math display">\[y = (x + 3)(4x + 1) = 4x^2 + x + 12x + 3 = 4x^2 + 13x + 3\]</span></p>
+<p> </p>
+<p>To summarize the example, here are the steps in full.</p>
+<p> </p>
+<p><span class="math display">\[y  =  4x^2 + 13x + 3\]</span></p>
+<p><span class="math display">\[y  =  4x^2 + 12x + x + 3 \]</span></p>
+<p><span class="math display">\[y  =  (4x^2 + 12x) + (x + 3) \]</span></p>
+<p><span class="math display">\[y  =  4x(x + 3) + 1(x +3) \]</span></p>
+<p><span class="math display">\[y  =  (x + 3)(4x + 1) \]</span></p>
+<p> </p>
+<p><strong>Note</strong></p>
+<p>We can also break down the \(13x\) into \(x + 12x\) instead of \(12x + x\). The final answer would still be the same but the steps would be slightly different.</p>
+<p> </p>
+<p><span class="math display">\[y  =  4x^2 + 13x + 3 \]</span></p>
+<p><span class="math display">\[y  =  4x^2 + x + 12x + 3 \]</span></p>
+<p><span class="math display">\[y  =  (4x^2 + x) + (12x + 3) \]</span></p>
+<p><span class="math display">\[y  =  x(4x + 1) + 3(4x +1) \]</span></p>
+<p><span class="math display">\[y  =  (4x + 1)(x + 3) \]</span></p>
+<p> </p>
+<p><strong>The General Method</strong></p>
+<p> </p>
+<p>Here are the steps of factoring a quadratic equation in the form of \(y = ax^2 + bx + c\) through decomposition.</p>
+<p>Determine two numbers \(j\) and \(k\) such that \(jk = ac\) and \(j + k = b\).</p>
+<p>Using the numbers \(j\) and \(k\) decompose \(bx\) into \(jx + kx\) or \(kx + jx\).</p>
+<p>Notice how there are now four terms instead of three terms. Consider the first terms as one pair and the last two terms as another pair.</p>
+<p>Common factor from the first two terms and common factor from the last two terms.</p>
+<p>Common factor one more time to achieve the factored form.</p>
+<p> </p>
+</div>
+<div id="examples" class="section level3">
+<h3><u>Examples</u></h3>
+<p> </p>
+<p><strong>Example One</strong></p>
+<p>Factor \(y = 3x^2 + 8x + 4\).</p>
+<p> </p>
+<p>Answer:</p>
+<p>We seek two numbers which multiply to \(3 4 = 12\) and add up to \(b = 8\). The two numbers which satisfy these conditions are 6 and 2 (since \(6 2 = 12\) and \(6 + 2 = 8\)). The full steps can be found below.</p>
+<p> </p>
+<p><span class="math display">\[ y  =  3x^2 + 8x + 4 \]</span></p>
+<p><span class="math display">\[y  =  3x^2 + 6x + 2x + 4 \]</span></p>
+<p><span class="math display">\[y  =  (3x^2 + 6x) + (2x + 4) \]</span></p>
+<p><span class="math display">\[y  =  3x(x + 2) + 2(x + 2) \]</span></p>
+<p><span class="math display">\[y  =  (x + 2)(3x + 2) \]</span></p>
+<p> </p>
+<p>Answer Check:</p>
+<p><span class="math display">\[ y  =  (x + 2)(3x + 2) \]</span></p>
+<p><span class="math display">\[y  =  3x^2 + 2x + 6x + 4\]</span></p>
+<p><span class="math display">\[y  =  3x^2 + 8x + 4\]</span></p>
+<p> </p>
+<p><strong>Example Two</strong></p>
+<p>Factor \(y = 8x^2 + 10x + 2\).</p>
+<p>We have \(ac = 8 2 = 16\) and \(b = 10\). The two numbers here would be 8 and 2.</p>
+<p> </p>
+<p><span class="math display">\[y  =  8x^2 + 10x + 2 \]</span></p>
+<p><span class="math display">\[y  =  8x^2 + 8x + 2x + 2 \]</span></p>
+<p><span class="math display">\[y  =  (8x^2 + 8x) + (2x + 2) \]</span></p>
+<p><span class="math display">\[y  =  8x(x + 1) + 2(x + 1) \]</span></p>
+<p><span class="math display">\[y  =  (x + 1)(8x + 2) \]</span></p>
+<p> </p>
+<p>Answer Check:</p>
+<p><span class="math display">\[ y  =  (x + 1)(8x + 2) \]</span></p>
+<p><span class="math display">\[y  =  8x^2 + 2x + 8x + 2\]</span></p>
+<p><span class="math display">\[y  =  8x^2 + 10x + 2\]</span></p>
+<p> </p>
+<p><strong>Example Three</strong></p>
+<p>Factor \(y = 4x^2 - 14x - 8\).</p>
+<p> </p>
+<p>Notice how we have even numbers in 4, -14 and -8. We first use a common factor of 2. The equation is now \(y = 2(2x^2 - 7x - 4)\)</p>
+<p>We have \(ac = 2 -4 = -8\) and \(b = -7\). The two numbers here would be -8 and 1.</p>
+<p> </p>
+<p><span class="math display">\[y  =  4x^2 - 14x - 8 \]</span></p>
+<p><span class="math display">\[y  =  2(2x^2 - 7x - 4)\]</span></p>
+<p><span class="math display">\[y  =  2(2x^2 - 8x + x - 4)\]</span></p>
+<p><span class="math display">\[y  =  2[(2x^2 - 8x) + (x - 4)]\]</span></p>
+<p><span class="math display">\[y  =  2[2x(x - 4) + 1(x - 4)]\]</span></p>
+<p><span class="math display">\[y  =  2[(x - 4)(2x + 1)]\]</span></p>
+<p><span class="math display">\[y  =  2(x - 4)(2x + 1)\]</span></p>
+<p> </p>
+<p>Answer Check:</p>
+<p><span class="math display">\[ y  =  2(x - 4)(2x + 1)\]</span></p>
+<p><span class="math display">\[y  =  2[2x^2 + x - 8x - 4]\]</span></p>
+<p><span class="math display">\[y  =  2[2x^2 - 7x - 4]\]</span></p>
+<p><span class="math display">\[y  =  4x^2 - 14x - 8\]</span></p>
+<p> </p>
+</div>
+<div id="practice-problems" class="section level3">
+<h3><u>Practice Problems</u></h3>
+<p>Here are some practice problems to build understanding. Factor each equation.</p>
+<p> </p>
+<ol style="list-style-type: decimal">
+<li><p><span class="math inline">\(y = 3x^{2} + 7x + 4\)</span></p></li>
+<li><p><span class="math inline">\(y = 10x^{2} + 12x + 2\)</span></p></li>
+<li><p><span class="math inline">\(y = 4x^{2} + 18x + 8\)</span></p></li>
+<li><p><span class="math inline">\(y = 3x^{2} - x - 2\)</span></p></li>
+<li><p><span class="math inline">\(y = -2x^{2} + 7x - 4\)</span></p></li>
+</ol>
+<p> </p>
+</div>
+<div id="answers" class="section level3">
+<h3><u>Answers</u></h3>
+<p>Here are the answers to the previous practice problems.</p>
+<p> </p>
+<ol style="list-style-type: decimal">
+<li><p><span class="math inline">\(y = (3x + 4)(x + 1)\)</span></p></li>
+<li><p><span class="math inline">\(y = 2(5x + 1)(x + 1)\)</span></p></li>
+<li><p><span class="math inline">\(y = 2(2x + 1)(x + 4)\)</span></p></li>
+<li><p><span class="math inline">\(y = (3x + 2)(x - 1)\)</span></p></li>
+<li><p><span class="math inline">\(y = -(2x + 1)(x - 4)\)</span></p></li>
+</ol>
+<p> </p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
