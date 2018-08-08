@@ -3,7 +3,7 @@ title: "Calculus Chain Rule"
 output: html_document
 ---
 
-
+&nbsp;
 
 <center><img src="http://www.mindonwaves.com/wp-content/uploads/2015/06/chains1.jpg" /></center>
 <center><a href="http://www.mindonwaves.com/wp-content/uploads/2015/06/chains1.jpg">Image Source</a></center>
@@ -18,7 +18,7 @@ This post will be about the chain rule. The chain rule was one of those topics t
 
 &nbsp;
 
-Consider a simple function such as $f(x) = x^3$. The derivative would be simply $f'(x) = 3x^2$.
+Consider a simple function such as $f(x) = x^3$. The derivative would be simply $f'(x) = 3x^2$.
 
 But what if was expressed as $f'(x) = 3x^2 * 1$? Where did this 1 come from? Let's try this:
 
