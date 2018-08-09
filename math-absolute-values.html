@@ -193,9 +193,6 @@ $(document).ready(function () {
 <li>
   <a href="projects.html">R Programming Projects</a>
 </li>
-<li>
-  <a href="python_projects.html">Python Programming Projects</a>
-</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -214,7 +211,7 @@ $(document).ready(function () {
 
 
 <p> </p>
-<p>This article will be about absolute values. This topic is somewhat tricky for those new to this topic.</p>
+<p>This article will be about absolute values. This topic is somewhat tricky for those new to this topic. The images below were produced from the statistical programming language R with the <code>ggplot2</code> package.</p>
 <p> </p>
 <div id="the-absolute-value" class="section level3">
 <h3><u>The Absolute Value</u></h3>
@@ -233,14 +230,39 @@ $(document).ready(function () {
 <div id="section" class="section level2">
 <h2> </h2>
 <p>So far we have dealt with absolute value of numbers and not variables. We now generalize and present the formal definition.</p>
-<p><span class="math display">\[\displaystyle |x| = \begin{cases}x &amp; \text{if } x \geq 0 \\ -x &amp; \text{if } x &lt; 0 \end{cases}\]</span></p>
+<p> </p>
+<p><span class="math display">\[\displaystyle |x| = \begin{cases}x &amp; \text{if } x \geq 0 \\ -x &amp; \text{if } x &lt; 0 \end{cases}\]</span>  </p>
 <hr />
 <p>Here is a visual of the absolute function centered at <span class="math inline">\(x = 0\)</span>.</p>
-<p>Source: <a href="https://www.mathsisfun.com/sets/images/function-absolute.gif" class="uri">https://www.mathsisfun.com/sets/images/function-absolute.gif</a></p>
+<p> </p>
+<center>
+<img src="images/absPlot_01.png" alt="example-one" />
+</center>
+<p> </p>
 <hr />
-<p>The absolute function is an example of a piecewise function. This type of function depends on the value of $ x$. It is not like linear functions where it is a smooth line for all <span class="math inline">\(x\)</span> values. If we had <span class="math inline">\(-|x|\)</span> then the picture above would be upside down and would look like a hat.</p>
-<p>We now consider intercepts with the <span class="math inline">\(x\)</span> variable inside the absolute value. If we had <span class="math inline">\(|x - 7|\)</span> then the origin point at (0,0) from <span class="math inline">\(|x|\)</span> would be shifted to the right 7 units to the point (7, 0) for <span class="math inline">\(|x - 7|\)</span>. If we had <span class="math inline">\(|x + 2|\)</span> then the origin point at (0,0) from <span class="math inline">\(|x|\)</span> would be shifted to the left 2 units to the point (2, 0) for <span class="math inline">\(|x - 7|\)</span>. Refer to the picture below as a visual aid.</p>
+<p> </p>
+<p>The absolute function is an example of a piecewise function. This type of function depends on the value of <span class="math inline">\(x\)</span>. It is not like linear functions where it is a smooth line for all <span class="math inline">\(x\)</span> values. If we had <span class="math inline">\(-|x|\)</span> then the picture above would be upside down and would look like a hat.</p>
+<p> </p>
+<center>
+<img src="images/absPlot_02.png" alt="example-two" />
+</center>
+<p> </p>
+<p>We now consider intercepts with the <span class="math inline">\(x\)</span> variable inside the absolute value. If we had <span class="math inline">\(|x - 7|\)</span> then the origin point at (0,0) from <span class="math inline">\(|x|\)</span> would be shifted to the right 7 units to the point (7, 0) for <span class="math inline">\(|x - 7|\)</span>. If we had <span class="math inline">\(|x + 2|\)</span> then the origin point at (0,0) from <span class="math inline">\(|x|\)</span> would be shifted to the left 2 units to the point (2, 0) for <span class="math inline">\(|x - 7|\)</span>. Refer to the pictures below as a visual aid.</p>
+<p> </p>
+<center>
+<img src="images/absPlot05.png" alt="example-three" />
+</center>
+<p> </p>
+<center>
+<img src="images/absPlot06.png" alt="example-four" />
+</center>
+<p> </p>
 <p>Any vertical shifts would have numbers outside the absolute value function. For example, <span class="math inline">\(|x| + 3\)</span> would shift the every point from <span class="math inline">\(|x|\)</span> up by 3 units.</p>
+<p> </p>
+<center>
+<img src="images/absPlot_04.png" alt="example-five" />
+</center>
+<p> </p>
 <hr />
 <div id="domain-and-range" class="section level3">
 <h3><u>Domain and Range</u></h3>
@@ -269,6 +291,11 @@ $(document).ready(function () {
 <p><span class="math display">\[\displaystyle 3 &lt; x &lt; 7\]</span></p>
 <p> </p>
 <p>Here is another example where we have <span class="math inline">\(|x - 1| \geq 3\)</span>. The second property is used.</p>
+<p> </p>
+<center>
+<img src="images/inequalPlot02.png" alt="inequal02" />
+</center>
+<p> </p>
 <p><span class="math display">\[\displaystyle |x - 1| \geq 3\]</span></p>
 <p><span class="math display">\[\displaystyle (x - 1) \geq 3 \text{ or } (x - 1) \leq -3\]</span></p>
 <p><span class="math display">\[\displaystyle x \geq 4 \text{ or } x \leq -2\]</span></p>

@@ -7,7 +7,7 @@ output: html_document
 
 This topic is about the slope of a line.
 
-Suppose we are given a point $A$ with the co-ordinate $(x\_1$, $y\_1$) and a point $B$ with the co-ordinate $(x\_2$, $y\_2$). The line segment $AB$ connects the point $A$ to the point $B$.
+Suppose we are given a point $A$ with the co-ordinate ($x_1$, $y_1$) and a point $B$ with the co-ordinate $(x_2$, $y_2$). The line segment $AB$ connects the point $A$ to the point $B$.
 
 The slope of a line $m$ represents the ratio of the rise over the run. The rise represents the vertical distance between two points and the run represents the horizontal distance (left to right) between two points.
 
@@ -15,7 +15,7 @@ To compute the slope $m$ for two points (in the xy-plane), we use the formula:
 
 $$m = \dfrac{y_2 - y_1}{x_2 - x_1}$$
 
-where $x\_2$ is greater than $x\_1$ as we go from left to right in the $xy$ co-ordinate system.
+where $x_2$ is greater than $x_1$ as we go from left to right in the $xy$ co-ordinate system.
 
 Here is a visual as a guide:
 
@@ -26,7 +26,7 @@ Here is a visual as a guide:
 &nbsp;
 
 ### Slope Cases
----
+
 
 &nbsp;
 
@@ -38,25 +38,30 @@ If the value $m$ is negative or $m < 0$, we have an downward slope. A $m$ value 
 
 When the $m$ value is zero, the slope is neither positive nor negative. There is no rise in the run. The line from point $A$ to point $B$ is a flat horizontal line.
 
-If $x\_1 = x_2$ then $x_2 - x_1 = 0$ in the denominator of the slope. A fraction with division by zero is undefined and thus the slope is undefined.
+If $x_1 = x_2$ then $x_2 - x_1 = 0$ in the denominator of the slope. A fraction with division by zero is undefined and thus the slope is undefined.
 
 The following picture provides a summary of the cases.
 
 &nbsp;
 
-<center><img src="https://www.montereyinstitute.org/courses/Algebra1/COURSE_TEXT_RESOURCE/U04_L1_T1_text_final_files/image014.gif" /></center>
-<center><a href="https://www.montereyinstitute.org/courses/Algebra1/COURSE_TEXT_RESOURCE/U04_L1_T1_text_final_files/image014.gif">Image Source From MontreyInstitute.org</a></center>
+<center><img src="http://www.integral-sk.com/wp-content/uploads/2012/02/line23.jpg" /></center>
+<center><a href="http://www.integral-sk.com/wp-content/uploads/2012/02/line23.jpg">Image Source From http://www.integral-sk.com/algebra/functions-and-graphs/linear-function/</a></center>
 
 &nbsp;
 
 ### Examples
----
+
+&nbsp;
 
 **Example One**
 
 Suppose that the point $A$ is (0, 3) and the point $B$ is (1, 2). The slope from point $A$ to point $B$ is as follows:
 
+&nbsp;
+
 $$m = \dfrac{y_2 - y_1}{x_2 - x_1} = \dfrac{2 - 3}{1 - 0} = \dfrac{-1}{1} = -1$$
+
+&nbsp;
 
 The slope of the line from $A$ to $B$ is downward sloping. For every increase in $x$ by 1, $y$ decreases by 1.
 
@@ -64,8 +69,13 @@ The slope of the line from $A$ to $B$ is downward sloping. For every increase in
 
 **Example Two**
 
+&nbsp;
+
 Given the point $A$ being (1, 4) and the point $B$ as (5, 7), the slope from point $A$ to point $B$ is:
 
+&nbsp;
+
 $$m = \dfrac{y_2 - y_1}{x_2 - x_1} = \dfrac{7 - 4}{5 - 1} = \dfrac{3}{4} $$
+&nbsp;
 
 The slope of the line from $A$ to $B$ is upward sloping. For every increase in $x$ by 1, $y$ decreases by $\dfrac{3}{4}$.

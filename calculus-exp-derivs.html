@@ -193,9 +193,6 @@ $(document).ready(function () {
 <li>
   <a href="projects.html">R Programming Projects</a>
 </li>
-<li>
-  <a href="python_projects.html">Python Programming Projects</a>
-</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -228,21 +225,29 @@ $(document).ready(function () {
 <h3><u>Exponential Functions: A Brief Review</u></h3>
 <p> </p>
 <p>An exponential function is a function of the form:</p>
+<p> </p>
 <p><span class="math display">\[\displaystyle a^{x}\]</span></p>
+<p> </p>
 <p>where <span class="math inline">\(a\)</span> is a non-zero number and <span class="math inline">\(x\)</span> is a variable.</p>
 <p>One should be careful and make the distinction between an exponential function such as <span class="math inline">\(2^x\)</span> versus a polynomial such as <span class="math inline">\(x^2\)</span> which is a variable to a numeric power/exponent.</p>
 <p> </p>
 </div>
 <div id="the-derivative-of-an-exponential-function" class="section level3">
-<h3>The Derivative of An Exponential Function</h3>
+<h3><u>The Derivative of An Exponential Function</u></h3>
 <p> </p>
 <p>If we are given <span class="math inline">\(f(x) = a^{g(x)}\)</span> where <span class="math inline">\(g(x)\)</span> is a different function of <span class="math inline">\(f(x)\)</span>. The derivative of <span class="math inline">\(f(x)\)</span> is:</p>
+<p> </p>
 <p><span class="math display">\[\displaystyle \begin{array} {lcl} f&#39;(x) &amp; = &amp; \text{ln}(a) \cdot a^{g(x)} \cdot \dfrac{d}{dx} g(x) \\ &amp; = &amp; \text{ln}(a) \cdot a^{g(x)} \cdot g&#39;(x) \end{array} \\ \]</span></p>
+<p> </p>
 <p>Note that this general formula does use a variation of the chain rule. Since the exponent is a function of x, we take the derivative of the exponent as well.</p>
 <p>Given the more common case of <span class="math inline">\(g(x) = x\)</span> in the exponent, the general case becomes:</p>
+<p> </p>
 <p><span class="math display">\[\displaystyle \begin{array} {lcl} f&#39;(x) &amp; = &amp; \text{ln}(a) \cdot a^{x} \cdot \dfrac{d}{dx} x \\ &amp; = &amp; \text{ln}(a) \cdot a^{x} \cdot (x)&#39; \\ &amp; = &amp; \text{ln}(a) \cdot a^{x} \cdot 1 \\ &amp; = &amp; \text{ln}(a) \cdot a^{x} \\ \end{array} \\ \]</span></p>
+<p> </p>
 <p>If we are given <span class="math inline">\(e\)</span> as the base such that we have <span class="math inline">\(f(x) = \text{e}^{g(x)}\)</span>. The derivative <span class="math inline">\(f&#39;(x)\)</span> will be as follows:</p>
+<p> </p>
 <p><span class="math display">\[\displaystyle \begin{array} {lcl} f&#39;(x) &amp; = &amp; \text{ln}(a) \cdot \text{e}^{g(x)} \cdot \dfrac{d}{dx} g(x) \\ &amp; = &amp; \text{ln}(e) \cdot \text{e}^{x} \cdot g&#39;(x) \\ &amp; = &amp; 1 \cdot \text{e}^{x} \cdot g&#39;(x) \\ &amp; = &amp; \text{e}^{x} \cdot g&#39;(x) \\ \end{array} \\ \]</span></p>
+<p> </p>
 <p>(Note that ln(e) = 1 as <span class="math inline">\(e^{1} = e\)</span>.)</p>
 <p>A special case is where <span class="math inline">\(f(x) = \text{e}^{x}\)</span></p>
 <p>In this case we have <span class="math inline">\(a = e\)</span> and <span class="math inline">\(g(x) = x\)</span>. The derivative of <span class="math inline">\(\text{e}^{x}\)</span> is simply <span class="math inline">\(\text{e}^{x}\)</span>.</p>
@@ -257,17 +262,23 @@ $(document).ready(function () {
 <p><span class="math display">\[\displaystyle \begin{array} {lcl} f&#39;(x) &amp; = &amp; \text{ln(e)} \cdot \text{e}^{2x} \cdot \dfrac{d}{dx} 2x \\ &amp; = &amp; 1 \cdot \text{e}^{2x} \cdot 2 \\ &amp; = &amp; 2 \cdot \text{e}^{2x} \\ \end{array} \]</span></p>
 <p> </p>
 <p><strong>Example Two</strong></p>
+<p> </p>
 <p><span class="math inline">\(f(x) = 2 \cdot \text{e}^{x}\)</span></p>
+<p> </p>
 <p><span class="math display">\[ \displaystyle \begin{array} {lcl} f&#39;(x) &amp; = &amp; 2 \cdot \dfrac{d}{dx} \text{e}^{x} \\ &amp; = &amp; 2 \cdot \text{e}^{x} \\ \end{array}\]</span></p>
 <p> </p>
 <p><strong>Example Three</strong></p>
+<p> </p>
 <p><span class="math inline">\(f(x) = 5^{x}\)</span></p>
+<p> </p>
 <p><span class="math display">\[\displaystyle \begin{array} {lcl} f&#39;(x) &amp; = &amp; \text{ln(5)} \cdot 5^{x} \cdot \dfrac{d}{dx} x \\ &amp; = &amp; \text{ln(5)} \cdot 5^{x} \cdot 1 \\ &amp; = &amp; \text{ln(5)} \cdot 5^{x} \\ \end{array} \]</span></p>
 <p> </p>
 <p><strong>Example Four</strong></p>
+<p> </p>
 <p><span class="math inline">\(f(x) = 10^{\text{sin}(x)}\)</span></p>
+<p> </p>
 <p><span class="math display">\[\displaystyle \begin{array} {lcl} f&#39;(x) &amp; = &amp; \text{ln(10)} \cdot 10^{\text{sin}(x)} \cdot \dfrac{d}{dx} \text{sin}(x) \\ &amp; = &amp; \text{ln(10)} \cdot 10^{\text{sin}(x)} \cdot \text{cos}(x)\\ \end{array} \]</span></p>
-<p>The featured image is from <a href="http://www.emathhelp.net/images/calc/1_2_exponential_function.png" class="uri">http://www.emathhelp.net/images/calc/1_2_exponential_function.png</a>.</p>
+<p> </p>
 </div>
 
 

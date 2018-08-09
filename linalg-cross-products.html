@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>A Guide To Cross Products</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="projects.html">R Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">A Guide To Cross Products</h1>
+
+</div>
+
+
+<p> </p>
+<p>This post will be about the cross product. This topic can be found in a high school Calculus and Vectors course (that I know of in Ontario, Canada) or in a introductory linear algebra course.</p>
+<p>In here, we will deal with vectors in a three dimensional space. Also, it is easier to compute products if one knows how to compute (2 by 2) determinants. With that being said, I assume that the reader is familiar with determinants.</p>
+<p> </p>
+<div id="table-of-contents" class="section level3">
+<h3><u>Table Of Contents</u></h3>
+<p> </p>
+<ul>
+<li>The Cross Product</li>
+<li>Memory Aids</li>
+<li>Properties Of Cross Products</li>
+<li>Examples</li>
+<li>Practice Problems</li>
+<li>Solutions</li>
+<li>References</li>
+</ul>
+<p> </p>
+</div>
+<div id="the-cross-product" class="section level3">
+<h3><u>The Cross Product</u></h3>
+<p> </p>
+<p>Suppose we have two vectors <span class="math inline">\(\mathbf{u} = (u_1, u_2, u_{3})\)</span> and <span class="math inline">\(\mathbf{v} = (v_1, v_2, v_{3})\)</span> in three dimensions. The cross product $  (  ) $ of two vectors is a (different) vector which is perpendicular to the two vectors.</p>
+<p> </p>
+<p>Source: <a href="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Cross_product_vector.svg/220px-Cross_product_vector.svg.png" class="uri">https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Cross_product_vector.svg/220px-Cross_product_vector.svg.png</a></p>
+<p> </p>
+<p>There are two ways to compute cross products. The first formula does not assume the reader knows determinants. This formula is given by:</p>
+<p> </p>
+<p><span class="math display">\[ \mathbf{u} \times \mathbf{v} = (u_{2}v_{3} - u_{3}v_{2}, u_{3}v_{1} - u_{1}v_{3}, u_{1}v_{2} - u_{2}v_{1} )\]</span></p>
+<p> </p>
+<p>The second formula is actually the same as the above but in determinant notation. This formula is:</p>
+<p> </p>
+<p>Source: <a href="http://quicklatex.com/cache3/c4/ql_926219b87045b16e28f37e299ca0d7c4_l3.png" class="uri">http://quicklatex.com/cache3/c4/ql_926219b87045b16e28f37e299ca0d7c4_l3.png</a></p>
+<p> </p>
+<p>Recall that the 2 by 2 determinant is equal to <span class="math inline">\(ad - bc\)</span>.</p>
+<p> </p>
+</div>
+<div id="memory-aids" class="section level3">
+<h3><u>Memory Aids</u></h3>
+<p> </p>
+<p>After looking at those two formulas you might be wondering how do I memorize all that stuff!? With some close observations, you can spot a few patterns and come up with some memory aids.</p>
+<p>With the first formula, all the terms are in the <span class="math inline">\(uv\)</span> format. If you look closely at the numbered subscripts, the numbers are mirrored. In the first part we have <span class="math inline">\(u_{2}v_{3} - u_{3}v_{2}\)</span>. The first subscript is a 2 which goes with the u and the second subscript is a 3 with the v. After the minus sign the subscripts are mirrored in the order of 3 and 2. The second part has subscripts of 3,1,1,3 and the last part has 1,2,2,1.</p>
+<p>For the first formula, one possible memory aid would be 2332, 3113 and 1221. An alternative would be 23, 31 and 12 since we have <span class="math inline">\(u_{2}v_{3}\)</span> representing 23 and <span class="math inline">\(- u_{3}v_{2}\)</span>, 31 for <span class="math inline">\(u_{3}v_{1} - u_{1}v_{3}\)</span> and 12 for <span class="math inline">\(u_{1}v_{2} - u_{2}v_{1}\)</span>.</p>
+<p>The second formula assumes that the reader is familiar with the linear algebra concept of determinants. Notice how the top row in each determinant is for the <span class="math inline">\(\textbf{u}\)</span> vector and the bottom row is for the <span class="math inline">\(\textbf{v}\)</span> vector. One possible memory aid would be 23, -13, and 12 as the subscripted numbers are used as we go from the leftmost column to the rightmost column. The negative for -13 represents the negative determinant.</p>
+<p>Another way to arrive to the second formula is through this multi-part method.</p>
+<ol style="list-style-type: decimal">
+<li><p>Form a 2 by 3 matrix in the format of</p></li>
+<li><p>The first component of the cross product can be computed by deleting the first column of the above matrix and take the resulting 2 by 2 determinant.</p></li>
+<li><p>The second component consists of deleting the second column of the 2 by 3 matrix and taking the determinant of</p></li>
+<li><p>The final and third component of the cross product <span class="math inline">\(\textbf{u} \times \textbf{v}\)</span> would be removing the last column of the matrix and computing the determinant</p></li>
+<li><p>The result would be the second formula turned into the first formula.</p></li>
+</ol>
+<p> </p>
+</div>
+<div id="properties-of-cross-products" class="section level3">
+<h3><u>Properties Of Cross Products</u></h3>
+<p> </p>
+<p>Like with any new math operation like the cross product, there are rules associated with them. In grade school, there were rules for addition, subtraction, multiplication and division.</p>
+<p>Here are the properties of the cross product given the vectors <span class="math inline">\(\textbf{u}\)</span>, <span class="math inline">\(\textbf{v}\)</span> and <span class="math inline">\(\textbf{w}\)</span> in 3-space with <span class="math inline">\(k\)</span> as a numeric scalar. (<span class="math inline">\(\textbf{0}\)</span> is the zero vector in 3-space here)</p>
+<p> </p>
+<ol style="list-style-type: decimal">
+<li><p><span class="math display">\[ \textbf{u} \times \textbf{v} = - (\textbf{v} \times \textbf{u})\]</span></p></li>
+<li><p><span class="math display">\[ \textbf{u} \times (\textbf{v} + \textbf{w}) = (\textbf{u} \times \textbf{v}) + (\textbf{u} \times \textbf{w}) \text{ (Multiply From Left) }\]</span></p></li>
+<li><p><span class="math display">\[(\textbf{u} + \textbf{v}) \times \textbf{w} = (\textbf{u} \times \textbf{w}) + (\textbf{v} \times \textbf{w}) \text{ (Multiply From Right) }\]</span></p></li>
+<li><p><span class="math display">\[k(\textbf{u} \times \textbf{v}) = (k \textbf{u}) \times \textbf{v} = \textbf{u} \times (k \textbf{v}) \]</span></p></li>
+<li><p><span class="math display">\[\textbf{u} \times \textbf{0} = \textbf{0} \times \textbf{u} \]</span></p></li>
+<li><p><span class="math display">\[\textbf{u} \times \textbf{u} = \textbf{0} \]</span></p></li>
+</ol>
+<p> </p>
+</div>
+<div id="examples" class="section level3">
+<h3><u>Examples</u></h3>
+<p> </p>
+<p><strong>Example One</strong></p>
+<p> </p>
+<p>Given <span class="math inline">\(\textbf{u} = (0, -3, 2)\)</span> and <span class="math inline">\(\textbf{v} = (5, -2, 1)\)</span>, Find <span class="math inline">\(\textbf{u} \times \textbf{v}\)</span> and <span class="math inline">\(\textbf{v} \times \textbf{u}.\)</span></p>
+<p>We can use the formula <span class="math display">\[\textbf{u} \times \textbf{v} = (u_{2}v_{3} - u_{3}v_{2}, u_{3}v_{1} - u_{1}v_{3}, u_{1}v_{2} - u_{2}v_{1} )\]</span> or the determinant notation of the formula. Here, the determinant notation of the formula will be used.</p>
+<p>We also compute <span class="math inline">\(\textbf{v} \times \textbf{u}\)</span>.</p>
+<p>You can also verify the property <span class="math inline">\(\textbf{u} \times \textbf{v} = - (\textbf{v} \times \textbf{u})\)</span>. In this case <span class="math inline">\(\textbf{u} \times \textbf{v} = (1, 10, 15 ) = - (-1, -10, -15) = - (\textbf{v} \times \textbf{u})\)</span>.</p>
+<p> </p>
+<hr />
+<p> </p>
+<p><strong>Example Two</strong></p>
+<p>Suppose that there are vectors <span class="math inline">\(\textbf{u} = (-3, -1, 0)\)</span> and <span class="math inline">\(\textbf{v} = (2, 0, -1)\)</span>. Find a vector which is perpendicular/orthogonal to both vectors <span class="math inline">\(\textbf{u}\)</span> and <span class="math inline">\(\textbf{v}\)</span>.</p>
+<p>The vector cross product of a two vectors is a (third) vector which is perpendicular to both the two vectors.</p>
+<p>We find the cross product <span class="math inline">\(\textbf{u} \times \textbf{v}\)</span> as follows:</p>
+<p>The vector that is perpendicular to vectors <span class="math inline">\(\textbf{u}\)</span> and <span class="math inline">\(\textbf{v}\)</span> is <span class="math inline">\(\textbf{u} \times \textbf{v} = (1, -3, 2)\)</span>.</p>
+<p> </p>
+</div>
+<div id="practice-problems" class="section level3">
+<h3><u>Practice Problems</u></h3>
+<p> </p>
+<p>Here are few practice problems. Solutions are in the next section.</p>
+<ol style="list-style-type: decimal">
+<li><p>Given two vectors <span class="math inline">\(\textbf{u} = (1, 2, 3)\)</span> and <span class="math inline">\(\textbf{v} = (2, 3, 4)\)</span>. What is the cross product <span class="math inline">\(\textbf{u} \times \textbf{v}\)</span>?</p></li>
+<li><p>Given <span class="math inline">\(\textbf{u} = (2, -4, 7)\)</span> and <span class="math inline">\(\textbf{v} = (1, 0, 2)\)</span>. What is the cross product <span class="math inline">\(\textbf{v} \times \textbf{u}\)</span>?</p></li>
+<li><p>Suppose you have the vector <span class="math inline">\(\textbf{u} = (34, 23, -12)\)</span>. Verify that <span class="math inline">\(\textbf{u} \times \textbf{u} = \textbf{0}\)</span> where  is the zero vector in 3-space.</p></li>
+<li><p>In this question we have three vectors. These vectors are <span class="math inline">\(\textbf{u} = (1, 1, 1)\)</span>, <span class="math inline">\(\textbf{v} = (0, 3, -2)\)</span> and <span class="math inline">\(\textbf{w} = (8, 2, 1)\)</span>. What is the cross product <span class="math inline">\((\textbf{u} \times \textbf{v}) \times \textbf{w}\)</span>?</p></li>
+</ol>
+<p> </p>
+</div>
+<div id="solutions" class="section level3">
+<h3><u>Solutions</u></h3>
+<p> </p>
+<ol style="list-style-type: decimal">
+<li><p><span class="math inline">\(\textbf{u} \times \textbf{v} = (-1, 2, -1)\)</span></p></li>
+<li><p><span class="math inline">\(\textbf{v} \times \textbf{u} - (8, -3, -4)\)</span></p></li>
+<li><p>The numbers look scary but once the formula is applied you will find that you will get the zero vector.</p></li>
+<li><p><span class="math inline">\(\textbf{u} \times \textbf{v} = (-5, 2, 3)\)</span> and <span class="math inline">\(\textbf{u} \times \textbf{v}) \times \textbf{w} = (-4, 29, -26)\)</span></p></li>
+</ol>
+<p> </p>
+<hr />
+</div>
+<div id="reference" class="section level3">
+<h3><u>Reference</u></h3>
+<p> </p>
+<ul>
+<li>Elementary Linear Algebra (Tenth Edition) by Howard Anton</li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

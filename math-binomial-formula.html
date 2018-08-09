@@ -193,9 +193,6 @@ $(document).ready(function () {
 <li>
   <a href="projects.html">R Programming Projects</a>
 </li>
-<li>
-  <a href="python_projects.html">Python Programming Projects</a>
-</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -234,8 +231,13 @@ $(document).ready(function () {
 <p>Before we get right into the binomial formula, we need the ingredients first. We start with the factorial.</p>
 <p>Suppose we have something like <span class="math inline">\(3 \cdot 2 \cdot 1 = 6\)</span> and <span class="math inline">\(5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 = 120\)</span>. We would like a more compact form of writing this (especially for larger numbers).</p>
 <p>The factorial form is expressed as <span class="math inline">\(n!\)</span> where <span class="math inline">\(n \geq 1\)</span> and:</p>
-<p><span class="math inline">\(\displaystyle n! = n \cdot (n - 1) \cdot (n - 2) \text{ ... } \cdot 1\)</span> The alternative formula is:</p>
-<p><span class="math inline">\(\displaystyle n! = \prod_{k = 1}^{n} k = 1 \cdot 2 \cdot \text{ ... } \cdot (n-1) \cdot n\)</span> We can express <span class="math inline">\(3 \cdot 2 \cdot 1 = 6\)</span> as <span class="math inline">\(3! = 6\)</span> and <span class="math inline">\(5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 = 120\)</span> as <span class="math inline">\(5! = 120\)</span>.</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle n! = n \cdot (n - 1) \cdot (n - 2) \text{ ... } \cdot 1\]</span></p>
+<p> </p>
+<p>The alternative formula is:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle n! = \prod_{k = 1}^{n} k = 1 \cdot 2 \cdot \text{ ... } \cdot (n-1) \cdot n$
+We can express $3 \cdot 2 \cdot 1 = 6$ as $3! = 6$ and $5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 = 120$ as $5! = 120\]</span>.</p>
 <p> </p>
 <p><strong>Some Factorial Properties</strong></p>
 <p><span class="math display">\[n! = n \cdot (n -1)!\]</span></p>
@@ -246,7 +248,8 @@ $(document).ready(function () {
 <h3><u>Binomial Coefficient</u></h3>
 <p>The next piece we need is the binomial coefficient. In terms of practical applications, this binomial coefficient represents the number of ways (combinations) of choosing <span class="math inline">\(k\)</span> unordered items from <span class="math inline">\(n\)</span> choices.</p>
 <p>Mathematically, the binomial coefficient is represented as:</p>
-<p><span class="math inline">\(\binom{n}{k} = \dfrac{n!}{k! (n-k)!}\)</span></p>
+<p> </p>
+<p><span class="math display">\[\binom{n}{k} = \dfrac{n!}{k! (n-k)!}\]</span></p>
 <p> </p>
 <p><strong>Some Properties</strong></p>
 <p> </p>
@@ -272,6 +275,7 @@ $(document).ready(function () {
 <h3><u>The Binomial Formula</u></h3>
 <p> </p>
 <p>Now we have the necessary ingredients. Here is the binomial formula for <span class="math inline">\(n \geq 1\)</span></p>
+<p> </p>
 <p><span class="math display">\[\begin{array} {lcl} \displaystyle (a + b)^{n} &amp; = &amp; \sum_{k = 0}^{n} \binom{n}{k} a^{n-k}b^{k} \\ &amp; = &amp; \binom{n}{0}a^{n} + \binom{n}{1} a^{n-1}b + \text{ ...} + \binom{n}{n} b^{n} \\ &amp; = &amp; a^{n} + na^{n-1}b + \text{ ...} + b^{n} \end{array}\]</span></p>
 <p> </p>
 </div>
@@ -283,20 +287,26 @@ $(document).ready(function () {
 <ol style="list-style-type: decimal">
 <li>Example One: <span class="math inline">\((x + 2)^2\)</span></li>
 </ol>
+<p> </p>
 <p><span class="math display">\[\displaystyle \begin{array} {lcl} (x + 2)^{2} &amp; = &amp; \sum_{k = 0}^{n = 2} \binom{2}{k} x^{2-k}2^{k}\\ &amp; = &amp; \binom{2}{0} x^{2}2^{0} + \binom{2}{1} x^{1}2^{1} + \binom{2}{2} x^{0}2^{2}\\ &amp; = &amp; 1\cdot x^2 + 2 \cdot 2x + 1 \cdot 4\\ &amp; = &amp; x^2 + 4x + 4\\ \end{array}\]</span></p>
+<p> </p>
 <hr />
 <ol start="2" style="list-style-type: decimal">
 <li>Example Two: <span class="math inline">\((x - 5)^3\)</span></li>
 </ol>
+<p> </p>
 <p><span class="math display">\[\displaystyle \begin{array} {lcl} (x - 5)^{3} &amp; = &amp; \sum_{k = 0}^{n = 3} \binom{3}{k} x^{3-k}(-5)^{k}\\ &amp; = &amp; \binom{3}{0} x^{3}(-5)^{0} + \binom{3}{1} x^{2}(-5)^{1} + \binom{3}{2} x^{1}(-5)^{2} + \binom{3}{3} x^{0}(-5)^{3}\\ &amp; = &amp; 1\cdot x^3 - 3 \cdot 5x^2 + 3 \cdot 25x - 1 \cdot 125\\ &amp; = &amp; x^3 - 15x^2 + 75x - 125\\ \end{array}\]</span></p>
+<p> </p>
 <hr />
 <ol start="3" style="list-style-type: decimal">
 <li>Example Three: <span class="math inline">\((a - b)^4\)</span></li>
 </ol>
+<p> </p>
 <p><span class="math display">\[\displaystyle \begin{array} {lcl} (a - b)^{4} &amp; = &amp; \sum_{k = 0}^{n = 4} \binom{4}{k} a^{4-k} (-b)^{k}\\ &amp; = &amp; \binom{4}{0} a^{4}(-b)^{0} + \binom{4}{1} a^{3}(-b)^{1} + \binom{4}{2} a^{2}(-b)^{2} + \binom{4}{3} a^{1}(-b)^{3} + \binom{4}{4} a^{0}(-b)^{4}\\ &amp; = &amp; 1 \cdot a^4 - 4 \cdot a^{3}b + 6 \cdot a^2 b^2 - 4ab^3 + 1 \cdot (-b)^{4}\\ &amp; = &amp; a^4 - 4 a^{3}b + 6 a^2 b^2 - 4ab^3 + b^{4}\\ \end{array}\]</span></p>
+<p> </p>
 <hr />
 <p>Notice that with binomials with one positive term and one negative term the signs are alternating in the sum. This is seen in examples two and three.</p>
-<p>The featured image is from <a href="http://exchangedownloads.smarttech.com/public/content/2b/2b616ad0-d9ab-496d-b82b-a2c2dc5dc381/previews/medium/0001.png" class="uri">http://exchangedownloads.smarttech.com/public/content/2b/2b616ad0-d9ab-496d-b82b-a2c2dc5dc381/previews/medium/0001.png</a>.</p>
+<p>The featured image is from <a href="http://exchangedownloads.smarttech.com/public/content/2b/2b616ad0-d9ab-496d-b82b-a2c2dc5dc381/previews/medium/0001.png" class="uri">http://exchangedownloads.smarttech.com/public/content/2b/2b616ad0-d9ab-496d-b82b-a2c2dc5dc381/previews/medium/0001.png</a>.</p>
 </div>
 
 

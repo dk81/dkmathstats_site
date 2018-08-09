@@ -36,7 +36,7 @@ It is assumed that the reader knows common factoring and factoring quadratic equ
 
 ### <u>The Decomposition Factoring Method</u>
 
-
+&nbsp;
 
 Before we mention the decomposition factoring method, it is important to explore the math trick of decomposition. As an example, we can break down a number like 10 into 5 and 5, 3 and 7 or even 6 and 4. It changes the form but it is still 10.
 
@@ -88,6 +88,8 @@ $$y  =  (x + 3)(4x + 1) $$
 
 **Note**
 
+&nbsp;
+
 We can also break down the $13x$ into $x + 12x$ instead of $12x + x$. The final answer would still be the same but the steps would be slightly different.
 
 &nbsp;
@@ -124,8 +126,11 @@ Common factor one more time to achieve the factored form.
 
 ### <u>Examples</u>
 
+&nbsp;
 
 **Example One**
+
+&nbsp;
 
 Factor $y = 3x^2 + 8x + 4$.
 
@@ -161,6 +166,8 @@ $$y  =  3x^2 + 8x + 4$$
 
 **Example Two**
 
+&nbsp;
+
 Factor $y = 8x^2 + 10x + 2$.
 
 We have $ac = 8 \times 2 = 16$ and $b = 10$. The two numbers here would be 8 and 2.
@@ -190,6 +197,8 @@ $$y  =  8x^2 + 10x + 2$$
 &nbsp;
 
 **Example Three**
+
+&nbsp;
 
 Factor $y = 4x^2 - 14x - 8$.
 
@@ -231,6 +240,8 @@ $$y  =  4x^2 - 14x - 8$$
 
 ### <u>Practice Problems</u>
 
+&nbsp;
+
 Here are some practice problems to build understanding. Factor each equation.
 
 &nbsp;
@@ -249,6 +260,7 @@ Here are some practice problems to build understanding. Factor each equation.
 
 ### <u>Answers</u>
 
+&nbsp;
 
 Here are the answers to the previous practice problems.
 

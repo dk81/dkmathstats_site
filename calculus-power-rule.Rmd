@@ -30,8 +30,11 @@ $$f'(a) = \displaystyle{\lim_{h \to 0}}\dfrac{f(a + h) - f(a)}{h}$$
 
 $\textbf{Example One}$
 
+&nbsp;
+
 With the limit definition of the derivative, find the derivative of $g(x) = 3x$ at the point $x = 2$.
 
+&nbsp;
 
 $$g'(2)   =  \displaystyle{\lim_{h \to 0}} \dfrac{g(2 + h) - g(2)}{h}$$
 $$g'(2)   =  \displaystyle{\lim_{h \to 0}} \dfrac{3(2 + h) - 3(2)}{h}$$
@@ -42,6 +45,8 @@ $$g'(2)   =  \displaystyle{\lim_{h \to 0}} \dfrac{3h}{h}$$
 $$g'(2)   =  \displaystyle{\lim_{h \to 0}} 3$$
 
 $$g'(2)   =  3$$
+
+&nbsp;
 
 The derivative of $g(x) = 3x$ at $x = 2$ is simply 3. This three represents the slope at the point $x = 2$. Furthermore, this slope of three represents the slope for all x-values in $g(x)$.
 
@@ -77,9 +82,6 @@ $$f'(x) = -4x + 0$$
 
 The derivative of $f(x) = -2x^2$ is $f'(x) = -4x$. In this second example, there is more algebra involved. The main goal is to use algebra and factoring to eliminate the h on the bottom. Once the h on the bottom of the fraction is removed, you can apply the limit as h approaches zero.
 
-
-Source: https://www.flexiprep.com/NCERT-Exercise-Solutions/Mathematics/Class-11/posts/Ch-13-Limits-And-Derivatives-Exercise-13-2-Solutions-Part-6/Definition-of-derivative.png
-
 &nbsp;
 
 ## <u>Power Rule</u>
@@ -90,13 +92,20 @@ The limit definition of the derivative helps in understanding where the derivati
 
 Consider the polynomial function $f(x)$ where:
 
+&nbsp;
+
 $$f(x) = a_{n}x^{n} + a_{n - 1}x^{n - 1} + ... + a_{3}x^3 + a_{2}x^2 + a_{1}x + a_{0}$$
+&nbsp;
 
 where $a_{n}$ to $a_{0}$ are numeric constant coefficients.
 
 The derivative $f'(x)$ of the above polynomial function would be:
 
+&nbsp;
+
 $$f'(x) = a_{n}n x^{n - 1} + a_{n - 1} (n - 1) x^{n - 2} + ... + 3 a_{3}x^2 + 2 a_{2}x^1 + a_{1}$$
+
+&nbsp;
 
 Notice that the $a_{0}$ intercept term goes away. In addition, the terms are multiplied by the exponent and the exponent decreases by one. The examples below will give a better idea on how this all works.
 
@@ -130,14 +139,17 @@ Here are some examples of finding derivatives of functions. Note that $f'(x)$ re
 
 $\textbf{Example One}$
 
+&nbsp;
+
 Find the derivative of the function $f(x) = 2x$.
 
+&nbsp;
 
 $$\begin{array}{lcl} f'(x) & = & \dfrac{d}{dx} 2x^1 \\ & = & 2 \dfrac{d}{dx} x^1 \\ & = &
 2 \times 1 \times x^{1 - 1} \\ & = & 2 \times 1 \times 1 \\ & = & 2
 \end{array}$$
 
-
+&nbsp;
 
 
 &nbsp;
@@ -148,6 +160,7 @@ $\textbf{Example Two}$
 
 Given $f(x) = 3x^3$ what is $f'(x)$?
 
+&nbsp;
 
 $$\begin{array}{lcl} f'(x) & = & \dfrac{d}{dx} 3x^3 \\ & = & 3 \dfrac{d}{dx} x^3 \\ & = &
 3 \times 3x^2 \\ & = & 9x^2
@@ -161,7 +174,10 @@ $\textbf{Example Three}$
 
 What is the derivative of $f(x) = x^{\pi}$?
 
+&nbsp;
+
 $$ f'(x) = \pi x^{\pi - 1} $$
+&nbsp;
 
 Remember that $\pi \approx 3.14$ is a number.
 
@@ -177,9 +193,15 @@ This particular example looks scary but it is actually not too bad. The distribu
 
 Rewrite $g(x)$ as:
 
+&nbsp;
+
 $$g(x) = x(x^2 - 4x + 2) = x^3 - 4x^2 + 2x$$
 
+&nbsp;
+
 Then you can take the derivatives of each term.
+
+&nbsp;
 
 $$g'(x) = \dfrac{d}{dx}(x^3 - 4x^2 + 2x)$$
 

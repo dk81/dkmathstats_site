@@ -48,7 +48,7 @@ output: html_document
 
 [Completing The Square Guide](./math_complete-square.html)
 
-[Difference Of Squares Factoring Guide](./math_diff_squares.html)
+[Difference Of Squares Factoring Guide](./math_diff-squares.html)
 
 [The Distance Between Two Points](./math_distance-twoPoints.html)
 
@@ -94,6 +94,8 @@ output: html_document
 
 &nbsp;
 
+[Sum (Sigma) Notation](./calculus-sum-notation.html)
+
 [The Power Rule For Calculus Derivatives](./calculus-power-rule.html)
 
 [Derivatives Of Trigonometric Functions](./calculus-trig-derivs.html)
@@ -108,6 +110,12 @@ output: html_document
 
 [Implicit Differentiation](./calculus-implicit-diff.html)
 
+[Integration By Parts](./calculus-integration-byparts.html)
+
+[Solving Separable Ordinary Differential Equations (ODEs)](./calculus-separable-ode.html)
+
+[The Bisection Method](./math-bisection-method.html)
+
 &nbsp;
 
 ### <u>Linear Algebra</u>
@@ -115,6 +123,12 @@ output: html_document
 &nbsp;
 
 [The Norm Of A Vector](./linalg-vector-norm.html)
+
+[Determinants Of 2 By 2 And 3 By 3 Matrices](./linalg-determinants.html)
+
+[Identity, Diagonal, Symmetric & Triangular Matrices](./linalg-matrix-types.html)
+
+[A Guide To Cross Products](./linalg-cross-products.html)
 
 &nbsp;
 

@@ -1,0 +1,177 @@
+---
+title: "Identity, Diagonal, Symmetric & Triangular Matrices"
+output: html_document
+---
+
+&nbsp;
+
+Hello. This post will be about certain matrices in their special forms. The matrices covered are identity, diagonal, symmetric and triangular matrices. These topics are typically found in an introduction to linear algebra course. It is assumed that one knows the transpose of a matrix, the inverse of a matrix and matrix multiplication.
+
+&nbsp;
+
+### <u>Topics</u>
+
+&nbsp;
+
+* The Identity Matrix
+* Diagonal Matrices
+* Symmetric Matrices
+* Triangular Matrices
+
+&nbsp;
+
+
+### <u>The Identity Matrix</u>
+
+&nbsp;
+
+The identity matrix is one of the most important matrices in linear algebra. Recall that linear algebra helps us solve linear systems of equations such as:
+
+&nbsp;
+
+$$\displaystyle \begin{array} {lcl} 2x + y & = & 2 \\ x - y & = & 1 \\ \end{array} $$
+
+&nbsp;
+
+The coefficients of the $x$ and $y$ variables are the entries for a 2 by 2 matrix. When we solve the above linear system we get a form such as $x = ...$ and $y = ...$. In matrix form, we represent this with the identity matrix $I$.
+
+&nbsp;
+
+$$\displaystyle I = \begin{bmatrix} 1 & 0 \\ 0 & 1 \\ \end{bmatrix}$$
+
+&nbsp;
+
+In general, a n-by-n identity matrix has the form:
+
+&nbsp;
+
+$$\displaystyle \begin{bmatrix} 1 & 0 & 0 & \dots & 0 \\ 0 & 1 & 0 & \dots & 0 \\ \vdots & \ddots & \ddots & \ddots & \vdots \\ 0 & 0 & 0 & \ddots & 0\\ 0 & 0 & 0 & \dots & 1 \end{bmatrix}$$
+
+&nbsp;
+
+The identity matrix has a lot of neat properties. a few properties will be mentioned here. The inverse of an identity matrix is the identity matrix ($I^{-1} = I$). Another neat feature is that the identity matrix is idempotent. That is, $II = I$.
+
+&nbsp;
+
+### <u>Diagonal Matrices</u>
+
+&nbsp;
+
+Recall that a n by n matrix is of the form:
+
+&nbsp;
+
+$$\displaystyle \begin{bmatrix} x_{11} & x_{12} & x_{13} & \dots & x_{1n} \\ x_{21} & x_{22} & x_{23} & \dots & x_{2n} \\ \vdots & \ddots & \ddots & \ddots & \vdots \\ x_{(n-1)1} & x_{(n-1)2} & x_{(n-1)3} & \ddots & x_{(n-1)n}\\ x_{n1} & x_{n2} & x_{n3} & \dots & x_{nn} \end{bmatrix}$$
+
+&nbsp;
+
+The main diagonal is from the top left to the bottom right and contains entries $x_{11}, x_{22} \text{ to } x_{nn}$.
+
+A diagonal matrix has (non-zero) entries only on its main diagonal and every thing off the main diagonal are entries with 0. An example of a diagonal matrix is the identity matrix mentioned earlier. The diagonal matrix $D$ is shown below.
+
+&nbsp;
+
+$$\displaystyle D = \begin{bmatrix} d_{1} & 0 & 0 & \dots & 0 \\ 0 & d_{2} & 0 & \dots & 0 \\ \vdots & \ddots & \ddots & \ddots & \vdots \\ 0 & 0 & 0 & \ddots & 0\\ 0 & 0 & 0& \dots & d_{n} \end{bmatrix}$$
+
+Instead of $d_1 \text{ to } d_{n}$, you can use the usual $x_{11} \text{ to } x_{nn}$.
+
+You may see the notation $D = \text{diag}(d_1, d_{2}, \dots d_{n})$ which is an alternative to displaying the matrix form.
+
+The inverse of the diagonal matrix D is $D^{-1}$ which is still a diagonal matrix but with the reciprocal of the original diagonal entries.
+
+&nbsp;
+
+$$\displaystyle D^{-1} = \begin{bmatrix} \dfrac{1}{d_1} & 0 & 0 & \dots & 0 \\ 0 & \dfrac{1}{d_2} & 0 & \dots & 0 \\ \vdots & \ddots & \ddots & \ddots & \vdots \\ 0 & 0 & 0 & \ddots & 0\\ 0 & 0 & 0& \dots & \dfrac{1}{d_n} \end{bmatrix}$$
+
+&nbsp;
+
+One can show through matrix multiplication that $DD^{-1} = D^{-1}D = I$.
+
+A diagonal matrix raised to a power is not too difficult. Each entry is raised to the same exponent as the matrix exponent. Note that $k$ is a positive integer.
+
+&nbsp;
+
+$$\displaystyle D^{k} = \begin{bmatrix} d_1^{k} & 0 & 0 & \dots & 0 \\ 0 & d_2^{k} & 0 & \dots & 0 \\ \vdots & \ddots & \ddots & \ddots & \vdots \\ 0 & 0 & 0 & \ddots & 0\\ 0 & 0 & 0& \dots & d_n^{k} \end{bmatrix}$$
+
+&nbsp;
+
+
+### <u>Symmetric Matrices</u>
+
+&nbsp;
+
+Another special type of matrix is the symmetric matrix. If we transpose a matrix by switching the corresponding rows and columns with each other and find out that they are the same, then that matrix is symmetric.
+
+A more formal definition is that a square matrix $A$ is symmetric if $A = A^{T}$.
+
+For example if we were to transpose the matrix by switching the first row with the first column and the second row with second column of the matrix A where
+
+&nbsp;
+
+$$\displaystyle A = \begin{bmatrix} 2 & 1 \\ 1 & -5 \\ \end{bmatrix}$$
+
+&nbsp;
+
+we would still end up with the same matrix. The entries of ones off the main diagonal are the same in this case.
+
+In general, a matrix A is symmetric if the entry $A_{ij}$ is the same as $A_{ji}$ where $i$ refers to the row number from the top and $j$ is the column number from left to right. Entries with $i = j$ are in the main diagonal.
+
+Another example of a symmetric matrix is:
+
+&nbsp;
+
+$$\displaystyle A = \begin{bmatrix} 2 & 1 & 4\\ 1 & -5 & 3 \\ 4 & 3 & 9 \\ \end{bmatrix}$$
+
+&nbsp;
+
+where in the off diagonal entries we have $a_{12} = a_{21} = 1$, $a_{13} = a_{31} = 4$ and $a_{23} = a_{32} = 3$
+
+If the matrix $A$ is symmetric then the inverse of $A$ is symmetric.
+
+Suppose matrices $A$ and $B$ are symmetric with the same size with $k$ being a scalar we then have:
+
+&nbsp;
+
+<center>$A^{T}$ is symmetric.</center>
+
+<center>$A + B$ and $A - B$ are symmetric.</center>
+
+<center>$kA$ is symmetric.</center>
+
+&nbsp;
+
+### <u>Triangular Matrices (Lower & Upper Triangular)</u>
+
+&nbsp;
+
+We now look at triangular matrices which can be either lower triangular or upper triangular. To start off, we have an example of a lower triangular matrix and an upper triangular matrix (5 by 5 case).
+
+&nbsp;
+
+$$\displaystyle L = \begin{bmatrix} l_{11} & 0 & 0 & 0 & 0 \\ l_{21} & l_{22} & 0 & 0 & 0 \\ l_{31} & l_{32} & l_{33} & 0 & 0 \\ l_{41} & l_{42} & l_{43} & l_{44} & 0\\ l_{51} & l_{52} & l_{53} & l_{54} & l_{55} \end{bmatrix}$$
+
+&nbsp;
+
+$$\displaystyle U = \begin{bmatrix} u_{11} & u_{12} & u_{13} & u_{14} & u_{15} \\ 0 & u_{22} & u_{23} & u_{24} & u_{25} \\ 0 & 0 & u_{33} & u_{34} & u_{35} \\ 0 & 0 & 0 & u_{44} & u_{45}\\ 0 & 0 & 0 & 0 & u_{55} \end{bmatrix}$$
+
+&nbsp;
+
+One can notice that in both the lower and upper triangular matrices, we have the main diagonal (row $i$ = column $j$) having non-zero entries. The 5 by 5 case from earlier can be extended to a n-by-n square matrix.
+
+For the lower triangular matrix we have entries above the main diagonal (row $i$ less than column $j$) as zero. Entries on the main diagonal and below can be any number (including zero).
+
+In the upper triangular matrix we have entries below the main diagonal (row $i$ greater than column $j$) as zero. Entries on the main diagonal and above can be any number (including zero).
+
+The transpose of a lower triangular matrix is an upper triangular matrix and the transpose of an upper triangular matrix is a lower triangular matrix. That is, $L^{T} = U$ and $U^{T} = L$.
+
+That is a brief overview of identity, diagonal, symmetric and triangular matrices. There are more properties associated with each of these matrices but that would be a bit too much.
+
+&nbsp;
+
+---
+
+&nbsp;
+
+Reference: Elementrary Linear Algebra (10th Edition) by Howard Anton.
+
+The origami like image is from https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Linear_subspaces_with_shading.svg/2000px-Linear_subspaces_with_shading.svg.png

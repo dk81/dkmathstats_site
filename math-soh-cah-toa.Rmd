@@ -91,7 +91,7 @@ In the given picture, we have a right angle triangle with known side lengths and
 
 &nbsp;
 
-![example-one](/img/triangle1.jpg)
+<center>![example-one](./images/triangle1.jpg)</center>
 
 &nbsp;
 
@@ -141,7 +141,7 @@ In this second example, we have only one known side length and know two of three
 
 &nbsp;
 
-![example-two](/img/triangle2.jpg)
+<center>![example-two](./images/triangle2.jpg)</center>
 
 &nbsp;
 

@@ -5,17 +5,18 @@ output: html_document
 
 &nbsp;
 
-# <u>Difference Of Squares Factoring Guide</u>
-
-&nbsp;
-
 Factoring is a method that allows to see expressions in a different way or form. A factored form can allow us to simplify expressions which can help us in finding solutions to equations.
 
 If we are given the form $a^{2} - b^2$, we can express this as a factored form as follows:
 
+&nbsp;
+
 $$\displaystyle (a^{2} - b^2) = (a + b)(a - b)$$
+&nbsp;
 
 If we were to verify this by going in the reverse way by expanding $(a + b)(a - b)$, the calculations would be like this:
+
+&nbsp;
 
 $$\displaystyle (a + b)(a - b) = a^2 - ab + ab - b^2 = a^{2} - b^2 $$
 
@@ -23,6 +24,7 @@ $$\displaystyle (a + b)(a - b) = a^2 - ab + ab - b^2 = a^{2} - b^2 $$
 
 ### Examples
 
+&nbsp;
 
 Let's demonstrate this factoring method through many examples.
 
@@ -76,6 +78,8 @@ In $(x + 12) = 0, x = -12$ and in $(x - 12) = 0, x = 12$. Our solutions for $x$ 
 Factor $x^4 - 16$.
 
 *Solution*
+
+&nbsp;
 
 $$x^4 - 16 = (x^2 + 4)(x^2 - 4) = (x^2 + 4)(x - 2)(x + 2)$$
 

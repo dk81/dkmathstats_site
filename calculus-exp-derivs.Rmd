@@ -3,7 +3,6 @@ title: "Derivatives Of Trigonometric Functions"
 output: html_document
 ---
 
-
 &nbsp;
 
 ### <u>Table of Contents</u>
@@ -22,7 +21,11 @@ output: html_document
 
 An exponential function is a function of the form:
 
+&nbsp;
+
 $$\displaystyle a^{x}$$
+
+&nbsp;
 
 where $a$ is a non-zero number and $x$ is a variable.
 
@@ -30,23 +33,35 @@ One should be careful and make the distinction between an exponential function s
 
 &nbsp;
 
-### The Derivative of An Exponential Function
+### <u>The Derivative of An Exponential Function</u>
 
 &nbsp;
 
 If we are given $f(x) = a^{g(x)}$ where $g(x)$ is a different function of $f(x)$. The derivative of $f(x)$ is:
 
+&nbsp;
+
 $$\displaystyle \begin{array} {lcl} f'(x) & = & \text{ln}(a) \cdot a^{g(x)} \cdot \dfrac{d}{dx} g(x) \\ & = & \text{ln}(a) \cdot a^{g(x)} \cdot g'(x) \end{array} \\ $$
+
+&nbsp;
 
 Note that this general formula does use a variation of the chain rule. Since the exponent is a function of x, we take the derivative of the exponent as well.
 
 Given the more common case of $g(x) = x$ in the exponent, the general case becomes:
 
+&nbsp;
+
 $$\displaystyle \begin{array} {lcl} f'(x) & = & \text{ln}(a) \cdot a^{x} \cdot \dfrac{d}{dx} x \\ & = & \text{ln}(a) \cdot a^{x} \cdot (x)' \\ & = & \text{ln}(a) \cdot a^{x} \cdot 1 \\ & = & \text{ln}(a) \cdot a^{x} \\ \end{array} \\ $$
+
+&nbsp;
 
 If we are given $e$ as the base such that we have $f(x) = \text{e}^{g(x)}$. The derivative $f'(x)$ will be as follows:
 
+&nbsp;
+
 $$\displaystyle \begin{array} {lcl} f'(x) & = & \text{ln}(a) \cdot \text{e}^{g(x)} \cdot \dfrac{d}{dx} g(x) \\ & = & \text{ln}(e) \cdot \text{e}^{x} \cdot g'(x) \\ & = & 1 \cdot \text{e}^{x} \cdot g'(x) \\ & = & \text{e}^{x} \cdot g'(x) \\ \end{array} \\ $$
+
+&nbsp;
 
 (Note that ln(e) = 1 as $e^{1} = e$.)
 
@@ -72,7 +87,11 @@ $$\displaystyle \begin{array} {lcl} f'(x) & = & \text{ln(e)} \cdot \text{e}^{2x}
 
 **Example Two** 
 
+&nbsp;
+
 $f(x) = 2 \cdot \text{e}^{x}$
+
+&nbsp;
 
 $$ \displaystyle \begin{array} {lcl} f'(x) & = & 2 \cdot \dfrac{d}{dx} \text{e}^{x} \\ & = & 2 \cdot \text{e}^{x} \\ \end{array}$$
 
@@ -80,7 +99,11 @@ $$ \displaystyle \begin{array} {lcl} f'(x) & = & 2 \cdot \dfrac{d}{dx} \text{e}^
 
 **Example Three** 
 
+&nbsp;
+
 $f(x) = 5^{x}$
+
+&nbsp;
 
 $$\displaystyle \begin{array} {lcl} f'(x) & = & \text{ln(5)} \cdot 5^{x} \cdot \dfrac{d}{dx} x \\ & = & \text{ln(5)} \cdot 5^{x} \cdot 1 \\ & = & \text{ln(5)} \cdot 5^{x} \\ \end{array} $$
 
@@ -88,8 +111,13 @@ $$\displaystyle \begin{array} {lcl} f'(x) & = & \text{ln(5)} \cdot 5^{x} \cdot \
 
 **Example Four** 
 
+&nbsp;
+
 $f(x) = 10^{\text{sin}(x)}$
+
+&nbsp;
 
 $$\displaystyle \begin{array} {lcl} f'(x) & = & \text{ln(10)} \cdot 10^{\text{sin}(x)} \cdot \dfrac{d}{dx} \text{sin}(x) \\ & = & \text{ln(10)} \cdot 10^{\text{sin}(x)} \cdot \text{cos}(x)\\ \end{array} $$
 
-The featured image is from http://www.emathhelp.net/images/calc/1_2_exponential_function.png.
+&nbsp;
+

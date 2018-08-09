@@ -1,6 +1,7 @@
 ---
 title: "The Quadratic Formula"
 output: html_document
+
 ---
 
 &nbsp;
@@ -9,8 +10,8 @@ Hi. This page will be about the quadratic formula which is commonly taught in hi
 
 &nbsp;
 
-### Table Of Contents
----
+### <u>Table Of Contents</u>
+
 
 &nbsp;
 
@@ -24,8 +25,8 @@ Hi. This page will be about the quadratic formula which is commonly taught in hi
 
 &nbsp;
 
-### What Is The Quadratic Formula?
----
+### <u>What Is The Quadratic Formula?</u>
+
 
 The quadratic formula is a useful formula for solving x-intercepts of quadratic equations in the form of
 
@@ -47,8 +48,9 @@ It is preferable to use the quadratic formula when factoring techniques do not w
 
 &nbsp;
 
-### Deriving The Quadratic Formula
----
+### <u>Deriving The Quadratic Formula</u>
+
+&nbsp;
 
 For many (highschool) students, it is not expected to know how to come up with the quadratic formula. This proof is more of a reference to help you see where this formula comes from.
 
@@ -115,8 +117,9 @@ The final line is the quadratic formula or the $x$ value such that it makes $y =
 
 &nbsp;
 
-### The Discriminant And Three Cases
----
+### <u>The Discriminant And Three Cases</u>
+
+&nbsp;
 
 Notice how in the quadratic formula there is a square root part after the plus and minus sign ($\pm$). The part inside the square root ($b^2 - 4ac$) is called the discriminant.
 
@@ -124,7 +127,7 @@ An important property of square roots is that square roots take on numbers which
 
 We look at three cases for the discriminant and what each case means.
 
-If $(b^2 - 4ac) > 0$ then there would be 2 distinct solutions for $x$ (or x-intercepts) in the equation $ 0 = ax^2 + bx + c$.\
+If $(b^2 - 4ac) > 0$ then there would be 2 distinct solutions for $x$ (or x-intercepts) in the equation $ 0 = ax^2 + bx + c$.
 
 If $(b^2 - 4ac) = 0$ then there would be one value for $x$ in the equation $0 = ax^2 + bx + c$.
 
@@ -132,14 +135,17 @@ If $(b^2 - 4ac) < 0$, we would have a negative value inside the square root. The
 
 &nbsp;
 
-### Using The Quadratic Formula Through Examples
----
+### <u>Using The Quadratic Formula Through Examples</u>
+
+&nbsp;
 
 The quadratic formula can be applied to any quadratic equation in the form $y = ax^2 + bx + c$. It does not really matter whether the quadratic form can be factored or not.
 
 &nbsp;
 
 **Example One**
+
+&nbsp;
 
 Given the quadratic equation $y = x^2 + x - 1$, what are the x-intercepts?
 
@@ -163,13 +169,15 @@ The x-intercepts (when $y = 0$) for $y = x^2 + x - 1$ are $x = \dfrac{-1 + \sqrt
 
 **Example Two**
 
+&nbsp;
+
 Apply the quadratic formula to find x-intercepts for the equation $y = 2x^2 -3x - 1$.
 
 Here, we have $a = 2$, $b = -3$ and $c = -1$.
 
 &nbsp;
 
-$$ x & = & \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$
+$$ x  =  \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$
 
 $$x  =  \dfrac{-(-3) \pm \sqrt{(-3)^2 - 4(2)(-1)}}{2(2)}$$
 
@@ -184,6 +192,8 @@ The x-intercepts are $x = \dfrac{3 + \sqrt{17}}{4}$ (or $\approx$ 1.780776) and 
 &nbsp;
 
 **Example Three**
+
+&nbsp;
 
 Show that the equation $y = x^2 -2x + 5$ has no x-intercepts.
 

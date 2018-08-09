@@ -1,0 +1,107 @@
+---
+title: "Solving Separable Ordinary Differential Equations (ODEs)"
+output: html_document
+---
+
+&nbsp;
+
+Hello. This is a short guide on solving separable ordinary differential equations (ODEs). It is assumed that the reader knows derivatives and integrals from calculus well.
+
+A differential equation is an equation which contains derivatives. There are many types of differential equations with their own corresponding approaches to obtain solutions. We look at one of the more simple types, the separable ordinary differential equation.
+
+&nbsp;
+
+---
+
+**<u>The Procedure</u>**
+
+&nbsp;
+
+1) We have the separable ODE of the form:
+
+&nbsp;
+
+$$\displaystyle y' = \dfrac{dy}{dx} = f(x) g(y(x))$$
+
+&nbsp;
+
+2) Put the y variables into one side and the x variables to the other side as follows :
+
+&nbsp;
+
+$$\displaystyle \dfrac{dy}{g(y)} = f(x) dx$$
+
+&nbsp;
+
+3) Integrate both sides with respect to the corresponding variable. (Integrate left side with respect to (wrt) y and the right side wrt x.):
+
+&nbsp;
+
+$$\displaystyle \int \dfrac{dy}{g(y)} = \int f(x) dx$$
+
+&nbsp;
+
+4) After integration, solve for the solution of the ODE which is $y(x)$. Don't forget the constant of integration $C$!
+
+&nbsp;
+
+---
+
+**<u>Example</u>**
+
+&nbsp;
+
+Find a solution $y(x)$ for the differential equation $yy' - x =0$.
+
+&nbsp;
+
+Solution:
+
+&nbsp;
+
+$$\displaystyle \begin{array} {lcl} yy' - x & = & 0\\ y \, \dfrac{dy}{dx} & = & x\\ y \, dy & = & x \, dx\\ \int y \, dy & = & \int x \, dx\\ y^2/2 & = & x^2/2 + C\\ y^2 & = & x^2 + 2C\\ y(x) & = & (x^2 + K)^{1/2}\\ \end{array}$$
+
+&nbsp;
+
+where $K = 2C$ which is another constant.
+
+&nbsp;
+
+---
+
+&nbsp;
+
+We check our solution $y(x)$ and take the derivative $y'(x)$ and see the left side matches the right side of 0 in the differential equation.
+
+From the chain rule, the derivative $y'(x)$ is:
+
+&nbsp;
+
+$$\displaystyle \dfrac{1}{2} (x^2 + K)^{-1/2} 2x = x(x^2 + K)^{-1/2}$$
+
+&nbsp;
+
+Then the left side $yy'$ becomes:
+
+&nbsp;
+
+$$\displaystyle (x^2 + K)^{1/2} \, x (x^2 + K)^{-1/2}  - x = x - x = 0$$
+
+&nbsp;
+
+So the solution $y(x) = (x^2 + K)^{1/2}$ is indeed a solution for the differential equation $yy' - x =0$.
+
+&nbsp;
+
+---
+
+**<u>Notes</u>**
+
+The example above was simple for illustrating the procedures. Don't expect many of the calculations to be simple when working on more differential equations.
+
+A multiple of a constant is still a constant. For example, if $C$ is a constant then $2C$ is also an arbitrary constant and can be expressed as $C$.
+
+After integration, we have constants of integration on both sides (which are different and arbitrary). However after solving for the solution $y(x)$ the constant $C$ represents the two constants as a merged constant on the right side.
+
+The method is not too difficult to follow after some practice. Do be wary of cases where integration by parts may be needed.
+

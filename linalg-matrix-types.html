@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Identity, Diagonal, Symmetric &amp; Triangular Matrices</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="projects.html">R Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Identity, Diagonal, Symmetric &amp; Triangular Matrices</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hello. This post will be about certain matrices in their special forms. The matrices covered are identity, diagonal, symmetric and triangular matrices. These topics are typically found in an introduction to linear algebra course. It is assumed that one knows the transpose of a matrix, the inverse of a matrix and matrix multiplication.</p>
+<p> </p>
+<div id="topics" class="section level3">
+<h3><u>Topics</u></h3>
+<p> </p>
+<ul>
+<li>The Identity Matrix</li>
+<li>Diagonal Matrices</li>
+<li>Symmetric Matrices</li>
+<li>Triangular Matrices</li>
+</ul>
+<p> </p>
+</div>
+<div id="the-identity-matrix" class="section level3">
+<h3><u>The Identity Matrix</u></h3>
+<p> </p>
+<p>The identity matrix is one of the most important matrices in linear algebra. Recall that linear algebra helps us solve linear systems of equations such as:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \begin{array} {lcl} 2x + y &amp; = &amp; 2 \\ x - y &amp; = &amp; 1 \\ \end{array} \]</span></p>
+<p> </p>
+<p>The coefficients of the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> variables are the entries for a 2 by 2 matrix. When we solve the above linear system we get a form such as <span class="math inline">\(x = ...\)</span> and <span class="math inline">\(y = ...\)</span>. In matrix form, we represent this with the identity matrix <span class="math inline">\(I\)</span>.</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle I = \begin{bmatrix} 1 &amp; 0 \\ 0 &amp; 1 \\ \end{bmatrix}\]</span></p>
+<p> </p>
+<p>In general, a n-by-n identity matrix has the form:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \begin{bmatrix} 1 &amp; 0 &amp; 0 &amp; \dots &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; \dots &amp; 0 \\ \vdots &amp; \ddots &amp; \ddots &amp; \ddots &amp; \vdots \\ 0 &amp; 0 &amp; 0 &amp; \ddots &amp; 0\\ 0 &amp; 0 &amp; 0 &amp; \dots &amp; 1 \end{bmatrix}\]</span></p>
+<p> </p>
+<p>The identity matrix has a lot of neat properties. a few properties will be mentioned here. The inverse of an identity matrix is the identity matrix (<span class="math inline">\(I^{-1} = I\)</span>). Another neat feature is that the identity matrix is idempotent. That is, <span class="math inline">\(II = I\)</span>.</p>
+<p> </p>
+</div>
+<div id="diagonal-matrices" class="section level3">
+<h3><u>Diagonal Matrices</u></h3>
+<p> </p>
+<p>Recall that a n by n matrix is of the form:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \begin{bmatrix} x_{11} &amp; x_{12} &amp; x_{13} &amp; \dots &amp; x_{1n} \\ x_{21} &amp; x_{22} &amp; x_{23} &amp; \dots &amp; x_{2n} \\ \vdots &amp; \ddots &amp; \ddots &amp; \ddots &amp; \vdots \\ x_{(n-1)1} &amp; x_{(n-1)2} &amp; x_{(n-1)3} &amp; \ddots &amp; x_{(n-1)n}\\ x_{n1} &amp; x_{n2} &amp; x_{n3} &amp; \dots &amp; x_{nn} \end{bmatrix}\]</span></p>
+<p> </p>
+<p>The main diagonal is from the top left to the bottom right and contains entries <span class="math inline">\(x_{11}, x_{22} \text{ to } x_{nn}\)</span>.</p>
+<p>A diagonal matrix has (non-zero) entries only on its main diagonal and every thing off the main diagonal are entries with 0. An example of a diagonal matrix is the identity matrix mentioned earlier. The diagonal matrix <span class="math inline">\(D\)</span> is shown below.</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle D = \begin{bmatrix} d_{1} &amp; 0 &amp; 0 &amp; \dots &amp; 0 \\ 0 &amp; d_{2} &amp; 0 &amp; \dots &amp; 0 \\ \vdots &amp; \ddots &amp; \ddots &amp; \ddots &amp; \vdots \\ 0 &amp; 0 &amp; 0 &amp; \ddots &amp; 0\\ 0 &amp; 0 &amp; 0&amp; \dots &amp; d_{n} \end{bmatrix}\]</span></p>
+<p>Instead of <span class="math inline">\(d_1 \text{ to } d_{n}\)</span>, you can use the usual <span class="math inline">\(x_{11} \text{ to } x_{nn}\)</span>.</p>
+<p>You may see the notation <span class="math inline">\(D = \text{diag}(d_1, d_{2}, \dots d_{n})\)</span> which is an alternative to displaying the matrix form.</p>
+<p>The inverse of the diagonal matrix D is <span class="math inline">\(D^{-1}\)</span> which is still a diagonal matrix but with the reciprocal of the original diagonal entries.</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle D^{-1} = \begin{bmatrix} \dfrac{1}{d_1} &amp; 0 &amp; 0 &amp; \dots &amp; 0 \\ 0 &amp; \dfrac{1}{d_2} &amp; 0 &amp; \dots &amp; 0 \\ \vdots &amp; \ddots &amp; \ddots &amp; \ddots &amp; \vdots \\ 0 &amp; 0 &amp; 0 &amp; \ddots &amp; 0\\ 0 &amp; 0 &amp; 0&amp; \dots &amp; \dfrac{1}{d_n} \end{bmatrix}\]</span></p>
+<p> </p>
+<p>One can show through matrix multiplication that <span class="math inline">\(DD^{-1} = D^{-1}D = I\)</span>.</p>
+<p>A diagonal matrix raised to a power is not too difficult. Each entry is raised to the same exponent as the matrix exponent. Note that <span class="math inline">\(k\)</span> is a positive integer.</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle D^{k} = \begin{bmatrix} d_1^{k} &amp; 0 &amp; 0 &amp; \dots &amp; 0 \\ 0 &amp; d_2^{k} &amp; 0 &amp; \dots &amp; 0 \\ \vdots &amp; \ddots &amp; \ddots &amp; \ddots &amp; \vdots \\ 0 &amp; 0 &amp; 0 &amp; \ddots &amp; 0\\ 0 &amp; 0 &amp; 0&amp; \dots &amp; d_n^{k} \end{bmatrix}\]</span></p>
+<p> </p>
+</div>
+<div id="symmetric-matrices" class="section level3">
+<h3><u>Symmetric Matrices</u></h3>
+<p> </p>
+<p>Another special type of matrix is the symmetric matrix. If we transpose a matrix by switching the corresponding rows and columns with each other and find out that they are the same, then that matrix is symmetric.</p>
+<p>A more formal definition is that a square matrix <span class="math inline">\(A\)</span> is symmetric if <span class="math inline">\(A = A^{T}\)</span>.</p>
+<p>For example if we were to transpose the matrix by switching the first row with the first column and the second row with second column of the matrix A where</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle A = \begin{bmatrix} 2 &amp; 1 \\ 1 &amp; -5 \\ \end{bmatrix}\]</span></p>
+<p> </p>
+<p>we would still end up with the same matrix. The entries of ones off the main diagonal are the same in this case.</p>
+<p>In general, a matrix A is symmetric if the entry <span class="math inline">\(A_{ij}\)</span> is the same as <span class="math inline">\(A_{ji}\)</span> where <span class="math inline">\(i\)</span> refers to the row number from the top and <span class="math inline">\(j\)</span> is the column number from left to right. Entries with <span class="math inline">\(i = j\)</span> are in the main diagonal.</p>
+<p>Another example of a symmetric matrix is:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle A = \begin{bmatrix} 2 &amp; 1 &amp; 4\\ 1 &amp; -5 &amp; 3 \\ 4 &amp; 3 &amp; 9 \\ \end{bmatrix}\]</span></p>
+<p> </p>
+<p>where in the off diagonal entries we have <span class="math inline">\(a_{12} = a_{21} = 1\)</span>, <span class="math inline">\(a_{13} = a_{31} = 4\)</span> and <span class="math inline">\(a_{23} = a_{32} = 3\)</span></p>
+<p>If the matrix <span class="math inline">\(A\)</span> is symmetric then the inverse of <span class="math inline">\(A\)</span> is symmetric.</p>
+<p>Suppose matrices <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are symmetric with the same size with <span class="math inline">\(k\)</span> being a scalar we then have:</p>
+<p> </p>
+<center>
+<span class="math inline">\(A^{T}\)</span> is symmetric.
+</center>
+<center>
+<span class="math inline">\(A + B\)</span> and <span class="math inline">\(A - B\)</span> are symmetric.
+</center>
+<center>
+<span class="math inline">\(kA\)</span> is symmetric.
+</center>
+<p> </p>
+</div>
+<div id="triangular-matrices-lower-upper-triangular" class="section level3">
+<h3><u>Triangular Matrices (Lower &amp; Upper Triangular)</u></h3>
+<p> </p>
+<p>We now look at triangular matrices which can be either lower triangular or upper triangular. To start off, we have an example of a lower triangular matrix and an upper triangular matrix (5 by 5 case).</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle L = \begin{bmatrix} l_{11} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ l_{21} &amp; l_{22} &amp; 0 &amp; 0 &amp; 0 \\ l_{31} &amp; l_{32} &amp; l_{33} &amp; 0 &amp; 0 \\ l_{41} &amp; l_{42} &amp; l_{43} &amp; l_{44} &amp; 0\\ l_{51} &amp; l_{52} &amp; l_{53} &amp; l_{54} &amp; l_{55} \end{bmatrix}\]</span></p>
+<p> </p>
+<p><span class="math display">\[\displaystyle U = \begin{bmatrix} u_{11} &amp; u_{12} &amp; u_{13} &amp; u_{14} &amp; u_{15} \\ 0 &amp; u_{22} &amp; u_{23} &amp; u_{24} &amp; u_{25} \\ 0 &amp; 0 &amp; u_{33} &amp; u_{34} &amp; u_{35} \\ 0 &amp; 0 &amp; 0 &amp; u_{44} &amp; u_{45}\\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; u_{55} \end{bmatrix}\]</span></p>
+<p> </p>
+<p>One can notice that in both the lower and upper triangular matrices, we have the main diagonal (row <span class="math inline">\(i\)</span> = column <span class="math inline">\(j\)</span>) having non-zero entries. The 5 by 5 case from earlier can be extended to a n-by-n square matrix.</p>
+<p>For the lower triangular matrix we have entries above the main diagonal (row <span class="math inline">\(i\)</span> less than column <span class="math inline">\(j\)</span>) as zero. Entries on the main diagonal and below can be any number (including zero).</p>
+<p>In the upper triangular matrix we have entries below the main diagonal (row <span class="math inline">\(i\)</span> greater than column <span class="math inline">\(j\)</span>) as zero. Entries on the main diagonal and above can be any number (including zero).</p>
+<p>The transpose of a lower triangular matrix is an upper triangular matrix and the transpose of an upper triangular matrix is a lower triangular matrix. That is, <span class="math inline">\(L^{T} = U\)</span> and <span class="math inline">\(U^{T} = L\)</span>.</p>
+<p>That is a brief overview of identity, diagonal, symmetric and triangular matrices. There are more properties associated with each of these matrices but that would be a bit too much.</p>
+<p> </p>
+<hr />
+<p> </p>
+<p>Reference: Elementrary Linear Algebra (10th Edition) by Howard Anton.</p>
+<p>The origami like image is from <a href="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Linear_subspaces_with_shading.svg/2000px-Linear_subspaces_with_shading.svg.png" class="uri">https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Linear_subspaces_with_shading.svg/2000px-Linear_subspaces_with_shading.svg.png</a></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

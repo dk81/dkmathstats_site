@@ -30,6 +30,8 @@ This post will be about derivatives of trigonometric functions. It is assumed th
 
 When it comes to derivatives of trigonometric functions, it is mostly memorizing. Here is the list of the derivatives.
 
+&nbsp;
+
 1) $$\displaystyle \dfrac{d}{dx} \sin(x) = \cos(x) $$
 
 2) $$\displaystyle \dfrac{d}{dx} \cos(x) = - \sin(x)$$
@@ -41,6 +43,8 @@ When it comes to derivatives of trigonometric functions, it is mostly memorizing
 5) $$\displaystyle \dfrac{d}{dx} \csc(x) = - \csc(x) \cdot \cot(x)$$
 
 6) $$\displaystyle \dfrac{d}{dx} \cot(x) = - \csc^{2}(x)$$
+
+&nbsp;
 
 The proofs of the derivatives are not provided here. They are somewhat technical. One can find such proofs at http://www.math.brown.edu/UTRA/trigderivs.html.
 
@@ -108,7 +112,9 @@ $$\displaystyle \begin{array} {lcl} f'(x) & = & \dfrac{\dfrac{d}{dx} \sin(x) \cd
 
 &nbsp;
 
-**Notes**
+---
+
+### Notes
 
 &nbsp;
 

@@ -45,8 +45,10 @@ Given the base of the exponential, a known answer and an unknown exponent, the l
 
 The picture below illustrates how the exponential and the logarithmic functions are inverse functions of each other. They are both mirror images of each other where the middle is the y = x line.
 
+&nbsp;
 
-Source: http://portal.tpu.ru/SHARED/k/KONVAL/Sites/English_sites/Site3_M/img/log-exp1.png
+<center><img src="http://portal.tpu.ru/SHARED/k/KONVAL/Sites/English_sites/Site3_M/img/log-exp1.png" /></center>
+<center><a href="http://portal.tpu.ru/SHARED/k/KONVAL/Sites/English_sites/Site3_M/img/log-exp1.png">Image Source</a></center>
 
 &nbsp;
 
@@ -138,6 +140,8 @@ To put the theory into practice, here are some examples.
 
 **Example One**
 
+&nbsp;
+
 If $100 = 10^{x}$, what is $x$?
 
 Taking the logarithms (of base 10) of both sides of the equation and solving for $x$ gives us:
@@ -151,6 +155,8 @@ $$\displaystyle \begin{array} {lcl} 100 & = & 10^{x} \\ \log_{10}(100) & = & \lo
 ---
 
 **Example Two**
+
+&nbsp;
 
 If $8 = e^{2x}$, what is $x$?
 
@@ -166,6 +172,8 @@ $$\displaystyle \begin{array} {lcl} 8 & = & e^{2x} \\ \text{ln}(8) & = & \text{l
 
 **Example Three**
 
+&nbsp;
+
 Evaluate $\text{log}_{5}(e^3)$ using the change of base formula.
 
 Answer:
@@ -179,6 +187,8 @@ $$\displaystyle \begin{array} {lcl} \log_{5}(e^3) & = & \dfrac{\text{ln}(e^3)}{\
 ---
 
 **Example Four**
+
+&nbsp;
 
 Evaluate the binary logarithm $\log_{2}(25)$.
 

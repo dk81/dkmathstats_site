@@ -92,9 +92,6 @@ prod3
 nrow(prod3)
 
 
-
-
-
 ```
 
 &nbsp;

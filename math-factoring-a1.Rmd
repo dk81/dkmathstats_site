@@ -72,7 +72,7 @@ The examples below will illustrate how the general method works.
 
 <a name="examples"></a>
 
-### Examples
+### <u>Examples</u>
 
 
 &nbsp;

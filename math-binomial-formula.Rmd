@@ -32,11 +32,18 @@ Suppose we have something like $3 \cdot 2 \cdot 1 = 6$ and $5 \cdot 4 \cdot 3 \c
 
 The factorial form is expressed as $n!$ where $n \geq 1$ and:
 
-$\displaystyle n! = n \cdot (n - 1) \cdot (n - 2) \text{ ... } \cdot 1$
+&nbsp;
+
+$$\displaystyle n! = n \cdot (n - 1) \cdot (n - 2) \text{ ... } \cdot 1$$
+
+&nbsp;
+
 The alternative formula is:
 
-$\displaystyle n! = \prod_{k = 1}^{n} k = 1 \cdot 2 \cdot \text{ ... } \cdot (n-1) \cdot n$
-We can express $3 \cdot 2 \cdot 1 = 6$ as $3! = 6$ and $5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 = 120$ as $5! = 120$.
+&nbsp;
+
+$$\displaystyle n! = \prod_{k = 1}^{n} k = 1 \cdot 2 \cdot \text{ ... } \cdot (n-1) \cdot n$
+We can express $3 \cdot 2 \cdot 1 = 6$ as $3! = 6$ and $5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 = 120$ as $5! = 120$$.
 
 &nbsp;
 
@@ -54,7 +61,9 @@ The next piece we need is the binomial coefficient. In terms of practical applic
 
 Mathematically, the binomial coefficient is represented as:
 
-$\binom{n}{k} = \dfrac{n!}{k! (n-k)!}$
+&nbsp;
+
+$$\binom{n}{k} = \dfrac{n!}{k! (n-k)!}$$
 
 &nbsp;
 
@@ -90,6 +99,8 @@ The numbers in Pascal's triangle can also be expressed using binomial coefficien
 
 Now we have the necessary ingredients. Here is the binomial formula for $n \geq 1$
 
+&nbsp;
+
 $$\begin{array} {lcl} \displaystyle (a + b)^{n} & = & \sum_{k = 0}^{n} \binom{n}{k} a^{n-k}b^{k} \\ & = & \binom{n}{0}a^{n} + \binom{n}{1} a^{n-1}b + \text{ ...} + \binom{n}{n} b^{n} \\ & = & a^{n} + na^{n-1}b + \text{ ...} + b^{n} \end{array}$$
 
 &nbsp;
@@ -104,19 +115,31 @@ Here are a few examples which apply the binomial formula.
 
 1) Example One: $(x + 2)^2$
 
+&nbsp;
+
 $$\displaystyle \begin{array} {lcl} (x + 2)^{2} & = & \sum_{k = 0}^{n = 2} \binom{2}{k} x^{2-k}2^{k}\\ & = & \binom{2}{0} x^{2}2^{0} + \binom{2}{1} x^{1}2^{1} + \binom{2}{2} x^{0}2^{2}\\ & = & 1\cdot x^2 + 2 \cdot 2x + 1 \cdot 4\\ & = & x^2 + 4x + 4\\ \end{array}$$
+
+&nbsp;
 
 ---
 
 2) Example Two: $(x - 5)^3$
 
+&nbsp;
+
 $$\displaystyle \begin{array} {lcl} (x - 5)^{3} & = & \sum_{k = 0}^{n = 3} \binom{3}{k} x^{3-k}(-5)^{k}\\ & = & \binom{3}{0} x^{3}(-5)^{0} + \binom{3}{1} x^{2}(-5)^{1} + \binom{3}{2} x^{1}(-5)^{2} + \binom{3}{3} x^{0}(-5)^{3}\\ & = & 1\cdot x^3 - 3 \cdot 5x^2 + 3 \cdot 25x - 1 \cdot 125\\ & = & x^3 - 15x^2 + 75x - 125\\ \end{array}$$
+
+&nbsp;
 
 ---
 
 3) Example Three: $(a - b)^4$
 
+&nbsp;
+
 $$\displaystyle \begin{array} {lcl} (a - b)^{4} & = & \sum_{k = 0}^{n = 4} \binom{4}{k} a^{4-k} (-b)^{k}\\ & = & \binom{4}{0} a^{4}(-b)^{0} + \binom{4}{1} a^{3}(-b)^{1} + \binom{4}{2} a^{2}(-b)^{2} + \binom{4}{3} a^{1}(-b)^{3} + \binom{4}{4} a^{0}(-b)^{4}\\ & = & 1 \cdot a^4 - 4 \cdot a^{3}b + 6 \cdot a^2 b^2 - 4ab^3 + 1 \cdot (-b)^{4}\\ & = & a^4 - 4 a^{3}b + 6 a^2 b^2 - 4ab^3 + b^{4}\\ \end{array}$$
+
+&nbsp;
 
 ---
 

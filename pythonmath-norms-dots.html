@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Computing Norms &amp; Dot Products In Python</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="projects.html">R Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Computing Norms &amp; Dot Products In Python</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hello there. This post is a follow up post to my previous post on norms and dot products. Examples of computing norms and dot products in the programming languages R and Python will be shown.</p>
+<p> </p>
+<div id="the-demand-for-computing" class="section level3">
+<h3><u>The Demand For Computing</u></h3>
+<p>When you start learning mathematics, you learn the theory first for understanding and practice simple examples with pen and paper. With technology being more and more powerful and accessible, computational mathematics has become more popular. Why compute norms of vectors in the hundredth dimension <span class="math inline">\(\mathbb{R}^{100}\)</span> by hand when it is easier and faster to do so with software.</p>
+<p> </p>
+</div>
+<div id="norms-and-dot-products-in-python-and-r" class="section level3">
+<h3><u>Norms and Dot Products in Python and R</u></h3>
+<p>Even though I know R much more than Python, Python was the first programming language I learned when I took an Introduction to Programming course. MATLAB was another program I used from time to time but with Numpy and similar packages in Python, Python has more utility than MATLAB.</p>
+<p>As someone who switched from mathematics to applied statistics, I use R very often.</p>
+<p>In each example, the first set of code will be Python code and the second set of code will be code in R.</p>
+<p>To import the Numpy package in Python to enable linear algebra functions we type in:</p>
+<p> </p>
+<pre class="python"><code>import numpy as np</code></pre>
+<p> </p>
+<hr />
+</div>
+<div id="norms" class="section level3">
+<h3><u>Norms</u></h3>
+<p> </p>
+<p>Given the vector <span class="math inline">\(\textbf{x} = (-3, 4)\)</span>, the norm of <span class="math inline">\(\textbf{x}\)</span> is <span class="math inline">\(||\textbf{x}|| = 5\)</span>. It can be computed as follows.</p>
+<p>In Python:</p>
+<p> </p>
+<pre class="python"><code>## Norms:
+x = np.array([-3, 4])
+print(np.linalg.norm(x))</code></pre>
+<pre><code>## 5.0</code></pre>
+<p> </p>
+<p>In R:</p>
+<p> </p>
+<pre class="r"><code># a)
+
+a &lt;- c(-3, 4)
+ 
+# Two ways of computing a norm:
+
+norm(a, type = &quot;2&quot;)</code></pre>
+<pre><code>## [1] 5</code></pre>
+<pre class="r"><code>sqrt(sum(a^2))</code></pre>
+<pre><code>## [1] 5</code></pre>
+<p> </p>
+<hr />
+<p>If the vector <span class="math inline">\(\textbf{y}\)</span> in <span class="math inline">\(\mathbb{R}^{4}\)</span> is <span class="math inline">\(\textbf{y} = (5, 1, 10, -2)\)</span>, the norm would be <span class="math inline">\(||\textbf{y}|| \approx 11.401\)</span>.</p>
+<p>In Python:</p>
+<p> </p>
+<pre class="python"><code>y = np.array([5, 1, 10, -2])
+print(np.linalg.norm(y))</code></pre>
+<pre><code>## 11.401754251</code></pre>
+<p> </p>
+<p>In R:</p>
+<p> </p>
+<pre class="r"><code>b &lt;- c(5, 1, 10, -2)
+
+norm(b, type = &quot;2&quot;)</code></pre>
+<pre><code>## [1] 11.40175</code></pre>
+<pre class="r"><code>sqrt(sum(b^2))</code></pre>
+<pre><code>## [1] 11.40175</code></pre>
+<p> </p>
+<p>With the Python code, we express the vector as an array in the Numpy package and use the norm function to compute norms of vectors.</p>
+<p>To create vectors in R, the <code>c()</code> function is used.</p>
+<p>In R, there are two ways of computing norms (that I know of). The first one uses the norm function with type = “2”. (I don’t know why type 2, check the reference or help.) The second way is more direct and aligns with the mathematical definition of a norm. We squared each element in the vector, take the sum of squares and square root that sum.</p>
+<p> </p>
+<hr />
+<p> </p>
+<p><strong>Distance Between Two Vectors</strong></p>
+<p> </p>
+<p>Recall that in <span class="math inline">\(\mathbb{R}^{n}\)</span>, the distance between vectors <span class="math inline">\(\textbf{a} = (a_1, a_2, a_3, \dots, a_n)\)</span> and <span class="math inline">\(\textbf{b} = (b_1, b_2, b_3, \dots, b_n)\)</span> is</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle d(\textbf{a}, \textbf{b}) = ||\textbf{a} - \textbf{b}|| = \sqrt{ (a_1 - b_1)^2 + (a_2 - b_2)^2 + (a_3 - b_3)^2 + \dots + (a_n - b_n)^2}\]</span></p>
+<p> </p>
+<p>To compute distance between vectors we do subtraction element-wise, square the results, sum the differences of squares and take the square root of the sum.</p>
+<p>If we were to calculate the distance between the vectors <span class="math inline">\(\textbf{v} = (10, 5, -2, -1)\)</span> and <span class="math inline">\(\textbf{w} = (-1, 0, 2, 1)\)</span> in <span class="math inline">\(\mathbb{R}^{4}\)</span>, we would use the distance formula. The answer is around 12.884. The code is as follows.</p>
+<p>In Python:</p>
+<p> </p>
+<pre class="python"><code>v = np.array([10, 5, -2, -1])
+w = np.array([-1, 0, 2, 1])
+print(np.linalg.norm(v - w))</code></pre>
+<pre><code>## 12.8840987267</code></pre>
+<p> </p>
+<p>In R:</p>
+<pre class="r"><code>## Distance Between Two Vectors:
+
+v &lt;- c(10, 5, -2, -1)
+w &lt;- c(-1, 0, 2, 1)
+
+# Three ways of computing distance between vectors in R:
+
+sqrt(sum((v - w)^2))</code></pre>
+<pre><code>## [1] 12.8841</code></pre>
+<pre class="r"><code>dist(rbind(v, w))</code></pre>
+<pre><code>##         v
+## w 12.8841</code></pre>
+<pre class="r"><code>norm(v - w, type = &quot;2&quot;)</code></pre>
+<pre><code>## [1] 12.8841</code></pre>
+<p> </p>
+<p>The coding method is similar as before. The second way in R is strange but it works. (See one of the Reference links)</p>
+<hr />
+</div>
+<div id="dot-products" class="section level3">
+<h3><u>Dot Products</u></h3>
+<p> </p>
+<p>These examples for the dot products are the same examples in my previous post.</p>
+<p> </p>
+<p><strong>Example One</strong></p>
+<p>The dot product of vectors <span class="math inline">\(\textbf{a} = (1, -2)\)</span> and <span class="math inline">\(\textbf{b} = (-10, -3)\)</span> is -4.</p>
+<p>In Python:</p>
+<p> </p>
+<pre class="python"><code>a = np.array([1, -2])
+b = np.array([-10, -3])
+print(np.dot(a, b))</code></pre>
+<pre><code>## -4</code></pre>
+<p> </p>
+<p>In R:</p>
+<pre class="r"><code># Assuming equal lengths of vector the multiplication operator in R does
+# element wise multiplication (i.e. a1 * b1).
+
+# Example 1:
+
+a &lt;- c(1, -2)
+b &lt;- c(-10, -3)
+sum(a * b)</code></pre>
+<pre><code>## [1] -4</code></pre>
+<p> </p>
+<p><strong>Example Two</strong></p>
+<p>Given vectors <span class="math inline">\(\textbf{c} = (1, -2, 5, 3)\)</span> and <span class="math inline">\(\textbf{d} = (4, -3, -7, 2)\)</span>, the dot product of these vectors in <span class="math inline">\(\mathbb{R}^{4}\)</span> is -19.</p>
+<p>In Python:</p>
+<pre class="python"><code># Example Two:
+c = np.array([1, -2, 5, 3])
+d = np.array([4, -3, -7, 2])
+print(np.dot(c, d))</code></pre>
+<pre><code>## -19</code></pre>
+<p>In R:</p>
+<pre class="r"><code># Example 2:
+
+c &lt;- c(1, -2, 5, 3)
+d &lt;- c(4, -3, -7, 2)
+
+sum(c * d)</code></pre>
+<pre><code>## [1] -19</code></pre>
+<p> </p>
+<p><strong>Example Three</strong></p>
+<p>Suppose we are given the vectors <span class="math inline">\(\textbf{e} = (3, -5)\)</span>, <span class="math inline">\(\textbf{f} = (-1, 4)\)</span> and <span class="math inline">\(\textbf{g} = (3, 2)\)</span>. Evaluating <span class="math inline">\((\textbf{e} + \textbf{g}) \cdot \textbf{f}\)</span> gives us -18.</p>
+<pre><code>In Python:
+
+# Example Three: (e + g) * f
+
+e = np.array([3, -5])
+f = np.array([-1, 4])
+g = np.array([3, 2])
+
+print(np.dot(e + g, f))
+
+-18</code></pre>
+<p> </p>
+<p>In R:</p>
+<p> </p>
+<pre class="r"><code># Example 3: (e + g) * f
+
+e &lt;- c(3, -5)
+f &lt;- c(-1, 4)
+g &lt;- c(3, 2)
+
+sum((e + g) * f)</code></pre>
+<pre><code>## [1] -18</code></pre>
+<p> </p>
+<p>Computing the dot product in Python and Numpy is pretty straight forward.</p>
+<p>Computing the dot product in R involves using element wise multiplication and then taking the sum.</p>
+<p> </p>
+</div>
+<div id="notes" class="section level3">
+<h3><u>Notes</u></h3>
+<p> </p>
+<p>We refer to the norm as the Euclidean norm. There are other norms and other distance measures available but those are not discussed here.</p>
+<p>The decision between using R, Python or another language such as C++ is up to the user. I prefer R as I am used to it and I like the utility it provides. (Maybe eventually I will get more used to Python.)</p>
+<hr />
+</div>
+<div id="references" class="section level3">
+<h3><u>References</u></h3>
+<p> </p>
+<p>These particular web links were useful.</p>
+<ul>
+<li><p><a href="http://stackoverflow.com/questions/5559384/euclidean-distance-of-two-vectors" class="uri">http://stackoverflow.com/questions/5559384/euclidean-distance-of-two-vectors</a></p></li>
+<li><p><a href="http://stackoverflow.com/questions/10933945/how-to-calculate-the-euclidean-norm-of-a-vector-in-r" class="uri">http://stackoverflow.com/questions/10933945/how-to-calculate-the-euclidean-norm-of-a-vector-in-r</a></p></li>
+</ul>
+<p>The featured image is from <a href="http://www.npl.co.uk/upload/img/maths-header.jpg" class="uri">http://www.npl.co.uk/upload/img/maths-header.jpg</a>.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

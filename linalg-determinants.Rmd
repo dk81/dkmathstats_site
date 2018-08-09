@@ -1,0 +1,119 @@
+---
+title: "Determinants Of 2 By 2 And 3 By 3 Matrices"
+output: html_document
+---
+
+&nbsp;
+
+Hi there. This post is about the linear algebra topic of computing determinants of 2 by 2 and 3 by 3 matrices. This post will go over the formulas and not through the cofactor method. The cofactor method in computing determinants will be in a different post.
+
+&nbsp;
+
+### <u>Introduction</u>
+
+&nbsp;
+
+The determinant of a matrix is a number. On its own it does not have much application but it does influence a lot of results in the mathematical field of linear algebra.
+
+The notation for the determinant of a matrix Ais often denoted by $\text{det}(A)$. Sometimes instead of having the square brackets like these [ ], you would have vertical bars (like absolute values) denoting the determinant of a matrix. Here is a 3 by3 determinant example:
+
+&nbsp;
+
+$$\displaystyle \text{A} = \begin{vmatrix} a & d & g \\ b & e & h\\ c & f & i \\ \end{vmatrix} $$
+
+&nbsp;
+
+### <u>Computing 2 by 2 and 3 by 3 Determinants</u>
+
+&nbsp;
+
+There is an alternate and easier way of computing determinants for 2 by 2 and 3 by 3 matrices. We have formulas and memory aids to compute such determinants. These do not work for higher dimensional matrices such as 4 by 4 or a 1000 by 1000 matrix.
+
+&nbsp;
+
+**<u>Two by Two Determinant Case</u>**
+
+&nbsp;
+
+Suppose the 2 by 2 square matrix A is of the form:
+
+&nbsp;
+
+$$\displaystyle \text{A} = \begin{bmatrix} a & b \\ c & d \\ \end{bmatrix} $$
+
+&nbsp;
+
+The determinant of A is $\text{det}(A) = ad - bc$.
+
+Given a 2 by 2 square matrix A of the form as above and the determinant is non-zero then the inverse of matrix A is:
+
+&nbsp;
+
+$$\displaystyle \text{A}^{-1} = \dfrac{1}{\text{det}(A)}\begin{bmatrix} d & -b \\ -c & a \\ \end{bmatrix} \, = \, \dfrac{1}{(ad - bc)}\begin{bmatrix} d & -b \\ -c & a \\ \end{bmatrix} $$
+
+&nbsp;
+
+The entries $a$ and $d$ are switched and entries $b$ and $c$ switch signs. In addition, you see why the determinant has to be non-zero. The math police will be after you if you divide by zero!
+
+&nbsp;
+
+**<u>Three by Three Determinant Case</u>**
+
+&nbsp;
+
+The formula for computing the determinant of a 3 by 3 matrix is more involved than the 2 by 2 case but it is not too hard once you understand it.
+
+Suppose the matrix A is of the form:
+
+$$\displaystyle \text{A} = \begin{bmatrix} a & b & c \\ d & e & f\\ e & f & g \\ \end{bmatrix} $$
+
+To compute the 3 by 3 determinant, we add another a,b,c column and add another d,e,f column to the right side of A. A picture below will help illustrate this.
+
+&nbsp;
+
+**The "Tricky" Part**
+
+&nbsp;
+
+It is somewhat long to explain in words. If you would like a visual (and summary) of the below steps, please refer to the image below.
+
+&nbsp;
+
+<center><img src="http://thejuniverse.org/PUBLIC/LinearAlgebra/LOLA/detDef/3x3det.png" /></center>
+<center><a href="http://thejuniverse.org/PUBLIC/LinearAlgebra/LOLA/detDef/3x3det.png">Image Source</a></center>
+
+&nbsp;
+
+Image Link Source: http://thejuniverse.org/PUBLIC/LinearAlgebra/LOLA/detDef/special.html
+
+&nbsp;
+
+Starting from the top left $a$ entry we draw a downward right diagonal line to get one of six terms which is $aei$. Then from entry $b$ in row 1, column 2 draw another downward right diagonal line to get the term $bfg$. Continue from $c$ in row 1, column 3 and to the same to obtain $cdh$.
+
+(Recall that row 1 is the top row of the matrix and column 1 is the most left vertical column.)
+
+So far we have $aei + bfg + cdh$.
+
+To obtain the last three terms we do a similar procedure but starting from the top right and we go to the downward left direction. Also, these next three terms out of six are negative.
+
+Starting from top right $c$, make a downward diagonal left line to get the term $ceg$. From the second $a$ in the fourth column, we get $afh$ and the last term gets us $bdi$.
+
+From these three terms we have $-ceg - afh - bdi$.
+
+The determinant of the matrix A for a 3 by 3 matrix is:
+
+&nbsp;
+
+$$\displaystyle \text{det}(A) = [aei + bfg + cdh] - [ceg + afh + bdi]$$.
+
+&nbsp;
+
+I don't know about you but this looks nasty to memorize. It is better to memorize the steps in obtaining this determinant than the formula.
+
+I have included an image illustrating the method and formula for the 3 by 3 determinant.
+These examples will show how the formulas are used in computing determinants for 2 by 2 and 3 by 3 matrices.
+
+The inverse of a 3 by 3 matrix does not involve its determinant.
+
+These images are from my own camera phone.
+

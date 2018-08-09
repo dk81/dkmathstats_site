@@ -82,10 +82,12 @@ This process is repeated until (b - a)/2 is small enough (or the interval is ver
 
 
 
-### <u>Some Picture Examples</u>
+### <u>Picture Example</u>
 
 &nbsp;
 
+<center><img src="http://www.mathwarehouse.com/calculus/continuity/images/bisection-algorithm-basic-idea.png" /></center>
+<center><a href="http://www.mathwarehouse.com/calculus/continuity/images/bisection-algorithm-basic-idea.png">Image Source</a></center>
 
 Source: http://www.mathwarehouse.com/calculus/continuity/images/bisection-algorithm-basic-idea.png
 
@@ -93,10 +95,5 @@ Source: http://www.mathwarehouse.com/calculus/continuity/images/bisection-algori
 
 Suppose $c = \dfrac{a + b}{2}$ and the function is increasing.In this case, f(c) is negative, f(a) is negative and f(b) is positive. You would not choose c as the new b since both f(c) and f(a) are negative and there would be no root in the interval [a, c]. Instead, you choose $c$ as the new $a$ to obtain the new subinterval as [c, b].
 
+&nbsp;
 
-
-
-Source: https://image.slidesharecdn.com/bisectionmethod-140627235916-phpapp01/95/bisection-method-3-638.jpg?cb=1403913698
-
-
-The picture has $x_s$ as the midpoint in the interval [a, b]. The point $x_s$ would be the new b giving the interval $[a, x_s]$ because $f(a)$ is positive and $f(x_s)$ is negative.

@@ -1,0 +1,199 @@
+---
+title: "A Guide To Cross Products"
+output: html_document
+---
+
+&nbsp;
+
+This post will be about the cross product. This topic can be found in a high school Calculus and Vectors course (that I know of in Ontario, Canada) or in a introductory linear algebra course.
+
+In here, we will deal with vectors in a three dimensional space. Also, it is easier to compute products if one knows how to compute (2 by 2) determinants. With that being said, I assume that the reader is familiar with determinants.
+
+&nbsp;
+
+### <u>Table Of Contents</u>
+
+&nbsp;
+
+* The Cross Product
+* Memory Aids
+* Properties Of Cross Products
+* Examples
+* Practice Problems
+* Solutions
+* References
+
+&nbsp;
+
+### <u>The Cross Product</u>
+
+&nbsp;
+
+Suppose we have two vectors $\mathbf{u} = (u_1, u_2, u_{3})$ and $\mathbf{v} = (v_1, v_2, v_{3})$ in three dimensions. The cross product $\mathbf{u} \times \mathbf{v} (\mathbf{u} \text{ cross } \mathbf{v}) $ of two vectors is a (different) vector which is perpendicular to the two vectors.
+
+&nbsp;
+
+Source: https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Cross_product_vector.svg/220px-Cross_product_vector.svg.png
+
+&nbsp;
+
+There are two ways to compute cross products. The first formula does not assume the reader knows determinants. This formula is given by:
+
+&nbsp;
+
+$$ \mathbf{u} \times \mathbf{v} = (u_{2}v_{3} - u_{3}v_{2}, u_{3}v_{1} - u_{1}v_{3}, u_{1}v_{2} - u_{2}v_{1} )$$
+
+&nbsp;
+
+The second formula is actually the same as the above but in determinant notation. This formula is:
+
+&nbsp;
+
+
+Source: http://quicklatex.com/cache3/c4/ql_926219b87045b16e28f37e299ca0d7c4_l3.png
+
+&nbsp;
+
+Recall that the 2 by 2 determinant is equal to $ad - bc$.
+
+
+&nbsp;
+
+### <u>Memory Aids</u>
+
+&nbsp;
+
+After looking at those two formulas you might be wondering how do I memorize all that stuff!? With some close observations, you can spot a few patterns and come up with some memory aids.
+
+With the first formula, all the terms are in the $uv$ format. If you look closely at the numbered subscripts, the numbers are mirrored. In the first part we have $u_{2}v_{3} - u_{3}v_{2}$. The first subscript is a 2 which goes with the u and the second subscript is a 3 with the v. After the minus sign the subscripts are mirrored in the order of 3 and 2. The second part has subscripts of 3,1,1,3 and the last part has 1,2,2,1.
+
+For the first formula, one possible memory aid would be 2332, 3113 and 1221. An alternative would be 23, 31 and 12 since we have $u_{2}v_{3}$ representing 23 and $- u_{3}v_{2}$, 31 for $u_{3}v_{1} - u_{1}v_{3}$ and 12 for $u_{1}v_{2} - u_{2}v_{1}$.
+
+The second formula assumes that the reader is familiar with the linear algebra concept of determinants. Notice how the top row in each determinant is for the $\textbf{u}$ vector and the bottom row is for the $\textbf{v}$ vector. One possible memory aid would be 23, -13, and 12 as the subscripted numbers are used as we go from the leftmost column to the rightmost column. The negative for -13 represents the negative determinant.
+
+Another way to arrive to the second formula is through this multi-part method.
+
+1) Form a 2 by 3 matrix in the format of
+
+2) The first component of the cross product can be computed by deleting the first column of the above matrix and take the resulting 2 by 2 determinant.
+
+3) The second component consists of deleting the second column of the 2 by 3 matrix and taking the determinant of
+
+
+
+4) The final and third component of the cross product $\textbf{u} \times \textbf{v}$ would be removing the last column of the matrix and computing the determinant
+
+
+
+5) The result would be the second formula turned into the first formula.
+
+&nbsp;
+
+### <u>Properties Of Cross Products</u>
+
+&nbsp;
+
+Like with any new math operation like the cross product, there are rules associated with them. In grade school, there were rules for addition, subtraction, multiplication and division.
+
+Here are the properties of the cross product given the vectors $\textbf{u}$, $\textbf{v}$ and $\textbf{w}$ in 3-space with $k$ as a numeric scalar. ($\textbf{0}$ is the zero vector in 3-space here)
+
+&nbsp;
+
+1) $$ \textbf{u} \times \textbf{v} = - (\textbf{v} \times \textbf{u})$$
+
+2) $$ \textbf{u} \times (\textbf{v} + \textbf{w}) = (\textbf{u} \times \textbf{v}) + (\textbf{u} \times \textbf{w}) \text{ (Multiply From Left) }$$
+
+3) $$(\textbf{u} + \textbf{v}) \times \textbf{w} = (\textbf{u} \times \textbf{w}) + (\textbf{v} \times \textbf{w}) \text{ (Multiply From Right) }$$
+
+4) $$k(\textbf{u} \times \textbf{v}) = (k \textbf{u}) \times \textbf{v} = \textbf{u} \times (k \textbf{v}) $$
+
+5) $$\textbf{u} \times \textbf{0} = \textbf{0} \times \textbf{u} $$
+
+6) $$\textbf{u} \times \textbf{u} = \textbf{0} $$
+
+&nbsp;
+
+### <u>Examples</u>
+
+&nbsp;
+
+**Example One**
+
+&nbsp;
+
+Given $\textbf{u} = (0, -3, 2)$ and $\textbf{v} = (5, -2, 1)$, Find $\textbf{u} \times \textbf{v}$ and $\textbf{v} \times \textbf{u}.$
+
+We can use the formula $$\textbf{u} \times \textbf{v} = (u_{2}v_{3} - u_{3}v_{2}, u_{3}v_{1} - u_{1}v_{3}, u_{1}v_{2} - u_{2}v_{1} )$$ or the determinant notation of the formula. Here, the determinant notation of the formula will be used.
+
+
+
+
+
+We also compute $\textbf{v} \times \textbf{u}$.
+
+
+
+
+
+You can also verify the property $\textbf{u} \times \textbf{v} = - (\textbf{v} \times \textbf{u})$. In this case $\textbf{u} \times \textbf{v} = (1, 10, 15 ) = - (-1, -10, -15) = - (\textbf{v} \times \textbf{u})$.
+
+&nbsp;
+
+---
+
+&nbsp;
+
+**Example Two**
+
+Suppose that there are vectors $\textbf{u} = (-3, -1, 0)$ and $\textbf{v} = (2, 0, -1)$. Find a vector which is perpendicular/orthogonal to both vectors $\textbf{u}$ and $\textbf{v}$.
+
+The vector cross product of a two vectors is a (third) vector which is perpendicular to both the two vectors.
+
+We find the cross product $\textbf{u} \times \textbf{v}$ as follows:
+
+
+
+
+
+The vector that is perpendicular to vectors $\textbf{u}$ and $\textbf{v}$ is $\textbf{u} \times \textbf{v} = (1, -3, 2)$.
+
+&nbsp;
+
+### <u>Practice Problems</u>
+
+&nbsp;
+
+Here are few practice problems. Solutions are in the next section.
+
+1) Given two vectors $\textbf{u} = (1, 2, 3)$ and $\textbf{v} = (2, 3, 4)$. What is the cross product $\textbf{u} \times \textbf{v}$?
+
+2) Given $\textbf{u} = (2, -4, 7)$ and $\textbf{v} = (1, 0, 2)$. What is the cross product $\textbf{v} \times \textbf{u}$?
+
+3) Suppose you have the vector $\textbf{u} = (34, 23, -12)$. Verify that $\textbf{u} \times \textbf{u} = \textbf{0}$ where \textbf{0} is the zero vector in 3-space.
+
+4) In this question we have three vectors. These vectors are $\textbf{u} = (1, 1, 1)$, $\textbf{v} = (0, 3, -2)$ and $\textbf{w} = (8, 2, 1)$. What is the cross product $(\textbf{u} \times \textbf{v}) \times \textbf{w}$?
+
+&nbsp;
+
+### <u>Solutions</u>
+
+&nbsp;
+
+1) $\textbf{u} \times \textbf{v} = (-1, 2, -1)$
+
+2) $\textbf{v} \times \textbf{u} - (8, -3, -4)$
+
+3) The numbers look scary but once the formula is applied you will find that you will get the zero vector.
+
+4) $\textbf{u} \times \textbf{v} = (-5, 2, 3)$ and $\textbf{u} \times \textbf{v}) \times \textbf{w} = (-4, 29, -26)$
+
+&nbsp;
+
+---
+
+### <u>Reference</u>
+
+&nbsp;
+
+* Elementary Linear Algebra (Tenth Edition) by Howard Anton
+

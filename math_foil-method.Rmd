@@ -7,7 +7,7 @@ output: html_document
 
 Hi there. This is a short page on multiplying binomials using the FOIL method. This algebra method is taught in high school mathematics (in Ontario, Canada). Note that the math curriculum may be different now versus before.
 
-One may want to refer to my previous post on the [distributive Law](./math_distributive-law.html) as a refresher.
+One may want to refer to my previous post on the [Distributive Law](./math_distributive-law.html) as a refresher.
 
 &nbsp;
 
@@ -63,7 +63,7 @@ Now we have the general case or the theory:
 
 Given real numbers $a$, $b$, $c$ and $d$, the general formula for multiplying two binomials is as follows:
 
-(1.1) $$ \displaystyle (a + b) \times (c + d) = ac + ad + bc + bd $$
+$$ \displaystyle (a + b) \times (c + d) = ac + ad + bc + bd $$
 
 We start with the $a$ in the first binomial and have it multiplied by $c$ and then by $d$. The term $b$ as the second term in the first binomial is multiplied by $c$ and then by $d$.
 
@@ -78,7 +78,7 @@ $$\displaystyle \text{L: Last }$$
 
 &nbsp;
 
-From (1.1) the first terms are $a$ and $c$ so we get $ac$ as the first term.
+From the above equation the first terms are $a$ and $c$ so we get $ac$ as the first term.
 The outer terms are $a$ and $d$ so we get $ad$ as the second term.
 The inner terms are $b$ and $c$ so we get $bc$ as the third term.
 The outer terms are $b$ and $d$ so we get $bd$ as the last term.
@@ -125,7 +125,7 @@ Note that $(x + 5)^{2} \neq x^{2} + 25$ because...
 
 &nbsp;
 
-$$\displaystyle (x + 5)^{2} = (x + 5)(x + 5) = x^{2} + 5x + 5x + 25 =  x^{2} + 10x + 25$$
+$$\displaystyle (x + 5)^{2} = (x + 5)(x + 5) = x^{2} + 5x + 5x + 25 = x^{2} + 10x + 25$$
 
 &nbsp;
 

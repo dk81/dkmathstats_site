@@ -13,7 +13,7 @@ Here is a quick lesson covering the Product Rule, and the Quotient Rule in Calcu
 
 &nbsp;
 
-This lesson assumes that the student knows what a calculus derivative is and is familiar with derivatives of functions such as $x^2 $, $\sin(x)$ and so on.
+This lesson assumes that the student knows what a calculus derivative is and is familiar with derivatives of functions such as $x^2$, $\sin(x)$ and so on.
 
 ---
 
@@ -34,7 +34,7 @@ The derivative of $h(x)$ is $h'(x)$ and the form is as follows:
 $$h'(x) = f'(x) g(x) + f(x) g'(x)$$
 &nbsp;
 
-Think of the derivative $h'(x)$ in (1.2) as:
+Think of the derivative $h'(x)$ as shown above as:
 
 &nbsp;
 

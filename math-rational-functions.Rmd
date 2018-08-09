@@ -23,9 +23,15 @@ Hi. Here is an introduction to rational functions. This page will go as far as d
 
 ### <u>What Is A Rational Function?</u>
 
+&nbsp;
+
 A rational function is a fraction $f(x)$ in the form of
 
+&nbsp;
+
 $$f(x) = \dfrac{P(x)}{Q(x)}$$
+
+&nbsp;
 
 where $P(x)$ and $Q(x)$ are different polynomials where $Q(x)$ cannot be 0 ($Q(x) \neq 0$).
 
@@ -67,7 +73,7 @@ The domain of a rational function is all $x$-values such that the denominator $Q
 
 When it comes to the range of rational functions, there is no universal rule. The range of the rational functions varies as there are also restrictions on the values of $f(x) = \dfrac{P(x)}{Q(x)}$. To find such restrictions on the range, the concept of limits would be needed which is beyond the scope of this page.
 
-Here are a few visual examples of rational functions.
+Here is an example of rational functions.
 
 <center><img src="http://image.mathcaptain.com/cms/images/88/vertical-asymptote1.jpg" /></center>
 <center><a href="http://image.mathcaptain.com/cms/images/88/vertical-asymptote1.jpg">Image Source</a></center>
