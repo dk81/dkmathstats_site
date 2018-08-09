@@ -34,7 +34,7 @@ The derivative of $h(x)$ is $h'(x)$ and the form is as follows:
 $$h'(x) = f'(x) g(x) + f(x) g'(x)$$
 &nbsp;
 
-Think of the derivative $h'(x)$ in (1.2) as:
+Think of the derivative $h'(x)$ in (1.2) as:
 
 &nbsp;
 

@@ -78,6 +78,8 @@ Here are some examples.
 
 $\displaystyle f(x) = -\cos(x)$
 
+&nbsp;
+
 $$\displaystyle \begin{array} {lcl} f'(x) & = & - \dfrac{d}{dx} \cos(x) \\ & = & - ( - \sin(x) )\\ & = & \sin(x) \\ \end{array} \\ $$
 &nbsp;
 
@@ -86,6 +88,8 @@ $$\displaystyle \begin{array} {lcl} f'(x) & = & - \dfrac{d}{dx} \cos(x) \\ & = &
 &nbsp;
 
 $\displaystyle f(x) = \sin(x) \cdot \tan(x)$
+
+&nbsp;
 
 $$\displaystyle \begin{array} {lcl} f'(x) & = & \dfrac{d}{dx} \sin(x) \cdot \tan(x) + \sin(x) \cdot \dfrac{d}{dx} \tan(x) \\ & = & \cos(x) \cdot \tan(x) + \sin(x) \cdot \sec^{2}(x) \\ & = & \cos(x) \cdot \dfrac{\sin(x)}{\cos(x)} + \sin(x) \cdot \sec^{2}(x) \\ & = & \sin(x) + \sin(x) \cdot \sec^{2}(x) \\ & = & \sin(x) \cdot (1 + \sec^{2}(x)) \\ \end{array}$$
 
@@ -96,6 +100,8 @@ $$\displaystyle \begin{array} {lcl} f'(x) & = & \dfrac{d}{dx} \sin(x) \cdot \tan
 &nbsp;
 
 $\displaystyle f(x) = \dfrac{\sin(x)}{\cos(x)}$
+
+&nbsp;
 
 $$\displaystyle \begin{array} {lcl} f'(x) & = & \dfrac{\dfrac{d}{dx} \sin(x) \cdot \cos(x) - \sin(x) \cdot \dfrac{d}{dx} \cos(x)}{\cos^{2}(x)}\\ & = & \dfrac{\cos^{2}(x) - \sin(x) \cdot (- \sin(x)) }{\cos^{2}(x)}\\ & = & \dfrac{\cos^{2}(x) + \sin^{2}(x)}{\cos^{2}(x)}\\ & = & 1 + \dfrac{\sin^{2}(x)}{\cos^{2}(x)}\\ & = & 1 + (\dfrac{\sin(x)}{\cos(x)})^{2}\\ & = & 1 + \tan^{2}(x) \\
 \end{array} $$
