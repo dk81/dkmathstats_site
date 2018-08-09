@@ -216,47 +216,97 @@ $(document).ready(function () {
 <p> </p>
 <p>Here is a guide on Integration by Parts. It is a tricky Calculus topic at first but it gets easier with practice.</p>
 <p>Before continuing, one should be familiar with antiderivatives, the product rule and substitutions with integrals.</p>
-<p>Topics</p>
-<p>What is Integration by Parts? Integration by Parts: The Formula The LIATE Memory Aid for Integration by Parts Some Examples of Integration by Parts with LIATE</p>
-<p>What is Integration by Parts?</p>
+<p> </p>
+<div id="topics" class="section level3">
+<h3><u>Topics</u></h3>
+<p> </p>
+<ul>
+<li>What is Integration by Parts?</li>
+<li>Integration by Parts: The Formula</li>
+<li>The LIATE Memory Aid for Integration by Parts</li>
+<li>Some Examples of Integration by Parts with LIATE</li>
+</ul>
+<p> </p>
+</div>
+<div id="what-is-integration-by-parts" class="section level3">
+<h3><u>What is Integration by Parts?</u></h3>
+<p> </p>
 <p>Integration by Parts is an integration method for integrating functions like this:</p>
-<p><span class="math inline">\(\displaystyle \int x \cdot \text{e}^{x}\, dx\)</span> Here <span class="math inline">\(x\)</span> is a polynomial and <span class="math inline">\(\text{e}^{x}\)</span> is an exponential function. Another example is:</p>
-<p><span class="math inline">\(\displaystyle \int \sin(x) \cdot \text{ln}(x) \, dx\)</span> The natural question is how do I integrate these things!? We have to use a technique called Integration By Parts.</p>
-<p>Intergration by Parts: The Formula</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \int x \cdot \text{e}^{x}\, dx\]</span></p>
+<p> </p>
+<p>Here <span class="math inline">\(x\)</span> is a polynomial and <span class="math inline">\(\text{e}^{x}\)</span> is an exponential function. Another example is:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \int \sin(x) \cdot \text{ln}(x) \, dx\]</span></p>
+<p> </p>
+<p>The natural question is how do I integrate these things!? We have to use a technique called Integration By Parts.</p>
+<p> </p>
+</div>
+<div id="intergration-by-parts-the-formula" class="section level3">
+<h3><u>Intergration by Parts: The Formula</u></h3>
+<p> </p>
 <p>The formula for Integration by Parts is:</p>
-<ol style="list-style-type: decimal">
-<li><span class="math inline">\(\displaystyle \int u \, dv = u\, v - \int v \, du\)</span></li>
-</ol>
+<p> </p>
+<p><span class="math display">\[\displaystyle \int u \, dv = u\, v - \int v \, du\]</span></p>
+<p> </p>
 <p>One could ask what are <span class="math inline">\(u\)</span>, <span class="math inline">\(v\)</span>, <span class="math inline">\(du\)</span>, and <span class="math inline">\(dv\)</span>? We will look at the derivation of the formula.</p>
 <p>To start, the product rule gives us:</p>
-<p><span class="math inline">\(\displaystyle (f(x) \, g(x))&#39; = f(x) \, g&#39;(x) + f&#39;(x) \, g(x)\)</span></p>
+<p> </p>
+<p><span class="math display">\[\displaystyle (f(x) \, g(x))&#39; = f(x) \, g&#39;(x) + f&#39;(x) \, g(x)\]</span></p>
+<p> </p>
 <p>Integrating both sides gives us:</p>
-<p><span class="math inline">\(\displaystyle \int (f(x) \, g(x))&#39; dx = \int f(x) \, g&#39;(x) dx + \int f&#39;(x) \, g(x) dx\)</span></p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \int (f(x) \, g(x))&#39; dx = \int f(x) \, g&#39;(x) dx + \int f&#39;(x) \, g(x) dx\]</span></p>
+<p> </p>
 <p>By the Fundamental Theorem of Calculus, the integral of a derivative is the function (integrand) itself. The left side is just <span class="math inline">\((f(x) \, g(x))\)</span> as follows:</p>
-<p><span class="math inline">\(\displaystyle f(x) \, g(x) = \int f(x) \, g&#39;(x) dx + \int f&#39;(x) \, g(x) dx\)</span></p>
+<p> </p>
+<p><span class="math display">\[\displaystyle f(x) \, g(x) = \int f(x) \, g&#39;(x) dx + \int f&#39;(x) \, g(x) dx\]</span></p>
+<p> </p>
 <p>The substitutions <span class="math inline">\(u = f(x)\)</span>, <span class="math inline">\(v = g(x)\)</span> along with <span class="math inline">\(du = f&#39;(x) \, dx\)</span> and <span class="math inline">\(dv = g&#39;(x) \, dx\)</span> turn the above line into:</p>
-<ol start="2" style="list-style-type: decimal">
-<li><span class="math inline">\(\displaystyle u \, v = \int u \, dv + \int v \, du\)</span></li>
-</ol>
+<p> </p>
+<p><span class="math display">\[\displaystyle u \, v = \int u \, dv + \int v \, du\]</span></p>
+<p> </p>
 <p>Rearranging the terms in (2) would give the integration by parts formula as given in (1) above.</p>
-<p>The LIATE Memory Aid for Integration by Parts</p>
+<p> </p>
+</div>
+<div id="the-liate-memory-aid-for-integration-by-parts" class="section level3">
+<h3><u>The LIATE Memory Aid for Integration by Parts</u></h3>
+<p> </p>
 <p>You now know what <span class="math inline">\(u\)</span>, <span class="math inline">\(v\)</span>, <span class="math inline">\(du\)</span>, and <span class="math inline">\(dv\)</span> are. A natural question would be how do I know which function should be <span class="math inline">\(u\)</span> and <span class="math inline">\(dv\)</span> in the substitution for Integration by Parts? The LIATE principle can help determine what to pick for <span class="math inline">\(u\)</span> and <span class="math inline">\(dv\)</span>. The acronym LIATE stands for:</p>
-<p><span class="math inline">\(\displaystyle \text{L: Logarithmic Functions}\)</span> <span class="math inline">\(\displaystyle \text{I: Inverse Trigonometric Functions}\)</span> <span class="math inline">\(\displaystyle \text{A: Algebraic (or Polynomial such as } x^2)\)</span> <span class="math inline">\(\displaystyle \text{T: Trigonometric Functions}\)</span> <span class="math inline">\(\displaystyle \text{E: Exponential (}e^x \text{ for example)}\)</span> Top choices for <span class="math inline">\(u\)</span> start from the letter L and go down and the top choices for <span class="math inline">\(dv\)</span> start from the letter E for exponential and go up.</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \text{L: Logarithmic Functions}\]</span></p>
+<p><span class="math display">\[\displaystyle \text{I: Inverse Trigonometric Functions}\]</span></p>
+<p><span class="math display">\[\displaystyle \text{A: Algebraic (or Polynomial such as } x^2)\]</span> <span class="math display">\[\displaystyle \text{T: Trigonometric Functions}\]</span></p>
+<p><span class="math display">\[\displaystyle \text{E: Exponential (}e^x \text{ for example)}\]</span></p>
+<p> </p>
+<p>Top choices for <span class="math inline">\(u\)</span> start from the letter L and go down and the top choices for <span class="math inline">\(dv\)</span> start from the letter E for exponential and go up.</p>
 <p>The rationale behind the LIATE principle is that logarithms have no known antiderivative so they are a common choice for the <span class="math inline">\(u\)</span> substitution and that the antiderivative of an exponential such as <span class="math inline">\(e^x\)</span> is an exponential.</p>
 <p>An alternate acronym is LIPTE where the only difference is that the A for algebraic turns into P for polynomial.</p>
-<p>Some Examples of Integration by Parts with LIATE</p>
-<p>Example One</p>
+<p> </p>
+</div>
+<div id="some-examples-of-integration-by-parts-with-liate" class="section level3">
+<h3><u>Some Examples of Integration by Parts with LIATE</u></h3>
+<p> </p>
+<p><strong>Example One</strong></p>
 <p>From before we had:</p>
-<p><span class="math inline">\(\displaystyle \int x \cdot \text{e}^{x} \text{ d}x\)</span></p>
-<p>The algebraic function is <span class="math inline">\(x\)</span> and <span class="math inline">\(\text{e}^{x}\)</span> is the exponential function. Our choice for <span class="math inline">\(u\)</span> is <span class="math inline">\(x\)</span> (algebraic is higher than exponential) and <span class="math inline">\(dv\)</span> would be <span class="math inline">\(\text{e}^{x} \, dx}\)</span>. We would then have <span class="math inline">\(v = \text{e}^{x}\)</span> and <span class="math inline">\(du = 1 \cdot dx\)</span>.</p>
+<p><span class="math display">\[\displaystyle \int x \cdot \text{e}^{x} \text{ d}x\]</span></p>
+<p>The algebraic function is <span class="math inline">\(x\)</span> and <span class="math inline">\(\text{e}^{x}\)</span> is the exponential function. Our choice for <span class="math inline">\(u\)</span> is <span class="math inline">\(x\)</span> (algebraic is higher than exponential) and <span class="math inline">\(dv\)</span> would be <span class="math inline">\(\text{e}^{x} dx\)</span>. We would then have <span class="math inline">\(v = \text{e}^{x}\)</span> and <span class="math inline">\(du = 1 \cdot dx\)</span>.</p>
 <p>Substituting the components <span class="math inline">\(u\)</span>, <span class="math inline">\(du\)</span>, <span class="math inline">\(v\)</span>, and <span class="math inline">\(dv\)</span> into the Integration By Parts formula <span class="math inline">\(\displaystyle \int u \, dv = u\, v - \int v \, du\)</span> gives us:</p>
-<p>Source: <a href="http://quicklatex.com/cache3/86/ql_72b65e5e9d6688cc2c58c1d6939f4c86_l3.png" class="uri">http://quicklatex.com/cache3/86/ql_72b65e5e9d6688cc2c58c1d6939f4c86_l3.png</a> Example Two</p>
-<p><span class="math inline">\(\displaystyle \int \sin(x) \cdot \text{ln}(x) \text{ d}x\)</span></p>
+<p>Source: <a href="http://quicklatex.com/cache3/86/ql_72b65e5e9d6688cc2c58c1d6939f4c86_l3.png" class="uri">http://quicklatex.com/cache3/86/ql_72b65e5e9d6688cc2c58c1d6939f4c86_l3.png</a></p>
+<p> </p>
+<p><strong>Example Two</strong></p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \int \sin(x) \cdot \text{ln}(x) \text{ d}x\]</span></p>
+<p> </p>
 <p>The logarithm <span class="math inline">\(\text{ln}(x)\)</span> would be the choice for <span class="math inline">\(u\)</span> and we would have <span class="math inline">\(dv = \sin(x) \, dx\)</span>. The derivative of <span class="math inline">\(\text{ln}(x)\)</span> is <span class="math inline">\(\dfrac{1}{x} \, dx\)</span> and the integral of <span class="math inline">\(\sin(x) \, dx\)</span> is <span class="math inline">\(\, -\cos(x)\)</span>.</p>
-<p>Example Three</p>
+<p> </p>
+<p><strong>Example Three</strong></p>
+<p> </p>
 <p><span class="math display">\[\displaystyle \int \arctan(x) \cdot x \text{ d}x\]</span></p>
+<p> </p>
 <p>We have an inverse trigonometry function such as <span class="math inline">\(\arctan(x) = \tan^{-1}(x)\)</span> and an algebraic/polynomial function such as <span class="math inline">\(x\)</span>. The choice for <span class="math inline">\(u\)</span> is <span class="math inline">\(\arctan(x)\)</span> and we would have <span class="math inline">\(dv = x \, dx\)</span>. The other components would be <span class="math inline">\(du = \dfrac{1}{1 + x^2} \, dx\)</span> and <span class="math inline">\(v = \dfrac{x^2}{2}\)</span>.</p>
 <p> </p>
+</div>
 <div id="notes" class="section level3">
 <h3><u>Notes</u></h3>
 <p> </p>

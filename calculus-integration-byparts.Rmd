@@ -5,97 +5,164 @@ output: html_document
 
 &nbsp;
 
-
 Here is a guide on Integration by Parts. It is a tricky Calculus topic at first but it gets easier with practice.
 
 Before continuing, one should be familiar with antiderivatives, the product rule and substitutions with integrals.
 
-Topics
+&nbsp;
 
-What is Integration by Parts?
-Integration by Parts: The Formula
-The LIATE Memory Aid for Integration by Parts
-Some Examples of Integration by Parts with LIATE
+### <u>Topics</u>
 
-What is Integration by Parts?
+&nbsp;
+
+* What is Integration by Parts?
+* Integration by Parts: The Formula
+* The LIATE Memory Aid for Integration by Parts
+* Some Examples of Integration by Parts with LIATE
+
+&nbsp;
+
+
+### <u>What is Integration by Parts?</u>
+
+&nbsp;
 
 Integration by Parts is an integration method for integrating functions like this:
 
-$\displaystyle \int x \cdot \text{e}^{x}\, dx$
-Here $x$ is a polynomial and $\text{e}^{x}$ is an exponential function. Another example is:
+&nbsp;
 
-$\displaystyle \int \sin(x) \cdot \text{ln}(x) \, dx$
+$$\displaystyle \int x \cdot \text{e}^{x}\, dx$$
+
+&nbsp;
+
+
+Here $x$ is a polynomial and $\text{e}^{x}$ is an exponential function. Another example is:
+
+&nbsp;
+
+$$\displaystyle \int \sin(x) \cdot \text{ln}(x) \, dx$$
+
+&nbsp;
+
 The natural question is how do I integrate these things!? We have to use a technique called Integration By Parts.
 
+&nbsp;
 
-Intergration by Parts: The Formula
+### <u>Intergration by Parts: The Formula</u>
+
+&nbsp;
 
 The formula for Integration by Parts is:
 
-(1) $\displaystyle \int u \, dv = u\, v - \int v \, du$
+&nbsp;
+
+$$\displaystyle \int u \, dv = u\, v - \int v \, du$$
+
+&nbsp;
 
 One could ask what are $u$, $v$, $du$, and $dv$? We will look at the derivation of the formula.
 
 To start, the product rule gives us:
 
-$\displaystyle (f(x) \, g(x))' = f(x) \, g'(x) + f'(x) \, g(x)$
+&nbsp;
+
+$$\displaystyle (f(x) \, g(x))' = f(x) \, g'(x) + f'(x) \, g(x)$$
+
+&nbsp;
 
 Integrating both sides gives us:
 
-$\displaystyle \int (f(x) \, g(x))' dx = \int f(x) \, g'(x) dx + \int f'(x) \, g(x) dx$
+&nbsp;
+
+$$\displaystyle \int (f(x) \, g(x))' dx = \int f(x) \, g'(x) dx + \int f'(x) \, g(x) dx$$
+
+&nbsp;
 
 By the Fundamental Theorem of Calculus, the integral of a derivative is the function (integrand) itself. The left side is just $(f(x) \, g(x))$ as follows:
 
-$\displaystyle f(x) \, g(x) = \int f(x) \, g'(x) dx + \int f'(x) \, g(x) dx$
+&nbsp;
+
+$$\displaystyle f(x) \, g(x) = \int f(x) \, g'(x) dx + \int f'(x) \, g(x) dx$$
+
+&nbsp;
 
 The substitutions $u = f(x)$, $v = g(x)$ along with $du = f'(x) \, dx$ and $dv = g'(x) \, dx$ turn the above line into:
 
-(2) $\displaystyle u \, v = \int u \, dv + \int v \, du$
+&nbsp;
+
+$$\displaystyle u \, v = \int u \, dv + \int v \, du$$
+
+&nbsp;
 
 Rearranging the terms in (2) would give the integration by parts formula as given in (1) above.
 
+&nbsp;
 
-The LIATE Memory Aid for Integration by Parts
+### <u>The LIATE Memory Aid for Integration by Parts</u>
+
+&nbsp;
 
 You now know what $u$, $v$, $du$, and $dv$ are. A natural question would be how do I know which function should be $u$ and $dv$ in the substitution for Integration by Parts? The LIATE principle can help determine what to pick for $u$ and $dv$. The acronym LIATE stands for:
 
+&nbsp;
 
+$$\displaystyle \text{L: Logarithmic Functions}$$
 
-$\displaystyle \text{L: Logarithmic Functions}$
-$\displaystyle \text{I: Inverse Trigonometric Functions}$
-$\displaystyle \text{A: Algebraic (or Polynomial such as } x^2)$
-$\displaystyle \text{T: Trigonometric Functions}$
-$\displaystyle \text{E: Exponential (}e^x \text{ for example)}$
+$$\displaystyle \text{I: Inverse Trigonometric Functions}$$
+
+$$\displaystyle \text{A: Algebraic (or Polynomial such as } x^2)$$
+$$\displaystyle \text{T: Trigonometric Functions}$$
+
+$$\displaystyle \text{E: Exponential (}e^x \text{ for example)}$$
+
+&nbsp;
+
 Top choices for $u$ start from the letter L and go down and the top choices for $dv$ start from the letter E for exponential and go up.
 
 The rationale behind the LIATE principle is that logarithms have no known antiderivative so they are a common choice for the $u$ substitution and that the antiderivative of an exponential such as $e^x$ is an exponential.
 
 An alternate acronym is LIPTE where the only difference is that the A for algebraic turns into P for polynomial.
 
+&nbsp;
 
-Some Examples of Integration by Parts with LIATE
+### <u>Some Examples of Integration by Parts with LIATE</u>
 
-Example One
+&nbsp;
+
+**Example One**
 
 From before we had:
 
-$\displaystyle \int x \cdot \text{e}^{x} \text{ d}x$
+$$\displaystyle \int x \cdot \text{e}^{x} \text{ d}x$$
 
-The algebraic function is $x$ and $\text{e}^{x}$ is the exponential function. Our choice for $u$ is $x$ (algebraic is higher than exponential) and $dv$ would be $\text{e}^{x} \, dx}$. We would then have $v = \text{e}^{x}$ and $du = 1 \cdot dx$.
+The algebraic function is $x$ and $\text{e}^{x}$ is the exponential function. Our choice for $u$ is $x$ (algebraic is higher than exponential) and $dv$ would be $\text{e}^{x}  dx$. We would then have $v = \text{e}^{x}$ and $du = 1 \cdot dx$.
 
 Substituting the components $u$, $du$, $v$, and $dv$ into the Integration By Parts formula $\displaystyle \int u \, dv = u\, v - \int v \, du$ gives us:
 
 
 Source: http://quicklatex.com/cache3/86/ql_72b65e5e9d6688cc2c58c1d6939f4c86_l3.png
-Example Two
 
-$\displaystyle \int \sin(x) \cdot \text{ln}(x) \text{ d}x$
+&nbsp;
+
+**Example Two**
+
+&nbsp;
+
+$$\displaystyle \int \sin(x) \cdot \text{ln}(x) \text{ d}x$$
+
+&nbsp;
 
 The logarithm $\text{ln}(x)$ would be the choice for $u$ and we would have $dv = \sin(x) \, dx$. The derivative of $\text{ln}(x)$ is $\dfrac{1}{x} \, dx$ and the integral of $\sin(x) \, dx$ is $\, -\cos(x)$.
 
-Example Three
+&nbsp;
+
+**Example Three**
+
+&nbsp;
 
 $$\displaystyle \int \arctan(x) \cdot x \text{ d}x$$
+
+&nbsp;
 
 We have an inverse trigonometry function such as $\arctan(x) = \tan^{-1}(x)$ and an algebraic/polynomial function such as $x$. The choice for $u$ is $\arctan(x)$ and we would have $dv = x \, dx$. The other components would be $du = \dfrac{1}{1 + x^2} \, dx$ and $v = \dfrac{x^2}{2}$.
 

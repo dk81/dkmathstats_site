@@ -2,6 +2,7 @@
 title: "About Me"
 ---
 
+&nbsp;
+
 - __Name:__ David
-- __Ocupation:__ "Student"
-- __Interests:__ R Programming, Python programming
+- __Interests:__ Mathematics, R Programming, Python programming
