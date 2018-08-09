@@ -220,4 +220,4 @@ $$\displaystyle \begin{array} {lcl} d(\textbf{v}, \textbf{w}) & = & \sqrt{ (v_1 
 
 Reference: Elementary Linear Algebra (10th Editon) by Howard Anton
 
-The image is taken from https://www.mathsisfun.com/algebra/images/vector-mag-dir.gif
+The image is taken from https://www.mathsisfun.com/algebra/images/vector-mag-dir.gif

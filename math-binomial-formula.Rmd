@@ -122,4 +122,4 @@ $$\displaystyle \begin{array} {lcl} (a - b)^{4} & = & \sum_{k = 0}^{n = 4} \bino
 
 Notice that with binomials with one positive term and one negative term the signs are alternating in the sum. This is seen in examples two and three.
 
-The featured image is from http://exchangedownloads.smarttech.com/public/content/2b/2b616ad0-d9ab-496d-b82b-a2c2dc5dc381/previews/medium/0001.png.
+The featured image is from http://exchangedownloads.smarttech.com/public/content/2b/2b616ad0-d9ab-496d-b82b-a2c2dc5dc381/previews/medium/0001.png.
