@@ -116,9 +116,15 @@ $$\displaystyle \lim_{x \rightarrow 0^{+}} \log_{a}(x) = -\infty$$
 
 The common bases for logarithms are base e, base 10 (and base 2 for some areas of mathematics). What if we want to evaluate logs for non-common bases? The change of base formula comes in handy. It allows us to evaluate logarithms with non-common bases using logarithms with known bases. Logarithms with known bases are calculator-friendly.
 
+&nbsp;
+
 $$\displaystyle \log_{b}(x) = \dfrac{\log_{c}(x)}{\log_{c}(b)}$$
 
+&nbsp;
+
 Alternatively, one could use natural logarithms or ln(x) in the change of base formula.
+
+&nbsp;
 
 $$\displaystyle \log_{b}(x) = \dfrac{\text{ln}(x)}{\text{ln}(b)}$$
 
@@ -136,7 +142,11 @@ If $100 = 10^{x}$, what is $x$?
 
 Taking the logarithms (of base 10) of both sides of the equation and solving for $x$ gives us:
 
+&nbsp;
+
 $$\displaystyle \begin{array} {lcl} 100 & = & 10^{x} \\ \log_{10}(100) & = & \log_{10}(10^{x})\\ 2 & = & x \cdot \log_{10}(10)\\ 2 & = & x \cdot 1\\ x & = & 2 \\ \end{array} $$
+
+&nbsp;
 
 ---
 
@@ -146,7 +156,11 @@ If $8 = e^{2x}$, what is $x$?
 
 Here we take logarithms of base e of both sides of the equation.
 
+&nbsp;
+
 $$\displaystyle \begin{array} {lcl} 8 & = & e^{2x} \\ \text{ln}(8) & = & \text{ln}(e^{2x})\\ \text{ln}(8) & = & 2x \cdot \text{ln}(e)\\ 2.0794 & \approx & 2x \cdot 1\\ \dfrac{2.0794}{2} & \approx & x\\ x & \approx & 1.0397 \\ \end{array} \\ $$
+
+&nbsp;
 
 ---
 
@@ -156,7 +170,11 @@ Evaluate $\text{log}_{5}(e^3)$ using the change of base formula.
 
 Answer:
 
+&nbsp;
+
 $$\displaystyle \begin{array} {lcl} \log_{5}(e^3) & = & \dfrac{\text{ln}(e^3)}{\text{ln}(5)} \\ \log_{5}(e^3) & = & \dfrac{3}{\text{ln}(5)} \\ \log_{5}(e^3) & \approx & \dfrac{3}{1.6094} \\ \log_{5}(e^3) & \approx & 1.8640 \\ \end{array} \\ $$
+
+&nbsp;
 
 ---
 
@@ -166,7 +184,11 @@ Evaluate the binary logarithm $\log_{2}(25)$.
 
 Answer:
 
+&nbsp;
+
 $$\displaystyle \begin{array} {lcl} \log_{2}(25) & = & \dfrac{\text{ln}(25)}{\text{ln}(2)} \\ \log_{2}(25) & \approx & \dfrac{3.2189}{0.6931} \\ \log_{2}(25) & \approx & 4.6442\\\end{array} \\ $$
+
+&nbsp;
 
 ---
 

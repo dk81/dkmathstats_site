@@ -21,7 +21,7 @@ This topic is about right angle triangles and the memory aid SOH CAH TOA. This t
 
 &nbsp;
 
-### Right Angle Triangles
+### <u>Right Angle Triangles</u>
 
 
 A right angle triangle has three sides and three angles with one of the three angles being a 90 degree (right) angle. The three angles inside a (right) triangle add up to 180 degrees. Also, the sides of the right angled triangle obey the formula $c^2 = a^2 + b^2$ (Pythagorean Theorem) where $a$, $b$ and $c$ are side lengths of the triangle. (Recall that $c$ is the hypotenuse and the longest side of a right angle triangle.
@@ -37,7 +37,7 @@ Image Source: http://kineticmaths.com/images/7/76/Findangle.jpg
 
 &nbsp;
 
-### Finding Angles and Side Lengths
+### <u>Finding Angles and Side Lengths</u>
 
 
 When dealing with triangles, we sometimes do not know all the angles and all the side lengths of a triangle. If we are given just enough information (i.e. 2 angles and 1 side length), we can use the following formulas to determine the unknown angle(s) and the unknown side length(s).
@@ -67,7 +67,7 @@ $$ \tan(\theta) = \dfrac{Opposite}{Adjacent} $$
 &nbsp;
 
 
-### SOH CAH TOA Memory Aid
+### <u>SOH CAH TOA Memory Aid</u>
 
 
 The three formulas can be hard to memorize and follow. A very neat memory aid is SOH CAH TOA. In SOH, the letter S refers to the sine function, the letter O refers to the side length opposite to the angle $\theta$ and H refers to the hypotenuse side length. The same logic applies to CAH and TOA.
@@ -79,7 +79,7 @@ Source: http://www.mathwarehouse.com/trigonometry/images/sohcohtoa/sohcahtoa-all
 
 &nbsp;
 
-### Examples
+### <u>Examples</u>
 
 
 These examples will show how SOH CAH TOA can help in finding unknown side lengths and angles of right angled triangles. The pictures are my own and from my phone.

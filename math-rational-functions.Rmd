@@ -37,6 +37,8 @@ where $P(x)$ and $Q(x)$ are different polynomials where $Q(x)$ cannot be 0 ($Q(x
 
 Rational functions can be tricky to grasp and understand to those who are first learning about this topic. Functions of this type can be simple or can be really complex filled with higher-order polynomials. Remember that rational functions are based on ratios where ratios is another way of saying fractions.
 
+&nbsp;
+
 1) $$\dfrac{1}{x}$$
 
 2) $$\dfrac{5}{x^2}$$
@@ -48,6 +50,8 @@ Rational functions can be tricky to grasp and understand to those who are first 
 5) $$\dfrac{x^2 -x - 2}{x^2 + 1}$$
 
 6) $$\dfrac{x^3 - x^2 - x + 1}{x^2 - 9}$$
+
+&nbsp;
 
 In a handful of cases, it is preferable to simplify the fraction and factor where possible. One example of a rational function in which it is simplified is $\dfrac{1}{(x - 1)(x+ 2)}$ which comes from $\dfrac{1}{x^2 + x - 2}$.
 
