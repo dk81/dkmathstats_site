@@ -237,11 +237,14 @@ $(document).ready(function () {
 <h3><u>Brief Review of Exponential Functions and Logarithmic Functions</u></h3>
 <p> </p>
 <p>An exponential function is a function of the form:</p>
+<p> </p>
 <p><span class="math display">\[\displaystyle a^{x} \]</span></p>
+<p> </p>
 <p>where <span class="math inline">\(a\)</span> is a non-zero number and <span class="math inline">\(x\)</span> is a variable.</p>
 <p>The logarithmic function is the inverse function of the exponential function. The logarithmic function is of the form:</p>
 <p> </p>
 <p><span class="math display">\[\displaystyle \log_a (x)\]</span></p>
+<p> </p>
 <p>where the base <span class="math inline">\(a\)</span> is a non-zero number and <span class="math inline">\(x\)</span> is a variable.</p>
 <p>If we have the exponential function of <span class="math inline">\(\text{e}^{x}\)</span> with Euler’s constant of <span class="math inline">\(e \approx 2.71828\)</span> then the corresponding inverse would be <span class="math inline">\(\log_e(x) = \ln(x)\)</span>.</p>
 <p> </p>
@@ -259,7 +262,7 @@ $(document).ready(function () {
 <p> </p>
 <p>The most simplest and most common case is taking the derivative of <span class="math inline">\(f(x) = \ln(x)\)</span>.</p>
 <p> </p>
-<p><span class="math display">\[\displaystyle \begin{array} {lcl} f&#39;(x) &amp; = &amp; \dfrac{d}{dx} \ln(x) \\ &amp; = &amp; \dfrac{1}{\ln(e)} \cdot \dfrac{1}{x} \cdot \dfrac{d}{dx} x\\ &amp; = &amp; \dfrac{1}{1} \cdot \dfrac{1}{x} \cdot 1\\ &amp; = &amp; \dfrac{1}{x} \\ \end{array} \\ \]</span></p>
+<p><span class="math display">\[\displaystyle \begin{array} {lcl} f&#39;(x) &amp; = &amp; \dfrac{d}{dx} \ln(x) \\ &amp; = &amp; \dfrac{1}{\ln(e)} \cdot \dfrac{1}{x} \cdot \dfrac{d}{dx} x\\ &amp; = &amp; \dfrac{1}{1} \cdot \dfrac{1}{x} \cdot 1\\ &amp; = &amp; \dfrac{1}{x} \\ \end{array} \\ \]</span>  </p>
 <p>(Note that ln(e) = 1.)</p>
 <p> </p>
 </div>
@@ -271,23 +274,28 @@ $(document).ready(function () {
 <p><strong>Example One</strong></p>
 <p> </p>
 <p>Given that <span class="math inline">\(f(x) = \ln(2x)\)</span> then the derivative is:</p>
+<p> </p>
 <p><span class="math display">\[\displaystyle \begin{array} {lcl} f&#39;(x) &amp; = &amp; \dfrac{d}{dx} \ln(2x) \\ &amp; = &amp; \dfrac{1}{\ln(e)} \cdot \dfrac{1}{2x} \cdot \dfrac{d}{dx} 2x\\ &amp; = &amp; \dfrac{1}{1} \cdot \dfrac{1}{2x} \cdot 2\\ &amp; = &amp; \dfrac{1}{x} \\ \end{array} \\ \]</span></p>
 <p> </p>
 <p><strong>Example Two</strong></p>
 <p> </p>
 <p>If we have <span class="math inline">\(f(x) = \log_5(x)\)</span> then the derivative is:</p>
+<p> </p>
 <p><span class="math display">\[\displaystyle \begin{array} {lcl} f&#39;(x) &amp; = &amp; \dfrac{1}{\text{ln}(5) \cdot x} \cdot 1 \\ &amp; = &amp; \dfrac{1}{\ln(5) \cdot x} \\ \end{array} \\ \]</span>  </p>
 <p><strong>Example Three</strong></p>
 <p> </p>
 <p>The derivative of the function <span class="math inline">\(f(x) = \log_{10}(x^2)\)</span> is:</p>
+<p> </p>
 <p><span class="math display">\[\displaystyle \begin{array} {lcl} f&#39;(x) &amp; = &amp; \dfrac{1}{\ln(10) \cdot x^2} \cdot 2x \\ &amp; = &amp; \dfrac{2}{\ln(10) \cdot x} \\ \end{array} \\ \]</span></p>
 <p> </p>
 <p><strong>Example Four</strong></p>
 <p> </p>
 <p>This last example is more involved. Suppose that the function <span class="math inline">\(g(x)\)</span> is <span class="math inline">\(g(x) = \text{ln}(\text{ln}(x^5))\)</span>. At first, you may be terrified. However, if you look at this more closely this is a case of using chain rule. You would need to differentiate multiple times. The derivative of <span class="math inline">\(g\)</span> is as follows.</p>
+<p> </p>
 <p><span class="math display">\[\displaystyle \begin{array} {lcl} g&#39;(x) &amp; = &amp; \dfrac{d}{dx} \text{ln}(\text{ln}(x^5)) \\ &amp; = &amp; \dfrac{1}{\text{ln}(x^5)} \cdot \dfrac{d}{dx} \text{ln}(x^5) \\ &amp; = &amp; \dfrac{1}{\text{ln}(x^5)} \cdot \dfrac{1}{x^5} \cdot \dfrac{d}{dx} (x^5) \\ &amp; = &amp; \dfrac{1}{\text{ln}(x^5)} \cdot \dfrac{1}{x^5} \cdot 5x^4 \\ &amp; = &amp; \dfrac{5}{\text{ln}(x^5) \cdot x}\\ \end{array} \\ \]</span></p>
+<p> </p>
 <p>When dealing with chain rule cases, go from the outside to the inside. From the first line to the second line the derivative of <span class="math inline">\(\ln( \cdot )\)</span> is <span class="math inline">\(\dfrac{1}{\ln( \cdot )}\)</span>. Then we take the derivative of the inside which is <span class="math inline">\(( \cdot )\)</span>.</p>
-<p>The featured image is from <a href="http://www.phengkimving.com/calc_of_one_real_var/07_the_exp_and_log_func/07_03_gen_exp_and_log_func_files/image086.gif" class="uri">http://www.phengkimving.com/calc_of_one_real_var/07_the_exp_and_log_func/07_03_gen_exp_and_log_func_files/image086.gif</a></p>
+<p>The featured image is from <a href="http://www.phengkimving.com/calc_of_one_real_var/07_the_exp_and_log_func/07_03_gen_exp_and_log_func_files/image086.gif" class="uri">http://www.phengkimving.com/calc_of_one_real_var/07_the_exp_and_log_func/07_03_gen_exp_and_log_func_files/image086.gif</a></p>
 </div>
 
 

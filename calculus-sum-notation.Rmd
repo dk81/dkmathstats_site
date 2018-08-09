@@ -133,6 +133,8 @@ $$\displaystyle \sum_{i = 1}^{n} i^{3} = \Bigg(\dfrac{n(n + 1)}{2}\Bigg)^{2}$$
 
 The sum $1 + 2 + 3 + 4 + \dots + 100$ can be represented by $\displaystyle \sum_{i = 1}^{100} i$. Using the third formula from the previous section, this sum is equal to $\dfrac{100(100 + 1)}{2} = \dfrac{(100)(101)}{2} = \dfrac{10100}{2} = 5050$
 
+&nbsp;
+
 ---
 
 **Example Two**
@@ -154,6 +156,8 @@ $$2 \displaystyle \sum_{i = 1}^{25} i$$
 This sum evaluates to:
 
 $$2 \times \dfrac{25(26)}{2} = 25(26) = 650$$
+
+&nbsp;
 
 ---
 

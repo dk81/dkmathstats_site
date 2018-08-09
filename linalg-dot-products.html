@@ -215,38 +215,68 @@ $(document).ready(function () {
 
 <p> </p>
 <p>Source: <a href="http://mathinsight.org/media/image/image/dot_product_projection.png" class="uri">http://mathinsight.org/media/image/image/dot_product_projection.png</a></p>
+<p> </p>
 <p>This post is an introduction to dot products. It is assumed that the reader knows about vectors where a vector in <span class="math inline">\(\mathbb{R}^{n}\)</span> is of the form <span class="math inline">\(\textbf{v} = (v_1, v_2, \dots, v_{n})\)</span>. In addition, the reader should be familiar with the concept of a norm.</p>
-<p>Definition of the Dot Product</p>
+<p> </p>
+<div id="definition-of-the-dot-product" class="section level3">
+<h3><u>Definition of the Dot Product</u></h3>
+<p> </p>
 <p>The dot product or the Euclidean inner product is an algebraic operation which takes two vectors of the same length and returns a scalar number. Think of the dot product as another operation like +, - , <span class="math inline">\(\times\)</span> and <span class="math inline">\(\div\)</span>.</p>
 <p>Given the vectors <span class="math inline">\(\textbf{u} = (u_1, u_2, \dots, u_{n})\)</span> and <span class="math inline">\(\textbf{v} = (v_1, v_2, \dots, v_{n})\)</span> in <span class="math inline">\(\mathbb{R}^{n}\)</span>, the dot product of <span class="math inline">\(\textbf{u}\)</span> and <span class="math inline">\(\textbf{v}\)</span> denoted by <span class="math inline">\(\textbf{u} \cdot \textbf{v}\)</span> is:</p>
+<p> </p>
 <p><span class="math display">\[ \textbf{u} \cdot \textbf{v} = \sum_{j=1}^{n} u_j v_j = u_1 v_1 + u_2v_2 + \dots + u_n v_n\]</span></p>
+<p> </p>
 <p>If we have the special case of <span class="math inline">\(\textbf{u} \cdot \textbf{u}\)</span> then we obtain the square of the norm as follows:</p>
-<p>$$\begin{array} {lcl}   &amp; = &amp; _{j=1}^{n} u_j u_j \</p>
-<p>&amp; = &amp; u_1 u_1 + u_2u_2 + + u_n u_n\</p>
-<p>&amp; = &amp; (u_1)^2 + (u_2)^2 + + (u_n)^2\</p>
-<p>&amp; = &amp; ||||^2 \</p>
-<p>\end{array} $$</p>
+<p> </p>
+<p><span class="math display">\[\begin{array} {lcl} \textbf{u} \cdot \textbf{u} &amp; = &amp; \sum_{j=1}^{n} u_j u_j \\
+&amp; = &amp; u_1 u_1 + u_2u_2 + \dots + u_n u_n\\
+&amp; = &amp; (u_1)^2 + (u_2)^2 + \dots + (u_n)^2\\
+&amp; = &amp; ||\textbf{u}||^2 \\
+\end{array}\]</span></p>
+<p> </p>
 <p>From the above result, we can identify that the norm or the length of a vector <span class="math inline">\(\textbf{u}\)</span> can be expressed as the square root of the dot product (below).</p>
+<p> </p>
 <p><span class="math display">\[||\textbf{u}||= \sqrt{\textbf{u} \cdot \textbf{u}}\]</span></p>
 <p> </p>
+</div>
 <div id="properties" class="section level3">
 <h3><u>Properties</u></h3>
 <p> </p>
 <p>When introduced with a new operation, some properties need to be introduced. These may not sound exciting but they are important. Think of it like grammar in languages.</p>
 <p>Suppose we have vectors <span class="math inline">\(\textbf{u}\)</span>, <span class="math inline">\(\textbf{v}\)</span> and <span class="math inline">\(\textbf{w}\)</span> in <span class="math inline">\(\mathbb{R}^{n}\)</span> and <span class="math inline">\(k\)</span> as a scalar (real number), we have these properties.</p>
+<p> </p>
 <p>[Symmetry Property]</p>
-<p>$   =  $ [Distributive Property]</p>
-<p>$ ( + ) =   +   $ [Homogeneity Property]</p>
-<p>$ k ( ) = (k ) $ [Positivity Property]</p>
-<p>$   0    = 0   = 0$ The above four properties look scary but they are not too bad. Here are a couple of more below:</p>
-<p>$   =  = $. $ ( + )  =   +   $ $  ( - ) =   -   $ $ ( - )  =   -   $ <span class="math inline">\(k (\textbf{u} \cdot \textbf{v}) = \textbf{u} \cdot (k\textbf{v})\)</span> Geometry and Dot Products</p>
+<p><span class="math display">\[ \textbf{u} \cdot \textbf{v} = \textbf{v} \cdot \textbf{u}\]</span></p>
+<p> </p>
+<p>[Distributive Property]</p>
+<p><span class="math display">\[\textbf{u} \cdot (\textbf{v} + \textbf{w}) = \textbf{u} \cdot \textbf{v} + \textbf{v} \cdot \textbf{w} \]</span></p>
+<p> </p>
+<p>[Homogeneity Property]</p>
+<p><span class="math display">\[ k (\textbf{u} \cdot \textbf{v}) = (k \textbf{u}) \cdot \textbf{v}\]</span></p>
+<p> </p>
+<p>[Positivity Property]</p>
+<p><span class="math display">\[ \textbf{v} \cdot \textbf{v} \geq 0 \text{ and } \textbf{v} \cdot \textbf{v} = 0 \text{ if and only if } \textbf{v} = 0\]</span></p>
+<p> </p>
+<p>The above four properties look scary but they are not too bad. Here are a couple of more below:</p>
+<p> </p>
+<p><span class="math display">\[ \textbf{0} \cdot \textbf{v} = \textbf{v} \cdot \textbf{0}= \textbf{0}\]</span>.</p>
+<p><span class="math display">\[ (\textbf{u} + \textbf{v}) \cdot \textbf{w} = \textbf{u} \cdot \textbf{w} + \textbf{v} \cdot \textbf{w} \]</span></p>
+<p><span class="math display">\[ \textbf{u} \cdot (\textbf{v} - \textbf{w}) = \textbf{u} \cdot \textbf{v} - \textbf{u} \cdot \textbf{w} \]</span></p>
+<p><span class="math display">\[ (\textbf{u} - \textbf{v}) \cdot \textbf{w} = \textbf{u} \cdot \textbf{w} - \textbf{v} \cdot \textbf{w} \]</span></p>
+<p><span class="math display">\[k(\textbf{u} \cdot \textbf{v}) = \textbf{u} \cdot (k\textbf{v})\]</span></p>
+<p> </p>
+</div>
+<div id="geometry-and-dot-products" class="section level3">
+<h3><u>Geometry and Dot Products</u></h3>
 <p>Dot products along with norms can help us find the cosine of an angle <span class="math inline">\(\theta\)</span>. A useful formula is:</p>
 <p><span class="math display">\[\cos(\theta) = \dfrac{\textbf{u} \cdot \textbf{v}}{||\textbf{u}|| ||\textbf{v}||}\]</span></p>
 <p>where <span class="math inline">\(\textbf{u}\)</span>, <span class="math inline">\(\textbf{v}\)</span> are vectors in <span class="math inline">\(\mathbb{R}^{n}\)</span> and <span class="math inline">\(\theta\)</span> is the angle between <span class="math inline">\(\textbf{u}\)</span> and <span class="math inline">\(\textbf{v}\)</span>. The angle <span class="math inline">\(\theta\)</span> is defined to be between 0 and <span class="math inline">\(\pi\)</span> (<span class="math inline">\(0 \leq \theta \leq \pi\)</span> in radians or 0 to 90 degrees).</p>
 <p>We can find out some out some information about <span class="math inline">\(\theta\)</span> based on the dot product.</p>
+<p> </p>
 <p>If <span class="math inline">\(\textbf{u} \cdot\textbf{v} &gt; 0\)</span> then <span class="math inline">\(\theta\)</span> is an acute angle (0 to less than 90 degrees).</p>
 <p>If <span class="math inline">\(\textbf{u} \cdot\textbf{v} &lt; 0\)</span> then <span class="math inline">\(\theta\)</span> is an obtuse angle (More than 90 degrees to less than 180 degrees).</p>
 <p>If <span class="math inline">\(\textbf{u} \cdot\textbf{v} = 0\)</span> then <span class="math inline">\(\theta\)</span> is a right angle (<span class="math inline">\(\theta\)</span> = 90 degrees or <span class="math inline">\(\dfrac{\pi}{2}\)</span>).</p>
+<p> </p>
 <p>A visual aid below summarizes the above cases.</p>
 <p>Source: <a href="https://cdn.tutsplus.com/active/uploads/legacy/tuts/393_qtCollisionDetection123/assets/dotProductResults.png" class="uri">https://cdn.tutsplus.com/active/uploads/legacy/tuts/393_qtCollisionDetection123/assets/dotProductResults.png</a></p>
 <p> </p>
@@ -254,54 +284,49 @@ $(document).ready(function () {
 <div id="examples" class="section level3">
 <h3><u>Examples</u></h3>
 <p> </p>
-<p>Example One</p>
+<p><strong>Example One</strong></p>
+<p> </p>
 <p>The dot product of vectors <span class="math inline">\(\textbf{a} = (1, -2)\)</span> and <span class="math inline">\(\textbf{b} = (-10, -3)\)</span> is:</p>
-$$
-<span class="math display">\[\begin{array} {lcl} \textbf{a} \cdot \textbf{b} &amp; = &amp; 1 \cdot (-10) + (-2) \cdot (-3) \\
-
+<p> </p>
+<p><span class="math display">\[\begin{array} {lcl} \textbf{a} \cdot \textbf{b} &amp; = &amp; 1 \cdot (-10) + (-2) \cdot (-3) \\
 &amp; = &amp; -10 + 6 \\
-
 &amp; = &amp; -4 \\
-
-\end{array}\]</span>
-<p>$$</p>
-<p>Example Two</p>
-<p>Given vectors <span class="math inline">\(\textbf{a} = (1, -2, 5, 3)\)</span> and <span class="math inline">\(\textbf{b} = (4, -3, -7, 2)\)</span>, the dot product of these vectors in <span class="math inline">\(\mathbb{R}^{4}\)</span> is:\</p>
-$$
-<span class="math display">\[\begin{array} {lcl} \textbf{a} \cdot \textbf{b} &amp; = &amp; 1 \cdot 4 + (-2) \cdot (-3) + 5 \cdot (-7) + 3 \cdot 2 \\
-
+\end{array}\]</span></p>
+<p> </p>
+<p><strong>Example Two</strong></p>
+<p> </p>
+<p>Given vectors <span class="math inline">\(\textbf{a} = (1, -2, 5, 3)\)</span> and <span class="math inline">\(\textbf{b} = (4, -3, -7, 2)\)</span>, the dot product of these vectors in <span class="math inline">\(\mathbb{R}^{4}\)</span> is:</p>
+<p> </p>
+<p><span class="math display">\[\begin{array} {lcl} \textbf{a} \cdot \textbf{b} &amp; = &amp; 1 \cdot 4 + (-2) \cdot (-3) + 5 \cdot (-7) + 3 \cdot 2 \\
 &amp; = &amp; 4 + 6 - 35 + 6\\
-
 &amp; = &amp; -19 \\
-
-\end{array}\]</span>
-<p>$$</p>
-<p>Example Three</p>
+\end{array} \]</span></p>
+<p> </p>
+<p><strong>Example Three</strong></p>
+<p> </p>
 <p>Suppose we are given the vectors <span class="math inline">\(\textbf{a} = (3, -5)\)</span>, <span class="math inline">\(\textbf{b} = (-1, 4)\)</span> and <span class="math inline">\(\textbf{c} = (3, 2)\)</span>. What is <span class="math inline">\((\textbf{a} + \textbf{c}) \cdot \textbf{b}\)</span></p>
 <p>Answer:</p>
-<p>We compute <span class="math inline">\((\textbf{a} + \textbf{c})\)</span> first then take the dot product of <span class="math inline">\((\textbf{a} + \textbf{c})\)</span> with .\</p>
-$$
-<span class="math display">\[\begin{array} {lcl} (\textbf{a} + \textbf{c}) \cdot \textbf{b} &amp; = &amp; (3 + 3, -5 + 2) \cdot (-1, 4) \\
-
+<p>We compute <span class="math inline">\((\textbf{a} + \textbf{c})\)</span> first then take the dot product of <span class="math inline">\((\textbf{a} + \textbf{c})\)</span> with .</p>
+<p> </p>
+<p><span class="math display">\[\begin{array} {lcl} (\textbf{a} + \textbf{c}) \cdot \textbf{b} &amp; = &amp; (3 + 3, -5 + 2) \cdot (-1, 4) \\
 &amp; = &amp; (6, -3) \cdot (-1, 4) \\
-
 &amp; = &amp; 6 \cdot (-1) + (-3) \cdot 4\\
-
 &amp; = &amp; -6 - 12\\
-
 &amp; = &amp; -18\\
-
-\end{array}\]</span>
-<p>$$</p>
-<p>Example Four</p>
+\end{array} \]</span></p>
+<p> </p>
+<p><strong>Example Four</strong></p>
+<p> </p>
 <p>Simplify (2<span class="math inline">\(\textbf{u}\)</span> - <span class="math inline">\(\textbf{v}\)</span>) <span class="math inline">\(\cdot\)</span> (<span class="math inline">\(\textbf{u}\)</span> + 3<span class="math inline">\(\textbf{v}\)</span>).</p>
 <p>Answer:</p>
 <p>In this scenario, we do not know the elements of <span class="math inline">\(\textbf{u}\)</span> or <span class="math inline">\(\textbf{v}\)</span> nor do we know the dimensionality of these vectors in <span class="math inline">\(\mathbb{R}^{n}\)</span>. It could be in <span class="math inline">\(\mathbb{R}^{4}\)</span>, <span class="math inline">\(\mathbb{R}^{2}\)</span> or even <span class="math inline">\(\mathbb{R}^{1000}\)</span>. All we can do is simplify as follows.</p>
-<p>$$\begin{array} {lcl} (2  - ) ( + 3) &amp; = &amp; 2  ( + 3) -  ( + 3)\</p>
-<p>&amp; = &amp; 2 ( ) + 6 ( ) - ( ) - 3 () \</p>
-<p>&amp; = &amp; 2 ||||^2 + 6 ( ) - ( ) - 3||||^2 \</p>
-<p>&amp; = &amp; 2 ||||^2 + 5 ( ) - 3||||^2 \</p>
-<p>\end{array} $$</p>
+<p> </p>
+<p><span class="math display">\[\begin{array} {lcl} (2 \textbf{u} - \textbf{v}) \cdot (\textbf{u} + 3\textbf{v}) &amp; = &amp; 2 \textbf{u} \cdot (\textbf{u} + 3\textbf{v}) - \textbf{v} \cdot (\textbf{u} + 3\textbf{v})\\
+&amp; = &amp; 2 (\textbf{u} \cdot \textbf{u}) + 6 (\textbf{u} \cdot \textbf{v}) - (\textbf{v} \cdot \textbf{u}) - 3 (\textbf{v}\cdot \textbf{v}) \\
+&amp; = &amp; 2 ||\textbf{u}||^2 + 6 (\textbf{u} \cdot \textbf{v}) - (\textbf{u} \cdot \textbf{v}) - 3||\textbf{v}||^2 \\
+&amp; = &amp; 2 ||\textbf{u}||^2 + 5 (\textbf{u} \cdot \textbf{v}) - 3||\textbf{v}||^2 \\
+\end{array}\]</span></p>
+<p> </p>
 <p>This particular question used a lot of properties of dot products and norms. One may want to reread this particular question for better understanding.</p>
 <p>There are more properties and formulas related to the dot product such as the Cauchy-Schwarz Inequality, the Parallelogram for two vectors, dot products with <span class="math inline">\(\cos(\theta)\)</span>, and dot products as matrix multiplication. Those won’t be mentioned here.</p>
 </div>

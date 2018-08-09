@@ -30,7 +30,11 @@ This article is about finding derivatives of logarithmic functions. This topic i
 
 An exponential function is a function of the form:
 
+&nbsp;
+
 $$\displaystyle a^{x} $$
+
+&nbsp;
 
 where $a$ is a non-zero number and $x$ is a variable.
 
@@ -39,6 +43,8 @@ The logarithmic function is the inverse function of the exponential function. Th
 &nbsp;
 
 $$\displaystyle \log_a (x)$$
+
+&nbsp;
 
 where the base $a$ is a non-zero number and $x$ is a variable.
 
@@ -71,7 +77,7 @@ The most simplest and most common case is taking the derivative of $f(x) = \ln(x
 &nbsp;
 
 $$\displaystyle \begin{array} {lcl} f'(x) & = & \dfrac{d}{dx} \ln(x) \\ & = & \dfrac{1}{\ln(e)} \cdot \dfrac{1}{x} \cdot \dfrac{d}{dx} x\\ & = & \dfrac{1}{1} \cdot \dfrac{1}{x} \cdot 1\\ & = & \dfrac{1}{x} \\ \end{array} \\ $$
-
+&nbsp;
 
 
 (Note that ln(e) = 1.)
@@ -92,6 +98,8 @@ Here are some examples of differentiating logarithmic functions.
 
 Given that $f(x) = \ln(2x)$ then the derivative is:
 
+&nbsp;
+
 $$\displaystyle \begin{array} {lcl} f'(x) & = & \dfrac{d}{dx} \ln(2x) \\ & = & \dfrac{1}{\ln(e)} \cdot \dfrac{1}{2x} \cdot \dfrac{d}{dx} 2x\\ & = & \dfrac{1}{1} \cdot \dfrac{1}{2x} \cdot 2\\ & = & \dfrac{1}{x} \\ \end{array} \\ $$
 
 &nbsp;
@@ -102,6 +110,8 @@ $$\displaystyle \begin{array} {lcl} f'(x) & = & \dfrac{d}{dx} \ln(2x) \\ & = & \
 
 If we have $f(x) = \log_5(x)$ then the derivative is:
 
+&nbsp;
+
 $$\displaystyle \begin{array} {lcl} f'(x) & = & \dfrac{1}{\text{ln}(5) \cdot x} \cdot 1 \\ & = & \dfrac{1}{\ln(5) \cdot x} \\ \end{array} \\ $$
 &nbsp;
 
@@ -110,6 +120,8 @@ $$\displaystyle \begin{array} {lcl} f'(x) & = & \dfrac{1}{\text{ln}(5) \cdot x} 
 &nbsp;
 
 The derivative of the function $f(x) = \log_{10}(x^2)$ is:
+
+&nbsp;
 
 $$\displaystyle \begin{array} {lcl} f'(x) & = & \dfrac{1}{\ln(10) \cdot x^2} \cdot 2x \\ & = & \dfrac{2}{\ln(10) \cdot x} \\ \end{array} \\ $$
 
@@ -121,8 +133,12 @@ $$\displaystyle \begin{array} {lcl} f'(x) & = & \dfrac{1}{\ln(10) \cdot x^2} \cd
 
 This last example is more involved. Suppose that the function $g(x)$ is $g(x) = \text{ln}(\text{ln}(x^5))$. At first, you may be terrified. However, if you look at this more closely this is a case of using chain rule. You would need to differentiate multiple times. The derivative of $g$ is as follows.
 
+&nbsp;
+
 $$\displaystyle \begin{array} {lcl} g'(x) & = & \dfrac{d}{dx} \text{ln}(\text{ln}(x^5)) \\ & = & \dfrac{1}{\text{ln}(x^5)} \cdot \dfrac{d}{dx} \text{ln}(x^5) \\ & = & \dfrac{1}{\text{ln}(x^5)} \cdot \dfrac{1}{x^5} \cdot \dfrac{d}{dx} (x^5) \\ & = & \dfrac{1}{\text{ln}(x^5)} \cdot \dfrac{1}{x^5} \cdot 5x^4 \\ & = & \dfrac{5}{\text{ln}(x^5) \cdot x}\\ \end{array} \\ $$
+
+&nbsp;
 
 When dealing with chain rule cases, go from the outside to the inside. From the first line to the second line the derivative of $\ln( \cdot )$ is $\dfrac{1}{\ln( \cdot )}$. Then we take the derivative of the inside which is $( \cdot )$.
 
-The featured image is from http://www.phengkimving.com/calc_of_one_real_var/07_the_exp_and_log_func/07_03_gen_exp_and_log_func_files/image086.gif
+The featured image is from http://www.phengkimving.com/calc_of_one_real_var/07_the_exp_and_log_func/07_03_gen_exp_and_log_func_files/image086.gif
