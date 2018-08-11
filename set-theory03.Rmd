@@ -218,4 +218,4 @@ This is the end of the three part series of An Introduction to Set Theory and Lo
 
 Material is from old notes and from a coursepack book from my undergraduate university for the course Introduction to Mathematical Proofs.
 
-The featured image is from https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Cartesian_Product_qtl1.svg/220px-Cartesian_Product_qtl1.svg.png
+The featured image is from https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Cartesian_Product_qtl1.svg/220px-Cartesian_Product_qtl1.svg.png

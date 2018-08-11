@@ -5,7 +5,7 @@ output: html_document
 
 &nbsp;
 
-Hi there. This article is part one of a three part series of an introduction to set theory with some logic topics.
+Hi there. This article is part one of a three part series of an introduction to set theory with some logic topics.
 
 &nbsp;
 
