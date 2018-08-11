@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>An Introduction To Set Theory &amp; Logic (Part 2/3)</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">An Introduction To Set Theory &amp; Logic (Part 2/3)</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hi there. This is part two of my three part series to An Introduction to Set Theory and Logic.</p>
+<p>Part One of this introduction talked about definitions, notation with some examples. The number system was also covered.</p>
+<p>Here in Part Two, Venn diagrams will help with understanding relations between sets.</p>
+<p>Part Three will go into more detail about set operations and counting with sets.</p>
+<p> </p>
+<hr />
+<p><strong>Note</strong></p>
+<p>Aside from the featured image a few other images, the images of Venn diagrams were hand drawn by me. Yes I drew parallelograms instead of rectangles but the idea is there. The images are from my camera phone.</p>
+<p> </p>
+<hr />
+<div id="table-of-contents" class="section level3">
+<h3><u>Table Of Contents</u></h3>
+<p> </p>
+<ul>
+<li>Applications of Set Theory</li>
+<li>Venn Diagrams</li>
+<li>The Universe of Discourse</li>
+<li>Unions</li>
+<li>Intersections</li>
+<li>Complements</li>
+<li>Subtracting Sets and Relative Complements</li>
+<li>Symmetric Difference</li>
+<li>Summary and Visual Aid</li>
+<li>References</li>
+</ul>
+<p> </p>
+</div>
+<div id="applications-of-set-theory" class="section level3">
+<h3><u>Applications of Set Theory</u></h3>
+<p>Set Theory is one of the foundational topics of (pure) mathematics. Knowing set theory will also help for computer science students when dealing with booleans such as (True or False) and (!False) which is True. Set Theory also helps with SQL database queries when dealing with table joins.</p>
+<p> </p>
+</div>
+<div id="venn-diagrams" class="section level3">
+<h3><u>Venn Diagrams</u></h3>
+<p>Consider an elementary student in gym class of 25 students with large hula hoops laid on the floor. The teacher would lay the hula hoops on the floor in a manner like this:</p>
+<p> </p>
+<center>
+<img src="images/2_sets.jpg" alt="two-sets" />
+</center>
+<p> </p>
+<p>The teacher would say something along the lines of <code>If you like chocolate ice cream, step inside the hula hoop A</code>, <code>If you like vanilla ice cream, step inside the hula hoop B</code>, <code>If you like both chocolate and vanilla ice cream, step inside both hula hoops.</code>, <code>If you do not like vanilla or chocolate ice cream , do not step inside any of the two hula hoops.''</code></p>
+<p>This simple example illustrates the usefulness of Venn diagrams to visualize two sets. Venn diagrams for three sets is possible and anything past three sets is difficult to visualize as it is more abstract and confusing. Here is what three sets would look like.</p>
+<center>
+<img src="images/3_set_union.jpg" alt="two-sets" />
+</center>
+<p> </p>
+</div>
+<div id="the-universe-of-discourse-u" class="section level3">
+<h3><u>The Universe of Discourse (<span class="math inline">\(U\)</span>)</u></h3>
+<p>Notice that we have a rectangle and space that is outside the sets <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> but is still in the rectangle. The set <span class="math inline">\(U\)</span> is defined as the universal of discourse as is represented by a rectangular region. Subsets of <span class="math inline">\(U\)</span> are represented by circles or the sets within it.</p>
+<p>As an example, suppose that we have a class size of 30 students. We can define the universe of discourse <span class="math inline">\(U\)</span> as the 30 students. Within the 30 students, we have male and female students. One set can represent the male students out of the 30 in the class. The second set can represent the female students in the class.</p>
+<p>Another example would be food group of vegetables as <span class="math inline">\(U\)</span>. Celeries, broccoli, carrots, mushrooms, lettuce, okras belong to the vegetable family. One possible set would be mushrooms and the type of mushrooms would be elements in that set. Another possible set would be lettuce and the types of lettuce would be elements in that set.</p>
+<p> </p>
+</div>
+<div id="unions" class="section level3">
+<h3><u>Unions</u></h3>
+<p>Given the sets <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, the union of sets <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> is denoted by <span class="math inline">\(A \cup B\)</span>. The union <span class="math inline">\(A \cup B\)</span> is a set which contains elements in <span class="math inline">\(A\)</span> or in <span class="math inline">\(B\)</span>. Defined mathematically, it is defined as <span class="math inline">\(A \cup B = \{x: x \in A \text{ or } x \in B\}\)</span>. The math notation reads as <code>A union B&quot; and</code>element x such that x is in set A or x is in set B“.</p>
+<p>The word or here does not mean one or the other like in English. In the math and logic sense, the word or means one of three options in <span class="math inline">\(A \cup B\)</span>.</p>
+<p> </p>
+<ol style="list-style-type: decimal">
+<li>The element <span class="math inline">\(x\)</span> can be in <span class="math inline">\(A\)</span>.</li>
+<li>The element <span class="math inline">\(x\)</span> can be in <span class="math inline">\(B\)</span>.</li>
+<li>The element <span class="math inline">\(x\)</span> can be in <span class="math inline">\(A\)</span> and in <span class="math inline">\(B\)</span>.</li>
+</ol>
+<p> </p>
+<p>For two sets the dashed region represents the elements inside the union <span class="math inline">\(A \cup B\)</span> looks like this:</p>
+<p> </p>
+<center>
+<img src="images/AB.jpg" alt="AunionB" />
+</center>
+<p> </p>
+<p>For three sets, the Venn diagram looks like this.</p>
+<p> </p>
+<center>
+<img src="images/3_set_union.jpg" alt="AunionBunionC" />
+</center>
+<p> </p>
+<p>Here are some examples with unions.</p>
+<p><strong>Example One</strong></p>
+<p>Suppose we are given set <span class="math inline">\(A = \{beans, carrots, pomelo, mushrooms\}\)</span> and set <span class="math inline">\(B = \{leeks, carrots, celery, beans\}\)</span>. The union of the two sets <span class="math inline">\(A \cup B\)</span> would be</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \begin{array} {lcl} A \cup B &amp; = &amp; \{beans, carrots, pomelo, mushrooms, leeks, carrots, celery, beans \} \\ &amp; = &amp; \{beans, carrots, pomelo, mushrooms, leeks, celery\} \\ \end{array} \]</span></p>
+<p> </p>
+<p>Recall that elements in a set are unique. There are no multiples in a set. The double counts of beans and celery are reduced to a single count for each.</p>
+<p> </p>
+<p><strong>Example Two</strong></p>
+<p> </p>
+<p>Suppose we are given sets <span class="math inline">\(A = \{1, 5, 7, 11\}\)</span>, <span class="math inline">\(B = \{0, -2, 8, 7, 5\}\)</span> and <span class="math inline">\(C = \{1, 2, 8, -2\}\)</span>. The union of the three sets <span class="math inline">\(A \cup B \cup C\)</span> would be</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \begin{array} {lcl} A \cup B \cup C &amp; = &amp; \{1, 5, 7, 11\} \cup \{0, -2, 8, 7, 5\} \cup \{1, 2, 8, -2\} \\ &amp; = &amp; \{1, 5, 7, 11, 0, -2, 8, 7, 5, 1, 2, 8, -2\}\\ &amp; = &amp; \{1, 5, 7, 11, 0, -2, 8, 2\}\\ \end{array} \\ \]</span></p>
+<p> </p>
+</div>
+<div id="intersections" class="section level3">
+<h3><u>Intersections</u></h3>
+<p> </p>
+<p>We have somewhat introduced the concept of intersection in the previous section. The intersection of set A and set B (read ``A intersect B“) is defined as <span class="math inline">\(A \cap B = \{x: x \in A \text{ and } x \in B\}\)</span>.</p>
+<p>The word and in the math context does match with the English version of and.</p>
+<p>With the two sets, the intersection <span class="math inline">\(A \cap B\)</span> is represented by the shaded area (middle) in the visual below.</p>
+<p> </p>
+<center>
+<img src="images/A_intersect_B.jpg" alt="A cap B" />
+</center>
+<p> </p>
+<p>One can notice that the intersection <span class="math inline">\(A \cap B\)</span> is a subset of set <span class="math inline">\(A\)</span> (i.e. <span class="math inline">\(A \cap B \subseteq A\)</span>) and <span class="math inline">\(A \cap B\)</span> is a subset of set <span class="math inline">\(B\)</span> (<span class="math inline">\(A \cap B \subseteq B\)</span>).</p>
+<p>A Venn diagram of three sets with <span class="math inline">\(A \cap B \cap C\)</span> (middle shaded part) looks like this.</p>
+<p> </p>
+<center>
+<img src="images/ABC.jpg" alt="A cap B cap C" />
+</center>
+<p> </p>
+<hr />
+<p><strong>Empty Intersection Case</strong></p>
+<p> </p>
+<p>There are cases where there is no element that belongs to both sets <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>. In these cases, we say that the intersection <span class="math inline">\(A \cap B\)</span> is empty or disjoint. The intersection of such disjointed sets is denoted by <span class="math inline">\(A \cap B = \varnothing\)</span>.</p>
+<p>The visual below shows the shaded <span class="math inline">\(A\)</span> region and the shaded <span class="math inline">\(B\)</span> region but the middle intersection being unshaded representing an empty intersection.</p>
+<p> </p>
+<center>
+<img src="images/no_int.jpg" alt="no int" />
+</center>
+<p> </p>
+<p>An empty intersection of three sets would have the middle intersection part being empty <span class="math inline">\(A \cap B \cap C\)</span>.</p>
+<p> </p>
+<center>
+<img src="images/no_3way_intersect.jpg" alt="no int" />
+</center>
+<p> </p>
+<hr />
+<p>Here are a few examples with intersections.</p>
+<p><strong>Example One</strong></p>
+<p> </p>
+<p>Suppose we are given the set <span class="math inline">\(A= \{apples, guava, jack fruit, pineapple\}\)</span> and the set <span class="math inline">\(B =\{grapes, mango, pineapple, orange\}\)</span>. The intersection of the two sets would be <span class="math inline">\(A \cap B = \{pineapple\}\)</span>.</p>
+<p> </p>
+<p><strong>Example Two</strong></p>
+<p> </p>
+<p>The intersection of the set <span class="math inline">\(P = \{1, 9, 3\}\)</span> and <span class="math inline">\(Q = \{2, 10, 3, 18, 8, 1, 5\}\)</span> is <span class="math inline">\(\{1, 3\}\)</span>.</p>
+<p> </p>
+<p><strong>Example Three</strong></p>
+<p> </p>
+<p>The positive integers or natural numbers <span class="math inline">\(\mathbb{N} = \{1, 2, 3, \dots \}\)</span> and the negative integers <span class="math inline">\(\mathbb{Z^{-}} = \{-1, -2, -3, \dots \}\)</span> are disjoint sets. (The intersection between the two sets is empty.) There is nothing in common between the two sets.</p>
+<p> </p>
+<p><strong>Example Four</strong></p>
+<p> </p>
+<p>Suppose we have a set A with the U as the universe of discourse. The set U can be split or partitioned into <span class="math inline">\(A \cup A^{c}\)</span> such that the intersection <span class="math inline">\(A \cup A^{c} = \varnothing\)</span>.</p>
+<p> </p>
+</div>
+<div id="complements" class="section level3">
+<h3><u>Complements</u></h3>
+<p> </p>
+<p>In English, the word complement relates to an item that goes well with another item. In the math context a complement refers to an opposite. Given a set <span class="math inline">\(A\)</span>, the complement of the set <span class="math inline">\(A\)</span> is the set of all elements that are not in <span class="math inline">\(A\)</span> denoted by <span class="math inline">\(A^{c}\)</span> or <span class="math inline">\(A&#39;\)</span> or <span class="math inline">\(\bar{A}\)</span>.</p>
+<p>In math notation, we write <span class="math inline">\(A^{c} = \{x: x \in A^{c}\} = \{x: x \notin A\}\)</span></p>
+<p>For a better understanding of complements, we have visuals below.</p>
+<p>In this visual, we have <span class="math inline">\(A^{c}\)</span>. Notice how the intersection <span class="math inline">\(A \cap B\)</span> is not shaded. It is because <span class="math inline">\((A \cap B) \subseteq A\)</span>, so the intersection is not included in the complement of set <span class="math inline">\(A\)</span>.</p>
+<p> </p>
+<center>
+<img src="images/notA.jpg" alt="A  B" />
+</center>
+<p> </p>
+<p>In the next visual, we have <span class="math inline">\(B^{c}\)</span>. Again, since the intersection is a subset of set <span class="math inline">\(B\)</span> it is not shaded.</p>
+<p> </p>
+<center>
+<img src="images/notB.jpg" alt="B  A" />
+</center>
+<p> </p>
+<p>In this visual, we have <span class="math inline">\((A \cup B)^{c}\)</span>. Neither set A, set B nor the intersection is shaded here.</p>
+<p> </p>
+<center>
+<img src="images/not_AunionB.jpg" alt="Not A union B" />
+</center>
+<p> </p>
+<p><strong>Complements With Three Sets</strong></p>
+<p> </p>
+<p>Dealing with complements with more than 2 sets is tricky. The visuals get complicated too. An example of a three set case is where we have <span class="math inline">\((A \cup B \cup C)^{c}\)</span>. The shaded regions outside of sets <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span> and <span class="math inline">\(C\)</span> represents the elements in the complement of <span class="math inline">\((A \cup B \cup C)\)</span>.</p>
+<p> </p>
+<center>
+<img src="images/not-three-union.jpg" alt="not 3 set union" />
+</center>
+<p> </p>
+<p><strong>Example One</strong></p>
+<p> </p>
+<p>The complement of the set of even numbers is the set of odd numbers.</p>
+<p> </p>
+<p><strong>Example Two</strong></p>
+<p> </p>
+<p>The complement of the set of prime numbers is the set of non-prime numbers.</p>
+<p> </p>
+<p><strong>Example Three</strong></p>
+<p> </p>
+<p>Given that the universe of discourse <span class="math inline">\(U\)</span> is the set of all integers <span class="math inline">\(\mathbb{Z} = \{0, \pm1, \pm2, \pm3, \dots \}\)</span>. The complement of the negative integers <span class="math inline">\(\mathbb{Z^{-}} = \{-1, -2, -3, \dots \}\)</span> is the set of positive integers and zero.</p>
+<p> </p>
+</div>
+<div id="subtracting-sets-and-relative-complements" class="section level3">
+<h3><u>Subtracting Sets and Relative Complements</u></h3>
+<p> </p>
+<p>Relative Complements can be thought of subtracting sets. Subtraction with sets is not exactly like <span class="math inline">\(7 - 2 = 5\)</span> but there are a few similarities with subtracting numbers and subtracting sets.</p>
+<p>Given that we have two sets <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, the set <span class="math inline">\(A - B\)</span> or <span class="math inline">\(A \setminus B\)</span> is <span class="math inline">\(A \cap B^{c}\)</span>. This relative complement means that we have the intersection of set <span class="math inline">\(A\)</span> and the complement of <span class="math inline">\(B\)</span>. In math notation we write</p>
+<p><span class="math display">\[A \setminus B = A \cap B^{c} = \{x: x \in A \text{ and } x \in B^{c}\} = \{x: x \in A \text{ and } x \notin B\}\]</span></p>
+<p>The visual below is for reference.</p>
+<p> </p>
+<center>
+<img src="images/A_minusB.jpg" alt="A  B" />
+</center>
+<p> </p>
+<p>The symmetric difference <span class="math inline">\(B - A\)</span> or <span class="math inline">\(B \setminus A\)</span> is <span class="math inline">\(B \cap A^{c}\)</span> which is shown below.</p>
+<p> </p>
+<center>
+<img src="images/B_minusA.jpg" alt="B  A" />
+</center>
+<p> </p>
+<p><strong>Three Sets Case</strong></p>
+<p> </p>
+<p>The case for three sets is tricky. Only a few examples will be covered.</p>
+<p>Given the sets <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span> and <span class="math inline">\(C\)</span>. The set <span class="math inline">\(B - (A \cup C) = B \setminus (A \cup C) = B \cap (A \cup C)^{c}\)</span> is only the set <span class="math inline">\(B\)</span>. It would look like this.</p>
+<p> </p>
+<center>
+<img src="./images/B_minusAunionC.jpg" alt="B  AUC" />
+</center>
+<p> </p>
+<p>A more involved example would be the set <span class="math inline">\((A \cup C) - (A \cap C) - B = (A \cup C) \setminus (A \cap C) \setminus B = (A \cup C) \cap (A \cap C)^{c} \cap B^{c}.\)</span> This means that from the union of sets <span class="math inline">\(A\)</span> and <span class="math inline">\(C\)</span> remove the intersection of <span class="math inline">\((A \cap C)\)</span> and remove anything from set <span class="math inline">\(B\)</span>. A visual below will help.</p>
+<p> </p>
+<center>
+<img src="images/AunionCminusAintC.jpg" alt="AUC  AnC" />
+</center>
+<p> </p>
+<p><strong>Example One</strong></p>
+<p> </p>
+<p>Suppose we have the sets <span class="math inline">\(A = \{9, 4, -1, 0, 2, 5\}\)</span> and <span class="math inline">\(B = \{2, 0, 1\}\)</span>. The universe of discourse <span class="math inline">\(U\)</span> is <span class="math inline">\(\{-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9\}\)</span>. The set <span class="math inline">\(A \setminus B = A \cap B^{c}\)</span> would be {9, 4, -1, 5}. A more detailed answer is below.</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \begin{array} {lcl} A \setminus B &amp; = &amp; \{9, 4, -1, 0, 2, 5\} \setminus \{2, 0, 1\} \\ &amp; = &amp; \{9, 4, -1, 0, 2, 5\} \cap \{2, 0, 1\}^{c} \\ &amp; = &amp; \{9, 4, -1, 0, 2, 5\} \cap \{-1, 3, 4, 5, 6, 7, 8, 9\} \\ &amp; = &amp; \{9, 4, -1, 5\}\\ \end{array} \\ \]</span></p>
+<p> </p>
+<p><strong>Example Two</strong></p>
+<p> </p>
+<p>Suppose we have the sets <span class="math inline">\(A = \{10, 2, -2, 0, 7\}\)</span>, <span class="math inline">\(B = \{1, 2, 3\}\)</span> and <span class="math inline">\(C= \{5, 0\}\)</span>. The set <span class="math inline">\(A \setminus B \setminus C= A \cap B^{c} \cap C^{c}\)</span> would be <span class="math inline">\(\{10, -2, 7\}\)</span>.</p>
+<p> </p>
+</div>
+<div id="symmetric-difference" class="section level3">
+<h3><u>Symmetric Difference</u></h3>
+<p>The symmetric difference of sets is somewhat tricky. It does involve relative complements as discussed in the previous section.</p>
+<p>We deal with the two sets case first. Suppose we have sets <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span> and the universe of discourse <span class="math inline">\(U\)</span>. The symmetric difference of <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> which is denoted by <span class="math inline">\(A \triangle B\)</span> is defined as :</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \begin{array} {lcl} A \triangle B &amp; = &amp; (A - B) \cup (B - A) \\ &amp; = &amp; (A \cap B^{c}) \cup (B \cap A^{c})\\ \end{array} \\ \]</span></p>
+<p> </p>
+<p>One could also view <span class="math inline">\(A \triangle B\)</span> as <span class="math inline">\(A \triangle B = (A \cup B) - (A \cap B)\)</span>.</p>
+<p>Here is a visual for two sets where the intersection in the middle is not shaded. (Bad picture quality sorry).</p>
+<p> </p>
+<center>
+<img src="images/AtriB.jpg" alt="A tri B" />
+</center>
+<p> </p>
+<p>For three sets, it is not as simple as removing the intersections. If we have <span class="math inline">\(A \triangle B \triangle C\)</span>, it would look like this.</p>
+<p> </p>
+<center>
+<img src="images/AtriBtriC.jpg" alt="A tri B tri C" />
+</center>
+<p> </p>
+<p><strong>Example One</strong></p>
+<p> </p>
+<p>Suppose we have sets <span class="math inline">\(R = \{1, 9, 8, 0\}\)</span> and <span class="math inline">\(S = \{8, 2, 4\}\)</span>. The symmetric difference of sets <span class="math inline">\(R\)</span> and <span class="math inline">\(S\)</span> is:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \begin{array} {lcl} R \triangle S &amp; = &amp; \{1, 9, 8, 0\} \triangle\{8, 2, 4\} \\ &amp; = &amp; \{1, 9, 0, 2, 4\}\\ \end{array} \\ \]</span></p>
+<p><strong>Example Two</strong></p>
+<p> </p>
+<p>Given three sets <span class="math inline">\(A = \{4, 5, 2, 0, 1\}\)</span>, <span class="math inline">\(B = \{1, -2, 5, 9\}\)</span> and <span class="math inline">\(C = \{3, 7, 1, 0\}\)</span>. What is <span class="math inline">\(A \triangle B \triangle C\)</span>?</p>
+<p>We first determine the intersections.</p>
+<p><span class="math display">\[A \cap B = \{5, 1\}\]</span></p>
+<p><span class="math display">\[A \cap C = \{1, 0 \}\]</span></p>
+<p><span class="math display">\[B \cap C = \{1\}\]</span></p>
+<p><span class="math display">\[A \cap B \cap C = \{1\}\]</span></p>
+<p> </p>
+<p>Therefore <span class="math inline">\(A \triangle B \triangle C = \{4, 2, 1, -2, 9, 3, 7\}\)</span> where the 0 and 5 is taken out.</p>
+<p> </p>
+</div>
+<div id="summary-and-visual-aid" class="section level3">
+<h3><u>Summary and Visual Aid</u></h3>
+<p>That was a lot to handle! To help put everything together, here is a colourful diagram for the case of three sets <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span> and <span class="math inline">\(C\)</span>.</p>
+<p> </p>
+<center>
+<img src="images/3set_summary.PNG" alt="Three Set Summary" />
+</center>
+<p> </p>
+<p>To grasp these set theory concepts, try drawing Venn diagrams on paper and see the relations between sets.</p>
+<p>Part three will discuss the algebra of sets, the duality of sets, counting with sets, ordered pairs and Cartesian products.</p>
+<p> </p>
+</div>
+<div id="references" class="section level3">
+<h3><u>References</u></h3>
+<p> </p>
+<p>The featured image is from <a href="http://gatecse.in/wp-content/uploads/2015/06/Venn_Diagram.jpg" class="uri">http://gatecse.in/wp-content/uploads/2015/06/Venn_Diagram.jpg</a>.</p>
+<p>The material was from a coursepack book from a math course I took back in Winter 2010. The course was called An Introduction To Mathematical Proofs</p>
+<p>The three set Venn diagram in the beginning is from <a href="http://www.cwladis.com/clip_image011_0017.gif" class="uri">http://www.cwladis.com/clip_image011_0017.gif</a></p>
+<p>These websites were helpful for guides in making Venn diagrams and for visuals:</p>
+<ul>
+<li><a href="ftp://ftp.dante.de/tex-archive/macros/latex/contrib/venndiagram/venndiagram.pdf" class="uri">ftp://ftp.dante.de/tex-archive/macros/latex/contrib/venndiagram/venndiagram.pdf</a></li>
+<li><a href="http://tex.stackexchange.com/questions/26096/tikz-labelling-venn-diagram" class="uri">http://tex.stackexchange.com/questions/26096/tikz-labelling-venn-diagram</a></li>
+<li><a href="http://users.ju.edu/hduong/math220/venn_diagrams.pdf" class="uri">http://users.ju.edu/hduong/math220/venn_diagrams.pdf</a></li>
+<li><a href="http://tex.stackexchange.com/questions/9681/how-to-draw-venn-diagrams-especially-complements-in-latex" class="uri">http://tex.stackexchange.com/questions/9681/how-to-draw-venn-diagrams-especially-complements-in-latex</a></li>
+<li><a href="http://users.ju.edu/hduong/math220/venn_diagrams.pdf" class="uri">http://users.ju.edu/hduong/math220/venn_diagrams.pdf</a></li>
+<li><a href="http://www.texample.net/tikz/examples/venn-diagram/" class="uri">http://www.texample.net/tikz/examples/venn-diagram/</a></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

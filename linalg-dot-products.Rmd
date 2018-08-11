@@ -6,7 +6,11 @@ output: html_document
 
 &nbsp;
 
-Source: http://mathinsight.org/media/image/image/dot_product_projection.png
+<center><img src="http://mathinsight.org/media/image/image/dot_product_projection.png
+" /></center>
+<center><a href="http://mathinsight.org/media/image/image/dot_product_projection.png
+">Image Source</a></center>
+
 
 &nbsp;
 
@@ -102,7 +106,11 @@ $$k(\textbf{u} \cdot \textbf{v}) = \textbf{u} \cdot (k\textbf{v})$$
 
 Dot products along with norms can help us find the cosine of an angle $\theta$. A useful formula is:
 
+&nbsp;
+
 $$\cos(\theta) = \dfrac{\textbf{u} \cdot \textbf{v}}{||\textbf{u}|| ||\textbf{v}||}$$
+
+&nbsp;
 
 where $\textbf{u}$, $\textbf{v}$ are vectors in $\mathbb{R}^{n}$ and $\theta$ is the angle between $\textbf{u}$ and $\textbf{v}$. The angle $\theta$ is defined to be between 0 and $\pi$ ($0 \leq \theta \leq \pi$ in radians or 0 to 90 degrees).
 
@@ -118,10 +126,14 @@ If $\textbf{u} \cdot\textbf{v} = 0$ then $\theta$ is a right angle ($\theta$ = 9
 
 &nbsp;
 
-A visual aid below summarizes the above cases.
+The visual aid below helps with visualizing how the dot product operates.
 
+&nbsp;
 
-Source: https://cdn.tutsplus.com/active/uploads/legacy/tuts/393_qtCollisionDetection123/assets/dotProductResults.png
+<center><img src="http://thejuniverse.org/PUBLIC/LinearAlgebra/LOLA/dotProd/angle.png" /></center>
+<center><a href="http://thejuniverse.org/PUBLIC/LinearAlgebra/LOLA/dotProd/angle.png">Image Source</a></center>
+
+Link Source: http://thejuniverse.org/PUBLIC/LinearAlgebra/LOLA/dotProd/def.html
 
 &nbsp;
 

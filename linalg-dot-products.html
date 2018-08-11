@@ -191,7 +191,7 @@ $(document).ready(function () {
   <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
 </li>
 <li>
-  <a href="projects.html">R Programming Projects</a>
+  <a href="r-projects.html">R Programming Projects</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -211,7 +211,14 @@ $(document).ready(function () {
 
 
 <p> </p>
-<p>Source: <a href="http://mathinsight.org/media/image/image/dot_product_projection.png" class="uri">http://mathinsight.org/media/image/image/dot_product_projection.png</a></p>
+<center>
+<img src="http://mathinsight.org/media/image/image/dot_product_projection.png
+" />
+</center>
+<center>
+<a href="http://mathinsight.org/media/image/image/dot_product_projection.png
+">Image Source</a>
+</center>
 <p> </p>
 <p>This post is an introduction to dot products. It is assumed that the reader knows about vectors where a vector in <span class="math inline">\(\mathbb{R}^{n}\)</span> is of the form <span class="math inline">\(\textbf{v} = (v_1, v_2, \dots, v_{n})\)</span>. In addition, the reader should be familiar with the concept of a norm.</p>
 <p> </p>
@@ -266,7 +273,9 @@ $(document).ready(function () {
 <div id="geometry-and-dot-products" class="section level3">
 <h3><u>Geometry and Dot Products</u></h3>
 <p>Dot products along with norms can help us find the cosine of an angle <span class="math inline">\(\theta\)</span>. A useful formula is:</p>
+<p> </p>
 <p><span class="math display">\[\cos(\theta) = \dfrac{\textbf{u} \cdot \textbf{v}}{||\textbf{u}|| ||\textbf{v}||}\]</span></p>
+<p> </p>
 <p>where <span class="math inline">\(\textbf{u}\)</span>, <span class="math inline">\(\textbf{v}\)</span> are vectors in <span class="math inline">\(\mathbb{R}^{n}\)</span> and <span class="math inline">\(\theta\)</span> is the angle between <span class="math inline">\(\textbf{u}\)</span> and <span class="math inline">\(\textbf{v}\)</span>. The angle <span class="math inline">\(\theta\)</span> is defined to be between 0 and <span class="math inline">\(\pi\)</span> (<span class="math inline">\(0 \leq \theta \leq \pi\)</span> in radians or 0 to 90 degrees).</p>
 <p>We can find out some out some information about <span class="math inline">\(\theta\)</span> based on the dot product.</p>
 <p> </p>
@@ -274,8 +283,15 @@ $(document).ready(function () {
 <p>If <span class="math inline">\(\textbf{u} \cdot\textbf{v} &lt; 0\)</span> then <span class="math inline">\(\theta\)</span> is an obtuse angle (More than 90 degrees to less than 180 degrees).</p>
 <p>If <span class="math inline">\(\textbf{u} \cdot\textbf{v} = 0\)</span> then <span class="math inline">\(\theta\)</span> is a right angle (<span class="math inline">\(\theta\)</span> = 90 degrees or <span class="math inline">\(\dfrac{\pi}{2}\)</span>).</p>
 <p> </p>
-<p>A visual aid below summarizes the above cases.</p>
-<p>Source: <a href="https://cdn.tutsplus.com/active/uploads/legacy/tuts/393_qtCollisionDetection123/assets/dotProductResults.png" class="uri">https://cdn.tutsplus.com/active/uploads/legacy/tuts/393_qtCollisionDetection123/assets/dotProductResults.png</a></p>
+<p>The visual aid below helps with visualizing how the dot product operates.</p>
+<p> </p>
+<center>
+<img src="http://thejuniverse.org/PUBLIC/LinearAlgebra/LOLA/dotProd/angle.png" />
+</center>
+<center>
+<a href="http://thejuniverse.org/PUBLIC/LinearAlgebra/LOLA/dotProd/angle.png">Image Source</a>
+</center>
+<p>Link Source: <a href="http://thejuniverse.org/PUBLIC/LinearAlgebra/LOLA/dotProd/def.html" class="uri">http://thejuniverse.org/PUBLIC/LinearAlgebra/LOLA/dotProd/def.html</a></p>
 <p> </p>
 </div>
 <div id="examples" class="section level3">

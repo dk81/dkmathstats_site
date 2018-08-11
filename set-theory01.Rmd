@@ -1,0 +1,304 @@
+---
+title: "An Introduction To Set Theory & Logic (Part 1/3)"
+output: html_document
+---
+
+&nbsp;
+
+Hi there. This article is part one of a three part series of an introduction to set theory with some logic topics.
+
+&nbsp;
+
+### <u>Table of Contents</u>
+
+&nbsp;
+
+* <a href="#intro">Introduction</a>
+* <a href="#definitions">Basic Definitions</a>
+* <a href="#notation">Notation</a>
+* <a href="#numbers">The Number System</a>
+* <a href="#subsets">Subsets</a>
+
+&nbsp;
+
+<a name="intro"></a>
+
+### <u>Introduction</u>
+
+&nbsp;
+
+Set Theory is an abstract mathematical topic dealing with sets and relations of objects. It is one of the foundational topics of mathematics (but we usually see calculus as introductory math courses at universities). To visualize sets, think of venn diagrams (see picture below). Set theory and logic is useful in areas such as mathematics, statistics, computer science (Boolean logic), philosophy and maybe even law (You need good arguments!).
+
+Here is an example of a Venn diagram.
+
+&nbsp;
+
+<center><img src="http://www.mrfleck.com/uploads/1/4/8/5/14858454/8909523_orig.jpg" /></center>
+<center><a href="http://www.mrfleck.com/uploads/1/4/8/5/14858454/8909523_orig.jpg">Image Source</a></center>
+
+&nbsp;
+
+<a name="definitions"></a>
+
+### <u>Basic Definitions</u>
+
+&nbsp;
+
+A set is any well defined collection of objects. The individual objects or items in a set are called elements or members of the set.
+
+Ok, what does that mean? Consider this example where we have a school backpack with objects inside. The backpack can be thought of as a set and the items inside such as books, pencils, pens, a calculator, and a lunch box can be thought as elements of that backpack.
+
+The number of elements an element can have can be finite (a whole positive number) or it can be infinite.
+
+An example of an infinite set is where you have a function such as $y = x^2$ where the domain $x$ can take on any real number. The solution set of $x$ is all real numbers which is an infinite set. (There are more tougher topics of set theory and infinity which won't be covered here, this was just an example.)
+
+If we have two sets A or B which have the same elements then we say that sets A and B are equal. We denote this as $A = B$. If the two sets A and B are not equal we denote it by $A \neq B$.
+
+&nbsp;
+
+---
+
+<a name="notation"></a>
+
+### <u>Notation</u>
+
+&nbsp;
+
+
+Sets are often denoted by capital letters such as $A, B, C, D, X, P, Q$ and so forth.
+
+To denote elements in a list, we use curly brackets and separate elements with commas. For example, we have the set $Q = \left\{1, 3, 5\right\}$. It is best to list sets with elements with small sets. Looking at a set with 10,000 elements on paper looks bad!
+
+With sets we do not do repeated elements when it comes to sets with repeated elements. Also, order does not matter. As an example $\{1, 2\}$ is the same set as $\{2, 1\}$ and $\{1, 2, 2\}$.
+
+&nbsp;
+
+---
+
+**Warning**
+
+&nbsp;
+
+If we have the functions $f(x) = x$ and $g(x) = x^2$ the solution sets for the functions are $\{0, 0\} = \{0 \}$. The solution sets are the same but the functions are not!
+
+&nbsp;
+
+---
+
+An element $x$ that is in set $A$ is denoted by $x \in A$. You could also say that the element $x$ belongs to set $A$ or $x$ is an element of $A$.
+
+An element $x$ that is not in set $A$ is denoted by $x \notin A$. You could also say that the element $x$ does not belongs to set $A$ or $x$ is not an element of $A$.
+
+---
+
+&nbsp;
+
+### <u>The Empty Set</u>
+
+&nbsp;
+
+A set which has no elements is the empty set denoted by $\varnothing$ or $\{0 \}$. If we consider our backpack example, there is nothing inside the backpack.
+
+One should be careful with the empty set and zero. For example, the solution set for $f(x) = x$ is simply {0} where 0 is an element. In $h(x) = x^2 + 5$, there is no real numbered root in the solution set. The solution set is empty denoted by $\varnothing$.
+
+Note that $\varnothing$ is not the same as $\{\varnothing\}$. $\varnothing$ represents nothing in a set while $\{\varnothing\}$ represents the empty set. With the backpack example, $\varnothing$ represents the nothing in the backpack while $\{\varnothing\}$ is the backpack which is empty.
+
+&nbsp;
+
+---
+
+&nbsp;
+
+### <u>Other Cases</u>
+
+A set with exactly one element is a singleton. Any set with exactly two elements is an unordered pair or just simply called a pair.
+
+&nbsp;
+
+---
+
+<a name="numbers"></a>
+
+### <u>The Number System</u>
+
+&nbsp;
+
+The number system was not formally taught to me back in high school. I learned about the formal definitions of integers, natural numbers, rational numbers, real numbers better in university. A guide is presented below.
+
+&nbsp;
+
+---
+
+**Natural Numbers**
+
+&nbsp;
+
+The natural numbers or the positive integers are pretty much counting numbers starting from 1 and going up. The set of all natural numbers is denoted by
+
+$$\mathbb{N} = \{1, 2, 3, \dots\}$$.
+
+---
+
+**Non-Negative Integers**
+
+&nbsp;
+
+The non-negative integers is just an extensive of the natural numbers. Instead of counting from 1, we start counting from 0 and then go up. The set of non-negative integers is
+
+$$\{0, 1, 2, 3, \dots\}$$
+
+&nbsp;
+
+---
+
+**Integers**
+
+&nbsp;
+
+When negative whole numbers are added to non-negative integers, we get the integers. The integers is denoted by
+
+$$\mathbb{Z} = \{\dots, -3, -2, -1, 0, 1, 2, 3, \dots\} = \{0, \pm 1, \pm 2, \pm3, \dots\} $$
+
+---
+
+**Rational Numbers (Fractions)**
+
+&nbsp;
+
+Rational numbers are better known as fractions where we have an integer in the numerator (top) and another non-zero integer in the denominator (bottom). These numbers do have a non-infinite (finite) number of decimals. The famous number Pi as $\pi \approx 3.14 \dots$ is not considered a rational number as the numbers go on forever after the decimal place.
+
+The mathematical definition is as follows.
+
+&nbsp;
+
+$$\displaystyle \mathbb{Q} = \{\dfrac{a}{b} : a, b \in \mathbb{Z}, b \neq 0 \} = \{\dfrac{a}{b} \text{ } | \text{ } a, b \in \mathbb{Z}, b \neq 0 \} $$
+
+&nbsp;
+
+The : and $|$ symbols mean "such that". We read the above math notation as ``a divided by b where a and b are integers with b not being 0" (Can't divide by zero).
+
+---
+
+**Real Numbers**
+
+&nbsp;
+
+The real numbers include the natural numbers, integers, rational numbers and numbers such as $\pi \approx 3.14 \dots$ with infinite decimal places. Another well-known real number is Euler's constant of $e \approx 2.718...$. The real numbers is denoted by $\mathbb{R}$.
+
+---
+
+**Complex Numbers**
+
+&nbsp;
+
+Remember when a high school math teacher told you can't take a square root of a negative number? It is because it is not real. It belongs to the family of complex or imaginary numbers. The set of complex numbers is denoted by $\mathbb{C}$.
+
+The complex number $i$ is defined as $i = \sqrt{-1}$. Squaring $i$ gives us $i^2 = -1$.
+
+---
+
+<a name="subsets"></a>
+
+### <u>Subsets</u>
+
+&nbsp;
+
+To introduce subsets, we start with examples.
+
+&nbsp;
+
+* The country Canada is a part of North America.
+
+* The United States of America is a part of North America.
+
+* North America is a part of the Earth. Thus, Canada is a part of North America and is part of the Earth.
+
+* Austria is a part of Europe.
+
+* An avocado is a fruit.
+
+* Yoga is a form of exercise.
+
+* Pikachu is an electric type Pokémon.
+
+&nbsp;
+
+From the examples above you can notice that we have an item or an object being a part of a larger collection of items or objects. This is pretty much of what a subset is.
+
+---
+
+### <u>Definition of a Subset</u>
+
+&nbsp;
+
+A set $A$ is a subset of set $B$ if and only if (iff) every element of $A$ is an element of $B$. We denote this as $A \subseteq B$ or $B \supseteq A$.
+
+The if and only if (iff) part means that if A is a subset of B then every element of $A$ is an element of $B$ and that if every element of $A$ is an element of $B$ implies that set $A$ is a subset of $B$. The if and only if works both ways.
+
+If set $A$ is not a subset of set $B$, we would write $A \not\subseteq B$ or $B \not\supseteq A$.
+
+A set $A$ being a proper subset of $B$ is denoted by $A \subset B$.
+
+---
+
+### <u>Examples of Subsets</u>
+
+&nbsp;
+
+**Example One**
+
+&nbsp;
+
+We have two grocery stores called X and Y which offer certain vegetables as follows.
+
+&nbsp;
+
+$$X =\{Celeries, Carrots, Mushrooms, Tomatoes\} $$
+
+&nbsp;
+
+and
+
+&nbsp;
+
+$$Y = \{Mushrooms, Tomatoes\}$$
+
+&nbsp;
+
+Here we have the set Y being a subset of X as both sets have mushrooms and tomatoes but set X has celeries and carrots and set Y does not.
+
+&nbsp;
+
+---
+
+**Example Two**
+
+&nbsp;
+
+Given a set $A = \{1, 2\}$ and $B = \{1, 2, 7, 9, 11\}$, set $A$ is a (proper) subset of $B$ as 1 and 2 are in sets $A$ and $B$ and 7, 9 and 11 are in $B$ but not in $A$.
+
+&nbsp;
+
+---
+
+**Example Three**
+
+The empty set $\varnothing$ is a subset of $C = \{1, 34, 7, 12, 11\}$. In general, the empty set is always a subset of a non-empty set.
+
+&nbsp;
+
+---
+
+**Example Four**
+
+Suppose we are given a set $A_1 = \{4, 7\}$ and $A_2 = \{\{7, 4\}, 7, 9, 11\}$. $A_1$ is a subset of $A_2$ since $\{4, 7\} = \{7, 4\} $ in $A_1$ is equal to $\{7, 4\}$ in $A_2$. Also, $A_2$ has 7, 9 and 11 but $A_1$ does not.
+
+&nbsp;
+
+---
+
+### <u>References</u>
+
+My own old notes and course pack book on an Introduction to Mathematical Proofs course.
+
+The featured image is from http://static1.creately.com/blog/wp-content/uploads/2014/07/Blank-Venn-Diagram-Template.png.

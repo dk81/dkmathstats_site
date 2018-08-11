@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Fibonacci Sequence Numbers In R</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Fibonacci Sequence Numbers In R</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hi. This page is about creating a function which would extract Fibonacci numbers in R.</p>
+<p>(This function can also be coded in other programming languages such as Python and C++. )</p>
+<p> </p>
+<hr />
+<p> </p>
+<div id="a-function-which-extracts-a-fibonacci-number-in-r" class="section level3">
+<h3><u>A Function Which Extracts A Fibonacci Number In R</u></h3>
+<p> </p>
+<p>My main objective for this function is to have the function output the n-th Fibonacci number in a Fibonacci sequence.</p>
+<p>Remember that the Fibonacci sequence starts with 1 and 1 as follows:</p>
+<p> </p>
+<p><span class="math display">\[1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ...\]</span></p>
+<p> </p>
+<p>An alternate version of the Fibonacci sequence has the sequence starting at 0 and 1.</p>
+<p>If <span class="math inline">\(n = 5\)</span>, the fifth Fibonacci number in the above sequence would be 5.</p>
+</div>
+<div id="section" class="section level2">
+<h2> </h2>
+<p> </p>
+<p>Before introducing the Fibonacci function, I have included a brief review of functions in R, if-else statements in R and for-loops in R.</p>
+<p> </p>
+<div id="functions-in-r" class="section level3">
+<h3><u>Functions In R</u></h3>
+<p> </p>
+<p>Recall that a function in R follows this format.</p>
+<p> </p>
+<pre><code>function_name &lt;- function(arg1, arg2, ...) {
+       &lt;put code here&gt;
+}</code></pre>
+<p> </p>
+<p>To use the function, the function_name along with the argument(s) needs to be declared. An example of a function call would be something like:</p>
+<p> </p>
+<pre><code>function_name(arg1 = *, arg2 = *, ...)`</code></pre>
+<p> </p>
+</div>
+<div id="if-else-statements-in-r" class="section level3">
+<h3><u>If-Else Statements In R</u></h3>
+<p> </p>
+<p>In this Fibonacci function, I use an if-else statement for dealing with cases. I want the user of the function to put in whole numbers that are at least 1.</p>
+<p>In R, the if-else statement follows a format which looks something like this:</p>
+<p> </p>
+<pre><code>if (case_1) {
+   &lt; code here for case_1 &gt;
+} else if (case_2) {
+   &lt; code here for case_2&gt;
+} ... {
+
+} else if (case_[n -1]){
+   &lt; code here for case_[n - 1]&gt;
+} else #case_n
+   &lt; code here for case_n&gt;</code></pre>
+<p> </p>
+</div>
+<div id="for-loops-in-r" class="section level3">
+<h3><u>For Loops In R</u></h3>
+<p> </p>
+<p>For loops is a compact way to repeatedly run lines of code while changing variable values. The for-loop format in R would look something like:</p>
+<p> </p>
+<pre><code>for (index_var in min:max){
+    &lt;run code here&gt;
+}</code></pre>
+<p> </p>
+<p>A simple example of a for loop in printing numbers from 1 to 10.</p>
+<pre class="r"><code>for (i in 1:10){
+print(i)
+}</code></pre>
+<pre><code>## [1] 1
+## [1] 2
+## [1] 3
+## [1] 4
+## [1] 5
+## [1] 6
+## [1] 7
+## [1] 8
+## [1] 9
+## [1] 10</code></pre>
+<p> </p>
+<hr />
+<p> </p>
+</div>
+<div id="the-fibonacci-function-in-r" class="section level3">
+<h3><u>The Fibonacci Function In R</u></h3>
+<p> </p>
+<p>The code for the Fibonacci function can be found below. The user puts in a single argument which should be a positive whole number (integer) that is at least 1 or greater. In the function, the if-else statement deals with cases for numbers less than 1 and for non-whole numbers (by making sure the fractional part of the number is 0).</p>
+<p>Since the Fibonacci sequence relies on the previous two numbers in the sequence (with 1 and 1 as the first two numbers), a for loop is used here. The n-th Fibonacci number in the sequence is represented by fibonacci_vect[n] which is used in the paste0() string concatenation function.</p>
+<pre class="r"><code># Fibonacci Sequence in R
+
+# 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, and so on.
+
+# A Function Which ouptuts the n-th Fibonacci number (n &gt;= 1 &amp; n is natural number):
+
+fibonacci_funct &lt;- function(n) {
+ 
+ if (n &lt; 1){
+ print(&quot;Please choose a whole number that is 1 or greater&quot;)
+ } else if (n == 1) {
+ return(print(&quot;The first Fibonacci number is 1.&quot;))
+ } else if (n == 2) {
+ return(print(&quot;The second Fibonacci number is 2.&quot;))
+ } else if ((n &gt;= 3) &amp;&amp; (n %% 1 == 0)){
+ 
+ fibonacci_vect = c() #Initalize empty vector
+ 
+ # Initalize first two numbers in Fibonacci sequence:
+ 
+ fibonacci_vect[1] &lt;- 1 
+ 
+ fibonacci_vect[2] &lt;- 1
+ 
+ for (i in 3:n){
+ fibonacci_vect[i] = fibonacci_vect[i - 2] + fibonacci_vect[i - 1]
+ }
+ 
+ # Create output message with paste0() concatenation:
+ 
+ msg &lt;- paste0(&quot;Position: &quot;, n, &quot;, Fibonacci Number: &quot;, fibonacci_vect[n])
+ 
+ return(msg) # Output n-th Fibonacci number as a message
+ } else # Non-whole number case.
+ print(&quot;Invalid number. Please enter in a whole number that is 1 or greater.&quot;)
+}</code></pre>
+<p> </p>
+</div>
+<div id="test-cases" class="section level3">
+<h3><u>Test Cases</u></h3>
+<p> </p>
+<p>To make sure that the function works and is error free, some testing is required. I want to test cases where the numbers in the function call are negative, 1, 2, and numbers with a fractional part (non-whole numbers).</p>
+<pre class="r"><code># Test Cases:
+
+fibonacci_funct(2)</code></pre>
+<pre><code>## [1] &quot;The second Fibonacci number is 2.&quot;</code></pre>
+<pre class="r"><code>fibonacci_funct(-1)</code></pre>
+<pre><code>## [1] &quot;Please choose a whole number that is 1 or greater&quot;</code></pre>
+<pre class="r"><code>fibonacci_funct(1)</code></pre>
+<pre><code>## [1] &quot;The first Fibonacci number is 1.&quot;</code></pre>
+<pre class="r"><code>fibonacci_funct(0)</code></pre>
+<pre><code>## [1] &quot;Please choose a whole number that is 1 or greater&quot;</code></pre>
+<pre class="r"><code>fibonacci_funct(2.4)</code></pre>
+<pre><code>## [1] &quot;Invalid number. Please enter in a whole number that is 1 or greater.&quot;</code></pre>
+<pre class="r"><code>fibonacci_funct(3)</code></pre>
+<pre><code>## [1] &quot;Position: 3, Fibonacci Number: 2&quot;</code></pre>
+<pre class="r"><code>fibonacci_funct(6)</code></pre>
+<pre><code>## [1] &quot;Position: 6, Fibonacci Number: 8&quot;</code></pre>
+<pre class="r"><code>fibonacci_funct(10)</code></pre>
+<pre><code>## [1] &quot;Position: 10, Fibonacci Number: 55&quot;</code></pre>
+<p> </p>
+</div>
+<div id="references" class="section level3">
+<h3><u>References</u></h3>
+<p> </p>
+<p><a href="https://stackoverflow.com/questions/3476782/check-if-the-number-is-integer" class="uri">https://stackoverflow.com/questions/3476782/check-if-the-number-is-integer</a></p>
+<p><a href="https://www.programiz.com/r-programming/if-else-statement" class="uri">https://www.programiz.com/r-programming/if-else-statement</a></p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

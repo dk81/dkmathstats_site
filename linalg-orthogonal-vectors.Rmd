@@ -1,0 +1,110 @@
+---
+title: "What Are Orthogonal (Perpendicular) Vectors?"
+output: html_document
+---
+
+&nbsp;
+
+Hello. This post will talk about orthogonal (perpendicular) vectors in the n-th dimension $\mathbb{R}^{n}$. It is assumed that one knows about dot products.
+
+&nbsp;
+
+### <u>Review of Dot Products and The Cosine of An Angle</u>
+
+&nbsp;
+
+Recall that we can find the cosine of an angle $\theta$ using the dot product of vectors $\boldsymbol{u}$ and $\boldsymbol{v}$ in $\mathbb{R}^{n}$ and its norms.
+
+The formula for finding the cosine of an angle $\theta$ is:
+
+&nbsp;
+
+$$\displaystyle \cos(\theta) = \dfrac{\boldsymbol{u} \boldsymbol{\cdot} \boldsymbol{v}}{||\boldsymbol{u}|| ||\boldsymbol{v}||}$$
+
+&nbsp;
+
+Applying the inverse cosine function or the arccos function (which is the same thing) to both sides of the equations, we can isolate the angle $\theta$.
+
+&nbsp;
+
+$$\displaystyle \theta = \cos^{-1}(\dfrac{\boldsymbol{u} \boldsymbol{\cdot} \boldsymbol{v}}{||\boldsymbol{u}|| ||\boldsymbol{v}||})$$
+
+&nbsp;
+
+or
+
+&nbsp;
+
+$$\displaystyle \theta = \arccos(\dfrac{\boldsymbol{u} \boldsymbol{\cdot} \boldsymbol{v}}{||\boldsymbol{u}|| ||\boldsymbol{v}||})$$
+
+&nbsp;
+
+where $\theta$ can take values from 0 to $\pi$ (inclusive).
+
+&nbsp;
+
+### <u>Orthogonal Vectors</u>
+
+&nbsp;
+
+From the above, if $\boldsymbol{u} \cdot \boldsymbol{v} = 0$ then $\theta$ is a right angle ($\theta$ = 90 degrees or $\dfrac{\pi}{2}$ in radians). We can also say that the vectors $\boldsymbol{u}$ and $\boldsymbol{v}$ or perpendicular or orthogonal in $\mathbb{R}^{n}$.
+
+The zero vector in $\mathbb{R}^{n}$ is orthogonal to every vector in $\mathbb{R}^{n}$.
+
+&nbsp;
+
+**Proof**
+
+&nbsp;
+
+Suppose we have the zero vector $\boldsymbol{0}$ and another arbitrary vector such as ($ a_{1}, a_{2}, \dots , a_{n}$) in $\mathbb{R}^{n}$. Taking the dot product of these two vectors gives us:
+
+&nbsp;
+
+$$\displaystyle \begin{array} {lcl} \boldsymbol{0} \boldsymbol{\cdot} (a_{1}, a_{2}, \dots , a_{n}) & = & (0, 0, 0, \dots, 0) \boldsymbol{\cdot} (a_{1}, a_{2}, \dots , a_{n}) \\ & = & 0 \cdot a_1 + 0 \cdot a_2 + \dots + 0 \cdot a_n \\ & = & 0 + 0 + \dots + 0 \\ & = & 0 \end{array} $$
+
+&nbsp;
+
+### <u>Examples</u>
+
+We illustrate the concept of orthogonal vectors with a few examples.
+
+&nbsp;
+
+**Example One**
+
+In $\mathbb{R}^{2}$ the dot product of the vectors $\boldsymbol{a} = (2, -9)$ and $\boldsymbol{b} = (8, 1)$ is 7. These two vectors are not orthogonal to one another.
+
+&nbsp;
+
+$$\displaystyle \begin{array} {lcl} \boldsymbol{a} \boldsymbol{\cdot} \boldsymbol{b} & = & (2, -9) \boldsymbol{\cdot} (8, 1) \\ & = & 2 \times 8 + (- 9) \times 1 \\ & = & 16 - 9\\ & = & 7\\ \end{array} $$
+
+&nbsp;
+
+**Example Two**
+
+Consider two vectors in $\boldsymbol{c} = (-19, 1, 0, 2)$ and $\boldsymbol{d} = (0, 20, 32, -10)$ in $\mathbb{R}^{4}$. Are these two vectors orthogonal (perpendicular) in $\mathbb{R}^{4}$?
+
+&nbsp;
+
+Answer
+
+&nbsp;
+
+To determine whether the two vectors are orthogonal (perpendicular) in $\mathbb{R}^{4}$, we compute the dot product of vectors $\boldsymbol{c}$ and $\boldsymbol{d}$.
+
+&nbsp;
+
+$$\displaystyle \begin{array} {lcl} \boldsymbol{c} \boldsymbol{\cdot} \boldsymbol{d} & = & (-19, 1, 0, 2) \boldsymbol{\cdot} (0, 20, 32, -10) \\ & = & -19 \times 0 + 1 \times 20 + 0 \times 32 + 2 \times (-10)\\ & = & 0 + 20 + 0 - 20\\ & = & 0\\ \end{array} $$
+
+&nbsp;
+
+The vectors $\boldsymbol{c}$ and $\boldsymbol{d}$ are orthogonal to one another in $\mathbb{R}^{4}$.
+
+---
+
+**Reference**
+
+Elementary Linear Algebra (Tenth Edition) by Howard Anton.
+
+The featured image is from https://www.math.hmc.edu/calculus/tutorials/vectoranalysis/gif/vector9.gif.

@@ -1,0 +1,82 @@
+---
+title: "Connecting SQL Joins and Set Theory Concepts"
+output: html_document
+---
+
+&nbsp;
+
+Hi there. There is this interesting infographic which relates set theory to table joins in SQL.
+
+&nbsp;
+
+<center>![sql-venn](./images/sql-joins.jpg)</center>
+
+&nbsp;
+
+&nbsp;
+
+
+
+One can treat a database table as a set with elements being information within a table.
+
+The set $A$ refers to table $A$ and the set $B$ refers to table $B$.
+
+&nbsp;
+
+---
+
+&nbsp;
+
+**Left Join**
+
+&nbsp;
+
+A left join selects everything from $A$ including the intersection $A \cap B$. If the null part is TRUE then the intersection removed and the $A$ only part would be selected which is like $A - B = A \cap B^{c}$.
+
+&nbsp;
+
+---
+
+&nbsp;
+
+**Right Join**
+
+&nbsp;
+
+It would be similar with the right join with $B$ where the intersection $A \cap B$ is selected as well. If the null part is TRUE then the intersection removed and the $A$ only part would be selected which is like $B - A = B \cap A^{c}$.
+
+&nbsp;
+
+---
+
+&nbsp;
+
+**Inner Join**
+
+&nbsp;
+
+The SQL INNER JOIN portion of a query combined with select outputs the intersection $A \cap B$ of tables $A$ and $B$.
+
+&nbsp;
+
+---
+
+&nbsp;
+
+**Full Outer Join**
+
+&nbsp;
+
+The FULL OUTER JOIN portion of the query take everything from table $A$, table $B$ and the intersection $A \cap B$. If the key in table $A$ and the key in table $B$ IS NULL then the intersection $A \cap B$ is removed.
+
+&nbsp;
+
+---
+
+&nbsp;
+
+**References**
+
+&nbsp;
+
+The featured image/infographic is from https://www.codeproject.com/Articles/33052/Visual-Representation-of-SQL-Joins.

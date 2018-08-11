@@ -1,0 +1,147 @@
+---
+title: "Angles - Degrees & Radians"
+output: html_document
+---
+
+&nbsp;
+
+
+Hi. This page will be about angle measures from degrees to radians.
+
+&nbsp;
+
+
+### <u>Table Of Contents</u>
+
+&nbsp;
+
+* A Short Introduction To Radians
+
+* Degrees To Radians and Radians to Degrees
+
+* Reference Angles
+
+* Examples
+
+&nbsp;
+
+
+### <u>A Short Introduction To Radians</u>
+
+&nbsp;
+
+When it comes to angles, degrees are common and are well known. In higher level mathematics, degrees are not used very much when it comes to calculations. Instead of degrees, radians are used to represent angles. One radian unit represents 57.296 degrees. In a complete circle, there are 360 degrees. In radians, this 360 degrees is equivalent to 2$\pi$ (Pi). $\pi$ is known as the numerical value of approximately 3.14 but it also can be expressed as an angle where $\pi = 180^{\circ}$ or $2\pi = 360^{\circ}$ .
+
+(In Canada, kilometres are used to measure distance. In other places such as the United States, miles are used instead of kilometres. The term radians is like kilometres while degrees is like miles.)
+
+A radian is an angle measure based on the radius of a circle. In a 4 quadrant system, 0$\pi$ starts when $y= 0$ and for $x \geq 0$. A positive angle (in degrees or radians) is in the counter-clockwise direction while negative angles are in the clockwise direction.
+
+In a (scientific) calculator, angles are in degrees when the calculator is in degree mode specified by DEG at the top of the calculator screen. If the calculator screen has RAD, the angles are in radians. (There is also GRAD for gradients but that would not be covered here.)
+
+Here is a unit circle visual which showcases key reference angles in both degrees and in radians. These angles are positive so the direction is in the counter-clockwise direction.
+
+&nbsp;
+&nbsp;
+
+<center><img src="http://image.mathcaptain.com/cms/images/81/unit-radian-circle.png
+" /></center>
+<center><a href="http://image.mathcaptain.com/cms/images/81/unit-radian-circle.png
+">Image Source</a></center>
+
+&nbsp;
+&nbsp;
+
+### <u>Degrees To Radians and Radians to Degrees</u>
+
+&nbsp;
+
+Depending on the problem and context, we may need to switch from degrees to radians and vice-versa.
+
+Suppose we have an angle $x$ in degrees. To go from degrees to radians, the conversion would be something like:
+
+&nbsp;
+
+$$x \times\dfrac{\pi}{180^{\circ}}$$
+
+&nbsp;
+
+The degrees would divide each other out and the answer would be in radians.
+
+Suppose we have an angle $y$ in radians. To go from radians to degrees, the conversion would be:
+
+&nbsp;
+
+$$y \times\dfrac{180^{\circ}}{\pi}$$
+
+&nbsp;
+
+The resulting answer would be in degrees. Recall that $\pi \approx 3.14$.
+
+&nbsp;
+
+### <u>Reference Angles</u>
+
+&nbsp;
+
+When it comes to reference angles these angles are common angles. Common angles include $0^{\circ}$, $30^{\circ}$, $45^{\circ}$, $60^{\circ}$, $90^{\circ}$, $180^{\circ}$, $270^{\circ}$ and $360^{\circ}$.
+
+&nbsp;
+
+$$\begin{array}{|c|c|}
+\hline
+\text{Degrees } (^{\circ}) & \text{Radians} \\
+\hline \hline
+0 & 0 \\ \hline
+30 & \pi \div 6 \\ \hline
+45 & \pi \div 4\\ \hline
+60 & \pi \div 3 \\ \hline
+90 & \pi \div 2\\ \hline
+180 & \pi \\ \hline
+270 & 3\pi \div 2 \\ \hline
+360 & 2\pi \\ \hline
+\end{array}$$
+
+
+&nbsp;
+
+### <u>Examples</u>
+
+&nbsp;
+
+**Example One**
+
+&nbsp;
+
+Convert $200^{\circ}$ into radians.
+
+&nbsp;
+
+$$200^{\circ} \times \dfrac{\pi}{180^{\circ}} = \dfrac{10 \pi}{9} \approx 3.4907$$
+
+&nbsp;
+
+-----
+
+**Example Two**
+
+&nbsp;
+
+Convert $5$ radians into degrees.
+
+&nbsp;
+
+$$5 \times\dfrac{180^{\circ}}{\pi} = \dfrac{900^{\circ}}{\pi} \approx 286.4789^{\circ}$$
+
+&nbsp;
+
+-----
+
+**Example Three**
+
+&nbsp;
+
+Convert $\dfrac{\pi}{10}$ radians into degrees.
+
+&nbsp;
+
+$$\dfrac{\pi}{10} \times\dfrac{180^{\circ}}{\pi} = 18^{\circ}$$

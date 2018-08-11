@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>An Introduction To Set Theory &amp; Logic (Part 1/3)</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">An Introduction To Set Theory &amp; Logic (Part 1/3)</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hi there. This article is part one of a three part series of an introduction to set theory with some logic topics.</p>
+<p> </p>
+<div id="table-of-contents" class="section level3">
+<h3><u>Table of Contents</u></h3>
+<p> </p>
+<ul>
+<li><a href="#intro">Introduction</a></li>
+<li><a href="#definitions">Basic Definitions</a></li>
+<li><a href="#notation">Notation</a></li>
+<li><a href="#numbers">The Number System</a></li>
+<li><a href="#subsets">Subsets</a></li>
+</ul>
+<p> </p>
+<p><a name="intro"></a></p>
+</div>
+<div id="introduction" class="section level3">
+<h3><u>Introduction</u></h3>
+<p> </p>
+<p>Set Theory is an abstract mathematical topic dealing with sets and relations of objects. It is one of the foundational topics of mathematics (but we usually see calculus as introductory math courses at universities). To visualize sets, think of venn diagrams (see picture below). Set theory and logic is useful in areas such as mathematics, statistics, computer science (Boolean logic), philosophy and maybe even law (You need good arguments!).</p>
+<p>Here is an example of a Venn diagram.</p>
+<p> </p>
+<center>
+<img src="http://www.mrfleck.com/uploads/1/4/8/5/14858454/8909523_orig.jpg" />
+</center>
+<center>
+<a href="http://www.mrfleck.com/uploads/1/4/8/5/14858454/8909523_orig.jpg">Image Source</a>
+</center>
+<p> </p>
+<p><a name="definitions"></a></p>
+</div>
+<div id="basic-definitions" class="section level3">
+<h3><u>Basic Definitions</u></h3>
+<p> </p>
+<p>A set is any well defined collection of objects. The individual objects or items in a set are called elements or members of the set.</p>
+<p>Ok, what does that mean? Consider this example where we have a school backpack with objects inside. The backpack can be thought of as a set and the items inside such as books, pencils, pens, a calculator, and a lunch box can be thought as elements of that backpack.</p>
+<p>The number of elements an element can have can be finite (a whole positive number) or it can be infinite.</p>
+<p>An example of an infinite set is where you have a function such as <span class="math inline">\(y = x^2\)</span> where the domain <span class="math inline">\(x\)</span> can take on any real number. The solution set of <span class="math inline">\(x\)</span> is all real numbers which is an infinite set. (There are more tougher topics of set theory and infinity which won’t be covered here, this was just an example.)</p>
+<p>If we have two sets A or B which have the same elements then we say that sets A and B are equal. We denote this as <span class="math inline">\(A = B\)</span>. If the two sets A and B are not equal we denote it by <span class="math inline">\(A \neq B\)</span>.</p>
+<p> </p>
+<hr />
+<p><a name="notation"></a></p>
+</div>
+<div id="notation" class="section level3">
+<h3><u>Notation</u></h3>
+<p> </p>
+<p>Sets are often denoted by capital letters such as <span class="math inline">\(A, B, C, D, X, P, Q\)</span> and so forth.</p>
+<p>To denote elements in a list, we use curly brackets and separate elements with commas. For example, we have the set <span class="math inline">\(Q = \left\{1, 3, 5\right\}\)</span>. It is best to list sets with elements with small sets. Looking at a set with 10,000 elements on paper looks bad!</p>
+<p>With sets we do not do repeated elements when it comes to sets with repeated elements. Also, order does not matter. As an example <span class="math inline">\(\{1, 2\}\)</span> is the same set as <span class="math inline">\(\{2, 1\}\)</span> and <span class="math inline">\(\{1, 2, 2\}\)</span>.</p>
+<p> </p>
+<hr />
+<p><strong>Warning</strong></p>
+<p> </p>
+<p>If we have the functions <span class="math inline">\(f(x) = x\)</span> and <span class="math inline">\(g(x) = x^2\)</span> the solution sets for the functions are <span class="math inline">\(\{0, 0\} = \{0 \}\)</span>. The solution sets are the same but the functions are not!</p>
+<p> </p>
+<hr />
+<p>An element <span class="math inline">\(x\)</span> that is in set <span class="math inline">\(A\)</span> is denoted by <span class="math inline">\(x \in A\)</span>. You could also say that the element <span class="math inline">\(x\)</span> belongs to set <span class="math inline">\(A\)</span> or <span class="math inline">\(x\)</span> is an element of <span class="math inline">\(A\)</span>.</p>
+<p>An element <span class="math inline">\(x\)</span> that is not in set <span class="math inline">\(A\)</span> is denoted by <span class="math inline">\(x \notin A\)</span>. You could also say that the element <span class="math inline">\(x\)</span> does not belongs to set <span class="math inline">\(A\)</span> or <span class="math inline">\(x\)</span> is not an element of <span class="math inline">\(A\)</span>.</p>
+<hr />
+<p> </p>
+</div>
+<div id="the-empty-set" class="section level3">
+<h3><u>The Empty Set</u></h3>
+<p> </p>
+<p>A set which has no elements is the empty set denoted by <span class="math inline">\(\varnothing\)</span> or <span class="math inline">\(\{0 \}\)</span>. If we consider our backpack example, there is nothing inside the backpack.</p>
+<p>One should be careful with the empty set and zero. For example, the solution set for <span class="math inline">\(f(x) = x\)</span> is simply {0} where 0 is an element. In <span class="math inline">\(h(x) = x^2 + 5\)</span>, there is no real numbered root in the solution set. The solution set is empty denoted by <span class="math inline">\(\varnothing\)</span>.</p>
+<p>Note that <span class="math inline">\(\varnothing\)</span> is not the same as <span class="math inline">\(\{\varnothing\}\)</span>. <span class="math inline">\(\varnothing\)</span> represents nothing in a set while <span class="math inline">\(\{\varnothing\}\)</span> represents the empty set. With the backpack example, <span class="math inline">\(\varnothing\)</span> represents the nothing in the backpack while <span class="math inline">\(\{\varnothing\}\)</span> is the backpack which is empty.</p>
+<p> </p>
+<hr />
+<p> </p>
+</div>
+<div id="other-cases" class="section level3">
+<h3><u>Other Cases</u></h3>
+<p>A set with exactly one element is a singleton. Any set with exactly two elements is an unordered pair or just simply called a pair.</p>
+<p> </p>
+<hr />
+<p><a name="numbers"></a></p>
+</div>
+<div id="the-number-system" class="section level3">
+<h3><u>The Number System</u></h3>
+<p> </p>
+<p>The number system was not formally taught to me back in high school. I learned about the formal definitions of integers, natural numbers, rational numbers, real numbers better in university. A guide is presented below.</p>
+<p> </p>
+<hr />
+<p><strong>Natural Numbers</strong></p>
+<p> </p>
+<p>The natural numbers or the positive integers are pretty much counting numbers starting from 1 and going up. The set of all natural numbers is denoted by</p>
+<p><span class="math display">\[\mathbb{N} = \{1, 2, 3, \dots\}\]</span>.</p>
+<hr />
+<p><strong>Non-Negative Integers</strong></p>
+<p> </p>
+<p>The non-negative integers is just an extensive of the natural numbers. Instead of counting from 1, we start counting from 0 and then go up. The set of non-negative integers is</p>
+<p><span class="math display">\[\{0, 1, 2, 3, \dots\}\]</span></p>
+<p> </p>
+<hr />
+<p><strong>Integers</strong></p>
+<p> </p>
+<p>When negative whole numbers are added to non-negative integers, we get the integers. The integers is denoted by</p>
+<p><span class="math display">\[\mathbb{Z} = \{\dots, -3, -2, -1, 0, 1, 2, 3, \dots\} = \{0, \pm 1, \pm 2, \pm3, \dots\} \]</span></p>
+<hr />
+<p><strong>Rational Numbers (Fractions)</strong></p>
+<p> </p>
+<p>Rational numbers are better known as fractions where we have an integer in the numerator (top) and another non-zero integer in the denominator (bottom). These numbers do have a non-infinite (finite) number of decimals. The famous number Pi as <span class="math inline">\(\pi \approx 3.14 \dots\)</span> is not considered a rational number as the numbers go on forever after the decimal place.</p>
+<p>The mathematical definition is as follows.</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \mathbb{Q} = \{\dfrac{a}{b} : a, b \in \mathbb{Z}, b \neq 0 \} = \{\dfrac{a}{b} \text{ } | \text{ } a, b \in \mathbb{Z}, b \neq 0 \} \]</span></p>
+<p> </p>
+<p>The : and <span class="math inline">\(|\)</span> symbols mean “such that”. We read the above math notation as ``a divided by b where a and b are integers with b not being 0&quot; (Can’t divide by zero).</p>
+<hr />
+<p><strong>Real Numbers</strong></p>
+<p> </p>
+<p>The real numbers include the natural numbers, integers, rational numbers and numbers such as <span class="math inline">\(\pi \approx 3.14 \dots\)</span> with infinite decimal places. Another well-known real number is Euler’s constant of <span class="math inline">\(e \approx 2.718...\)</span>. The real numbers is denoted by <span class="math inline">\(\mathbb{R}\)</span>.</p>
+<hr />
+<p><strong>Complex Numbers</strong></p>
+<p> </p>
+<p>Remember when a high school math teacher told you can’t take a square root of a negative number? It is because it is not real. It belongs to the family of complex or imaginary numbers. The set of complex numbers is denoted by <span class="math inline">\(\mathbb{C}\)</span>.</p>
+<p>The complex number <span class="math inline">\(i\)</span> is defined as <span class="math inline">\(i = \sqrt{-1}\)</span>. Squaring <span class="math inline">\(i\)</span> gives us <span class="math inline">\(i^2 = -1\)</span>.</p>
+<hr />
+<p><a name="subsets"></a></p>
+</div>
+<div id="subsets" class="section level3">
+<h3><u>Subsets</u></h3>
+<p> </p>
+<p>To introduce subsets, we start with examples.</p>
+<p> </p>
+<ul>
+<li><p>The country Canada is a part of North America.</p></li>
+<li><p>The United States of America is a part of North America.</p></li>
+<li><p>North America is a part of the Earth. Thus, Canada is a part of North America and is part of the Earth.</p></li>
+<li><p>Austria is a part of Europe.</p></li>
+<li><p>An avocado is a fruit.</p></li>
+<li><p>Yoga is a form of exercise.</p></li>
+<li><p>Pikachu is an electric type Pokémon.</p></li>
+</ul>
+<p> </p>
+<p>From the examples above you can notice that we have an item or an object being a part of a larger collection of items or objects. This is pretty much of what a subset is.</p>
+<hr />
+</div>
+<div id="definition-of-a-subset" class="section level3">
+<h3><u>Definition of a Subset</u></h3>
+<p> </p>
+<p>A set <span class="math inline">\(A\)</span> is a subset of set <span class="math inline">\(B\)</span> if and only if (iff) every element of <span class="math inline">\(A\)</span> is an element of <span class="math inline">\(B\)</span>. We denote this as <span class="math inline">\(A \subseteq B\)</span> or <span class="math inline">\(B \supseteq A\)</span>.</p>
+<p>The if and only if (iff) part means that if A is a subset of B then every element of <span class="math inline">\(A\)</span> is an element of <span class="math inline">\(B\)</span> and that if every element of <span class="math inline">\(A\)</span> is an element of <span class="math inline">\(B\)</span> implies that set <span class="math inline">\(A\)</span> is a subset of <span class="math inline">\(B\)</span>. The if and only if works both ways.</p>
+<p>If set <span class="math inline">\(A\)</span> is not a subset of set <span class="math inline">\(B\)</span>, we would write <span class="math inline">\(A \not\subseteq B\)</span> or <span class="math inline">\(B \not\supseteq A\)</span>.</p>
+<p>A set <span class="math inline">\(A\)</span> being a proper subset of <span class="math inline">\(B\)</span> is denoted by <span class="math inline">\(A \subset B\)</span>.</p>
+<hr />
+</div>
+<div id="examples-of-subsets" class="section level3">
+<h3><u>Examples of Subsets</u></h3>
+<p> </p>
+<p><strong>Example One</strong></p>
+<p> </p>
+<p>We have two grocery stores called X and Y which offer certain vegetables as follows.</p>
+<p> </p>
+<p><span class="math display">\[X =\{Celeries, Carrots, Mushrooms, Tomatoes\} \]</span></p>
+<p> </p>
+<p>and</p>
+<p> </p>
+<p><span class="math display">\[Y = \{Mushrooms, Tomatoes\}\]</span></p>
+<p> </p>
+<p>Here we have the set Y being a subset of X as both sets have mushrooms and tomatoes but set X has celeries and carrots and set Y does not.</p>
+<p> </p>
+<hr />
+<p><strong>Example Two</strong></p>
+<p> </p>
+<p>Given a set <span class="math inline">\(A = \{1, 2\}\)</span> and <span class="math inline">\(B = \{1, 2, 7, 9, 11\}\)</span>, set <span class="math inline">\(A\)</span> is a (proper) subset of <span class="math inline">\(B\)</span> as 1 and 2 are in sets <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> and 7, 9 and 11 are in <span class="math inline">\(B\)</span> but not in <span class="math inline">\(A\)</span>.</p>
+<p> </p>
+<hr />
+<p><strong>Example Three</strong></p>
+<p>The empty set <span class="math inline">\(\varnothing\)</span> is a subset of <span class="math inline">\(C = \{1, 34, 7, 12, 11\}\)</span>. In general, the empty set is always a subset of a non-empty set.</p>
+<p> </p>
+<hr />
+<p><strong>Example Four</strong></p>
+<p>Suppose we are given a set <span class="math inline">\(A_1 = \{4, 7\}\)</span> and <span class="math inline">\(A_2 = \{\{7, 4\}, 7, 9, 11\}\)</span>. <span class="math inline">\(A_1\)</span> is a subset of <span class="math inline">\(A_2\)</span> since ${4, 7} = {7, 4} $ in <span class="math inline">\(A_1\)</span> is equal to <span class="math inline">\(\{7, 4\}\)</span> in <span class="math inline">\(A_2\)</span>. Also, <span class="math inline">\(A_2\)</span> has 7, 9 and 11 but <span class="math inline">\(A_1\)</span> does not.</p>
+<p> </p>
+<hr />
+</div>
+<div id="references" class="section level3">
+<h3><u>References</u></h3>
+<p>My own old notes and course pack book on an Introduction to Mathematical Proofs course.</p>
+<p>The featured image is from <a href="http://static1.creately.com/blog/wp-content/uploads/2014/07/Blank-Venn-Diagram-Template.png" class="uri">http://static1.creately.com/blog/wp-content/uploads/2014/07/Blank-Venn-Diagram-Template.png</a>.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

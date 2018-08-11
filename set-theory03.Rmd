@@ -1,0 +1,221 @@
+---
+title: "An Introduction To Set Theory & Logic (Part 3/3)"
+output: html_document
+---
+
+Source: https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Cartesian_Product_qtl1.svg/220px-Cartesian_Product_qtl1.svg.png
+
+
+Hello there. This is the last part of a three part Introduction to Set Theory and Logic.
+
+Part One of this introduction talked about definitions, notation with some examples. The number system was also covered.
+
+In Part Two, Venn diagrams were used to help with understanding relations between sets.
+
+Part Three will go into more detail about set operations and counting with sets.
+
+It is assumed that the reader is familiar with set theory concepts from parts one and two.
+
+&nbsp;
+
+### <u>Topics</u>
+
+&nbsp;
+
+* The Algebra of Sets
+* The Dual Of A Set
+* Finite Sets
+* Counting Principles
+* The Power Set
+* Ordered Pairs
+* Cartesian Products
+* Conclusion
+
+&nbsp;
+
+### <u>The Algebra of Sets</u>
+
+&nbsp;
+
+We continue from part 2 where we learned unions, intersections, complements, subtraction of sets, and symmetric differences with the help of Venn diagrams.
+
+Like in grade school, you learned about the rule of addition, subtraction, multiplication, division and so on. We do the same here with sets. Instead of me typing out the Laws of the Algebra of Sets, I will display an image.
+
+
+
+Source: http://engineeronadisk.com/V2/hugh_jack_unpublished/engineeronadisk-49.gif
+
+The above image displays a nice organized list of the laws. However the choice of symbols is weird in my opinion. Instead of the ampersand & use $\cap$ like in $A \cap B$ for intersections. Instead of the plus sign + use $\cup$ as in $A \cup B$ for unions. The overbar such as $\overline{A}$ for the complement of the set A is okay. You can use $A^{c} \text{ or } A'$ for complements as well.
+
+The one law missing from the above is the involution law $(A^{c})^{c} = A$. This one is somewhat obvious though.
+
+You could memorize these laws but it is not necessary (unless your math course wants you to). The one that is useful if you are in computer science and do computer programming is the DeMorgan's laws.
+
+&nbsp;
+
+### <u>The Dual Of A Set</u>
+
+&nbsp;
+
+In part two, we talked about complements of a set and how the complement of a set $A$ for example is all the elements not in $A$. We have a reverse (opposite) operation concept for the set algebra symbols $latex {\cup, \cap, U \text{ and } \varnothing$ called the dual.
+
+For example the dual of $(U \cap A) \cup B$ is $(U \cup A) \cap B$.
+
+&nbsp;
+
+### <u>Finite Sets</u>
+
+&nbsp;
+
+We then look at finite sets.
+
+A set is considered to be finite (or non-infinite) if it contains $k$ distinct (different) elements in the set where $k$ is a non-negative integer. A non finite set is an infinite set.
+
+Suppose we have the set $A$, the number of elements in set $A$ is denoted by $|A|$. Try to not get confused with the absolute value of numbers and functions as we are dealing with sets.
+
+In here, we deal with finite sets only and not with infinite sets as it is "infinitely" more abstract.
+
+&nbsp;
+
+### <u>Counting Principles</u>
+
+&nbsp;
+
+Now, we learn a new way of counting but through sets. The number of elements in a set is also called the cardinality of a set.
+
+If the set $A$ is $\{1, 19, 20\}$ then we say that set $A$ has 3 elements denoted by $|A| = 3.$
+
+If the set $B$ is $\{-2, 5, 20, 0\}$ then we say that set $B$ has 4 elements denoted by $|B| = 4.$
+
+The intersection $A \cap B$ is $\{20\}$ then we say that set $A \cap B$ has 1 element denoted by $|A \cap B| = 1.$
+
+What if we want the number of elements in the union $A \cup B$ denoted by $|A \cup B|$?
+
+We see that $A \cup B$ is $\{1, 19, -2, 5, 20, 20, 0\} = \{1, 19, -2, 5, 20, 0\}.$ Remember that sets do not have multiples of an element. The number of elements is not actually 3 from set A plus 4 from set B, it is actually 3 + 4 -1 (from the intersection) which equals 6. The minus is from $|A \cap B|$.
+
+We can generalize the above into a formula as follows for two sets.
+
+&nbsp;
+
+$$\displaystyle |A \cup B| = |A| + |B| - |A \cap B|$$
+
+&nbsp;
+
+As a reference, here is a Venn Diagram.
+
+&nbsp;
+
+<center><img src="https://www.easycalculation.com/algebra/venn.png" /></center>
+<center><a href="https://www.easycalculation.com/algebra/venn.png">Image Source</a></center>
+
+&nbsp;
+
+The three set case is a bit more involved. The formula is as follows
+
+&nbsp;
+
+$$\displaystyle |A \cup B| = |A| + |B| + |C| - |A \cap B| - |A \cap C| - |B \cap C| + |A \cap B \cap C|$$
+
+&nbsp;
+
+For probability and statistics students, there is a probability version of the counting principles. It is similar to the formulas above as it is based on set theory and Venn diagrams.
+
+&nbsp;
+
+### <u>The Power Set</u>
+
+&nbsp;
+
+Recall that a subset is a set which contains some or all of the elements of a larger set. For example, the set ${\{1, 2\}$ is a (proper) subset of $\{1, 2, 3, 4\}$.
+
+We now define the power set of set S denoted by $\mathcal{P}(S)$. Given a given set $S$, the power set $\mathcal{P}(S)$ is the class of all subsets of $S$.
+
+We can also find the number of elements in the power set of $S$. If the set $S$ is finite then the power set $ \mathcal{P}(S)$ is also finite. The number of elements in $\mathcal{P}(S)$ is $|\mathcal{P}(S)| = 2^{|S|}$. (2 to the power of the number of elements in set $S$).
+
+That may sound confusing at first. It will be clarified with an example.
+
+&nbsp;
+
+**Example**
+
+&nbsp;
+
+Suppose that the set $S$ is $S = \{a, b, c\}$. The power set $\mathcal{P}(S)$ contains all the subsets of $latex {\{a, b, c\}$ which would be
+
+&nbsp;
+
+$$\displaystyle \mathcal{P}(S) = \{\varnothing, S, \{a\}, \{b\}, \{c\}, \{a, b\}, \{a, c\}, \{b, c\}$$
+
+&nbsp;
+
+Remember that the empty set $\varnothing$ is a subset of a non-empty set. The set $S$ itself is also a subset of $S$ and it is thus a subset of $\mathcal{P}(S)$.
+
+The number of elements in this power set is $|\mathcal{P}(S)| = 2^{|S|} = 2^{3} = 8 }$.
+
+&nbsp;
+
+### <u>Ordered Pairs</u>
+
+&nbsp;
+
+An ordered pair is similar to a co-ordinate on the xy-plane. Here, the ordered denoted by (a, b) is defined as having a as the first element and b as the second element.
+
+With sets order did not matter but with ordered pairs, order does matter . For example, the sets $latex {\{1, 2\}$ is the same as $\{2, 1\}$ but $(1, 2) \neq (2, 1)$. In general, $(a, b) \neq (b, a)$ unless $a = b$.
+
+&nbsp;
+
+### <u>Cartesian Products</u>
+
+&nbsp;
+
+The last topic of this three part series is the Cartesian product of two sets $A$ and $B$. The Cartesian product of sets $A$ and $B$ is denoted by $A \times B$ or "A cross B". It is the set of all ordered pairs (a, b) such that $ a \in A$ and $b \in B$ or $A \times B = \{(a, b) : a \in A, b\in B\}$.
+
+If we have $A \times A$ then that can be written as $A^{2}$. If set $A$ or set $B$ (or both of them) is empty ($\varnothing$) then the Cartesian product is empty as well.
+
+Remember that the real line $\mathbb{R}$ is in one dimension. The two dimensional real space $\mathbb{R}^2$ comes from $\mathbb{R} \times \mathbb{R}$.
+
+Here is an example of how the Cartesian product operates.
+
+Suppose we have the set $P = \{Charlie, Tim\}$ and $Q = \{1, 2, 3\}$. What are $P \times Q$, $Q \times P$ and $P \times P$?
+
+&nbsp;
+
+**Answer**
+
+&nbsp;
+
+$$\displaystyle P \times Q = \{ (Charlie, 1), (Charlie, 2), (Charlie, 3), (Tim, 1), (Tim, 2), (Tim, 3)\}$$
+
+&nbsp;
+
+$$\displaystyle Q \times P = \{ (1, Charlie), (1, Tim), (2, Charlie), (2, Tim), (3, Charlie), (3, Tim) \}$$
+
+&nbsp;
+
+$$\displaystyle P \times P = \{ (Charlie, Charlie), (Charlie, Tim), (Tim, Charlie), (Tim, Tim)\}$$
+
+&nbsp;
+
+Think of the Cartesian products as all possible combinations between two sets.
+
+We saw that $P \times Q$ and $Q \times P$ have 6 elements from $2 \times 3$ and $3 \times 2$ respectively. $P \times P$ contained 4 elements ($2 \times 2$).
+
+A generalized result can be defined here. If sets $A$ and $B$ are sets with a finite number of elements then $|A \times B| = |A| \cdot |B|$.
+
+&nbsp;
+
+### <u>Conclusion</u>
+
+&nbsp;
+
+This is the end of the three part series of An Introduction to Set Theory and Logic. I hope this series was useful or interesting to you. You may or may not absorb of all the material. However, you may realize that mathematics is more than numbers and calculus. There are so many branches of mathematics and a good portion of them do not have numbers.
+
+&nbsp;
+
+### <u>References</u>
+
+&nbsp;
+
+Material is from old notes and from a coursepack book from my undergraduate university for the course Introduction to Mathematical Proofs.
+
+The featured image is from https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Cartesian_Product_qtl1.svg/220px-Cartesian_Product_qtl1.svg.png

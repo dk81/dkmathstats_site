@@ -10,7 +10,7 @@ navbar:
     - text: "Math & Stats Pages"
       href: mathstats_pages.html
     - text: "R Programming Projects"     
-      href: projects.html
+      href: r-projects.html
 output:
   html_document:
     theme: flatly

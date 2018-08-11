@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>A Guide To Matrix Multiplication</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">A Guide To Matrix Multiplication</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hello. Here is a guide on matrix multiplication in the field of linear algebra.</p>
+<p>Matrix multiplication is an operation similar to addition, subtraction, multiplication and division but it is for matrices.</p>
+<p>Before we get into matrix multiplication, let’s review the dimensions of a matrix.</p>
+<p> </p>
+<hr />
+<div id="dimensions-of-matrices" class="section level3">
+<h3><u>Dimensions of Matrices</u></h3>
+<p> </p>
+<p>Suppose we have a matrix such as:</p>
+<p><span class="math display">\[A = \begin{bmatrix}
+8 &amp; 2 &amp; 1\\ 
+-1 &amp; -2 &amp; 0 \\ 
+\end{bmatrix}\]</span></p>
+<p> </p>
+<p>This matrix <span class="math inline">\(A\)</span> has 2 rows and 3 columns. Rows go from left to right and follow a horizontal fashion while columns are from top to bottom in a vertical manner. Since <span class="math inline">\(A\)</span> has 2 rows and 3 columns, we say that <span class="math inline">\(A\)</span> is a 2 by 3 matrix.</p>
+<p>The first row of A contain the entries 8, 2 and 1 and the second row contains the entries of -1, -2 and 0.</p>
+<p>With the columns, the first column of A has 8 and -1, the second column has 2 and -2 and the last column has 1 and 0.</p>
+<p>Suppose we have a matrix B which is:</p>
+<p><span class="math display">\[B = \begin{bmatrix}
+1 &amp; 4 &amp; 10\\ 
+-1 &amp; 7 &amp; -5 \\ 
+2 &amp; 9 &amp; 3 \\ 
+\end{bmatrix}\]</span></p>
+<p>The matrix <span class="math inline">\(B\)</span> has 3 rows and 3 columns. Whenever a matrix has the same number of rows as it does the number of columns,we say that the matrix is a square matrix. In this case, B is a square matrix. In Linear Algebra, square matrices have a lot neat and special properties.</p>
+<p> </p>
+<hr />
+<p> </p>
+<p>In regular multiplication, two numbers are needed to create an answer called the product. Two times three gives six for example.</p>
+<p>Matrix multiplication does not operate exactly like regular multiplication but it does require two matrices under a certain condition to create an output.</p>
+<p>Instead of showing the general formula, a simple example will be shown first.</p>
+<p>Suppose we have</p>
+<p> </p>
+<p><span class="math display">\[C = \begin{bmatrix} 1 &amp; -1 \end{bmatrix}\]</span></p>
+<p> </p>
+<p>which is a 1 by 2 matrix and a 2 by 2 matrix <span class="math inline">\(D = \begin{bmatrix} 5 &amp; 3\\ -1 &amp; 0 \\ \end{bmatrix}\)</span>.</p>
+<p>We can matrix multiply the matrix <span class="math inline">\(C\)</span> with <span class="math inline">\(D\)</span> to create <span class="math inline">\(CD\)</span> since the number of columns of <span class="math inline">\(C\)</span> matches the number of rows from the matrix <span class="math inline">\(D\)</span> which is 2.</p>
+<p>Matrix multiplying to get <span class="math inline">\(DC\)</span> is not possible as the number of columns in <span class="math inline">\(D\)</span> is 2 which does not match the one row in matrix <span class="math inline">\(C\)</span>.</p>
+<p>The resulting matrix <span class="math inline">\(CD\)</span> from matrix multiplication is a 1 by 2 matrix. The matrix <span class="math inline">\(CD\)</span> has one row from the one row from <span class="math inline">\(C\)</span> and <span class="math inline">\(CD\)</span> has 2 columns from the 2 columns of <span class="math inline">\(D\)</span>. The matrix <span class="math inline">\(CD\)</span> is:</p>
+<p> </p>
+<p><span class="math display">\[CD = \begin{bmatrix}  (5 \times 1) + (-1 \times -1) &amp; (1 \times 3) + (-1 \times 0)\\ \end{bmatrix} = \begin{bmatrix} 6 &amp; 3  \end{bmatrix}\]</span></p>
+<p> </p>
+<p>The first entry of the first row in <span class="math inline">\(C\)</span> is multiplied by the first entry in the first column of <span class="math inline">\(D\)</span> added by the second entry in the first row of <span class="math inline">\(C\)</span> multiplied by the second entry in the first column of <span class="math inline">\(D\)</span>. This gives the 6 as the first row, first column entry in <span class="math inline">\(CD\)</span>.</p>
+<p>To get the 3, we use the row from <span class="math inline">\(C\)</span> but use the second column from <span class="math inline">\(D\)</span>.</p>
+<hr />
+<p><strong>A Guideline</strong></p>
+<p>If the matrix <span class="math inline">\(A\)</span> has <span class="math inline">\(r_1\)</span> many rows and <span class="math inline">\(c_1\)</span> many columns and if the matrix <span class="math inline">\(B\)</span> has <span class="math inline">\(r_2\)</span> many rows and <span class="math inline">\(c_2\)</span> many columns then the matrix <span class="math inline">\(AB\)</span> exists if <span class="math inline">\(c_1 = r_2\)</span>. That is, the number of columns in <span class="math inline">\(A\)</span> is equal to the number of rows in <span class="math inline">\(B\)</span>.</p>
+<p>The resulting matrix <span class="math inline">\(AB\)</span> would have <span class="math inline">\(r_1\)</span> many rows and <span class="math inline">\(c_2\)</span> many columns.</p>
+<p>% Image: <a href="http://www.coolmath.com/sites/cmat/files/images/04-matrices-03.gif" class="uri">http://www.coolmath.com/sites/cmat/files/images/04-matrices-03.gif</a></p>
+<hr />
+<p> </p>
+</div>
+<div id="examples" class="section level3">
+<h3><u>Examples</u></h3>
+<p> </p>
+<p><strong>Example One</strong></p>
+<p> </p>
+<p>Given the matrices <span class="math inline">\(A = \begin{bmatrix} 1 &amp; -2 \\ 3 &amp; -1 \\ \end{bmatrix}\)</span> and <span class="math inline">\(B = \begin{bmatrix} 1 \\ 2 \end{bmatrix}\)</span>, does <span class="math inline">\(AB\)</span> exist? If so, what is <span class="math inline">\(AB\)</span>? Does <span class="math inline">\(BA\)</span> exist? If so, what is <span class="math inline">\(BA\)</span>?</p>
+<p> </p>
+<p>Solution:</p>
+<p> </p>
+<p>The matrix <span class="math inline">\(A\)</span> is a 2 by 2 matrix and <span class="math inline">\(B\)</span> is a 2 by 1 matrix. The matrix <span class="math inline">\(AB\)</span> does exist since the number of columns in <span class="math inline">\(A\)</span> matches the number of rows in <span class="math inline">\(B\)</span> which is 2.</p>
+<p>Through matrix multiplication, <span class="math inline">\(AB\)</span> is:</p>
+<p> </p>
+<p><span class="math display">\[AB = \begin{bmatrix}
+(1 \times 1) + (-2 \times 2)\\ 
+(3 \times 1) + (-1 \times 2) \\ 
+\end{bmatrix}  
+= 
+\begin{bmatrix} 
+(1 - 4)\\
+(3 - 2)\\
+\end{bmatrix}
+= 
+\begin{bmatrix} 
+-3\\
+1\\
+\end{bmatrix}\]</span></p>
+<p> </p>
+<p><strong>Example Two</strong></p>
+<p> </p>
+<p>In this example we are given:</p>
+<p> </p>
+<p><span class="math display">\[A = \begin{bmatrix}
+1 &amp; 7 \\ 
+3 &amp; 2  \\ 
+4 &amp; 6  \\ 
+\end{bmatrix}  \]</span></p>
+<p> </p>
+<p>and</p>
+<p> </p>
+<p><span class="math display">\[B = \begin{bmatrix}
+1 &amp; 0 &amp; 5\\ 
+0 &amp; 4 &amp; 2 \\ 
+1 &amp; 1 &amp; 0 \\ 
+\end{bmatrix}\]</span></p>
+<p> </p>
+<p>What is BA?</p>
+<p>The matrix <span class="math inline">\(B\)</span> is a 3 by 3 matrix and <span class="math inline">\(A\)</span> is a 3 by 2 matrix. Matrix multiplication can be applied and <span class="math inline">\(BA\)</span> would be a 3 by 2 matrix.</p>
+<p> </p>
+<p><span class="math display">\[BA = \begin{bmatrix}
+1 &amp; 0 &amp; 5\\ 
+0 &amp; 4 &amp; 2 \\ 
+1 &amp; 1 &amp; 0 \\ 
+\end{bmatrix}
+\begin{bmatrix}
+1 &amp; 7 \\ 
+3 &amp; 2  \\ 
+4 &amp; 6  \\ 
+\end{bmatrix} 
+\]</span>  </p>
+<p><span class="math display">\[ BA =
+\begin{bmatrix}
+(1 \times 1 + 0 \times 3+ 5 \times 4) &amp; (1 \times 7 + 0 \times 2 + 5 \times 6)\\ 
+(0 \times 1 + 4 \times 3+ 2 \times 4) &amp; (0 \times 7 + 4 \times 2 + 2 \times 6)\\ 
+(1 \times 1 + 1 \times 3+ 0 \times 4) &amp; (1 \times 7 + 1 \times 2 + 0 \times 6) \\ 
+\end{bmatrix}  
+\]</span></p>
+<p> </p>
+<p><span class="math display">\[ BA =
+\begin{bmatrix} 
+(1 + 0 + 20) &amp; (7 + 0  + 30)\\ 
+(0 + 12 + 8) &amp; (0 + 8  + 12)\\ 
+(1 + 3 + 0) &amp; (7 + 2  + 0)\\ 
+\end{bmatrix}
+\]</span></p>
+<p> </p>
+<p><span class="math display">\[ BA = 
+\begin{bmatrix} 
+21 &amp; 37\\ 
+20 &amp; 20\\ 
+4 &amp; 9\\ 
+\end{bmatrix}\]</span></p>
+<p> </p>
+<hr />
+<p><strong>Notes</strong></p>
+<p> </p>
+<p>Matrix multiplication is used often when dealing with matrices. You first learn this topic by hand as an introduction.</p>
+<p>When matrices get larger the use of computer software such as R, MATLAB, Python, C, C++ would be preferred.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

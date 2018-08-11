@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Angles - Degrees &amp; Radians</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Angles - Degrees &amp; Radians</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hi. This page will be about angle measures from degrees to radians.</p>
+<p> </p>
+<div id="table-of-contents" class="section level3">
+<h3><u>Table Of Contents</u></h3>
+<p> </p>
+<ul>
+<li><p>A Short Introduction To Radians</p></li>
+<li><p>Degrees To Radians and Radians to Degrees</p></li>
+<li><p>Reference Angles</p></li>
+<li><p>Examples</p></li>
+</ul>
+<p> </p>
+</div>
+<div id="a-short-introduction-to-radians" class="section level3">
+<h3><u>A Short Introduction To Radians</u></h3>
+<p> </p>
+<p>When it comes to angles, degrees are common and are well known. In higher level mathematics, degrees are not used very much when it comes to calculations. Instead of degrees, radians are used to represent angles. One radian unit represents 57.296 degrees. In a complete circle, there are 360 degrees. In radians, this 360 degrees is equivalent to 2<span class="math inline">\(\pi\)</span> (Pi). <span class="math inline">\(\pi\)</span> is known as the numerical value of approximately 3.14 but it also can be expressed as an angle where <span class="math inline">\(\pi = 180^{\circ}\)</span> or <span class="math inline">\(2\pi = 360^{\circ}\)</span> .</p>
+<p>(In Canada, kilometres are used to measure distance. In other places such as the United States, miles are used instead of kilometres. The term radians is like kilometres while degrees is like miles.)</p>
+<p>A radian is an angle measure based on the radius of a circle. In a 4 quadrant system, 0<span class="math inline">\(\pi\)</span> starts when <span class="math inline">\(y= 0\)</span> and for <span class="math inline">\(x \geq 0\)</span>. A positive angle (in degrees or radians) is in the counter-clockwise direction while negative angles are in the clockwise direction.</p>
+<p>In a (scientific) calculator, angles are in degrees when the calculator is in degree mode specified by DEG at the top of the calculator screen. If the calculator screen has RAD, the angles are in radians. (There is also GRAD for gradients but that would not be covered here.)</p>
+<p>Here is a unit circle visual which showcases key reference angles in both degrees and in radians. These angles are positive so the direction is in the counter-clockwise direction.</p>
+<p>   </p>
+<center>
+<img src="http://image.mathcaptain.com/cms/images/81/unit-radian-circle.png
+" />
+</center>
+<center>
+<a href="http://image.mathcaptain.com/cms/images/81/unit-radian-circle.png
+">Image Source</a>
+</center>
+<p>   </p>
+</div>
+<div id="degrees-to-radians-and-radians-to-degrees" class="section level3">
+<h3><u>Degrees To Radians and Radians to Degrees</u></h3>
+<p> </p>
+<p>Depending on the problem and context, we may need to switch from degrees to radians and vice-versa.</p>
+<p>Suppose we have an angle <span class="math inline">\(x\)</span> in degrees. To go from degrees to radians, the conversion would be something like:</p>
+<p> </p>
+<p><span class="math display">\[x \times\dfrac{\pi}{180^{\circ}}\]</span></p>
+<p> </p>
+<p>The degrees would divide each other out and the answer would be in radians.</p>
+<p>Suppose we have an angle <span class="math inline">\(y\)</span> in radians. To go from radians to degrees, the conversion would be:</p>
+<p> </p>
+<p><span class="math display">\[y \times\dfrac{180^{\circ}}{\pi}\]</span></p>
+<p> </p>
+<p>The resulting answer would be in degrees. Recall that <span class="math inline">\(\pi \approx 3.14\)</span>.</p>
+<p> </p>
+</div>
+<div id="reference-angles" class="section level3">
+<h3><u>Reference Angles</u></h3>
+<p> </p>
+<p>When it comes to reference angles these angles are common angles. Common angles include <span class="math inline">\(0^{\circ}\)</span>, <span class="math inline">\(30^{\circ}\)</span>, <span class="math inline">\(45^{\circ}\)</span>, <span class="math inline">\(60^{\circ}\)</span>, <span class="math inline">\(90^{\circ}\)</span>, <span class="math inline">\(180^{\circ}\)</span>, <span class="math inline">\(270^{\circ}\)</span> and <span class="math inline">\(360^{\circ}\)</span>.</p>
+<p> </p>
+<p><span class="math display">\[\begin{array}{|c|c|}
+\hline
+\text{Degrees } (^{\circ}) &amp; \text{Radians} \\
+\hline \hline
+0 &amp; 0 \\ \hline
+30 &amp; \pi \div 6 \\ \hline
+45 &amp; \pi \div 4\\ \hline
+60 &amp; \pi \div 3 \\ \hline
+90 &amp; \pi \div 2\\ \hline
+180 &amp; \pi \\ \hline
+270 &amp; 3\pi \div 2 \\ \hline
+360 &amp; 2\pi \\ \hline
+\end{array}\]</span></p>
+<p> </p>
+</div>
+<div id="examples" class="section level3">
+<h3><u>Examples</u></h3>
+<p> </p>
+<p><strong>Example One</strong></p>
+<p> </p>
+<p>Convert <span class="math inline">\(200^{\circ}\)</span> into radians.</p>
+<p> </p>
+<p><span class="math display">\[200^{\circ} \times \dfrac{\pi}{180^{\circ}} = \dfrac{10 \pi}{9} \approx 3.4907\]</span></p>
+<p> </p>
+<hr />
+<p><strong>Example Two</strong></p>
+<p> </p>
+<p>Convert <span class="math inline">\(5\)</span> radians into degrees.</p>
+<p> </p>
+<p><span class="math display">\[5 \times\dfrac{180^{\circ}}{\pi} = \dfrac{900^{\circ}}{\pi} \approx 286.4789^{\circ}\]</span></p>
+<p> </p>
+<hr />
+<p><strong>Example Three</strong></p>
+<p> </p>
+<p>Convert <span class="math inline">\(\dfrac{\pi}{10}\)</span> radians into degrees.</p>
+<p> </p>
+<p><span class="math display">\[\dfrac{\pi}{10} \times\dfrac{180^{\circ}}{\pi} = 18^{\circ}\]</span></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

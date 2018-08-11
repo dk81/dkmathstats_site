@@ -1,0 +1,55 @@
+---
+title: "R Programming Projects"
+output: html_document
+---
+
+&nbsp;
+
+This page contains links on a bunch of R programming projects. 
+
+&nbsp;
+
+### <u>Math & Stats In R</u>
+
+&nbsp;
+
+[Mode Function In R](./rmath-mode-function.html)
+
+[Cartesian Products In R](./rmath-cartesian-prod.html)
+
+[Vector Cross Products In R](./rmath-cross-prod-r.html)
+
+[Fibonacci Sequence Numbers In R](./rmath-fibonacci.html)
+
+[The Quadratic Formula In R](./rmath-quad-formula-r.html)
+
+[Plotting Math Functions In R](./rmath-plotting-math-functions.html)
+
+
+&nbsp;
+
+### <u>Data Visualization In R</u>
+
+&nbsp;
+
+
+
+### <u>Data Analysis & Data Manipulation In R</u>
+
+&nbsp;
+
+
+
+
+&nbsp;
+
+### <u>Text Mining & Text Analysis In R</u>
+
+&nbsp;
+
+
+&nbsp;
+
+### <u>Machine Learning Experimental Work</u>
+
+&nbsp;
