@@ -1,4 +1,9 @@
-﻿---
+---
+title: "An Introduction To Set Theory & Logic (Part 1/3)"
+output: html_document
+---
+
+ï»¿---
 title: "An Introduction To Set Theory & Logic (Part 1/3)"
 output: html_document
 ---
@@ -219,7 +224,7 @@ To introduce subsets, we start with examples.
 
 * Yoga is a form of exercise.
 
-* Pikachu is an electric type Pokémon.
+* Pikachu is an electric type Pokemon.
 
 &nbsp;
 
