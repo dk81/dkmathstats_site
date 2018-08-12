@@ -157,7 +157,7 @@ $$\{0, 1, 2, 3, \dots\}$$
 
 When negative whole numbers are added to non-negative integers, we get the integers. The integers is denoted by
 
-$$\mathbb{Z} = \{\dots, -3, -2, -1, 0, 1, 2, 3, \dots\} = \{0, \pm 1, \pm 2, \pm3, \dots\} $$
+$$\mathbb{Z} = \{\dots, -3, -2, -1, 0, 1, 2, 3, \dots\} = \{0, \pm 1, \pm 2, \pm3, \dots\}$$
 
 ---
 
@@ -171,11 +171,11 @@ The mathematical definition is as follows.
 
 &nbsp;
 
-$$\displaystyle \mathbb{Q} = \{\dfrac{a}{b} : a, b \in \mathbb{Z}, b \neq 0 \} = \{\dfrac{a}{b} \text{ } | \text{ } a, b \in \mathbb{Z}, b \neq 0 \} $$
+$$\displaystyle \mathbb{Q} = \{\dfrac{a}{b} : a, b \in \mathbb{Z}, b \neq 0 \} = \{\dfrac{a}{b} \text{ } | \text{ } a, b \in \mathbb{Z}, b \neq 0 \}$$
 
 &nbsp;
 
-The : and $|$ symbols mean "such that". We read the above math notation as ``a divided by b where a and b are integers with b not being 0" (Can't divide by zero).
+The : and $|$ symbols mean "such that". We read the above math notation as "a divided by b where a and b are integers with b not being 0" (Can't divide by zero).
 
 ---
 
