@@ -210,7 +210,7 @@ $(document).ready(function () {
 </div>
 
 
-<p>Source: <a href="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Cartesian_Product_qtl1.svg/220px-Cartesian_Product_qtl1.svg.png" class="uri">https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Cartesian_Product_qtl1.svg/220px-Cartesian_Product_qtl1.svg.png</a></p>
+<p> </p>
 <p>Hello there. This is the last part of a three part Introduction to Set Theory and Logic.</p>
 <p>Part One of this introduction talked about definitions, notation with some examples. The number system was also covered.</p>
 <p>In Part Two, Venn diagrams were used to help with understanding relations between sets.</p>
@@ -221,34 +221,37 @@ $(document).ready(function () {
 <h3><u>Topics</u></h3>
 <p> </p>
 <ul>
-<li>The Algebra of Sets</li>
-<li>The Dual Of A Set</li>
-<li>Finite Sets</li>
-<li>Counting Principles</li>
-<li>The Power Set</li>
-<li>Ordered Pairs</li>
-<li>Cartesian Products</li>
-<li>Conclusion</li>
+<li><a href="#algebra">The Algebra of Sets</a></li>
+<li><a href="#dual">The Dual Of A Set</a></li>
+<li><a href="#finite">Finite Sets</a></li>
+<li><a href="#count">Counting Principles</a></li>
+<li><a href="#power">The Power Set</a></li>
+<li><a href="#ordered">Ordered Pairs</a></li>
+<li><a href="#cartesian">Cartesian Products</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+<li><a href="#references">References</a></li>
 </ul>
 <p> </p>
+<p><a name="algebra"></a></p>
 </div>
 <div id="the-algebra-of-sets" class="section level3">
 <h3><u>The Algebra of Sets</u></h3>
 <p> </p>
 <p>We continue from part 2 where we learned unions, intersections, complements, subtraction of sets, and symmetric differences with the help of Venn diagrams.</p>
-<p>Like in grade school, you learned about the rule of addition, subtraction, multiplication, division and so on. We do the same here with sets. Instead of me typing out the Laws of the Algebra of Sets, I will display an image.</p>
-<p>Source: <a href="http://engineeronadisk.com/V2/hugh_jack_unpublished/engineeronadisk-49.gif" class="uri">http://engineeronadisk.com/V2/hugh_jack_unpublished/engineeronadisk-49.gif</a></p>
+<p>Like in grade school, you learned about the rule of addition, subtraction, multiplication, division and so on. We do the same here with sets. Instead of me typing out the Laws of the Algebra of Sets, I will put a <a href="https://www.quora.com/What-are-the-applications-of-set-union-and-set-intersection-in-the-field-of-statistics">link</a>.</p>
 <p>The above image displays a nice organized list of the laws. However the choice of symbols is weird in my opinion. Instead of the ampersand &amp; use <span class="math inline">\(\cap\)</span> like in <span class="math inline">\(A \cap B\)</span> for intersections. Instead of the plus sign + use <span class="math inline">\(\cup\)</span> as in <span class="math inline">\(A \cup B\)</span> for unions. The overbar such as <span class="math inline">\(\overline{A}\)</span> for the complement of the set A is okay. You can use <span class="math inline">\(A^{c} \text{ or } A&#39;\)</span> for complements as well.</p>
 <p>The one law missing from the above is the involution law <span class="math inline">\((A^{c})^{c} = A\)</span>. This one is somewhat obvious though.</p>
 <p>You could memorize these laws but it is not necessary (unless your math course wants you to). The one that is useful if you are in computer science and do computer programming is the DeMorgan’s laws.</p>
 <p> </p>
+<p><a name="dual"></a></p>
 </div>
 <div id="the-dual-of-a-set" class="section level3">
 <h3><u>The Dual Of A Set</u></h3>
 <p> </p>
-<p>In part two, we talked about complements of a set and how the complement of a set <span class="math inline">\(A\)</span> for example is all the elements not in <span class="math inline">\(A\)</span>. We have a reverse (opposite) operation concept for the set algebra symbols <span class="math inline">\(latex {\cup, \cap, U \text{ and } \varnothing\)</span> called the dual.</p>
+<p>In part two, we talked about complements of a set and how the complement of a set <span class="math inline">\(A\)</span> for example is all the elements not in <span class="math inline">\(A\)</span>. We have a reverse (opposite) operation concept for the set algebra symbols <span class="math inline">\({\cup, \cap, U} \text{ and } \varnothing\)</span> called the dual.</p>
 <p>For example the dual of <span class="math inline">\((U \cap A) \cup B\)</span> is <span class="math inline">\((U \cup A) \cap B\)</span>.</p>
 <p> </p>
+<p><a name="finite"></a></p>
 </div>
 <div id="finite-sets" class="section level3">
 <h3><u>Finite Sets</u></h3>
@@ -258,6 +261,7 @@ $(document).ready(function () {
 <p>Suppose we have the set <span class="math inline">\(A\)</span>, the number of elements in set <span class="math inline">\(A\)</span> is denoted by <span class="math inline">\(|A|\)</span>. Try to not get confused with the absolute value of numbers and functions as we are dealing with sets.</p>
 <p>In here, we deal with finite sets only and not with infinite sets as it is “infinitely” more abstract.</p>
 <p> </p>
+<p><a name="count"></a></p>
 </div>
 <div id="counting-principles" class="section level3">
 <h3><u>Counting Principles</u></h3>
@@ -272,46 +276,40 @@ $(document).ready(function () {
 <p> </p>
 <p><span class="math display">\[\displaystyle |A \cup B| = |A| + |B| - |A \cap B|\]</span></p>
 <p> </p>
-<p>As a reference, here is a Venn Diagram.</p>
-<p> </p>
-<center>
-<img src="https://www.easycalculation.com/algebra/venn.png" />
-</center>
-<center>
-<a href="https://www.easycalculation.com/algebra/venn.png">Image Source</a>
-</center>
-<p> </p>
 <p>The three set case is a bit more involved. The formula is as follows</p>
 <p> </p>
 <p><span class="math display">\[\displaystyle |A \cup B| = |A| + |B| + |C| - |A \cap B| - |A \cap C| - |B \cap C| + |A \cap B \cap C|\]</span></p>
 <p> </p>
 <p>For probability and statistics students, there is a probability version of the counting principles. It is similar to the formulas above as it is based on set theory and Venn diagrams.</p>
 <p> </p>
+<p><a name="power"></a></p>
 </div>
 <div id="the-power-set" class="section level3">
 <h3><u>The Power Set</u></h3>
 <p> </p>
-<p>Recall that a subset is a set which contains some or all of the elements of a larger set. For example, the set <span class="math inline">\({\{1, 2\}\)</span> is a (proper) subset of <span class="math inline">\(\{1, 2, 3, 4\}\)</span>.</p>
+<p>Recall that a subset is a set which contains some or all of the elements of a larger set. For example, the set <span class="math inline">\({1, 2}\)</span> is a (proper) subset of <span class="math inline">\(\{1, 2, 3, 4\}\)</span>.</p>
 <p>We now define the power set of set S denoted by <span class="math inline">\(\mathcal{P}(S)\)</span>. Given a given set <span class="math inline">\(S\)</span>, the power set <span class="math inline">\(\mathcal{P}(S)\)</span> is the class of all subsets of <span class="math inline">\(S\)</span>.</p>
 <p>We can also find the number of elements in the power set of <span class="math inline">\(S\)</span>. If the set <span class="math inline">\(S\)</span> is finite then the power set $ (S)$ is also finite. The number of elements in <span class="math inline">\(\mathcal{P}(S)\)</span> is <span class="math inline">\(|\mathcal{P}(S)| = 2^{|S|}\)</span>. (2 to the power of the number of elements in set <span class="math inline">\(S\)</span>).</p>
 <p>That may sound confusing at first. It will be clarified with an example.</p>
 <p> </p>
 <p><strong>Example</strong></p>
 <p> </p>
-<p>Suppose that the set <span class="math inline">\(S\)</span> is <span class="math inline">\(S = \{a, b, c\}\)</span>. The power set <span class="math inline">\(\mathcal{P}(S)\)</span> contains all the subsets of <span class="math inline">\(latex {\{a, b, c\}\)</span> which would be</p>
+<p>Suppose that the set <span class="math inline">\(S\)</span> is <span class="math inline">\(S = \{a, b, c\}\)</span>. The power set <span class="math inline">\(\mathcal{P}(S)\)</span> contains all the subsets of <span class="math inline">\({a, b, c}\)</span> which would be</p>
 <p> </p>
-<p><span class="math display">\[\displaystyle \mathcal{P}(S) = \{\varnothing, S, \{a\}, \{b\}, \{c\}, \{a, b\}, \{a, c\}, \{b, c\}\]</span></p>
+<p><span class="math display">\[\displaystyle \mathcal{P}(S) = \{\varnothing, S, \{a\}, \{b\}, \{c\}, \{a, b\}, \{a, c\}, \{b, c\}\}\]</span></p>
 <p> </p>
 <p>Remember that the empty set <span class="math inline">\(\varnothing\)</span> is a subset of a non-empty set. The set <span class="math inline">\(S\)</span> itself is also a subset of <span class="math inline">\(S\)</span> and it is thus a subset of <span class="math inline">\(\mathcal{P}(S)\)</span>.</p>
-<p>The number of elements in this power set is <span class="math inline">\(|\mathcal{P}(S)| = 2^{|S|} = 2^{3} = 8 }\)</span>.</p>
+<p>The number of elements in this power set is <span class="math inline">\(|\mathcal{P}(S)| = 2^{|S|} = 2^{3} = 8\)</span>.</p>
 <p> </p>
+<p><a name="ordered"></a></p>
 </div>
 <div id="ordered-pairs" class="section level3">
 <h3><u>Ordered Pairs</u></h3>
 <p> </p>
 <p>An ordered pair is similar to a co-ordinate on the xy-plane. Here, the ordered denoted by (a, b) is defined as having a as the first element and b as the second element.</p>
-<p>With sets order did not matter but with ordered pairs, order does matter . For example, the sets <span class="math inline">\(latex {\{1, 2\}\)</span> is the same as <span class="math inline">\(\{2, 1\}\)</span> but <span class="math inline">\((1, 2) \neq (2, 1)\)</span>. In general, <span class="math inline">\((a, b) \neq (b, a)\)</span> unless <span class="math inline">\(a = b\)</span>.</p>
+<p>With sets order did not matter but with ordered pairs, order does matter . For example, the sets <span class="math inline">\({1, 2}\)</span> is the same as <span class="math inline">\(\{2, 1\}\)</span> but <span class="math inline">\((1, 2) \neq (2, 1)\)</span>. In general, <span class="math inline">\((a, b) \neq (b, a)\)</span> unless <span class="math inline">\(a = b\)</span>.</p>
 <p> </p>
+<p><a name="cartesian"></a></p>
 </div>
 <div id="cartesian-products" class="section level3">
 <h3><u>Cartesian Products</u></h3>
@@ -334,18 +332,20 @@ $(document).ready(function () {
 <p>We saw that <span class="math inline">\(P \times Q\)</span> and <span class="math inline">\(Q \times P\)</span> have 6 elements from <span class="math inline">\(2 \times 3\)</span> and <span class="math inline">\(3 \times 2\)</span> respectively. <span class="math inline">\(P \times P\)</span> contained 4 elements (<span class="math inline">\(2 \times 2\)</span>).</p>
 <p>A generalized result can be defined here. If sets <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are sets with a finite number of elements then <span class="math inline">\(|A \times B| = |A| \cdot |B|\)</span>.</p>
 <p> </p>
+<p><a name="conclusion"></a></p>
 </div>
 <div id="conclusion" class="section level3">
 <h3><u>Conclusion</u></h3>
 <p> </p>
 <p>This is the end of the three part series of An Introduction to Set Theory and Logic. I hope this series was useful or interesting to you. You may or may not absorb of all the material. However, you may realize that mathematics is more than numbers and calculus. There are so many branches of mathematics and a good portion of them do not have numbers.</p>
 <p> </p>
+<p><a name="references"></a></p>
 </div>
 <div id="references" class="section level3">
 <h3><u>References</u></h3>
 <p> </p>
 <p>Material is from old notes and from a coursepack book from my undergraduate university for the course Introduction to Mathematical Proofs.</p>
-<p>The featured image is from <a href="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Cartesian_Product_qtl1.svg/220px-Cartesian_Product_qtl1.svg.png" class="uri">https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Cartesian_Product_qtl1.svg/220px-Cartesian_Product_qtl1.svg.png</a></p>
+<p>The featured image is from <a href="https://www.math10.com/en/university-math/sets/product.png" class="uri">https://www.math10.com/en/university-math/sets/product.png</a></p>
 </div>
 
 

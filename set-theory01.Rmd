@@ -291,7 +291,7 @@ The empty set $\varnothing$ is a subset of $C = \{1, 34, 7, 12, 11\}$. In genera
 
 **Example Four**
 
-Suppose we are given a set $A_1 = \{4, 7\}$ and $A_2 = \{\{7, 4\}, 7, 9, 11\}$. $A_1$ is a subset of $A_2$ since $\{4, 7\} = \{7, 4\} $ in $A_1$ is equal to $\{7, 4\}$ in $A_2$. Also, $A_2$ has 7, 9 and 11 but $A_1$ does not.
+Suppose we are given a set $A_1 = \{4, 7\}$ and $A_2 = \{\{7, 4\}, 7, 9, 11\}$. $A_1$ is a subset of $A_2$ since $\{4, 7\} = \{7, 4\}$ in $A_1$ is equal to $\{7, 4\}$ in $A_2$. Also, $A_2$ has 7, 9 and 11 but $A_1$ does not.
 
 &nbsp;
 

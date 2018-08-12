@@ -148,6 +148,8 @@ output: html_document
 
 [An Introduction To Set Theory & Logic (Part 2/3)](set-theory02.html)
 
+[An Introduction To Set Theory & Logic (Part 3/3)](set-theory03.html)
+
 [Connecting SQL Joins & Set Theory Concepts](set-theory-sql.html)
 
 &nbsp;

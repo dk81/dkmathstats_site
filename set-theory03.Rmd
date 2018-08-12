@@ -3,8 +3,7 @@ title: "An Introduction To Set Theory & Logic (Part 3/3)"
 output: html_document
 ---
 
-Source: https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Cartesian_Product_qtl1.svg/220px-Cartesian_Product_qtl1.svg.png
-
+&nbsp;
 
 Hello there. This is the last part of a three part Introduction to Set Theory and Logic.
 
@@ -22,16 +21,20 @@ It is assumed that the reader is familiar with set theory concepts from parts on
 
 &nbsp;
 
-* The Algebra of Sets
-* The Dual Of A Set
-* Finite Sets
-* Counting Principles
-* The Power Set
-* Ordered Pairs
-* Cartesian Products
-* Conclusion
+* <a href="#algebra">The Algebra of Sets</a>
+* <a href="#dual">The Dual Of A Set</a>
+* <a href="#finite">Finite Sets</a>
+* <a href="#count">Counting Principles</a>
+* <a href="#power">The Power Set</a>
+* <a href="#ordered">Ordered Pairs</a>
+* <a href="#cartesian">Cartesian Products</a>
+* <a href="#conclusion">Conclusion</a>
+* <a href="#references">References</a>
+
 
 &nbsp;
+
+<a name="algebra"></a>
 
 ### <u>The Algebra of Sets</u>
 
@@ -39,11 +42,7 @@ It is assumed that the reader is familiar with set theory concepts from parts on
 
 We continue from part 2 where we learned unions, intersections, complements, subtraction of sets, and symmetric differences with the help of Venn diagrams.
 
-Like in grade school, you learned about the rule of addition, subtraction, multiplication, division and so on. We do the same here with sets. Instead of me typing out the Laws of the Algebra of Sets, I will display an image.
-
-
-
-Source: http://engineeronadisk.com/V2/hugh_jack_unpublished/engineeronadisk-49.gif
+Like in grade school, you learned about the rule of addition, subtraction, multiplication, division and so on. We do the same here with sets. Instead of me typing out the Laws of the Algebra of Sets, I will put a [link](https://www.quora.com/What-are-the-applications-of-set-union-and-set-intersection-in-the-field-of-statistics).
 
 The above image displays a nice organized list of the laws. However the choice of symbols is weird in my opinion. Instead of the ampersand & use $\cap$ like in $A \cap B$ for intersections. Instead of the plus sign + use $\cup$ as in $A \cup B$ for unions. The overbar such as $\overline{A}$ for the complement of the set A is okay. You can use $A^{c} \text{ or } A'$ for complements as well.
 
@@ -53,15 +52,19 @@ You could memorize these laws but it is not necessary (unless your math course w
 
 &nbsp;
 
+<a name="dual"></a>
+
 ### <u>The Dual Of A Set</u>
 
 &nbsp;
 
-In part two, we talked about complements of a set and how the complement of a set $A$ for example is all the elements not in $A$. We have a reverse (opposite) operation concept for the set algebra symbols $latex {\cup, \cap, U \text{ and } \varnothing$ called the dual.
+In part two, we talked about complements of a set and how the complement of a set $A$ for example is all the elements not in $A$. We have a reverse (opposite) operation concept for the set algebra symbols ${\cup, \cap, U} \text{ and } \varnothing$ called the dual.
 
 For example the dual of $(U \cap A) \cup B$ is $(U \cup A) \cap B$.
 
 &nbsp;
+
+<a name="finite"></a>
 
 ### <u>Finite Sets</u>
 
@@ -76,6 +79,8 @@ Suppose we have the set $A$, the number of elements in set $A$ is denoted by $|A
 In here, we deal with finite sets only and not with infinite sets as it is "infinitely" more abstract.
 
 &nbsp;
+
+<a name="count"></a>
 
 ### <u>Counting Principles</u>
 
@@ -101,15 +106,6 @@ $$\displaystyle |A \cup B| = |A| + |B| - |A \cap B|$$
 
 &nbsp;
 
-As a reference, here is a Venn Diagram.
-
-&nbsp;
-
-<center><img src="https://www.easycalculation.com/algebra/venn.png" /></center>
-<center><a href="https://www.easycalculation.com/algebra/venn.png">Image Source</a></center>
-
-&nbsp;
-
 The three set case is a bit more involved. The formula is as follows
 
 &nbsp;
@@ -122,11 +118,13 @@ For probability and statistics students, there is a probability version of the c
 
 &nbsp;
 
+<a name="power"></a>
+
 ### <u>The Power Set</u>
 
 &nbsp;
 
-Recall that a subset is a set which contains some or all of the elements of a larger set. For example, the set ${\{1, 2\}$ is a (proper) subset of $\{1, 2, 3, 4\}$.
+Recall that a subset is a set which contains some or all of the elements of a larger set. For example, the set ${1, 2}$ is a (proper) subset of $\{1, 2, 3, 4\}$.
 
 We now define the power set of set S denoted by $\mathcal{P}(S)$. Given a given set $S$, the power set $\mathcal{P}(S)$ is the class of all subsets of $S$.
 
@@ -140,19 +138,21 @@ That may sound confusing at first. It will be clarified with an example.
 
 &nbsp;
 
-Suppose that the set $S$ is $S = \{a, b, c\}$. The power set $\mathcal{P}(S)$ contains all the subsets of $latex {\{a, b, c\}$ which would be
+Suppose that the set $S$ is $S = \{a, b, c\}$. The power set $\mathcal{P}(S)$ contains all the subsets of ${a, b, c}$ which would be
 
 &nbsp;
 
-$$\displaystyle \mathcal{P}(S) = \{\varnothing, S, \{a\}, \{b\}, \{c\}, \{a, b\}, \{a, c\}, \{b, c\}$$
+$$\displaystyle \mathcal{P}(S) = \{\varnothing, S, \{a\}, \{b\}, \{c\}, \{a, b\}, \{a, c\}, \{b, c\}\}$$
 
 &nbsp;
 
 Remember that the empty set $\varnothing$ is a subset of a non-empty set. The set $S$ itself is also a subset of $S$ and it is thus a subset of $\mathcal{P}(S)$.
 
-The number of elements in this power set is $|\mathcal{P}(S)| = 2^{|S|} = 2^{3} = 8 }$.
+The number of elements in this power set is $|\mathcal{P}(S)| = 2^{|S|} = 2^{3} = 8$.
 
 &nbsp;
+
+<a name="ordered"></a>
 
 ### <u>Ordered Pairs</u>
 
@@ -160,9 +160,11 @@ The number of elements in this power set is $|\mathcal{P}(S)| = 2^{|S|} = 2^{3} 
 
 An ordered pair is similar to a co-ordinate on the xy-plane. Here, the ordered denoted by (a, b) is defined as having a as the first element and b as the second element.
 
-With sets order did not matter but with ordered pairs, order does matter . For example, the sets $latex {\{1, 2\}$ is the same as $\{2, 1\}$ but $(1, 2) \neq (2, 1)$. In general, $(a, b) \neq (b, a)$ unless $a = b$.
+With sets order did not matter but with ordered pairs, order does matter . For example, the sets ${1, 2}$ is the same as $\{2, 1\}$ but $(1, 2) \neq (2, 1)$. In general, $(a, b) \neq (b, a)$ unless $a = b$.
 
 &nbsp;
+
+<a name="cartesian"></a>
 
 ### <u>Cartesian Products</u>
 
@@ -204,6 +206,8 @@ A generalized result can be defined here. If sets $A$ and $B$ are sets with a fi
 
 &nbsp;
 
+<a name="conclusion"></a>
+
 ### <u>Conclusion</u>
 
 &nbsp;
@@ -212,10 +216,12 @@ This is the end of the three part series of An Introduction to Set Theory and Lo
 
 &nbsp;
 
+<a name="references"></a>
+
 ### <u>References</u>
 
 &nbsp;
 
 Material is from old notes and from a coursepack book from my undergraduate university for the course Introduction to Mathematical Proofs.
 
-The featured image is from https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Cartesian_Product_qtl1.svg/220px-Cartesian_Product_qtl1.svg.png
+The featured image is from https://www.math10.com/en/university-math/sets/product.png
