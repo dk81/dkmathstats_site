@@ -43,7 +43,7 @@ In Rock, Paper, Scissors, we can create a table with 9 rows and 3 columns. The 9
 
 With Rock, Paper, Scissors, Lizard, Spock, both players choose one out of choices. We would have 25 rows and 3 columns.
 
-In R, we first create an empty matrix with missing values (NA).  Then we convert this matrix into a data frame.
+In R, we first create an empty matrix with missing values (NA). Then we convert this matrix into a data frame.
 
 &nbsp;
 
