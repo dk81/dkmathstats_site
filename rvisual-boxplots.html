@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Boxplots In R</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Boxplots In R</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hi. Here is some work I have done in R with regards to boxplots.</p>
+<p> </p>
+<div id="table-of-contents" class="section level3">
+<h3><u>Table Of Contents</u></h3>
+<p> </p>
+<ul>
+<li><p>A Short Guide To Boxplots</p></li>
+<li><p>Creating Boxplots In R Using The ggplot2 Package</p></li>
+<li><p>References</p></li>
+</ul>
+<p> </p>
+</div>
+<div id="a-short-guide-to-boxplots" class="section level3">
+<h3><u>A Short Guide To Boxplots</u></h3>
+<p> </p>
+<p>Boxplots are simple visuals which shows the distribution of a dataset (or a set of values). In a boxplot, you can visually determine the minimum value, the 25th percentile (where 25 percent of values are below), the median (middle number of 50th percentile), the 75th percentile, the maximum value and any extreme points outside of the minimum/maximum values which are known as outliers.</p>
+<p>The range is equal to the maximum value minus the minimum value.</p>
+<p>The difference between the third quartile and the first quartile is the interquartile range (IQR).</p>
+<p>Here is a visual guide.</p>
+<p> </p>
+<center>
+<img src="http://www.physics.csbsju.edu/stats/simple.box.defs.gif" />
+</center>
+<center>
+<a href="http://www.physics.csbsju.edu/stats/simple.box.defs.gif">Image Source</a>
+</center>
+<p> </p>
+</div>
+<div id="creating-boxplots-in-r-using-the-ggplot2-package" class="section level3">
+<h3><u>Creating Boxplots In R Using The ggplot2 Package</u></h3>
+<p> </p>
+<p>In R, I use a dataset called anaesthetic from the faraway dataset library/package. The image below provides the details of this dataset.</p>
+<p>Load the faraway and ggplot2 packages into R.</p>
+<p> </p>
+<pre class="r"><code># Box Plots In R
+# Ref: R Graphics Cookbook
+# http://www.purplemath.com/modules/boxwhisk2.htm
+# http://flowingdata.com/2008/02/15/how-to-read-and-use-a-box-and-whisker-plot/
+
+library(faraway)
+library(ggplot2)</code></pre>
+<p> </p>
+<p>I save this anaesthetic data into a variable called hosp_data. Then, I preview the data using the <code>head()</code> and <code>tail()</code> functions.</p>
+<p> </p>
+<pre class="r"><code>hosp_data &lt;- anaesthetic
+
+# Preview the data:
+
+head(hosp_data)</code></pre>
+<pre><code>##   breath tgrp
+## 1      3    A
+## 2      6    B
+## 3      3    C
+## 4      4    D
+## 5      2    A
+## 6      4    B</code></pre>
+<pre class="r"><code>tail(hosp_data)</code></pre>
+<pre><code>##    breath tgrp
+## 75      4    C
+## 76      9    D
+## 77     12    A
+## 78      7    B
+## 79      0    C
+## 80      1    D</code></pre>
+<p> </p>
+<p>The data structure and the summary of this dataset can be examined using str() and summary() respectively.</p>
+<p> </p>
+<pre class="r"><code># Check structure and summary:
+
+str(hosp_data)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    80 obs. of  2 variables:
+##  $ breath: num  3 6 3 4 2 4 5 8 1 1 ...
+##  $ tgrp  : Factor w/ 4 levels &quot;A&quot;,&quot;B&quot;,&quot;C&quot;,&quot;D&quot;: 1 2 3 4 1 2 3 4 1 2 ...</code></pre>
+<pre class="r"><code>summary(hosp_data)</code></pre>
+<pre><code>##      breath       tgrp  
+##  Min.   : 0.000   A:20  
+##  1st Qu.: 1.000   B:20  
+##  Median : 3.000   C:20  
+##  Mean   : 4.013   D:20  
+##  3rd Qu.: 5.250         
+##  Max.   :19.000</code></pre>
+<p> </p>
+<p>In the summary of hosp_data, we are given the 5 number summary and mean of the variable/column breath. This five number summary is the numerical version of the boxplot. We also see that each of the four treatment groups have 20 observations each.</p>
+<p>The column names are renamed using <code>colnames()</code>.</p>
+<p> </p>
+<pre class="r"><code># Column Names:
+
+colnames(hosp_data) &lt;- c(&quot;Time&quot;, &quot;Treatment_Group&quot;)</code></pre>
+<p> </p>
+<p><strong>A Boxplot In R</strong></p>
+<p> </p>
+<p>Creating a boxplot in R is not very difficult. The main parts for creating a boxplot using ggplot2 is the <code>ggplot()</code> function and <code>geom_boxplot()</code>. The hard part would be adding labels and changing some visual features. Here is the code and boxplot below.</p>
+<p> </p>
+<pre class="r"><code># Boxplots:
+
+ggplot(hosp_data, aes(x = Treatment_Group, y = Time))  + geom_boxplot() +
+  labs(x = &quot;\n Treatment Group&quot;, y = &quot;Time To Start Breathing (Minutes) \n&quot;, 
+       title = &quot;Time To Start Breathing After Anaesthetic \n&quot;) +
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12),
+        legend.title = element_text(face=&quot;bold&quot;, size = 10))</code></pre>
+<p><img src="rvisual-boxplots_files/figure-html/unnamed-chunk-5-1.png" width="384" /></p>
+<p> </p>
+<p><strong>Adding Means To Boxplots</strong></p>
+<p> </p>
+<p>The boxplot above gives information on minimums, maximums, 25th percentiles, 75th percentiles, medians, ranges and outliers. However, the boxplot above does not have means. Means can be added to boxplots by adding <code>stat_summary()</code>. (The means are represented by red squares.)</p>
+<p> </p>
+<pre class="r"><code># Boxplots:
+
+ggplot(hosp_data, aes(x = Treatment_Group, y = Time))  + geom_boxplot() +
+  labs(x = &quot;\n Treatment Group&quot;, y = &quot;Time To Start Breathing (Minutes) \n&quot;, 
+       title = &quot;Time To Start Breathing After Anaesthetic \n&quot;) +
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12),
+        legend.title = element_text(face=&quot;bold&quot;, size = 10))</code></pre>
+<p><img src="rvisual-boxplots_files/figure-html/unnamed-chunk-6-1.png" width="384" /></p>
+<p> </p>
+</div>
+<div id="references" class="section level3">
+<h3><u>References</u></h3>
+<p> </p>
+<ul>
+<li>R Graphics Cookbook by Winston Chang (2012)</li>
+<li><a href="http://www.purplemath.com/modules/boxwhisk2.htm" class="uri">http://www.purplemath.com/modules/boxwhisk2.htm</a></li>
+<li><a href="http://flowingdata.com/2008/02/15/how-to-read-and-use-a-box-and-whisker-plot/" class="uri">http://flowingdata.com/2008/02/15/how-to-read-and-use-a-box-and-whisker-plot/</a></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

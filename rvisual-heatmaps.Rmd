@@ -1,0 +1,264 @@
+---
+title: "Heatmaps In R & ggplot2"
+output: html_document
+---
+
+&nbsp;
+
+Hi. I have played around with heatmaps in R and the ggplot2 package. Here is what I have worked with.
+
+&nbsp;
+
+### <u>Table Of Contents</u>
+
+&nbsp;
+
+* <a href="#refs">References</a>
+
+* <a href="#one">Dataset One: Strength Of Thermonplastic Composite Experiment Results</a>
+
+* <a href="#two">Dataset Two: Treatment and Block Effects On Egg Production</a>
+
+&nbsp;
+
+<a name="refs"></a>
+
+### <u>References</u>
+
+&nbsp;
+
+* R Graphics Cookbook by Winston Chang (2012)
+* http://www.sthda.com/english/wiki/ggplot2-quick-correlation-matrix-heatmap-r-software-and-data-visualization
+* R Documentation for the datasets and ggplot() functions.
+* The faraway dataset library and the ggplot2 library in R
+
+&nbsp;
+
+<a name="one"></a>
+
+### <u>Dataset One: Strength Of Thermonplastic Composite Experiment Results</u>
+
+&nbsp;
+
+This first dataset is a small dataset with 9 row (observations) and 3 columns (variables). This data is from an experiment to test the strength of a thermoplastic composite. The image below is a screenshot of the R documentation of this dataset.
+
+&nbsp;
+
+<center>![doc1](./images/heatmap01.jpg)</center>
+
+&nbsp;
+
+The ggplot2 and faraway libraries are loaded into R.
+
+&nbsp;
+
+```{r}
+# Heatmaps in R:
+
+# References:
+# http://www.sthda.com/english/wiki/ggplot2-quick-correlation-matrix-heatmap-r-software-and-data-visualization
+# R Graphics Cookbook by Winston Chang (2012)
+
+## First Dataset:
+
+library(faraway); library(ggplot2)
+```
+
+&nbsp;
+
+In the faraway package, this data is called composite. I save this data into a variable called compData. I also print out the contents of this table.
+
+&nbsp;
+
+```{r}
+compData <- composite
+
+# See the data (not very big):
+
+compData
+```
+
+&nbsp;
+
+The structure of the dataset can be found by using the `str()` function.
+
+&nbsp;
+
+```{r}
+# Structure of the dataset:
+
+str(compData)
+```
+
+&nbsp;
+
+The lines of code and output consists of changing the column names (for capitalization) and check the summary of the data. The `summary()` function gives some key summary statistics such as mean, median, counts for factors and more.
+
+&nbsp;
+
+```{r}
+# Fix column names:
+
+colnames(compData) <- c("Strength", "Laser", "Tape")
+
+# Summary of the dataset:
+
+summary(compData)
+```                 
+
+&nbsp;
+
+**A Basic Heatmap Plot**
+
+&nbsp;
+
+Creating a basic heatmap plot does not require much code. In the `aes()` part of `ggplot()`, I have x = Tape, y = Laser and the fill colours associated with Strength. The add-on function `geom_tile()` is needed to obtain the tiles/squares in the plot.
+
+```{r, echo = TRUE, fig.width=4, fig.height=4} 
+# Basic Heatmap Plot:
+
+heatmap1 <- ggplot(compData, aes(x = Tape, y = Laser, fill = Strength)) + 
+  geom_tile()
+
+heatmap1
+```
+
+&nbsp;
+
+---
+
+**A Heatmap Plot With Labels And More Features**
+
+&nbsp;
+
+The heatmap plot still needs some adjustments. The labels could be fixed and a title needs to be added. The next lines of code will produce a more detailed heatmap plot.
+
+&nbsp;
+
+```{r, echo = TRUE, fig.width=5, fig.height=5} 
+# Heatmap Plot (Fixed With labels):
+
+heatmap1 + scale_x_discrete(labels = c("Slow (6.42 m/s)", "Medium (13 m/s)", "Fast (27 m/s)")) +
+  scale_fill_gradient2(midpoint = median(compData$Strength), mid="grey70", 
+                      limits = c(min(compData$Strength), max(compData$Strength))) +
+  labs(x = "\n Tape Speed", y = "Laser Power\n", 
+       title = "Strength Of Thermoplastic Composite \n Experiment Results \n",
+       fill = "Composite \n Strength \n") +
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face="bold", colour="darkgreen", size = 12),
+        axis.title.y = element_text(face="bold", colour="darkgreen", size = 12),
+        legend.title = element_text(face="bold", colour="brown", size = 10)) +
+  geom_text(aes(x = Tape, y = Laser, label = Strength), color = "black", 
+            fontface = "bold", size = 5)
+```
+
+&nbsp;
+
+**Some Notes**
+
+* `scale_x_discrete()` with the labels argument can give labels such as Slow, Medium and Fast
+* `scale_fill_gradient2()` allows for customization of the numbers in the scale legend
+* `labs()` are for the x-axis, y-axis labels, the legend title and the title
+* The `theme()` function allows for the visual customization of labels and titles.
+* `geom_text()` allows for labels in each tile
+
+&nbsp;
+
+---
+
+<a name="two"></a>
+
+### <u>Dataset Two: Treatment and Block Effects On Egg Production</u>
+
+&nbsp;
+
+This second dataset is about treatment and block effects on egg production. The full details can be found in the screenshot image below.
+
+&nbsp;
+
+<center>![doc2](./images/heatmap02.jpg)</center>
+
+&nbsp;
+
+I save the eggprod data into a variable called eggprod_data. Then I take a look at the data, its data structure and some summary statistics.
+
+```{r}
+## Second Dataset:
+
+eggprod_data <- eggprod
+
+# Look at the data:
+
+eggprod_data
+
+
+# Data structure:
+ 
+str(eggprod_data)
+
+# Summary of the data:
+
+summary(eggprod_data)
+```
+
+&nbsp;
+
+The column names can be renamed using `colnames()`.
+
+&nbsp;
+
+```{r}
+# Rename column names:
+
+colnames(eggprod_data) <- c("Treatment", "Block", "Eggs")
+```
+
+&nbsp;
+
+---
+
+&nbsp;
+
+**A Basic Heatmap Plot**
+
+Here is a basic heatmap plot which describes this data.
+
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4} 
+# Basic Heatmap Plot:
+
+heatmap2 <- ggplot(eggprod_data, aes(x = Treatment, y = Block, fill = Eggs)) + 
+  geom_tile()
+
+heatmap2
+```
+
+&nbsp;
+
+Like in the first heatmap in the first dataset, more can be done in terms of labelling and visual details.
+
+---
+
+**An Updated Heatplot**
+
+Here is the code and output for this updated heatplot with more labels and titles.
+
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4}
+# Updated Heatmap Plot:
+
+heatmap2 + scale_x_discrete(labels = c("E", "F", "O")) +
+  scale_fill_gradient2(midpoint = median(eggprod_data$Eggs), mid ="grey70", 
+                       limits = c(min(eggprod_data$Eggs), max(eggprod_data$Eggs))) +
+  labs(x = "\n Treatment", y = "Block \n", fill = "Number Of Eggs \n",
+       title = "Treatment And Block Effects \n On Egg Production \n") +
+  theme(plot.title = element_text(hjust = 0.5, colour = "blue"), 
+        axis.title.x = element_text(face="bold", colour="darkgreen", size = 12),
+        axis.title.y = element_text(face="bold", colour="darkgreen", size = 12),
+        legend.title = element_text(face="bold", colour="brown", size = 10)) +
+  geom_text(aes(x = Treatment, y = Block, label = Eggs), color = "black", 
+            fontface = "bold", size = 5)
+```
+

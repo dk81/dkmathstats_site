@@ -1,0 +1,176 @@
+---
+title: "Side By Side Bar Graphs In R & ggplot2"
+output: html_document
+---
+
+&nbsp;
+
+### <u>Table Of Contents</u>
+
+&nbsp;
+
+* Simulated Coin Flip Data
+* Side By Side Bar Graphs
+* Using facet_grid()
+* References
+
+&nbsp;
+
+
+### <u>Simulated Coin Flip Data</u>
+
+&nbsp;
+
+The `ggplot2` package is first loaded into R.
+
+&nbsp;
+
+```{r}
+library("ggplot2")
+```
+
+&nbsp;
+
+We have two players A and B who each an unfair coin. This unfair coin has a 30% chance of getting heads and a 70% chance of getting tails. Both players flip this coin 1000 times each. This can be simulated in R using the `sample()` function.
+
+&nbsp;
+
+```{r}
+# Flip a unfair coin 1000 times 
+
+flip_results_A <- sample(c("Heads", "Tails"), size = 1000, replace = TRUE, prob = c(0.3, 0.7))
+flip_results_B <- sample(c("Heads", "Tails"), size = 1000, replace = TRUE, prob = c(0.3, 0.7))
+```
+
+&nbsp;
+
+We can see the results of the coin flips using the `table()` function.
+
+&nbsp;
+
+```{r}
+# Get counts of the die rolls:
+
+table(flip_results_A) ; table(flip_results_B)
+```
+
+&nbsp;
+
+The next lines of code is about putting the results together in a data table format.
+
+&nbsp;
+
+```{r}
+# Merge the results from Player A and Player B together:
+# Format: Player A | Player A flip results (1000 rows)
+# Player B | Player B flip results (1000 rows)
+
+column1 <- c(rep("Player A", 1000), rep("Player B", 1000))
+column2 <- c(flip_results_A, flip_results_B)
+
+outcome_data <- cbind(column1, column2)
+
+flip_results <- data.frame(Player = factor(column1, levels = c("Player A", "Player B")),
+                Result = column2)
+
+# A peek of the merged data:
+head(flip_results); tail(flip_results)
+ 
+```
+
+&nbsp;
+
+These coin flip results can be converted into a two by two table as a different visual. For graphing purposes, this 2 by 2 table is converted into a data frame.
+
+&nbsp;
+
+```{r}
+table(flip_results)
+
+# The two by two table into a data frame for plotting:
+
+results <- data.frame(table(flip_results))
+```
+
+&nbsp;
+
+### <u>Side By Side Bar Graphs</u>
+
+&nbsp;
+
+To obtain side by side bar graphs in `ggplot2`, we need a lot of parts on top of the `ggplot()` command.
+
+* geom_bar(stat = "identity", position = position_dodge(), alpha = 0.75) gives the side by side bar graphs
+
+* ylim(0, 800) gives limits on the y-axis values
+
+* The geom_text() line adds labels to the bar graphs. Note that position_dodge is needed as we used position dodge was used in geom_bar().
+
+* labs() gives labels depending on what is specified
+
+* The theme() function allows for additional aesthetic options such as a centered title and font sizes.
+
+&nbsp;
+
+
+```{r, echo = TRUE, fig.width=4, fig.height=4} 
+# Plotting side by side bar graphs:
+
+# http://www.cookbook-r.com/Graphs/Bar_and_line_graphs_(ggplot2)/
+# R Graphics Cookbook by Winston Chang Reference
+# Result of heads or tails in x = axis, Counts as y axis, diff colours for each player.
+# Put labels:
+
+ggplot(data = results, aes(x = Result, y = Freq, fill = Player)) +
+  geom_bar(stat = "identity", position = position_dodge(), alpha = 0.75)  +
+  ylim(0,800) +
+  geom_text(aes(label = Freq), fontface = "bold", vjust = 1.5,
+             position = position_dodge(.9), size = 4) +
+  labs(x = "\n Coin Flip Outcome", y = "Frequency\n", title = "\n Coin Flip Results \n") +
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face="bold", colour="red", size = 12),
+        axis.title.y = element_text(face="bold", colour="red", size = 12),
+        legend.title = element_text(face="bold", size = 10))
+```
+
+&nbsp;
+
+### <u>Using facet_grid()</u>
+
+&nbsp;
+
+
+In the above plot, we have four bars in one graph where the Player A bars are beside the Player B bars. Adding facet_grid(. ~Player) will turn this bar graph plot in a way where there is one bar graph plot for Player A and another bar graph plot for player B right beside it.
+
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4} 
+# Facet_grid:
+
+ggplot(data = results, aes(x = Result, y = Freq)) +
+  geom_bar(stat = "identity", alpha = 0.7) +
+  facet_grid(. ~Player)  +
+  ylim(0,800) +
+  geom_text(aes(label = Freq), fontface = "bold", vjust = 1.5, colour = "white", size = 4) +
+  labs(x = "\n Coin Flip Outcome", y = "Frequency\n", title = "\n Coin Flip Results \n") +
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face="bold", colour="darkgreen", size = 12),
+        axis.title.y = element_text(face="bold", colour="darkgreen", size = 12),
+        legend.title = element_text(face="bold", size = 10),
+        strip.background = element_rect(fill="lightblue", colour="black", size=1),
+        strip.text = element_text(face="bold", size=rel(1.2)))
+```
+
+&nbsp;
+
+Note that the `position_dodge()` options were removed as they are not needed. To highlight the Player A and Player B font text and the bars, the strip.background and strip.text options are used.
+
+&nbsp;
+
+
+### <u>References</u>
+
+&nbsp;
+
+* http://www.cookbook-r.com/Graphs/Bar_and_line_graphs_(ggplot2)/
+* R Graphics Cookbook by Winston Chang (2012)

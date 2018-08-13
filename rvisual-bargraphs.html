@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Making Bar Graphs In R Using ggplot2</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Making Bar Graphs In R Using ggplot2</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hello. In this post, the ggplot2 package in R will be used to produce informative and nice bar graphs.</p>
+<hr />
+<p> </p>
+<div id="table-of-contents" class="section level3">
+<h3><u>Table of Contents</u></h3>
+<p> </p>
+<ul>
+<li><a href="#data">The Data: Simulating Dice Rolls</a></li>
+<li><a href="#clean">Data Cleaning for Graphing</a></li>
+<li><a href="#bar">Producing the Bar Graph</a></li>
+<li><a href="#ref">References</a></li>
+</ul>
+<p> </p>
+<p><a name="data"></a></p>
+</div>
+<div id="the-data-simulating-dice-rolls" class="section level3">
+<h3><u>The Data: Simulating Dice Rolls</u></h3>
+<p> </p>
+<p>No dataset will be imported here. We will generate some simulation results this time around. We will simulate rolling a fair six sided die 1000 times using the <code>sample()</code> function in R.</p>
+<p> </p>
+<pre class="r"><code># Making Bar Graphs in R Using ggplot2:
+
+library(&quot;ggplot2&quot;)
+
+# Roll a 6 sided die 1000 times and produce a bar graph of the results:
+
+# Run die roll simulations:
+
+result &lt;- sample(1:6, size = 1000, replace = TRUE)
+
+# Get counts of the die rolls:
+
+table(result)</code></pre>
+<pre><code>## result
+##   1   2   3   4   5   6 
+## 167 161 182 154 171 165</code></pre>
+<p> </p>
+<p>The <code>table(result)</code> function in R gives us the frequencies of the outcomes of this experiment.</p>
+<p>The mode (or most frequent result) is rolling a three at 197 times. If another 1000 die rolls were made then it is not guaranteed we will replicate the same results. (The probability of replicating such results is very low.)</p>
+<p> </p>
+<p><a name="clean"></a></p>
+</div>
+<div id="data-cleaning-for-graphing" class="section level3">
+<h3><u>Data Cleaning for Graphing</u></h3>
+<p> </p>
+<p>Now that we have our results, we need to fix / clean our data such that it is nicely formatted for graphing purposes.</p>
+<p>In the x-axis (horizontal) of our graph we do not really want to see 1,2,3,4,5,6. It would be a bit better to use “One”, “Two” up to “Six” for each bar. We create a vector in R with the names.</p>
+<p> </p>
+<pre class="r"><code>die_names &lt;- c(&quot;One&quot;, &quot;Two&quot;, &quot;Three&quot;, &quot;Four&quot;, &quot;Five&quot;, &quot;Six&quot;)</code></pre>
+<p> </p>
+<p>With the outcome names, we want the corresponding counts from the experiment.</p>
+<p> </p>
+<pre class="r"><code>outcome_data &lt;- rep(NA, 6)
+
+for (i in 1:6) {
+ outcome_data[i] &lt;- as.numeric(sum(result == i))
+ }</code></pre>
+<p> </p>
+<p>Next, we combine the die_names vector and the outcome_data vector into a data frame. This data frame will be ready for graphing purposes.</p>
+<p> </p>
+<pre class="r"><code>results_data &lt;- data.frame(Number = factor(die_names, levels = die_names), Counts = outcome_data)
+
+results_data</code></pre>
+<pre><code>##   Number Counts
+## 1    One    167
+## 2    Two    161
+## 3  Three    182
+## 4   Four    154
+## 5   Five    171
+## 6    Six    165</code></pre>
+<p> </p>
+<p><a name="bar"></a></p>
+</div>
+<div id="producing-the-bar-graph" class="section level3">
+<h3><u>Producing the Bar Graph</u></h3>
+<p> </p>
+<p>We now plot our bar graph using the <code>ggplot()</code> function from ggplot2. The labels of One, Two up to Six are on the x-axis and the counts / frequencies are on the y-axis. A title is added and we set limits on the y-axis from 0 to 200.</p>
+<pre class="r"><code># \n for newline and spacing of labels on the axes:
+
+ggplot(data = results_data, aes(x = Number, y = Counts)) +
+geom_bar(stat = &quot;identity&quot;, alpha = 0.8) +
+xlab(&quot;\n Result on Die&quot;) +
+ylab(&quot;Frequency\n&quot;) +
+ggtitle(&quot;Die Roll Results&quot;) +
+ylim(0,200)</code></pre>
+<p><img src="rvisual-bargraphs_files/figure-html/unnamed-chunk-5-1.png" width="384" /></p>
+<p> </p>
+<p><a name="ref"></a></p>
+</div>
+<div id="references" class="section level3">
+<h3><u>References</u></h3>
+<p> </p>
+<p>The following websites along with Datacamp courses have been very useful.</p>
+<p> </p>
+<ul>
+<li><a href="http://www.cookbook-r.com/Graphs/Bar_and_line_graphs_(ggplot2)/" class="uri">http://www.cookbook-r.com/Graphs/Bar_and_line_graphs_(ggplot2)/</a></li>
+<li><a href="http://docs.ggplot2.org/0.9.2.1/labs.html" class="uri">http://docs.ggplot2.org/0.9.2.1/labs.html</a></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

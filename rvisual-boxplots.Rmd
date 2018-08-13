@@ -1,0 +1,161 @@
+---
+title: "Boxplots In R"
+output: html_document
+---
+
+&nbsp;
+
+Hi. Here is some work I have done in R with regards to boxplots.
+
+&nbsp;
+
+### <u>Table Of Contents</u>
+
+&nbsp;
+
+* A Short Guide To Boxplots
+
+* Creating Boxplots In R Using The ggplot2 Package
+
+* References
+
+&nbsp;
+
+### <u>A Short Guide To Boxplots</u>
+
+&nbsp;
+
+Boxplots are simple visuals which shows the distribution of a dataset (or a set of values). In a boxplot, you can visually determine the minimum value, the 25th percentile (where 25 percent of values are below), the median (middle number of 50th percentile), the 75th percentile, the maximum value and any extreme points outside of the minimum/maximum values which are known as outliers.
+
+The range is equal to the maximum value minus the minimum value.
+
+The difference between the third quartile and the first quartile is the interquartile range (IQR).
+
+Here is a visual guide.
+
+&nbsp;
+
+<center><img src="http://www.physics.csbsju.edu/stats/simple.box.defs.gif" /></center>
+<center><a href="http://www.physics.csbsju.edu/stats/simple.box.defs.gif">Image Source</a></center>
+
+&nbsp;
+
+### <u>Creating Boxplots In R Using The ggplot2 Package</u>
+
+&nbsp;
+
+In R, I use a dataset called anaesthetic from the faraway dataset library/package. The image below provides the details of this dataset.
+
+Load the faraway and ggplot2 packages into R.
+
+&nbsp;
+
+```{r}
+# Box Plots In R
+# Ref: R Graphics Cookbook
+# http://www.purplemath.com/modules/boxwhisk2.htm
+# http://flowingdata.com/2008/02/15/how-to-read-and-use-a-box-and-whisker-plot/
+
+library(faraway)
+library(ggplot2)
+```
+
+&nbsp;
+
+I save this anaesthetic data into a variable called hosp_data. Then, I preview the data using the `head()` and `tail()` functions.
+
+&nbsp;
+
+```{r}
+hosp_data <- anaesthetic
+
+# Preview the data:
+
+head(hosp_data)
+
+tail(hosp_data)
+
+```
+
+&nbsp;
+
+The data structure and the summary of this dataset can be examined using str() and summary() respectively.
+
+&nbsp;
+
+```{r}
+# Check structure and summary:
+
+str(hosp_data)
+
+summary(hosp_data)
+
+```
+ 
+&nbsp; 
+
+In the summary of hosp_data, we are given the 5 number summary and mean of the variable/column breath. This five number summary is the numerical version of the boxplot. We also see that each of the four treatment groups have 20 observations each.
+
+The column names are renamed using `colnames()`.
+
+&nbsp; 
+
+```{r}
+# Column Names:
+
+colnames(hosp_data) <- c("Time", "Treatment_Group")
+```
+
+&nbsp; 
+
+**A Boxplot In R**
+
+&nbsp; 
+
+Creating a boxplot in R is not very difficult. The main parts for creating a boxplot using ggplot2 is the `ggplot()` function and `geom_boxplot()`. The hard part would be adding labels and changing some visual features. Here is the code and boxplot below.
+
+&nbsp; 
+
+```{r, echo = TRUE, fig.width=4, fig.height=4} 
+# Boxplots:
+
+ggplot(hosp_data, aes(x = Treatment_Group, y = Time))  + geom_boxplot() +
+  labs(x = "\n Treatment Group", y = "Time To Start Breathing (Minutes) \n", 
+       title = "Time To Start Breathing After Anaesthetic \n") +
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face="bold", colour="blue", size = 12),
+        axis.title.y = element_text(face="bold", colour="blue", size = 12),
+        legend.title = element_text(face="bold", size = 10))
+```
+
+&nbsp;
+
+**Adding Means To Boxplots**
+
+&nbsp;
+
+The boxplot above gives information on minimums, maximums, 25th percentiles, 75th percentiles, medians, ranges and outliers. However, the boxplot above does not have means. Means can be added to boxplots by adding `stat_summary()`. (The means are represented by red squares.)
+
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4} 
+# Boxplots:
+
+ggplot(hosp_data, aes(x = Treatment_Group, y = Time))  + geom_boxplot() +
+  labs(x = "\n Treatment Group", y = "Time To Start Breathing (Minutes) \n", 
+       title = "Time To Start Breathing After Anaesthetic \n") +
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face="bold", colour="blue", size = 12),
+        axis.title.y = element_text(face="bold", colour="blue", size = 12),
+        legend.title = element_text(face="bold", size = 10))
+```
+
+&nbsp;
+
+### <u>References</u>
+
+&nbsp;
+
+* R Graphics Cookbook by Winston Chang (2012)
+* http://www.purplemath.com/modules/boxwhisk2.htm
+* http://flowingdata.com/2008/02/15/how-to-read-and-use-a-box-and-whisker-plot/

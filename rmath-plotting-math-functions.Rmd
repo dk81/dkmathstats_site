@@ -5,7 +5,9 @@ output: html_document
 
 &nbsp;
 
-Hi. I have played around with the ggplot2 package in R to create math functions plot. Here is some of my findings and experimental work. Make sure to load ggplot2 in R using library(ggplot2).
+Hi. I have played around with the ggplot2 package in R to create math functions plot. Here is some of my findings and experimental work. Make sure to load ggplot2 in R using `library(ggplot2)`.
+
+&nbsp;
 
 ```{r}
 library(ggplot2)
@@ -17,25 +19,27 @@ library(ggplot2)
 
 &nbsp;
 
-* References
+* <a href="#refs">References</a>
 
-* A Parabola Example
+* <a href="#parabola">A Parabola Example</a>
 
-* A Sine Function Plot
+* <a href="#sine">A Sine Function Plot</a>
 
-* The Absolute Function
+* <a href="#absolute">The Absolute Function</a>
 
-* A Square Root Plot
+* <a href="#root">A Square Root Plot</a>
 
-* The Reciprocal Function
+* <a href="#reciprocal">The Reciprocal Function</a>
 
-* A Exponential Function Plot
+* <a href="#exponential">A Exponential Function Plot</a>
 
-* A Logarithmic Function Plot
+* <a href="#log">A Logarithmic Function Plot</a>
 
-* An Example Of Combining Two Functions In A Plot
+* <a href="#twoplots">An Example Of Combining Two Functions In A Plot</a>
 
 &nbsp;
+
+<a name="refs"></a>
 
 ### <u>References</u>
 
@@ -46,6 +50,8 @@ library(ggplot2)
 * R Graphics Cookbook by Winston Chang (2012)
 
 &nbsp;
+
+<a name="parabola"></a>
 
 ### <u>A Parabola Example</u>
 
@@ -64,7 +70,9 @@ quadratic_fun <- function(x){
 }
 ```
 
-```{r, echo = TRUE, fig.width=8, fig.height=8}  
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4}  
 # Basic Plot (Data frame for setting the range)
 ggplot(data.frame(x = c(-15,15)), aes(x = x)) +
   stat_function(fun = quadratic_fun) + xlim(c(-15, 15))
@@ -75,7 +83,9 @@ ggplot(data.frame(x = c(-15,15)), aes(x = x)) +
 
 The above plot looks okay but it could use some labels. Here is an updated version of the above in the code and output below.
 
-```{r, echo = TRUE, fig.width=8, fig.height=8}  
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4}  
 # Parabola Plot With Labels:
 
 ggplot(data.frame(x = c(-15,15)), aes(x = data.frame(x = x))) +
@@ -95,6 +105,8 @@ The axes labels have been changed through colour and size. To obtain the $y = x^
 
 ---
 
+<a name="sine"></a>
+
 ### <u>A Sine Function Plot</u>
 
 &nbsp;
@@ -111,7 +123,9 @@ sine_funct <- function(xrange){
 }
 ```
 
-```{r, echo = TRUE, fig.width=8, fig.height=8}
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4}
 # Sine Graph Plot With Labels:
 
 sinePlot <- ggplot(data.frame(x = c(-10*pi, 10*pi)), aes(x = x)) +
@@ -132,7 +146,7 @@ An optional add-on would be adding the $y = 0$ line.
 
 &nbsp;
 
-```{r fig.width=10, fig.height=8, echo=TRUE, fig.align='center', dpi = 200}
+```{r, echo = TRUE, fig.width=4, fig.height=4}
 # Add a line y = 0 to sine plot:
 
 sinePlot + geom_hline(yintercept = 0, linetype = "dotted", colour = "red")
@@ -140,20 +154,27 @@ sinePlot + geom_hline(yintercept = 0, linetype = "dotted", colour = "red")
 
 &nbsp;
 
+<a name="absolute"></a>
+
 ### <u>The Absolute Function</u>
 
 &nbsp;
 
 Here is an example of plotting the absolute function. Note that I used ifelse() for the function which is a condensed form of using if, else statements.
 
+&nbsp;
 
-```{r fig.width=10, fig.height=8, echo=TRUE, fig.align='center', dpi = 200}
+```{r}
 ### 3) Absolute Function:
 
 absolute_funct <- function(x){
   ifelse(x >=0, x, - x)
 }
+```
 
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4}  
 # Absolute Value Plot:
 
 ggplot(data.frame(x = c(-10, 10)), aes(x = x)) +
@@ -168,11 +189,15 @@ ggplot(data.frame(x = c(-10, 10)), aes(x = x)) +
 
 &nbsp;
 
+<a name="root"></a>
+
 ---
 
 ### <u>A Square Root Plot</u>
 
-```{r fig.width=10, fig.height=8, echo=TRUE, fig.align='center', dpi = 200}
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4}
 # 4) Square Root Function
 
 sqroot_funct <- function(x){
@@ -180,7 +205,9 @@ sqroot_funct <- function(x){
     sqrt(x)
   }
 }
+```
 
+```{r, echo = TRUE, fig.width=4, fig.height=4}
 # Square Root Plot With Labels:
 
 ggplot(data.frame(x = c(0, 20)), aes(x = x)) +
@@ -194,19 +221,25 @@ ggplot(data.frame(x = c(0, 20)), aes(x = x)) +
 
 &nbsp;
 
+<a name="reciprocal"></a>
+
 ---
 
 ### <u>The Reciprocal Function</u>
 
 Here is my attempt on the reciprocal function $\dfrac{1}{x}$. I am not sure if it turned out right. Here is what I have.
 
+```{r}
 # 5) Reciprocal Function 
 
-```
 recip_funct <- function(x){
    1/x
 }
+```
 
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4}
 # 1/x Plot With Labels:
 
 recipPlot <- ggplot(data.frame(x = c(-20, 20)), aes(x = x)) +
@@ -223,23 +256,32 @@ recipPlot
 
 You can add on asymptote lines at $y = 0$ and at $x = 0$.
 
-```
+```{r, echo = TRUE, fig.width=4, fig.height=4}
 # Horizontal and Vertical Asymptotes:
 
 recipPlot + geom_hline(yintercept = 0, linetype = "dotted", colour = "red") +
   geom_vline(xintercept = 0, linetype = "dotted", colour = "red")
 ```
 
+&nbsp;
 
-A Exponential Function Plot
+<a name="exponential"></a>
 
+### <u>A Exponential Function Plot</u>
+
+&nbsp;
+
+```{r}
 # 6) Exponential Function (e^x with e approx 2.718)
 
-```
 exp_funct <- function(x){
   exp(x)
 }
+```
 
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4}
 # Exponential Plot With Labels:
 
 expPlot <- ggplot(data.frame(x = c(-5, 5)), aes(x = x)) +
@@ -255,28 +297,40 @@ expPlot <- ggplot(data.frame(x = c(-5, 5)), aes(x = x)) +
 expPlot
 ```
 
+&nbsp;
+
 Axes lines can be added as well.
 
+&nbsp;
+
+```{r}
 # Output with axes (and asymptotes):
 
-```
 expPlot + geom_hline(yintercept = 0, linetype = "dashed", colour = "darkgreen") +
   geom_vline(xintercept = 0, linetype = "dashed", colour = "darkgreen")
 ```
 
+&nbsp;
 
-A Logarithmic Function Plot
+<a name="log"></a>
+
+### <u>A Logarithmic Function Plot</u>
+
+&nbsp;
 
 The inverse (reverse) of the exponential function is the logarithmic function.
 
+```{r}
 # 7) Logarithmic Function
 
-
-```
 log_funct <- function(x){
   log(x)
 }
+```
 
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4}
 # Logarithmic Plot With Labels:
 
 logPlot <- ggplot(data.frame(x = c(-0.5, 4)), aes(x = x)) +
@@ -292,22 +346,34 @@ logPlot <- ggplot(data.frame(x = c(-0.5, 4)), aes(x = x)) +
 logPlot
 ```
 
+&nbsp;
+
 Axes lines can be added as well here.
 
-```
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4}
 # Output with axes (and asymptotes):
 
 logPlot + geom_hline(yintercept = 0, linetype = "dashed", colour = "darkgreen") +
   geom_vline(xintercept = 0, linetype = "dashed", colour = "darkgreen")
 ```
 
+&nbsp;
 
-An Example Of Combining Two Functions In A Plot
+<a name="twoplots"></a>
+
+---
+
+### <u>An Example Of Combining Two Functions In A Plot</u>
+
+&nbsp;
 
 In this example, the parabola $y = x^2$ and the $y = x$ line are put on the same plot.
 
+&nbsp;
 
-```
+```{r, echo = TRUE, fig.width=4, fig.height=4}
 ### Combining Parabola and y = x line:
 
 ggplot(data.frame(x = c(-5,5)), aes(x = data.frame(x = x))) +

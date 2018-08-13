@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>An Advanced Bar Graph Example Using R And ggplot2</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">An Advanced Bar Graph Example Using R And ggplot2</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hi. I have done experimentation with R and ggplot2 and have come up with a bar graph which combines many of ggplot2’s bar graph features.</p>
+<p> </p>
+<div id="table-of-contents" class="section level3">
+<h3><u>Table Of Contents</u></h3>
+<p> </p>
+<ul>
+<li><p>The Suicide Data</p></li>
+<li><p>The Bar Plot</p></li>
+<li><p>Considering Gender With Facet Grid Bar Graph</p></li>
+<li><p>Fixing The Facet Grid Bar Graph</p></li>
+</ul>
+<p> </p>
+</div>
+<div id="the-suicide-data" class="section level3">
+<h3><u>The Suicide Data</u></h3>
+<p> </p>
+<p>For this example, I have chosen a dataset with the topic of suicide. This particular dataset can be found in the faraway library in R. The lines of code below shows the loading of the ggplot2 and faraway libraries.</p>
+<p> </p>
+<pre class="r"><code># Advanced Bar Plot In R:
+
+library(faraway) # Dataset package</code></pre>
+<pre><code>## 
+## Attaching package: &#39;faraway&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:pracma&#39;:
+## 
+##     logit</code></pre>
+<pre class="r"><code>library(ggplot2) # Data visualization</code></pre>
+<p> </p>
+<p>From the faraway package the suicide dataset is under the name suicide. I save the data suicide under the variable suicide_data. I then preview the data and check the data structure using <code>head()</code>, <code>tail()</code> and <code>str()</code> respectively.</p>
+<p> </p>
+<pre class="r"><code>suicide_data &lt;- suicide
+
+# Preview data:
+head(suicide_data); tail(suicide_data)</code></pre>
+<pre><code>##     y cause age sex
+## 1 398  drug   y   m
+## 2 121   gas   y   m
+## 3 455  hang   y   m
+## 4 155   gun   y   m
+## 5  55  jump   y   m
+## 6 124 other   y   m</code></pre>
+<pre><code>##      y cause age sex
+## 31 154  drug   o   f
+## 32   5   gas   o   f
+## 33 185  hang   o   f
+## 34   7   gun   o   f
+## 35  38  jump   o   f
+## 36  10 other   o   f</code></pre>
+<pre class="r"><code># Check structure of data:
+
+str(suicide_data)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    36 obs. of  4 variables:
+##  $ y    : num  398 121 455 155 55 124 399 82 797 168 ...
+##  $ cause: Factor w/ 6 levels &quot;drug&quot;,&quot;gas&quot;,&quot;gun&quot;,..: 1 2 4 3 5 6 1 2 4 3 ...
+##  $ age  : Factor w/ 3 levels &quot;m&quot;,&quot;o&quot;,&quot;y&quot;: 3 3 3 3 3 3 1 1 1 1 ...
+##  $ sex  : Factor w/ 2 levels &quot;f&quot;,&quot;m&quot;: 2 2 2 2 2 2 2 2 2 2 ...</code></pre>
+<p> </p>
+<p>The screenshot image below is from page 97 of the documentation of the faraway package. It provides a description and detailed information of the suicide dataset.</p>
+<p> </p>
+<p> </p>
+<p>From <code>head()</code> and <code>tail()</code>, you can see that the column titles are not the greatest. You can rename column titles using <code>colnames()</code> in R.</p>
+<p> </p>
+<pre class="r"><code># Rename columns:
+
+colnames(suicide_data) &lt;- c(&quot;Count&quot;, &quot;Cause&quot;, &quot;Age&quot;, &quot;Sex&quot;)</code></pre>
+<p> </p>
+</div>
+<div id="the-bar-plot" class="section level3">
+<h3><u>The Bar Plot</u></h3>
+<p> </p>
+<p>I wanted my bar graph to look at the cause of death, the counts associated with the cause of death and I wanted to put all the three age groups in it too. This code allows for the creation of the bar graph visual below.</p>
+<p> </p>
+<pre class="r"><code># Bar Plot (x axis for Cause, y axis for Counts, colours for Age):
+
+ggplot(suicide_data, aes(x = Cause, y = Count, fill = Age)) +
+  geom_bar(stat = &quot;identity&quot;, position = &quot;dodge&quot;) +
+  labs(x = &quot;\n Cause Of Death&quot;, y = &quot;Count \n&quot;, fill = &quot;Age Group \n&quot;,
+       title = &quot;Suicide Method Data From The UK Results \n&quot;) +
+  scale_x_discrete(labels = c(&quot;Drug&quot;, &quot;Gas&quot;, &quot;Gun&quot;, &quot;Hang&quot;, &quot;Jump&quot;, &quot;Other&quot;)) +
+  scale_fill_discrete(labels=c(&quot;Middle Aged&quot;, &quot;Old&quot;, &quot;Young&quot;)) +
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12),
+        legend.title = element_text(face=&quot;bold&quot;, size = 10))</code></pre>
+<p><img src="rvisual-adv-bargraphs_files/figure-html/unnamed-chunk-4-1.png" width="384" /></p>
+<p> </p>
+<p>Here are some notes about the code and the graph above:</p>
+<ul>
+<li><p>I have aes(x = Cause, y = Count, fill = Age) for Cause of Death on the bottom, Count for the bar lengths and fill = Age for the different bar colours.</p></li>
+<li><p>In geom_bar(), I have stat = “identity”. Having position = “dodge” is crucial for the side by side bars.</p></li>
+<li><p>The labs() function allows for labels.</p></li>
+<li><p>The scale_x_discrete() function allows for labeling my x-values in a neat way. If this scale_x_discrete() function is not there, I think it shows the x-values from the table such as drug, gun, other, etc.</p></li>
+<li><p>scale_fill_discrete(labels=c(“Middle Aged”, “Old”, “Young”) allows for labeling the colours in the legend.</p></li>
+<li><p>The theme() function allows for custom appearances such as font colours, font text and title centering.</p></li>
+</ul>
+<p> </p>
+</div>
+<div id="considering-gender-with-facet-grid-bar-graph" class="section level3">
+<h3><u>Considering Gender With Facet Grid Bar Graph</u></h3>
+<p> </p>
+<p>The above graph is very nice indeed but it does not consider gender. We can create an alternative bar graph which includes gender on top of age group and cause of death.</p>
+<p>The code and output can be found below.</p>
+<p> </p>
+<pre class="r"><code>facet_plot &lt;- ggplot(suicide_data, aes(x = Cause, y = Count, fill = Age)) +
+  geom_bar(stat = &quot;identity&quot;, position = &quot;dodge&quot;) +
+  labs(x = &quot;\n Cause Of Death&quot;, y = &quot;Count \n&quot;, fill = &quot;Age Group \n&quot;,
+       title = &quot;Suicide Method Data From The UK By Gender \n&quot;) +
+  scale_x_discrete(labels = c(&quot;Drug&quot;, &quot;Gas&quot;, &quot;Gun&quot;, &quot;Hang&quot;, &quot;Jump&quot;, &quot;Other&quot;)) +
+  scale_fill_discrete(labels=c(&quot;Middle Aged&quot;, &quot;Old&quot;, &quot;Young&quot;)) +
+  facet_grid(. ~ Sex) +
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12),
+        legend.title = element_text(face=&quot;bold&quot;, size = 10),  
+        strip.background = element_rect(fill=&quot;lightgreen&quot;, colour=&quot;black&quot;, size=1),
+        strip.text = element_text(face=&quot;bold&quot;, size=rel(1.2)))
+
+# Call facet plot:
+
+facet_plot</code></pre>
+<p><img src="rvisual-adv-bargraphs_files/figure-html/unnamed-chunk-5-1.png" width="480" /></p>
+<p> </p>
+<p>The <code>facet_grid(. ~Sex)</code> allows for separate bar graphs by sex. The strip.background and strip.text attributes in <code>theme()</code> allows for customization of the bars associated with f and m.</p>
+<p>This facet_grid output really helps in comparing the two graphs. One can easily see that male suicide counts are much higher than female suicide rates. The cause of death which really stands out in death by hanging for males denoted by Hang on the right graph. The number of young males who have committed suicide is quite alarming.</p>
+<p> </p>
+</div>
+<div id="fixing-the-facet-grid-bar-graph" class="section level3">
+<h3><u>Fixing The Facet Grid Bar Graph</u></h3>
+<p> </p>
+<p>The only problem with the bar graph above is the f and m. I would like Female and Male instead.</p>
+<p>Converting f and m to Female and Male will require a labeller. I have used the reference link <a href="http://stackoverflow.com/questions/3472980/ggplot-how-to-change-facet-labels" class="uri">http://stackoverflow.com/questions/3472980/ggplot-how-to-change-facet-labels</a> to come up with the code below. The code below uses a list (which is like a dictionary in Python, correct me if I am wrong here). and a function called gender_labeller.</p>
+<pre class="r"><code># Fixing the titles in the green background:
+# This changes the f and m to Female and Male respectively.
+
+# http://stackoverflow.com/questions/3472980/ggplot-how-to-change-facet-labels
+
+genders &lt;- list(&#39;f&#39;=&quot;Female&quot;, &#39;m&#39;=&quot;Male&quot;)
+
+gender_labeller &lt;- function(variable, value){
+  return(genders[value])
+  }
+  
+# Fixed facet plot:
+  
+facet_plot + facet_grid(. ~ Sex, labeller = gender_labeller)</code></pre>
+<pre><code>## Warning: The labeller API has been updated. Labellers taking `variable`and
+## `value` arguments are now deprecated. See labellers documentation.</code></pre>
+<p><img src="rvisual-adv-bargraphs_files/figure-html/unnamed-chunk-6-1.png" width="576" /></p>
+<p>This visual looks pretty good now as the labels are fixed.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

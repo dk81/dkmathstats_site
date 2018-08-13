@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Creating A Rock, Paper, Scissors, Lizard, Spock Table In R</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Creating A Rock, Paper, Scissors, Lizard, Spock Table In R</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hi there. This is a follow up from a previous page on me making a Rock, Paper, Scissors matrix plot/table in the statistical programming language R.</p>
+<p> </p>
+<div id="table-of-contents" class="section level3">
+<h3><u>Table Of Contents</u></h3>
+<p> </p>
+<ul>
+<li><a href="#ls">Adding The Lizard &amp; Spock</a></li>
+<li><a href="#table">Creating The Outcome Table In R</a></li>
+<li><a href="#plot">Creating The Matrix Plot In R</a></li>
+<li><a href="#alternate">An Alternate Method To Creating The Outcome Table</a></li>
+<li><a href="#refs">References</a></li>
+</ul>
+<p> </p>
+<p><a name="ls"></a></p>
+</div>
+<div id="adding-the-lizard-spock" class="section level3">
+<h3><u>Adding The Lizard &amp; Spock</u></h3>
+<p>The game of Rock, Paper, Scissors, Lizard, Spock is merely an extension of Rock, Paper, Scissors. We have added the lizard and the Spock as extra options. Just like the other options, the lizard and the spock has its own strengths and weaknesses. Here is a summary visual from the link <a href="http://www.momsminivan.com/rock-paper-spock.jpg" class="uri">http://www.momsminivan.com/rock-paper-spock.jpg</a> on which beats what. (A draw occurs when both players choose the same thing.)</p>
+<p> </p>
+<center>
+<img src="http://www.momsminivan.com/rock-paper-spock.jpg" />
+</center>
+<center>
+<a href="http://www.momsminivan.com/rock-paper-spock.jpg">Image Source</a>
+</center>
+<p> </p>
+<p><a name="table"></a></p>
+</div>
+<div id="creating-the-outcome-table-in-r" class="section level3">
+<h3><u>Creating The Outcome Table In R</u></h3>
+<p>In Rock, Paper, Scissors, we can create a table with 9 rows and 3 columns. The 9 rows is from 3 choices from the player multiplied by the 3 choices from the opponent. The 3 columns represent the choice from the player, the choice from the opponent and the outcome for the player (Draw, Win, Loss).</p>
+<p>With Rock, Paper, Scissors, Lizard, Spock, both players choose one out of choices. We would have 25 rows and 3 columns.</p>
+<p>In R, we first create an empty matrix with missing values (NA).  Then we convert this matrix into a data frame.</p>
+<p> </p>
+<pre class="r"><code># Create empty table:
+
+dataTable &lt;- matrix(data = NA, nrow = 25, ncol = 3, byrow = TRUE)
+
+dataTable &lt;- as.data.frame(dataTable)</code></pre>
+<p> </p>
+<p>The column names in the data table can be filled in using the colnames() function.</p>
+<p> </p>
+<pre class="r"><code>colnames(dataTable) &lt;- c(&quot;You&quot;, &quot;Opponent&quot;, &quot;Outcome&quot;)</code></pre>
+<p> </p>
+<p>Next, some of the data is being filled in.</p>
+<pre class="r"><code># Fill in columns
+
+dataTable[, 1] &lt;- c(rep(&quot;Rock&quot;, 5), rep(&quot;Paper&quot;, 5), rep(&quot;Scissors&quot;, 5), 
+rep(&quot;Lizard&quot;, 5), rep(&quot;Spock&quot;, 5))
+
+dataTable[, 2] &lt;- c(rep(c(&quot;Rock&quot;, &quot;Paper&quot;, &quot;Scissors&quot;, &quot;Lizard&quot;, &quot;Spock&quot;), 5))
+
+# Check:
+
+dataTable</code></pre>
+<pre><code>##         You Opponent Outcome
+## 1      Rock     Rock      NA
+## 2      Rock    Paper      NA
+## 3      Rock Scissors      NA
+## 4      Rock   Lizard      NA
+## 5      Rock    Spock      NA
+## 6     Paper     Rock      NA
+## 7     Paper    Paper      NA
+## 8     Paper Scissors      NA
+## 9     Paper   Lizard      NA
+## 10    Paper    Spock      NA
+## 11 Scissors     Rock      NA
+## 12 Scissors    Paper      NA
+## 13 Scissors Scissors      NA
+## 14 Scissors   Lizard      NA
+## 15 Scissors    Spock      NA
+## 16   Lizard     Rock      NA
+## 17   Lizard    Paper      NA
+## 18   Lizard Scissors      NA
+## 19   Lizard   Lizard      NA
+## 20   Lizard    Spock      NA
+## 21    Spock     Rock      NA
+## 22    Spock    Paper      NA
+## 23    Spock Scissors      NA
+## 24    Spock   Lizard      NA
+## 25    Spock    Spock      NA</code></pre>
+<p> </p>
+<p>I run this check to check my table is okay so far and error free. This check also helps the reader visualize how the code works. Now, we have the outcome column to fill in.</p>
+<p>For the outcome column in the data, I am filling it in manually. After that, I put the outcomes column into the third column of the data table and convert the column as factors.</p>
+<p> </p>
+<pre class="r"><code># Filling In The Outcome Column:
+
+outcome_col &lt;- c(&quot;Draw&quot;, &quot;Lose&quot;, &quot;Win&quot;, &quot;Win&quot;, &quot;Lose&quot;,
+&quot;Win&quot;, &quot;Draw&quot;, &quot;Lose&quot;, &quot;Lose&quot;, &quot;Win&quot;,
+&quot;Lose&quot;, &quot;Win&quot;, &quot;Draw&quot;, &quot;Win&quot;, &quot;Lose&quot;,
+&quot;Lose&quot;, &quot;Win&quot;, &quot;Lose&quot;, &quot;Draw&quot;, &quot;Win&quot;,
+&quot;Win&quot;, &quot;Lose&quot;, &quot;Win&quot;, &quot;Lose&quot;, &quot;Draw&quot;)
+
+
+# Place outcome_col as third column and convert as factors:
+
+dataTable[, 3] &lt;- as.factor(outcome_col)</code></pre>
+<p> </p>
+<p>We can perform a check to make sure our table is formatted correctly.</p>
+<p> </p>
+<pre class="r"><code># Check again:
+
+dataTable</code></pre>
+<pre><code>##         You Opponent Outcome
+## 1      Rock     Rock    Draw
+## 2      Rock    Paper    Lose
+## 3      Rock Scissors     Win
+## 4      Rock   Lizard     Win
+## 5      Rock    Spock    Lose
+## 6     Paper     Rock     Win
+## 7     Paper    Paper    Draw
+## 8     Paper Scissors    Lose
+## 9     Paper   Lizard    Lose
+## 10    Paper    Spock     Win
+## 11 Scissors     Rock    Lose
+## 12 Scissors    Paper     Win
+## 13 Scissors Scissors    Draw
+## 14 Scissors   Lizard     Win
+## 15 Scissors    Spock    Lose
+## 16   Lizard     Rock    Lose
+## 17   Lizard    Paper     Win
+## 18   Lizard Scissors    Lose
+## 19   Lizard   Lizard    Draw
+## 20   Lizard    Spock     Win
+## 21    Spock     Rock     Win
+## 22    Spock    Paper    Lose
+## 23    Spock Scissors     Win
+## 24    Spock   Lizard    Lose
+## 25    Spock    Spock    Draw</code></pre>
+<pre class="r"><code>str(dataTable)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    25 obs. of  3 variables:
+##  $ You     : chr  &quot;Rock&quot; &quot;Rock&quot; &quot;Rock&quot; &quot;Rock&quot; ...
+##  $ Opponent: chr  &quot;Rock&quot; &quot;Paper&quot; &quot;Scissors&quot; &quot;Lizard&quot; ...
+##  $ Outcome : Factor w/ 3 levels &quot;Draw&quot;,&quot;Lose&quot;,..: 1 2 3 3 2 3 1 2 2 3 ...</code></pre>
+<p> </p>
+<p><a name="plot"></a></p>
+</div>
+<div id="creating-the-matrix-plot-in-r" class="section level3">
+<h3><u>Creating The Matrix Plot In R</u></h3>
+<p> </p>
+<p>Now that the table is nicely formatted, the matrix plot can be generated.</p>
+<p>First, we load the <code>ggplot2</code> library in R. (You could also load ggplot2 at the very beginning.)</p>
+<p> </p>
+<pre class="r"><code>library(ggplot2)</code></pre>
+<p> </p>
+<p>The <code>ggplot()</code> command along with geom_tile() and other addon commands are used to generate the matrix plot.</p>
+<pre class="r"><code># Creating the Rock, Paper, Scissors Matrix Plot:
+
+ggplot(dataTable,aes(x = dataTable[, 1],y = dataTable[, 2],fill = dataTable[, 3])) + 
+geom_tile() + 
+  scale_fill_manual(values = c(&#39;blue&#39;,&#39;red&#39;, &quot;green&quot;)) +
+  labs(x = &quot;Your Choice&quot;, y = &quot;Opponent&#39;s Choice&quot;, 
+       title = &quot;Rock, Paper, Scissors, Lizard, Spock Chart&quot;, fill = &quot;Your Outcome&quot;) + 
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;#3355FF&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;#3355FF&quot;, size = 12),
+        legend.title = element_text(face=&quot;bold&quot;, size = 10))</code></pre>
+<p><img src="rvisual-rpsls_files/figure-html/unnamed-chunk-7-1.png" width="384" /></p>
+<p> </p>
+<p>In <code>ggplot()</code>, I specify dataTable as my data object, the first column of dataTable to go with the x-axis, the second column of dataTable to go with the y-axis and the third column of dataTable to determine the fill colours.</p>
+<p>The command <code>geom_tile()</code> is crucial for obtaining this matrix plot.</p>
+<p>The command <code>scale_fill_manual(values = c('blue','red', &quot;green&quot;))</code> gives the colours for Draw, Loss and Win respectively.</p>
+<p>I include labels using the <code>labs()</code> command. Inside <code>labs()</code>, you need to specify which labels you want.</p>
+<p>I can change the label fonts and title fonts using <code>theme()</code>. The title can be centered using <code>plot.title = element_text(hjust = 0.5)</code> inside <code>theme()</code>. I use <code>element_text()</code> inside theme to modify the labels I want to change. Note that “#3355FF” is the HTML code for the blue shade I have selected.</p>
+<p> </p>
+<p><a name="alternate"></a></p>
+</div>
+<div id="an-alternate-method-to-creating-the-outcome-table" class="section level3">
+<h3><u>An Alternate Method To Creating The Outcome Table</u></h3>
+<p> </p>
+<p>There is an alternate way to create the outcome table. The previous table involved create an empty matrix, converting it into a data frame and filling in the data in a more manual fashion.</p>
+<p>This alternate way uses Cartesian products from Set Theory. You can use the function expand.grid() in R to create the table in a more efficient manner. The code to create the table can be found below.</p>
+<p> </p>
+<pre class="r"><code>## Alternate/Faster Way:
+
+library(ggplot2)
+
+choices &lt;- c(&quot;Rock&quot;, &quot;Paper&quot;, &quot;Scissors&quot;, &quot;Lizard&quot;, &quot;Spock&quot;)
+
+dataTable &lt;- expand.grid(choices, choices)
+
+dataTable &lt;- as.data.frame(dataTable)
+
+dataTable</code></pre>
+<pre><code>##        Var1     Var2
+## 1      Rock     Rock
+## 2     Paper     Rock
+## 3  Scissors     Rock
+## 4    Lizard     Rock
+## 5     Spock     Rock
+## 6      Rock    Paper
+## 7     Paper    Paper
+## 8  Scissors    Paper
+## 9    Lizard    Paper
+## 10    Spock    Paper
+## 11     Rock Scissors
+## 12    Paper Scissors
+## 13 Scissors Scissors
+## 14   Lizard Scissors
+## 15    Spock Scissors
+## 16     Rock   Lizard
+## 17    Paper   Lizard
+## 18 Scissors   Lizard
+## 19   Lizard   Lizard
+## 20    Spock   Lizard
+## 21     Rock    Spock
+## 22    Paper    Spock
+## 23 Scissors    Spock
+## 24   Lizard    Spock
+## 25    Spock    Spock</code></pre>
+<p> </p>
+<p>From here, a third empty column can be added. The third column still has to be inputted manually and accordingly.</p>
+<p> </p>
+<pre class="r"><code># Add third column:
+
+dataTable[ , 3] &lt;- NA
+
+# Add column names:
+
+colnames(dataTable) &lt;- c(&quot;You&quot;, &quot;Opponent&quot;, &quot;Outcome&quot;)
+
+# Check:
+
+dataTable</code></pre>
+<pre><code>##         You Opponent Outcome
+## 1      Rock     Rock      NA
+## 2     Paper     Rock      NA
+## 3  Scissors     Rock      NA
+## 4    Lizard     Rock      NA
+## 5     Spock     Rock      NA
+## 6      Rock    Paper      NA
+## 7     Paper    Paper      NA
+## 8  Scissors    Paper      NA
+## 9    Lizard    Paper      NA
+## 10    Spock    Paper      NA
+## 11     Rock Scissors      NA
+## 12    Paper Scissors      NA
+## 13 Scissors Scissors      NA
+## 14   Lizard Scissors      NA
+## 15    Spock Scissors      NA
+## 16     Rock   Lizard      NA
+## 17    Paper   Lizard      NA
+## 18 Scissors   Lizard      NA
+## 19   Lizard   Lizard      NA
+## 20    Spock   Lizard      NA
+## 21     Rock    Spock      NA
+## 22    Paper    Spock      NA
+## 23 Scissors    Spock      NA
+## 24   Lizard    Spock      NA
+## 25    Spock    Spock      NA</code></pre>
+<pre class="r"><code># Input third column (outcome) data accordingly:
+
+dataTable[, 3] &lt;- c(&quot;Draw&quot;, &quot;Win&quot;, &quot;Lose&quot;, &quot;Lose&quot;, &quot;Win&quot;,
+ &quot;Lose&quot;, &quot;Draw&quot;, &quot;Win&quot;, &quot;Win&quot;, &quot;Lose&quot;,
+ &quot;Win&quot;, &quot;Lose&quot;, &quot;Draw&quot;, &quot;Lose&quot;, &quot;Win&quot;,
+ &quot;Win&quot;, &quot;Lose&quot;, &quot;Win&quot;, &quot;Draw&quot;, &quot;Lose&quot;,
+ &quot;Lose&quot;, &quot;Win&quot;, &quot;Lose&quot;, &quot;Win&quot;, &quot;Draw&quot;) 
+
+# Place outcome_col as third column and convert as factors:
+
+dataTable[, 3] &lt;- as.factor(dataTable[, 3])
+
+# Check structure:
+
+str(dataTable)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    25 obs. of  3 variables:
+##  $ You     : Factor w/ 5 levels &quot;Rock&quot;,&quot;Paper&quot;,..: 1 2 3 4 5 1 2 3 4 5 ...
+##  $ Opponent: Factor w/ 5 levels &quot;Rock&quot;,&quot;Paper&quot;,..: 1 1 1 1 1 2 2 2 2 2 ...
+##  $ Outcome : Factor w/ 3 levels &quot;Draw&quot;,&quot;Lose&quot;,..: 1 3 2 2 3 2 1 3 3 2 ...
+##  - attr(*, &quot;out.attrs&quot;)=List of 2
+##   ..$ dim     : int  5 5
+##   ..$ dimnames:List of 2
+##   .. ..$ Var1: chr  &quot;Var1=Rock&quot; &quot;Var1=Paper&quot; &quot;Var1=Scissors&quot; &quot;Var1=Lizard&quot; ...
+##   .. ..$ Var2: chr  &quot;Var2=Rock&quot; &quot;Var2=Paper&quot; &quot;Var2=Scissors&quot; &quot;Var2=Lizard&quot; ...</code></pre>
+<pre class="r"><code># Check #2:
+
+dataTable</code></pre>
+<pre><code>##         You Opponent Outcome
+## 1      Rock     Rock    Draw
+## 2     Paper     Rock     Win
+## 3  Scissors     Rock    Lose
+## 4    Lizard     Rock    Lose
+## 5     Spock     Rock     Win
+## 6      Rock    Paper    Lose
+## 7     Paper    Paper    Draw
+## 8  Scissors    Paper     Win
+## 9    Lizard    Paper     Win
+## 10    Spock    Paper    Lose
+## 11     Rock Scissors     Win
+## 12    Paper Scissors    Lose
+## 13 Scissors Scissors    Draw
+## 14   Lizard Scissors    Lose
+## 15    Spock Scissors     Win
+## 16     Rock   Lizard     Win
+## 17    Paper   Lizard    Lose
+## 18 Scissors   Lizard     Win
+## 19   Lizard   Lizard    Draw
+## 20    Spock   Lizard    Lose
+## 21     Rock    Spock    Lose
+## 22    Paper    Spock     Win
+## 23 Scissors    Spock    Lose
+## 24   Lizard    Spock     Win
+## 25    Spock    Spock    Draw</code></pre>
+<p> </p>
+<pre class="r"><code># Creating the Rock, Paper, Scissors Matrix Plot:
+
+ggplot(dataTable,aes(x = dataTable[, 1],y = dataTable[, 2],fill = dataTable[, 3])) + 
+ geom_tile() + 
+ scale_fill_manual(values = c(&#39;blue&#39;,&#39;red&#39;, &quot;green&quot;)) +
+ labs(x = &quot;Your Choice&quot;, y = &quot;Opponent&#39;s Choice&quot;, 
+ title = &quot;Rock, Paper, Scissors, Lizard, Spock Chart&quot;, fill = &quot;Your Outcome&quot;) + 
+ theme(plot.title = element_text(hjust = 0.5), 
+ axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;#3355FF&quot;, size = 12),
+ axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;#3355FF&quot;, size = 12),
+ legend.title = element_text(face=&quot;bold&quot;, size = 10))</code></pre>
+<p><img src="rvisual-rpsls_files/figure-html/unnamed-chunk-10-1.png" width="384" /></p>
+<p> </p>
+<p>This “alternate” matrix plot is a little different from the one before as the order is now Rock, Paper, Scissors, Lizard, Spock.</p>
+<p> </p>
+<p><a name="refs"></a></p>
+</div>
+<div id="references" class="section level3">
+<h3><u>References</u></h3>
+<p> </p>
+<ul>
+<li><a href="http://stackoverflow.com/questions/10232525/geom-tile-heatmap-with-different-high-fill-colours-based-on-factor" class="uri">http://stackoverflow.com/questions/10232525/geom-tile-heatmap-with-different-high-fill-colours-based-on-factor</a></li>
+<li><a href="http://stackoverflow.com/questions/16074440/r-ggplot2-center-align-a-multi-line-title" class="uri">http://stackoverflow.com/questions/16074440/r-ggplot2-center-align-a-multi-line-title</a></li>
+<li><a href="http://docs.ggplot2.org/dev/vignettes/themes.html" class="uri">http://docs.ggplot2.org/dev/vignettes/themes.html</a></li>
+<li><a href="http://docs.ggplot2.org/current/theme.html" class="uri">http://docs.ggplot2.org/current/theme.html</a></li>
+<li><a href="https://scriptsandstatistics.wordpress.com/2017/03/30/how-to-plot-a-companion-planting-guide-using-ggplot2/" class="uri">https://scriptsandstatistics.wordpress.com/2017/03/30/how-to-plot-a-companion-planting-guide-using-ggplot2/</a></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

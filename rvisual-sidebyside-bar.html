@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Side By Side Bar Graphs In R &amp; ggplot2</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Side By Side Bar Graphs In R &amp; ggplot2</h1>
+
+</div>
+
+
+<p> </p>
+<div id="table-of-contents" class="section level3">
+<h3><u>Table Of Contents</u></h3>
+<p> </p>
+<ul>
+<li>Simulated Coin Flip Data</li>
+<li>Side By Side Bar Graphs</li>
+<li>Using facet_grid()</li>
+<li>References</li>
+</ul>
+<p> </p>
+</div>
+<div id="simulated-coin-flip-data" class="section level3">
+<h3><u>Simulated Coin Flip Data</u></h3>
+<p> </p>
+<p>The <code>ggplot2</code> package is first loaded into R.</p>
+<p> </p>
+<pre class="r"><code>library(&quot;ggplot2&quot;)</code></pre>
+<p> </p>
+<p>We have two players A and B who each an unfair coin. This unfair coin has a 30% chance of getting heads and a 70% chance of getting tails. Both players flip this coin 1000 times each. This can be simulated in R using the <code>sample()</code> function.</p>
+<p> </p>
+<pre class="r"><code># Flip a unfair coin 1000 times 
+
+flip_results_A &lt;- sample(c(&quot;Heads&quot;, &quot;Tails&quot;), size = 1000, replace = TRUE, prob = c(0.3, 0.7))
+flip_results_B &lt;- sample(c(&quot;Heads&quot;, &quot;Tails&quot;), size = 1000, replace = TRUE, prob = c(0.3, 0.7))</code></pre>
+<p> </p>
+<p>We can see the results of the coin flips using the <code>table()</code> function.</p>
+<p> </p>
+<pre class="r"><code># Get counts of the die rolls:
+
+table(flip_results_A) ; table(flip_results_B)</code></pre>
+<pre><code>## flip_results_A
+## Heads Tails 
+##   304   696</code></pre>
+<pre><code>## flip_results_B
+## Heads Tails 
+##   310   690</code></pre>
+<p> </p>
+<p>The next lines of code is about putting the results together in a data table format.</p>
+<p> </p>
+<pre class="r"><code># Merge the results from Player A and Player B together:
+# Format: Player A | Player A flip results (1000 rows)
+# Player B | Player B flip results (1000 rows)
+
+column1 &lt;- c(rep(&quot;Player A&quot;, 1000), rep(&quot;Player B&quot;, 1000))
+column2 &lt;- c(flip_results_A, flip_results_B)
+
+outcome_data &lt;- cbind(column1, column2)
+
+flip_results &lt;- data.frame(Player = factor(column1, levels = c(&quot;Player A&quot;, &quot;Player B&quot;)),
+                Result = column2)
+
+# A peek of the merged data:
+head(flip_results); tail(flip_results)</code></pre>
+<pre><code>##     Player Result
+## 1 Player A  Tails
+## 2 Player A  Tails
+## 3 Player A  Tails
+## 4 Player A  Tails
+## 5 Player A  Tails
+## 6 Player A  Heads</code></pre>
+<pre><code>##        Player Result
+## 1995 Player B  Heads
+## 1996 Player B  Heads
+## 1997 Player B  Tails
+## 1998 Player B  Tails
+## 1999 Player B  Heads
+## 2000 Player B  Tails</code></pre>
+<p> </p>
+<p>These coin flip results can be converted into a two by two table as a different visual. For graphing purposes, this 2 by 2 table is converted into a data frame.</p>
+<p> </p>
+<pre class="r"><code>table(flip_results)</code></pre>
+<pre><code>##           Result
+## Player     Heads Tails
+##   Player A   304   696
+##   Player B   310   690</code></pre>
+<pre class="r"><code># The two by two table into a data frame for plotting:
+
+results &lt;- data.frame(table(flip_results))</code></pre>
+<p> </p>
+</div>
+<div id="side-by-side-bar-graphs" class="section level3">
+<h3><u>Side By Side Bar Graphs</u></h3>
+<p> </p>
+<p>To obtain side by side bar graphs in <code>ggplot2</code>, we need a lot of parts on top of the <code>ggplot()</code> command.</p>
+<ul>
+<li><p>geom_bar(stat = “identity”, position = position_dodge(), alpha = 0.75) gives the side by side bar graphs</p></li>
+<li><p>ylim(0, 800) gives limits on the y-axis values</p></li>
+<li><p>The geom_text() line adds labels to the bar graphs. Note that position_dodge is needed as we used position dodge was used in geom_bar().</p></li>
+<li><p>labs() gives labels depending on what is specified</p></li>
+<li><p>The theme() function allows for additional aesthetic options such as a centered title and font sizes.</p></li>
+</ul>
+<p> </p>
+<pre class="r"><code># Plotting side by side bar graphs:
+
+# http://www.cookbook-r.com/Graphs/Bar_and_line_graphs_(ggplot2)/
+# R Graphics Cookbook by Winston Chang Reference
+# Result of heads or tails in x = axis, Counts as y axis, diff colours for each player.
+# Put labels:
+
+ggplot(data = results, aes(x = Result, y = Freq, fill = Player)) +
+  geom_bar(stat = &quot;identity&quot;, position = position_dodge(), alpha = 0.75)  +
+  ylim(0,800) +
+  geom_text(aes(label = Freq), fontface = &quot;bold&quot;, vjust = 1.5,
+             position = position_dodge(.9), size = 4) +
+  labs(x = &quot;\n Coin Flip Outcome&quot;, y = &quot;Frequency\n&quot;, title = &quot;\n Coin Flip Results \n&quot;) +
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;red&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;red&quot;, size = 12),
+        legend.title = element_text(face=&quot;bold&quot;, size = 10))</code></pre>
+<p><img src="rvisual-sidebyside-bar_files/figure-html/unnamed-chunk-6-1.png" width="384" /></p>
+<p> </p>
+</div>
+<div id="using-facet_grid" class="section level3">
+<h3><u>Using facet_grid()</u></h3>
+<p> </p>
+<p>In the above plot, we have four bars in one graph where the Player A bars are beside the Player B bars. Adding facet_grid(. ~Player) will turn this bar graph plot in a way where there is one bar graph plot for Player A and another bar graph plot for player B right beside it.</p>
+<p> </p>
+<pre class="r"><code># Facet_grid:
+
+ggplot(data = results, aes(x = Result, y = Freq)) +
+  geom_bar(stat = &quot;identity&quot;, alpha = 0.7) +
+  facet_grid(. ~Player)  +
+  ylim(0,800) +
+  geom_text(aes(label = Freq), fontface = &quot;bold&quot;, vjust = 1.5, colour = &quot;white&quot;, size = 4) +
+  labs(x = &quot;\n Coin Flip Outcome&quot;, y = &quot;Frequency\n&quot;, title = &quot;\n Coin Flip Results \n&quot;) +
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;darkgreen&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;darkgreen&quot;, size = 12),
+        legend.title = element_text(face=&quot;bold&quot;, size = 10),
+        strip.background = element_rect(fill=&quot;lightblue&quot;, colour=&quot;black&quot;, size=1),
+        strip.text = element_text(face=&quot;bold&quot;, size=rel(1.2)))</code></pre>
+<p><img src="rvisual-sidebyside-bar_files/figure-html/unnamed-chunk-7-1.png" width="384" /></p>
+<p> </p>
+<p>Note that the <code>position_dodge()</code> options were removed as they are not needed. To highlight the Player A and Player B font text and the bars, the strip.background and strip.text options are used.</p>
+<p> </p>
+</div>
+<div id="references" class="section level3">
+<h3><u>References</u></h3>
+<p> </p>
+<ul>
+<li><a href="http://www.cookbook-r.com/Graphs/Bar_and_line_graphs_(ggplot2)/" class="uri">http://www.cookbook-r.com/Graphs/Bar_and_line_graphs_(ggplot2)/</a></li>
+<li>R Graphics Cookbook by Winston Chang (2012)</li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

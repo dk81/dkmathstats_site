@@ -1,0 +1,270 @@
+---
+title: "Creating A Rock, Paper, Scissors, Lizard, Spock Table In R"
+output: html_document
+---
+
+&nbsp;
+
+Hi there. This is a follow up from a previous page on me making a Rock, Paper, Scissors matrix plot/table in the statistical programming language R.
+
+&nbsp;
+
+### <u>Table Of Contents</u>
+
+&nbsp;
+
+* <a href="#ls">Adding The Lizard & Spock</a>
+* <a href="#table">Creating The Outcome Table In R</a>
+* <a href="#plot">Creating The Matrix Plot In R</a>
+* <a href="#alternate">An Alternate Method To Creating The Outcome Table</a>
+* <a href="#refs">References</a>
+
+&nbsp;
+
+<a name="ls"></a>
+
+### <u>Adding The Lizard & Spock</u>
+
+The game of Rock, Paper, Scissors, Lizard, Spock is merely an extension of Rock, Paper, Scissors. We have added the lizard and the Spock as extra options. Just like the other options, the lizard and the spock has its own strengths and weaknesses. Here is a summary visual from the link http://www.momsminivan.com/rock-paper-spock.jpg on which beats what. (A draw occurs when both players choose the same thing.)
+
+&nbsp;
+
+<center><img src="http://www.momsminivan.com/rock-paper-spock.jpg" /></center>
+<center><a href="http://www.momsminivan.com/rock-paper-spock.jpg">Image Source</a></center>
+
+
+&nbsp;
+
+<a name="table"></a>
+
+### <u>Creating The Outcome Table In R</u>
+
+In Rock, Paper, Scissors, we can create a table with 9 rows and 3 columns. The 9 rows is from 3 choices from the player multiplied by the 3 choices from the opponent. The 3 columns represent the choice from the player, the choice from the opponent and the outcome for the player (Draw, Win, Loss).
+
+With Rock, Paper, Scissors, Lizard, Spock, both players choose one out of choices. We would have 25 rows and 3 columns.
+
+In R, we first create an empty matrix with missing values (NA).  Then we convert this matrix into a data frame.
+
+&nbsp;
+
+```{r}
+# Create empty table:
+
+dataTable <- matrix(data = NA, nrow = 25, ncol = 3, byrow = TRUE)
+
+dataTable <- as.data.frame(dataTable)
+```
+
+&nbsp;
+
+The column names in the data table can be filled in using the colnames() function.
+
+&nbsp;
+
+```{r}
+colnames(dataTable) <- c("You", "Opponent", "Outcome")
+```
+
+&nbsp;
+
+Next, some of the data is being filled in.
+
+```{r}
+# Fill in columns
+
+dataTable[, 1] <- c(rep("Rock", 5), rep("Paper", 5), rep("Scissors", 5), 
+rep("Lizard", 5), rep("Spock", 5))
+
+dataTable[, 2] <- c(rep(c("Rock", "Paper", "Scissors", "Lizard", "Spock"), 5))
+
+# Check:
+
+dataTable
+```
+
+&nbsp;
+
+I run this check to check my table is okay so far and error free. This check also helps the reader visualize how the code works. Now, we have the outcome column to fill in.
+
+For the outcome column in the data, I am filling it in manually. After that, I put the outcomes column into the third column of the data table and convert the column as factors.
+
+&nbsp;
+
+```{r}
+# Filling In The Outcome Column:
+
+outcome_col <- c("Draw", "Lose", "Win", "Win", "Lose",
+"Win", "Draw", "Lose", "Lose", "Win",
+"Lose", "Win", "Draw", "Win", "Lose",
+"Lose", "Win", "Lose", "Draw", "Win",
+"Win", "Lose", "Win", "Lose", "Draw")
+
+
+# Place outcome_col as third column and convert as factors:
+
+dataTable[, 3] <- as.factor(outcome_col)
+```
+
+&nbsp;
+
+We can perform a check to make sure our table is formatted correctly.
+
+&nbsp;
+
+```{r}
+# Check again:
+
+dataTable
+
+str(dataTable)
+```
+
+&nbsp;
+
+<a name="plot"></a>
+
+### <u>Creating The Matrix Plot In R</u>
+
+&nbsp;
+
+Now that the table is nicely formatted, the matrix plot can be generated.
+
+First, we load the `ggplot2` library in R. (You could also load ggplot2 at the very beginning.)
+
+&nbsp;
+
+```{r}
+library(ggplot2)
+```
+
+&nbsp;
+
+The `ggplot()` command along with geom_tile() and other addon commands are used to generate the matrix plot.
+
+```{r, echo = TRUE, fig.width=4, fig.height=4} 
+# Creating the Rock, Paper, Scissors Matrix Plot:
+
+ggplot(dataTable,aes(x = dataTable[, 1],y = dataTable[, 2],fill = dataTable[, 3])) + 
+geom_tile() + 
+  scale_fill_manual(values = c('blue','red', "green")) +
+  labs(x = "Your Choice", y = "Opponent's Choice", 
+       title = "Rock, Paper, Scissors, Lizard, Spock Chart", fill = "Your Outcome") + 
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face="bold", colour="#3355FF", size = 12),
+        axis.title.y = element_text(face="bold", colour="#3355FF", size = 12),
+        legend.title = element_text(face="bold", size = 10))
+```
+
+&nbsp;
+
+In `ggplot()`, I specify dataTable as my data object, the first column of dataTable to go with the x-axis, the second column of dataTable to go with the y-axis and the third column of dataTable to determine the fill colours.
+
+The command `geom_tile()` is crucial for obtaining this matrix plot.
+
+The command `scale_fill_manual(values = c('blue','red', "green"))` gives the colours for Draw, Loss and Win respectively.
+
+I include labels using the `labs()` command. Inside `labs()`, you need to specify which labels you want.
+
+I can change the label fonts and title fonts using `theme()`. The title can be centered using `plot.title = element_text(hjust = 0.5)` inside `theme()`. I use `element_text()` inside theme to modify the labels I want to change. Note that "#3355FF" is the HTML code for the blue shade I have selected.
+
+&nbsp;
+
+<a name="alternate"></a>
+
+### <u>An Alternate Method To Creating The Outcome Table</u>
+
+&nbsp;
+
+There is an alternate way to create the outcome table. The previous table involved create an empty matrix, converting it into a data frame and filling in the data in a more manual fashion.
+
+This alternate way uses Cartesian products from Set Theory. You can use the function expand.grid() in R to create the table in a more efficient manner. The code to create the table can be found below.
+
+&nbsp;
+
+```{r}
+## Alternate/Faster Way:
+
+library(ggplot2)
+
+choices <- c("Rock", "Paper", "Scissors", "Lizard", "Spock")
+
+dataTable <- expand.grid(choices, choices)
+
+dataTable <- as.data.frame(dataTable)
+
+dataTable
+```
+
+&nbsp;
+
+From here, a third empty column can be added. The third column still has to be inputted manually and accordingly.
+
+&nbsp;
+
+```{r}
+# Add third column:
+
+dataTable[ , 3] <- NA
+
+# Add column names:
+
+colnames(dataTable) <- c("You", "Opponent", "Outcome")
+
+# Check:
+
+dataTable
+
+# Input third column (outcome) data accordingly:
+
+dataTable[, 3] <- c("Draw", "Win", "Lose", "Lose", "Win",
+ "Lose", "Draw", "Win", "Win", "Lose",
+ "Win", "Lose", "Draw", "Lose", "Win",
+ "Win", "Lose", "Win", "Draw", "Lose",
+ "Lose", "Win", "Lose", "Win", "Draw") 
+
+# Place outcome_col as third column and convert as factors:
+
+dataTable[, 3] <- as.factor(dataTable[, 3])
+
+# Check structure:
+
+str(dataTable)
+
+# Check #2:
+
+dataTable
+```
+
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4} 
+# Creating the Rock, Paper, Scissors Matrix Plot:
+
+ggplot(dataTable,aes(x = dataTable[, 1],y = dataTable[, 2],fill = dataTable[, 3])) + 
+ geom_tile() + 
+ scale_fill_manual(values = c('blue','red', "green")) +
+ labs(x = "Your Choice", y = "Opponent's Choice", 
+ title = "Rock, Paper, Scissors, Lizard, Spock Chart", fill = "Your Outcome") + 
+ theme(plot.title = element_text(hjust = 0.5), 
+ axis.title.x = element_text(face="bold", colour="#3355FF", size = 12),
+ axis.title.y = element_text(face="bold", colour="#3355FF", size = 12),
+ legend.title = element_text(face="bold", size = 10))
+```
+
+&nbsp;
+
+This "alternate" matrix plot is a little different from the one before as the order is now Rock, Paper, Scissors, Lizard, Spock.
+
+&nbsp;
+
+<a name="refs"></a>
+
+### <u>References</u>
+
+&nbsp;
+
+* http://stackoverflow.com/questions/10232525/geom-tile-heatmap-with-different-high-fill-colours-based-on-factor
+* http://stackoverflow.com/questions/16074440/r-ggplot2-center-align-a-multi-line-title
+* http://docs.ggplot2.org/dev/vignettes/themes.html
+* http://docs.ggplot2.org/current/theme.html
+* https://scriptsandstatistics.wordpress.com/2017/03/30/how-to-plot-a-companion-planting-guide-using-ggplot2/

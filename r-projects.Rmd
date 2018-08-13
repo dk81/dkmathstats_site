@@ -32,7 +32,31 @@ This page contains links on a bunch of R programming projects.
 
 &nbsp;
 
+[Making Bar Graphs In R Using ggplot2](./rvisual-bargraphs.html)
 
+[A Sideways Bar Graph Example In R](./rvisual-sideways-bargraph.html)
+
+[Side By Side Bar Graphs Using R and ggplot2](./rvisual-sidebyside-bar.html)
+
+[An Advanced Bar Graph Example Using R And ggplot2](./rvisual-adv-bargraphs.html)
+
+[Histograms In R](./rvisual-histograms.html)
+
+[Heatmaps In R With ggplot2](./rvisual-heatmaps.html)
+
+
+
+&nbsp;
+
+### <u>Data Visualization Projects In R</u>
+
+&nbsp;
+
+[Making A Rock, Paper, Scissors Table In R](./rvisual-rockpaperscissors.html)
+
+[Making A Rock, Paper, Scissors, Lizard, Spock Table In R](./rvisual-rpsls.html)
+
+&nbsp;
 
 ### <u>Data Analysis & Data Manipulation In R</u>
 
