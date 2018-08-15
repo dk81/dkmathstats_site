@@ -334,7 +334,7 @@ There are dual-typed Pokemon tables out there but you could use the single type 
 
 **Simple Table Observations**
 
-* One could use these types of tables to study type matchups for Pokémon selections in certain video games and competitions.
+* One could use these types of tables to study type matchups for Pokemon selections in certain video games and competitions.
 
 * The Steel Type is still a very solid defensive choice as a lot of attacks do half damage to Steel types.
 
