@@ -11,7 +11,7 @@
 
 
 
-<title>Creating A Pokémon (Gen 6+) Types Table In R</title>
+<title>Creating A Pokemon (Gen 6+) Types Table In R</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -205,7 +205,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Creating A Pokémon (Gen 6+) Types Table In R</h1>
+<h1 class="title toc-ignore">Creating A Pokemon (Gen 6+) Types Table In R</h1>
 
 </div>
 
@@ -247,7 +247,7 @@ $(document).ready(function () {
 <p> </p>
 </div>
 <div id="a-pokemon-types-table-gen-6" class="section level3">
-<h3><u>A Pokémon Types Table (Gen 6+)</u></h3>
+<h3><u>A Pokemon Types Table (Gen 6+)</u></h3>
 <p> </p>
 <p>The <code>geom_tile()</code> function from R’s ggplot2 package allows for grid plots and tables.</p>
 <p>In R you can make something as close to this:</p>
@@ -260,9 +260,9 @@ $(document).ready(function () {
 <p> </p>
 </div>
 <div id="creating-a-pokemon-types-table-in-r" class="section level3">
-<h3><u>Creating A Pokémon Types Table In R</u></h3>
+<h3><u>Creating A Pokemon Types Table In R</u></h3>
 <p> </p>
-<p>We start with creating the table of Pokémon Types with their damage multipliers. In this page we include all the type including Dark, Steel and the Fairy type.</p>
+<p>We start with creating the table of Pokemon Types with their damage multipliers. In this page we include all the type including Dark, Steel and the Fairy type.</p>
 <p>This first line of R code is for creating the Pokémon Types as a vector.</p>
 <p> </p>
 <pre class="r"><code># Reference: http://pokemondb.net/type
@@ -280,7 +280,7 @@ pokemonTypes&lt;- c(&quot;Normal&quot;, &quot;Fire&quot;, &quot;Water&quot;, &qu
 length(pokemonTypes)</code></pre>
 <pre><code>## [1] 18</code></pre>
 <p> </p>
-<p>Since there are 18 Pokémon types, we would need 18 x 18 = 324 cases in our data table. These 324 cases translates to 324 rows in our table. The table could be inputted manually but that would take too long. Instead, the use of Cartesian products from the mathematical field of Set Theory along with R’s <code>expand.grid()</code> function is applied. Please refer to the code and output below.</p>
+<p>Since there are 18 Pokemon types, we would need 18 x 18 = 324 cases in our data table. These 324 cases translates to 324 rows in our table. The table could be inputted manually but that would take too long. Instead, the use of Cartesian products from the mathematical field of Set Theory along with R’s <code>expand.grid()</code> function is applied. Please refer to the code and output below.</p>
 <p> </p>
 <pre class="r"><code># Create Cartesian Product Type Table: 
 # Attacker in Column 1 and Defender in Column 2
@@ -288,7 +288,7 @@ length(pokemonTypes)</code></pre>
 pokeTable &lt;- expand.grid(pokemonTypes, pokemonTypes)
 pokeTable &lt;- as.data.frame(pokeTable)</code></pre>
 <p> </p>
-<p>We can check the dimensions of this Cartesian product table of Pokémon types.</p>
+<p>We can check the dimensions of this Cartesian product table of Pokemon types.</p>
 <p> </p>
 <pre class="r"><code># Check dimensions (18 x 18 = 324 combinations):
 
@@ -440,6 +440,7 @@ pokeTable[289:306, 3] &lt;- c(1/2, 2, 1, 1, 1/2, 1/2, 2, 0, 2, 1/2, 1/2, 1/2, 1/
 pokeTable[307:324, 3] &lt;- c(1, 1, 1, 1, 1, 1, 1/2, 2, 1, 1, 1, 1/2, 1, 1, 0, 1/2, 2, 1)</code></pre>
 <p> </p>
 <p>This next piece of code involves having the values from the third column as factors. In addition, I check the structure of the table and use the <code>head()</code> and <code>tail()</code> functions.</p>
+<p> </p>
 <pre class="r"><code># Have the multipliers in column 3 as factors:
 
 pokeTable[, 3] &lt;- as.factor(pokeTable[, 3])
@@ -486,14 +487,14 @@ head(pokeTable, n = 10)</code></pre>
 <hr />
 </div>
 <div id="creating-the-pokemon-types-matrix-plot-in-r" class="section level3">
-<h3><u>Creating The Pokémon Types Matrix Plot In R</u></h3>
+<h3><u>Creating The Pokemon Types Matrix Plot In R</u></h3>
 <p>&amp;nbsp</p>
 <p>The table of Pokémon Types and damage multipliers is now ready for plotting purposes.</p>
 <p>The ggplot2 package in R for data visualization is first loaded.</p>
 <p>&amp;nbsp</p>
 <pre class="r"><code>library(ggplot2)</code></pre>
 <p>&amp;nbsp</p>
-<p>Here is the code and output for the Pokémon types matrix plot. In this plot, the defending Pokémon types are on the x-axis (horizontal) and the attacking move type is on the y-axis (side/vertical).</p>
+<p>Here is the code and output for the Pokemon types matrix plot. In this plot, the defending Pokemon types are on the x-axis (horizontal) and the attacking move type is on the y-axis (side/vertical).</p>
 <p> </p>
 <pre class="r"><code>## Attack Type on x-axis and Defense Type on y-axis with x-axis labels on top:
 
@@ -521,12 +522,12 @@ ggplot(pokeTable,aes(x = pokeTable[, 2],y = pokeTable[, 1], fill = pokeTable[, 3
 <p>There are dual-typed Pokemon tables out there but you could use the single type table twice. As an example, an Ice type move to a Grass and Water type would deal normal damage (x1) as we have the multipliers of 2 and 1/2.</p>
 <p><strong>Simple Table Observations</strong></p>
 <ul>
-<li>One could use these types of tables to study type matchups for Pokémon selections in certain video games and competitions.</li>
-<li>The Steel Type is still a very solid defensive choice as a lot of attacks do half damage to Steel types.</li>
-<li>Poison as an attacking type is not very great despite its advantage over the Fairy type.</li>
-<li>It is somewhat difficult to pick out the best attacking types. Candidates include Ground, Fire, Ice and Rock types.</li>
-<li>The Fairy type is okay for attacking. Its defense is decent as Dark, Fighting and Bug attacks are not very effective versus Fairy types. Dragon attacks have no effect on Fairy types. Only * Steel and Poison moves are super effective versus Fairy.</li>
-<li>The Fire type is a good defensive type as well.</li>
+<li><p>One could use these types of tables to study type matchups for Pokémon selections in certain video games and competitions.</p></li>
+<li><p>The Steel Type is still a very solid defensive choice as a lot of attacks do half damage to Steel types.</p></li>
+<li><p>Poison as an attacking type is not very great despite its advantage over the Fairy type.</p></li>
+<li><p>It is somewhat difficult to pick out the best attacking types. Candidates include Ground, Fire, Ice and Rock types.</p></li>
+<li><p>The Fairy type is okay for attacking. Its defense is decent as Dark, Fighting and Bug attacks are not very effective versus Fairy types. Dragon attacks have no effect on Fairy types. Only * Steel and Poison moves are super effective versus Fairy.</p></li>
+<li><p>The Fire type is a good defensive type as well.</p></li>
 </ul>
 </div>
 

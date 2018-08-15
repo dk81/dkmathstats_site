@@ -297,6 +297,7 @@ summary(gamb_data)</code></pre>
 colnames(gamb_data) &lt;- c(&quot;Sex&quot;, &quot;Status&quot;, &quot;Income&quot;, &quot;Verbal&quot;, &quot;Gamble&quot;)</code></pre>
 <p> </p>
 <p>In base R, a correlation table can be created by using the <code>cor()</code> function.</p>
+<p> </p>
 <pre class="r"><code># Correlation
 
 corr_gamb &lt;- cor(gamb_data)
@@ -434,29 +435,69 @@ ggplot(data = melted_gamb, aes(x = Var1, y = Var2, fill = value)) +
 <p>Version Two: Upper Triangular Correlation Plot using ggplot2</p>
 <p>The full correlation matrix provides more than enough information. An upper triangular matrix of the correlation matrix provides less cluster and there is no loss of information. (Recall that the correlation matrix is a symmetric matrix so we can afford to drop the multiple entries.)</p>
 <p>For upper and lower triangular matrices, there is some additional data manipulation work needed to have the data prepared for plotting.</p>
-<blockquote>
-<h1 id="create-new-copy">Create new copy:</h1>
-<p>upper_gamb &lt;- corr_gamb</p>
-<h1 id="make-upper-triangular-matrix-by-setting-na-to-lower-triangular-part">Make upper triangular matrix by setting NA to lower triangular part:</h1>
-<p>upper_gamb[lower.tri(upper_gamb)] &lt;- NA</p>
-<p>upper_gamb Sex Status Income Verbal Gamble Sex 1 -0.4809353 -0.1154586 -0.1069762 -0.40780533 Status NA 1.0000000 -0.2750340 0.5316102 -0.05042081 Income NA NA 1.0000000 -0.1755707 0.62207690 Verbal NA NA NA 1.0000000 -0.22005619 Gamble NA NA NA NA 1.00000000</p>
-<h1 id="melt-this-upper-triangular-matrix-and-remove-na-values">Melt this upper triangular matrix and remove NA values:</h1>
-<p>up_m_gamb &lt;- melt(upper_gamb, na.rm = TRUE)</p>
-<p>head(up_m_gamb) Var1 Var2 value 1 Sex Sex 1.0000000 6 Sex Status -0.4809353 7 Status Status 1.0000000 11 Sex Income -0.1154586 12 Status Income -0.2750340 13 Income Income 1.0000000 tail(up_m_gamb) Var1 Var2 value 19 Verbal Verbal 1.00000000 21 Sex Gamble -0.40780533 22 Status Gamble -0.05042081 23 Income Gamble 0.62207690 24 Verbal Gamble -0.22005619 25 Gamble Gamble 1.00000000 # Ggplot upper triangular correlation matrix:</p>
-<p>ggplot(data = up_m_gamb, aes(x = Var1, y = Var2, fill = value)) + + geom_tile() + + scale_fill_gradient2(midpoint = 0.5, mid =“grey70”, + limits = c(-1, +1)) + + labs(title = “Correlation Matrix On Teen Gambling Data ”, + x = “”, y = “”, fill = “Correlation Measure”) + + theme(plot.title = element_text(hjust = 0.5, colour = “blue”), + axis.title.x = element_text(face=“bold”, colour=“darkgreen”, size = 12), + axis.title.y = element_text(face=“bold”, colour=“darkgreen”, size = 12), + legend.title = element_text(face=“bold”, colour=“brown”, size = 10)) + + geom_text(aes(x = Var1, y = Var2, label = round(value, 2)), color = “black”, + fontface = “bold”, size = 5)</p>
-</blockquote>
+<p> </p>
+<pre class="r"><code># Create new copy:
+
+upper_gamb &lt;- corr_gamb
+
+# Make upper triangular matrix by setting NA to lower triangular part:
+upper_gamb[lower.tri(upper_gamb)] &lt;- NA
+
+upper_gamb</code></pre>
+<pre><code>##        Sex     Status     Income     Verbal      Gamble
+## Sex      1 -0.4809353 -0.1154586 -0.1069762 -0.40780533
+## Status  NA  1.0000000 -0.2750340  0.5316102 -0.05042081
+## Income  NA         NA  1.0000000 -0.1755707  0.62207690
+## Verbal  NA         NA         NA  1.0000000 -0.22005619
+## Gamble  NA         NA         NA         NA  1.00000000</code></pre>
+<p> </p>
+<pre class="r"><code># Melt this upper triangular matrix and remove NA values:
+
+up_m_gamb &lt;- melt(upper_gamb, na.rm = TRUE)
+
+head(up_m_gamb)</code></pre>
+<pre><code>##      Var1   Var2      value
+## 1     Sex    Sex  1.0000000
+## 6     Sex Status -0.4809353
+## 7  Status Status  1.0000000
+## 11    Sex Income -0.1154586
+## 12 Status Income -0.2750340
+## 13 Income Income  1.0000000</code></pre>
+<pre class="r"><code>tail(up_m_gamb)</code></pre>
+<pre><code>##      Var1   Var2       value
+## 19 Verbal Verbal  1.00000000
+## 21    Sex Gamble -0.40780533
+## 22 Status Gamble -0.05042081
+## 23 Income Gamble  0.62207690
+## 24 Verbal Gamble -0.22005619
+## 25 Gamble Gamble  1.00000000</code></pre>
+<pre class="r"><code># Ggplot upper triangular correlation matrix:
+
+ggplot(data = up_m_gamb, aes(x = Var1, y = Var2, fill = value)) +
+  geom_tile() +
+  scale_fill_gradient2(midpoint = 0.5, mid =&quot;grey70&quot;, limits = c(-1, +1)) +
+  labs(title = &quot;Correlation Matrix \n On Teen Gambling Data \n&quot;, 
+  x = &quot;&quot;, y = &quot;&quot;, fill = &quot;Correlation \n Measure&quot;) +
+  theme(plot.title = element_text(hjust = 0.5, colour = &quot;blue&quot;), 
+  axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;darkgreen&quot;, size = 12),
+  axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;darkgreen&quot;, size = 12),
+  legend.title = element_text(face=&quot;bold&quot;, colour=&quot;brown&quot;, size = 10)) +
+  geom_text(aes(x = Var1, y = Var2, label = round(value, 2)), color = &quot;black&quot;, 
+  fontface = &quot;bold&quot;, size = 5)</code></pre>
+<p><img src="rvisual-corrplots_files/figure-html/unnamed-chunk-16-1.png" width="384" /></p>
+<p> </p>
 <p>Having a upper triangular matrix version of the correlation matrix is less intimidating and it is easier to read. You may have to explain that for example that the correlation of income and status and the correlation of status and income are the same (due to symmetry).</p>
 <p>(This upper triangular matrix form is not exactly like the one from linear algebra but I think the above image is good enough for displaying purposes.)</p>
 <p>Version Three: Lower Triangular Correlation Plot using ggplot2</p>
 <p>Here is the code and output for the lower triangular part of the correlation matrix. The code is similar to the upper triangular case.</p>
 <blockquote>
 <h2 id="version-three-lower-triangular-correlation-plot-using-ggplot2">Version Three: Lower Triangular Correlation Plot using ggplot2:</h2>
-<h1 id="create-new-copy-1">Create new copy:</h1>
+<h1 id="create-new-copy">Create new copy:</h1>
 <p>lower_gamb &lt;- corr_gamb</p>
 <h1 id="make-lower-triangular-matrix-by-setting-na-to-upper-triangular-part">Make lower triangular matrix by setting NA to upper triangular part:</h1>
 <p>lower_gamb[upper.tri(lower_gamb)] &lt;- NA</p>
 <p>lower_gamb Sex Status Income Verbal Gamble Sex 1.0000000 NA NA NA NA Status -0.4809353 1.00000000 NA NA NA Income -0.1154586 -0.27503402 1.0000000 NA NA Verbal -0.1069762 0.53161022 -0.1755707 1.0000000 NA Gamble -0.4078053 -0.05042081 0.6220769 -0.2200562 1</p>
-<h1 id="melt-this-upper-triangular-matrix-and-remove-na-values-1">Melt this upper triangular matrix and remove NA values:</h1>
+<h1 id="melt-this-upper-triangular-matrix-and-remove-na-values">Melt this upper triangular matrix and remove NA values:</h1>
 <p>lower_m_gamb &lt;- melt(lower_gamb, na.rm = TRUE)</p>
 <p>head(lower_m_gamb) Var1 Var2 value 1 Sex Sex 1.0000000 2 Status Sex -0.4809353 3 Income Sex -0.1154586 4 Verbal Sex -0.1069762 5 Gamble Sex -0.4078053 7 Status Status 1.0000000 tail(lower_m_gamb) Var1 Var2 value 13 Income Income 1.0000000 14 Verbal Income -0.1755707 15 Gamble Income 0.6220769 19 Verbal Verbal 1.0000000 20 Gamble Verbal -0.2200562 25 Gamble Gamble 1.0000000 # Ggplot lower triangular correlation matrix:</p>
 </blockquote>

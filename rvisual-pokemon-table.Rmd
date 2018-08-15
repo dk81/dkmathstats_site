@@ -1,5 +1,5 @@
 ---
-title: "Creating A Pokémon (Gen 6+) Types Table In R"
+title: "Creating A Pokemon (Gen 6+) Types Table In R"
 output: html_document
 ---
 
@@ -47,7 +47,7 @@ Related Pages To This Include:
 
 &nbsp;
 
-### <u>A Pokémon Types Table (Gen 6+)</u>
+### <u>A Pokemon Types Table (Gen 6+)</u>
 
 &nbsp;
 
@@ -65,11 +65,11 @@ Link Source: https://pokemondb.net/type
 
 &nbsp;
 
-### <u>Creating A Pokémon Types Table In R</u>
+### <u>Creating A Pokemon Types Table In R</u>
 
 &nbsp;
 
-We start with creating the table of Pokémon Types with their damage multipliers. In this page we include all the type including Dark, Steel and the Fairy type.
+We start with creating the table of Pokemon Types with their damage multipliers. In this page we include all the type including Dark, Steel and the Fairy type.
 
 This first line of R code is for creating the Pokémon Types as a vector.
 
@@ -99,7 +99,7 @@ length(pokemonTypes)
 
 &nbsp;
 
-Since there are 18 Pokémon types, we would need 18 x 18 = 324 cases in our data table. These 324 cases translates to 324 rows in our table. The table could be inputted manually but that would take too long. Instead, the use of Cartesian products from the mathematical field of Set Theory along with R's `expand.grid()` function is applied. Please refer to the code and output below.
+Since there are 18 Pokemon types, we would need 18 x 18 = 324 cases in our data table. These 324 cases translates to 324 rows in our table. The table could be inputted manually but that would take too long. Instead, the use of Cartesian products from the mathematical field of Set Theory along with R's `expand.grid()` function is applied. Please refer to the code and output below.
 
 &nbsp;
 
@@ -113,7 +113,7 @@ pokeTable <- as.data.frame(pokeTable)
 
 &nbsp;
 
-We can check the dimensions of this Cartesian product table of Pokémon types.
+We can check the dimensions of this Cartesian product table of Pokemon types.
 
 &nbsp;
 
@@ -270,6 +270,8 @@ pokeTable[307:324, 3] <- c(1, 1, 1, 1, 1, 1, 1/2, 2, 1, 1, 1, 1/2, 1, 1, 0, 1/2,
 
 This next piece of code involves having the values from the third column as factors. In addition, I check the structure of the table and use the `head()` and `tail()` functions.
 
+&nbsp;
+
 ```{r}
 # Have the multipliers in column 3 as factors:
 
@@ -290,7 +292,7 @@ tail(pokeTable, n = 10)
 
 ---
 
-### <u>Creating The Pokémon Types Matrix Plot In R</u>
+### <u>Creating The Pokemon Types Matrix Plot In R</u>
 
 &nbsp
 
@@ -306,7 +308,7 @@ library(ggplot2)
 
 &nbsp
 
-Here is the code and output for the Pokémon types matrix plot. In this plot, the defending Pokémon types are on the x-axis (horizontal) and the attacking move type is on the y-axis (side/vertical).
+Here is the code and output for the Pokemon types matrix plot. In this plot, the defending Pokemon types are on the x-axis (horizontal) and the attacking move type is on the y-axis (side/vertical).
 
 &nbsp;
 
@@ -344,8 +346,13 @@ There are dual-typed Pokemon tables out there but you could use the single type 
 **Simple Table Observations**
 
 * One could use these types of tables to study type matchups for Pokémon selections in certain video games and competitions.
+
 * The Steel Type is still a very solid defensive choice as a lot of attacks do half damage to Steel types.
+
 * Poison as an attacking type is not very great despite its advantage over the Fairy type.
+
 * It is somewhat difficult to pick out the best attacking types. Candidates include Ground, Fire, Ice and Rock types.
+
 * The Fairy type is okay for attacking. Its defense is decent as Dark, Fighting and Bug attacks are not very effective versus Fairy types. Dragon attacks have no effect on Fairy types. Only * Steel and Poison moves are super effective versus Fairy.
+
 * The Fire type is a good defensive type as well.
