@@ -13,7 +13,7 @@ This page contains links on a bunch of R programming projects.
 
 &nbsp;
 
-* <a href="#mathstats">Math & Stats In R</a>
+* <a href="#mathstats">Math And Stats In R</a>
 
 * <a href="#rvisual">Data Visualization In R</a>
 
@@ -29,7 +29,7 @@ This page contains links on a bunch of R programming projects.
 
 <a name="mathstats"></a>
 
-### <u>Math & Stats In R</u>
+### <u>Math And Stats In R</u>
 
 &nbsp;
 
@@ -90,7 +90,7 @@ This page contains links on a bunch of R programming projects.
 
 [Creating A Rock, Paper, Scissors, Lizard, Spock Table In R](./rvisual-rpsls.html)
 
-[Creating A Pokémon (Gen 6+) Types Table In R](./rvisual-pokemon-table.html)
+[Creating A Pokemon (Gen 6+) Types Table In R](./rvisual-pokemon-table.html)
 
 &nbsp;
 
