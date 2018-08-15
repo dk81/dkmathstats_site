@@ -218,9 +218,12 @@ $(document).ready(function () {
 <h3><u>Topics</u></h3>
 <p> </p>
 <ul>
-<li></li>
-<li></li>
-<li></li>
+<li><p>Why Do We Need Mean, Median and Mode?</p></li>
+<li><p>Variance And Standard Deviation</p></li>
+<li><p>Skewness</p></li>
+<li><p>Kurtosis</p></li>
+<li><p>Fat Tails</p></li>
+<li><p>The Use Of Statistical Software For The Dataset</p></li>
 </ul>
 <p> </p>
 </div>
@@ -246,12 +249,14 @@ hist(data)</code></pre>
 <p>The median of an ordered sample of values is the middle (or 50th percentile) value. If we have an odd number of values, we take the middle value. In this case where we have an even number of values we take the middle two values and take the average of them. The median of the data set above is 1.695.</p>
 <p>The mean or “average” of a random sample is the all the values added together from the sample divided by the number of entries (which is 12).</p>
 <p>The mean of the data set to four decimal places is 1.6655.</p>
-<p>The more formal way of expressing the sample mean (assuming known values) is by expressing it as <span class="math inline">\(\bar{x} = \dfrac{1}{n} \sum_{i = 1}^{n} x_{i}\)</span>. With the dataset above, we add all the values and divide by <span class="math inline">\(n = 20\)</span>.</p>
+<p>The more formal way of expressing the sample mean (assuming known values) is by expressing it as <span class="math inline">\(\bar{x} = \dfrac{1}{n} \sum_{i = 1}^{n} x_{i}\)</span>. With the dataset above, we add all the values and divide by <span class="math inline">\(n = 20\)</span>.</p>
 <p>If we have unknown values we use a capital <span class="math inline">\(X\)</span> to convey that it is random. The random sample mean is denoted by <span class="math inline">\(\bar{X} = \dfrac{1}{n} \sum_{i = 1}^{n} X_{i}\)</span></p>
 <p> </p>
 <p><strong>Considerations</strong></p>
 <p> </p>
-<p>From a data set, the mean, median and mode together are known as measures of central tendency. The median is not affected too much from extreme outliers or values (such as 10 meters in the data set above). Keep in mind that the mean, median and mode values are only for a particular data set at a specific point in time. If one were to gather more measurements of patients heights, then the mean, median and mode values may change based on the new data set.</p>
+<p>From a data set, the mean, median and mode together are known as measures of central tendency.</p>
+<p>The median is not affected too much from extreme outliers or values (such as 10 meters in the data set above).</p>
+<p>Keep in mind that the mean, median and mode values are only for a particular data set at a specific point in time. If one were to gather more measurements of patients heights, then the mean, median and mode values may change based on the new data set.</p>
 <p> </p>
 </div>
 <div id="variance-standard-deviation" class="section level3">
@@ -299,8 +304,8 @@ hist(data)</code></pre>
 <hr />
 <p> </p>
 </div>
-<div id="skewness-1" class="section level3">
-<h3><u>Skewness</u></h3>
+<div id="kurtosis" class="section level3">
+<h3><u>Kurtosis</u></h3>
 <p> </p>
 <p>Kurtosis is a measure of the peakedness of a probability/frequency distribution. It also refers to the shape of a distribution and how “fat” the tails are. A diagram will be given below to help visualize this concept.</p>
 <p>The sample kurtosis formula (with known values) is given by:</p>
@@ -362,7 +367,10 @@ skewness(sample)</code></pre>
 <div id="notes" class="section level3">
 <h3><u>Notes</u></h3>
 <p> </p>
-<p>Formulas for population means, variances, skewness and kurtosis were not provided. I want to focus on the formulas for the samples. The concepts of estimators, estimates, unbiased estimators, expected values and central moments are not mentioned to avoid confusion. Some resources use kurtosis and excess kurtosis interchangeably. Be mindful of the value 3. You may use my code as it is not that hard to use.</p>
+<p>Formulas for population means, variances, skewness and kurtosis were not provided. I want to focus on the formulas for the samples.</p>
+<p>The concepts of estimators, estimates, unbiased estimators, expected values and central moments are not mentioned to avoid confusion.</p>
+<p>Some resources use kurtosis and excess kurtosis interchangeably. Be mindful of the value 3.</p>
+<p>You may use my code as it is not that hard to use.</p>
 <p> </p>
 </div>
 <div id="references" class="section level3">

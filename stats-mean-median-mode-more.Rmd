@@ -15,12 +15,17 @@ Calculations are done using the statistical programming language R and the code 
 
 &nbsp;
 
-*
+* Why Do We Need Mean, Median and Mode?
 
-*
+* Variance And Standard Deviation
 
-*
+* Skewness
 
+* Kurtosis
+
+* Fat Tails
+
+* The Use Of Statistical Software For The Dataset
 
 &nbsp;
 
@@ -64,7 +69,7 @@ The mean or "average" of a random sample is the all the values added together fr
 
 The mean of the data set to four decimal places is 1.6655.
 
-The more formal way of expressing the sample mean (assuming known values) is by expressing it as $\bar{x} = \dfrac{1}{n} \sum_{i = 1}^{n} x_{i}$. With the dataset above, we add all the values and divide by $n = 20$.
+The more formal way of expressing the sample mean (assuming known values) is by expressing it as $\bar{x} = \dfrac{1}{n} \sum_{i = 1}^{n} x_{i}$. With the dataset above, we add all the values and divide by $n = 20$.
 
 If we have unknown values we use a capital $X$ to convey that it is random. The random sample mean is denoted by $\bar{X} = \dfrac{1}{n} \sum_{i = 1}^{n} X_{i}$
 
@@ -75,7 +80,9 @@ If we have unknown values we use a capital $X$ to convey that it is random. The 
 &nbsp;
 
 From a data set, the mean, median and mode together are known as measures of central tendency.
+
 The median is not affected too much from extreme outliers or values (such as 10 meters in the data set above).
+
 Keep in mind that the mean, median and mode values are only for a particular data set at a specific point in time. If one were to gather more measurements of patients heights, then the mean, median and mode values may change based on the new data set.
 
 &nbsp;
@@ -264,8 +271,11 @@ kurtosis(sample)
 &nbsp;
 
 Formulas for population means, variances, skewness and kurtosis were not provided. I want to focus on the formulas for the samples.
+
 The concepts of estimators, estimates, unbiased estimators, expected values and central moments are not mentioned to avoid confusion.
+
 Some resources use kurtosis and excess kurtosis interchangeably. Be mindful of the value 3.
+
 You may use my code as it is not that hard to use.
 
 &nbsp;
