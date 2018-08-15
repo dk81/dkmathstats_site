@@ -7,7 +7,7 @@ output: html_document
 
 Hi there.
 
-This page is about creating a Pokemon (Gen 6+) Types Table In R. The Fairy type is introduced in Gen 6 (XY) which is included in the plot. The reference I am using ishttp://pokemondb.net/type.
+This page is about creating a Pokemon (Gen 6+) Types Table In R. The Fairy type is introduced in Gen 6 (XY) which is included in the plot. The reference I am using is http://pokemondb.net/type.
 
 &nbsp;
 
@@ -36,17 +36,6 @@ This page is about creating a Pokemon (Gen 6+) Types Table In R. The Fairy type 
 
 &nbsp;
 
-Related Pages To This Include:
-
-* [Cartesian Products In R](./rmath-cartesian-prod.html)
-
-* [Making A Rock, Paper, Scissors Table In R](./rvisual-rockpaperscissors.html)
-
-* [Creating A Rock, Paper, Scissors, Lizard, Spock Table In R](./rvisual-rpsls.html)
-
-
-&nbsp;
-
 ### <u>A Pokemon Types Table (Gen 6+)</u>
 
 &nbsp;
@@ -71,7 +60,7 @@ Link Source: https://pokemondb.net/type
 
 We start with creating the table of Pokemon Types with their damage multipliers. In this page we include all the type including Dark, Steel and the Fairy type.
 
-This first line of R code is for creating the Pokémon Types as a vector.
+This first line of R code is for creating the Pokemon Types as a vector.
 
 &nbsp;
 
@@ -296,7 +285,7 @@ tail(pokeTable, n = 10)
 
 &nbsp
 
-The table of Pokémon Types and damage multipliers is now ready for plotting purposes.
+The table of Pokemon Types and damage multipliers is now ready for plotting purposes.
 
 The ggplot2 package in R for data visualization is first loaded.
 
