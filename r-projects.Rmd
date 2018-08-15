@@ -90,7 +90,6 @@ This page contains links on a bunch of R programming projects.
 
 [Creating A Rock, Paper, Scissors, Lizard, Spock Table In R](./rvisual-rpsls.html)
 
-[Creating A Pokemon (Gen 6+) Types Table In R](./rvisual-pokemon-table.html)
 
 &nbsp;
 
