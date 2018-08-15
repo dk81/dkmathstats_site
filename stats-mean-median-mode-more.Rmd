@@ -167,7 +167,7 @@ Image from: http://www.managedfuturesinvesting.com/managed-futures/news/aisource
 
 &nbsp;
 
-### <u>Skewness</u>
+### <u>Kurtosis</u>
 
 &nbsp;
 
@@ -265,7 +265,7 @@ kurtosis(sample)
 
 Formulas for population means, variances, skewness and kurtosis were not provided. I want to focus on the formulas for the samples.
 The concepts of estimators, estimates, unbiased estimators, expected values and central moments are not mentioned to avoid confusion.
-Some resources use kurtosis and excess kurtosis interchangeably. Be mindful of the value 3.
+Some resources use kurtosis and excess kurtosis interchangeably. Be mindful of the value 3.
 You may use my code as it is not that hard to use.
 
 &nbsp;
