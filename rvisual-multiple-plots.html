@@ -11,7 +11,7 @@
 
 
 
-<title>R Programming Projects</title>
+<title>Multiple Plots In One Graph With R</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -205,82 +205,70 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">R Programming Projects</h1>
+<h1 class="title toc-ignore">Multiple Plots In One Graph With R</h1>
 
 </div>
 
 
 <p> </p>
-<p>This page contains links on a bunch of R programming projects.</p>
+<p>Hi there. With R, you are able to have multiple plots in one graph with the use of the gridExtra package. The main reference is <a href="http://lightonphiri.org/blog/ggplot2-multiple-plots-in-one-graph-using-gridextra" class="uri">http://lightonphiri.org/blog/ggplot2-multiple-plots-in-one-graph-using-gridextra</a>.</p>
+<p>Before starting the main R code, the ggplot2 and gridExtra packages need to be loaded into R with the use of <code>library()</code>. (Use install.packages(“pkg_name”) to install a package in R.)</p>
 <p> </p>
-<div id="categories" class="section level1">
-<h1><u>Categories</u></h1>
+<pre class="r"><code>library(ggplot2)
+library(gridExtra)</code></pre>
+<pre><code>## Warning: package &#39;gridExtra&#39; was built under R version 3.4.4</code></pre>
 <p> </p>
-<ul>
-<li><p><a href="#mathstats">Math &amp; Stats In R</a></p></li>
-<li><p><a href="#rvisual">Data Visualization In R</a></p></li>
-<li><p><a href="#visualprojects">Data Visualization Projects In R</a></p></li>
-<li><p><a href="#rdata">Data Analysis &amp; Data Manipulation In R</a></p></li>
-<li><p><a href="#textmining">Text Mining &amp; Text Analysis In R</a></p></li>
-<li><p><a href="#ml">Machine Learning Experimental Work</a></p></li>
-</ul>
+<div id="simulating-normal-random-variables-plot" class="section level3">
+<h3><u>Simulating Normal Random Variables Plot</u></h3>
 <p> </p>
-<p><a name="mathstats"></a></p>
-<div id="math-stats-in-r" class="section level3">
-<h3><u>Math &amp; Stats In R</u></h3>
+<p>For the first plot, I simulate 10000 standard normal random variables (mean of 0 and variance of 1) in R. Most of the values will lie within +3 standard deviations from the mean of 0. Values outside of 3 standard deviations are extreme cases or outliers.</p>
+<p>The results are plotted in ggplot2 in the form of a histogram.</p>
 <p> </p>
-<p><a href="./rmath-mode-function.html">Mode Function In R</a></p>
-<p><a href="./rmath-cartesian-prod.html">Cartesian Products In R</a></p>
-<p><a href="./rmath-cross-prod-r.html">Vector Cross Products In R</a></p>
-<p><a href="./rmath-fibonacci.html">Fibonacci Sequence Numbers In R</a></p>
-<p><a href="./rmath-quad-formula-r.html">The Quadratic Formula In R</a></p>
-<p><a href="./rmath-plotting-math-functions.html">Plotting Math Functions In R</a></p>
-<p><a name="rvisual"></a></p>
-<p> </p>
-</div>
-<div id="data-visualization-in-r" class="section level3">
-<h3><u>Data Visualization In R</u></h3>
-<p> </p>
-<p><a href="./rvisual-bargraphs.html">Making Bar Graphs In R Using ggplot2</a></p>
-<p><a href="./rvisual-sideways-bargraph.html">A Sideways Bar Graph Example In R</a></p>
-<p><a href="./rvisual-sidebyside-bar.html">Side By Side Bar Graphs Using R and ggplot2</a></p>
-<p><a href="./rvisual-adv-bargraphs.html">An Advanced Bar Graph Example Using R And ggplot2</a></p>
-<p><a href="./rvisual-histograms.html">Histograms In R</a></p>
-<p><a href="./rvisual-heatmaps.html">Heatmaps In R With ggplot2</a></p>
-<p><a href="./rvisual-piecharts.html">Pie Charts In R</a></p>
-<p><a href="./rvisual-line-plots.html">Line Plots In R &amp; ggplot2</a></p>
-<p><a href="./rvisual-ggvis-guide.html">Data Visualization In R With The ggvis Package</a></p>
-<p><a href="./rvisual-scatterplots-ggvis.html">Scatterplots In R Using The ggvis Package</a></p>
-<p><a href="./rvisual-twoway-table.html">Working With A Two-By-Two Table In R</a></p>
-<p><a href="./rvisual-multiple-plots.html">Multiple Plots In One Graph With R</a></p>
-<p> </p>
-<p><a name="visualprojects"></a></p>
-</div>
-<div id="data-visualization-projects-in-r" class="section level3">
-<h3><u>Data Visualization Projects In R</u></h3>
-<p> </p>
-<p><a href="./rvisual-rockpaperscissors.html">Making A Rock, Paper, Scissors Table In R</a></p>
-<p><a href="./rvisual-rpsls.html">Creating A Rock, Paper, Scissors, Lizard, Spock Table In R</a></p>
-<p><a href="./rvisual-pokemon-table.html">Creating A Pokémon (Gen 6+) Types Table In R</a></p>
-<p> </p>
-<p><a name="rdata"></a></p>
-</div>
-<div id="data-analysis-data-manipulation-in-r" class="section level3">
-<h3><u>Data Analysis &amp; Data Manipulation In R</u></h3>
-<p> </p>
-<p> </p>
-<p><a name="textmining"></a></p>
-</div>
-<div id="text-mining-text-analysis-in-r" class="section level3">
-<h3><u>Text Mining &amp; Text Analysis In R</u></h3>
-<p> </p>
-<p> </p>
-<p><a name="ml"></a></p>
-</div>
-<div id="machine-learning-experimental-work" class="section level3">
-<h3><u>Machine Learning Experimental Work</u></h3>
+<pre class="r"><code># Normals Plot:
+
+normals &lt;- rnorm(n = 10000, mean = 0, sd = 1)
+
+norm_plot &lt;- ggplot(data = NULL, aes(normals)) +
+  geom_histogram(binwidth = 0.1, boundary = 2, col = &quot;black&quot;, fill = &quot;#D5ADA4&quot;) + 
+  labs(x = &quot;\n Number Of Standard Deviations (Z-Scores)&quot;, y = &quot;Count \n&quot;, title = &quot;Simulated Standard Normal Variates\n&quot;) +
+  theme(plot.title = element_text(hjust = 0.5, size = 13, face = &quot;bold&quot;, colour = &quot;darkgreen&quot;), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;#6f0000&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;#6f0000&quot;, size = 12))
+
+# Show normals plot:
+norm_plot</code></pre>
+<p><img src="rvisual-multiple-plots_files/figure-html/unnamed-chunk-2-1.png" width="384" /></p>
 <p> </p>
 </div>
+<div id="simulating-exponential-random-variables-plot" class="section level3">
+<h3><u>Simulating Exponential Random Variables Plot</u></h3>
+<p> </p>
+<p>In the second plot, I simulate 10000 exponential random variables in R with the rexp() function. I have set the rate of 3.</p>
+<p> </p>
+<pre class="r"><code># Exponential Plot:
+
+exponentials &lt;- rexp(n = 10000, rate = 3)
+
+exps_plot &lt;- ggplot(data = NULL, aes(exponentials)) +
+  geom_histogram(binwidth = 0.1, boundary = 2, col = &quot;black&quot;, fill = &quot;#b7b700&quot;) + 
+  labs(x = &quot;\n Value Of Exponential Random Variable&quot;, y = &quot;Count \n&quot;, title = &quot;Simulated Exponential Random Variables \n&quot;) +
+  theme(plot.title = element_text(hjust = 0.5, size = 13, face = &quot;bold&quot;, colour = &quot;darkgreen&quot;), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;#6f0000&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;#6f0000&quot;, size = 12))
+
+# Show exponentials plot:
+exps_plot</code></pre>
+<p><img src="rvisual-multiple-plots_files/figure-html/unnamed-chunk-3-1.png" width="384" /></p>
+<p> </p>
+</div>
+<div id="multiple-graphs-in-one-with-grid.arrange" class="section level3">
+<h3><u>Multiple Graphs In One With grid.arrange()</u></h3>
+<p> </p>
+<p>From the gridExtra package in R, multiple plots can be put into one graph with the use of the <code>grid.arrange()</code> function. I put both the normal and exponential random variables plot into one with <code>ncol = 2</code>.</p>
+<p> </p>
+<pre class="r"><code># Two plots in one:
+grid.arrange(norm_plot, exps_plot, ncol = 2)</code></pre>
+<p><img src="rvisual-multiple-plots_files/figure-html/unnamed-chunk-4-1.png" width="768" /></p>
 </div>
 
 

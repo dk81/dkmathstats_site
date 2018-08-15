@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>rvisual-corrplots</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">rvisual-corrplots</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hi there. Here is some work on correlation plots in R I have worked on. Most of my findings have been through trial and error with some references.</p>
+<p> </p>
+<div id="sections" class="section level1">
+<h1><u>Sections</u></h1>
+<p> </p>
+<ul>
+<li><p>A Look At The Data</p></li>
+<li><p>Correlation Plots Using The corrplot Package</p></li>
+<li><p>Using ggplot2 To Create Correlation Plots</p></li>
+<li><p>References</p></li>
+</ul>
+<p> </p>
+<div id="a-look-at-the-data" class="section level3">
+<h3><u>A Look At The Data</u></h3>
+<p> </p>
+<p>Before looking at the data, I first load the faraway and corrplot packages into R. (The faraway package is a dataset package.)</p>
+<p> </p>
+<pre class="r"><code># Correlation Plot
+# Reference: 
+# http://www.sthda.com/english/wiki/ggplot2-quick-correlation-matrix-heatmap-r-software-and-data-visualization
+
+
+library(faraway)
+library(corrplot)</code></pre>
+<pre><code>## Warning: package &#39;corrplot&#39; was built under R version 3.4.4</code></pre>
+<pre><code>## corrplot 0.84 loaded</code></pre>
+<p> </p>
+<p>From the faraway package, there is a dataset called <code>teengamb</code>. This dataset is about teen gambling and more information on this dataset can be found by typing in <code>?teengamb</code>. I save this teengamb data into a new variable (copy) called <code>gamb_data</code>.</p>
+<p> </p>
+<pre class="r"><code>gamb_data &lt;- teengamb</code></pre>
+<p> </p>
+<p>Using the <code>head()</code> and <code>tail()</code> functions, I can preview the data by looking at the first 6 rows and the last 6 rows of the data.</p>
+<p> </p>
+<pre class="r"><code># Preview data:
+
+head(gamb_data)</code></pre>
+<pre><code>##   sex status income verbal gamble
+## 1   1     51   2.00      8    0.0
+## 2   1     28   2.50      8    0.0
+## 3   1     37   2.00      6    0.0
+## 4   1     28   7.00      4    7.3
+## 5   1     65   2.00      8   19.6
+## 6   1     61   3.47      6    0.1</code></pre>
+<pre class="r"><code>tail(gamb_data)</code></pre>
+<pre><code>##    sex status income verbal gamble
+## 42   0     61  15.00      9   69.7
+## 43   0     75   3.00      8   13.3
+## 44   0     66   3.25      9    0.6
+## 45   0     62   4.94      6   38.0
+## 46   0     71   1.50      7   14.4
+## 47   0     71   2.50      9   19.2</code></pre>
+<p> </p>
+<p>One could further examine the data by using the <code>summary()</code> and <code>str()</code> functions.</p>
+<p> </p>
+<pre class="r"><code># Check summary and data structure:
+
+summary(gamb_data)</code></pre>
+<pre><code>##       sex             status          income           verbal     
+##  Min.   :0.0000   Min.   :18.00   Min.   : 0.600   Min.   : 1.00  
+##  1st Qu.:0.0000   1st Qu.:28.00   1st Qu.: 2.000   1st Qu.: 6.00  
+##  Median :0.0000   Median :43.00   Median : 3.250   Median : 7.00  
+##  Mean   :0.4043   Mean   :45.23   Mean   : 4.642   Mean   : 6.66  
+##  3rd Qu.:1.0000   3rd Qu.:61.50   3rd Qu.: 6.210   3rd Qu.: 8.00  
+##  Max.   :1.0000   Max.   :75.00   Max.   :15.000   Max.   :10.00  
+##      gamble     
+##  Min.   :  0.0  
+##  1st Qu.:  1.1  
+##  Median :  6.0  
+##  Mean   : 19.3  
+##  3rd Qu.: 19.4  
+##  Max.   :156.0</code></pre>
+<pre class="r"><code>str(gamb_data)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    47 obs. of  5 variables:
+##  $ sex   : int  1 1 1 1 1 1 1 1 1 1 ...
+##  $ status: int  51 28 37 28 65 61 28 27 43 18 ...
+##  $ income: num  2 2.5 2 7 2 3.47 5.5 6.42 2 6 ...
+##  $ verbal: int  8 8 6 4 8 6 7 5 6 7 ...
+##  $ gamble: num  0 0 0 7.3 19.6 0.1 1.45 6.6 1.7 0.1 ...</code></pre>
+<p> </p>
+<p>The column names could be fixed by capitalizing them. This can be done by using the <code>colnames()</code> function in R.</p>
+<p> </p>
+<pre class="r"><code># Fixing column names:
+
+colnames(gamb_data) &lt;- c(&quot;Sex&quot;, &quot;Status&quot;, &quot;Income&quot;, &quot;Verbal&quot;, &quot;Gamble&quot;)</code></pre>
+<p> </p>
+<p>In base R, a correlation table can be created by using the <code>cor()</code> function.</p>
+<pre class="r"><code># Correlation
+
+corr_gamb &lt;- cor(gamb_data)
+
+corr_gamb</code></pre>
+<pre><code>##               Sex      Status     Income     Verbal      Gamble
+## Sex     1.0000000 -0.48093526 -0.1154586 -0.1069762 -0.40780533
+## Status -0.4809353  1.00000000 -0.2750340  0.5316102 -0.05042081
+## Income -0.1154586 -0.27503402  1.0000000 -0.1755707  0.62207690
+## Verbal -0.1069762  0.53161022 -0.1755707  1.0000000 -0.22005619
+## Gamble -0.4078053 -0.05042081  0.6220769 -0.2200562  1.00000000</code></pre>
+<p> </p>
+<p>In a correlation matrix, the numeric entries along the main diagonal from top left to bottom right are ones. One could show (by hand) that the correlation of two identical random variables is one. (I.e. Correlation of status and status is one).</p>
+<p>Notice that the correlation matrix is a symmetric matrix. The transpose of a symmetric matrix is the same matrix as before. As an example, the correlation of status and income (row 2, column 3) is -0.2750340 which is the same as the correlation of income and status (row 3, column 2) which is also -0.2750340.</p>
+<p> </p>
+</div>
+<div id="correlation-plots-using-the-corrplot-package" class="section level3">
+<h3><u>Correlation Plots Using The corrplot Package</u></h3>
+<p> </p>
+<p>This section will deal with creating correlation table plots using the corrplot package. Making simple correlation plots using corrplot is not very difficult.</p>
+<p>At the end of the previous section, the correlation table is saved into a variable called corr_gamb. This corr_gamb variable is needed into the <code>corrplot()</code> function in the corrplot package.</p>
+<p>I present five different correlation plots which I have come with in R. Other variations do exist as you can change the arguments in terms of titles, fonts, colours and so on. (The title is somewhat messed up and the image that produces is too zoomed in. I would have to look into it for a fix.)</p>
+<p> </p>
+<pre class="r"><code># Corrplot correlation plot:
+# tl.col = text label colour, tl.srt = string rotation for text
+# tl.cex = size of text label, bg = background colour
+# method = &quot;shade&quot; for coloured squares
+# type = &quot;full&quot; for full matrix
+
+# Version One:
+
+corrplot(corr_gamb, tl.col = &quot;brown&quot;, tl.srt = 30, bg = &quot;White&quot;,
+         title = &quot;\n\n Correlation Plot Of Gambling Data&quot;,
+         type = &quot;full&quot;)</code></pre>
+<p><img src="rvisual-corrplots_files/figure-html/unnamed-chunk-7-1.png" width="480" /></p>
+<p> </p>
+<p>The plot looks okay but it could use labels. Also, it is not necessary to show the full matrix. Since the correlation matrix is symmetric, the lower or upper triangular form of the full matrix is enough.</p>
+<p>The second version is a lower triangular version of the correlation matrix.</p>
+<p> </p>
+<pre class="r"><code># Version Two (Lower Triangular Of Correlation Matrix):
+
+corrplot(corr_gamb, tl.col = &quot;red&quot;, tl.srt = 45, bg = &quot;White&quot;,
+         title = &quot;\n\n Correlation Plot Of Gambling Data&quot;,
+         type = &quot;lower&quot;)</code></pre>
+<p><img src="rvisual-corrplots_files/figure-html/unnamed-chunk-8-1.png" width="480" /></p>
+<p> </p>
+<p>Labels are added in version three.</p>
+<p> </p>
+<pre class="r"><code># Version Three (Added Labels):
+
+corrplot(corr_gamb, tl.col = &quot;red&quot;, bg = &quot;White&quot;, tl.srt = 35, 
+         title = &quot;\n\n Correlation Plot Of Gambling Data \n&quot;,
+         addCoef.col = &quot;black&quot;, type = &quot;full&quot;)</code></pre>
+<p><img src="rvisual-corrplots_files/figure-html/unnamed-chunk-9-1.png" width="480" /></p>
+<p> </p>
+<p>Adding labels does help in assessing correlation strengths with variable pairs. Version four shows how to change the colours.</p>
+<p> </p>
+<pre class="r"><code># Version Four (Change colour pallete with HTML colour codes):
+
+colour_set &lt;- colorRampPalette(colors = c(&quot;#f4ff4d&quot;, &quot;#c7d123&quot;, &quot;#acb515&quot;, &quot;#81890b&quot;, &quot;#656c06&quot;))
+
+corrplot(corr_gamb, tl.col = &quot;blue&quot;, bg = &quot;White&quot;, tl.srt = 35, 
+         title = &quot;\n\n Correlation Plot Of Gambling Data \n&quot;,
+         addCoef.col = &quot;black&quot;, type = &quot;lower&quot;,
+         col = colour_set(100))</code></pre>
+<p><img src="rvisual-corrplots_files/figure-html/unnamed-chunk-10-1.png" width="480" /></p>
+<p> </p>
+<p>In version five, I change the background colour from white to gray.</p>
+<p> </p>
+<pre class="r"><code># Version Five (Different Colours):
+
+colour_set &lt;- colorRampPalette(colors = c(&quot;#f4ff4d&quot;, &quot;#c7d123&quot;, &quot;#acb515&quot;, &quot;#81890b&quot;, &quot;#656c06&quot;))
+
+corrplot(corr_gamb, tl.col = &quot;blue&quot;, bg = &quot;gray&quot;, tl.srt = 35, 
+         title = &quot;\n\n Correlation Plot Of Gambling Data \n&quot;,
+         addCoef.col = &quot;black&quot;, type = &quot;lower&quot;,
+         col = colour_set(100))</code></pre>
+<p><img src="rvisual-corrplots_files/figure-html/unnamed-chunk-11-1.png" width="480" /></p>
+<p> </p>
+</div>
+<div id="using-ggplot2-to-create-correlation-plots" class="section level3">
+<h3><u>Using ggplot2 To Create Correlation Plots</u></h3>
+<p> </p>
+<p>The ggplot2 package is a very good package in terms of utility for data visualization in R. Plotting correlation plots in R using ggplot2 takes a bit more work than with corrplot. The results though are worth it. To prepare the data for plotting, the <code>reshape2()</code> package with the melt function is used.</p>
+<p>Load the <code>ggplot2()</code> and <code>reshape2()</code> packages first.</p>
+<p> </p>
+<pre class="r"><code># Correlation plots using ggplot2:
+
+library(ggplot2)
+library(reshape2)</code></pre>
+<p> </p>
+<p>The melt function is used to break up the correlation table into a long format table. This table will consist of 25 rows (5 variables times 5 variables) with three columns. The first two columns consist of variable pairs and the third column will the contain the correlation measures for the variable pairs.</p>
+<p> </p>
+<pre class="r"><code># Use the melt function to melt corr_gamb (or undo the table):
+ 
+melted_gamb &lt;- melt(corr_gamb)
+
+head(melted_gamb)</code></pre>
+<pre><code>##     Var1   Var2      value
+## 1    Sex    Sex  1.0000000
+## 2 Status    Sex -0.4809353
+## 3 Income    Sex -0.1154586
+## 4 Verbal    Sex -0.1069762
+## 5 Gamble    Sex -0.4078053
+## 6    Sex Status -0.4809353</code></pre>
+<pre class="r"><code>tail(melted_gamb)</code></pre>
+<pre><code>##      Var1   Var2       value
+## 20 Gamble Verbal -0.22005619
+## 21    Sex Gamble -0.40780533
+## 22 Status Gamble -0.05042081
+## 23 Income Gamble  0.62207690
+## 24 Verbal Gamble -0.22005619
+## 25 Gamble Gamble  1.00000000</code></pre>
+<p> </p>
+<pre class="r"><code># A Full Correlation Plot Using ggplot2
+
+## Version One: Correlation Plot using ggplot2:
+
+ggplot(data = melted_gamb, aes(x = Var1, y = Var2, fill = value)) +
+  geom_tile() +
+  scale_fill_gradient2(midpoint = 0.5, mid =&quot;grey70&quot;, 
+                       limits = c(-1, +1)) +
+  labs(title = &quot;Correlation Matrix \n On Teen Gambling Data \n&quot;, 
+       x = &quot;&quot;, y = &quot;&quot;, fill = &quot;Correlation \n Measure&quot;) +
+  theme(plot.title = element_text(hjust = 0.5, colour = &quot;blue&quot;), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;darkgreen&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;darkgreen&quot;, size = 12),
+        legend.title = element_text(face=&quot;bold&quot;, colour=&quot;brown&quot;, size = 10)) +
+  geom_text(aes(x = Var1, y = Var2, label = round(value, 2)), color = &quot;black&quot;, 
+            fontface = &quot;bold&quot;, size = 5)</code></pre>
+<p><img src="rvisual-corrplots_files/figure-html/unnamed-chunk-14-1.png" width="384" /></p>
+<p> </p>
+<p>In this table, red tiles represent negative correlations between the two associated variables and the blue tiles represent positive correlations between two variables. The correlations along the main diagonal are ones.</p>
+<p> </p>
+<p>Version Two: Upper Triangular Correlation Plot using ggplot2</p>
+<p>The full correlation matrix provides more than enough information. An upper triangular matrix of the correlation matrix provides less cluster and there is no loss of information. (Recall that the correlation matrix is a symmetric matrix so we can afford to drop the multiple entries.)</p>
+<p>For upper and lower triangular matrices, there is some additional data manipulation work needed to have the data prepared for plotting.</p>
+<blockquote>
+<h1 id="create-new-copy">Create new copy:</h1>
+<p>upper_gamb &lt;- corr_gamb</p>
+<h1 id="make-upper-triangular-matrix-by-setting-na-to-lower-triangular-part">Make upper triangular matrix by setting NA to lower triangular part:</h1>
+<p>upper_gamb[lower.tri(upper_gamb)] &lt;- NA</p>
+<p>upper_gamb Sex Status Income Verbal Gamble Sex 1 -0.4809353 -0.1154586 -0.1069762 -0.40780533 Status NA 1.0000000 -0.2750340 0.5316102 -0.05042081 Income NA NA 1.0000000 -0.1755707 0.62207690 Verbal NA NA NA 1.0000000 -0.22005619 Gamble NA NA NA NA 1.00000000</p>
+<h1 id="melt-this-upper-triangular-matrix-and-remove-na-values">Melt this upper triangular matrix and remove NA values:</h1>
+<p>up_m_gamb &lt;- melt(upper_gamb, na.rm = TRUE)</p>
+<p>head(up_m_gamb) Var1 Var2 value 1 Sex Sex 1.0000000 6 Sex Status -0.4809353 7 Status Status 1.0000000 11 Sex Income -0.1154586 12 Status Income -0.2750340 13 Income Income 1.0000000 tail(up_m_gamb) Var1 Var2 value 19 Verbal Verbal 1.00000000 21 Sex Gamble -0.40780533 22 Status Gamble -0.05042081 23 Income Gamble 0.62207690 24 Verbal Gamble -0.22005619 25 Gamble Gamble 1.00000000 # Ggplot upper triangular correlation matrix:</p>
+<p>ggplot(data = up_m_gamb, aes(x = Var1, y = Var2, fill = value)) + + geom_tile() + + scale_fill_gradient2(midpoint = 0.5, mid =“grey70”, + limits = c(-1, +1)) + + labs(title = “Correlation Matrix On Teen Gambling Data ”, + x = “”, y = “”, fill = “Correlation Measure”) + + theme(plot.title = element_text(hjust = 0.5, colour = “blue”), + axis.title.x = element_text(face=“bold”, colour=“darkgreen”, size = 12), + axis.title.y = element_text(face=“bold”, colour=“darkgreen”, size = 12), + legend.title = element_text(face=“bold”, colour=“brown”, size = 10)) + + geom_text(aes(x = Var1, y = Var2, label = round(value, 2)), color = “black”, + fontface = “bold”, size = 5)</p>
+</blockquote>
+<p>Having a upper triangular matrix version of the correlation matrix is less intimidating and it is easier to read. You may have to explain that for example that the correlation of income and status and the correlation of status and income are the same (due to symmetry).</p>
+<p>(This upper triangular matrix form is not exactly like the one from linear algebra but I think the above image is good enough for displaying purposes.)</p>
+<p>Version Three: Lower Triangular Correlation Plot using ggplot2</p>
+<p>Here is the code and output for the lower triangular part of the correlation matrix. The code is similar to the upper triangular case.</p>
+<blockquote>
+<h2 id="version-three-lower-triangular-correlation-plot-using-ggplot2">Version Three: Lower Triangular Correlation Plot using ggplot2:</h2>
+<h1 id="create-new-copy-1">Create new copy:</h1>
+<p>lower_gamb &lt;- corr_gamb</p>
+<h1 id="make-lower-triangular-matrix-by-setting-na-to-upper-triangular-part">Make lower triangular matrix by setting NA to upper triangular part:</h1>
+<p>lower_gamb[upper.tri(lower_gamb)] &lt;- NA</p>
+<p>lower_gamb Sex Status Income Verbal Gamble Sex 1.0000000 NA NA NA NA Status -0.4809353 1.00000000 NA NA NA Income -0.1154586 -0.27503402 1.0000000 NA NA Verbal -0.1069762 0.53161022 -0.1755707 1.0000000 NA Gamble -0.4078053 -0.05042081 0.6220769 -0.2200562 1</p>
+<h1 id="melt-this-upper-triangular-matrix-and-remove-na-values-1">Melt this upper triangular matrix and remove NA values:</h1>
+<p>lower_m_gamb &lt;- melt(lower_gamb, na.rm = TRUE)</p>
+<p>head(lower_m_gamb) Var1 Var2 value 1 Sex Sex 1.0000000 2 Status Sex -0.4809353 3 Income Sex -0.1154586 4 Verbal Sex -0.1069762 5 Gamble Sex -0.4078053 7 Status Status 1.0000000 tail(lower_m_gamb) Var1 Var2 value 13 Income Income 1.0000000 14 Verbal Income -0.1755707 15 Gamble Income 0.6220769 19 Verbal Verbal 1.0000000 20 Gamble Verbal -0.2200562 25 Gamble Gamble 1.0000000 # Ggplot lower triangular correlation matrix:</p>
+</blockquote>
+<p>ggplot(data = lower_m_gamb, aes(x = Var1, y = Var2, fill = value)) + geom_tile() + scale_fill_gradient2(midpoint = 0.5, mid =“grey70”, limits = c(-1, +1)) + labs(title = “Correlation Matrix On Teen Gambling Data ”, x = “”, y = “”, fill = “Correlation Measure”) + theme(plot.title = element_text(hjust = 0.5, colour = “blue”), axis.title.x = element_text(face=“bold”, colour=“darkgreen”, size = 12), axis.title.y = element_text(face=“bold”, colour=“darkgreen”, size = 12), legend.title = element_text(face=“bold”, colour=“brown”, size = 10)) + geom_text(aes(x = Var1, y = Var2, label = round(value, 2)), color = “black”, fontface = “bold”, size = 5)</p>
+<p> </p>
+</div>
+<div id="references" class="section level3">
+<h3><u>References</u></h3>
+<p> </p>
+<ul>
+<li><p>R Graphics Cookbook by Winston Chang (2012)</p></li>
+<li><p><a href="http://www.sthda.com/english/wiki/ggplot2-quick-correlation-matrix-heatmap-r-software-and-data-visualization" class="uri">http://www.sthda.com/english/wiki/ggplot2-quick-correlation-matrix-heatmap-r-software-and-data-visualization</a></p></li>
+</ul>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Scatterplots In R Using The ggvis Package</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/detect-resize-0.5.3/jquery.resize.js"></script>
+<link href="site_libs/jquery-ui-1.11.4/jquery-ui.min.css" rel="stylesheet" />
+<script src="site_libs/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/d3-3.5.2/d3.min.js"></script>
+<script src="site_libs/vega-1.4.3/vega.min.js"></script>
+<script src="site_libs/lodash-2.2.1/lodash.min.js"></script>
+<script>var lodash = _.noConflict();</script>
+<link href="site_libs/ggvis-0.4.3/css/ggvis.css" rel="stylesheet" />
+<script src="site_libs/ggvis-0.4.3/js/ggvis.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Scatterplots In R Using The ggvis Package</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hello. In this page, I will talk about displaying scatterplots using the statistical program R and the R package <code>ggvis</code> for data visualization.</p>
+<p> </p>
+<div id="table-of-contents" class="section level3">
+<h3><u>Table of Contents</u></h3>
+<p> </p>
+<ul>
+<li>The Dataset</li>
+<li>Looking At The Data</li>
+<li>The Scatterplots and Linear Models</li>
+<li>Notes and Thoughts</li>
+<li>References</li>
+</ul>
+<p> </p>
+</div>
+<div id="the-dataset" class="section level3">
+<h3><u>The Dataset</u></h3>
+<p> </p>
+<p>This particular dataset is based on time or time spent on the internet. Variables of interest in this dataset are the number of internet users, the population of the country and the number of Facebook users.</p>
+<p> </p>
+</div>
+<div id="looking-at-the-data" class="section level3">
+<h3><u>Looking at The Data</u></h3>
+<p> </p>
+<p>In R, we load the libraries ggvis and dplyr. Loading ggvis will allow us to access the plots, graphs and other visual tools in the library. The dplyr package will allows us to use the %&gt;% syntax for ggvis. More info on the %&gt;% can be found here. The dataset was from here.</p>
+<p>The code and output can be found below:</p>
+<p> </p>
+<pre class="r"><code># ggvis
+
+# The dataset:
+
+# Load ggvis
+library(ggvis)
+library(dplyr)
+
+url &lt;- &quot;http://sites.williams.edu/bklingen/files/2015/05/InternetUse.csv&quot;
+
+internet_data &lt;- read.csv(url)
+
+head(internet_data)</code></pre>
+<pre><code>##   iso2c   country year Population.Size GDP.in.billions.of..US
+## 1    AR Argentina 2012        41086927                    476
+## 2    AU Australia 2012        22683600                   1532
+## 3    BE   Belgium 2012        11142157                    483
+## 4    BR    Brazil 2012       198656019                   2253
+## 5    CA    Canada 2012        34880491                   1821
+## 6    CL     Chile 2012        17464814                    270
+##   GDP.per.Capita.in.thousands.of..US Internet.Users Internet.Penetration
+## 1                                 12       22926505                55.80
+## 2                                 68       18679842                82.35
+## 3                                 43        9136569                82.00
+## 4                                 11       99026051                49.85
+## 5                                 52       30264360                86.77
+## 6                                 15       10726566                61.42
+##   Facebook.Users Facebook.Penetration Broadband.Subscribers
+## 1       20048100                48.79               4475415
+## 2       11680640                51.49               5743000
+## 3        4922260                44.18               3679196
+## 4       58565700                29.48              18186954
+## 5       18090640                51.86              11405500
+## 6        9687720                55.47               2166805</code></pre>
+<pre class="r"><code>dim(internet_data)</code></pre>
+<pre><code>## [1] 32 11</code></pre>
+<pre class="r"><code>str(internet_data)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    32 obs. of  11 variables:
+##  $ iso2c                             : Factor w/ 32 levels &quot;AR&quot;,&quot;AU&quot;,&quot;BE&quot;,..: 1 2 3 4 5 6 7 8 10 12 ...
+##  $ country                           : Factor w/ 32 levels &quot;Argentina&quot;,&quot;Australia&quot;,..: 1 2 3 4 5 6 7 8 9 10 ...
+##  $ year                              : int  2012 2012 2012 2012 2012 2012 2012 2012 2012 2012 ...
+##  $ Population.Size                   : num  4.11e+07 2.27e+07 1.11e+07 1.99e+08 3.49e+07 ...
+##  $ GDP.in.billions.of..US            : int  476 1532 483 2253 1821 270 8227 370 263 2613 ...
+##  $ GDP.per.Capita.in.thousands.of..US: int  12 68 43 11 52 15 6 8 3 40 ...
+##  $ Internet.Users                    : int  22926505 18679842 9136569 99026051 30264360 10726566 571345572 23367689 35574130 54528252 ...
+##  $ Internet.Penetration              : num  55.8 82.3 82 49.9 86.8 ...
+##  $ Facebook.Users                    : int  20048100 11680640 4922260 58565700 18090640 9687720 633300 17322000 12173540 25624760 ...
+##  $ Facebook.Penetration              : num  48.8 51.5 44.2 29.5 51.9 ...
+##  $ Broadband.Subscribers             : int  4475415 5743000 3679196 18186954 11405500 2166805 175624800 3975161 2287249 23960000 ...</code></pre>
+<p> </p>
+<p>The output looks messy but we can still extract key information. There are 32 observations (rows) and 11 variables (columns). The 32 observations are countries with their own population size, number of internet users, number of Facebook users, GDP and the like.</p>
+<p>As mentioned earlier, the variables of interest in this dataset are the population of the country, the number of internet users, and the number of Facebook users.</p>
+<p>The numbers in the population of the country and in other variables are really large and would be bad in the plots (overcrowding).</p>
+<p>We put the population numbers, and the number of users in the hundred thousands. Here is the code and output:</p>
+<pre class="r"><code># We want to see the relationship between population size vs internet users.
+# internet_users vs facebook_users.
+
+# Subset data and scale into one hundred thousands:
+
+pop_size &lt;- internet_data$Population.Size / 100000
+
+internet_users &lt;- internet_data$Internet.Users / 100000
+
+facebook_users &lt;- internet_data$Facebook.Users / 100000
+
+# Need just population size, internet users, facebook users (Extract 3 columns):
+
+internet_user_data &lt;- data.frame(cbind(pop_size, internet_users, facebook_users))
+
+summary(internet_user_data)</code></pre>
+<pre><code>##     pop_size        internet_users    facebook_users    
+##  Min.   :   71.55   Min.   :  52.09   Min.   :   6.333  
+##  1st Qu.:  297.76   1st Qu.: 171.72   1st Qu.:  90.044  
+##  Median :  560.54   Median : 317.71   Median : 172.590  
+##  Mean   : 1497.04   Mean   : 612.71   Mean   : 241.333  
+##  3rd Qu.: 1027.42   3rd Qu.: 546.51   3rd Qu.: 266.913  
+##  Max.   :13506.95   Max.   :5713.46   Max.   :1660.292</code></pre>
+<p> </p>
+<p>We create a new dataset from the original data set with just population size, the number of internet users and the number of facebook users.</p>
+<p> </p>
+</div>
+<div id="the-scatterplots-and-linear-models" class="section level3">
+<h3><u>The Scatterplots and Linear Models</u></h3>
+<p>After looking at our data and cleaning it up a bit, we plot the data.</p>
+<p>We will plot two scatterplots. The first will be comparing Population size versus the number of internet users. In the second plot, it will be the number of internet users versus the number of Facebook users.</p>
+<p> </p>
+<p><strong>Model 1</strong></p>
+<p> </p>
+<p>Here is the code and output of the first model.</p>
+<pre class="r"><code># Plotting Linear Models:
+# Source: http://ggvis.rstudio.com/cookbook.html
+# Source: http://ggvis.rstudio.com/axes-legends.html
+
+
+## Linear Model 1: Population size vs Internet Users:
+
+internet_user_data %&gt;%
+ggvis(x = ~pop_size, y = ~internet_users) %&gt;%
+  layer_points() %&gt;%
+  layer_model_predictions(model = &quot;lm&quot;, se = TRUE, stroke := &quot;red&quot;) %&gt;%
+  add_axis(&quot;x&quot;, title = &quot;Population Size (In Hundred Thousands)&quot;,  title_offset = 50) %&gt;%
+  add_axis(&quot;y&quot;, title = &quot;Number of Internet Users (In Hundred Thousands)&quot;,title_offset = 50)</code></pre>
+<pre><code>## Guessing formula = internet_users ~ pop_size</code></pre>
+<div id="plot_id252003560-container" class="ggvis-output-container">
+<div id="plot_id252003560" class="ggvis-output"></div>
+<div class="plot-gear-icon">
+<nav class="ggvis-control">
+<a class="ggvis-dropdown-toggle" title="Controls" onclick="return false;"></a>
+<ul class="ggvis-dropdown">
+<li>
+Renderer: 
+<a id="plot_id252003560_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id252003560" data-renderer="svg">SVG</a>
+ | 
+<a id="plot_id252003560_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id252003560" data-renderer="canvas">Canvas</a>
+</li>
+<li>
+<a id="plot_id252003560_download" class="ggvis-download" data-plot-id="plot_id252003560">Download</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<script type="text/javascript">
+var plot_id252003560_spec = {
+  "data": [
+    {
+      "name": ".0",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "pop_size": "number",
+          "internet_users": "number"
+        }
+      },
+      "values": "\"pop_size\",\"internet_users\"\n410.86927,229.26505\n226.836,186.79842\n111.42157,91.36569\n1986.56019,990.26051\n348.80491,302.6436\n174.64814,107.26566\n13506.95,5713.45572\n477.04427,233.67689\n807.21874,355.7413\n656.96689,545.28252\n818.89839,687.87465\n71.546,52.08549\n12366.86732,1555.75944\n2468.64191,379.1834\n609.17978,353.32427\n1275.61489,1008.37357\n292.39927,192.39872\n1208.47477,464.29601\n167.67705,155.93966\n299.878,114.5534\n967.06764,350.41793\n385.42737,250.52779\n1435.33,764.66919\n282.87855,152.75442\n511.8930661,209.87616\n462.17961,332.76932\n95.16617,89.4562\n667.85001,176.98025\n739.97128,333.94904\n632.27526,550.1819\n3139.1404,2543.49479\n299.54782,131.93763"
+    },
+    {
+      "name": ".0/model_prediction1",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "resp_upr_": "number",
+          "pred_": "number",
+          "resp_lwr_": "number",
+          "resp_": "number"
+        }
+      },
+      "values": "\"resp_upr_\",\"pred_\",\"resp_lwr_\",\"resp_\"\n441.258141390183,71.546,-31.3521065430788,204.953017423552\n485.064364312332,241.614405063291,22.1353892898836,253.599876801108\n529.400397838001,411.682810126582,75.0930745193255,302.246736178663\n574.296914000952,581.751215189874,127.490277111486,350.893595556219\n619.782546822348,751.819620253165,179.298363045201,399.540454933775\n665.882962056648,921.888025316456,230.491666566012,448.18731431133\n712.619925571429,1091.95643037975,281.048421806343,496.834173688886\n760.010439079319,1262.02483544304,330.951627053564,545.481033066441\n808.066016754331,1432.09324050633,380.189768133663,594.127892443997\n856.792170932877,1602.16164556962,428.757332710228,642.774751821553\n906.188158857684,1772.23005063291,476.655063540533,691.421611199108\n956.247017069502,1942.2984556962,523.889924083825,740.068470576664\n1006.95587979497,2112.36686075949,570.474780113471,788.715329954219\n1058.29654810444,2282.43526582278,616.427830559106,837.362189331775\n1110.24625311184,2452.50367088608,661.771844306825,886.009048709331\n1162.77854276103,2622.57207594937,706.53327341274,934.655908086886\n1215.86421896395,2792.64048101266,750.741315964931,983.302767464442\n1269.47225872559,2962.70888607595,794.426994958407,1031.949626842\n1323.57066643366,3132.77729113924,837.622306005445,1080.59648621955\n1378.12722113948,3302.84569620253,880.359470054737,1129.24334559711\n1433.1100992222,3472.91410126582,922.670310727124,1177.89020497466\n1488.48836706882,3642.98250632911,964.58576163562,1226.53706435222\n1544.23234916762,3813.0509113924,1006.13549829193,1275.18392372978\n1600.31388408587,3983.1193164557,1047.3476821288,1323.83078310733\n1656.70648458803,4153.18772151899,1088.24880038175,1372.47764248489\n1713.38541936654,4323.25612658228,1128.86358435834,1421.12450186244\n1770.32773328666,4493.32453164557,1169.21498919334,1469.77136124\n1827.51222139373,4663.39293670886,1209.32421984138,1518.41822061755\n1884.91936974791,4833.46134177215,1249.21079024231,1567.06507999511\n1942.53127382697,5003.52974683544,1288.89260491836,1615.71193937266\n2000.33154302051,5173.59815189873,1328.38605447993,1664.35879875022\n2058.30519776305,5343.66655696203,1367.7061184925,1713.00565812778\n2116.43856417659,5513.73496202532,1406.86647083407,1761.65251750533\n2174.71916972264,5683.80336708861,1445.87958404314,1810.29937688289\n2233.1356422764,5853.8717721519,1484.75683024448,1858.94623626044\n2291.67761419641,6023.94017721519,1523.50857707959,1907.593095638\n2350.33563233057,6194.00858227848,1562.14427770054,1956.23995501555\n2409.10107443471,6364.07698734177,1600.67255435151,2004.88681439311\n2467.96607214709,6534.14539240506,1639.10127539424,2053.53367377066\n2526.92344043163,6704.21379746836,1677.43762586481,2102.18053314822\n2585.96661324892,6874.28220253165,1715.68817180263,2150.82739252578\n2645.08958511797,7044.35060759494,1753.8589186887,2199.47425190333\n2704.28685817657,7214.41901265823,1791.9553643852,2248.12111128089\n2763.55339432361,7384.48741772152,1829.98254699327,2296.76797065844\n2822.88457202192,7554.55582278481,1867.94508805007,2345.414830036\n2882.27614735023,7724.6242278481,1905.84723147688,2394.06168941355\n2941.72421891096,7894.69263291139,1943.69287867126,2442.70854879111\n3001.22519622477,8064.76103797468,1981.48562011256,2491.35540816867\n3060.77577126935,8234.82944303798,2019.22876382309,2540.00226754622\n3120.3728928476,8404.89784810127,2056.92536099995,2588.64912692378\n3180.01374349822,8574.96625316456,2094.57822910444,2637.29598630133\n3239.69571868804,8745.03465822785,2132.18997266973,2685.94284567889\n3299.41640805076,8915.10306329114,2169.76300206213,2734.58970505644\n3359.1735784602,9085.17146835443,2207.29955040779,2783.236564434\n3418.96515874791,9255.23987341772,2244.8016888752,2831.88342381155\n3478.78922589436,9425.30827848101,2282.27134048386,2880.53028318911\n3538.64399254145,9595.3766835443,2319.71029259188,2929.17714256667\n3598.5277956897,9765.4450886076,2357.12020819874,2977.82400194422\n3658.4390864584,9935.51349367089,2394.50263618515,3026.47086132178\n3718.37642079993,10105.5818987342,2431.85902059874,3075.11772069933\n3778.33845107109,10275.6503037975,2469.19070908268,3123.76458007689\n3838.32391837494,10445.7187088608,2506.49896053395,3172.41143945444\n3898.33164559547,10615.7871139241,2543.78495206853,3221.058298832\n3958.36053105639,10785.8555189873,2581.04978536272,3269.70515820955\n4018.40954274193,10955.9239240506,2618.29449243229,3318.35201758711\n4078.47771302477,11125.9923291139,2655.52004090456,3366.99887696467\n4138.56413385155,11296.0607341772,2692.7273388329,3415.64573634222\n4198.66795234193,11466.1291392405,2729.91723909762,3464.29259571978\n4258.78836676165,11636.1975443038,2767.09054343301,3512.93945509733\n4318.924622834,11806.2659493671,2804.24800611577,3561.58631447489\n4379.07601035813,11976.3343544304,2841.39033734676,3610.23317385244\n4439.24186010547,12146.4027594937,2878.51820635453,3658.88003323\n4499.42154096882,12316.471164557,2915.63224424629,3707.52689260756\n4559.6144573408,12486.5395696203,2952.73304662942,3756.17375198511\n4619.82004670122,12656.6079746835,2989.82117602411,3804.82061136267\n4680.03777739437,12826.6763797468,3026.89716408608,3853.46747074022\n4740.26714657964,12996.7447848101,3063.96151365591,3902.11433011778\n4800.50767834013,13166.8131898734,3101.01470065054,3950.76118949533\n4860.75892193544,13336.8815949367,3138.05717581034,3999.40804887289\n4921.02045018645,13506.95,3175.08936631443,4048.05490825044"
+    },
+    {
+      "name": "scale/x",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "domain": "number"
+        }
+      },
+      "values": "\"domain\"\n-600.2242\n14178.7202"
+    },
+    {
+      "name": "scale/y",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "domain": "number"
+        }
+      },
+      "values": "\"domain\"\n-318.592497870233\n6000.69611132715"
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "domain": {
+        "data": "scale/x",
+        "field": "data.domain"
+      },
+      "zero": false,
+      "nice": false,
+      "clamp": false,
+      "range": "width"
+    },
+    {
+      "name": "y",
+      "domain": {
+        "data": "scale/y",
+        "field": "data.domain"
+      },
+      "zero": false,
+      "nice": false,
+      "clamp": false,
+      "range": "height"
+    }
+  ],
+  "marks": [
+    {
+      "type": "symbol",
+      "properties": {
+        "update": {
+          "fill": {
+            "value": "#000000"
+          },
+          "size": {
+            "value": 50
+          },
+          "x": {
+            "scale": "x",
+            "field": "data.pop_size"
+          },
+          "y": {
+            "scale": "y",
+            "field": "data.internet_users"
+          }
+        },
+        "ggvis": {
+          "data": {
+            "value": ".0"
+          }
+        }
+      },
+      "from": {
+        "data": ".0"
+      }
+    },
+    {
+      "type": "area",
+      "properties": {
+        "update": {
+          "fill": {
+            "value": "#333333"
+          },
+          "y2": {
+            "scale": "y",
+            "field": "data.resp_upr_"
+          },
+          "fillOpacity": {
+            "value": 0.2
+          },
+          "x": {
+            "scale": "x",
+            "field": "data.pred_"
+          },
+          "y": {
+            "scale": "y",
+            "field": "data.resp_lwr_"
+          },
+          "stroke": {
+            "value": "transparent"
+          }
+        },
+        "ggvis": {
+          "data": {
+            "value": ".0/model_prediction1"
+          }
+        }
+      },
+      "from": {
+        "data": ".0/model_prediction1"
+      }
+    },
+    {
+      "type": "line",
+      "properties": {
+        "update": {
+          "strokeWidth": {
+            "value": 2
+          },
+          "x": {
+            "scale": "x",
+            "field": "data.pred_"
+          },
+          "y": {
+            "scale": "y",
+            "field": "data.resp_"
+          },
+          "stroke": {
+            "value": "red"
+          },
+          "fill": {
+            "value": "transparent"
+          }
+        },
+        "ggvis": {
+          "data": {
+            "value": ".0/model_prediction1"
+          }
+        }
+      },
+      "from": {
+        "data": ".0/model_prediction1"
+      }
+    }
+  ],
+  "legends": [],
+  "axes": [
+    {
+      "type": "x",
+      "scale": "x",
+      "orient": "bottom",
+      "title": "Population Size (In Hundred Thousands)",
+      "titleOffset": 50,
+      "layer": "back",
+      "grid": true
+    },
+    {
+      "type": "y",
+      "scale": "y",
+      "orient": "left",
+      "title": "Number of Internet Users (In Hundred Thousands)",
+      "titleOffset": 50,
+      "layer": "back",
+      "grid": true
+    }
+  ],
+  "padding": null,
+  "ggvis_opts": {
+    "keep_aspect": false,
+    "resizable": true,
+    "padding": {},
+    "duration": 250,
+    "renderer": "svg",
+    "hover_duration": 0,
+    "width": 384,
+    "height": 384
+  },
+  "handlers": null
+};
+ggvis.getPlot("plot_id252003560").parseSpec(plot_id252003560_spec);
+</script>
+<p> </p>
+<p>Above is the visual of the scatterplot and a linear model (“line of best fit”). If we want the linear model in a more mathematical form such as <span class="math inline">\(y = mx + b\)</span> we run this code.</p>
+<p> </p>
+<pre class="r"><code>net_pop_model &lt;- lm(data = internet_user_data, internet_users ~ pop_size)
+
+coef(net_pop_model)</code></pre>
+<pre><code>## (Intercept)    pop_size 
+## 184.4877923   0.2860429</code></pre>
+<p> </p>
+<p>The linear model fitted is (Units In Per Hundred Thousand):</p>
+<p> </p>
+<p><span class="math display">\[\text{Number of Internet Users} = 0.2860429 \times \text{Population Size} + 184.4877 923\]</span></p>
+<p> </p>
+<p>According to the model, for every unit (or 100,000) increase of the population, the number of internet users increases by 0.2860429 * 1 = 0.2860429 (or about 28604 users).</p>
+<p>One can notice the three most rightward points on the plot. In statistics, such extreme values are called outliers. There are ways of determining whether or not a point is an outlier but it won’t be discussed here. You could say that if a point is far away from the rest of the points and the line then it is likely an outlier.</p>
+<p>One way of finding the outliers here is to find the points with a population size of over 3000 (per 100 thousand). The code is below.</p>
+<p> </p>
+<pre class="r"><code># What are the three extreme points (outliers) from the scatterplot?
+
+## Extract the three outliers:
+
+three_outliers &lt;- subset(internet_user_data, pop_size &gt; 3000)
+
+three_outliers</code></pre>
+<pre><code>##    pop_size internet_users facebook_users
+## 7  13506.95       5713.456         6.3330
+## 13 12366.87       1555.759       627.1368
+## 31  3139.14       2543.495      1660.2924</code></pre>
+<pre class="r"><code># Indices of rows 7, 13 and 31 of outliers, extracting countries of outliers.
+
+internet_data[c(7, 13, 31), &quot;country&quot;]</code></pre>
+<pre><code>## [1] China         India         United States
+## 32 Levels: Argentina Australia Belgium Brazil Canada Chile ... Venezuela, RB</code></pre>
+<p> </p>
+<p>Those three points large population sizes and a large number of internet users belong to the countries of China, India and the United States.</p>
+<p> </p>
+<p><strong>Model 2</strong></p>
+<p> </p>
+<p>In the second model, we compare the number of internet users to the number of Facebook users.</p>
+<p> </p>
+<pre class="r"><code>### Linear Model 2: Internet Users vs Facebook Users:
+
+internet_user_data %&gt;%
+  ggvis(x = ~internet_users, y = ~facebook_users) %&gt;%
+  layer_points() %&gt;%
+  layer_model_predictions(model = &quot;lm&quot;, se = TRUE, stroke := &quot;blue&quot;) %&gt;%
+  add_axis(&quot;x&quot;, title = &quot;Number of Internet Users (In Hundred Thousands)&quot;, title_offset = 50) %&gt;%
+  add_axis(&quot;y&quot;, title = &quot;Number of Facebook Users (In Hundred Thousands)&quot;,title_offset = 50)</code></pre>
+<pre><code>## Guessing formula = facebook_users ~ internet_users</code></pre>
+<div id="plot_id881433065-container" class="ggvis-output-container">
+<div id="plot_id881433065" class="ggvis-output"></div>
+<div class="plot-gear-icon">
+<nav class="ggvis-control">
+<a class="ggvis-dropdown-toggle" title="Controls" onclick="return false;"></a>
+<ul class="ggvis-dropdown">
+<li>
+Renderer: 
+<a id="plot_id881433065_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id881433065" data-renderer="svg">SVG</a>
+ | 
+<a id="plot_id881433065_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id881433065" data-renderer="canvas">Canvas</a>
+</li>
+<li>
+<a id="plot_id881433065_download" class="ggvis-download" data-plot-id="plot_id881433065">Download</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<script type="text/javascript">
+var plot_id881433065_spec = {
+  "data": [
+    {
+      "name": ".0",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "internet_users": "number",
+          "facebook_users": "number"
+        }
+      },
+      "values": "\"internet_users\",\"facebook_users\"\n229.26505,200.481\n186.79842,116.8064\n91.36569,49.2226\n990.26051,585.657\n302.6436,180.9064\n107.26566,96.8772\n5713.45572,6.333\n233.67689,173.22\n355.7413,121.7354\n545.28252,256.2476\n687.87465,253.3244\n52.08549,40.3456\n1555.75944,627.1368\n379.1834,510.9686\n353.32427,232.0264\n1008.37357,171.9608\n192.39872,135.8952\n464.29601,384.6386\n155.93966,75.5494\n114.5534,93.5146\n350.41793,298.909\n250.52779,98.6338\n764.66919,79.634\n152.75442,58.5252\n209.87616,62.696\n332.76932,175.905\n89.4562,49.5016\n176.98025,177.2148\n333.94904,321.3126\n550.1819,329.504\n2543.49479,1660.2924\n131.93763,97.6654"
+    },
+    {
+      "name": ".0/model_prediction1",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "resp_upr_": "number",
+          "pred_": "number",
+          "resp_lwr_": "number",
+          "resp_": "number"
+        }
+      },
+      "values": "\"resp_upr_\",\"pred_\",\"resp_lwr_\",\"resp_\"\n314.69894346443,52.08549,73.9621238650123,194.330533664721\n317.422097383484,123.748404303797,83.2553192945678,200.338708339026\n320.517825824505,195.411318607595,92.1759402021561,206.346883013331\n324.0152863032,267.074232911392,100.69482907207,212.355057687635\n327.942096229016,338.73714721519,108.784368494863,218.36323236194\n332.323092702331,410.400061518987,116.419721370158,224.371407036245\n337.179037466331,482.062975822785,123.580125954768,230.379581710549\n342.525399759596,553.725890126582,130.250113010112,236.387756384854\n348.371367894247,625.38880443038,136.42049422407,242.395931059159\n354.719228662721,697.051718734177,142.088982804206,248.404105733464\n361.564208968899,768.714633037975,147.260351846638,254.412280407768\n368.894804608159,840.377547341772,151.946105555987,260.420455082073\n376.693544827657,912.04046164557,156.163714685099,266.428629756378\n384.938078939359,983.703375949367,159.935529922006,272.436804430682\n393.602437900795,1055.36629025316,163.28752030918,278.444979104987\n402.658323490142,1127.02920455696,166.247984068442,284.453153779292\n412.076303914125,1198.69211886076,168.846352993068,290.461328453597\n421.826834967687,1270.35503316456,171.112171288116,296.469503127901\n431.881067694228,1342.01794746835,173.074287910184,302.477677802206\n442.211438154549,1413.68086177215,174.760266798473,308.485852476511\n452.792058569029,1485.34377607595,176.195995732602,314.494027150815\n463.598941841109,1557.00669037975,177.405461809131,320.50220182512\n474.610095581147,1628.66960468354,178.410657417703,326.510376499425\n485.805520159347,1700.33251898734,179.231582188112,332.51855117373\n497.167140652527,1771.99543329114,179.886311043541,338.526725848034\n508.67869674296,1843.65834759494,180.391104301718,344.534900522339\n520.32560888584,1915.32126189873,180.760541507447,350.543075196644\n532.094834014491,1986.98417620253,181.007665727406,356.551249870948\n543.974719936325,2058.64709050633,181.144129154181,362.559424545253\n555.954864393929,2130.31000481013,181.180334045187,368.567599219558\n568.025982415491,2201.97291911392,181.125565372234,374.575773893863\n580.179783906543,2273.63583341772,180.988113229791,380.583948568167\n592.408862288688,2345.29874772152,180.775384196256,386.592123242472\n604.706594236908,2416.96166202532,180.494001596646,392.600297916777\n617.067050096062,2488.62457632911,180.149895086101,398.608472591081\n629.484914284517,2560.28749063291,179.748380246255,404.616647265386\n641.955414855341,2631.95040493671,179.294229024041,410.624821939691\n654.474261337038,2703.61331924051,178.791731890953,416.632996613995\n667.037589983906,2775.2762335443,178.244752592695,422.6411712883\n679.641915608103,2846.9391478481,177.656776317107,428.649345962605\n692.284089226204,2918.6020621519,177.030952047616,434.65752063691\n704.961260822196,2990.2649764557,176.370129800233,440.665695311214\n717.670846600159,3061.92789075949,175.676893370879,446.673869985519\n730.410500169182,3133.59080506329,174.953589150466,452.682044659824\n743.178087168211,3205.25371936709,174.202351500046,458.690219334129\n755.971662898289,3276.91663367089,173.425125118577,464.698394008433\n768.789452583531,3348.57954797468,172.623684781945,470.706568682738\n781.629833930265,3420.24246227848,171.799652783821,476.714743357043\n794.491321696264,3491.90537658228,170.954514366431,482.722918031347\n807.372554019297,3563.56829088608,170.089631392007,488.731092705652\n820.272280286869,3635.23120518987,169.206254473045,494.739267379957\n833.18935035741,3706.89411949367,168.305533751113,500.747442054262\n846.122704967921,3778.55703379747,167.388528489211,506.755616728566\n859.071367184441,3850.21994810127,166.456215621301,512.763791402871\n872.034434770341,3921.88286240506,165.509497384011,518.771966077176\n885.011073363468,3993.54577670886,164.549208139493,524.78014075148\n898.000510367137,4065.20869101266,163.576120484433,530.788315425785\n911.002029471998,4136.87160531646,162.590950728182,536.79649010009\n924.014965736249,4208.53451962025,161.594363812541,542.804664774395\n937.038701160751,4280.19743392405,160.586977736648,548.812839448699\n950.072660703424,4351.86034822785,159.569367542584,554.821014123004\n963.11630868413,4423.52326253165,158.542068910488,560.829188797309\n976.169145537171,4495.18617683544,157.505581406056,566.837363471613\n989.230704873706,4566.84909113924,156.460371418131,572.845538145918\n1002.30055082084,4638.51200544304,155.406874819605,578.853712820223\n1015.37827560809,4710.17491974684,154.345499380967,584.861887494528\n1028.46349737531,4781.83783405063,153.276626962358,590.870062168832\n1041.55585817919,4853.50074835443,152.200615507084,596.878236843137\n1054.65502217804,4925.16366265823,151.117800856842,602.886411517442\n1067.7606739768,4996.82657696203,150.028498406695,608.894586191746\n1080.87251711633,5068.48949126582,148.933004615777,614.902760866051\n1093.99027269275,5140.15240556962,147.831598387957,620.910935540356\n1107.11367809418,5211.81531987342,146.724542335143,626.919110214661\n1120.24248584341,5283.47823417722,145.61208393452,632.927284888965\n1133.37646253671,5355.14114848101,144.494456589834,638.93545956327\n1146.51538786941,5426.80406278481,143.371880605739,644.943634237575\n1159.65905374046,5498.46697708861,142.2445640833,650.951808911879\n1172.80726342847,5570.1298913924,141.1127037439,656.959983586184\n1185.95983083293,5641.7928056962,139.976485688052,662.968158260489\n1199.11657977461,5713.45572,138.836086094981,668.976332934794"
+    },
+    {
+      "name": "scale/x",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "domain": "number"
+        }
+      },
+      "values": "\"domain\"\n-230.9830215\n5996.5242315"
+    },
+    {
+      "name": "scale/y",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "domain": "number"
+        }
+      },
+      "values": "\"domain\"\n-76.36497\n1742.99037"
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "domain": {
+        "data": "scale/x",
+        "field": "data.domain"
+      },
+      "zero": false,
+      "nice": false,
+      "clamp": false,
+      "range": "width"
+    },
+    {
+      "name": "y",
+      "domain": {
+        "data": "scale/y",
+        "field": "data.domain"
+      },
+      "zero": false,
+      "nice": false,
+      "clamp": false,
+      "range": "height"
+    }
+  ],
+  "marks": [
+    {
+      "type": "symbol",
+      "properties": {
+        "update": {
+          "fill": {
+            "value": "#000000"
+          },
+          "size": {
+            "value": 50
+          },
+          "x": {
+            "scale": "x",
+            "field": "data.internet_users"
+          },
+          "y": {
+            "scale": "y",
+            "field": "data.facebook_users"
+          }
+        },
+        "ggvis": {
+          "data": {
+            "value": ".0"
+          }
+        }
+      },
+      "from": {
+        "data": ".0"
+      }
+    },
+    {
+      "type": "area",
+      "properties": {
+        "update": {
+          "fill": {
+            "value": "#333333"
+          },
+          "y2": {
+            "scale": "y",
+            "field": "data.resp_upr_"
+          },
+          "fillOpacity": {
+            "value": 0.2
+          },
+          "x": {
+            "scale": "x",
+            "field": "data.pred_"
+          },
+          "y": {
+            "scale": "y",
+            "field": "data.resp_lwr_"
+          },
+          "stroke": {
+            "value": "transparent"
+          }
+        },
+        "ggvis": {
+          "data": {
+            "value": ".0/model_prediction1"
+          }
+        }
+      },
+      "from": {
+        "data": ".0/model_prediction1"
+      }
+    },
+    {
+      "type": "line",
+      "properties": {
+        "update": {
+          "strokeWidth": {
+            "value": 2
+          },
+          "x": {
+            "scale": "x",
+            "field": "data.pred_"
+          },
+          "y": {
+            "scale": "y",
+            "field": "data.resp_"
+          },
+          "stroke": {
+            "value": "blue"
+          },
+          "fill": {
+            "value": "transparent"
+          }
+        },
+        "ggvis": {
+          "data": {
+            "value": ".0/model_prediction1"
+          }
+        }
+      },
+      "from": {
+        "data": ".0/model_prediction1"
+      }
+    }
+  ],
+  "legends": [],
+  "axes": [
+    {
+      "type": "x",
+      "scale": "x",
+      "orient": "bottom",
+      "title": "Number of Internet Users (In Hundred Thousands)",
+      "titleOffset": 50,
+      "layer": "back",
+      "grid": true
+    },
+    {
+      "type": "y",
+      "scale": "y",
+      "orient": "left",
+      "title": "Number of Facebook Users (In Hundred Thousands)",
+      "titleOffset": 50,
+      "layer": "back",
+      "grid": true
+    }
+  ],
+  "padding": null,
+  "ggvis_opts": {
+    "keep_aspect": false,
+    "resizable": true,
+    "padding": {},
+    "duration": 250,
+    "renderer": "svg",
+    "hover_duration": 0,
+    "width": 384,
+    "height": 384
+  },
+  "handlers": null
+};
+ggvis.getPlot("plot_id881433065").parseSpec(plot_id881433065_spec);
+</script>
+<p> </p>
+<p>The slope here is positive (upward sloping) and is less steep (more flat). Let’s find out what the linear model is.</p>
+<p> </p>
+<pre class="r"><code>net_fb_model &lt;- lm(data = internet_user_data, facebook_users ~ internet_users)
+
+coef(net_fb_model)</code></pre>
+<pre><code>##    (Intercept) internet_users 
+##   189.96371821     0.08383939</code></pre>
+<p> </p>
+<p>The linear model here is:</p>
+<p> </p>
+<p><span class="math display">\[\text{Number of Facebook Users} = 0.08383939 \times \text{Number of Internet Users} + 189.96371821\]</span></p>
+<p> </p>
+<p>Again we have three outliers in this second plot.</p>
+<p> </p>
+<pre class="r"><code># What are the three extreme points (outliers) from the scatterplot?
+
+## Extract the three outliers:
+
+three_outliers_net_fb &lt;- subset(internet_user_data, internet_users &gt; 1500)
+
+three_outliers_net_fb</code></pre>
+<pre><code>##    pop_size internet_users facebook_users
+## 7  13506.95       5713.456         6.3330
+## 13 12366.87       1555.759       627.1368
+## 31  3139.14       2543.495      1660.2924</code></pre>
+<pre class="r"><code># Indices of rows 7, 13 and 31 of outliers, extracting countries of outliers.
+
+internet_data[c(7, 13, 31), &quot;country&quot;]</code></pre>
+<pre><code>## [1] China         India         United States
+## 32 Levels: Argentina Australia Belgium Brazil Canada Chile ... Venezuela, RB</code></pre>
+<p> </p>
+<p>The three outliers are from China, India and the United States once again.</p>
+<p> </p>
+</div>
+<div id="notes-and-thoughts" class="section level3">
+<h3><u>Notes and Thoughts</u></h3>
+<p> </p>
+<p>I am aware that the linear model should go through the origin as if there is no population then there cannot be any internet users nor Facebook users. Also, no internet users means no Facebook users. However, I do not know at this time how to plot a linear model through the origin (intercept of zero) using ggvis.</p>
+<p>In R, one can plot a linear model through the origin. As an example we can have:</p>
+<p> </p>
+<pre class="r"><code>net_fb_model_origin &lt;- lm(data = internet_user_data, facebook_users ~ 0 +internet_users)
+coef(net_fb_model_origin)</code></pre>
+<pre><code>## internet_users 
+##      0.1636588</code></pre>
+<p> </p>
+<p><span class="math display">\[\text{Number of Facebook Users} = 0.1637 \times \text{Number of Internet Users}\]</span></p>
+<p> </p>
+</div>
+<div id="references" class="section level3">
+<h3><u>References</u></h3>
+<p> </p>
+<ul>
+<li><a href="http://ggvis.rstudio.com/cookbook.html" class="uri">http://ggvis.rstudio.com/cookbook.html</a></li>
+<li><a href="http://ggvis.rstudio.com/axes-legends.html" class="uri">http://ggvis.rstudio.com/axes-legends.html</a></li>
+<li>DataCamp</li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

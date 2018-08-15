@@ -1,0 +1,184 @@
+---
+title: "Working With A Two By Two Table In R"
+output: html_document
+---
+
+&nbsp;
+
+Hello everyone. This page is about working with a two by two table in the statistical programming language R.
+
+&nbsp;
+
+### <u>Sections</u>
+
+&nbsp;
+
+* <a href="#data">Creating Sample Data</a>
+* <a href="#table">A Two By Two Contingency Table</a>
+* <a href="#poisson">Poisson Regression</a>
+* <a href="#refs">References</a>
+
+&nbsp;
+
+<a name="data"></a>
+
+### <u>Creating Sample Data</u>
+
+&nbsp;
+
+I start with creating sample (fake) data where males and females are surveyed whether or not they like sushi or not.
+
+&nbsp;
+
+```{r}
+# Contingency Tables In R
+# Book: Extending The Linear Model With R By Julian J Faraway
+
+# Creating a Sample Table: Do You Like Sushi By Gender?
+# gl() generates factor levels
+
+library(ggplot2)
+
+counts <- c(19, 24, 18, 21)
+gender <- gl(n = 2, k = 1, length = 4, labels = c("Male", "Female"))
+interest <- gl(n = 2, k = 2, length = 4, labels = c("Yes", "No"))
+
+survey_data <- data.frame(counts, gender, interest)
+
+survey_data
+```
+
+&nbsp;
+
+From the survey data, you can easily create bar graphs with the ggplot2 package in R.
+
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4}
+#### ggplot2 Graphs
+
+
+# Data Visualization Of Contingency Table With ggplot2 (Stacked Bar Graph):
+
+ggplot(data = survey_data, aes(x = interest, y = counts, fill = gender)) + 
+  geom_bar(stat = "identity") + 
+  labs(x = "\n Answer", y = "Counts \n", 
+       title = "Interest In Sushi By Gender \n",
+       fill = "Gender") +
+  theme(plot.title = element_text(hjust = 0.5),
+        axis.title.x = element_text(face="bold", colour="blue", size = 12),
+        axis.title.y = element_text(face="bold", colour="blue", size = 12),
+        legend.position = "bottom")
+```
+
+&nbsp;
+
+The above plot is a stacked bar graph. An alternative to the above would be side by side bar graphs.
+
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4}
+# Data Visualization Of Contingency Table With ggplot2 (Side By Side Bar Graph):
+
+ggplot(data = survey_data, aes(x = interest, y = counts, fill = gender)) + 
+  geom_bar(stat = "identity", position = "dodge", colour = "black") + 
+  scale_fill_brewer(palette = "Pastel1") +
+  labs(x = "\n Answer", y = "Counts \n", 
+       title = "Interest In Sushi By Gender \n",
+       fill = "Gender") +
+  theme(plot.title = element_text(hjust = 0.5),
+        axis.title.x = element_text(face="bold", colour="blue", size = 12),
+        axis.title.y = element_text(face="bold", colour="blue", size = 12),
+        legend.position = "bottom")
+```
+
+&nbsp;
+
+I have also changed the colour palette to mix things up.
+
+&nbsp;
+
+<a name="table"></a>
+
+### <u>A Two By Two Contingency Table</u>
+
+&nbsp;
+
+Instead of the long format from the beginning, you can display the table as a two by two contingency table.
+
+&nbsp;
+
+```{r}
+### Contingency Tables (2 by 2 Case)
+
+conting_table <- xtabs(counts ~ gender + interest)
+
+conting_table
+```
+
+&nbsp;
+
+From this contingency table, you can create a mosaic plot.
+
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4}
+# Mosaic Plot (Base R):
+
+mosaicplot(conting_table, color = c("red", "green"), main = "Mosaic Plot",
+           xlab = "Gender", ylab = "Answer")
+```
+
+&nbsp;
+
+Since the counts are really close to each other, it is hard to see a difference between the tile sizes.
+
+An alternate moasic plot comes from the vcd package in R.
+
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4} 
+# Mosaic Plot (vcd package):
+
+library(vcd)
+
+mosaic( ~ gender + interest , data = conting_table,
+        highlighting = "gender", highlighting_fill=c("lightblue", "pink"))
+```
+
+&nbsp;
+
+Other than the colours and labels, this mosaic plot does not look that much different. Also, I have not figured out how to adjust the label titles and such.
+
+&nbsp;
+
+<a name="poisson"></a>
+
+### <u>Poisson Regression</u>
+
+&nbsp;
+
+The counts are at least zero (non-negative) and are whole numbers. When dealing with a two by two table, linear regression does not really work. With this data, a Poisson regression model is used.
+
+In R, the `glm()` function is used where glm stands for generalized linear model. Make sure to indicate `family = "poisson"` in the `glm()` function.
+
+&nbsp;
+
+```{r}
+# Poisson Regression 
+
+poisson_model <- glm(counts ~ gender + interest, family = "poisson", data = survey_data)
+
+summary(poisson_model)
+```
+
+&nbsp;
+
+<a name="refs"></a>
+
+### <u>References</u>
+
+&nbsp;
+
+* R Graphics Cookbook By Winston Chang
+* Extending The Linear Model By Julian J Faraway

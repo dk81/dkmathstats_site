@@ -11,7 +11,7 @@
 
 
 
-<title>R Programming Projects</title>
+<title>The Heaviside Function</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -205,83 +205,36 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">R Programming Projects</h1>
+<h1 class="title toc-ignore">The Heaviside Function</h1>
 
 </div>
 
 
 <p> </p>
-<p>This page contains links on a bunch of R programming projects.</p>
+<p><img class="size-full aligncenter" src="http://wwwf.imperial.ac.uk/metric/metric_public/glossary/images/figure_heaviside.png" width="360" height="234" /></p>
+<p>Image Source: <a href="http://wwwf.imperial.ac.uk/metric/metric_public/glossary/images/figure_heaviside.png" class="uri">http://wwwf.imperial.ac.uk/metric/metric_public/glossary/images/figure_heaviside.png</a></p>
 <p> </p>
-<div id="categories" class="section level1">
-<h1><u>Categories</u></h1>
+<p>This will be a short guide on the Heaviside function. This function is simple and it has uses in probability (financial mathematics), statistics and in partial differential equations (PDEs).</p>
+<p>One may view the Heaviside function as a special case of the indicator function.</p>
+<p>Suppose that we have an independent variable (as time) being <span class="math inline">\(t\)</span>. The Heaviside step function is defined as:</p>
+<p> </p>
+<p><span class="math display">\[H(t) = \begin{cases}1 &amp; \text{if } t \geq 0 \\ 0 &amp; \text{if } t &lt; 0\end{cases}\]</span></p>
+<p> </p>
+<p>If we apply horizontal shifts, we can generalize this Heaviside step function to be:</p>
+<p> </p>
+<p><span class="math display">\[H(t - a)= \begin{cases}1 &amp; \text{if } t \geq a \\ 0 &amp; \text{if } t &lt; a \end{cases}\]</span></p>
+<p> </p>
+<p>Suppose a = 3, we would have:</p>
+<p> </p>
+<p><span class="math display">\[H(t - 3)= \begin{cases}1 &amp; \text{if } t \geq 3 \\ 0 &amp; \text{if } t &lt; 3 \end{cases}\]</span></p>
+<p> </p>
+<p><strong>Notes</strong></p>
 <p> </p>
 <ul>
-<li><p><a href="#mathstats">Math &amp; Stats In R</a></p></li>
-<li><p><a href="#rvisual">Data Visualization In R</a></p></li>
-<li><p><a href="#visualprojects">Data Visualization Projects In R</a></p></li>
-<li><p><a href="#rdata">Data Analysis &amp; Data Manipulation In R</a></p></li>
-<li><p><a href="#textmining">Text Mining &amp; Text Analysis In R</a></p></li>
-<li><p><a href="#ml">Machine Learning Experimental Work</a></p></li>
+<li><p>This Heaviside step function is right continuous.</p></li>
+<li><p>There are other versions and definitions of the Heaviside function which are not discussed here.</p></li>
+<li><p>The featured image is from <a href="http://wwwf.imperial.ac.uk/metric/metric_public/glossary/images/figure_heaviside.png" class="uri">http://wwwf.imperial.ac.uk/metric/metric_public/glossary/images/figure_heaviside.png</a>.</p></li>
 </ul>
-<p> </p>
-<p><a name="mathstats"></a></p>
-<div id="math-stats-in-r" class="section level3">
-<h3><u>Math &amp; Stats In R</u></h3>
-<p> </p>
-<p><a href="./rmath-mode-function.html">Mode Function In R</a></p>
-<p><a href="./rmath-cartesian-prod.html">Cartesian Products In R</a></p>
-<p><a href="./rmath-cross-prod-r.html">Vector Cross Products In R</a></p>
-<p><a href="./rmath-fibonacci.html">Fibonacci Sequence Numbers In R</a></p>
-<p><a href="./rmath-quad-formula-r.html">The Quadratic Formula In R</a></p>
-<p><a href="./rmath-plotting-math-functions.html">Plotting Math Functions In R</a></p>
-<p><a name="rvisual"></a></p>
-<p> </p>
-</div>
-<div id="data-visualization-in-r" class="section level3">
-<h3><u>Data Visualization In R</u></h3>
-<p> </p>
-<p><a href="./rvisual-bargraphs.html">Making Bar Graphs In R Using ggplot2</a></p>
-<p><a href="./rvisual-sideways-bargraph.html">A Sideways Bar Graph Example In R</a></p>
-<p><a href="./rvisual-sidebyside-bar.html">Side By Side Bar Graphs Using R and ggplot2</a></p>
-<p><a href="./rvisual-adv-bargraphs.html">An Advanced Bar Graph Example Using R And ggplot2</a></p>
-<p><a href="./rvisual-histograms.html">Histograms In R</a></p>
-<p><a href="./rvisual-heatmaps.html">Heatmaps In R With ggplot2</a></p>
-<p><a href="./rvisual-piecharts.html">Pie Charts In R</a></p>
-<p><a href="./rvisual-line-plots.html">Line Plots In R &amp; ggplot2</a></p>
-<p><a href="./rvisual-ggvis-guide.html">Data Visualization In R With The ggvis Package</a></p>
-<p><a href="./rvisual-scatterplots-ggvis.html">Scatterplots In R Using The ggvis Package</a></p>
-<p><a href="./rvisual-twoway-table.html">Working With A Two-By-Two Table In R</a></p>
-<p><a href="./rvisual-multiple-plots.html">Multiple Plots In One Graph With R</a></p>
-<p> </p>
-<p><a name="visualprojects"></a></p>
-</div>
-<div id="data-visualization-projects-in-r" class="section level3">
-<h3><u>Data Visualization Projects In R</u></h3>
-<p> </p>
-<p><a href="./rvisual-rockpaperscissors.html">Making A Rock, Paper, Scissors Table In R</a></p>
-<p><a href="./rvisual-rpsls.html">Creating A Rock, Paper, Scissors, Lizard, Spock Table In R</a></p>
-<p><a href="./rvisual-pokemon-table.html">Creating A Pokémon (Gen 6+) Types Table In R</a></p>
-<p> </p>
-<p><a name="rdata"></a></p>
-</div>
-<div id="data-analysis-data-manipulation-in-r" class="section level3">
-<h3><u>Data Analysis &amp; Data Manipulation In R</u></h3>
-<p> </p>
-<p> </p>
-<p><a name="textmining"></a></p>
-</div>
-<div id="text-mining-text-analysis-in-r" class="section level3">
-<h3><u>Text Mining &amp; Text Analysis In R</u></h3>
-<p> </p>
-<p> </p>
-<p><a name="ml"></a></p>
-</div>
-<div id="machine-learning-experimental-work" class="section level3">
-<h3><u>Machine Learning Experimental Work</u></h3>
-<p> </p>
-</div>
-</div>
 
 
 

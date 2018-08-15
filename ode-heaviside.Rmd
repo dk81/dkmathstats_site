@@ -1,0 +1,50 @@
+---
+title: "The Heaviside Function"
+output: html_document
+---
+
+&nbsp;
+
+<img class="size-full aligncenter" src="http://wwwf.imperial.ac.uk/metric/metric_public/glossary/images/figure_heaviside.png" width="360" height="234" />
+
+Image Source: http://wwwf.imperial.ac.uk/metric/metric_public/glossary/images/figure_heaviside.png
+
+&nbsp;
+
+This will be a short guide on the Heaviside function. This function is simple and it has uses in probability (financial mathematics), statistics and in partial differential equations (PDEs).
+
+One may view the Heaviside function as a special case of the indicator function.
+
+Suppose that we have an independent variable (as time) being $t$. The Heaviside step function is defined as:
+
+&nbsp;
+
+$$H(t) = \begin{cases}1 & \text{if } t \geq 0 \\ 0 & \text{if } t < 0\end{cases}$$
+
+&nbsp;
+
+If we apply horizontal shifts, we can generalize this Heaviside step function to be:
+
+&nbsp;
+
+$$H(t - a)= \begin{cases}1 & \text{if } t \geq a \\ 0 & \text{if } t < a \end{cases}$$
+
+&nbsp;
+
+Suppose a = 3, we would have:
+
+&nbsp;
+
+$$H(t - 3)= \begin{cases}1 & \text{if } t \geq 3 \\ 0 & \text{if } t < 3 \end{cases}$$
+
+&nbsp;
+
+**Notes**
+
+&nbsp;
+
+* This Heaviside step function is right continuous.
+
+* There are other versions and definitions of the Heaviside function which are not discussed here.
+
+* The featured image is from http://wwwf.imperial.ac.uk/metric/metric_public/glossary/images/figure_heaviside.png.

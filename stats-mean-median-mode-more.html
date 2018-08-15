@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Understanding Mean, Median, Mode And More</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Understanding Mean, Median, Mode And More</h1>
+
+</div>
+
+
+<p> </p>
+<p>This post will be on basic summary statistics such as mean, median, mode, variance, standard deviation, skewness and kurtosis.</p>
+<p>Calculations are done using the statistical programming language R and the code (with references) are found later in this post.</p>
+<p> </p>
+<div id="topics" class="section level3">
+<h3><u>Topics</u></h3>
+<ul>
+<li></li>
+</ul>
+<p> </p>
+</div>
+<div id="why-do-we-need-mean-median-and-mode" class="section level3">
+<h3><u>Why Do We Need Mean, Median and Mode?</u></h3>
+<p> </p>
+<p>When we are given a random sample of data from a larger population, we want some measures on the random sample we have obtained from a (bigger) population.</p>
+<p>To explain the concept of mean, median and mode, I will use an example.</p>
+<p>Suppose we want to have an idea of the heights of patients at a clinic. Ideally, we would like to take height measurements of every patient in a clinic that has 197 patients in its database. Due to time and budget constraints, we are able to take the heights of 20 random patients at a clinic.</p>
+<p>Suppose these heights of the patients in meters (to 2 decimal places) are:</p>
+<p> </p>
+<p><span class="math display">\[1.50, 1.68, 1.75, 1.80, 1.71, 1.51, 1.68, 1.57, 1.87, 1.75, 1.75, 1.73, 1.56, 1.45, 1.78, 1.80, 1.87, 1.56, 1.47, 1.52\]</span></p>
+<p> </p>
+<p>When possible, we would like to know what our data looks like when comparing the height values with the frequencies. Here is the histogram of the sample data (from R).</p>
+<p> </p>
+<pre class="r"><code>data &lt;- c(1.50, 1.68, 1.75, 1.80, 1.71, 1.51, 1.68, 1.57, 1.87, 1.75, 1.75, 1.73, 1.56, 1.45, 1.78, 1.80, 1.87, 1.56, 1.47, 1.52)
+
+hist(data)</code></pre>
+<p><img src="stats-mean-median-mode-more_files/figure-html/unnamed-chunk-1-1.png" width="384" /></p>
+<p> </p>
+<p>We have 3 height values that are between 1.4 and 1.5 inclusive (in meters), 5 values from 1.5 to 1.6, 2 from 1.6 to 1.7, 8 values from 1.7 to 1.8 and 2 values from 1.8 to 1.9.</p>
+<p>The most frequent value from the sample or the mode is 1.75 as it appears the most at a frequency of three.</p>
+<p>The median of an ordered sample of values is the middle (or 50th percentile) value. If we have an odd number of values, we take the middle value. In this case where we have an even number of values we take the middle two values and take the average of them. The median of the data set above is 1.695.</p>
+<p>The mean or “average” of a random sample is the all the values added together from the sample divided by the number of entries (which is 12).</p>
+<p>The mean of the data set to four decimal places is 1.6655.</p>
+<p>The more formal way of expressing the sample mean (assuming known values) is by expressing it as <span class="math inline">\(\bar{x} = \dfrac{1}{n} \sum_{i = 1}^{n} x_{i}\)</span>. With the dataset above, we add all the values and divide by <span class="math inline">\(n = 20\)</span>.</p>
+<p>If we have unknown values we use a capital <span class="math inline">\(X\)</span> to convey that it is random. The random sample mean is denoted by <span class="math inline">\(\bar{X} = \dfrac{1}{n} \sum_{i = 1}^{n} X_{i}\)</span></p>
+<p> </p>
+<p><strong>Considerations</strong></p>
+<p> </p>
+<p>From a data set, the mean, median and mode together are known as measures of central tendency. The median is not affected too much from extreme outliers or values (such as 10 meters in the data set above). Keep in mind that the mean, median and mode values are only for a particular data set at a specific point in time. If one were to gather more measurements of patients heights, then the mean, median and mode values may change based on the new data set.</p>
+<p> </p>
+</div>
+<div id="variance-standard-deviation" class="section level3">
+<h3><u>Variance &amp; Standard Deviation</u></h3>
+<p> </p>
+<p>One may be interested in finding a minimum or maximum value. The range where is it the maximum minus the minimum value can be useful information. The minimum and the maximum of the dataset is 1.45 and 1.87 metres respectively.</p>
+<p>Okay we are aware of the some specific values of our data set such as the mean, median, mode, maximum and minimum. What if we want to have an idea about the spread of the values in our sample?</p>
+<p>We start with the formulas of variance and standard deviation. The sample variance with <strong>unknown or unobserved values</strong> is given by:</p>
+<p> </p>
+<p><span class="math display">\[S^{2} = \dfrac{1}{n - 1} \sum_{i = 1}^{n} (X_{i} - \bar{X})^2\]</span>  </p>
+<p>with the sample standard deviation and unknown values given by <span class="math inline">\(S = \sqrt{S^2}\)</span>.</p>
+<p>When given known or observed values, we use lowercase letters as follows:</p>
+<p> </p>
+<p><span class="math display">\[s^{2} = \dfrac{1}{n - 1} \sum_{i = 1}^{n} (x_{i} - \bar{x})^2\]</span></p>
+<p> </p>
+<p>with the sample standard deviation and known values given by <span class="math inline">\(s = \sqrt{s^2}\)</span>.</p>
+<p>The sample variance adds each value in the dataset subtracted by its sample mean squared. The sum of these squared differences is divided by the number of entries minus one. The sample standard deviation is the square root of the sample variance.</p>
+<p>With our clinic dataset, our sample variance is 0.018405 and its sample standard deviation is 0.135665.</p>
+<p> </p>
+</div>
+<div id="skewness" class="section level3">
+<h3><u>Skewness</u></h3>
+<p> </p>
+<p>The concepts of skewness and kurtosis (from my experiences) were not really mentioned in my first undergraduate probability and statistics course. I ended up learning a little about it later in graduate school and from online resources.</p>
+<p>Skewness is a measure of asymmetry. The sample skewness (with known values) is given by:</p>
+<p> </p>
+<p><span class="math display">\[\text{Sample skewness} = \dfrac{n \sqrt{n - 1}}{n - 2} \, \dfrac{\sum_{i = 1}^{n} (x_{i} - \bar{x})^3}{s^3} = \dfrac{n \sqrt{n - 1}}{n - 2} \, \dfrac{\sum_{i = 1}^{n} (x_{i} - \bar{x})^3}{(\sum_{i = 1}^{n} (x_{i} - \bar{x})^2)^{3/2}} \]</span></p>
+<p> </p>
+<p>Zero skewness implies symmetry. This is where the mean, median and mode are all equal. A probability distribution that has symmetry at its mean is the ever famous normal distribution.</p>
+<p>A skewness that is non-negative or above zero implies a positive or a right skew. This is when the mode is less than the median which is less than the mean.</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle Mode &lt; Median &lt; Mean\]</span></p>
+<p> </p>
+<p>A below zero skewness implies a negative or left skew of the frequency distribution. The mean is less than the median which is less than the mode.</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle Mean &lt; Median &lt; Mode\]</span></p>
+<p> </p>
+<p>As a memory tip, notice how the median is in the middle of each of the inequalities above hence the word median. Due to this, you can just compare only the mean and mode.</p>
+<p>From the clinic dataset, the sample skewness is -0.1287248. This is a negative or left skewed sample. This makes sense as we have:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle (Mean = 1.6655) &lt; (Median = 1.695) &lt; (Mode = 1.75) \]</span>  </p>
+<p>The visual below summarizes skewness:</p>
+<p>Image from: <a href="http://www.managedfuturesinvesting.com/managed-futures/news/aisource-news/2015/10/13/what-is-skewness" class="uri">http://www.managedfuturesinvesting.com/managed-futures/news/aisource-news/2015/10/13/what-is-skewness</a></p>
+<p> </p>
+<hr />
+<p> </p>
+</div>
+<div id="skewness-1" class="section level3">
+<h3><u>Skewness</u></h3>
+<p> </p>
+<p>Kurtosis is a measure of the peakedness of a probability/frequency distribution. It also refers to the shape of a distribution and how “fat” the tails are. A diagram will be given below to help visualize this concept.</p>
+<p>The sample kurtosis formula (with known values) is given by:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \text{Sample Kurtosis} = \dfrac{n(n + 1)(n - 1)}{(n - 2)(n - 3)} \, \dfrac{\sum_{i = 1}^{n} (x_{i} - \bar{x})^4}{s^4} = \dfrac{n(n + 1)(n - 1)}{(n - 2)(n - 3)} \, \dfrac{\sum_{i = 1}^{n} (x_{i} - \bar{x})^4}{(\sum_{i = 1}^{n} (x_{i} - \bar{x})^2)^{2}}\]</span>  </p>
+<p>Before we talk about the three types of kurtosis, we also mention excess kurtosis which is:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \text{Excess Kurtosis} = \text{Kurtosis} - 3\]</span>  </p>
+<p>The (famous) Normal Distribution or Gaussian has a Kurtosis of three or an excess kurtosis of zero. We also say that the normal distribution is mesokurtic.</p>
+<p>A leptokurtic distribution has a higher peak than a normal distribution. The kurtosis is above three and the excess kurtosis is above 0.</p>
+<p>A platykurtic distribution has a shorter peak than a normal distribution. The kurtosis is below three and the excess kurtosis is below 0.</p>
+<p>Referring to the clinic dataset above, the sample kurtosis (given by R) is -1.490004. We have the platykurtic distribution case.</p>
+<p>The following diagram is a great visual which summarizes the concept of kurtosis.</p>
+<p>(Image from <a href="http://www.pqsystems.com/eline/2001/02/b.htm" class="uri">http://www.pqsystems.com/eline/2001/02/b.htm</a>)</p>
+<p> </p>
+</div>
+<div id="fat-tails" class="section level3">
+<h3><u>Fat Tails</u></h3>
+<p> </p>
+<p>The concept of fat tails appeals more to the finance crowd (and not to Sonic the Hedgehog fans) as it relates to financial risk management. There is a lot of conflicting materials online about whether a platykurtic or a leptokurtic distribution has fat tails or not so I will not go in great details about this.</p>
+<p>From a graphical point of view, we look at the tails or endpoints where there is more area or probability than a normal distribution. The tails with more probability at the tails are “fat tails”.</p>
+<p>From a non-graphical view, we would need to look at the probabilities beyond plus/minus three standard deviations (for example) and compare them to the probabilities of the normal distribution.</p>
+<p> </p>
+</div>
+<div id="the-use-of-statistical-software-for-the-dataset" class="section level3">
+<h3><u>The Use of Statistical Software for the Dataset</u></h3>
+<p> </p>
+<p>Since the dataset is not very big, one could perform the calculations by hand. The problem is is that it takes too long. The use of statistical programming software such as R (It’s free!) helps us compute the values for the sample mean, variance, standard deviation, skewness and kurtosis of the clinic dataset.</p>
+<p>Other statistical software includes SAS, SPSS, STATA. You may be able to use Excel and Python for all the calculations.</p>
+<p>Lines with a # are comments where steps are explained or where there is a reference.</p>
+<p>The code and output below in R</p>
+<p> </p>
+<pre class="r"><code># Sample Summary Statistics
+
+sample &lt;- c(1.50, 1.68, 1.75, 1.80, 1.71, 1.51, 1.68, 1.57, 1.87, 1.75, 1.75, 1.73, 1.56, 1.45, 1.78, 1.80, 1.87, 1.56, 1.47, 1.52)
+
+
+mean(sample)</code></pre>
+<pre><code>## [1] 1.6655</code></pre>
+<pre class="r"><code>median(sample)</code></pre>
+<pre><code>## [1] 1.695</code></pre>
+<pre class="r"><code>getMode &lt;- function(x) {
+  names(sort(table(x), decreasing = TRUE)[1])
+}
+
+getMode(sample)</code></pre>
+<pre><code>## [1] &quot;1.75&quot;</code></pre>
+<pre class="r"><code># Load moments package for skewness &amp; kurtosis:
+# install.packages(&quot;moments&quot;)
+
+library(moments)
+
+skewness(sample)</code></pre>
+<pre><code>## [1] -0.1390198</code></pre>
+<pre class="r"><code>kurtosis(sample)</code></pre>
+<pre><code>## [1] 1.673126</code></pre>
+<p> </p>
+</div>
+<div id="notes" class="section level3">
+<h3><u>Notes</u></h3>
+<p> </p>
+<p>Formulas for population means, variances, skewness and kurtosis were not provided. I want to focus on the formulas for the samples. The concepts of estimators, estimates, unbiased estimators, expected values and central moments are not mentioned to avoid confusion. Some resources use kurtosis and excess kurtosis interchangeably. Be mindful of the value 3. You may use my code as it is not that hard to use.</p>
+<p> </p>
+</div>
+<div id="references" class="section level3">
+<h3><u>References</u></h3>
+<p> </p>
+<ul>
+<li>Casella, G. and Berger R.L. (2002), Statistical Inference, 2nd Edition, Duxbury</li>
+<li><a href="http://www.macroption.com/kurtosis-formula/" class="uri">http://www.macroption.com/kurtosis-formula/</a></li>
+<li><a href="http://www.macroption.com/skewness-formula/" class="uri">http://www.macroption.com/skewness-formula/</a></li>
+<li><a href="http://www.r-tutor.com/elementary-statistics/numerical-measures/kurtosis" class="uri">http://www.r-tutor.com/elementary-statistics/numerical-measures/kurtosis</a></li>
+<li>The featured image is taken from <a href="http://hopeforthesold.com/a-graphic-tells-the-story-prostitution-statistics/" class="uri">http://hopeforthesold.com/a-graphic-tells-the-story-prostitution-statistics/</a>.</li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

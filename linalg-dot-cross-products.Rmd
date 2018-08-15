@@ -1,0 +1,156 @@
+---
+title: "Relating Cross Products, Orthognal Vectors & Dot Products"
+output: html_document
+---
+
+&nbsp;
+
+This post is about relating dot products and cross products in the mathematical field of linear algebra. We also look at orthogonal (perpendicular) vectors being related to dot products and to cross products.
+
+&nbsp;
+
+### <u>Prerequisites</u>
+
+It is assumed that the reader is familiar with the linear algebra concepts of dot products, orthogonal vectors and cross products.
+
+&nbsp;
+
+### <u>Table Of Contents</u>
+
+&nbsp;
+
+* Review Of Cross Products and Dot Products
+* Properties Of Cross Products & Dot Products
+* Example
+* Practice Problems
+* Hints To Practice Problems
+* Reference
+
+&nbsp;
+
+### <u>Review Of Cross Products and Dot Products</u>
+
+&nbsp;
+
+Recall that the cross product of two vectors $\textbf{u}$ and $\textbf{v}$ is a third vector which is perpendicular to both vectors $\textbf{u}$ and $\textbf{v}$. From dot products, we can show that two vectors are perpendicular to each other if the dot product of those vectors are zero (i.e. $\textbf{u} \cdot \textbf{v} = 0$). Using these two ideas we can express the cross product $\textbf{u} \times \textbf{v}$ being perpendicular to both vectors $\textbf{u}$ and $\textbf{v}$ as:
+
+&nbsp;
+
+$$\textbf{u} \cdot (\textbf{u} \times \textbf{v}) = 0 \text { and } \textbf{v} \cdot (\textbf{u} \times \textbf{v}) = 0 $$
+&nbsp;
+
+Source: http://www.phatcode.net/res/214/images/orthogonal_i.png
+
+&nbsp;
+
+### <u>Properties Of Cross Products & Dot Products</u>
+
+&nbsp;
+
+There are other properties which relate dot products with cross products and norms. Assume that the vectors $\textbf{u}$, $\textbf{v}$ and $\textbf{w}$ are in 3-space.
+
+&nbsp;
+
+$$ ||\textbf{u} \times \textbf{v}||^{2} = ||\textbf{u}||^2 ||\textbf{v}||^2 - (\textbf{u} \cdot \textbf{v})^2 \text{ (Lagrange's Identity) }$$
+
+&nbsp;
+
+$$ \textbf{u} \times (\textbf{v} \times \textbf{w}) = (\textbf{u} \cdot \textbf{w})\textbf{v} - (\textbf{u} \cdot \textbf{v})\textbf{w}$$
+
+&nbsp;
+
+$$ (\textbf{u} \times \textbf{v}) \times \textbf{w} = (\textbf{u} \cdot \textbf{w})\textbf{v} - (\textbf{v} \cdot \textbf{w})\textbf{u}$$
+
+&nbsp;
+
+Note that the dot products of two vectors is a scalar (number) and the cross product of two vectors is a vector. In $(\textbf{u} \cdot \textbf{w})\textbf{v}$, we have a scalar multiplier to the vector $\textbf{v}$.
+
+&nbsp;
+
+### <u>Example</u>
+
+&nbsp;
+
+Given $\textbf{u} = (0, 1, 2)$ and $\textbf{v} = (2, 3, 4)$, show that $\textbf{u} \times \textbf{v}$ is (-2, 4, -2).
+
+In addition, show that this new vector is orthogonal (perpendicular) to vector $\textbf{u}$ and to vector $\textbf{v}$.
+
+&nbsp;
+
+**Answer**
+
+&nbsp;
+
+Given vectors $\textbf{u} = (u_{1}, u_{2}, u_{3})$ and $\textbf{v} = (v_{1}, v_{2}, v_{3})$, one can compute the cross product $\textbf{u} \times \textbf{v}$ through using the first formula:
+
+&nbsp;
+
+$$\textbf{u} \times \textbf{v} = (u_{2}v_{3} - u_{3}v_{2}, u_{3}v_{1} - u_{1}v_{3}, u_{1}v_{2} - u_{2}v_{1} )$$
+&nbsp;
+
+or by using the formula in determinant notation:
+
+
+$$\displaystyle \text{A} = \begin{vmatrix} \textbf{i} & \textbf{j} & \textbf{k} \\ u_{1} & u_{2} & u_{3}\\ v_{1} & v_{2} & v_{3} \\ \end{vmatrix} $$
+
+
+&nbsp;
+
+with the unit vectors $\textbf{i}, \textbf{j}, \textbf{k}$ as $\textbf{i} = (1, 0, 0)$, $\textbf{j} = (0, 1, 0)$ and $\textbf{k} = (0, 0, 1)$. To compute the three by three determinant, cofactor expansion would be needed.
+
+&nbsp;
+
+We now show that the cross product vector $(-2, 4, -2)$ is orthogonal to vector $\textbf{u}$ and to vector $\textbf{v}$ by computing dot products accordingly.
+
+&nbsp;
+
+$$\textbf{u} \cdot (\textbf{u} \times \textbf{v}) = (0, 1, 2) \cdot (-2, 4, -2) = (0)(-2) + (1)(4) + (2)(-2) = 0 + 4 - 4 = 0$$
+
+&nbsp;
+
+$$\textbf{v} \cdot (\textbf{u} \times \textbf{v}) = (2, 3, 4) \cdot (-2, 4, -2) = (2)(-2) + (3)(4) + (4)(-2) = -4 + 12 - 8 = 0 $$
+
+&nbsp;
+
+The vector (-2, 4, -2) is perpendicular to both vectors $\textbf{u}$ and $\textbf{v}$.
+
+&nbsp;
+
+### <u>Practice Problems</u>
+
+&nbsp;
+
+Here are few practice problems. These questions are a little bit more theoretical in mature so hints instead of solutions are in the next section. I think it is important for the reader to work for the answers and understand the concepts better.
+
+&nbsp;
+
+1) You are given the vectors $\textbf{u} = (3, -5, 1)$ and $\textbf{v} = (1, 0, -5)$ with the cross product $\textbf{u} \times \textbf{v} = (25, 16, 5)$. Show that the cross product vector is perpendicular to vectors $\textbf{u}$ and $\textbf{v}$.
+
+&nbsp;
+
+2) Find a vector which is orthogonal to vectors $\textbf{u} = (5, 2, 0)$ and $\textbf{v} = (-2, 0, 3)$. Verify that this vector is orthogonal to both vectors using dot products.
+
+&nbsp;
+
+3) You are given the vectors $\textbf{u} = (2, 2, 0)$ and $\textbf{v} = (-1, -5, -3)$. Show that the vector $\textbf{w} = (-6, 7, -8)$ is not a cross product vector to $\textbf{u}$ or $\textbf{v}$.
+
+&nbsp;
+
+### <u>Hints To Practice Problems</u>
+
+&nbsp;
+
+1) Use the dot product similar to the example above.
+
+2) Find the cross product of vectors $\textbf{u}$ and $\textbf{v}$. Verify that the cross product vector is orthogonal using dot products like in the example above.
+
+3) Show that $\textbf{w} \cdot \textbf{u} \neq 0$ or $\textbf{w} \cdot \textbf{v} \neq 0$.
+
+&nbsp;
+
+### <u>Reference</u>
+
+&nbsp;
+
+* Elementary Linear Algebra (Tenth Edition) by Howard Anton
+

@@ -351,15 +351,13 @@ hist(fb_time, xlab = &quot;Time Spent on Facebook (Min.)&quot;, ylab = &quot;Num
 <p>We explore graphing using the ggvis package to produce a more appealing histogram.</p>
 <p>The packages ggvis and dplyr (for the %&gt;%, I won’t explain details) in R will be used. My code and output is below.</p>
 <p> </p>
-<pre class="r"><code>library(ggvis)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;ggvis&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:ggplot2&#39;:
-## 
-##     resolution</code></pre>
-<pre class="r"><code>library(dplyr)</code></pre>
+<pre class="r"><code>library(ggvis)
+library(dplyr)</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:MASS&#39;:
+## 
+##     select</code></pre>
 <pre><code>## The following objects are masked from &#39;package:stats&#39;:
 ## 
 ##     filter, lag</code></pre>
@@ -370,27 +368,27 @@ hist(fb_time, xlab = &quot;Time Spent on Facebook (Min.)&quot;, ylab = &quot;Num
   add_axis(&quot;x&quot;, title = &quot;Time Spent on Facebook (Min.)&quot;, title_offset = 50) %&gt;%
   add_axis(&quot;y&quot;, title = &quot;Number of Facebook Users&quot;, title_offset = 50)</code></pre>
 <pre><code>## Guessing width = 20 # range / 24</code></pre>
-<div id="plot_id554907290-container" class="ggvis-output-container">
-<div id="plot_id554907290" class="ggvis-output"></div>
+<div id="plot_id762124873-container" class="ggvis-output-container">
+<div id="plot_id762124873" class="ggvis-output"></div>
 <div class="plot-gear-icon">
 <nav class="ggvis-control">
 <a class="ggvis-dropdown-toggle" title="Controls" onclick="return false;"></a>
 <ul class="ggvis-dropdown">
 <li>
 Renderer: 
-<a id="plot_id554907290_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id554907290" data-renderer="svg">SVG</a>
+<a id="plot_id762124873_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id762124873" data-renderer="svg">SVG</a>
  | 
-<a id="plot_id554907290_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id554907290" data-renderer="canvas">Canvas</a>
+<a id="plot_id762124873_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id762124873" data-renderer="canvas">Canvas</a>
 </li>
 <li>
-<a id="plot_id554907290_download" class="ggvis-download" data-plot-id="plot_id554907290">Download</a>
+<a id="plot_id762124873_download" class="ggvis-download" data-plot-id="plot_id762124873">Download</a>
 </li>
 </ul>
 </nav>
 </div>
 </div>
 <script type="text/javascript">
-var plot_id554907290_spec = {
+var plot_id762124873_spec = {
   "data": [
     {
       "name": ".0/bin1/stack2",
@@ -523,7 +521,7 @@ var plot_id554907290_spec = {
   },
   "handlers": null
 };
-ggvis.getPlot("plot_id554907290").parseSpec(plot_id554907290_spec);
+ggvis.getPlot("plot_id762124873").parseSpec(plot_id762124873_spec);
 </script>
 <p> </p>
 <p>This histogram looks much better and more polished.</p>

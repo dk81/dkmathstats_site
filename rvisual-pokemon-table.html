@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Creating A Pokémon (Gen 6+) Types Table In R</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Creating A Pokémon (Gen 6+) Types Table In R</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hi there.</p>
+<p>This page is about creating a Pokemon (Gen 6+) Types Table In R. The Fairy type is introduced in Gen 6 (XY) which is included in the plot. The reference I am using ishttp://pokemondb.net/type.</p>
+<p> </p>
+<div id="table-of-contents" class="section level3">
+<h3><u>Table Of Contents</u></h3>
+<p> </p>
+<ul>
+<li>References</li>
+<li>A Pokemon Types Table (Gen 6+)</li>
+<li>Creating A Pokemon Types Table In R</li>
+<li>Creating The Pokemon Types Matrix Plot In R</li>
+<li>Using The Pokemon Types Matrix Plot</li>
+</ul>
+<p> </p>
+</div>
+<div id="references" class="section level3">
+<h3><u>References</u></h3>
+<p> </p>
+<ul>
+<li><a href="http://stackoverflow.com/questions/10232525/geom-tile-heatmap-with-different-high-fill-colours-based-on-factor" class="uri">http://stackoverflow.com/questions/10232525/geom-tile-heatmap-with-different-high-fill-colours-based-on-factor</a></li>
+<li><a href="http://stackoverflow.com/questions/16074440/r-ggplot2-center-align-a-multi-line-title" class="uri">http://stackoverflow.com/questions/16074440/r-ggplot2-center-align-a-multi-line-title</a></li>
+<li><a href="http://docs.ggplot2.org/dev/vignettes/themes.html" class="uri">http://docs.ggplot2.org/dev/vignettes/themes.html</a></li>
+<li><a href="http://docs.ggplot2.org/current/theme.html" class="uri">http://docs.ggplot2.org/current/theme.html</a></li>
+<li><a href="https://scriptsandstatistics.wordpress.com/2017/03/30/how-to-plot-a-companion-planting-guide-using-ggplot2/" class="uri">https://scriptsandstatistics.wordpress.com/2017/03/30/how-to-plot-a-companion-planting-guide-using-ggplot2/</a></li>
+<li><a href="http://pokemondb.net/type" class="uri">http://pokemondb.net/type</a></li>
+</ul>
+<p> </p>
+<p>Related Pages To This Include:</p>
+<ul>
+<li><p><a href="./rmath-cartesian-prod.html">Cartesian Products In R</a></p></li>
+<li><p><a href="./rvisual-rockpaperscissors.html">Making A Rock, Paper, Scissors Table In R</a></p></li>
+<li><p><a href="./rvisual-rpsls.html">Creating A Rock, Paper, Scissors, Lizard, Spock Table In R</a></p></li>
+</ul>
+<p> </p>
+</div>
+<div id="a-pokemon-types-table-gen-6" class="section level3">
+<h3><u>A Pokémon Types Table (Gen 6+)</u></h3>
+<p> </p>
+<p>The <code>geom_tile()</code> function from R’s ggplot2 package allows for grid plots and tables.</p>
+<p>In R you can make something as close to this:</p>
+<p> </p>
+<center>
+<img src="images/pokemon_table.jpg" alt="pokemon-table" />
+</center>
+<p> </p>
+<p>Link Source: <a href="https://pokemondb.net/type" class="uri">https://pokemondb.net/type</a></p>
+<p> </p>
+</div>
+<div id="creating-a-pokemon-types-table-in-r" class="section level3">
+<h3><u>Creating A Pokémon Types Table In R</u></h3>
+<p> </p>
+<p>We start with creating the table of Pokémon Types with their damage multipliers. In this page we include all the type including Dark, Steel and the Fairy type.</p>
+<p>This first line of R code is for creating the Pokémon Types as a vector.</p>
+<p> </p>
+<pre class="r"><code># Reference: http://pokemondb.net/type
+
+# Fairy type now included in Gen 6+:
+# Chart Reference: https://img.pokemondb.net/images/typechart.png
+
+pokemonTypes&lt;- c(&quot;Normal&quot;, &quot;Fire&quot;, &quot;Water&quot;, &quot;Electric&quot;, &quot;Grass&quot;, &quot;Ice&quot;,
+ &quot;Fighting&quot;, &quot;Poison&quot;, &quot;Ground&quot;, &quot;Flying&quot;, &quot;Psychic&quot;,
+ &quot;Bug&quot;, &quot;Rock&quot;, &quot;Ghost&quot;, &quot;Dragon&quot;, &quot;Dark&quot;, &quot;Steel&quot;, &quot;Fairy&quot;)</code></pre>
+<p> </p>
+<p>We check that this vector has a count of 18 for the 18 Pokémon types..</p>
+<p> </p>
+<pre class="r"><code># Length of Vector / Number of Types in Pokemon Gen 6+:
+length(pokemonTypes)</code></pre>
+<pre><code>## [1] 18</code></pre>
+<p> </p>
+<p>Since there are 18 Pokémon types, we would need 18 x 18 = 324 cases in our data table. These 324 cases translates to 324 rows in our table. The table could be inputted manually but that would take too long. Instead, the use of Cartesian products from the mathematical field of Set Theory along with R’s <code>expand.grid()</code> function is applied. Please refer to the code and output below.</p>
+<p> </p>
+<pre class="r"><code># Create Cartesian Product Type Table: 
+# Attacker in Column 1 and Defender in Column 2
+
+pokeTable &lt;- expand.grid(pokemonTypes, pokemonTypes)
+pokeTable &lt;- as.data.frame(pokeTable)</code></pre>
+<p> </p>
+<p>We can check the dimensions of this Cartesian product table of Pokémon types.</p>
+<p> </p>
+<pre class="r"><code># Check dimensions (18 x 18 = 324 combinations):
+
+dim(pokeTable)</code></pre>
+<pre><code>## [1] 324   2</code></pre>
+<p> </p>
+<p>Instead of viewing the whole table (of 324 rows), the <code>head()</code> and <code>tail()</code> functions are used to view a sample of the table.</p>
+<p> </p>
+<pre class="r"><code># Preview the table using head and tail functions:
+
+head(pokeTable, n = 10)</code></pre>
+<pre><code>##        Var1   Var2
+## 1    Normal Normal
+## 2      Fire Normal
+## 3     Water Normal
+## 4  Electric Normal
+## 5     Grass Normal
+## 6       Ice Normal
+## 7  Fighting Normal
+## 8    Poison Normal
+## 9    Ground Normal
+## 10   Flying Normal</code></pre>
+<pre class="r"><code>tail(pokeTable, n = 10)</code></pre>
+<pre><code>##        Var1  Var2
+## 315  Ground Fairy
+## 316  Flying Fairy
+## 317 Psychic Fairy
+## 318     Bug Fairy
+## 319    Rock Fairy
+## 320   Ghost Fairy
+## 321  Dragon Fairy
+## 322    Dark Fairy
+## 323   Steel Fairy
+## 324   Fairy Fairy</code></pre>
+<p> </p>
+<p>An empty third column for Attack Damage multiplier is added. (NA means missing value)</p>
+<p> </p>
+<pre class="r"><code># Add third (empty) Column for Attack Damage Mutliplier:
+
+pokeTable[, 3] &lt;- NA</code></pre>
+<p> </p>
+<p>The column titles are currently Var1 and Var2 with an unnamed third column name. The colnames() function is used to assign new column names.</p>
+<p> </p>
+<pre class="r"><code># Rename column names:
+
+colnames(pokeTable) &lt;- c(&quot;Attack_Type&quot;, &quot;Defense_Type&quot;, &quot;Attack Damage Multiplier&quot;)
+
+# Check #2:
+
+head(pokeTable, n = 10)</code></pre>
+<pre><code>##    Attack_Type Defense_Type Attack Damage Multiplier
+## 1       Normal       Normal                       NA
+## 2         Fire       Normal                       NA
+## 3        Water       Normal                       NA
+## 4     Electric       Normal                       NA
+## 5        Grass       Normal                       NA
+## 6          Ice       Normal                       NA
+## 7     Fighting       Normal                       NA
+## 8       Poison       Normal                       NA
+## 9       Ground       Normal                       NA
+## 10      Flying       Normal                       NA</code></pre>
+<p> </p>
+<hr />
+<p><strong>Filling In The Third Column</strong></p>
+<p>This is the part where there is quite a bit of work. Because a third empty column was added there are 324 missing values denoted by NA. Each row where there is an attack type and defense type has to be dealt with separately. (There is no for/while loop solution here.)</p>
+<p>If there is attack type advantage then the damage does normal damage (x1). This is denoted by 1 in the third column.</p>
+<p>An attack type advantage over the defending Pokémon type results in double the damage applied from the attacking move to the defending Pokémon. This is denoted by 2 in the third column.</p>
+<p>If there is an attack type which is not favourable against the defending Pokémon type results in half damage (x1/2). The attacking move was not very effective.</p>
+<p>There are cases where certain attack types have no effect on the defending Pokémon type. The damage multiplier her is just 0.</p>
+<p>Here is the full code for filling in the third column (Attack Damage Multiplier):</p>
+<p> </p>
+<pre class="r"><code># Fill in third column accordingly:
+
+# 1: Normal Damage, 1/2 Not Very Effective, 0 No effect
+# 2 Super Effective
+
+# 18 Per Row/Column
+
+# Normal as Defending Pokemon:
+
+pokeTable[1:18, 3] &lt;- c(1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1)
+
+# Fire as Defending Pokemon:
+
+pokeTable[19:36, 3] &lt;- c(1, 1/2, 2, 1, 1/2, 1/2, 1, 1, 2, 1, 1, 1/2, 2, 1, 1, 1, 1/2, 1/2)
+
+# Water as Defending Pokemon:
+
+pokeTable[37:54, 3] &lt;- c(1, 1/2, 1/2, 2, 2, 1/2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1/2, 1)
+
+# Electric as Defending Pokemon:
+
+pokeTable[55:72, 3] &lt;- c(1, 1, 1, 1/2, 1, 1, 1, 1, 2, 1/2, 1, 1, 1, 1, 1, 1, 1/2, 1)
+
+# Grass as Defending Pokemon:
+
+pokeTable[73:90, 3] &lt;- c(1, 2, 1/2, 1/2, 1/2, 2, 1, 2, 1/2, 2, 1, 2, 1, 1, 1, 1, 1, 1)
+
+# Ice as Defending Pokemon:
+
+pokeTable[91:108, 3] &lt;- c(1, 2, 1, 1, 1, 1/2, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1)
+
+# Fighting as Defending Pokemon:
+
+pokeTable[109:126, 3] &lt;- c(1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1/2, 1/2, 1, 1, 1/2, 1, 2)
+
+# Poison as Defending Pokemon:
+
+pokeTable[127:144, 3] &lt;- c(1, 1, 1, 1, 1/2, 1, 1/2, 1/2, 2, 1, 2, 1/2, 1, 1, 1, 1, 1, 1/2)
+
+# Ground as Defending Pokemon:
+
+pokeTable[145:162, 3] &lt;- c(1, 1, 2, 0, 2, 2, 1, 1/2, 1, 1, 1, 1, 1/2, 1, 1, 1, 1, 1)
+
+# Flying as Defending Pokemon:
+
+pokeTable[163:180, 3] &lt;- c(1, 1, 1, 2, 1/2, 2, 1/2, 1, 0, 1, 1, 1/2, 2, 1, 1, 1, 1, 1)
+
+# Psychic as Defending Pokemon:
+
+pokeTable[181:198, 3] &lt;- c(1, 1, 1, 1, 1, 1, 1/2, 1, 1, 1, 1/2, 2, 1, 2, 1, 2, 1, 1)
+
+# Bug as Defending Pokemon:
+
+pokeTable[199:216, 3] &lt;- c(1, 2, 1, 1, 1/2, 1, 1/2, 1, 1/2, 2, 1, 1, 2, 1, 1, 1, 1, 1)
+
+# Rock as Defending Pokemon:
+
+pokeTable[217:234, 3] &lt;- c(1/2, 1/2, 2, 1, 2, 1, 2, 1/2, 2, 1/2, 1, 1, 1, 1, 1, 1, 2, 1)
+
+# Ghost as Defending Pokemon:
+
+pokeTable[235:252, 3] &lt;- c(0, 1, 1, 1, 1, 1, 0, 1/2, 1, 1, 1, 1/2, 1, 2, 1, 2, 1, 1)
+
+# Dragon as Defending Pokemon:
+
+pokeTable[253:270, 3] &lt;- c(1, 1/2, 1/2, 1/2, 1/2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2)
+
+# Dark as Defending Pokemon:
+
+pokeTable[271:288, 3] &lt;- c(1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 0, 2, 1, 1/2, 1, 1/2, 1, 2)
+
+# Steel as Defending Pokemon:
+
+pokeTable[289:306, 3] &lt;- c(1/2, 2, 1, 1, 1/2, 1/2, 2, 0, 2, 1/2, 1/2, 1/2, 1/2, 1, 1/2, 1, 1/2, 1/2)
+
+# Fairy as Defending Pokemon:
+
+pokeTable[307:324, 3] &lt;- c(1, 1, 1, 1, 1, 1, 1/2, 2, 1, 1, 1, 1/2, 1, 1, 0, 1/2, 2, 1)</code></pre>
+<p> </p>
+<p>This next piece of code involves having the values from the third column as factors. In addition, I check the structure of the table and use the <code>head()</code> and <code>tail()</code> functions.</p>
+<pre class="r"><code># Have the multipliers in column 3 as factors:
+
+pokeTable[, 3] &lt;- as.factor(pokeTable[, 3])
+
+# Check structure:
+
+str(pokeTable)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    324 obs. of  3 variables:
+##  $ Attack_Type             : Factor w/ 18 levels &quot;Normal&quot;,&quot;Fire&quot;,..: 1 2 3 4 5 6 7 8 9 10 ...
+##  $ Defense_Type            : Factor w/ 18 levels &quot;Normal&quot;,&quot;Fire&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ Attack Damage Multiplier: Factor w/ 4 levels &quot;0&quot;,&quot;0.5&quot;,&quot;1&quot;,..: 3 3 3 3 3 3 4 3 3 3 ...
+##  - attr(*, &quot;out.attrs&quot;)=List of 2
+##   ..$ dim     : int  18 18
+##   ..$ dimnames:List of 2
+##   .. ..$ Var1: chr  &quot;Var1=Normal&quot; &quot;Var1=Fire&quot; &quot;Var1=Water&quot; &quot;Var1=Electric&quot; ...
+##   .. ..$ Var2: chr  &quot;Var2=Normal&quot; &quot;Var2=Fire&quot; &quot;Var2=Water&quot; &quot;Var2=Electric&quot; ...</code></pre>
+<pre class="r"><code># Check #3:
+
+head(pokeTable, n = 10)</code></pre>
+<pre><code>##    Attack_Type Defense_Type Attack Damage Multiplier
+## 1       Normal       Normal                        1
+## 2         Fire       Normal                        1
+## 3        Water       Normal                        1
+## 4     Electric       Normal                        1
+## 5        Grass       Normal                        1
+## 6          Ice       Normal                        1
+## 7     Fighting       Normal                        2
+## 8       Poison       Normal                        1
+## 9       Ground       Normal                        1
+## 10      Flying       Normal                        1</code></pre>
+<pre class="r"><code>tail(pokeTable, n = 10)</code></pre>
+<pre><code>##     Attack_Type Defense_Type Attack Damage Multiplier
+## 315      Ground        Fairy                        1
+## 316      Flying        Fairy                        1
+## 317     Psychic        Fairy                        1
+## 318         Bug        Fairy                      0.5
+## 319        Rock        Fairy                        1
+## 320       Ghost        Fairy                        1
+## 321      Dragon        Fairy                        0
+## 322        Dark        Fairy                      0.5
+## 323       Steel        Fairy                        2
+## 324       Fairy        Fairy                        1</code></pre>
+<p>&amp;nbsp</p>
+<hr />
+</div>
+<div id="creating-the-pokemon-types-matrix-plot-in-r" class="section level3">
+<h3><u>Creating The Pokémon Types Matrix Plot In R</u></h3>
+<p>&amp;nbsp</p>
+<p>The table of Pokémon Types and damage multipliers is now ready for plotting purposes.</p>
+<p>The ggplot2 package in R for data visualization is first loaded.</p>
+<p>&amp;nbsp</p>
+<pre class="r"><code>library(ggplot2)</code></pre>
+<p>&amp;nbsp</p>
+<p>Here is the code and output for the Pokémon types matrix plot. In this plot, the defending Pokémon types are on the x-axis (horizontal) and the attacking move type is on the y-axis (side/vertical).</p>
+<p> </p>
+<pre class="r"><code>## Attack Type on x-axis and Defense Type on y-axis with x-axis labels on top:
+
+
+ggplot(pokeTable,aes(x = pokeTable[, 2],y = pokeTable[, 1], fill = pokeTable[, 3])) + 
+ geom_tile() + 
+ scale_fill_manual(values = c(&#39;black&#39;, &#39;red&#39;,&#39;gray&#39;, &quot;green&quot;)) +
+ labs(x = &quot;Defense Type \n&quot;, y = &quot;Attack Type \n&quot;, 
+ title = &quot;Pokemon Type Chart&quot;, fill = &quot;Attack Damage Multiplier \n&quot;) + 
+ theme(plot.title = element_text(hjust = 0.5), 
+ axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;#FF7A33&quot;, size = 12),
+ axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;#FF7A33&quot;, size = 12),
+ axis.text.x = element_text(angle = 90,vjust = 0.2, hjust = 1),
+ legend.title = element_text(face=&quot;bold&quot;, size = 10)) +
+ scale_x_discrete(position = &quot;top&quot;)</code></pre>
+<p><img src="rvisual-pokemon-table_files/figure-html/unnamed-chunk-11-1.png" width="576" /></p>
+<p> </p>
+</div>
+<div id="using-the-pokemon-types-matrix-plot" class="section level3">
+<h3><u>Using The Pokemon Types Matrix Plot</u></h3>
+<p>For this section, we will refer to the plot that was just shown.</p>
+<p>Using this table is not too hard.</p>
+<p>As an example, if the defending Pokemon type is a Rock type and the attacking move is a water type then the attack would double the normal damage as indicated by the green square.</p>
+<p><strong>Dual Typed Defending Pokemon Cases</strong></p>
+<p>There are dual-typed Pokemon tables out there but you could use the single type table twice. As an example, an Ice type move to a Grass and Water type would deal normal damage (x1) as we have the multipliers of 2 and 1/2.</p>
+<p><strong>Simple Table Observations</strong></p>
+<ul>
+<li>One could use these types of tables to study type matchups for Pokémon selections in certain video games and competitions.</li>
+<li>The Steel Type is still a very solid defensive choice as a lot of attacks do half damage to Steel types.</li>
+<li>Poison as an attacking type is not very great despite its advantage over the Fairy type.</li>
+<li>It is somewhat difficult to pick out the best attacking types. Candidates include Ground, Fire, Ice and Rock types.</li>
+<li>The Fairy type is okay for attacking. Its defense is decent as Dark, Fighting and Bug attacks are not very effective versus Fairy types. Dragon attacks have no effect on Fairy types. Only * Steel and Poison moves are super effective versus Fairy.</li>
+<li>The Fire type is a good defensive type as well.</li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,2004 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Data Visualization In R With The ggvis Package</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/detect-resize-0.5.3/jquery.resize.js"></script>
+<link href="site_libs/jquery-ui-1.11.4/jquery-ui.min.css" rel="stylesheet" />
+<script src="site_libs/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/d3-3.5.2/d3.min.js"></script>
+<script src="site_libs/vega-1.4.3/vega.min.js"></script>
+<script src="site_libs/lodash-2.2.1/lodash.min.js"></script>
+<script>var lodash = _.noConflict();</script>
+<link href="site_libs/ggvis-0.4.3/css/ggvis.css" rel="stylesheet" />
+<script src="site_libs/ggvis-0.4.3/js/ggvis.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Data Visualization In R With The ggvis Package</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hi there. In this post, I feature some functions from R’s ggvis package for data visualization. This work is based on some trial and error in RStudio/RMarkdown.</p>
+<p> </p>
+<div id="sections" class="section level3">
+<h3><u>Sections</u></h3>
+<p> </p>
+<ul>
+<li><a href="#intro">Introduction &amp; Setup</a></li>
+<li><a href="#hist">A Histogram Example</a></li>
+<li><a href="#bar">Bar Graph Example</a></li>
+<li><a href="#scatter">Scatterplots &amp; Linear Regression Lines</a></li>
+<li><a href="#interactive">Interactive Plots In ggvis</a></li>
+<li><a href="#refs">References</a></li>
+</ul>
+<p> </p>
+<p><a name="intro"></a></p>
+</div>
+<div id="introduction-setup" class="section level3">
+<h3><u>Introduction &amp; Setup</u></h3>
+<p> </p>
+<p>When it comes to data visualization in R, ggplot2 usually comes to mind. The ggvis package in R provides a good alternative to ggplot2 and it also includes some interactive plot features.</p>
+<p>The screenshot below is from <a href="http://ggvis.rstudio.com/" class="uri">http://ggvis.rstudio.com/</a> and it gives a brief explanation of what ggvis is about.</p>
+<p>For ggvis installation into R use the code:</p>
+<p> </p>
+<pre><code># Installation:
+
+install.packages(&quot;ggvis&quot;)</code></pre>
+<p> </p>
+<p>To load in the <code>ggvis</code> package, use the code:</p>
+<p> </p>
+<pre class="r"><code># Load the package into R:
+
+library(ggvis)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;ggvis&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:ggplot2&#39;:
+## 
+##     resolution</code></pre>
+<p> </p>
+<p><a name="hist"></a></p>
+</div>
+<div id="a-histogram-example" class="section level3">
+<h3><u>A Histogram Example</u></h3>
+<p> </p>
+<p>In this histogram example, I simulate 10000 standard uniform random variables and display the results.</p>
+<p> </p>
+<pre class="r"><code>##### Histogram (Standard Uniform Distribution Samples):
+
+unifs &lt;- runif(n = 10000, min = 0, max = 1)
+unifs &lt;- data.frame(unifs)
+
+# Check/Preview dataframe:
+
+head(unifs)</code></pre>
+<pre><code>##       unifs
+## 1 0.5054525
+## 2 0.4054079
+## 3 0.3086857
+## 4 0.1740961
+## 5 0.3481371
+## 6 0.1599147</code></pre>
+<pre class="r"><code># ggvis Histogram Plot:
+# Source For Plot Title: https://stackoverflow.com/questions/25018598/add-a-plot-title-to-ggvis
+
+unifs %&gt;% ggvis(~unifs) %&gt;% 
+  layer_histograms(boundary = 0) %&gt;%
+  add_axis(&quot;x&quot;, title = &quot;\n Values&quot;, title_offset = 50) %&gt;%
+  add_axis(&quot;y&quot;, title = &quot;Counts \n&quot;, title_offset = 50) %&gt;%
+  add_axis(&quot;x&quot;, orient = &quot;top&quot;, ticks = 0, 
+  title = &quot;Histogram Of Simulated Standard Uniforms \n&quot;,
+  properties = axis_props(axis = list(stroke = &quot;white&quot;), labels = list(fontSize = 0)))</code></pre>
+<pre><code>## Guessing width = 0.05 # range / 20</code></pre>
+<div id="plot_id792254301-container" class="ggvis-output-container">
+<div id="plot_id792254301" class="ggvis-output"></div>
+<div class="plot-gear-icon">
+<nav class="ggvis-control">
+<a class="ggvis-dropdown-toggle" title="Controls" onclick="return false;"></a>
+<ul class="ggvis-dropdown">
+<li>
+Renderer: 
+<a id="plot_id792254301_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id792254301" data-renderer="svg">SVG</a>
+ | 
+<a id="plot_id792254301_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id792254301" data-renderer="canvas">Canvas</a>
+</li>
+<li>
+<a id="plot_id792254301_download" class="ggvis-download" data-plot-id="plot_id792254301">Download</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<script type="text/javascript">
+var plot_id792254301_spec = {
+  "data": [
+    {
+      "name": ".0/bin1/stack2",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "xmin_": "number",
+          "xmax_": "number",
+          "stack_upr_": "number",
+          "stack_lwr_": "number"
+        }
+      },
+      "values": "\"xmin_\",\"xmax_\",\"stack_upr_\",\"stack_lwr_\"\n0,0.05,476,0\n0.05,0.1,480,0\n0.1,0.15,473,0\n0.15,0.2,519,0\n0.2,0.25,530,0\n0.25,0.3,525,0\n0.3,0.35,511,0\n0.35,0.4,478,0\n0.4,0.45,489,0\n0.45,0.5,508,0\n0.5,0.55,519,0\n0.55,0.6,506,0\n0.6,0.65,477,0\n0.65,0.7,497,0\n0.7,0.75,454,0\n0.75,0.8,483,0\n0.8,0.85,548,0\n0.85,0.9,513,0\n0.9,0.95,499,0\n0.95,1,515,0"
+    },
+    {
+      "name": "scale/x",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "domain": "number"
+        }
+      },
+      "values": "\"domain\"\n-0.05\n1.05"
+    },
+    {
+      "name": "scale/y",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "domain": "number"
+        }
+      },
+      "values": "\"domain\"\n0\n575.4"
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "domain": {
+        "data": "scale/x",
+        "field": "data.domain"
+      },
+      "zero": false,
+      "nice": false,
+      "clamp": false,
+      "range": "width"
+    },
+    {
+      "name": "y",
+      "domain": {
+        "data": "scale/y",
+        "field": "data.domain"
+      },
+      "zero": false,
+      "nice": false,
+      "clamp": false,
+      "range": "height"
+    }
+  ],
+  "marks": [
+    {
+      "type": "rect",
+      "properties": {
+        "update": {
+          "stroke": {
+            "value": "#000000"
+          },
+          "fill": {
+            "value": "#333333"
+          },
+          "x": {
+            "scale": "x",
+            "field": "data.xmin_"
+          },
+          "x2": {
+            "scale": "x",
+            "field": "data.xmax_"
+          },
+          "y": {
+            "scale": "y",
+            "field": "data.stack_upr_"
+          },
+          "y2": {
+            "scale": "y",
+            "field": "data.stack_lwr_"
+          }
+        },
+        "ggvis": {
+          "data": {
+            "value": ".0/bin1/stack2"
+          }
+        }
+      },
+      "from": {
+        "data": ".0/bin1/stack2"
+      }
+    }
+  ],
+  "legends": [],
+  "axes": [
+    {
+      "type": "x",
+      "scale": "x",
+      "orient": "bottom",
+      "title": "\n Values",
+      "titleOffset": 50,
+      "layer": "back",
+      "grid": true
+    },
+    {
+      "type": "y",
+      "scale": "y",
+      "orient": "left",
+      "title": "Counts \n",
+      "titleOffset": 50,
+      "layer": "back",
+      "grid": true
+    },
+    {
+      "type": "x",
+      "scale": "x",
+      "orient": "top",
+      "title": "Histogram Of Simulated Standard Uniforms \n",
+      "ticks": 0,
+      "layer": "back",
+      "grid": true,
+      "properties": {
+        "labels": {
+          "fontSize": {
+            "value": 0
+          }
+        },
+        "axis": {
+          "stroke": {
+            "value": "white"
+          }
+        }
+      }
+    }
+  ],
+  "padding": null,
+  "ggvis_opts": {
+    "keep_aspect": false,
+    "resizable": true,
+    "padding": {},
+    "duration": 250,
+    "renderer": "svg",
+    "hover_duration": 0,
+    "width": 384,
+    "height": 384
+  },
+  "handlers": null
+};
+ggvis.getPlot("plot_id792254301").parseSpec(plot_id792254301_spec);
+</script>
+<p> </p>
+<p>The <code>layer_histograms()</code> part gives the histograms while the <code>add_axis()</code> parts gives labels and the plot title. A workaround solution (reference: here) was used for the plot title. The title_offset argument was for spacing on the axes labels.</p>
+<p>Our histogram of simulated uniform random variables does not exactly match a rectangle but it is close to it (uniform density function).</p>
+<p> </p>
+<p><a name="bar"></a></p>
+</div>
+<div id="bar-graph-example" class="section level3">
+<h3><u>Bar Graph Example</u></h3>
+<p> </p>
+<p>This bar graph example is based on a simulation of 10000 dice rolls. (The die is six sided.)</p>
+<p>The <code>sample()</code> function in R allows for random selection of values or strings.</p>
+<p> </p>
+<pre class="r"><code>##### Bar Graph:
+
+# Simulate dice rolls (1, 2, 3, 4, 5 and 6)
+
+dice_sim &lt;- sample(x = seq(from = 1, to = 6, by = 1), size = 10000, replace = TRUE)
+
+dice_sim &lt;- data.frame(dice_sim)
+
+# Preview the data:
+
+head(dice_sim)</code></pre>
+<pre><code>##   dice_sim
+## 1        4
+## 2        4
+## 3        2
+## 4        4
+## 5        4
+## 6        3</code></pre>
+<pre class="r"><code>str(dice_sim)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    10000 obs. of  1 variable:
+##  $ dice_sim: num  4 4 2 4 4 3 3 6 4 5 ...</code></pre>
+<p> </p>
+<p>From the <code>str(dice_sim)</code> function, the variable dice_sim comes out as numeric. I want the dice_sim variable to be a factor variable with factors of 1 to 6.</p>
+<p> </p>
+<pre class="r"><code># Convert to factors:
+
+dice_sim$dice_sim &lt;- as.factor(dice_sim$dice_sim)</code></pre>
+<p> </p>
+<p>To obtain bar graphs in R’s ggvis package, you need the <code>layer_bars()</code> function.</p>
+<p> </p>
+<pre class="r"><code># Bar Graph:
+
+dice_sim %&gt;% ggvis(~dice_sim) %&gt;%
+  layer_bars() %&gt;%
+  add_axis(&quot;x&quot;, title = &quot;\n Outcome&quot;, title_offset = 50) %&gt;%
+  add_axis(&quot;y&quot;, title = &quot;Counts \n&quot;, title_offset = 50) %&gt;%
+  add_axis(&quot;x&quot;, orient = &quot;top&quot;, ticks = 0, 
+           title = &quot;Dice Roll Simulation Results \n&quot;,
+           properties = axis_props(axis = list(stroke = &quot;white&quot;),
+                                   labels = list(fontSize = 0)))</code></pre>
+<div id="plot_id193846667-container" class="ggvis-output-container">
+<div id="plot_id193846667" class="ggvis-output"></div>
+<div class="plot-gear-icon">
+<nav class="ggvis-control">
+<a class="ggvis-dropdown-toggle" title="Controls" onclick="return false;"></a>
+<ul class="ggvis-dropdown">
+<li>
+Renderer: 
+<a id="plot_id193846667_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id193846667" data-renderer="svg">SVG</a>
+ | 
+<a id="plot_id193846667_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id193846667" data-renderer="canvas">Canvas</a>
+</li>
+<li>
+<a id="plot_id193846667_download" class="ggvis-download" data-plot-id="plot_id193846667">Download</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<script type="text/javascript">
+var plot_id193846667_spec = {
+  "data": [
+    {
+      "name": ".0/count1/stack2",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "stack_lwr_": "number",
+          "stack_upr_": "number"
+        }
+      },
+      "values": "\"x_\",\"stack_lwr_\",\"stack_upr_\"\n\"1\",0,1693\n\"2\",0,1671\n\"3\",0,1658\n\"4\",0,1690\n\"5\",0,1629\n\"6\",0,1659"
+    },
+    {
+      "name": "scale/x",
+      "format": {
+        "type": "csv",
+        "parse": {}
+      },
+      "values": "\"domain\"\n\"1\"\n\"2\"\n\"3\"\n\"4\"\n\"5\"\n\"6\""
+    },
+    {
+      "name": "scale/y",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "domain": "number"
+        }
+      },
+      "values": "\"domain\"\n0\n1777.65"
+    }
+  ],
+  "scales": [
+    {
+      "domain": {
+        "data": "scale/x",
+        "field": "data.domain"
+      },
+      "name": "x",
+      "type": "ordinal",
+      "points": false,
+      "padding": 0.1,
+      "sort": false,
+      "range": "width"
+    },
+    {
+      "name": "y",
+      "domain": {
+        "data": "scale/y",
+        "field": "data.domain"
+      },
+      "zero": false,
+      "nice": false,
+      "clamp": false,
+      "range": "height"
+    }
+  ],
+  "marks": [
+    {
+      "type": "rect",
+      "properties": {
+        "update": {
+          "stroke": {
+            "value": "#000000"
+          },
+          "fill": {
+            "value": "#333333"
+          },
+          "x": {
+            "scale": "x",
+            "field": "data.x_"
+          },
+          "y": {
+            "scale": "y",
+            "field": "data.stack_lwr_"
+          },
+          "y2": {
+            "scale": "y",
+            "field": "data.stack_upr_"
+          },
+          "width": {
+            "scale": "x",
+            "band": true
+          }
+        },
+        "ggvis": {
+          "data": {
+            "value": ".0/count1/stack2"
+          }
+        }
+      },
+      "from": {
+        "data": ".0/count1/stack2"
+      }
+    }
+  ],
+  "legends": [],
+  "axes": [
+    {
+      "type": "x",
+      "scale": "x",
+      "orient": "bottom",
+      "title": "\n Outcome",
+      "titleOffset": 50,
+      "layer": "back",
+      "grid": true
+    },
+    {
+      "type": "y",
+      "scale": "y",
+      "orient": "left",
+      "title": "Counts \n",
+      "titleOffset": 50,
+      "layer": "back",
+      "grid": true
+    },
+    {
+      "type": "x",
+      "scale": "x",
+      "orient": "top",
+      "title": "Dice Roll Simulation Results \n",
+      "ticks": 0,
+      "layer": "back",
+      "grid": true,
+      "properties": {
+        "labels": {
+          "fontSize": {
+            "value": 0
+          }
+        },
+        "axis": {
+          "stroke": {
+            "value": "white"
+          }
+        }
+      }
+    }
+  ],
+  "padding": null,
+  "ggvis_opts": {
+    "keep_aspect": false,
+    "resizable": true,
+    "padding": {},
+    "duration": 250,
+    "renderer": "svg",
+    "hover_duration": 0,
+    "width": 384,
+    "height": 384
+  },
+  "handlers": null
+};
+ggvis.getPlot("plot_id193846667").parseSpec(plot_id193846667_spec);
+</script>
+<p> </p>
+<p>From our simulations results, the number 2 appears the most often (mode). These results do not match the theoretical/expected result of <span class="math inline">\(10000/6 \approx 1667\)</span> for each outcome. Remember that in many cases that theoretical results do not necessarily match the results in real life.</p>
+<p>The title_offset argument in add_axis are used such that the numbers in the ticks do not overlap with the labels. (i.e Counts, 800 and 1000).</p>
+<p> </p>
+<p><a name="scatter"></a></p>
+</div>
+<div id="scatterplots-linear-regression-lines" class="section level3">
+<h3><u>Scatterplots &amp; Linear Regression Lines</u></h3>
+<p> </p>
+<p>For this section, the cats dataset from the MASS library is used.</p>
+<p> </p>
+<pre class="r"><code>##### Scatterplot Example Of cats Data:
+
+require(MASS)</code></pre>
+<pre><code>## Loading required package: MASS</code></pre>
+<pre class="r"><code>data(cats)
+
+# Preview the data:
+
+head(cats)</code></pre>
+<pre><code>##   Sex Bwt Hwt
+## 1   F 2.0 7.0
+## 2   F 2.0 7.4
+## 3   F 2.0 9.5
+## 4   F 2.1 7.2
+## 5   F 2.1 7.3
+## 6   F 2.1 7.6</code></pre>
+<pre class="r"><code># Rename column names:
+
+colnames(cats) &lt;- c(&quot;Sex&quot;, &quot;Body_Wt&quot;, &quot;Heart_Wt&quot;)</code></pre>
+<p> </p>
+<p>For the scatterplot, I want to take a look at body weight versus the heart weights of the cats in the dataset. In ggvis, you need to specify which variables would be x and y respectively. Also, you need to use <code>layer_points()</code> to obtain the data points.</p>
+<p> </p>
+<pre class="r"><code># ggvis scatterplot:
+
+cats %&gt;% ggvis(x = ~Body_Wt, y = ~ Heart_Wt) %&gt;%
+  layer_points(fill = ~Sex) %&gt;%
+  add_axis(&quot;x&quot;, title = &quot;\n Body Weight&quot;, title_offset = 50) %&gt;%
+  add_axis(&quot;y&quot;, title = &quot;Heart Weight \n&quot;, title_offset = 50) %&gt;%
+  add_axis(&quot;x&quot;, orient = &quot;top&quot;, ticks = 0, 
+           title = &quot;Body Weight Vs Heart Weight Of Cats \n&quot;,
+           properties = axis_props(axis = list(stroke = &quot;white&quot;),
+                                   labels = list(fontSize = 0)))</code></pre>
+<div id="plot_id865962011-container" class="ggvis-output-container">
+<div id="plot_id865962011" class="ggvis-output"></div>
+<div class="plot-gear-icon">
+<nav class="ggvis-control">
+<a class="ggvis-dropdown-toggle" title="Controls" onclick="return false;"></a>
+<ul class="ggvis-dropdown">
+<li>
+Renderer: 
+<a id="plot_id865962011_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id865962011" data-renderer="svg">SVG</a>
+ | 
+<a id="plot_id865962011_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id865962011" data-renderer="canvas">Canvas</a>
+</li>
+<li>
+<a id="plot_id865962011_download" class="ggvis-download" data-plot-id="plot_id865962011">Download</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<script type="text/javascript">
+var plot_id865962011_spec = {
+  "data": [
+    {
+      "name": ".0",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "Body_Wt": "number",
+          "Heart_Wt": "number"
+        }
+      },
+      "values": "\"Body_Wt\",\"Heart_Wt\",\"Sex\"\n2,7,\"F\"\n2,7.4,\"F\"\n2,9.5,\"F\"\n2.1,7.2,\"F\"\n2.1,7.3,\"F\"\n2.1,7.6,\"F\"\n2.1,8.1,\"F\"\n2.1,8.2,\"F\"\n2.1,8.3,\"F\"\n2.1,8.5,\"F\"\n2.1,8.7,\"F\"\n2.1,9.8,\"F\"\n2.2,7.1,\"F\"\n2.2,8.7,\"F\"\n2.2,9.1,\"F\"\n2.2,9.7,\"F\"\n2.2,10.9,\"F\"\n2.2,11,\"F\"\n2.3,7.3,\"F\"\n2.3,7.9,\"F\"\n2.3,8.4,\"F\"\n2.3,9,\"F\"\n2.3,9,\"F\"\n2.3,9.5,\"F\"\n2.3,9.6,\"F\"\n2.3,9.7,\"F\"\n2.3,10.1,\"F\"\n2.3,10.1,\"F\"\n2.3,10.6,\"F\"\n2.3,11.2,\"F\"\n2.4,6.3,\"F\"\n2.4,8.7,\"F\"\n2.4,8.8,\"F\"\n2.4,10.2,\"F\"\n2.5,9,\"F\"\n2.5,10.9,\"F\"\n2.6,8.7,\"F\"\n2.6,10.1,\"F\"\n2.6,10.1,\"F\"\n2.7,8.5,\"F\"\n2.7,10.2,\"F\"\n2.7,10.8,\"F\"\n2.9,9.9,\"F\"\n2.9,10.1,\"F\"\n2.9,10.1,\"F\"\n3,10.6,\"F\"\n3,13,\"F\"\n2,6.5,\"M\"\n2,6.5,\"M\"\n2.1,10.1,\"M\"\n2.2,7.2,\"M\"\n2.2,7.6,\"M\"\n2.2,7.9,\"M\"\n2.2,8.5,\"M\"\n2.2,9.1,\"M\"\n2.2,9.6,\"M\"\n2.2,9.6,\"M\"\n2.2,10.7,\"M\"\n2.3,9.6,\"M\"\n2.4,7.3,\"M\"\n2.4,7.9,\"M\"\n2.4,7.9,\"M\"\n2.4,9.1,\"M\"\n2.4,9.3,\"M\"\n2.5,7.9,\"M\"\n2.5,8.6,\"M\"\n2.5,8.8,\"M\"\n2.5,8.8,\"M\"\n2.5,9.3,\"M\"\n2.5,11,\"M\"\n2.5,12.7,\"M\"\n2.5,12.7,\"M\"\n2.6,7.7,\"M\"\n2.6,8.3,\"M\"\n2.6,9.4,\"M\"\n2.6,9.4,\"M\"\n2.6,10.5,\"M\"\n2.6,11.5,\"M\"\n2.7,8,\"M\"\n2.7,9,\"M\"\n2.7,9.6,\"M\"\n2.7,9.6,\"M\"\n2.7,9.8,\"M\"\n2.7,10.4,\"M\"\n2.7,11.1,\"M\"\n2.7,12,\"M\"\n2.7,12.5,\"M\"\n2.8,9.1,\"M\"\n2.8,10,\"M\"\n2.8,10.2,\"M\"\n2.8,11.4,\"M\"\n2.8,12,\"M\"\n2.8,13.3,\"M\"\n2.8,13.5,\"M\"\n2.9,9.4,\"M\"\n2.9,10.1,\"M\"\n2.9,10.6,\"M\"\n2.9,11.3,\"M\"\n2.9,11.8,\"M\"\n3,10,\"M\"\n3,10.4,\"M\"\n3,10.6,\"M\"\n3,11.6,\"M\"\n3,12.2,\"M\"\n3,12.4,\"M\"\n3,12.7,\"M\"\n3,13.3,\"M\"\n3,13.8,\"M\"\n3.1,9.9,\"M\"\n3.1,11.5,\"M\"\n3.1,12.1,\"M\"\n3.1,12.5,\"M\"\n3.1,13,\"M\"\n3.1,14.3,\"M\"\n3.2,11.6,\"M\"\n3.2,11.9,\"M\"\n3.2,12.3,\"M\"\n3.2,13,\"M\"\n3.2,13.5,\"M\"\n3.2,13.6,\"M\"\n3.3,11.5,\"M\"\n3.3,12,\"M\"\n3.3,14.1,\"M\"\n3.3,14.9,\"M\"\n3.3,15.4,\"M\"\n3.4,11.2,\"M\"\n3.4,12.2,\"M\"\n3.4,12.4,\"M\"\n3.4,12.8,\"M\"\n3.4,14.4,\"M\"\n3.5,11.7,\"M\"\n3.5,12.9,\"M\"\n3.5,15.6,\"M\"\n3.5,15.7,\"M\"\n3.5,17.2,\"M\"\n3.6,11.8,\"M\"\n3.6,13.3,\"M\"\n3.6,14.8,\"M\"\n3.6,15,\"M\"\n3.7,11,\"M\"\n3.8,14.8,\"M\"\n3.8,16.8,\"M\"\n3.9,14.4,\"M\"\n3.9,20.5,\"M\""
+    },
+    {
+      "name": "scale/fill",
+      "format": {
+        "type": "csv",
+        "parse": {}
+      },
+      "values": "\"domain\"\n\"F\"\n\"M\""
+    },
+    {
+      "name": "scale/x",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "domain": "number"
+        }
+      },
+      "values": "\"domain\"\n1.905\n3.995"
+    },
+    {
+      "name": "scale/y",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "domain": "number"
+        }
+      },
+      "values": "\"domain\"\n5.59\n21.21"
+    }
+  ],
+  "scales": [
+    {
+      "name": "fill",
+      "type": "ordinal",
+      "domain": {
+        "data": "scale/fill",
+        "field": "data.domain"
+      },
+      "points": true,
+      "sort": false,
+      "range": "category10"
+    },
+    {
+      "name": "x",
+      "domain": {
+        "data": "scale/x",
+        "field": "data.domain"
+      },
+      "zero": false,
+      "nice": false,
+      "clamp": false,
+      "range": "width"
+    },
+    {
+      "name": "y",
+      "domain": {
+        "data": "scale/y",
+        "field": "data.domain"
+      },
+      "zero": false,
+      "nice": false,
+      "clamp": false,
+      "range": "height"
+    }
+  ],
+  "marks": [
+    {
+      "type": "symbol",
+      "properties": {
+        "update": {
+          "size": {
+            "value": 50
+          },
+          "x": {
+            "scale": "x",
+            "field": "data.Body_Wt"
+          },
+          "y": {
+            "scale": "y",
+            "field": "data.Heart_Wt"
+          },
+          "fill": {
+            "scale": "fill",
+            "field": "data.Sex"
+          }
+        },
+        "ggvis": {
+          "data": {
+            "value": ".0"
+          }
+        }
+      },
+      "from": {
+        "data": ".0"
+      }
+    }
+  ],
+  "legends": [
+    {
+      "orient": "right",
+      "fill": "fill",
+      "title": "Sex"
+    }
+  ],
+  "axes": [
+    {
+      "type": "x",
+      "scale": "x",
+      "orient": "bottom",
+      "title": "\n Body Weight",
+      "titleOffset": 50,
+      "layer": "back",
+      "grid": true
+    },
+    {
+      "type": "y",
+      "scale": "y",
+      "orient": "left",
+      "title": "Heart Weight \n",
+      "titleOffset": 50,
+      "layer": "back",
+      "grid": true
+    },
+    {
+      "type": "x",
+      "scale": "x",
+      "orient": "top",
+      "title": "Body Weight Vs Heart Weight Of Cats \n",
+      "ticks": 0,
+      "layer": "back",
+      "grid": true,
+      "properties": {
+        "labels": {
+          "fontSize": {
+            "value": 0
+          }
+        },
+        "axis": {
+          "stroke": {
+            "value": "white"
+          }
+        }
+      }
+    }
+  ],
+  "padding": null,
+  "ggvis_opts": {
+    "keep_aspect": false,
+    "resizable": true,
+    "padding": {},
+    "duration": 250,
+    "renderer": "svg",
+    "hover_duration": 0,
+    "width": 384,
+    "height": 384
+  },
+  "handlers": null
+};
+ggvis.getPlot("plot_id865962011").parseSpec(plot_id865962011_spec);
+</script>
+<p> </p>
+<p>In <code>layer_points()</code>, the fill = ~Sex option was inputted to indicated which points were for males and which points were for females. It appears that there are more male cats than female cats in this dataset. (Counts would need to be obtained to check.)</p>
+<p> </p>
+</div>
+<div id="regression-line-regardless-of-gender" class="section level3">
+<h3><u>Regression Line Regardless Of Gender</u></h3>
+<p> </p>
+<p>Here is an example of a regression line through the points regardless of gender. From statistics, regression lines are another way of saying lines of best fits. We want to fit a line through the points such that the total of the square distances is minimized.</p>
+<pre class="r"><code>## Regression Lines:
+
+# ggvis Regression Line (Ordinary Least Squares Regression)
+# Line of best fit regardless of gender
+# Another option is LOESS (local regression)
+
+cats %&gt;% ggvis(x = ~Body_Wt, y = ~ Heart_Wt) %&gt;%
+  layer_points(fill = ~Sex) %&gt;%
+  layer_model_predictions(model = &quot;lm&quot;, se = TRUE) %&gt;%
+  add_axis(&quot;x&quot;, title = &quot;\n Body Weight&quot;, title_offset = 50) %&gt;%
+  add_axis(&quot;y&quot;, title = &quot;Heart Weight \n&quot;, title_offset = 50) %&gt;%
+  add_axis(&quot;x&quot;, orient = &quot;top&quot;, ticks = 0, 
+           title = &quot;Body Weight Vs Heart Weight Of Cats \n&quot;,
+           properties = axis_props(axis = list(stroke = &quot;white&quot;),
+                                   labels = list(fontSize = 0)))</code></pre>
+<pre><code>## Guessing formula = Heart_Wt ~ Body_Wt</code></pre>
+<div id="plot_id235585043-container" class="ggvis-output-container">
+<div id="plot_id235585043" class="ggvis-output"></div>
+<div class="plot-gear-icon">
+<nav class="ggvis-control">
+<a class="ggvis-dropdown-toggle" title="Controls" onclick="return false;"></a>
+<ul class="ggvis-dropdown">
+<li>
+Renderer: 
+<a id="plot_id235585043_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id235585043" data-renderer="svg">SVG</a>
+ | 
+<a id="plot_id235585043_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id235585043" data-renderer="canvas">Canvas</a>
+</li>
+<li>
+<a id="plot_id235585043_download" class="ggvis-download" data-plot-id="plot_id235585043">Download</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<script type="text/javascript">
+var plot_id235585043_spec = {
+  "data": [
+    {
+      "name": ".0",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "Body_Wt": "number",
+          "Heart_Wt": "number"
+        }
+      },
+      "values": "\"Body_Wt\",\"Heart_Wt\",\"Sex\"\n2,7,\"F\"\n2,7.4,\"F\"\n2,9.5,\"F\"\n2.1,7.2,\"F\"\n2.1,7.3,\"F\"\n2.1,7.6,\"F\"\n2.1,8.1,\"F\"\n2.1,8.2,\"F\"\n2.1,8.3,\"F\"\n2.1,8.5,\"F\"\n2.1,8.7,\"F\"\n2.1,9.8,\"F\"\n2.2,7.1,\"F\"\n2.2,8.7,\"F\"\n2.2,9.1,\"F\"\n2.2,9.7,\"F\"\n2.2,10.9,\"F\"\n2.2,11,\"F\"\n2.3,7.3,\"F\"\n2.3,7.9,\"F\"\n2.3,8.4,\"F\"\n2.3,9,\"F\"\n2.3,9,\"F\"\n2.3,9.5,\"F\"\n2.3,9.6,\"F\"\n2.3,9.7,\"F\"\n2.3,10.1,\"F\"\n2.3,10.1,\"F\"\n2.3,10.6,\"F\"\n2.3,11.2,\"F\"\n2.4,6.3,\"F\"\n2.4,8.7,\"F\"\n2.4,8.8,\"F\"\n2.4,10.2,\"F\"\n2.5,9,\"F\"\n2.5,10.9,\"F\"\n2.6,8.7,\"F\"\n2.6,10.1,\"F\"\n2.6,10.1,\"F\"\n2.7,8.5,\"F\"\n2.7,10.2,\"F\"\n2.7,10.8,\"F\"\n2.9,9.9,\"F\"\n2.9,10.1,\"F\"\n2.9,10.1,\"F\"\n3,10.6,\"F\"\n3,13,\"F\"\n2,6.5,\"M\"\n2,6.5,\"M\"\n2.1,10.1,\"M\"\n2.2,7.2,\"M\"\n2.2,7.6,\"M\"\n2.2,7.9,\"M\"\n2.2,8.5,\"M\"\n2.2,9.1,\"M\"\n2.2,9.6,\"M\"\n2.2,9.6,\"M\"\n2.2,10.7,\"M\"\n2.3,9.6,\"M\"\n2.4,7.3,\"M\"\n2.4,7.9,\"M\"\n2.4,7.9,\"M\"\n2.4,9.1,\"M\"\n2.4,9.3,\"M\"\n2.5,7.9,\"M\"\n2.5,8.6,\"M\"\n2.5,8.8,\"M\"\n2.5,8.8,\"M\"\n2.5,9.3,\"M\"\n2.5,11,\"M\"\n2.5,12.7,\"M\"\n2.5,12.7,\"M\"\n2.6,7.7,\"M\"\n2.6,8.3,\"M\"\n2.6,9.4,\"M\"\n2.6,9.4,\"M\"\n2.6,10.5,\"M\"\n2.6,11.5,\"M\"\n2.7,8,\"M\"\n2.7,9,\"M\"\n2.7,9.6,\"M\"\n2.7,9.6,\"M\"\n2.7,9.8,\"M\"\n2.7,10.4,\"M\"\n2.7,11.1,\"M\"\n2.7,12,\"M\"\n2.7,12.5,\"M\"\n2.8,9.1,\"M\"\n2.8,10,\"M\"\n2.8,10.2,\"M\"\n2.8,11.4,\"M\"\n2.8,12,\"M\"\n2.8,13.3,\"M\"\n2.8,13.5,\"M\"\n2.9,9.4,\"M\"\n2.9,10.1,\"M\"\n2.9,10.6,\"M\"\n2.9,11.3,\"M\"\n2.9,11.8,\"M\"\n3,10,\"M\"\n3,10.4,\"M\"\n3,10.6,\"M\"\n3,11.6,\"M\"\n3,12.2,\"M\"\n3,12.4,\"M\"\n3,12.7,\"M\"\n3,13.3,\"M\"\n3,13.8,\"M\"\n3.1,9.9,\"M\"\n3.1,11.5,\"M\"\n3.1,12.1,\"M\"\n3.1,12.5,\"M\"\n3.1,13,\"M\"\n3.1,14.3,\"M\"\n3.2,11.6,\"M\"\n3.2,11.9,\"M\"\n3.2,12.3,\"M\"\n3.2,13,\"M\"\n3.2,13.5,\"M\"\n3.2,13.6,\"M\"\n3.3,11.5,\"M\"\n3.3,12,\"M\"\n3.3,14.1,\"M\"\n3.3,14.9,\"M\"\n3.3,15.4,\"M\"\n3.4,11.2,\"M\"\n3.4,12.2,\"M\"\n3.4,12.4,\"M\"\n3.4,12.8,\"M\"\n3.4,14.4,\"M\"\n3.5,11.7,\"M\"\n3.5,12.9,\"M\"\n3.5,15.6,\"M\"\n3.5,15.7,\"M\"\n3.5,17.2,\"M\"\n3.6,11.8,\"M\"\n3.6,13.3,\"M\"\n3.6,14.8,\"M\"\n3.6,15,\"M\"\n3.7,11,\"M\"\n3.8,14.8,\"M\"\n3.8,16.8,\"M\"\n3.9,14.4,\"M\"\n3.9,20.5,\"M\""
+    },
+    {
+      "name": ".0/model_prediction1",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "resp_upr_": "number",
+          "pred_": "number",
+          "resp_lwr_": "number",
+          "resp_": "number"
+        }
+      },
+      "values": "\"resp_upr_\",\"pred_\",\"resp_lwr_\",\"resp_\"\n8.14203962602994,2,7.28088630203424,7.71146296403209\n8.22922098410206,2.02405063291139,7.38774846616645,7.80848472513426\n8.31651120329406,2.04810126582278,7.49450176917879,7.90550648623642\n8.40391820156942,2.07215189873418,7.60113829310776,8.00252824733859\n8.49145057408416,2.09620253164557,7.70764944279736,8.09955000844076\n8.57911765100841,2.12025316455696,7.81402588807744,8.19657176954293\n8.66692955834826,2.14430379746835,7.92025750294193,8.29359353064509\n8.75489728116829,2.16835443037975,8.02633330232623,8.39061529174726\n8.84303272830469,2.19240506329114,8.13224137739416,8.48763705284943\n8.93134879726299,2.21645569620253,8.2379688306402,8.58465881395159\n9.01985943749936,2.24050632911392,8.34350171260816,8.68168057505376\n9.10857970967818,2.26455696202532,8.44882496263368,8.77870233615593\n9.19752583777431,2.28860759493671,8.55392235674188,8.87572409725809\n9.28671525004835,2.3126582278481,8.65877646667217,8.97274585836026\n9.37616660398278,2.33670886075949,8.76336863494208,9.06976761946243\n9.46589978926614,2.36075949367089,8.86767897186305,9.1667893805646\n9.55593590191913,2.38481012658228,8.97168638141439,9.26381114166676\n9.64629718178085,2.40886075949367,9.07536862375701,9.36083290276893\n9.73700690497168,2.43291139240506,9.17870242277051,9.4578546638711\n9.82808922282789,2.45696202531646,9.28166362711864,9.55487642497326\n9.91956893941247,2.48101265822785,9.38422743273839,9.65189818607543\n10.0114712213182,2.50506329113924,9.48636867303695,9.7489199471776\n10.103821236343,2.52911392405063,9.58806218021651,9.84594170827977\n10.1966437218963,2.55316455696203,9.68928321686752,9.94296346938193\n10.2899624896854,2.57721518987342,9.79000797128277,10.0399852304841\n10.383799880058,2.60126582278481,9.8902141031145,10.1370069915863\n10.4781761867586,2.6253164556962,9.98988131861824,10.2340287526884\n10.5731090798573,2.64936708860759,10.0889919477239,10.3310505137906\n10.6686130600621,2.67341772151899,10.1875314897234,10.4280722748928\n10.7646989802967,2.69746835443038,10.2854890916931,10.5250940359949\n10.8613736693151,2.72151898734177,10.3828579248791,10.6221157970971\n10.9586396867557,2.74556962025316,10.4796354296429,10.7191375581993\n11.0564952297023,2.76962025316456,10.5758234089006,10.8161593193014\n11.1549341985919,2.79367088607595,10.6714279622153,10.9131810804036\n11.2539464169283,2.81772151898734,10.7664592660833,11.0102028415058\n11.3535179866971,2.84177215189873,10.8609312185188,11.1072246026079\n11.4536317514393,2.86582278481013,10.9548609759809,11.2042463637101\n11.5542678328358,2.88987341772152,11.0482684167888,11.3012681248123\n11.6554042048224,2.91392405063291,11.1411755670065,11.3982898859144\n11.7570172713265,2.9379746835443,11.2336060227067,11.4953116470166\n11.8590824187706,2.9620253164557,11.3255843974669,11.5923334081188\n11.9615745213112,2.98607594936709,11.4171358171307,11.6893551692209\n12.0644683841679,3.01012658227848,11.5082854764783,11.7863769303231\n12.1677391173781,3.03417721518987,11.5990582654725,11.8833986914253\n12.2713624382237,3.05822784810127,11.6894784668311,11.9804204525274\n12.3753149051124,3.08227848101266,11.7795695221469,12.0774422136296\n12.479574088792,3.10632911392405,11.8693538606715,12.1744639747318\n12.5841186885963,3.13037974683544,11.9588527830716,12.2714857358339\n12.6889286021779,3.15443037974684,12.0480863916943,12.3685074969361\n12.7939849571762,3.17848101265823,12.1370735589003,12.4655292580383\n12.899270112731,3.20253164556962,12.2258319255499,12.5625510191404\n13.0047676379115,3.22658227848101,12.3143779225737,12.6595727802426\n13.1104622731516,3.25063291139241,12.402726809538,12.7565945413448\n13.216339879772,3.2746835443038,12.4908927251219,12.8536163024469\n13.322387381721,3.29873417721519,12.5788887453772,12.9506380635491\n13.4285927028011,3.32278481012658,12.6667269465015,13.0476598246513\n13.5349447019072,3.34683544303797,12.7544184695996,13.1446815857534\n13.6414331081758,3.37088607594937,12.8419735855355,13.2417033468556\n13.7480484574267,3.39493670886076,12.9294017584889,13.3387251079578\n13.8547820308736,3.41898734177215,13.0167117072463,13.4357468690599\n13.9616257967483,3.44303797468354,13.1039114635759,13.5327686301621\n14.0685723552383,3.46708860759494,13.1910084272902,13.6297903912643\n14.1756148869457,3.49113924050633,13.2780094177872,13.7268121523664\n14.2827471049364,3.51518987341772,13.3649207220008,13.8238339134686\n14.3899632103458,3.53924050632911,13.4517481387958,13.9208556745708\n14.4972578514379,3.56329113924051,13.5384970199079,14.0178774356729\n14.604626085967,3.5873417721519,13.6251723075832,14.1148991967751\n14.7120633466592,3.61139240506329,13.7117785690954,14.2119209578773\n14.8195654096188,3.63544303797468,13.7983200283401,14.3089427189794\n14.927128365453,3.65949367088608,13.8848005947102,14.4059644800816\n15.034748592912,3.68354430379747,13.9712238894556,14.5029862411838\n15.142422734844,3.70759493670886,14.0575932697279,14.6000080022859\n15.2501476762754,3.73164556962025,14.1439118505008,14.6970297633881\n15.3579205244345,3.75569620253165,14.2301825245461,14.7940515244903\n15.4657385905481,3.77974683544304,14.3164079806368,14.8910732855924\n15.5735993732557,3.80379746835443,14.4025907201335,14.9880950466946\n15.681500543494,3.82784810126582,14.4887330720995,15.0851168077968\n15.7894399307178,3.85189873417722,14.5748372070801,15.1821385688989\n15.8974155103355,3.87594936708861,14.6609051496668,15.2791603300011\n16.0054253922467,3.9,14.7469387899599,15.3761820911033"
+    },
+    {
+      "name": "scale/fill",
+      "format": {
+        "type": "csv",
+        "parse": {}
+      },
+      "values": "\"domain\"\n\"F\"\n\"M\""
+    },
+    {
+      "name": "scale/x",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "domain": "number"
+        }
+      },
+      "values": "\"domain\"\n1.905\n3.995"
+    },
+    {
+      "name": "scale/y",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "domain": "number"
+        }
+      },
+      "values": "\"domain\"\n5.59\n21.21"
+    }
+  ],
+  "scales": [
+    {
+      "name": "fill",
+      "type": "ordinal",
+      "domain": {
+        "data": "scale/fill",
+        "field": "data.domain"
+      },
+      "points": true,
+      "sort": false,
+      "range": "category10"
+    },
+    {
+      "name": "x",
+      "domain": {
+        "data": "scale/x",
+        "field": "data.domain"
+      },
+      "zero": false,
+      "nice": false,
+      "clamp": false,
+      "range": "width"
+    },
+    {
+      "name": "y",
+      "domain": {
+        "data": "scale/y",
+        "field": "data.domain"
+      },
+      "zero": false,
+      "nice": false,
+      "clamp": false,
+      "range": "height"
+    }
+  ],
+  "marks": [
+    {
+      "type": "symbol",
+      "properties": {
+        "update": {
+          "size": {
+            "value": 50
+          },
+          "x": {
+            "scale": "x",
+            "field": "data.Body_Wt"
+          },
+          "y": {
+            "scale": "y",
+            "field": "data.Heart_Wt"
+          },
+          "fill": {
+            "scale": "fill",
+            "field": "data.Sex"
+          }
+        },
+        "ggvis": {
+          "data": {
+            "value": ".0"
+          }
+        }
+      },
+      "from": {
+        "data": ".0"
+      }
+    },
+    {
+      "type": "area",
+      "properties": {
+        "update": {
+          "fill": {
+            "value": "#333333"
+          },
+          "y2": {
+            "scale": "y",
+            "field": "data.resp_upr_"
+          },
+          "fillOpacity": {
+            "value": 0.2
+          },
+          "x": {
+            "scale": "x",
+            "field": "data.pred_"
+          },
+          "y": {
+            "scale": "y",
+            "field": "data.resp_lwr_"
+          },
+          "stroke": {
+            "value": "transparent"
+          }
+        },
+        "ggvis": {
+          "data": {
+            "value": ".0/model_prediction1"
+          }
+        }
+      },
+      "from": {
+        "data": ".0/model_prediction1"
+      }
+    },
+    {
+      "type": "line",
+      "properties": {
+        "update": {
+          "stroke": {
+            "value": "#000000"
+          },
+          "strokeWidth": {
+            "value": 2
+          },
+          "x": {
+            "scale": "x",
+            "field": "data.pred_"
+          },
+          "y": {
+            "scale": "y",
+            "field": "data.resp_"
+          },
+          "fill": {
+            "value": "transparent"
+          }
+        },
+        "ggvis": {
+          "data": {
+            "value": ".0/model_prediction1"
+          }
+        }
+      },
+      "from": {
+        "data": ".0/model_prediction1"
+      }
+    }
+  ],
+  "legends": [
+    {
+      "orient": "right",
+      "fill": "fill",
+      "title": "Sex"
+    }
+  ],
+  "axes": [
+    {
+      "type": "x",
+      "scale": "x",
+      "orient": "bottom",
+      "title": "\n Body Weight",
+      "titleOffset": 50,
+      "layer": "back",
+      "grid": true
+    },
+    {
+      "type": "y",
+      "scale": "y",
+      "orient": "left",
+      "title": "Heart Weight \n",
+      "titleOffset": 50,
+      "layer": "back",
+      "grid": true
+    },
+    {
+      "type": "x",
+      "scale": "x",
+      "orient": "top",
+      "title": "Body Weight Vs Heart Weight Of Cats \n",
+      "ticks": 0,
+      "layer": "back",
+      "grid": true,
+      "properties": {
+        "labels": {
+          "fontSize": {
+            "value": 0
+          }
+        },
+        "axis": {
+          "stroke": {
+            "value": "white"
+          }
+        }
+      }
+    }
+  ],
+  "padding": null,
+  "ggvis_opts": {
+    "keep_aspect": false,
+    "resizable": true,
+    "padding": {},
+    "duration": 250,
+    "renderer": "svg",
+    "hover_duration": 0,
+    "width": 384,
+    "height": 384
+  },
+  "handlers": null
+};
+ggvis.getPlot("plot_id235585043").parseSpec(plot_id235585043_spec);
+</script>
+<p> </p>
+<p>You may notice that the code for a linear regression line is not that much different than the one for the scatterplot. We just add <code>layer_model_predictions(model = &quot;lm&quot;, se = TRUE)</code>. In model = “lm”, lm means linear model and se = TRUE gives the confidence intervals around the line. (I think it is a 95% confidence interval.)</p>
+<p> </p>
+<p><strong>Regression Line For Each Gender</strong></p>
+<pre class="r"><code># ggvis Regression Line (Ordinary Least Squares Regression):
+# Line of best fit for each gender 
+# Done by adding in group_by(Sex)
+
+cats %&gt;% ggvis(x = ~Body_Wt, y = ~ Heart_Wt) %&gt;%
+  layer_points(fill = ~Sex) %&gt;%
+  group_by(Sex) %&gt;%
+  layer_model_predictions(model = &quot;lm&quot;, se = TRUE) %&gt;%
+  add_axis(&quot;x&quot;, title = &quot;\n Body Weight&quot;, title_offset = 50) %&gt;%
+  add_axis(&quot;y&quot;, title = &quot;Heart Weight \n&quot;, title_offset = 50) %&gt;%
+  add_axis(&quot;x&quot;, orient = &quot;top&quot;, ticks = 0, 
+           title = &quot;Body Weight Vs Heart Weight Of Cats \n&quot;,
+           properties = axis_props(axis = list(stroke = &quot;white&quot;),
+                                   labels = list(fontSize = 0)))</code></pre>
+<pre><code>## Guessing formula = Heart_Wt ~ Body_Wt</code></pre>
+<div id="plot_id910666722-container" class="ggvis-output-container">
+<div id="plot_id910666722" class="ggvis-output"></div>
+<div class="plot-gear-icon">
+<nav class="ggvis-control">
+<a class="ggvis-dropdown-toggle" title="Controls" onclick="return false;"></a>
+<ul class="ggvis-dropdown">
+<li>
+Renderer: 
+<a id="plot_id910666722_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id910666722" data-renderer="svg">SVG</a>
+ | 
+<a id="plot_id910666722_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id910666722" data-renderer="canvas">Canvas</a>
+</li>
+<li>
+<a id="plot_id910666722_download" class="ggvis-download" data-plot-id="plot_id910666722">Download</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<script type="text/javascript">
+var plot_id910666722_spec = {
+  "data": [
+    {
+      "name": ".0",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "Body_Wt": "number",
+          "Heart_Wt": "number"
+        }
+      },
+      "values": "\"Body_Wt\",\"Heart_Wt\",\"Sex\"\n2,7,\"F\"\n2,7.4,\"F\"\n2,9.5,\"F\"\n2.1,7.2,\"F\"\n2.1,7.3,\"F\"\n2.1,7.6,\"F\"\n2.1,8.1,\"F\"\n2.1,8.2,\"F\"\n2.1,8.3,\"F\"\n2.1,8.5,\"F\"\n2.1,8.7,\"F\"\n2.1,9.8,\"F\"\n2.2,7.1,\"F\"\n2.2,8.7,\"F\"\n2.2,9.1,\"F\"\n2.2,9.7,\"F\"\n2.2,10.9,\"F\"\n2.2,11,\"F\"\n2.3,7.3,\"F\"\n2.3,7.9,\"F\"\n2.3,8.4,\"F\"\n2.3,9,\"F\"\n2.3,9,\"F\"\n2.3,9.5,\"F\"\n2.3,9.6,\"F\"\n2.3,9.7,\"F\"\n2.3,10.1,\"F\"\n2.3,10.1,\"F\"\n2.3,10.6,\"F\"\n2.3,11.2,\"F\"\n2.4,6.3,\"F\"\n2.4,8.7,\"F\"\n2.4,8.8,\"F\"\n2.4,10.2,\"F\"\n2.5,9,\"F\"\n2.5,10.9,\"F\"\n2.6,8.7,\"F\"\n2.6,10.1,\"F\"\n2.6,10.1,\"F\"\n2.7,8.5,\"F\"\n2.7,10.2,\"F\"\n2.7,10.8,\"F\"\n2.9,9.9,\"F\"\n2.9,10.1,\"F\"\n2.9,10.1,\"F\"\n3,10.6,\"F\"\n3,13,\"F\"\n2,6.5,\"M\"\n2,6.5,\"M\"\n2.1,10.1,\"M\"\n2.2,7.2,\"M\"\n2.2,7.6,\"M\"\n2.2,7.9,\"M\"\n2.2,8.5,\"M\"\n2.2,9.1,\"M\"\n2.2,9.6,\"M\"\n2.2,9.6,\"M\"\n2.2,10.7,\"M\"\n2.3,9.6,\"M\"\n2.4,7.3,\"M\"\n2.4,7.9,\"M\"\n2.4,7.9,\"M\"\n2.4,9.1,\"M\"\n2.4,9.3,\"M\"\n2.5,7.9,\"M\"\n2.5,8.6,\"M\"\n2.5,8.8,\"M\"\n2.5,8.8,\"M\"\n2.5,9.3,\"M\"\n2.5,11,\"M\"\n2.5,12.7,\"M\"\n2.5,12.7,\"M\"\n2.6,7.7,\"M\"\n2.6,8.3,\"M\"\n2.6,9.4,\"M\"\n2.6,9.4,\"M\"\n2.6,10.5,\"M\"\n2.6,11.5,\"M\"\n2.7,8,\"M\"\n2.7,9,\"M\"\n2.7,9.6,\"M\"\n2.7,9.6,\"M\"\n2.7,9.8,\"M\"\n2.7,10.4,\"M\"\n2.7,11.1,\"M\"\n2.7,12,\"M\"\n2.7,12.5,\"M\"\n2.8,9.1,\"M\"\n2.8,10,\"M\"\n2.8,10.2,\"M\"\n2.8,11.4,\"M\"\n2.8,12,\"M\"\n2.8,13.3,\"M\"\n2.8,13.5,\"M\"\n2.9,9.4,\"M\"\n2.9,10.1,\"M\"\n2.9,10.6,\"M\"\n2.9,11.3,\"M\"\n2.9,11.8,\"M\"\n3,10,\"M\"\n3,10.4,\"M\"\n3,10.6,\"M\"\n3,11.6,\"M\"\n3,12.2,\"M\"\n3,12.4,\"M\"\n3,12.7,\"M\"\n3,13.3,\"M\"\n3,13.8,\"M\"\n3.1,9.9,\"M\"\n3.1,11.5,\"M\"\n3.1,12.1,\"M\"\n3.1,12.5,\"M\"\n3.1,13,\"M\"\n3.1,14.3,\"M\"\n3.2,11.6,\"M\"\n3.2,11.9,\"M\"\n3.2,12.3,\"M\"\n3.2,13,\"M\"\n3.2,13.5,\"M\"\n3.2,13.6,\"M\"\n3.3,11.5,\"M\"\n3.3,12,\"M\"\n3.3,14.1,\"M\"\n3.3,14.9,\"M\"\n3.3,15.4,\"M\"\n3.4,11.2,\"M\"\n3.4,12.2,\"M\"\n3.4,12.4,\"M\"\n3.4,12.8,\"M\"\n3.4,14.4,\"M\"\n3.5,11.7,\"M\"\n3.5,12.9,\"M\"\n3.5,15.6,\"M\"\n3.5,15.7,\"M\"\n3.5,17.2,\"M\"\n3.6,11.8,\"M\"\n3.6,13.3,\"M\"\n3.6,14.8,\"M\"\n3.6,15,\"M\"\n3.7,11,\"M\"\n3.8,14.8,\"M\"\n3.8,16.8,\"M\"\n3.9,14.4,\"M\"\n3.9,20.5,\"M\""
+    },
+    {
+      "name": ".0/group_by1/model_prediction2_flat",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "resp_upr_": "number",
+          "pred_": "number",
+          "resp_lwr_": "number",
+          "resp_": "number"
+        }
+      },
+      "values": "\"Sex\",\"resp_upr_\",\"pred_\",\"resp_lwr_\",\"resp_\"\n\"F\",8.82138560187255,2,7.68689535931043,8.25414048059149\n\"F\",8.84210780436712,2.0126582278481,7.73291781626039,8.28751281031376\n\"F\",8.86300387606249,2.0253164556962,7.77876640400956,8.32088514003603\n\"F\",8.88408609977259,2.0379746835443,7.824428839744,8.35425746975829\n\"F\",8.90536773234304,2.0506329113924,7.86989186661808,8.38762979948056\n\"F\",8.92686307232516,2.06329113924051,7.9151411860805,8.42100212920283\n\"F\",8.94858752748815,2.07594936708861,7.96016139036204,8.45437445892509\n\"F\",8.97055768041599,2.08860759493671,8.00493589687873,8.48774678864736\n\"F\",8.99279134989522,2.10126582278481,8.04944688684404,8.52111911836963\n\"F\",9.01530764516427,2.11392405063291,8.09367525101952,8.5544914480919\n\"F\",9.03812700936452,2.12658227848101,8.13760054626382,8.58786377781417\n\"F\",9.06127124772195,2.13924050632911,8.18120096735092,8.62123610753643\n\"F\",9.08476353512459,2.15189873417722,8.22445333939281,8.6546084372587\n\"F\",9.10862839689459,2.16455696202532,8.26733313706735,8.68798076698097\n\"F\",9.13289165576409,2.17721518987342,8.30981453764239,8.72135309670324\n\"F\",9.1575803374615,2.18987341772152,8.35187051538951,8.75472542642551\n\"F\",9.18272252704763,2.20253164556962,8.39347298524791,8.78809775614777\n\"F\",9.20834716839072,2.21518987341772,8.43459300334936,8.82147008587004\n\"F\",9.2344838001405,2.22784810126582,8.47520103104412,8.85484241559231\n\"F\",9.26116222345811,2.24050632911392,8.51526726717104,8.88821474531458\n\"F\",9.2884120997497,2.25316455696203,8.55476205032399,8.92158707503684\n\"F\",9.31626248081515,2.26582278481013,8.59365632870308,8.95495940475911\n\"F\",9.34474127909196,2.27848101265823,8.6319221898708,8.98833173448138\n\"F\",9.37387469177145,2.29113924050633,8.66953343663585,9.02170406420365\n\"F\",9.40368659897372,2.30379746835443,8.7064661888781,9.05507639392591\n\"F\",9.4341979621368,2.31645569620253,8.74269948515956,9.08844872364818\n\"F\",9.46542625338559,2.32911392405063,8.77821585335531,9.12182105337045\n\"F\",9.49738494895815,2.34177215189873,8.81300181722728,9.15519338309272\n\"F\",9.53008311900599,2.35443037974684,8.84704830662398,9.18856571281499\n\"F\",9.56352514185957,2.36708860759494,8.88035094321494,9.22193804253725\n\"F\",9.59771056330129,2.37974683544304,8.91291018121775,9.25531037225952\n\"F\",9.63263411124979,2.39240506329114,8.94473129271378,9.28868270198179\n\"F\",9.66828586476122,2.40506329113924,8.97582419864689,9.32205503170406\n\"F\",9.70465156489951,2.41772151898734,9.00620315795314,9.35542736142632\n\"F\",9.74171304529306,2.43037974683544,9.03588633700412,9.38879969114859\n\"F\",9.77944875323042,2.44303797468354,9.0648952885113,9.42217202087086\n\"F\",9.817834328577,2.45569620253165,9.09325437260925,9.45554435059313\n\"F\",9.8568432076542,2.46835443037975,9.12099015297659,9.48891668031539\n\"F\",9.89644722203044,2.48101265822785,9.14813079804489,9.52228901003766\n\"F\",9.93661716711223,2.49367088607595,9.17470551240763,9.55566133975993\n\"F\",9.97732332154071,2.50632911392405,9.20074401742369,9.5890336694822\n\"F\",10.0185359048008,2.51898734177215,9.22627609360812,9.62240599920447\n\"F\",10.0602254664241,2.53164556962025,9.25133119142935,9.65577832892673\n\"F\",10.102363205242,2.54430379746835,9.27593811205598,9.689150658649\n\"F\",10.1449212210901,2.55696202531646,9.30012475565248,9.72252298837127\n\"F\",10.1878727041406,2.56962025316456,9.32391793204651,9.75589531809354\n\"F\",10.2311920687501,2.58227848101266,9.34734322688153,9.7892676478158\n\"F\",10.2748550395276,2.59493670886076,9.37042491554856,9.82263997753807\n\"F\",10.3188386974676,2.60759493670886,9.39318591705311,9.85601230726034\n\"F\",10.3631214936492,2.62025316455696,9.41564778031602,9.88938463698261\n\"F\",10.4076832373548,2.63291139240506,9.43783069605496,9.92275696670487\n\"F\",10.4525050646497,2.64556962025316,9.45975352820459,9.95612929642714\n\"F\",10.4975693925946,2.65822784810127,9.4814338597042,9.98950162614941\n\"F\",10.5428598634045,2.67088607594937,9.50288804833886,10.0228739558717\n\"F\",10.5883612820701,2.68354430379747,9.52413128911777,10.0562462855939\n\"F\",10.6340595502458,2.69620253164557,9.54517768038668,10.0896186153162\n\"F\",10.6799415985878,2.70886075949367,9.56604029148912,10.1229909450385\n\"F\",10.725995319208,2.72151898734177,9.58673123031347,10.1563632747607\n\"F\",10.7722094994717,2.73417721518987,9.60726170949432,10.189735604483\n\"F\",10.8185737580234,2.74683544303797,9.62764211038713,10.2231079342053\n\"F\",10.8650784836403,2.75949367088608,9.64788204421477,10.2564802639276\n\"F\",10.9117147772964,2.77215189873418,9.66799041000323,10.2898525936498\n\"F\",10.9584743976512,2.78481012658228,9.687975449093,10.3232249233721\n\"F\",11.0053497100485,2.79746835443038,9.70784479614024,10.3565972530944\n\"F\",11.0523336390169,2.81012658227848,9.7276055266163,10.3899695828166\n\"F\",11.0994196241951,2.82278481012658,9.74726420088268,10.4233419125389\n\"F\",11.1466015795565,2.83544303797468,9.76682690496581,10.4567142422612\n\"F\",11.1938738557792,2.84810126582278,9.78629928818766,10.4900865719834\n\"F\",11.241231205584,2.86075949367089,9.80568659782737,10.5234589017057\n\"F\",11.2886687518565,2.87341772151899,9.82499371099944,10.556831231428\n\"F\",11.3361819583637,2.88607594936709,9.84422516393678,10.5902035611502\n\"F\",11.3837666028792,2.89873417721519,9.86338517886575,10.6235758908725\n\"F\",11.4314187525348,2.91139240506329,9.88247768865471,10.6569482205948\n\"F\",11.4791347412237,2.92405063291139,9.90150635941039,10.690320550317\n\"F\",11.5269111488915,2.93670886075949,9.92047461118712,10.7236928800393\n\"F\",11.5747447825589,2.94936708860759,9.9393856369642,10.7570652097616\n\"F\",11.6226326589314,2.9620253164557,9.9582424200363,10.7904375394838\n\"F\",11.6705719884607,2.9746835443038,9.97704774995153,10.8238098692061\n\"F\",11.7185601607353,2.9873417721519,9.99580423712141,10.8571821989284\n\"F\",11.7665947310837,3,10.0145143262176,10.8905545286506\n\"M\",8.1248566885882,2,6.75768240116839,7.4412695448783\n\"M\",8.21420320057607,2.02405063291139,6.87578119574132,7.5449921981587\n\"M\",8.30363629289677,2.04810126582278,6.99379340998142,7.6487148514391\n\"M\",8.39316175837239,2.07215189873418,7.1117132510666,7.7524375047195\n\"M\",8.48278587561022,2.09620253164557,7.22953444038957,7.85616015799989\n\"M\",8.57251545547727,2.12025316455696,7.34725016708332,7.95988281128029\n\"M\",8.66235789212523,2.14430379746835,7.46485303699616,8.06360546456069\n\"M\",8.75232121891717,2.16835443037975,7.58233501676502,8.16732811784109\n\"M\",8.84241416959248,2.19240506329114,7.69968737265051,8.27105077112149\n\"M\",8.93264624497263,2.21645569620253,7.81690060383115,8.37477342440189\n\"M\",9.02302778544991,2.24050632911392,7.93396436991467,8.47849607768229\n\"M\",9.11357004940523,2.26455696202532,8.05086741252016,8.58221873096269\n\"M\",9.20428529755784,2.28860759493671,8.16759747092834,8.68594138424309\n\"M\",9.29518688304464,2.3126582278481,8.28414119200234,8.78966403752349\n\"M\",9.38628934674185,2.33670886075949,8.40048403486593,8.89338669080389\n\"M\",9.47760851695674,2.36075949367089,8.51661017121184,8.99710934408429\n\"M\",9.5691616121074,2.38481012658228,8.63250238262198,9.10083199736469\n\"M\",9.66096734434732,2.40886075949367,8.74814195694285,9.20455465064509\n\"M\",9.75304602125342,2.43291139240506,8.86350858659756,9.30827730392549\n\"M\",9.84541964165511,2.45696202531646,8.97858027275666,9.41199995720589\n\"M\",9.93811198042371,2.48101265822785,9.09333324054887,9.51572261048629\n\"M\",10.0311486555644,2.50506329113924,9.207741871969,9.61944526376669\n\"M\",10.1245571692859,2.52911392405063,9.32177866480826,9.72316791704709\n\"M\",10.2183669129352,2.55316455696203,9.43541422771979,9.82689057032749\n\"M\",10.3126091239048,2.57721518987342,9.54861732331093,9.93061322360789\n\"M\",10.4073167810635,2.60126582278481,9.66135497271303,10.0343358768883\n\"M\",10.5025244242228,2.6253164556962,9.77359263611461,10.1380585301687\n\"M\",10.5982678830487,2.64936708860759,9.8852944838495,10.2417811834491\n\"M\",10.694583902141,2.67341772151899,9.99642377131798,10.3455038367295\n\"M\",10.7915096522565,2.69746835443038,10.1069433277633,10.4492264900099\n\"M\",10.8890821233159,2.72151898734177,10.2168161632647,10.5529491432903\n\"M\",10.987337403155,2.74556962025316,10.3260061899864,10.6566717965707\n\"M\",11.086309856833,2.76962025316456,10.4344790428692,10.7603944498511\n\"M\",11.1860312339989,2.79367088607595,10.542202972264,10.8641171031315\n\"M\",11.2865297449738,2.81772151898734,10.6491497678499,10.9678397564119\n\"M\",11.3878291578348,2.84177215189873,10.7552956615498,11.0715624096923\n\"M\",11.4899479765249,2.86582278481013,10.8606221494205,11.1752850629727\n\"M\",11.5928987616227,2.88987341772152,10.9651166708835,11.2790077162531\n\"M\",11.6966876493899,2.91392405063291,11.0687730896771,11.3827303695335\n\"M\",11.8013141109146,2.9379746835443,11.1715919347132,11.4864530228139\n\"M\",11.9067709730249,2.9620253164557,11.2735803791636,11.5901756760943\n\"M\",12.0130446990717,2.98607594936709,11.3747519596777,11.6938983293747\n\"M\",12.1201159044081,3.01012658227848,11.475126060902,11.7976209826551\n\"M\",12.2279600620927,3.03417721518987,11.5747272097782,11.9013436359355\n\"M\",12.3365483417142,3.05822784810127,11.6735842367175,12.0050662892159\n\"M\",12.4458485194776,3.08227848101266,11.771729365515,12.1087889424963\n\"M\",12.5558259003936,3.10632911392405,11.8691972911597,12.2125115957767\n\"M\",12.6664442019253,3.13037974683544,11.9660242961888,12.3162342490571\n\"M\",12.7776663604664,3.15443037974684,12.0622474442086,12.4199569023375\n\"M\",12.8894552352294,3.17848101265823,12.1579038760063,12.5236795556179\n\"M\",13.0017741965913,3.20253164556962,12.2530302212052,12.6274022088983\n\"M\",13.1145875964264,3.22658227848101,12.347662127931,12.7311248621787\n\"M\",13.2278611258566,3.25063291139241,12.4418339050615,12.8348475154591\n\"M\",13.3415620711051,3.2746835443038,12.5355782663738,12.9385701687395\n\"M\",13.4556594810532,3.29873417721519,12.6289261629866,13.0422928220199\n\"M\",13.5701242611583,3.32278481012658,12.7219066894423,13.1460154753003\n\"M\",13.6849292081044,3.34683544303797,12.8145470490569,13.2497381285807\n\"M\",13.800048998416,3.37088607594937,12.9068725653061,13.3534607818611\n\"M\",13.9154601426533,3.39493670886076,12.9989067276296,13.4571834351415\n\"M\",14.0311409150177,3.41898734177215,13.090671261826,13.5609060884219\n\"M\",14.1470712664167,3.44303797468354,13.1821862169878,13.6646287417023\n\"M\",14.2632327274005,3.46708860759494,13.2734700625649,13.7683513949827\n\"M\",14.3796083059363,3.49113924050633,13.3645397905898,13.8720740482631\n\"M\",14.4961823837656,3.51518987341772,13.4554110193214,13.9757967015435\n\"M\",14.6129406140788,3.53924050632911,13.5460980955689,14.0795193548239\n\"M\",14.7298698224368,3.56329113924051,13.6366141937717,14.1832420081043\n\"M\",14.8469579122301,3.5873417721519,13.7269714105392,14.2869646613847\n\"M\",14.9641937754799,3.61139240506329,13.8171808538502,14.3906873146651\n\"M\",15.0815672094182,3.63544303797468,13.9072527264727,14.4944099679455\n\"M\",15.1990688390101,3.65949367088608,13.9971964034416,14.5981326212259\n\"M\",15.3166900453914,3.68354430379747,14.0870205036211,14.7018552745063\n\"M\",15.4344229000552,3.70759493670886,14.1767329555181,14.8055779277867\n\"M\",15.5522601045357,3.73164556962025,14.2663410575984,14.9093005810671\n\"M\",15.6701949352782,3.75569620253165,14.3558515334167,15.0130232343475\n\"M\",15.7882211933561,3.77974683544304,14.4452705818996,15.1167458876279\n\"M\",15.9063331586828,3.80379746835443,14.5346039231337,15.2204685409083\n\"M\",16.0245255483658,3.82784810126582,14.6238568400115,15.3241911941887\n\"M\",16.1427934788617,3.85189873417722,14.7130342160765,15.4279138474691\n\"M\",16.2611324316036,3.87594936708861,14.8021405698953,15.5316365007495\n\"M\",16.3795382217945,3.9,14.8911800862652,15.6353591540299"
+    },
+    {
+      "name": ".0/group_by1/model_prediction2",
+      "source": ".0/group_by1/model_prediction2_flat",
+      "transform": [
+        {
+          "type": "treefacet",
+          "keys": [
+            "data.Sex"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "scale/fill",
+      "format": {
+        "type": "csv",
+        "parse": {}
+      },
+      "values": "\"domain\"\n\"F\"\n\"M\""
+    },
+    {
+      "name": "scale/x",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "domain": "number"
+        }
+      },
+      "values": "\"domain\"\n1.905\n3.995"
+    },
+    {
+      "name": "scale/y",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "domain": "number"
+        }
+      },
+      "values": "\"domain\"\n5.59\n21.21"
+    }
+  ],
+  "scales": [
+    {
+      "name": "fill",
+      "type": "ordinal",
+      "domain": {
+        "data": "scale/fill",
+        "field": "data.domain"
+      },
+      "points": true,
+      "sort": false,
+      "range": "category10"
+    },
+    {
+      "name": "x",
+      "domain": {
+        "data": "scale/x",
+        "field": "data.domain"
+      },
+      "zero": false,
+      "nice": false,
+      "clamp": false,
+      "range": "width"
+    },
+    {
+      "name": "y",
+      "domain": {
+        "data": "scale/y",
+        "field": "data.domain"
+      },
+      "zero": false,
+      "nice": false,
+      "clamp": false,
+      "range": "height"
+    }
+  ],
+  "marks": [
+    {
+      "type": "symbol",
+      "properties": {
+        "update": {
+          "size": {
+            "value": 50
+          },
+          "x": {
+            "scale": "x",
+            "field": "data.Body_Wt"
+          },
+          "y": {
+            "scale": "y",
+            "field": "data.Heart_Wt"
+          },
+          "fill": {
+            "scale": "fill",
+            "field": "data.Sex"
+          }
+        },
+        "ggvis": {
+          "data": {
+            "value": ".0"
+          }
+        }
+      },
+      "from": {
+        "data": ".0"
+      }
+    },
+    {
+      "type": "group",
+      "from": {
+        "data": ".0/group_by1/model_prediction2"
+      },
+      "marks": [
+        {
+          "type": "area",
+          "properties": {
+            "update": {
+              "fill": {
+                "value": "#333333"
+              },
+              "y2": {
+                "scale": "y",
+                "field": "data.resp_upr_"
+              },
+              "fillOpacity": {
+                "value": 0.2
+              },
+              "x": {
+                "scale": "x",
+                "field": "data.pred_"
+              },
+              "y": {
+                "scale": "y",
+                "field": "data.resp_lwr_"
+              },
+              "stroke": {
+                "value": "transparent"
+              }
+            },
+            "ggvis": {
+              "data": {
+                "value": ".0/group_by1/model_prediction2"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "from": {
+        "data": ".0/group_by1/model_prediction2"
+      },
+      "marks": [
+        {
+          "type": "line",
+          "properties": {
+            "update": {
+              "stroke": {
+                "value": "#000000"
+              },
+              "strokeWidth": {
+                "value": 2
+              },
+              "x": {
+                "scale": "x",
+                "field": "data.pred_"
+              },
+              "y": {
+                "scale": "y",
+                "field": "data.resp_"
+              },
+              "fill": {
+                "value": "transparent"
+              }
+            },
+            "ggvis": {
+              "data": {
+                "value": ".0/group_by1/model_prediction2"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "legends": [
+    {
+      "orient": "right",
+      "fill": "fill",
+      "title": "Sex"
+    }
+  ],
+  "axes": [
+    {
+      "type": "x",
+      "scale": "x",
+      "orient": "bottom",
+      "title": "\n Body Weight",
+      "titleOffset": 50,
+      "layer": "back",
+      "grid": true
+    },
+    {
+      "type": "y",
+      "scale": "y",
+      "orient": "left",
+      "title": "Heart Weight \n",
+      "titleOffset": 50,
+      "layer": "back",
+      "grid": true
+    },
+    {
+      "type": "x",
+      "scale": "x",
+      "orient": "top",
+      "title": "Body Weight Vs Heart Weight Of Cats \n",
+      "ticks": 0,
+      "layer": "back",
+      "grid": true,
+      "properties": {
+        "labels": {
+          "fontSize": {
+            "value": 0
+          }
+        },
+        "axis": {
+          "stroke": {
+            "value": "white"
+          }
+        }
+      }
+    }
+  ],
+  "padding": null,
+  "ggvis_opts": {
+    "keep_aspect": false,
+    "resizable": true,
+    "padding": {},
+    "duration": 250,
+    "renderer": "svg",
+    "hover_duration": 0,
+    "width": 384,
+    "height": 384
+  },
+  "handlers": null
+};
+ggvis.getPlot("plot_id910666722").parseSpec(plot_id910666722_spec);
+</script>
+<p> </p>
+<p><a name="interactive"></a></p>
+</div>
+<div id="interactive-plots-in-ggvis" class="section level3">
+<h3><u>Interactive Plots In ggvis</u></h3>
+<p> </p>
+<p>Unlike ggplot2, ggvis is capable of creating interactive plots. Interactive plots allows the user to change values of parameters, change colours, and change visual settings.</p>
+<p>This section features two examples of interactive plots in ggvis. The faraway library in R is used here.</p>
+<p> </p>
+<p><strong>Example One</strong></p>
+<p> </p>
+<p>This first example looks at a USA wages dataset.</p>
+<p> </p>
+<pre class="r"><code>## ggvis Interactive Plots:
+
+# Some Interactive Controls
+
+library(faraway) # Dataset package
+
+data(uswages)
+
+head(uswages)</code></pre>
+<pre><code>##         wage educ exper race smsa ne mw so we pt
+## 6085  771.60   18    18    0    1  1  0  0  0  0
+## 23701 617.28   15    20    0    1  0  0  0  1  0
+## 16208 957.83   16     9    0    1  0  0  1  0  0
+## 2720  617.28   12    24    0    1  1  0  0  0  0
+## 9723  902.18   14    12    0    1  0  1  0  0  0
+## 22239 299.15   12    33    0    1  0  0  0  1  0</code></pre>
+<p> </p>
+<p>The <code>head()</code> function allows for previewing the dataset. We have the variables.columns wage, educ, exper, race, smsa, ne, mw, so, we, and pt. In the interactive scatterplot, I want to compare years of experience with the weekly wages.</p>
+<p> </p>
+<pre class="r"><code>uswages %&gt;% ggvis(x = ~exper, y = ~wage) %&gt;%
+  layer_points(fill := input_select(c(&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;, &quot;black&quot;),
+                                    label = &quot;Colour&quot;),
+               size := input_slider(10, 50, value = 30, label = &quot;Size&quot;)) %&gt;%
+  add_axis(&quot;x&quot;, title = &quot;\n Years Of Experience&quot;, title_offset = 50) %&gt;%
+  add_axis(&quot;y&quot;, title = &quot;Weekly Wage (US) \n&quot;, title_offset = 50) %&gt;%
+  add_axis(&quot;x&quot;, orient = &quot;top&quot;, ticks = 0, 
+           title = &quot;Weekly Wages Of US Males In 1988 \n&quot;,
+           properties = axis_props(axis = list(stroke = &quot;white&quot;),
+                                   labels = list(fontSize = 0)))</code></pre>
+<pre><code>## Warning: Can&#39;t output dynamic/interactive ggvis plots in a knitr document.
+## Generating a static (non-dynamic, non-interactive) version of the plot.</code></pre>
+<div id="plot_id309383107-container" class="ggvis-output-container">
+<div id="plot_id309383107" class="ggvis-output"></div>
+<div class="plot-gear-icon">
+<nav class="ggvis-control">
+<a class="ggvis-dropdown-toggle" title="Controls" onclick="return false;"></a>
+<ul class="ggvis-dropdown">
+<li>
+Renderer: 
+<a id="plot_id309383107_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id309383107" data-renderer="svg">SVG</a>
+ | 
+<a id="plot_id309383107_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id309383107" data-renderer="canvas">Canvas</a>
+</li>
+<li>
+<a id="plot_id309383107_download" class="ggvis-download" data-plot-id="plot_id309383107">Download</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<script type="text/javascript">
+var plot_id309383107_spec = {
+  "data": [
+    {
+      "name": ".0",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "exper": "number",
+          "wage": "number",
+          "reactive_700202965": "number"
+        }
+      },
+      "values": "\"exper\",\"wage\",\"reactive_737581058\",\"reactive_700202965\"\n18,771.6,\"red\",30\n20,617.28,\"red\",30\n9,957.83,\"red\",30\n24,617.28,\"red\",30\n12,902.18,\"red\",30\n33,299.15,\"red\",30\n42,541.31,\"red\",30\n0,148.39,\"red\",30\n36,273.19,\"red\",30\n37,666.67,\"red\",30\n20,241.5,\"red\",30\n29,703.79,\"red\",30\n16,550.81,\"red\",30\n21,807.22,\"red\",30\n11,712.25,\"red\",30\n10,351.46,\"red\",30\n8,373.24,\"red\",30\n19,759.73,\"red\",30\n6,356.13,\"red\",30\n0,308.64,\"red\",30\n24,469.14,\"red\",30\n-1,617.28,\"red\",30\n1,123.46,\"red\",30\n11,474.83,\"red\",30\n40,261.16,\"red\",30\n5,284.9,\"red\",30\n15,1661.92,\"red\",30\n44,629.15,\"red\",30\n35,2374.15,\"red\",30\n8,522.32,\"red\",30\n12,688.51,\"red\",30\n13,246.91,\"red\",30\n55,949.67,\"red\",30\n7,261.16,\"red\",30\n52,106.86,\"red\",30\n11,296.77,\"red\",30\n8,379.87,\"red\",30\n19,634.92,\"red\",30\n45,1182.03,\"red\",30\n9,740.74,\"red\",30\n12,237.42,\"red\",30\n0,144.03,\"red\",30\n11,406.96,\"red\",30\n10,351.61,\"red\",30\n10,593.54,\"red\",30\n4,273.03,\"red\",30\n44,997.15,\"red\",30\n34,1198.96,\"red\",30\n15,569.8,\"red\",30\n4,130.58,\"red\",30\n16,641.03,\"red\",30\n25,712.25,\"red\",30\n8,1073.12,\"red\",30\n13,712.25,\"red\",30\n35,261.16,\"red\",30\n4,783.48,\"red\",30\n8,197.53,\"red\",30\n28,720.16,\"red\",30\n18,593.54,\"red\",30\n7,1234.57,\"red\",30\n9,533.87,\"red\",30\n6,712.25,\"red\",30\n9,909.31,\"red\",30\n14,356.13,\"red\",30\n11,759.73,\"red\",30\n42,382.74,\"red\",30\n22,53.7,\"red\",30\n12,403.61,\"red\",30\n15,664.77,\"red\",30\n21,415.48,\"red\",30\n21,949.67,\"red\",30\n15,664.77,\"red\",30\n51,308.64,\"red\",30\n11,997.15,\"red\",30\n27,2374.15,\"red\",30\n1,259.73,\"red\",30\n27,641.03,\"red\",30\n11,411.52,\"red\",30\n23,379.87,\"red\",30\n11,231.48,\"red\",30\n4,142.45,\"red\",30\n6,503.7,\"red\",30\n4,94.59,\"red\",30\n3,1234.57,\"red\",30\n34,379.87,\"red\",30\n15,391.74,\"red\",30\n19,411.7,\"red\",30\n31,1068.38,\"red\",30\n-1,123.46,\"red\",30\n37,569.8,\"red\",30\n32,94.97,\"red\",30\n46,474.83,\"red\",30\n12,379.87,\"red\",30\n56,118.71,\"red\",30\n1,90.22,\"red\",30\n8,402.17,\"red\",30\n12,1344.78,\"red\",30\n27,474.83,\"red\",30\n45,356.13,\"red\",30\n2,197.53,\"red\",30\n19,949.67,\"red\",30\n11,531.81,\"red\",30\n16,522.32,\"red\",30\n32,356.13,\"red\",30\n35,949.67,\"red\",30\n14,902.18,\"red\",30\n12,1697.72,\"red\",30\n16,451.09,\"red\",30\n37,830.96,\"red\",30\n16,807.22,\"red\",30\n23,617.28,\"red\",30\n1,271.6,\"red\",30\n10,462.99,\"red\",30\n17,336.7,\"red\",30\n4,593.54,\"red\",30\n43,189.93,\"red\",30\n3,119.66,\"red\",30\n15,641.03,\"red\",30\n-1,76.43,\"red\",30\n0,493.83,\"red\",30\n23,679.01,\"red\",30\n10,308.64,\"red\",30\n11,130.58,\"red\",30\n0,56.79,\"red\",30\n30,1899.34,\"red\",30\n15,1316.87,\"red\",30\n0,830.96,\"red\",30\n15,784.69,\"red\",30\n5,1139.6,\"red\",30\n2,167.55,\"red\",30\n42,712.25,\"red\",30\n13,845.2,\"red\",30\n18,315.82,\"red\",30\n6,183.42,\"red\",30\n43,337.08,\"red\",30\n3,493.83,\"red\",30\n25,854.7,\"red\",30\n20,885.57,\"red\",30\n3,1033.01,\"red\",30\n5,403.61,\"red\",30\n7,522.32,\"red\",30\n19,197.53,\"red\",30\n4,308.64,\"red\",30\n42,521.94,\"red\",30\n8,367.74,\"red\",30\n13,236.42,\"red\",30\n36,569.8,\"red\",30\n16,641.03,\"red\",30\n10,783.48,\"red\",30\n-1,189.93,\"red\",30\n1,500.95,\"red\",30\n12,593.54,\"red\",30\n1,154.32,\"red\",30\n47,721.45,\"red\",30\n24,522.32,\"red\",30\n21,1234.57,\"red\",30\n9,123.46,\"red\",30\n21,546.06,\"red\",30\n19,1305.79,\"red\",30\n12,522.32,\"red\",30\n19,379.87,\"red\",30\n14,866.57,\"red\",30\n38,689.53,\"red\",30\n38,346.63,\"red\",30\n5,379.87,\"red\",30\n49,370.37,\"red\",30\n16,546.06,\"red\",30\n18,1305.79,\"red\",30\n17,498.58,\"red\",30\n0,241.21,\"red\",30\n5,195.46,\"red\",30\n21,160.49,\"red\",30\n25,470.09,\"red\",30\n40,415.48,\"red\",30\n27,830.96,\"red\",30\n21,668.47,\"red\",30\n6,997.15,\"red\",30\n28,1111.11,\"red\",30\n31,384.62,\"red\",30\n13,462.96,\"red\",30\n49,189.93,\"red\",30\n46,683.76,\"red\",30\n17,61.73,\"red\",30\n9,664.77,\"red\",30\n7,679.01,\"red\",30\n13,740.74,\"red\",30\n25,617.28,\"red\",30\n46,142.45,\"red\",30\n36,1264.13,\"red\",30\n25,830.96,\"red\",30\n12,747.86,\"red\",30\n9,284.9,\"red\",30\n9,1049.38,\"red\",30\n2,213.68,\"red\",30\n38,854.7,\"red\",30\n15,617.28,\"red\",30\n54,284.9,\"red\",30\n23,403.61,\"red\",30\n46,498.58,\"red\",30\n3,346.63,\"red\",30\n12,403.61,\"red\",30\n47,249.29,\"red\",30\n34,664.77,\"red\",30\n22,807.22,\"red\",30\n14,1412.63,\"red\",30\n27,807.22,\"red\",30\n16,902.18,\"red\",30\n-1,98.77,\"red\",30\n12,474.83,\"red\",30\n42,1020.89,\"red\",30\n16,830.96,\"red\",30\n29,830.96,\"red\",30\n21,569.8,\"red\",30\n33,1135.8,\"red\",30\n17,379.87,\"red\",30\n27,521.6,\"red\",30\n8,345.68,\"red\",30\n32,593.54,\"red\",30\n29,284.9,\"red\",30\n42,712.25,\"red\",30\n5,593.54,\"red\",30\n40,1103.4,\"red\",30\n3,199.12,\"red\",30\n0,142.45,\"red\",30\n4,641.03,\"red\",30\n7,261.16,\"red\",30\n4,474.83,\"red\",30\n20,641.03,\"red\",30\n41,607.05,\"red\",30\n44,427.35,\"red\",30\n11,1305.79,\"red\",30\n4,261.16,\"red\",30\n7,629.39,\"red\",30\n39,546.06,\"red\",30\n22,318.14,\"red\",30\n6,1258.31,\"red\",30\n19,664.77,\"red\",30\n12,363.25,\"red\",30\n10,322.89,\"red\",30\n18,597.27,\"red\",30\n8,323.34,\"red\",30\n8,402.85,\"red\",30\n14,522.32,\"red\",30\n24,517.57,\"red\",30\n43,664.77,\"red\",30\n28,581.67,\"red\",30\n18,493.83,\"red\",30\n8,296.3,\"red\",30\n1,92.59,\"red\",30\n3,325.26,\"red\",30\n1,320.51,\"red\",30\n0,197.41,\"red\",30\n12,226.76,\"red\",30\n27,1471.98,\"red\",30\n17,593.54,\"red\",30\n18,849.5,\"red\",30\n11,403.61,\"red\",30\n17,690.77,\"red\",30\n27,296.77,\"red\",30\n18,783.48,\"red\",30\n4,232.67,\"red\",30\n11,415.48,\"red\",30\n30,1210.83,\"red\",30\n21,874.49,\"red\",30\n30,830.96,\"red\",30\n11,356.13,\"red\",30\n11,546.06,\"red\",30\n34,1020.89,\"red\",30\n16,522.32,\"red\",30\n15,522.32,\"red\",30\n29,712.25,\"red\",30\n0,283.95,\"red\",30\n8,165.43,\"red\",30\n6,204.18,\"red\",30\n16,4264.87,\"red\",30\n42,422.36,\"red\",30\n14,443.44,\"red\",30\n31,997.15,\"red\",30\n15,474.83,\"red\",30\n13,717.77,\"red\",30\n16,925.93,\"red\",30\n20,1187.08,\"red\",30\n33,474.83,\"red\",30\n15,474.83,\"red\",30\n16,1258.31,\"red\",30\n4,237.42,\"red\",30\n36,830.96,\"red\",30\n34,466.39,\"red\",30\n2,154.32,\"red\",30\n44,498.58,\"red\",30\n12,308.64,\"red\",30\n4,375.31,\"red\",30\n12,498.58,\"red\",30\n4,123.46,\"red\",30\n6,432.1,\"red\",30\n7,92.59,\"red\",30\n5,474.83,\"red\",30\n7,546.06,\"red\",30\n11,246.91,\"red\",30\n25,474.83,\"red\",30\n12,427.35,\"red\",30\n10,593.54,\"red\",30\n28,949.67,\"red\",30\n4,540.12,\"red\",30\n3,391.74,\"red\",30\n39,275.96,\"red\",30\n0,347.22,\"red\",30\n42,237.42,\"red\",30\n6,144.75,\"red\",30\n21,978.16,\"red\",30\n14,444.44,\"red\",30\n4,186.71,\"red\",30\n16,918.38,\"red\",30\n28,305.34,\"red\",30\n15,1099.54,\"red\",30\n1,205.76,\"red\",30\n27,1006.5,\"red\",30\n5,335.48,\"red\",30\n23,949.67,\"red\",30\n2,427.35,\"red\",30\n11,1590.69,\"red\",30\n5,356.13,\"red\",30\n3,194.68,\"red\",30\n23,1077.44,\"red\",30\n4,332.38,\"red\",30\n14,546.06,\"red\",30\n38,522.32,\"red\",30\n34,1039.89,\"red\",30\n33,1780.63,\"red\",30\n19,434.43,\"red\",30\n20,760.78,\"red\",30\n19,1187.08,\"red\",30\n13,819.09,\"red\",30\n7,284.9,\"red\",30\n9,498.58,\"red\",30\n35,1187.08,\"red\",30\n33,474.83,\"red\",30\n32,451.09,\"red\",30\n13,949.67,\"red\",30\n22,1042.52,\"red\",30\n11,92.59,\"red\",30\n7,949.67,\"red\",30\n9,474.83,\"red\",30\n26,403.61,\"red\",30\n7,569.8,\"red\",30\n9,451.09,\"red\",30\n12,830.96,\"red\",30\n3,297.42,\"red\",30\n6,118.71,\"red\",30\n37,271.6,\"red\",30\n1,878.44,\"red\",30\n4,462.96,\"red\",30\n4,462.96,\"red\",30\n48,534.19,\"red\",30\n6,356.13,\"red\",30\n7,155.27,\"red\",30\n10,534.19,\"red\",30\n19,854.7,\"red\",30\n7,830.96,\"red\",30\n5,949.67,\"red\",30\n9,641.03,\"red\",30\n41,835.45,\"red\",30\n3,308.64,\"red\",30\n11,712.25,\"red\",30\n17,812.32,\"red\",30\n5,555.56,\"red\",30\n5,2374.15,\"red\",30\n0,61.73,\"red\",30\n19,664.77,\"red\",30\n2,474.83,\"red\",30\n48,668.85,\"red\",30\n25,470.37,\"red\",30\n0,189.93,\"red\",30\n39,237.42,\"red\",30\n27,830.96,\"red\",30\n-1,180.44,\"red\",30\n2,397.81,\"red\",30\n45,617.28,\"red\",30\n24,474.83,\"red\",30\n23,1234.57,\"red\",30\n26,1733.14,\"red\",30\n9,593.54,\"red\",30\n29,379.87,\"red\",30\n13,498.58,\"red\",30\n36,653.59,\"red\",30\n27,712.25,\"red\",30\n15,344.25,\"red\",30\n22,883.71,\"red\",30\n9,356.13,\"red\",30\n37,451.09,\"red\",30\n11,506.49,\"red\",30\n3,1092.12,\"red\",30\n12,522.32,\"red\",30\n18,474.83,\"red\",30\n8,231.48,\"red\",30\n9,470.09,\"red\",30\n0,56.98,\"red\",30\n37,181.28,\"red\",30\n3,1080.25,\"red\",30\n10,474.83,\"red\",30\n1,189.93,\"red\",30\n42,514.4,\"red\",30\n22,370.37,\"red\",30\n13,496.11,\"red\",30\n8,345.68,\"red\",30\n3,451.09,\"red\",30\n16,878.44,\"red\",30\n15,227.92,\"red\",30\n28,188.46,\"red\",30\n21,1020.89,\"red\",30\n5,284.9,\"red\",30\n43,391.74,\"red\",30\n34,854.7,\"red\",30\n20,688.51,\"red\",30\n28,854.7,\"red\",30\n36,277.78,\"red\",30\n17,593.54,\"red\",30\n36,514.4,\"red\",30\n23,1497.13,\"red\",30\n7,902.18,\"red\",30\n13,532.56,\"red\",30\n15,252.53,\"red\",30\n37,296.77,\"red\",30\n16,408.36,\"red\",30\n24,498.58,\"red\",30\n0,892.59,\"red\",30\n14,403.61,\"red\",30\n4,408.73,\"red\",30\n23,2374.15,\"red\",30\n17,668.23,\"red\",30\n16,354.94,\"red\",30\n0,78.56,\"red\",30\n10,493.83,\"red\",30\n23,455.84,\"red\",30\n6,389.36,\"red\",30\n13,474.43,\"red\",30\n13,474.83,\"red\",30\n5,522.32,\"red\",30\n14,353.75,\"red\",30\n0,308.64,\"red\",30\n12,783.48,\"red\",30\n12,254.04,\"red\",30\n44,90.22,\"red\",30\n7,121.91,\"red\",30\n18,759.73,\"red\",30\n38,1220.77,\"red\",30\n36,246.91,\"red\",30\n7,712.25,\"red\",30\n4,987.65,\"red\",30\n28,356.13,\"red\",30\n33,664.77,\"red\",30\n7,451.09,\"red\",30\n17,313.63,\"red\",30\n18,386.99,\"red\",30\n15,356.13,\"red\",30\n1,149,\"red\",30\n7,474.83,\"red\",30\n3,617.28,\"red\",30\n31,188.27,\"red\",30\n26,664.77,\"red\",30\n18,735.99,\"red\",30\n4,498.58,\"red\",30\n12,557.12,\"red\",30\n4,506.49,\"red\",30\n3,308.64,\"red\",30\n4,411.52,\"red\",30\n25,688.51,\"red\",30\n36,782.38,\"red\",30\n24,439.22,\"red\",30\n5,388.01,\"red\",30\n9,664.77,\"red\",30\n6,216.05,\"red\",30\n13,1068.38,\"red\",30\n48,759.73,\"red\",30\n2,295.22,\"red\",30\n8,522.32,\"red\",30\n40,949.67,\"red\",30\n26,807.22,\"red\",30\n14,830.96,\"red\",30\n23,498.58,\"red\",30\n24,604.69,\"red\",30\n21,804.84,\"red\",30\n-1,121.08,\"red\",30\n11,142.45,\"red\",30\n48,349.79,\"red\",30\n0,335.1,\"red\",30\n31,949.67,\"red\",30\n23,427.35,\"red\",30\n26,1424.5,\"red\",30\n13,641.03,\"red\",30\n43,1282.05,\"red\",30\n3,522.32,\"red\",30\n36,569.8,\"red\",30\n30,664.77,\"red\",30\n28,1246.44,\"red\",30\n10,251.42,\"red\",30\n16,630.03,\"red\",30\n13,1140.74,\"red\",30\n13,232.39,\"red\",30\n14,351.38,\"red\",30\n15,1092.12,\"red\",30\n21,712.25,\"red\",30\n14,1115.86,\"red\",30\n39,617.28,\"red\",30\n35,1187.08,\"red\",30\n22,796.3,\"red\",30\n20,902.18,\"red\",30\n16,1519.47,\"red\",30\n9,712.25,\"red\",30\n10,795.35,\"red\",30\n20,973.41,\"red\",30\n38,664.77,\"red\",30\n5,284.9,\"red\",30\n35,712.25,\"red\",30\n30,1068.38,\"red\",30\n36,981.32,\"red\",30\n15,757.58,\"red\",30\n10,949.67,\"red\",30\n33,213.68,\"red\",30\n4,284.9,\"red\",30\n16,284.9,\"red\",30\n16,830.96,\"red\",30\n9,395.69,\"red\",30\n11,185.19,\"red\",30\n37,641.03,\"red\",30\n23,2184.24,\"red\",30\n46,807.22,\"red\",30\n20,830.96,\"red\",30\n32,617.28,\"red\",30\n22,830.96,\"red\",30\n32,290.93,\"red\",30\n7,1044.63,\"red\",30\n11,537.51,\"red\",30\n5,165.43,\"red\",30\n36,712.25,\"red\",30\n36,687.83,\"red\",30\n41,332.38,\"red\",30\n3,522.32,\"red\",30\n58,164.81,\"red\",30\n6,498.58,\"red\",30\n20,1025.64,\"red\",30\n16,453.99,\"red\",30\n8,255.34,\"red\",30\n6,617.28,\"red\",30\n8,320.99,\"red\",30\n31,1068.38,\"red\",30\n18,1234.57,\"red\",30\n45,854.7,\"red\",30\n39,489.16,\"red\",30\n30,709.62,\"red\",30\n33,854.7,\"red\",30\n22,783.48,\"red\",30\n48,288.07,\"red\",30\n5,498.58,\"red\",30\n25,2374.15,\"red\",30\n13,2374.15,\"red\",30\n14,764.48,\"red\",30\n7,735.99,\"red\",30\n7,282.92,\"red\",30\n38,712.25,\"red\",30\n31,1424.5,\"red\",30\n50,1068.38,\"red\",30\n16,997.15,\"red\",30\n-1,123.46,\"red\",30\n11,332.38,\"red\",30\n19,676.64,\"red\",30\n22,641.03,\"red\",30\n20,664.77,\"red\",30\n14,1543.21,\"red\",30\n6,411.52,\"red\",30\n3,264.55,\"red\",30\n23,949.67,\"red\",30\n29,498.58,\"red\",30\n4,381.43,\"red\",30\n21,2374.15,\"red\",30\n4,399.29,\"red\",30\n18,593.54,\"red\",30\n13,712.25,\"red\",30\n-1,65.43,\"red\",30\n17,997.15,\"red\",30\n7,759.73,\"red\",30\n38,441.05,\"red\",30\n39,1780.63,\"red\",30\n36,949.67,\"red\",30\n47,295.31,\"red\",30\n1,179.63,\"red\",30\n27,1424.5,\"red\",30\n30,935.92,\"red\",30\n29,759.73,\"red\",30\n21,712.25,\"red\",30\n24,664.77,\"red\",30\n16,1471.98,\"red\",30\n48,250.47,\"red\",30\n10,356.13,\"red\",30\n46,740.74,\"red\",30\n18,835,\"red\",30\n6,422.1,\"red\",30\n8,795.35,\"red\",30\n21,735.99,\"red\",30\n31,522.32,\"red\",30\n9,674.26,\"red\",30\n15,619.66,\"red\",30\n3,356.13,\"red\",30\n11,474.83,\"red\",30\n17,617.28,\"red\",30\n29,546.06,\"red\",30\n7,747.86,\"red\",30\n29,712.25,\"red\",30\n11,997.15,\"red\",30\n3,284.9,\"red\",30\n38,130.58,\"red\",30\n26,555.56,\"red\",30\n20,308.64,\"red\",30\n17,842.1,\"red\",30\n20,1151.47,\"red\",30\n8,854.7,\"red\",30\n6,712.25,\"red\",30\n4,135.03,\"red\",30\n17,444.44,\"red\",30\n10,657.64,\"red\",30\n28,845.68,\"red\",30\n18,973.41,\"red\",30\n19,1187.08,\"red\",30\n18,830.96,\"red\",30\n21,593.54,\"red\",30\n27,2160.49,\"red\",30\n15,949.67,\"red\",30\n10,522.32,\"red\",30\n33,329.3,\"red\",30\n20,1020.89,\"red\",30\n6,474.83,\"red\",30\n32,664.77,\"red\",30\n11,359.26,\"red\",30\n25,610.16,\"red\",30\n25,230.29,\"red\",30\n13,427.35,\"red\",30\n8,830.96,\"red\",30\n8,329.22,\"red\",30\n26,806.27,\"red\",30\n23,377.91,\"red\",30\n12,284.9,\"red\",30\n2,339.51,\"red\",30\n44,142.11,\"red\",30\n38,569.8,\"red\",30\n-1,156.89,\"red\",30\n11,776.09,\"red\",30\n28,1044.63,\"red\",30\n26,688.51,\"red\",30\n20,2374.15,\"red\",30\n0,195.47,\"red\",30\n7,123.46,\"red\",30\n17,308.64,\"red\",30\n26,593.54,\"red\",30\n34,641.03,\"red\",30\n4,356.13,\"red\",30\n3,356.13,\"red\",30\n26,443.97,\"red\",30\n14,474.83,\"red\",30\n24,308.64,\"red\",30\n24,353.75,\"red\",30\n43,676.07,\"red\",30\n10,438.4,\"red\",30\n23,902.18,\"red\",30\n26,498.58,\"red\",30\n15,1044.63,\"red\",30\n11,299.15,\"red\",30\n5,712.25,\"red\",30\n5,165.43,\"red\",30\n3,108.02,\"red\",30\n18,176.92,\"red\",30\n25,949.67,\"red\",30\n18,1661.92,\"red\",30\n11,667.14,\"red\",30\n18,1068.38,\"red\",30\n13,1329.53,\"red\",30\n11,152.09,\"red\",30\n10,783.48,\"red\",30\n28,885.38,\"red\",30\n27,847.25,\"red\",30\n44,617.28,\"red\",30\n33,308.95,\"red\",30\n27,159.1,\"red\",30\n32,1377.02,\"red\",30\n42,878.44,\"red\",30\n37,246.91,\"red\",30\n20,1068.38,\"red\",30\n-1,257,\"red\",30\n20,997.15,\"red\",30\n10,346.63,\"red\",30\n37,699.26,\"red\",30\n14,973.41,\"red\",30\n0,274.35,\"red\",30\n32,1187.08,\"red\",30\n54,189.93,\"red\",30\n13,222.22,\"red\",30\n10,452.97,\"red\",30\n21,878.44,\"red\",30\n4,712.25,\"red\",30\n14,625.66,\"red\",30\n22,593.54,\"red\",30\n6,557.93,\"red\",30\n9,341.17,\"red\",30\n25,854.7,\"red\",30\n39,712.25,\"red\",30\n19,272.11,\"red\",30\n40,783.48,\"red\",30\n26,418.8,\"red\",30\n23,370.37,\"red\",30\n24,308.64,\"red\",30\n13,664.77,\"red\",30\n18,237.42,\"red\",30\n45,245.27,\"red\",30\n35,347.22,\"red\",30\n12,586.42,\"red\",30\n12,195.47,\"red\",30\n34,973.41,\"red\",30\n16,197.53,\"red\",30\n3,493.83,\"red\",30\n3,593.54,\"red\",30\n20,944.28,\"red\",30\n18,902.18,\"red\",30\n10,474.83,\"red\",30\n16,237.42,\"red\",30\n24,481.96,\"red\",30\n9,688.51,\"red\",30\n8,123.46,\"red\",30\n4,403.61,\"red\",30\n14,474.83,\"red\",30\n37,474.83,\"red\",30\n29,2314.81,\"red\",30\n11,586.42,\"red\",30\n29,427.35,\"red\",30\n-1,238.68,\"red\",30\n12,949.67,\"red\",30\n39,1661.92,\"red\",30\n14,284.9,\"red\",30\n15,688.51,\"red\",30\n8,284.9,\"red\",30\n17,522.32,\"red\",30\n41,370.37,\"red\",30\n46,231.48,\"red\",30\n36,469.14,\"red\",30\n43,379.87,\"red\",30\n23,1579.1,\"red\",30\n15,593.54,\"red\",30\n8,2374.15,\"red\",30\n44,783.48,\"red\",30\n31,962.96,\"red\",30\n11,246.91,\"red\",30\n28,522.32,\"red\",30\n7,300.59,\"red\",30\n33,356.13,\"red\",30\n28,770.09,\"red\",30\n15,241.66,\"red\",30\n9,1187.08,\"red\",30\n19,867.59,\"red\",30\n33,277.62,\"red\",30\n7,274.69,\"red\",30\n24,949.67,\"red\",30\n30,65.1,\"red\",30\n13,451.09,\"red\",30\n9,427.99,\"red\",30\n45,771.6,\"red\",30\n11,830.96,\"red\",30\n12,461.35,\"red\",30\n21,664.77,\"red\",30\n9,211.59,\"red\",30\n3,617.28,\"red\",30\n46,1529.79,\"red\",30\n31,973.41,\"red\",30\n35,546.06,\"red\",30\n35,2018.04,\"red\",30\n12,332.38,\"red\",30\n6,1115.86,\"red\",30\n0,54.61,\"red\",30\n17,712.25,\"red\",30\n30,1163.34,\"red\",30\n30,462.96,\"red\",30\n0,106.08,\"red\",30\n6,118.71,\"red\",30\n23,593.4,\"red\",30\n0,474.83,\"red\",30\n10,206.87,\"red\",30\n32,548.88,\"red\",30\n1,202.78,\"red\",30\n9,1329.53,\"red\",30\n3,284.9,\"red\",30\n3,561.17,\"red\",30\n0,174.9,\"red\",30\n3,427.35,\"red\",30\n13,1210.83,\"red\",30\n18,712.25,\"red\",30\n45,308.64,\"red\",30\n0,165.43,\"red\",30\n1,593.54,\"red\",30\n26,370.37,\"red\",30\n40,98.77,\"red\",30\n11,824.28,\"red\",30\n38,949.67,\"red\",30\n23,451.09,\"red\",30\n3,712.25,\"red\",30\n41,807.22,\"red\",30\n20,130.1,\"red\",30\n9,379.87,\"red\",30\n37,1377.02,\"red\",30\n2,284.9,\"red\",30\n14,522.32,\"red\",30\n1,462.96,\"red\",30\n45,949.67,\"red\",30\n47,199.43,\"red\",30\n25,832.72,\"red\",30\n14,1746.03,\"red\",30\n15,949.67,\"red\",30\n12,641.03,\"red\",30\n39,320.51,\"red\",30\n15,254.18,\"red\",30\n14,1851.85,\"red\",30\n44,712.25,\"red\",30\n36,712.25,\"red\",30\n0,474.83,\"red\",30\n23,759.73,\"red\",30\n40,949.67,\"red\",30\n4,266.17,\"red\",30\n2,270.06,\"red\",30\n10,154.32,\"red\",30\n11,591.14,\"red\",30\n42,759.73,\"red\",30\n46,687.56,\"red\",30\n4,451.09,\"red\",30\n6,221.5,\"red\",30\n3,807.22,\"red\",30\n15,522.32,\"red\",30\n18,1115.86,\"red\",30\n24,593.54,\"red\",30\n47,61.73,\"red\",30\n7,1424.5,\"red\",30\n5,379.87,\"red\",30\n33,697.8,\"red\",30\n23,2374.15,\"red\",30\n33,617.28,\"red\",30\n10,712.25,\"red\",30\n21,712.25,\"red\",30\n37,226.27,\"red\",30\n2,244.44,\"red\",30\n39,645.77,\"red\",30\n7,284.9,\"red\",30\n6,379.87,\"red\",30\n34,474.83,\"red\",30\n15,498.58,\"red\",30\n26,474.83,\"red\",30\n9,712.25,\"red\",30\n36,664.77,\"red\",30\n33,569.8,\"red\",30\n47,99.72,\"red\",30\n21,586.42,\"red\",30\n38,712.25,\"red\",30\n7,474.83,\"red\",30\n5,363.25,\"red\",30\n18,593.54,\"red\",30\n34,1346.15,\"red\",30\n17,712.25,\"red\",30\n-1,142.45,\"red\",30\n11,415.48,\"red\",30\n52,400.26,\"red\",30\n5,522.32,\"red\",30\n2,284.9,\"red\",30\n4,569.8,\"red\",30\n17,569.8,\"red\",30\n9,165.43,\"red\",30\n0,246.91,\"red\",30\n17,166.19,\"red\",30\n13,514.4,\"red\",30\n33,391.74,\"red\",30\n29,965.5,\"red\",30\n-1,688.51,\"red\",30\n5,167.76,\"red\",30\n37,246.91,\"red\",30\n10,471.88,\"red\",30\n14,474.83,\"red\",30\n28,665.95,\"red\",30\n32,356.13,\"red\",30\n40,902.18,\"red\",30\n5,356.13,\"red\",30\n14,396.49,\"red\",30\n42,237.04,\"red\",30\n12,513.46,\"red\",30\n-1,81.93,\"red\",30\n16,1020.89,\"red\",30\n4,409.77,\"red\",30\n28,617.28,\"red\",30\n3,546.06,\"red\",30\n8,404.28,\"red\",30\n9,516.55,\"red\",30\n25,830.96,\"red\",30\n5,403.61,\"red\",30\n22,456.25,\"red\",30\n45,617.28,\"red\",30\n29,284.9,\"red\",30\n25,189.93,\"red\",30\n23,664.77,\"red\",30\n-1,200,\"red\",30\n25,355.13,\"red\",30\n22,617.28,\"red\",30\n13,759.73,\"red\",30\n18,1234.57,\"red\",30\n11,830.96,\"red\",30\n22,1305.79,\"red\",30\n23,641.98,\"red\",30\n19,498.58,\"red\",30\n5,233.2,\"red\",30\n20,679.01,\"red\",30\n38,332.38,\"red\",30\n27,878.44,\"red\",30\n27,664.77,\"red\",30\n27,593.54,\"red\",30\n9,629.15,\"red\",30\n11,237.42,\"red\",30\n13,1163.34,\"red\",30\n1,106.84,\"red\",30\n35,403.61,\"red\",30\n8,664.77,\"red\",30\n17,617.28,\"red\",30\n35,554.04,\"red\",30\n38,593.54,\"red\",30\n12,403.61,\"red\",30\n14,1234.57,\"red\",30\n18,1092.12,\"red\",30\n33,2374.15,\"red\",30\n10,593.54,\"red\",30\n14,512.46,\"red\",30\n7,411.52,\"red\",30\n14,584.05,\"red\",30\n17,403.61,\"red\",30\n48,237.42,\"red\",30\n15,949.67,\"red\",30\n3,177.78,\"red\",30\n24,284.9,\"red\",30\n9,204.18,\"red\",30\n15,809.59,\"red\",30\n42,394.11,\"red\",30\n22,569.8,\"red\",30\n8,403.61,\"red\",30\n4,216.76,\"red\",30\n9,287.16,\"red\",30\n11,676.64,\"red\",30\n25,1187.08,\"red\",30\n19,265.91,\"red\",30\n38,902.18,\"red\",30\n48,641.03,\"red\",30\n9,830.96,\"red\",30\n26,617.28,\"red\",30\n39,830.96,\"red\",30\n20,997.15,\"red\",30\n0,96.19,\"red\",30\n6,491.45,\"red\",30\n6,234.31,\"red\",30\n10,249.29,\"red\",30\n40,1056.51,\"red\",30\n10,735.99,\"red\",30\n7,830.96,\"red\",30\n52,77.78,\"red\",30\n24,1410.93,\"red\",30\n8,1543.21,\"red\",30\n14,676.64,\"red\",30\n42,498.58,\"red\",30\n21,484.14,\"red\",30\n21,1329.53,\"red\",30\n13,957.38,\"red\",30\n11,379.87,\"red\",30\n10,282.92,\"red\",30\n6,261.16,\"red\",30\n13,903.37,\"red\",30\n47,308.64,\"red\",30\n14,949.67,\"red\",30\n10,474.83,\"red\",30\n17,807.22,\"red\",30\n24,142.45,\"red\",30\n11,364.2,\"red\",30\n47,94.97,\"red\",30\n7,474.83,\"red\",30\n0,130.58,\"red\",30\n29,237.42,\"red\",30\n55,83.1,\"red\",30\n43,154.32,\"red\",30\n23,1780.63,\"red\",30\n31,473.87,\"red\",30\n0,52.23,\"red\",30\n39,1239.17,\"red\",30\n43,446.13,\"red\",30\n28,1175.78,\"red\",30\n33,919.36,\"red\",30\n0,66.14,\"red\",30\n23,1187.08,\"red\",30\n19,569.8,\"red\",30\n15,484.33,\"red\",30\n10,246.91,\"red\",30\n15,783.48,\"red\",30\n19,427.35,\"red\",30\n22,569.8,\"red\",30\n10,724.12,\"red\",30\n16,522.32,\"red\",30\n13,59.35,\"red\",30\n31,461.4,\"red\",30\n25,1092.12,\"red\",30\n15,284.9,\"red\",30\n2,356.13,\"red\",30\n9,830.96,\"red\",30\n4,712.25,\"red\",30\n18,474.83,\"red\",30\n3,308.64,\"red\",30\n9,308.64,\"red\",30\n8,569.8,\"red\",30\n43,569.8,\"red\",30\n7,1899.34,\"red\",30\n24,1566.95,\"red\",30\n37,67.34,\"red\",30\n26,498.48,\"red\",30\n10,296.3,\"red\",30\n8,92.59,\"red\",30\n3,284.9,\"red\",30\n3,300.66,\"red\",30\n7,448.72,\"red\",30\n21,754.75,\"red\",30\n23,1020.89,\"red\",30\n15,830.96,\"red\",30\n27,129.07,\"red\",30\n20,451.09,\"red\",30\n19,498.58,\"red\",30\n0,143.87,\"red\",30\n26,1424.5,\"red\",30\n5,593.54,\"red\",30\n14,641.03,\"red\",30\n18,5144.03,\"red\",30\n7,1068.38,\"red\",30\n39,830.96,\"red\",30\n1,232,\"red\",30\n12,697.7,\"red\",30\n27,252.53,\"red\",30\n28,277.78,\"red\",30\n12,546.06,\"red\",30\n38,740.74,\"red\",30\n44,795.35,\"red\",30\n26,401.23,\"red\",30\n7,602.23,\"red\",30\n11,543.21,\"red\",30\n16,522.32,\"red\",30\n28,681.43,\"red\",30\n29,749.03,\"red\",30\n10,830.96,\"red\",30\n22,424.79,\"red\",30\n12,613.3,\"red\",30\n32,427.35,\"red\",30\n9,421.56,\"red\",30\n11,759.73,\"red\",30\n1,79.37,\"red\",30\n4,198.05,\"red\",30\n18,569.8,\"red\",30\n11,458.55,\"red\",30\n41,449.64,\"red\",30\n25,472.59,\"red\",30\n10,629.15,\"red\",30\n8,641.03,\"red\",30\n3,181.62,\"red\",30\n19,759.73,\"red\",30\n19,874.49,\"red\",30\n10,617.28,\"red\",30\n3,508.07,\"red\",30\n42,395.06,\"red\",30\n10,228.3,\"red\",30\n14,536.77,\"red\",30\n5,474.83,\"red\",30\n7,830.96,\"red\",30\n11,403.61,\"red\",30\n42,902.18,\"red\",30\n29,1334.67,\"red\",30\n7,498.58,\"red\",30\n47,498.58,\"red\",30\n28,427.35,\"red\",30\n53,94.97,\"red\",30\n42,1266.22,\"red\",30\n25,1004.53,\"red\",30\n21,627.36,\"red\",30\n34,384.62,\"red\",30\n12,238.37,\"red\",30\n39,427.35,\"red\",30\n9,688.51,\"red\",30\n17,296.77,\"red\",30\n29,498.58,\"red\",30\n9,474.83,\"red\",30\n9,427.35,\"red\",30\n15,617.28,\"red\",30\n8,403.61,\"red\",30\n1,59.35,\"red\",30\n24,1234.57,\"red\",30\n24,676.64,\"red\",30\n21,937.32,\"red\",30\n9,338.32,\"red\",30\n10,2374.15,\"red\",30\n8,641.03,\"red\",30\n9,377.93,\"red\",30\n35,308.64,\"red\",30\n47,275.12,\"red\",30\n47,393.95,\"red\",30\n0,205.76,\"red\",30\n31,356.13,\"red\",30\n16,472.46,\"red\",30\n2,394.33,\"red\",30\n12,328.22,\"red\",30\n6,388.62,\"red\",30\n5,427.35,\"red\",30\n2,137.17,\"red\",30\n4,356.13,\"red\",30\n33,61.73,\"red\",30\n16,1068.38,\"red\",30\n4,261.16,\"red\",30\n26,466.62,\"red\",30\n36,427.35,\"red\",30\n6,593.54,\"red\",30\n47,807.22,\"red\",30\n27,925.93,\"red\",30\n25,759.73,\"red\",30\n22,211.64,\"red\",30\n35,86.42,\"red\",30\n-1,123.46,\"red\",30\n6,462.96,\"red\",30\n19,142.45,\"red\",30\n31,783.48,\"red\",30\n2,634.43,\"red\",30\n8,148.15,\"red\",30\n20,296.3,\"red\",30\n1,169.55,\"red\",30\n7,2374.15,\"red\",30\n26,439.22,\"red\",30\n0,200.62,\"red\",30\n0,284.9,\"red\",30\n0,166.19,\"red\",30\n30,332.38,\"red\",30\n11,712.25,\"red\",30\n29,712.25,\"red\",30\n19,593.54,\"red\",30\n19,735.99,\"red\",30\n54,332.38,\"red\",30\n7,403.61,\"red\",30\n13,356.13,\"red\",30\n40,759.73,\"red\",30\n10,394.11,\"red\",30\n22,467.71,\"red\",30\n6,669.52,\"red\",30\n-1,617.28,\"red\",30\n26,925.93,\"red\",30\n32,641.03,\"red\",30\n9,735.99,\"red\",30\n6,220.16,\"red\",30\n23,985.28,\"red\",30\n37,1068.38,\"red\",30\n10,546.06,\"red\",30\n1,189.93,\"red\",30\n12,1139.6,\"red\",30\n7,664.77,\"red\",30\n18,1120.09,\"red\",30\n5,308.64,\"red\",30\n12,759.73,\"red\",30\n0,74.07,\"red\",30\n33,474.83,\"red\",30\n16,427.35,\"red\",30\n29,1424.5,\"red\",30\n17,2362.44,\"red\",30\n9,641.03,\"red\",30\n6,254.51,\"red\",30\n44,503.91,\"red\",30\n10,407.17,\"red\",30\n4,522.32,\"red\",30\n10,356.13,\"red\",30\n19,1187.08,\"red\",30\n1,308.64,\"red\",30\n2,259.26,\"red\",30\n5,277.78,\"red\",30\n21,740.74,\"red\",30\n14,641.03,\"red\",30\n4,474.83,\"red\",30\n25,1139.6,\"red\",30\n5,437.24,\"red\",30\n7,191.36,\"red\",30\n32,712.25,\"red\",30\n11,105.62,\"red\",30\n21,705.13,\"red\",30\n30,1137.1,\"red\",30\n4,747.86,\"red\",30\n11,284.9,\"red\",30\n43,830.96,\"red\",30\n18,493.83,\"red\",30\n8,474.83,\"red\",30\n-1,271.6,\"red\",30\n0,569.8,\"red\",30\n26,439.22,\"red\",30\n17,641.03,\"red\",30\n1,197.53,\"red\",30\n3,166.19,\"red\",30\n32,1234.57,\"red\",30\n47,617.28,\"red\",30\n19,612.54,\"red\",30\n33,940.74,\"red\",30\n13,2374.15,\"red\",30\n11,154.32,\"red\",30\n16,1115.86,\"red\",30\n7,475.02,\"red\",30\n26,1234.57,\"red\",30\n15,2207.98,\"red\",30\n0,237.42,\"red\",30\n2,189.93,\"red\",30\n-1,246.91,\"red\",30\n7,380.62,\"red\",30\n6,546.06,\"red\",30\n18,807.22,\"red\",30\n7,830.96,\"red\",30\n20,315.76,\"red\",30\n38,617.28,\"red\",30\n38,237.42,\"red\",30\n19,641.03,\"red\",30\n16,324.79,\"red\",30\n5,524.69,\"red\",30\n13,878.44,\"red\",30\n13,1068.38,\"red\",30\n23,636.28,\"red\",30\n41,296.3,\"red\",30\n52,98.77,\"red\",30\n21,1092.12,\"red\",30\n34,73.6,\"red\",30\n17,246.91,\"red\",30\n25,197.17,\"red\",30\n13,593.54,\"red\",30\n11,522.32,\"red\",30\n26,788.75,\"red\",30\n46,522.32,\"red\",30\n17,522.32,\"red\",30\n16,284.9,\"red\",30\n9,284.9,\"red\",30\n30,641.03,\"red\",30\n20,416.84,\"red\",30\n-1,71.23,\"red\",30\n1,617.28,\"red\",30\n13,415.48,\"red\",30\n13,1305.79,\"red\",30\n18,617.28,\"red\",30\n20,308.64,\"red\",30\n47,617.28,\"red\",30\n51,284.9,\"red\",30\n5,327.52,\"red\",30\n37,688.51,\"red\",30\n25,1020.89,\"red\",30\n23,593.54,\"red\",30\n25,341.88,\"red\",30\n7,474.83,\"red\",30\n12,902.18,\"red\",30\n12,902.18,\"red\",30\n8,617.28,\"red\",30\n17,728.87,\"red\",30\n0,144.44,\"red\",30\n5,676.64,\"red\",30\n11,391.74,\"red\",30\n25,1282.05,\"red\",30\n37,427.35,\"red\",30\n29,906.93,\"red\",30\n9,712.25,\"red\",30\n11,1661.92,\"red\",30\n8,104.46,\"red\",30\n14,759.73,\"red\",30\n14,427.35,\"red\",30\n31,779.73,\"red\",30\n11,764.48,\"red\",30\n44,190.8,\"red\",30\n31,308.64,\"red\",30\n42,540.12,\"red\",30\n3,617.28,\"red\",30\n34,919.36,\"red\",30\n53,451.09,\"red\",30\n3,254.04,\"red\",30\n42,712.25,\"red\",30\n8,569.8,\"red\",30\n11,768.18,\"red\",30\n24,1055.89,\"red\",30\n24,854.7,\"red\",30\n11,420.88,\"red\",30\n7,664.77,\"red\",30\n7,237.42,\"red\",30\n10,735.99,\"red\",30\n38,735.99,\"red\",30\n43,830.96,\"red\",30\n27,759.73,\"red\",30\n17,370.37,\"red\",30\n25,403.61,\"red\",30\n2,118.71,\"red\",30\n14,1187.08,\"red\",30\n30,569.8,\"red\",30\n42,720.94,\"red\",30\n4,384.62,\"red\",30\n39,807.22,\"red\",30\n1,123.46,\"red\",30\n26,760.45,\"red\",30\n2,109.21,\"red\",30\n0,100.78,\"red\",30\n48,288.07,\"red\",30\n13,878.44,\"red\",30\n4,266.67,\"red\",30\n28,183.39,\"red\",30\n19,284.9,\"red\",30\n5,320.51,\"red\",30\n40,522.32,\"red\",30\n10,216.05,\"red\",30\n12,232.67,\"red\",30\n25,414.01,\"red\",30\n26,664.77,\"red\",30\n11,717,\"red\",30\n19,493.83,\"red\",30\n-1,189.93,\"red\",30\n43,411.52,\"red\",30\n0,427.98,\"red\",30\n39,652.9,\"red\",30\n39,368,\"red\",30\n17,1187.08,\"red\",30\n2,379.87,\"red\",30\n7,225.13,\"red\",30\n1,641.03,\"red\",30\n8,284.9,\"red\",30\n4,717.77,\"red\",30\n0,154.32,\"red\",30\n30,641.03,\"red\",30\n4,199.43,\"red\",30\n14,555.56,\"red\",30\n15,240.55,\"red\",30\n28,205.76,\"red\",30\n7,203.75,\"red\",30\n9,522.32,\"red\",30\n30,797.65,\"red\",30\n24,569.8,\"red\",30\n15,498.58,\"red\",30\n19,1742.92,\"red\",30\n28,237.42,\"red\",30\n11,403.61,\"red\",30\n9,63.24,\"red\",30\n2,249.29,\"red\",30\n5,399.42,\"red\",30\n16,142.45,\"red\",30\n-2,128.6,\"red\",30\n32,154.32,\"red\",30\n24,1187.08,\"red\",30\n14,284.9,\"red\",30\n49,79.77,\"red\",30\n9,944.92,\"red\",30\n10,498.46,\"red\",30\n3,830.96,\"red\",30\n13,427.35,\"red\",30\n19,1092.12,\"red\",30\n6,287.11,\"red\",30\n52,1041.98,\"red\",30\n0,92.59,\"red\",30\n57,286.42,\"red\",30\n14,197.53,\"red\",30\n23,830.96,\"red\",30\n33,925.93,\"red\",30\n10,94.97,\"red\",30\n2,160.49,\"red\",30\n6,343.36,\"red\",30\n6,253.24,\"red\",30\n41,367.9,\"red\",30\n15,1068.38,\"red\",30\n20,593.54,\"red\",30\n10,213.68,\"red\",30\n42,1044.63,\"red\",30\n2,284.9,\"red\",30\n11,65.65,\"red\",30\n1,280.58,\"red\",30\n6,50.39,\"red\",30\n21,712.25,\"red\",30\n13,498.58,\"red\",30\n10,296.3,\"red\",30\n31,712.25,\"red\",30\n0,216.05,\"red\",30\n45,1150.39,\"red\",30\n41,593.54,\"red\",30\n15,237.42,\"red\",30\n37,997.15,\"red\",30\n1,68.59,\"red\",30\n1,261.16,\"red\",30\n25,166.19,\"red\",30\n43,498.58,\"red\",30\n0,77.16,\"red\",30\n35,301.52,\"red\",30\n13,569.8,\"red\",30\n25,474.83,\"red\",30\n18,536.56,\"red\",30\n12,427.35,\"red\",30\n1,192.04,\"red\",30\n21,1780.63,\"red\",30\n21,256.79,\"red\",30\n16,356.13,\"red\",30\n11,246.91,\"red\",30\n38,1251.89,\"red\",30\n19,1187.08,\"red\",30\n24,488.19,\"red\",30\n36,1543.21,\"red\",30\n2,148.15,\"red\",30\n25,84.28,\"red\",30\n50,284.9,\"red\",30\n23,589.21,\"red\",30\n31,730.58,\"red\",30\n17,1661.92,\"red\",30\n23,1032.76,\"red\",30\n16,1139.6,\"red\",30\n27,795.35,\"red\",30\n19,2374.15,\"red\",30\n3,427.35,\"red\",30\n4,666.67,\"red\",30\n7,308.64,\"red\",30\n40,493.83,\"red\",30\n36,104.3,\"red\",30\n9,949.67,\"red\",30\n40,591.93,\"red\",30\n14,444.44,\"red\",30\n33,759.73,\"red\",30\n12,237.42,\"red\",30\n1,356.13,\"red\",30\n17,949.67,\"red\",30\n18,474.83,\"red\",30\n12,567.71,\"red\",30\n16,546.06,\"red\",30\n-1,152.51,\"red\",30\n13,740.74,\"red\",30\n23,1899.34,\"red\",30\n4,246.91,\"red\",30\n11,543.54,\"red\",30\n35,1044.63,\"red\",30\n12,370.37,\"red\",30\n12,338.9,\"red\",30\n3,83.1,\"red\",30\n16,735.99,\"red\",30\n2,112.35,\"red\",30\n33,1474.03,\"red\",30\n1,220.46,\"red\",30\n24,759.73,\"red\",30\n5,67.02,\"red\",30\n26,949.67,\"red\",30\n30,356.13,\"red\",30\n16,1020.89,\"red\",30\n7,404.04,\"red\",30\n7,126.61,\"red\",30\n19,832.62,\"red\",30\n45,617.28,\"red\",30\n12,712.25,\"red\",30\n16,712.25,\"red\",30\n1,92.59,\"red\",30\n23,973.41,\"red\",30\n25,432.1,\"red\",30\n5,987.65,\"red\",30\n14,177.78,\"red\",30\n23,617.28,\"red\",30\n33,237.42,\"red\",30\n8,493.83,\"red\",30\n7,284.9,\"red\",30\n12,451.09,\"red\",30\n46,349.79,\"red\",30\n9,353.21,\"red\",30\n22,1780.63,\"red\",30\n7,498.58,\"red\",30\n37,664.77,\"red\",30\n10,237.42,\"red\",30\n32,1187.08,\"red\",30\n35,284.9,\"red\",30\n18,474.83,\"red\",30\n39,783.48,\"red\",30\n11,629.15,\"red\",30\n1,213.99,\"red\",30\n8,389.08,\"red\",30\n13,284.59,\"red\",30\n16,503.21,\"red\",30\n33,1187.08,\"red\",30\n50,142.45,\"red\",30\n25,949.67,\"red\",30\n2,333.57,\"red\",30\n6,251.4,\"red\",30\n12,189.93,\"red\",30\n17,493.83,\"red\",30\n17,830.96,\"red\",30\n5,959.88,\"red\",30\n3,807.22,\"red\",30\n13,759.73,\"red\",30\n23,474.83,\"red\",30\n29,1020.89,\"red\",30\n2,498.58,\"red\",30\n9,356.13,\"red\",30\n-1,61.73,\"red\",30\n20,160.18,\"red\",30\n3,493.83,\"red\",30\n45,1305.79,\"red\",30\n32,830.96,\"red\",30\n14,527.07,\"red\",30\n11,220.8,\"red\",30\n27,712.25,\"red\",30\n22,955.79,\"red\",30\n7,686.04,\"red\",30\n20,688.51,\"red\",30\n26,436.85,\"red\",30\n9,664.77,\"red\",30\n5,1780.63,\"red\",30\n5,356.13,\"red\",30\n6,664.77,\"red\",30\n19,569.8,\"red\",30\n11,391.74,\"red\",30\n8,284.9,\"red\",30\n28,71.23,\"red\",30\n11,1139.6,\"red\",30\n16,194.44,\"red\",30\n25,522.32,\"red\",30\n5,451.09,\"red\",30\n5,293.4,\"red\",30\n4,237.42,\"red\",30\n12,617.28,\"red\",30\n42,563.77,\"red\",30\n5,522.32,\"red\",30\n13,581.67,\"red\",30\n28,546.06,\"red\",30\n37,593.54,\"red\",30\n45,522.32,\"red\",30\n15,1234.57,\"red\",30\n38,130.41,\"red\",30\n34,1139.6,\"red\",30\n27,284.9,\"red\",30\n12,735.99,\"red\",30\n12,356.13,\"red\",30\n44,985.28,\"red\",30\n30,790.36,\"red\",30\n34,830.96,\"red\",30\n9,356.13,\"red\",30\n24,372.84,\"red\",30\n10,403.61,\"red\",30\n0,227.02,\"red\",30\n0,108.02,\"red\",30\n0,284.9,\"red\",30\n54,356.13,\"red\",30\n13,403.61,\"red\",30\n10,911.68,\"red\",30\n8,617.28,\"red\",30\n21,1384.57,\"red\",30\n19,593.54,\"red\",30\n13,712.25,\"red\",30\n12,460.39,\"red\",30\n7,546.06,\"red\",30\n6,688.51,\"red\",30\n18,1187.08,\"red\",30\n22,345.68,\"red\",30\n49,123.46,\"red\",30\n16,709.88,\"red\",30\n15,382.19,\"red\",30\n32,641.03,\"red\",30\n25,256.41,\"red\",30\n8,442.83,\"red\",30\n51,213.68,\"red\",30\n18,166.19,\"red\",30\n28,237.42,\"red\",30\n14,415.48,\"red\",30\n22,415.48,\"red\",30\n5,1092.12,\"red\",30\n-1,109.19,\"red\",30\n13,347.79,\"red\",30\n15,403.61,\"red\",30\n43,451.09,\"red\",30\n31,712.25,\"red\",30\n13,1377.02,\"red\",30\n31,293.21,\"red\",30\n39,427.35,\"red\",30\n10,3283.95,\"red\",30\n10,304.8,\"red\",30\n14,451.09,\"red\",30\n21,380.34,\"red\",30\n17,2374.15,\"red\",30\n59,7716.05,\"red\",30\n29,830.96,\"red\",30\n42,123.46,\"red\",30\n36,1899.34,\"red\",30\n35,833.74,\"red\",30\n7,370.37,\"red\",30\n-2,74.51,\"red\",30\n26,830.96,\"red\",30\n15,199.43,\"red\",30\n10,324.38,\"red\",30\n5,408.36,\"red\",30\n13,810.47,\"red\",30\n8,237.42,\"red\",30\n31,733.88,\"red\",30\n5,185.19,\"red\",30\n13,237.42,\"red\",30\n7,118.64,\"red\",30\n9,308.64,\"red\",30\n21,1899.34,\"red\",30\n18,1056.51,\"red\",30\n0,197.22,\"red\",30\n4,261.16,\"red\",30\n12,664.77,\"red\",30\n13,73.6,\"red\",30\n8,688.51,\"red\",30\n19,284.9,\"red\",30\n10,213.68,\"red\",30\n27,593.54,\"red\",30\n8,515.62,\"red\",30\n6,474.83,\"red\",30\n14,741.41,\"red\",30\n20,712.25,\"red\",30\n10,592.59,\"red\",30\n12,427.35,\"red\",30\n13,185.19,\"red\",30\n26,712.25,\"red\",30\n14,392.82,\"red\",30\n2,182.72,\"red\",30\n27,1333.33,\"red\",30\n10,165.43,\"red\",30\n8,308.64,\"red\",30\n17,735.99,\"red\",30\n39,830.96,\"red\",30\n31,712.25,\"red\",30\n1,106.84,\"red\",30\n41,256.17,\"red\",30\n33,997.15,\"red\",30\n27,225.55,\"red\",30\n15,1068.38,\"red\",30\n4,691.36,\"red\",30\n8,426.16,\"red\",30\n32,664.77,\"red\",30\n15,617.28,\"red\",30\n22,767.08,\"red\",30\n8,474.83,\"red\",30\n15,712.25,\"red\",30\n16,709.88,\"red\",30\n22,356.05,\"red\",30\n4,82.3,\"red\",30\n7,237.42,\"red\",30\n43,949.67,\"red\",30\n0,493.83,\"red\",30\n17,735.99,\"red\",30\n28,973.41,\"red\",30\n4,498.58,\"red\",30\n48,308.64,\"red\",30\n28,961.54,\"red\",30\n13,462.96,\"red\",30\n10,830.96,\"red\",30\n27,1115.86,\"red\",30\n48,393.4,\"red\",30\n0,465.8,\"red\",30\n6,261.16,\"red\",30\n9,416.67,\"red\",30\n45,892.92,\"red\",30\n43,757.36,\"red\",30\n4,118.71,\"red\",30\n55,171.47,\"red\",30\n25,213.27,\"red\",30\n43,973.41,\"red\",30\n12,453.51,\"red\",30\n30,771.6,\"red\",30\n27,1092.12,\"red\",30\n2,661.38,\"red\",30\n22,626.52,\"red\",30\n36,1139.28,\"red\",30\n9,432.1,\"red\",30\n23,890.31,\"red\",30\n5,284.9,\"red\",30\n19,1424.5,\"red\",30\n12,2374.15,\"red\",30\n15,830.96,\"red\",30\n26,569.8,\"red\",30\n17,807.22,\"red\",30\n4,356.13,\"red\",30\n45,712.25,\"red\",30\n32,296.77,\"red\",30\n6,617.28,\"red\",30\n8,361.34,\"red\",30\n45,759.73,\"red\",30\n6,1020.89,\"red\",30\n1,233.99,\"red\",30\n26,973.41,\"red\",30\n9,1139.6,\"red\",30\n27,1471.98,\"red\",30\n2,96.23,\"red\",30\n25,2207.98,\"red\",30\n16,712.25,\"red\",30\n12,379.87,\"red\",30\n40,617.28,\"red\",30\n9,664.77,\"red\",30\n4,290.49,\"red\",30\n12,593.54,\"red\",30\n13,1103.99,\"red\",30\n8,933.71,\"red\",30\n40,593.54,\"red\",30\n42,303.7,\"red\",30\n5,364.67,\"red\",30\n22,215.06,\"red\",30\n9,979.6,\"red\",30\n15,878.44,\"red\",30\n13,664.77,\"red\",30\n7,949.67,\"red\",30\n31,498.58,\"red\",30\n28,949.67,\"red\",30\n22,189.93,\"red\",30\n26,783.48,\"red\",30\n20,902.18,\"red\",30\n21,486.7,\"red\",30\n42,759.73,\"red\",30\n12,899.81,\"red\",30\n5,546.06,\"red\",30\n7,1139.6,\"red\",30\n7,96.3,\"red\",30\n15,712.25,\"red\",30\n27,1424.5,\"red\",30\n19,731.24,\"red\",30\n22,366.26,\"red\",30\n4,123.46,\"red\",30\n26,1068.38,\"red\",30\n27,1689.22,\"red\",30\n43,997.15,\"red\",30\n17,664.77,\"red\",30\n5,296.77,\"red\",30\n19,534.19,\"red\",30\n7,902.18,\"red\",30\n10,735.99,\"red\",30\n34,115.74,\"red\",30\n13,664.77,\"red\",30\n37,712.25,\"red\",30\n8,1187.08,\"red\",30\n3,189.93,\"red\",30\n8,783.48,\"red\",30\n29,1271.96,\"red\",30\n39,434.16,\"red\",30\n11,227.92,\"red\",30\n37,189.93,\"red\",30\n39,474.83,\"red\",30\n13,854.7,\"red\",30\n4,332.38,\"red\",30\n24,712.25,\"red\",30\n4,308.64,\"red\",30\n19,569.8,\"red\",30\n13,261.16,\"red\",30\n42,675.93,\"red\",30\n2,546.06,\"red\",30\n6,320.99,\"red\",30\n18,712.25,\"red\",30\n44,522.32,\"red\",30\n16,869.81,\"red\",30\n46,623.77,\"red\",30\n7,237.42,\"red\",30\n55,605.53,\"red\",30\n47,102.88,\"red\",30\n11,800.74,\"red\",30\n7,385.19,\"red\",30\n3,735.99,\"red\",30\n9,783.48,\"red\",30\n16,688.51,\"red\",30\n23,370.37,\"red\",30\n7,370.37,\"red\",30\n33,493.83,\"red\",30\n17,259.26,\"red\",30\n6,411.52,\"red\",30\n52,161.12,\"red\",30\n30,712.25,\"red\",30\n12,432.31,\"red\",30\n6,427.35,\"red\",30\n12,902.18,\"red\",30\n30,356.13,\"red\",30\n8,261.16,\"red\",30\n5,474.83,\"red\",30\n6,664.77,\"red\",30\n14,750.42,\"red\",30\n18,1187.08,\"red\",30\n9,569.8,\"red\",30\n35,973.41,\"red\",30\n30,1495.73,\"red\",30\n8,819.09,\"red\",30\n14,902.18,\"red\",30\n11,118.71,\"red\",30\n7,588.21,\"red\",30\n32,231.48,\"red\",30\n4,830.96,\"red\",30\n22,515.19,\"red\",30\n13,759.73,\"red\",30\n19,510.45,\"red\",30\n33,759.73,\"red\",30\n0,54.01,\"red\",30\n11,148.15,\"red\",30\n0,102.88,\"red\",30\n0,86.13,\"red\",30\n9,498.58,\"red\",30\n32,664.77,\"red\",30\n20,679.01,\"red\",30\n9,274.35,\"red\",30\n38,1068.38,\"red\",30\n16,459.94,\"red\",30\n30,356.13,\"red\",30\n19,1424.5,\"red\",30\n27,949.67,\"red\",30\n8,455.65,\"red\",30\n0,85.66,\"red\",30\n-1,329.22,\"red\",30\n10,1329.53,\"red\",30\n30,2374.15,\"red\",30\n7,522.32,\"red\",30\n43,949.67,\"red\",30\n30,958.62,\"red\",30\n52,66.48,\"red\",30\n6,1266.22,\"red\",30\n43,123.46,\"red\",30\n20,759.73,\"red\",30\n35,356.13,\"red\",30\n23,854.7,\"red\",30\n29,688.51,\"red\",30\n1,53.83,\"red\",30\n7,333.33,\"red\",30\n23,1068.38,\"red\",30\n29,752.54,\"red\",30\n19,1056.51,\"red\",30\n14,522.32,\"red\",30\n-1,148.15,\"red\",30\n4,1132.48,\"red\",30\n21,1210.83,\"red\",30\n2,284.9,\"red\",30\n0,142.45,\"red\",30\n35,740.74,\"red\",30\n38,324.89,\"red\",30\n9,740.74,\"red\",30\n1,252.06,\"red\",30\n8,875.69,\"red\",30\n5,119.9,\"red\",30\n17,621.31,\"red\",30\n5,91.62,\"red\",30\n7,498.58,\"red\",30\n33,783.48,\"red\",30\n27,2057.61,\"red\",30\n20,759.73,\"red\",30\n1,274.35,\"red\",30\n19,2374.15,\"red\",30\n5,451.09,\"red\",30\n12,740.74,\"red\",30\n23,929.84,\"red\",30\n10,347.22,\"red\",30\n20,498.58,\"red\",30\n24,352.73,\"red\",30\n7,1448.24,\"red\",30\n32,451.09,\"red\",30\n43,525.43,\"red\",30\n11,213.68,\"red\",30\n1,64.98,\"red\",30\n28,689.96,\"red\",30\n10,498.58,\"red\",30\n12,189.93,\"red\",30\n5,58.1,\"red\",30\n9,474.83,\"red\",30\n3,249.85,\"red\",30\n1,253.24,\"red\",30\n13,976.97,\"red\",30\n-1,51.44,\"red\",30\n13,949.67,\"red\",30\n11,818.11,\"red\",30\n-1,157.02,\"red\",30\n6,712.25,\"red\",30\n28,420.88,\"red\",30\n43,528.37,\"red\",30\n1,320.99,\"red\",30\n2,92.59,\"red\",30\n18,125.85,\"red\",30\n14,451.09,\"red\",30\n2,284.9,\"red\",30\n16,2374.15,\"red\",30\n3,205.76,\"red\",30\n10,284.9,\"red\",30\n45,530.06,\"red\",30\n16,370.37,\"red\",30\n29,1975.31,\"red\",30\n17,1899.34,\"red\",30\n10,1020.89,\"red\",30\n20,830.96,\"red\",30\n7,474.83,\"red\",30\n40,765.43,\"red\",30\n5,370.37,\"red\",30\n6,590.08,\"red\",30\n24,1068.38,\"red\",30\n35,565.84,\"red\",30\n7,94.97,\"red\",30\n22,807.22,\"red\",30\n10,379.87,\"red\",30\n-1,2292.77,\"red\",30\n3,237.42,\"red\",30\n18,971.89,\"red\",30\n20,878.44,\"red\",30\n12,790.12,\"red\",30\n45,154.32,\"red\",30\n26,231.48,\"red\",30\n6,498.58,\"red\",30\n11,412.77,\"red\",30\n20,617.28,\"red\",30\n13,763.3,\"red\",30\n13,830.96,\"red\",30\n13,783.48,\"red\",30\n19,720.61,\"red\",30\n35,222.22,\"red\",30\n35,1424.5,\"red\",30\n24,688.51,\"red\",30\n7,641.03,\"red\",30\n10,592.59,\"red\",30\n11,527.07,\"red\",30\n24,1377.02,\"red\",30\n4,282.47,\"red\",30\n3,427.35,\"red\",30\n16,189.93,\"red\",30\n13,759.73,\"red\",30\n16,498.58,\"red\",30\n12,410.73,\"red\",30\n8,284.9,\"red\",30\n10,899.02,\"red\",30\n17,546.06,\"red\",30\n19,783.48,\"red\",30\n19,688.51,\"red\",30\n11,405.64,\"red\",30\n56,593.54,\"red\",30\n30,902.18,\"red\",30\n10,1519.47,\"red\",30\n45,123.46,\"red\",30\n37,759.73,\"red\",30\n13,379.87,\"red\",30\n47,166.19,\"red\",30\n31,830.96,\"red\",30\n9,246.91,\"red\",30\n39,411.52,\"red\",30\n22,759.73,\"red\",30\n22,396.79,\"red\",30\n2,166.19,\"red\",30\n11,406.33,\"red\",30\n12,379.87,\"red\",30\n19,997.15,\"red\",30\n3,207.74,\"red\",30\n2,130.58,\"red\",30\n17,1092.32,\"red\",30\n12,365.62,\"red\",30\n12,1187.08,\"red\",30\n17,1187.08,\"red\",30\n34,451.09,\"red\",30\n3,546.06,\"red\",30\n27,973.41,\"red\",30\n31,415.48,\"red\",30\n27,382.98,\"red\",30\n18,451.09,\"red\",30\n5,183.6,\"red\",30\n31,379.87,\"red\",30\n32,1377.02,\"red\",30\n28,77.16,\"red\",30\n16,680.27,\"red\",30\n22,2374.15,\"red\",30\n24,189.93,\"red\",30\n28,284.9,\"red\",30\n13,129.18,\"red\",30\n29,759.73,\"red\",30\n26,517.19,\"red\",30\n11,781.1,\"red\",30\n19,2393.55,\"red\",30\n26,2374.15,\"red\",30\n25,261.16,\"red\",30\n40,830.96,\"red\",30\n45,308.64,\"red\",30\n0,178.6,\"red\",30\n15,281.48,\"red\",30\n4,641.03,\"red\",30\n8,158.72,\"red\",30\n16,712.25,\"red\",30\n19,296.3,\"red\",30\n21,728.87,\"red\",30\n14,132.1,\"red\",30\n37,701.23,\"red\",30\n24,222.22,\"red\",30\n3,78.35,\"red\",30\n9,332.38,\"red\",30\n18,569.8,\"red\",30\n-1,130.58,\"red\",30\n47,891.47,\"red\",30\n15,735.99,\"red\",30\n48,427.35,\"red\",30\n10,245.63,\"red\",30\n43,90.22,\"red\",30\n39,546.06,\"red\",30\n11,356.13,\"red\",30\n13,385.09,\"red\",30\n17,474.83,\"red\",30\n38,1780.63,\"red\",30\n10,118.71,\"red\",30\n43,580.97,\"red\",30\n38,494.78,\"red\",30\n30,961.54,\"red\",30\n16,688.51,\"red\",30\n15,807.22,\"red\",30\n38,712.25,\"red\",30\n10,332.38,\"red\",30\n18,468.09,\"red\",30\n15,584,\"red\",30\n4,427.35,\"red\",30\n25,185.19,\"red\",30\n10,712.25,\"red\",30"
+    },
+    {
+      "name": "scale/x",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "domain": "number"
+        }
+      },
+      "values": "\"domain\"\n-5.05\n62.05"
+    },
+    {
+      "name": "scale/y",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "domain": "number"
+        }
+      },
+      "values": "\"domain\"\n-332.893\n8099.333"
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "domain": {
+        "data": "scale/x",
+        "field": "data.domain"
+      },
+      "zero": false,
+      "nice": false,
+      "clamp": false,
+      "range": "width"
+    },
+    {
+      "name": "y",
+      "domain": {
+        "data": "scale/y",
+        "field": "data.domain"
+      },
+      "zero": false,
+      "nice": false,
+      "clamp": false,
+      "range": "height"
+    }
+  ],
+  "marks": [
+    {
+      "type": "symbol",
+      "properties": {
+        "update": {
+          "x": {
+            "scale": "x",
+            "field": "data.exper"
+          },
+          "y": {
+            "scale": "y",
+            "field": "data.wage"
+          },
+          "fill": {
+            "field": "data.reactive_737581058"
+          },
+          "size": {
+            "field": "data.reactive_700202965"
+          }
+        },
+        "ggvis": {
+          "data": {
+            "value": ".0"
+          }
+        }
+      },
+      "from": {
+        "data": ".0"
+      }
+    }
+  ],
+  "legends": [],
+  "axes": [
+    {
+      "type": "x",
+      "scale": "x",
+      "orient": "bottom",
+      "title": "\n Years Of Experience",
+      "titleOffset": 50,
+      "layer": "back",
+      "grid": true
+    },
+    {
+      "type": "y",
+      "scale": "y",
+      "orient": "left",
+      "title": "Weekly Wage (US) \n",
+      "titleOffset": 50,
+      "layer": "back",
+      "grid": true
+    },
+    {
+      "type": "x",
+      "scale": "x",
+      "orient": "top",
+      "title": "Weekly Wages Of US Males In 1988 \n",
+      "ticks": 0,
+      "layer": "back",
+      "grid": true,
+      "properties": {
+        "labels": {
+          "fontSize": {
+            "value": 0
+          }
+        },
+        "axis": {
+          "stroke": {
+            "value": "white"
+          }
+        }
+      }
+    }
+  ],
+  "padding": null,
+  "ggvis_opts": {
+    "keep_aspect": false,
+    "resizable": true,
+    "padding": {},
+    "duration": 250,
+    "renderer": "svg",
+    "hover_duration": 0,
+    "width": 384,
+    "height": 384
+  },
+  "handlers": null
+};
+ggvis.getPlot("plot_id309383107").parseSpec(plot_id309383107_spec);
+</script>
+<p> </p>
+<p>The R code is not much different from the code for scatterplots earlier. What is new is adding the input_select and input_slider options to fill and size. The user can choose between the colours red, blue, green and black from the colour list. In the slider for size, the user can adjust the size of the points by dragging the slider left or right. Moving the slider to the right increases the size of the points while moving the slider to the left decreases the size of the points. I have set the initial size value at 30 as indicated by value = 30 in the code.</p>
+<p>(The screenshot image above shows the red points with a size of 30.)</p>
+<p> </p>
+<p><strong>Example Two</strong></p>
+<p>This second example features the star data from R’s faraway dataset library. I compare star temperature with light intensity.</p>
+<p> </p>
+<pre class="r"><code>## Second example:
+
+data(star)
+
+
+head(star) # Preview data</code></pre>
+<pre><code>##   index temp light
+## 1     1 4.37  5.23
+## 2     2 4.56  5.74
+## 3     3 4.26  4.93
+## 4     4 4.56  5.74
+## 5     5 4.30  5.19
+## 6     6 4.46  5.46</code></pre>
+<pre class="r"><code>star %&gt;% ggvis(x = ~temp, y = ~light) %&gt;%
+  layer_points(fill := input_select(c(&quot;red&quot;, &quot;darkgreen&quot;, &quot;black&quot;),
+                                    label = &quot;Colour&quot;),
+               size := input_slider(10, 80, value = 45, label = &quot;Size&quot;),
+               opacity := input_slider(0.2, 1, value = 0.6, label = &quot;Opacity&quot;)) %&gt;%
+  add_axis(&quot;x&quot;, title = &quot;\n Temperature&quot;, title_offset = 50) %&gt;%
+  add_axis(&quot;y&quot;, title = &quot;Light Intensity \n&quot;, title_offset = 50) %&gt;%
+  add_axis(&quot;x&quot;, orient = &quot;top&quot;, ticks = 0, 
+           title = &quot;Star Temperature Vs Light Intensity Scatterplot \n&quot;,
+           properties = axis_props(axis = list(stroke = &quot;white&quot;),
+                                   labels = list(fontSize = 0)))</code></pre>
+<pre><code>## Warning: Can&#39;t output dynamic/interactive ggvis plots in a knitr document.
+## Generating a static (non-dynamic, non-interactive) version of the plot.</code></pre>
+<div id="plot_id427746005-container" class="ggvis-output-container">
+<div id="plot_id427746005" class="ggvis-output"></div>
+<div class="plot-gear-icon">
+<nav class="ggvis-control">
+<a class="ggvis-dropdown-toggle" title="Controls" onclick="return false;"></a>
+<ul class="ggvis-dropdown">
+<li>
+Renderer: 
+<a id="plot_id427746005_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id427746005" data-renderer="svg">SVG</a>
+ | 
+<a id="plot_id427746005_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id427746005" data-renderer="canvas">Canvas</a>
+</li>
+<li>
+<a id="plot_id427746005_download" class="ggvis-download" data-plot-id="plot_id427746005">Download</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<script type="text/javascript">
+var plot_id427746005_spec = {
+  "data": [
+    {
+      "name": ".0",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "temp": "number",
+          "light": "number",
+          "reactive_570152019": "number",
+          "reactive_537791541": "number"
+        }
+      },
+      "values": "\"temp\",\"light\",\"reactive_384592671\",\"reactive_570152019\",\"reactive_537791541\"\n4.37,5.23,\"red\",45,0.6\n4.56,5.74,\"red\",45,0.6\n4.26,4.93,\"red\",45,0.6\n4.56,5.74,\"red\",45,0.6\n4.3,5.19,\"red\",45,0.6\n4.46,5.46,\"red\",45,0.6\n3.84,4.65,\"red\",45,0.6\n4.57,5.27,\"red\",45,0.6\n4.26,5.57,\"red\",45,0.6\n4.37,5.12,\"red\",45,0.6\n3.49,5.73,\"red\",45,0.6\n4.43,5.45,\"red\",45,0.6\n4.48,5.42,\"red\",45,0.6\n4.01,4.05,\"red\",45,0.6\n4.29,4.26,\"red\",45,0.6\n4.42,4.58,\"red\",45,0.6\n4.23,3.94,\"red\",45,0.6\n4.42,4.18,\"red\",45,0.6\n4.23,4.18,\"red\",45,0.6\n3.49,5.89,\"red\",45,0.6\n4.29,4.38,\"red\",45,0.6\n4.29,4.22,\"red\",45,0.6\n4.42,4.42,\"red\",45,0.6\n4.49,4.85,\"red\",45,0.6\n4.38,5.02,\"red\",45,0.6\n4.42,4.66,\"red\",45,0.6\n4.29,4.66,\"red\",45,0.6\n4.38,4.9,\"red\",45,0.6\n4.22,4.39,\"red\",45,0.6\n3.48,6.05,\"red\",45,0.6\n4.38,4.42,\"red\",45,0.6\n4.56,5.1,\"red\",45,0.6\n4.45,5.22,\"red\",45,0.6\n3.49,6.29,\"red\",45,0.6\n4.23,4.34,\"red\",45,0.6\n4.62,5.62,\"red\",45,0.6\n4.53,5.1,\"red\",45,0.6\n4.45,5.22,\"red\",45,0.6\n4.53,5.18,\"red\",45,0.6\n4.43,5.57,\"red\",45,0.6\n4.38,4.62,\"red\",45,0.6\n4.45,5.06,\"red\",45,0.6\n4.5,5.34,\"red\",45,0.6\n4.45,5.34,\"red\",45,0.6\n4.55,5.54,\"red\",45,0.6\n4.45,4.98,\"red\",45,0.6\n4.42,4.5,\"red\",45,0.6"
+    },
+    {
+      "name": "scale/x",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "domain": "number"
+        }
+      },
+      "values": "\"domain\"\n3.423\n4.677"
+    },
+    {
+      "name": "scale/y",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "domain": "number"
+        }
+      },
+      "values": "\"domain\"\n3.8225\n6.4075"
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "domain": {
+        "data": "scale/x",
+        "field": "data.domain"
+      },
+      "zero": false,
+      "nice": false,
+      "clamp": false,
+      "range": "width"
+    },
+    {
+      "name": "y",
+      "domain": {
+        "data": "scale/y",
+        "field": "data.domain"
+      },
+      "zero": false,
+      "nice": false,
+      "clamp": false,
+      "range": "height"
+    }
+  ],
+  "marks": [
+    {
+      "type": "symbol",
+      "properties": {
+        "update": {
+          "x": {
+            "scale": "x",
+            "field": "data.temp"
+          },
+          "y": {
+            "scale": "y",
+            "field": "data.light"
+          },
+          "fill": {
+            "field": "data.reactive_384592671"
+          },
+          "size": {
+            "field": "data.reactive_570152019"
+          },
+          "opacity": {
+            "field": "data.reactive_537791541"
+          }
+        },
+        "ggvis": {
+          "data": {
+            "value": ".0"
+          }
+        }
+      },
+      "from": {
+        "data": ".0"
+      }
+    }
+  ],
+  "legends": [],
+  "axes": [
+    {
+      "type": "x",
+      "scale": "x",
+      "orient": "bottom",
+      "title": "\n Temperature",
+      "titleOffset": 50,
+      "layer": "back",
+      "grid": true
+    },
+    {
+      "type": "y",
+      "scale": "y",
+      "orient": "left",
+      "title": "Light Intensity \n",
+      "titleOffset": 50,
+      "layer": "back",
+      "grid": true
+    },
+    {
+      "type": "x",
+      "scale": "x",
+      "orient": "top",
+      "title": "Star Temperature Vs Light Intensity Scatterplot \n",
+      "ticks": 0,
+      "layer": "back",
+      "grid": true,
+      "properties": {
+        "labels": {
+          "fontSize": {
+            "value": 0
+          }
+        },
+        "axis": {
+          "stroke": {
+            "value": "white"
+          }
+        }
+      }
+    }
+  ],
+  "padding": null,
+  "ggvis_opts": {
+    "keep_aspect": false,
+    "resizable": true,
+    "padding": {},
+    "duration": 250,
+    "renderer": "svg",
+    "hover_duration": 0,
+    "width": 384,
+    "height": 384
+  },
+  "handlers": null
+};
+ggvis.getPlot("plot_id427746005").parseSpec(plot_id427746005_spec);
+</script>
+<p> </p>
+<p>In this screenshot, I show the colour of the points as darkgreen, the size of the points as 45 and the opacity being 0.6. (Opacity is the measure of opaqueness or how shading you want in the points.)</p>
+<p>To include the opacity feature I add in:</p>
+<p> </p>
+<pre><code>opacity := input_slider(0.2, 1, value = 0.6, label = &quot;Opacity&quot;)</code></pre>
+<p> </p>
+<p><a name="refs"></a></p>
+</div>
+<div id="references" class="section level3">
+<h3><u>References</u></h3>
+<p> </p>
+<ul>
+<li><a href="http://ggvis.rstudio.com/ggvis-basics.html" class="uri">http://ggvis.rstudio.com/ggvis-basics.html</a></li>
+<li><a href="https://www.dezyre.com/data-science-in-r-programming-tutorial/ggvis" class="uri">https://www.dezyre.com/data-science-in-r-programming-tutorial/ggvis</a></li>
+<li><a href="http://ggvis.rstudio.com/cookbook.html" class="uri">http://ggvis.rstudio.com/cookbook.html</a></li>
+<li><a href="http://ggvis.rstudio.com/axes-legends.html" class="uri">http://ggvis.rstudio.com/axes-legends.html</a></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

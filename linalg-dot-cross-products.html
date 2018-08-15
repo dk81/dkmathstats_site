@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Relating Cross Products, Orthognal Vectors &amp; Dot Products</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Relating Cross Products, Orthognal Vectors &amp; Dot Products</h1>
+
+</div>
+
+
+<p> </p>
+<p>This post is about relating dot products and cross products in the mathematical field of linear algebra. We also look at orthogonal (perpendicular) vectors being related to dot products and to cross products.</p>
+<p> </p>
+<div id="prerequisites" class="section level3">
+<h3><u>Prerequisites</u></h3>
+<p>It is assumed that the reader is familiar with the linear algebra concepts of dot products, orthogonal vectors and cross products.</p>
+<p> </p>
+</div>
+<div id="table-of-contents" class="section level3">
+<h3><u>Table Of Contents</u></h3>
+<p> </p>
+<ul>
+<li>Review Of Cross Products and Dot Products</li>
+<li>Properties Of Cross Products &amp; Dot Products</li>
+<li>Example</li>
+<li>Practice Problems</li>
+<li>Hints To Practice Problems</li>
+<li>Reference</li>
+</ul>
+<p> </p>
+</div>
+<div id="review-of-cross-products-and-dot-products" class="section level3">
+<h3><u>Review Of Cross Products and Dot Products</u></h3>
+<p> </p>
+<p>Recall that the cross product of two vectors <span class="math inline">\(\textbf{u}\)</span> and <span class="math inline">\(\textbf{v}\)</span> is a third vector which is perpendicular to both vectors <span class="math inline">\(\textbf{u}\)</span> and <span class="math inline">\(\textbf{v}\)</span>. From dot products, we can show that two vectors are perpendicular to each other if the dot product of those vectors are zero (i.e. <span class="math inline">\(\textbf{u} \cdot \textbf{v} = 0\)</span>). Using these two ideas we can express the cross product <span class="math inline">\(\textbf{u} \times \textbf{v}\)</span> being perpendicular to both vectors <span class="math inline">\(\textbf{u}\)</span> and <span class="math inline">\(\textbf{v}\)</span> as:</p>
+<p> </p>
+<p><span class="math display">\[\textbf{u} \cdot (\textbf{u} \times \textbf{v}) = 0 \text { and } \textbf{v} \cdot (\textbf{u} \times \textbf{v}) = 0 \]</span>  </p>
+<p>Source: <a href="http://www.phatcode.net/res/214/images/orthogonal_i.png" class="uri">http://www.phatcode.net/res/214/images/orthogonal_i.png</a></p>
+<p> </p>
+</div>
+<div id="properties-of-cross-products-dot-products" class="section level3">
+<h3><u>Properties Of Cross Products &amp; Dot Products</u></h3>
+<p> </p>
+<p>There are other properties which relate dot products with cross products and norms. Assume that the vectors <span class="math inline">\(\textbf{u}\)</span>, <span class="math inline">\(\textbf{v}\)</span> and <span class="math inline">\(\textbf{w}\)</span> are in 3-space.</p>
+<p> </p>
+<p><span class="math display">\[ ||\textbf{u} \times \textbf{v}||^{2} = ||\textbf{u}||^2 ||\textbf{v}||^2 - (\textbf{u} \cdot \textbf{v})^2 \text{ (Lagrange&#39;s Identity) }\]</span></p>
+<p> </p>
+<p><span class="math display">\[ \textbf{u} \times (\textbf{v} \times \textbf{w}) = (\textbf{u} \cdot \textbf{w})\textbf{v} - (\textbf{u} \cdot \textbf{v})\textbf{w}\]</span></p>
+<p> </p>
+<p><span class="math display">\[ (\textbf{u} \times \textbf{v}) \times \textbf{w} = (\textbf{u} \cdot \textbf{w})\textbf{v} - (\textbf{v} \cdot \textbf{w})\textbf{u}\]</span></p>
+<p> </p>
+<p>Note that the dot products of two vectors is a scalar (number) and the cross product of two vectors is a vector. In <span class="math inline">\((\textbf{u} \cdot \textbf{w})\textbf{v}\)</span>, we have a scalar multiplier to the vector <span class="math inline">\(\textbf{v}\)</span>.</p>
+<p> </p>
+</div>
+<div id="example" class="section level3">
+<h3><u>Example</u></h3>
+<p> </p>
+<p>Given <span class="math inline">\(\textbf{u} = (0, 1, 2)\)</span> and <span class="math inline">\(\textbf{v} = (2, 3, 4)\)</span>, show that <span class="math inline">\(\textbf{u} \times \textbf{v}\)</span> is (-2, 4, -2).</p>
+<p>In addition, show that this new vector is orthogonal (perpendicular) to vector <span class="math inline">\(\textbf{u}\)</span> and to vector <span class="math inline">\(\textbf{v}\)</span>.</p>
+<p> </p>
+<p><strong>Answer</strong></p>
+<p> </p>
+<p>Given vectors <span class="math inline">\(\textbf{u} = (u_{1}, u_{2}, u_{3})\)</span> and <span class="math inline">\(\textbf{v} = (v_{1}, v_{2}, v_{3})\)</span>, one can compute the cross product <span class="math inline">\(\textbf{u} \times \textbf{v}\)</span> through using the first formula:</p>
+<p> </p>
+<p><span class="math display">\[\textbf{u} \times \textbf{v} = (u_{2}v_{3} - u_{3}v_{2}, u_{3}v_{1} - u_{1}v_{3}, u_{1}v_{2} - u_{2}v_{1} )\]</span>  </p>
+<p>or by using the formula in determinant notation:</p>
+<p><span class="math display">\[\displaystyle \text{A} = \begin{vmatrix} \textbf{i} &amp; \textbf{j} &amp; \textbf{k} \\ u_{1} &amp; u_{2} &amp; u_{3}\\ v_{1} &amp; v_{2} &amp; v_{3} \\ \end{vmatrix} \]</span></p>
+<p> </p>
+<p>with the unit vectors <span class="math inline">\(\textbf{i}, \textbf{j}, \textbf{k}\)</span> as <span class="math inline">\(\textbf{i} = (1, 0, 0)\)</span>, <span class="math inline">\(\textbf{j} = (0, 1, 0)\)</span> and <span class="math inline">\(\textbf{k} = (0, 0, 1)\)</span>. To compute the three by three determinant, cofactor expansion would be needed.</p>
+<p> </p>
+<p>We now show that the cross product vector <span class="math inline">\((-2, 4, -2)\)</span> is orthogonal to vector <span class="math inline">\(\textbf{u}\)</span> and to vector <span class="math inline">\(\textbf{v}\)</span> by computing dot products accordingly.</p>
+<p> </p>
+<p><span class="math display">\[\textbf{u} \cdot (\textbf{u} \times \textbf{v}) = (0, 1, 2) \cdot (-2, 4, -2) = (0)(-2) + (1)(4) + (2)(-2) = 0 + 4 - 4 = 0\]</span></p>
+<p> </p>
+<p><span class="math display">\[\textbf{v} \cdot (\textbf{u} \times \textbf{v}) = (2, 3, 4) \cdot (-2, 4, -2) = (2)(-2) + (3)(4) + (4)(-2) = -4 + 12 - 8 = 0 \]</span></p>
+<p> </p>
+<p>The vector (-2, 4, -2) is perpendicular to both vectors <span class="math inline">\(\textbf{u}\)</span> and <span class="math inline">\(\textbf{v}\)</span>.</p>
+<p> </p>
+</div>
+<div id="practice-problems" class="section level3">
+<h3><u>Practice Problems</u></h3>
+<p> </p>
+<p>Here are few practice problems. These questions are a little bit more theoretical in mature so hints instead of solutions are in the next section. I think it is important for the reader to work for the answers and understand the concepts better.</p>
+<p> </p>
+<ol style="list-style-type: decimal">
+<li>You are given the vectors <span class="math inline">\(\textbf{u} = (3, -5, 1)\)</span> and <span class="math inline">\(\textbf{v} = (1, 0, -5)\)</span> with the cross product <span class="math inline">\(\textbf{u} \times \textbf{v} = (25, 16, 5)\)</span>. Show that the cross product vector is perpendicular to vectors <span class="math inline">\(\textbf{u}\)</span> and <span class="math inline">\(\textbf{v}\)</span>.</li>
+</ol>
+<p> </p>
+<ol start="2" style="list-style-type: decimal">
+<li>Find a vector which is orthogonal to vectors <span class="math inline">\(\textbf{u} = (5, 2, 0)\)</span> and <span class="math inline">\(\textbf{v} = (-2, 0, 3)\)</span>. Verify that this vector is orthogonal to both vectors using dot products.</li>
+</ol>
+<p> </p>
+<ol start="3" style="list-style-type: decimal">
+<li>You are given the vectors <span class="math inline">\(\textbf{u} = (2, 2, 0)\)</span> and <span class="math inline">\(\textbf{v} = (-1, -5, -3)\)</span>. Show that the vector <span class="math inline">\(\textbf{w} = (-6, 7, -8)\)</span> is not a cross product vector to <span class="math inline">\(\textbf{u}\)</span> or <span class="math inline">\(\textbf{v}\)</span>.</li>
+</ol>
+<p> </p>
+</div>
+<div id="hints-to-practice-problems" class="section level3">
+<h3><u>Hints To Practice Problems</u></h3>
+<p> </p>
+<ol style="list-style-type: decimal">
+<li><p>Use the dot product similar to the example above.</p></li>
+<li><p>Find the cross product of vectors <span class="math inline">\(\textbf{u}\)</span> and <span class="math inline">\(\textbf{v}\)</span>. Verify that the cross product vector is orthogonal using dot products like in the example above.</p></li>
+<li><p>Show that <span class="math inline">\(\textbf{w} \cdot \textbf{u} \neq 0\)</span> or <span class="math inline">\(\textbf{w} \cdot \textbf{v} \neq 0\)</span>.</p></li>
+</ol>
+<p> </p>
+</div>
+<div id="reference" class="section level3">
+<h3><u>Reference</u></h3>
+<p> </p>
+<ul>
+<li>Elementary Linear Algebra (Tenth Edition) by Howard Anton</li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

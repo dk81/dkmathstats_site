@@ -1,0 +1,248 @@
+---
+title: "Area Of Paraellograms & Triangles With Cross Products"
+output: html_document
+---
+
+&nbsp;
+
+This page will be about finding areas of parallelograms and triangles using vectors, norms and the cross product.
+
+&nbsp;
+
+### <u>Table Of Contents</u>
+
+&nbsp;
+
+* <a href="#intuition">Geometric Intuition</a>
+* <a href="#derive">Deriving The Area Of A Parallelogram Using Cross Products</a>
+* <a href="#parallelogram">The Area Of The Parallelogram</a>
+* <a href="#triangle">The Area Of A Triangle</a>
+* <a href="#examples">Examples</a>
+* <a href="#practice">Practice Problems</a>
+* <a href="#solutions">Solutions</a>
+* <a href="#ref">Reference</a>
+
+&nbsp;
+
+<a name="intuition"></a>
+
+### <u>Geometric Intuition</u>
+
+&nbsp;
+
+Suppose we have two vectors in three space as shown in the picture below (I use vectors $\textbf{u}$ and $\textbf{v}$ while the picture uses $\textbf{v}$ and $\textbf{w}$.
+
+&nbsp;
+
+<img class="size-full aligncenter" src="http://math.oregonstate.edu/bridge/mathml/cross.gif" width="571" height="325" />
+
+<center>Image Source: http://math.oregonstate.edu/bridge/mathml/cross.gif</center>
+
+&nbsp;
+
+In the vector setting, distances are taken by using norms. In this case, we would have the norms $||\textbf{v}||$ and $||\textbf{w}||$ for vectors $\textbf{v}$ and $\textbf{w}$ respectively.
+
+On one side of the parallelogram (the left side in this case), we draw an altitude line to the base which forms a triangle. In this triangle, the norm $||\textbf{v}||$ is the hypotenuse and the angle $\theta$ (with $0 \leq \theta \leq 180$ degrees) is the angle of the parallelogram and the triangle.
+
+We seek to find the side length opposite to the angle $\theta$. Using trigonometry (SOH CAH TOA) we have:
+
+&nbsp;
+
+$$ \sin(\theta) = \dfrac{Altitude}{||\textbf{v}||} $$
+
+&nbsp;
+
+and
+
+&nbsp;
+
+$$ Altitude = ||\textbf{v}|| \sin(\theta) $$
+&nbsp;
+
+<a name="derive"></a>
+
+### <u>Deriving The Area Of A Parallelogram Using Cross Products</u>
+
+&nbsp;
+
+Recall that one of the properties of cross products and dot products is Lagrange's identity.
+
+&nbsp;
+
+$$ ||\textbf{u} \times \textbf{v}||^{2} = ||\textbf{u}||^2 ||\textbf{v}||^2 - (\textbf{u} \cdot \textbf{v})^2 \text{ (Lagrange's Identity) }$$
+
+&nbsp;
+
+In addition, given an angle $\theta$ with $0 \leq \theta \leq 180$ degrees we have the dot product equation
+
+&nbsp;
+
+$$ (\textbf{u} \cdot \textbf{v}) = ||\textbf{u}||||\textbf{v}|| \cos(\theta) $$
+
+&nbsp;
+
+or its equivalent form:
+
+$$ (\textbf{u} \cdot \textbf{v})^2 = ||\textbf{u}||^2||\textbf{v}||^2 \cos^2(\theta) $$
+
+&nbsp;
+
+In Lagrange's identity, we substitute $\textbf{u} \cdot \textbf{v}$ with the above equation, factor and the equation $\sin^{2}(\theta) + \cos^{2}(\theta) = 1$ (or $1 - \cos^{2}(\theta) = \sin^{2}(\theta)$) to get:
+
+&nbsp;
+
+$$ ||\textbf{u} \times \textbf{v}||^{2} = ||\textbf{u}||^2 ||\textbf{v}||^2 - (||\textbf{u}||||\textbf{v}|| \cos(\theta))^2$$
+
+$$ ||\textbf{u} \times \textbf{v}||^{2} = ||\textbf{u}||^2 ||\textbf{v}||^2 - ||\textbf{u}||^2||\textbf{v}||^2 \cos^2(\theta)$$
+
+$$ ||\textbf{u} \times \textbf{v}||^{2} = ||\textbf{u}||^2 ||\textbf{v}||^2(1  -  \cos^2(\theta))$$
+
+$$ ||\textbf{u} \times \textbf{v}||^{2} = ||\textbf{u}||^2 ||\textbf{v}||^2 \sin^2(\theta)$$
+
+&nbsp;
+
+From $||\textbf{u} \times \textbf{v}||^{2} = ||\textbf{u}||^2 ||\textbf{v}||^2 \sin^{2}(\theta)$, we can take the square root of both sides to obtain
+
+&nbsp;
+
+$$||\textbf{u} \times \textbf{v}|| = ||\textbf{u}|| ||\textbf{v}|| \sin(\theta) \text{ .}$$
+
+&nbsp;
+
+<a name="parallelogram"></a>
+
+### <u>The Area Of The Parallelogram</u>
+
+&nbsp;
+
+The area of a parallelogram is the product of the base length ($||\textbf{u}||$) times the altitude. This formula can be expressed as:
+
+&nbsp;
+
+$$Area_{Paraellogram} = (Base) (Altitude) = ||\textbf{u}|| ||\textbf{v}|| \sin(\theta) $$
+
+&nbsp;
+
+The above formula can also be expressed as $Area_{Paraellogram} = (Base) (Altitude) = ||\textbf{u} \times \textbf{v}||$ (because of the derivation earlier).
+
+&nbsp;
+
+<a name="triangle"></a>
+
+
+### <u>The Area Of A Triangle</u>
+
+&nbsp;
+
+It is known that the area of a triangle is half the area of a paraellogram. Using cross products and norms, the formula for the area of a triangle is:
+
+&nbsp;
+
+$$Area_{Triangle} = \dfrac{1}{2} (Base)(Altitude) = \dfrac{1}{2} ||\textbf{u}|| ||\textbf{v}|| \sin(\theta) $$
+
+&nbsp;
+
+<a name="examples"></a>
+
+### <u>Examples</u>
+
+&nbsp;
+
+**Example One**
+
+&nbsp;
+
+Given the vectors $\textbf{u} = (1, -2, 5)$ and $\textbf{v} = (2, 0, -1)$, Find the area of the parallelogram enclosed by these two vectors.
+
+&nbsp;
+
+**Answer**
+
+&nbsp;
+
+Given the two vectors $\textbf{u}$ and $\textbf{v}$, we find the cross product $\textbf{u} \times \textbf{v}$ first. The norm of this cross product will be calculated to obtain the area of the parallelogram enclosed by the two vectors.
+
+One can show that the cross product $\textbf{u} \times \textbf{v}$ is $(2, 11, 4)$.
+
+Taking the norm of this product yields:
+
+&nbsp;
+
+$$||\textbf{u} \times \textbf{v}|| = \sqrt{(2)^2 + (11)^2 + (4)^2} = \sqrt{4 + 121+ 16} = \sqrt{141} \approx 11.87 \text{ square units }$$
+
+&nbsp;
+
+---
+
+**Example Two**
+
+&nbsp;
+
+Consider the points $A (0, 1, 0)$, $B (2,-2, 5)$ and $C (3, -1, 5)$. Find the area of the triangle determined by the three points.
+
+&nbsp;
+
+**Answer**
+
+&nbsp;
+
+The strategy is to create two vectors from the three points, find the cross product of the two vectors and then take the half the norm of the cross product.
+
+One vector is $\overrightarrow{AB} = (2 - 0, -2 - 1, 5 - 0) = (2, -3, 5)$. The second vector would be $\overrightarrow{AC} = (3 - 0, -1 - 1, 5 - 0) = (3, -2, 5)$
+
+One can show that the cross product of the vectors $\overrightarrow{AB}$ and $\overrightarrow{AC}$ is $(-5, 5, 5)$.
+
+The norm of this cross product computes to:
+
+&nbsp;
+
+$$||(-5, 5, 5)|| = \sqrt{(-5)^{2} + (5)^{2} + (5)^{2}} = \sqrt{75}$$
+
+&nbsp;
+
+The area of a triangle is half the norm of the cross product. It computes to:
+
+&nbsp;
+
+$$Area_{Triangle} = \dfrac{\sqrt{75}}{2} \approx 4.33$$
+&nbsp;
+
+<a name="practice"></a>
+
+### <u>Practice Problems</u>
+
+&nbsp;
+
+Here are few practice problems. Solutions are in the next section.
+
+&nbsp;
+
+1) Given the vectors $\textbf{u} = (0, -1, 3)$ and $\textbf{v} = (5, 2, -2)$, Find the area of the parallelogram enclosed by these two vectors.
+
+2) Given the vectors $\textbf{u} = (1, -2, 7)$ and $\textbf{v} = (9, 0, -1)$, Find the area of the triangle enclosed by these two vectors.
+
+3) Find the area of the triangle determined by the points $A (-2, 2, 1)$, $B (3,0, 1)$ and $C (0, -1, 0)$.
+
+&nbsp;
+
+<a name="solutions"></a>
+
+### <u>Solutions</u>
+
+&nbsp;
+
+1) $\textbf{u} \times \textbf{v} = (-4, 15, 5)$. The area of the parallelogram computes to $\sqrt{266} \approx 16.31$ square units.
+
+2) $\textbf{u} \times \textbf{v} = (2, 64, 18)$. The area of the triangle computes to $\dfrac{\sqrt{4424}}{2} \approx 33.26$ square units.
+
+3) $\overrightarrow{AB} = (5, -2, 0)$, $\overrightarrow{AC} = (2, -3, 1)$; $\overrightarrow{AB} \times \overrightarrow{AC} = (2, 5, -11)$; $Area_{Triangle} = \dfrac{\sqrt{150}}{2} \approx 6.12$ square units.
+
+&nbsp;
+
+<a name="ref"></a>
+
+### <u>Reference</u>
+
+&nbsp;
+
+Elementary Linear Algebra (Tenth Edition) by Howard Anton

@@ -1,0 +1,390 @@
+---
+title: "rvisual-corrplots"
+output: html_document
+---
+
+&nbsp;
+
+Hi there. Here is some work on correlation plots in R I have worked on. Most of my findings have been through trial and error with some references.
+
+&nbsp;
+
+# <u>Sections</u>
+
+&nbsp;
+
+* A Look At The Data
+
+* Correlation Plots Using The corrplot Package
+
+* Using ggplot2 To Create Correlation Plots
+
+* References
+
+&nbsp;
+
+
+### <u>A Look At The Data</u>
+
+&nbsp;
+
+Before looking at the data, I first load the faraway and corrplot packages into R. (The faraway package is a dataset package.)
+
+&nbsp;
+
+```{r}
+# Correlation Plot
+# Reference: 
+# http://www.sthda.com/english/wiki/ggplot2-quick-correlation-matrix-heatmap-r-software-and-data-visualization
+
+
+library(faraway)
+library(corrplot)
+```
+
+&nbsp;
+
+From the faraway package, there is a dataset called `teengamb`. This dataset is about teen gambling and more information on this dataset can be found by typing in `?teengamb`. I save this teengamb data into a new variable (copy) called `gamb_data`.
+
+&nbsp;
+
+```{r}
+gamb_data <- teengamb
+```
+
+&nbsp;
+
+Using the `head()` and `tail()` functions, I can preview the data by looking at the first 6 rows and the last 6 rows of the data.
+
+&nbsp;
+
+```{r}
+# Preview data:
+
+head(gamb_data)
+
+tail(gamb_data)
+
+```
+
+&nbsp;
+
+One could further examine the data by using the `summary()` and `str()` functions.
+
+&nbsp;
+
+```{r}
+# Check summary and data structure:
+
+summary(gamb_data)
+ 
+str(gamb_data)
+```
+
+&nbsp;
+
+The column names could be fixed by capitalizing them. This can be done by using the `colnames()` function in R.
+
+&nbsp;
+
+```{r}
+# Fixing column names:
+
+colnames(gamb_data) <- c("Sex", "Status", "Income", "Verbal", "Gamble")
+```
+
+&nbsp;
+
+In base R, a correlation table can be created by using the `cor()` function.
+
+&nbsp;
+
+```{r}
+# Correlation
+
+corr_gamb <- cor(gamb_data)
+
+corr_gamb
+```
+
+&nbsp;
+
+In a correlation matrix, the numeric entries along the main diagonal from top left to bottom right are ones. One could show (by hand) that the correlation of two identical random variables is one. (I.e. Correlation of status and status is one).
+
+Notice that the correlation matrix is a symmetric matrix. The transpose of a symmetric matrix is the same matrix as before. As an example, the correlation of status and income (row 2, column 3) is -0.2750340 which is the same as the correlation of income and status (row 3, column 2) which is also -0.2750340.
+
+&nbsp;
+
+### <u>Correlation Plots Using The corrplot Package</u>
+
+&nbsp;
+
+This section will deal with creating correlation table plots using the corrplot package. Making simple correlation plots using corrplot is not very difficult.
+
+At the end of the previous section, the correlation table is saved into a variable called corr_gamb. This corr_gamb variable is needed into the `corrplot()` function in the corrplot package.
+
+I present five different correlation plots which I have come with in R. Other variations do exist as you can change the arguments in terms of titles, fonts, colours and so on. (The title is somewhat messed up and the image that produces is too zoomed in. I would have to look into it for a fix.)
+
+&nbsp;
+
+```{r, echo = TRUE, fig.width=5, fig.height=5} 
+# Corrplot correlation plot:
+# tl.col = text label colour, tl.srt = string rotation for text
+# tl.cex = size of text label, bg = background colour
+# method = "shade" for coloured squares
+# type = "full" for full matrix
+
+# Version One:
+
+corrplot(corr_gamb, tl.col = "brown", tl.srt = 30, bg = "White",
+         title = "\n\n Correlation Plot Of Gambling Data",
+         type = "full")
+```
+
+&nbsp;
+
+The plot looks okay but it could use labels. Also, it is not necessary to show the full matrix. Since the correlation matrix is symmetric, the lower or upper triangular form of the full matrix is enough.
+
+The second version is a lower triangular version of the correlation matrix.
+
+&nbsp;
+
+```{r, echo = TRUE, fig.width=5, fig.height=5}
+# Version Two (Lower Triangular Of Correlation Matrix):
+
+corrplot(corr_gamb, tl.col = "red", tl.srt = 45, bg = "White",
+         title = "\n\n Correlation Plot Of Gambling Data",
+         type = "lower")
+```
+
+&nbsp;
+
+
+Labels are added in version three.
+
+&nbsp;
+
+```{r, echo = TRUE, fig.width=5, fig.height=5}
+# Version Three (Added Labels):
+
+corrplot(corr_gamb, tl.col = "red", bg = "White", tl.srt = 35, 
+         title = "\n\n Correlation Plot Of Gambling Data \n",
+         addCoef.col = "black", type = "full")
+```
+
+&nbsp;
+
+Adding labels does help in assessing correlation strengths with variable pairs. Version four shows how to change the colours.
+
+&nbsp;
+
+```{r, echo = TRUE, fig.width=5, fig.height=5}
+# Version Four (Change colour pallete with HTML colour codes):
+
+colour_set <- colorRampPalette(colors = c("#f4ff4d", "#c7d123", "#acb515", "#81890b", "#656c06"))
+
+corrplot(corr_gamb, tl.col = "blue", bg = "White", tl.srt = 35, 
+         title = "\n\n Correlation Plot Of Gambling Data \n",
+         addCoef.col = "black", type = "lower",
+         col = colour_set(100))
+```
+
+&nbsp;
+
+In version five, I change the background colour from white to gray.
+
+&nbsp;
+
+```{r, echo = TRUE, fig.width=5, fig.height=5}
+# Version Five (Different Colours):
+
+colour_set <- colorRampPalette(colors = c("#f4ff4d", "#c7d123", "#acb515", "#81890b", "#656c06"))
+
+corrplot(corr_gamb, tl.col = "blue", bg = "gray", tl.srt = 35, 
+         title = "\n\n Correlation Plot Of Gambling Data \n",
+         addCoef.col = "black", type = "lower",
+         col = colour_set(100))
+```
+
+&nbsp;
+
+### <u>Using ggplot2 To Create Correlation Plots</u>
+
+&nbsp;
+
+The ggplot2 package is a very good package in terms of utility for data visualization in R. Plotting correlation plots in R using ggplot2 takes a bit more work than with corrplot. The results though are worth it. To prepare the data for plotting, the `reshape2()` package with the melt function is used.
+
+Load the `ggplot2()` and `reshape2()` packages first.
+
+&nbsp;
+
+```{r}
+# Correlation plots using ggplot2:
+
+library(ggplot2)
+library(reshape2)
+```
+
+&nbsp;
+
+The melt function is used to break up the correlation table into a long format table. This table will consist of 25 rows (5 variables times 5 variables) with three columns. The first two columns consist of variable pairs and the third column will the contain the correlation measures for the variable pairs.
+
+&nbsp;
+
+```{r}
+# Use the melt function to melt corr_gamb (or undo the table):
+ 
+melted_gamb <- melt(corr_gamb)
+
+head(melted_gamb)
+
+tail(melted_gamb)
+```
+
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4} 
+# A Full Correlation Plot Using ggplot2
+
+## Version One: Correlation Plot using ggplot2:
+
+ggplot(data = melted_gamb, aes(x = Var1, y = Var2, fill = value)) +
+  geom_tile() +
+  scale_fill_gradient2(midpoint = 0.5, mid ="grey70", 
+                       limits = c(-1, +1)) +
+  labs(title = "Correlation Matrix \n On Teen Gambling Data \n", 
+       x = "", y = "", fill = "Correlation \n Measure") +
+  theme(plot.title = element_text(hjust = 0.5, colour = "blue"), 
+        axis.title.x = element_text(face="bold", colour="darkgreen", size = 12),
+        axis.title.y = element_text(face="bold", colour="darkgreen", size = 12),
+        legend.title = element_text(face="bold", colour="brown", size = 10)) +
+  geom_text(aes(x = Var1, y = Var2, label = round(value, 2)), color = "black", 
+            fontface = "bold", size = 5)
+```
+
+&nbsp;
+
+In this table, red tiles represent negative correlations between the two associated variables and the blue tiles represent positive correlations between two variables. The correlations along the main diagonal are ones.
+
+&nbsp;
+
+Version Two: Upper Triangular Correlation Plot using ggplot2
+
+The full correlation matrix provides more than enough information. An upper triangular matrix of the correlation matrix provides less cluster and there is no loss of information. (Recall that the correlation matrix is a symmetric matrix so we can afford to drop the multiple entries.)
+
+For upper and lower triangular matrices, there is some additional data manipulation work needed to have the data prepared for plotting.
+
+&nbsp;
+
+```{r}
+# Create new copy:
+
+upper_gamb <- corr_gamb
+
+# Make upper triangular matrix by setting NA to lower triangular part:
+upper_gamb[lower.tri(upper_gamb)] <- NA
+
+upper_gamb
+```
+
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4}
+# Melt this upper triangular matrix and remove NA values:
+
+up_m_gamb <- melt(upper_gamb, na.rm = TRUE)
+
+head(up_m_gamb)
+
+tail(up_m_gamb)
+
+# Ggplot upper triangular correlation matrix:
+
+ggplot(data = up_m_gamb, aes(x = Var1, y = Var2, fill = value)) +
+  geom_tile() +
+  scale_fill_gradient2(midpoint = 0.5, mid ="grey70", limits = c(-1, +1)) +
+  labs(title = "Correlation Matrix \n On Teen Gambling Data \n", 
+  x = "", y = "", fill = "Correlation \n Measure") +
+  theme(plot.title = element_text(hjust = 0.5, colour = "blue"), 
+  axis.title.x = element_text(face="bold", colour="darkgreen", size = 12),
+  axis.title.y = element_text(face="bold", colour="darkgreen", size = 12),
+  legend.title = element_text(face="bold", colour="brown", size = 10)) +
+  geom_text(aes(x = Var1, y = Var2, label = round(value, 2)), color = "black", 
+  fontface = "bold", size = 5)
+```
+
+&nbsp;
+
+Having a upper triangular matrix version of the correlation matrix is less intimidating and it is easier to read. You may have to explain that for example that the correlation of income and status and the correlation of status and income are the same (due to symmetry).
+
+(This upper triangular matrix form is not exactly like the one from linear algebra but I think the above image is good enough for displaying purposes.)
+
+
+
+Version Three: Lower Triangular Correlation Plot using ggplot2
+
+Here is the code and output for the lower triangular part of the correlation matrix. The code is similar to the upper triangular case.
+
+> ## Version Three: Lower Triangular Correlation Plot using ggplot2:
+> 
+> # Create new copy:
+> 
+> lower_gamb <- corr_gamb
+> 
+> # Make lower triangular matrix by setting NA to upper triangular part:
+> lower_gamb[upper.tri(lower_gamb)] <- NA
+> 
+> lower_gamb
+              Sex      Status     Income     Verbal Gamble
+Sex     1.0000000          NA         NA         NA     NA
+Status -0.4809353  1.00000000         NA         NA     NA
+Income -0.1154586 -0.27503402  1.0000000         NA     NA
+Verbal -0.1069762  0.53161022 -0.1755707  1.0000000     NA
+Gamble -0.4078053 -0.05042081  0.6220769 -0.2200562      1
+> 
+> # Melt this upper triangular matrix and remove NA values:
+> 
+> lower_m_gamb <- melt(lower_gamb, na.rm = TRUE)
+> 
+> head(lower_m_gamb)
+    Var1   Var2      value
+1    Sex    Sex  1.0000000
+2 Status    Sex -0.4809353
+3 Income    Sex -0.1154586
+4 Verbal    Sex -0.1069762
+5 Gamble    Sex -0.4078053
+7 Status Status  1.0000000
+> tail(lower_m_gamb)
+     Var1   Var2      value
+13 Income Income  1.0000000
+14 Verbal Income -0.1755707
+15 Gamble Income  0.6220769
+19 Verbal Verbal  1.0000000
+20 Gamble Verbal -0.2200562
+25 Gamble Gamble  1.0000000
+# Ggplot lower triangular correlation matrix:
+
+ggplot(data = lower_m_gamb, aes(x = Var1, y = Var2, fill = value)) +
+  geom_tile() +
+  scale_fill_gradient2(midpoint = 0.5, mid ="grey70", 
+                       limits = c(-1, +1)) +
+  labs(title = "Correlation Matrix \n On Teen Gambling Data \n", 
+       x = "", y = "", fill = "Correlation \n Measure") +
+  theme(plot.title = element_text(hjust = 0.5, colour = "blue"), 
+        axis.title.x = element_text(face="bold", colour="darkgreen", size = 12),
+        axis.title.y = element_text(face="bold", colour="darkgreen", size = 12),
+        legend.title = element_text(face="bold", colour="brown", size = 10)) +
+  geom_text(aes(x = Var1, y = Var2, label = round(value, 2)), color = "black", 
+            fontface = "bold", size = 5)
+
+
+
+&nbsp;
+
+### <u>References</u>
+
+&nbsp;
+
+* R Graphics Cookbook by Winston Chang (2012)
+
+* http://www.sthda.com/english/wiki/ggplot2-quick-correlation-matrix-heatmap-r-software-and-data-visualization

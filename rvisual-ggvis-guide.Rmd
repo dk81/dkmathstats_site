@@ -1,0 +1,379 @@
+---
+title: "Data Visualization In R With The ggvis Package"
+output: html_document
+---
+
+&nbsp;
+
+Hi there. In this post, I feature some functions from R's ggvis package for data visualization. This work is based on some trial and error in RStudio/RMarkdown.
+
+&nbsp;
+
+### <u>Sections</u>
+
+&nbsp;
+
+* <a href="#intro">Introduction & Setup</a>
+* <a href="#hist">A Histogram Example</a>
+* <a href="#bar">Bar Graph Example</a>
+* <a href="#scatter">Scatterplots & Linear Regression Lines</a>
+* <a href="#interactive">Interactive Plots In ggvis</a>
+* <a href="#refs">References</a>
+
+&nbsp;
+
+<a name="intro"></a>
+
+### <u>Introduction & Setup</u>
+
+&nbsp;
+
+When it comes to data visualization in R, ggplot2 usually comes to mind. The ggvis package in R provides a good alternative to ggplot2 and it also includes some interactive plot features.
+
+The screenshot below is from http://ggvis.rstudio.com/ and it gives a brief explanation of what ggvis is about.
+
+For ggvis installation into R use the code:
+
+&nbsp;
+
+```
+# Installation:
+
+install.packages("ggvis")
+```
+
+&nbsp;
+
+To load in the `ggvis` package, use the code:
+
+&nbsp;
+
+```{r}
+# Load the package into R:
+
+library(ggvis)
+```
+
+&nbsp;
+
+<a name="hist"></a>
+
+### <u>A Histogram Example</u>
+
+&nbsp;
+
+In this histogram example, I simulate 10000 standard uniform random variables and display the results.
+
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4} 
+##### Histogram (Standard Uniform Distribution Samples):
+
+unifs <- runif(n = 10000, min = 0, max = 1)
+unifs <- data.frame(unifs)
+
+# Check/Preview dataframe:
+
+head(unifs)
+ 
+# ggvis Histogram Plot:
+# Source For Plot Title: https://stackoverflow.com/questions/25018598/add-a-plot-title-to-ggvis
+
+unifs %>% ggvis(~unifs) %>% 
+  layer_histograms(boundary = 0) %>%
+  add_axis("x", title = "\n Values", title_offset = 50) %>%
+  add_axis("y", title = "Counts \n", title_offset = 50) %>%
+  add_axis("x", orient = "top", ticks = 0, 
+  title = "Histogram Of Simulated Standard Uniforms \n",
+  properties = axis_props(axis = list(stroke = "white"), labels = list(fontSize = 0)))
+```
+
+&nbsp;
+
+
+The `layer_histograms()` part gives the histograms while the `add_axis()` parts gives labels and the plot title. A workaround solution (reference: here) was used for the plot title. The title_offset argument was for spacing on the axes labels.
+
+Our histogram of simulated uniform random variables does not exactly match a rectangle but it is close to it (uniform density function).
+
+&nbsp;
+
+<a name="bar"></a>
+
+### <u>Bar Graph Example</u>
+
+&nbsp;
+
+This bar graph example is based on a simulation of 10000 dice rolls. (The die is six sided.)
+
+The `sample()` function in R allows for random selection of values or strings.
+
+&nbsp;
+
+```{r}
+##### Bar Graph:
+
+# Simulate dice rolls (1, 2, 3, 4, 5 and 6)
+
+dice_sim <- sample(x = seq(from = 1, to = 6, by = 1), size = 10000, replace = TRUE)
+
+dice_sim <- data.frame(dice_sim)
+
+# Preview the data:
+
+head(dice_sim)
+
+str(dice_sim)
+```
+
+&nbsp;
+
+From the `str(dice_sim)` function, the variable dice_sim comes out as numeric. I want the dice_sim variable to be a factor variable with factors of 1 to 6.
+
+&nbsp;
+
+```{r}
+# Convert to factors:
+
+dice_sim$dice_sim <- as.factor(dice_sim$dice_sim)
+```
+
+&nbsp;
+
+To obtain bar graphs in R's ggvis package, you need the `layer_bars()` function.
+
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4}
+# Bar Graph:
+
+dice_sim %>% ggvis(~dice_sim) %>%
+  layer_bars() %>%
+  add_axis("x", title = "\n Outcome", title_offset = 50) %>%
+  add_axis("y", title = "Counts \n", title_offset = 50) %>%
+  add_axis("x", orient = "top", ticks = 0, 
+           title = "Dice Roll Simulation Results \n",
+           properties = axis_props(axis = list(stroke = "white"),
+                                   labels = list(fontSize = 0)))
+```
+
+&nbsp;
+
+From our simulations results, the number 2 appears the most often (mode). These results do not match the theoretical/expected result of $10000/6 \approx 1667$ for each outcome. Remember that in many cases that theoretical results do not necessarily match the results in real life.
+
+The title_offset argument in add_axis are used such that the numbers in the ticks do not overlap with the labels. (i.e Counts, 800 and 1000).
+
+&nbsp;
+
+<a name="scatter"></a>
+
+### <u>Scatterplots & Linear Regression Lines</u>
+
+&nbsp;
+
+For this section, the cats dataset from the MASS library is used.
+
+&nbsp;
+
+```{r}
+##### Scatterplot Example Of cats Data:
+
+require(MASS)
+
+data(cats)
+
+# Preview the data:
+
+head(cats)
+
+# Rename column names:
+
+colnames(cats) <- c("Sex", "Body_Wt", "Heart_Wt")
+```
+
+&nbsp;
+
+For the scatterplot, I want to take a look at body weight versus the heart weights of the cats in the dataset. In ggvis, you need to specify which variables would be x and y respectively. Also, you need to use `layer_points()` to obtain the data points.
+
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4} 
+# ggvis scatterplot:
+
+cats %>% ggvis(x = ~Body_Wt, y = ~ Heart_Wt) %>%
+  layer_points(fill = ~Sex) %>%
+  add_axis("x", title = "\n Body Weight", title_offset = 50) %>%
+  add_axis("y", title = "Heart Weight \n", title_offset = 50) %>%
+  add_axis("x", orient = "top", ticks = 0, 
+           title = "Body Weight Vs Heart Weight Of Cats \n",
+           properties = axis_props(axis = list(stroke = "white"),
+                                   labels = list(fontSize = 0)))
+```
+
+&nbsp;
+
+In `layer_points()`, the fill = ~Sex option was inputted to indicated which points were for males and which points were for females. It appears that there are more male cats than female cats in this dataset. (Counts would need to be obtained to check.)
+
+&nbsp;
+
+### <u>Regression Line Regardless Of Gender</u>
+
+&nbsp;
+
+Here is an example of a regression line through the points regardless of gender. From statistics, regression lines are another way of saying lines of best fits. We want to fit a line through the points such that the total of the square distances is minimized.
+
+```{r, echo = TRUE, fig.width=4, fig.height=4} 
+## Regression Lines:
+
+# ggvis Regression Line (Ordinary Least Squares Regression)
+# Line of best fit regardless of gender
+# Another option is LOESS (local regression)
+
+cats %>% ggvis(x = ~Body_Wt, y = ~ Heart_Wt) %>%
+  layer_points(fill = ~Sex) %>%
+  layer_model_predictions(model = "lm", se = TRUE) %>%
+  add_axis("x", title = "\n Body Weight", title_offset = 50) %>%
+  add_axis("y", title = "Heart Weight \n", title_offset = 50) %>%
+  add_axis("x", orient = "top", ticks = 0, 
+           title = "Body Weight Vs Heart Weight Of Cats \n",
+           properties = axis_props(axis = list(stroke = "white"),
+                                   labels = list(fontSize = 0)))
+```
+
+&nbsp;
+
+You may notice that the code for a linear regression line is not that much different than the one for the scatterplot. We just add `layer_model_predictions(model = "lm", se = TRUE)`. In model = "lm", lm means linear model and se = TRUE gives the confidence intervals around the line. (I think it is a 95% confidence interval.)
+
+&nbsp;
+
+**Regression Line For Each Gender**
+
+```{r, echo = TRUE, fig.width=4, fig.height=4} 
+# ggvis Regression Line (Ordinary Least Squares Regression):
+# Line of best fit for each gender 
+# Done by adding in group_by(Sex)
+
+cats %>% ggvis(x = ~Body_Wt, y = ~ Heart_Wt) %>%
+  layer_points(fill = ~Sex) %>%
+  group_by(Sex) %>%
+  layer_model_predictions(model = "lm", se = TRUE) %>%
+  add_axis("x", title = "\n Body Weight", title_offset = 50) %>%
+  add_axis("y", title = "Heart Weight \n", title_offset = 50) %>%
+  add_axis("x", orient = "top", ticks = 0, 
+           title = "Body Weight Vs Heart Weight Of Cats \n",
+           properties = axis_props(axis = list(stroke = "white"),
+                                   labels = list(fontSize = 0)))
+```
+
+&nbsp;
+
+<a name="interactive"></a>
+
+
+### <u>Interactive Plots In ggvis</u>
+
+&nbsp;
+
+Unlike ggplot2, ggvis is capable of creating interactive plots. Interactive plots allows the user to change values of parameters, change colours, and change visual settings.
+
+This section features two examples of interactive plots in ggvis. The faraway library in R is used here.
+
+&nbsp;
+
+**Example One**
+
+&nbsp;
+
+This first example looks at a USA wages dataset.
+
+&nbsp;
+
+```{r}
+## ggvis Interactive Plots:
+
+# Some Interactive Controls
+
+library(faraway) # Dataset package
+
+data(uswages)
+
+head(uswages)
+```
+
+&nbsp;
+
+The `head()` function allows for previewing the dataset. We have the variables.columns wage, educ, exper, race, smsa, ne, mw, so, we, and pt. In the interactive scatterplot, I want to compare years of experience with the weekly wages.
+
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4} 
+uswages %>% ggvis(x = ~exper, y = ~wage) %>%
+  layer_points(fill := input_select(c("red", "blue", "green", "black"),
+                                    label = "Colour"),
+               size := input_slider(10, 50, value = 30, label = "Size")) %>%
+  add_axis("x", title = "\n Years Of Experience", title_offset = 50) %>%
+  add_axis("y", title = "Weekly Wage (US) \n", title_offset = 50) %>%
+  add_axis("x", orient = "top", ticks = 0, 
+           title = "Weekly Wages Of US Males In 1988 \n",
+           properties = axis_props(axis = list(stroke = "white"),
+                                   labels = list(fontSize = 0)))
+```
+
+&nbsp;
+
+The R code is not much different from the code for scatterplots earlier. What is new is adding the input_select and input_slider options to fill and size. The user can choose between the colours red, blue, green and black from the colour list. In the slider for size, the user can adjust the size of the points by dragging the slider left or right. Moving the slider to the right increases the size of the points while moving the slider to the left decreases the size of the points. I have set the initial size value at 30 as indicated by value = 30 in the code.
+
+(The screenshot image above shows the red points with a size of 30.)
+
+&nbsp;
+
+**Example Two**
+
+This second example features the star data from R's faraway dataset library. I compare star temperature with light intensity.
+
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4}
+## Second example:
+
+data(star)
+
+
+head(star) # Preview data
+
+star %>% ggvis(x = ~temp, y = ~light) %>%
+  layer_points(fill := input_select(c("red", "darkgreen", "black"),
+                                    label = "Colour"),
+               size := input_slider(10, 80, value = 45, label = "Size"),
+               opacity := input_slider(0.2, 1, value = 0.6, label = "Opacity")) %>%
+  add_axis("x", title = "\n Temperature", title_offset = 50) %>%
+  add_axis("y", title = "Light Intensity \n", title_offset = 50) %>%
+  add_axis("x", orient = "top", ticks = 0, 
+           title = "Star Temperature Vs Light Intensity Scatterplot \n",
+           properties = axis_props(axis = list(stroke = "white"),
+                                   labels = list(fontSize = 0)))
+```
+
+&nbsp;
+
+In this screenshot, I show the colour of the points as darkgreen, the size of the points as 45 and the opacity being 0.6. (Opacity is the measure of opaqueness or how shading you want in the points.)
+
+To include the opacity feature I add in:
+
+&nbsp;
+
+```
+opacity := input_slider(0.2, 1, value = 0.6, label = "Opacity")
+```
+
+&nbsp;
+
+<a name="refs"></a>
+
+### <u>References</u>
+
+&nbsp;
+
+* http://ggvis.rstudio.com/ggvis-basics.html
+* https://www.dezyre.com/data-science-in-r-programming-tutorial/ggvis
+* http://ggvis.rstudio.com/cookbook.html
+* http://ggvis.rstudio.com/axes-legends.html

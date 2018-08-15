@@ -1,15 +1,13 @@
 ---
-title: "Math & Stats Pages"
+title: "Math, Probability and Statistics Pages"
 output: html_document
 ---
 
 &nbsp;
 
-# <u>Math, Probability and Statistics Pages</u>
+# <u>Categories</u>
 
-&nbsp;
 
-## Mathematics Topics
 
 &nbsp;
 
@@ -96,7 +94,7 @@ output: html_document
 
 &nbsp;
 
-[Sum (Sigma) Notation](./calculus-sum-notation.html)
+[Sum (Sigma) Notation](./math-sum-notation.html)
 
 [The Power Rule For Calculus Derivatives](./calculus-power-rule.html)
 
@@ -113,8 +111,6 @@ output: html_document
 [Implicit Differentiation](./calculus-implicit-diff.html)
 
 [Integration By Parts](./calculus-integration-byparts.html)
-
-[Solving Separable Ordinary Differential Equations (ODEs)](./calculus-separable-ode.html)
 
 [The Bisection Method](./math-bisection-method.html)
 
@@ -137,6 +133,22 @@ output: html_document
 [A Guide To Cross Products](./linalg-cross-products.html)
 
 [What Are Orthogonal (Perpendicular) Vectors?](linalg-orthogonal-vectors.html)
+
+[Relating Cross Products, Orthognal Vectors & Dot Products](linalg-dot-cross-products.html)
+
+[Area Of Paraellograms & Triangles With Cross Products](linalg-area-paraellogram.html)
+
+&nbsp;
+
+### <u>Differential Equations</u>
+
+&nbsp;
+
+[Solving Separable Ordinary Differential Equations (ODEs)](./odes-separable.html)
+
+[Solving Linear Ordinary Differential Equations](./odes-ordinary-odes.html)
+
+[The Heaviside Function](./ode-heaviside.html)
 
 &nbsp;
 
@@ -161,13 +173,14 @@ output: html_document
 
 ---
 
-## Probability Topics
+## <u>Probability Topics</u>
 
-
+&nbsp;
 
 
 
 ---
 
-## Statistics Topics
+## <u>Statistics Topics</u>
 
+&nbsp;

@@ -1,0 +1,270 @@
+---
+title: "Solving Linear Ordinary Differential Equations"
+output: html_document
+
+---
+
+&nbsp;
+
+
+Hello. This post will be a short guide on solving first order linear ordinary differential equations (ODEs). It is assumed that the reader knows derivatives and integrals from calculus. Knowing product rule helps here.
+
+&nbsp;
+
+# <u>Topics</u>
+
+&nbsp;
+
+* The Linear Differential Equation & Theory
+* What Is The Integrating Factor $\mu(x)$?
+* The Method for Solving Linear Equations
+* Example
+* Notes
+
+&nbsp;
+
+### <u>The Linear Differential Equation & Theory</u>
+
+&nbsp;
+
+We start with a first order linear differential equation of the form:
+
+&nbsp;
+
+$$\displaystyle a_1(x) \, \dfrac{dy}{dx} + a_0(x) \, y = b(x)$$
+&nbsp;
+
+Dividing both sides (all terms) by $a_1(x)$ gives us:
+
+&nbsp;
+
+$$\displaystyle \dfrac{dy}{dx} + \dfrac{a_0(x)}{a_1(x)} \, y = \dfrac{b(x)}{a_1(x)}$$
+
+&nbsp;
+
+Setting $\dfrac{a_0(x)}{a_1(x)}$ as $P(x)$ and setting $\dfrac{b(x)}{a_1(x)}$ as $Q(x)$ gives us the standard form as follows:
+
+&nbsp;
+
+$$\text{ (1)} \displaystyle \dfrac{dy}{dx} + P(x) \, y = Q(x)$$
+
+&nbsp;
+
+Ultimately, we want to solve for $y(x)$ from the standard form. The procedure in doing so is not as simple as solving separable differential equations. The procedure here will require some "clever" calculus.
+
+From (1), we multiply both sides by an integrating factor $\mu(x)$ (What $\mu(x)$ is will be explained later.):
+
+&nbsp;
+
+$$\text{ (2)}\displaystyle \mu(x) \dfrac{dy}{dx} + \mu(x) P(x) \, y = \mu(x) Q(x)$$
+
+&nbsp;
+
+Recall that the calculus product rule is $\dfrac{d}{dx}(f(x) \, g(x)) = f'(x) \, g(x) + f(x) \, g'(x)$.
+
+By setting $\mu(x) P(x)$ as $\mu'(x)$ and recognizing that $\mu(x) \dfrac{dy}{dx} + \mu'(x) \, y = \dfrac{d}{dx}(\mu(x) \, y)$, equation (2) can be expressed as:
+
+&nbsp;
+
+$$\text{ (3)} \displaystyle \dfrac{d}{dx}( \mu(x) \, y ) = \mu(x) Q(x)$$
+
+&nbsp;
+
+Taking the indefinite integral on both sides with respect to the variable $x$ in (3) gives:
+
+&nbsp;
+
+$$\text{ (4)}\displaystyle \mu(x) \, y = \int \mu(x) Q(x) dx + C$$
+
+&nbsp;
+
+The solution $y = y(x)$ to the standard from (1) above is:
+
+&nbsp;
+
+$$\text{ (5)}\displaystyle y(x) = \dfrac{1}{\mu(x)} \, \int \mu(x) Q(x) \, dx + C$$
+&nbsp;
+
+with $C$ as the constant of integration.
+
+&nbsp;
+
+### <u>What Is The Integrating Factor $\mu(x)$?</u>
+
+&nbsp;
+
+We have solved for $y(x)$ but what exactly is $\mu(x)$ when we multiplied both sides of the standard form? Let us investigate.
+
+Before we obtained equation (3) above, we had $\mu(x) P(x) = \mu'(x)$ . This is a separable differential equation. We solve for $\mu(x)$:
+
+&nbsp;
+
+$$\begin{array} {lcl}
+\mu(x) \, P(x) & = & \mu'(x)\\ \\
+\mu(x) \, P(x) & = & \dfrac{d\mu}{dx}\\ \\
+P(x) \, dx & = & \dfrac{d\mu}{\mu(x)}\\ \\
+\int P(x) \, dx & = & \int \dfrac{d\mu}{\mu(x)}\\ \\
+\int P(x) \, dx & = & \text{ln}( \mu(x) ) + C\\ \\
+\int P(x) \, dx + C & = & \text{ln}( \mu(x) ) \\ \\
+\text{exp}(\int P(x) \, dx + C) & = & \mu(x) \\ \\
+\end{array}$$
+
+&nbsp;
+
+Since the integral of $P(x)$ contains a constant anyways, we do not need the $C$ constant. The integration factor is $\mu(x) = \text{exp}(\int P(x) \, dx)$. (Recall that $\text{exp}(x) = e^x.)$
+
+&nbsp;
+
+### <u>The Method for Solving Linear Equations</u>
+
+&nbsp;
+
+The above was the theory of solving for $y(x)$. What if you don't care too much about the theory and just want the procedure?
+
+&nbsp;
+
+Here is the method:
+
+&nbsp;
+
+**Step a)**
+
+&nbsp;
+
+Make sure when dealing with a first order differential equation, you have the equation in standard form as follows:
+
+&nbsp;
+
+$$\displaystyle \dfrac{dy}{dx} + P(x) \, y = Q(x)$$
+
+&nbsp;
+
+**Step b)**
+
+&nbsp;
+
+Multiply both sides (all terms) by the integration factor $\mu(x) = \text{exp}(\int P(x) \, dx)$:
+
+&nbsp;
+
+$$\displaystyle \mu(x) \dfrac{dy}{dx} + \mu(x) P(x) \, y = \mu(x) Q(x)$$
+
+&nbsp;
+
+**Step c)** 
+
+&nbsp;
+
+With $\mu(x) P(x) = \mu'(x)$ and the left side being the result of a product rule of $\dfrac{d}{dx}[ \mu(x) \, y]$. Rewrite the above equation as:
+
+&nbsp;
+
+$$\displaystyle \dfrac{d}{dx}[ \mu(x) \, y] = \mu(x) Q(x)$$
+&nbsp;
+
+**Step d)** 
+
+&nbsp;
+
+Integrate both sides with respect to $x$ and solve for $y(x)$ to obtain:
+
+&nbsp;
+
+$$\displaystyle y(x) = \dfrac{1}{\mu(x)} \, \int \mu(x) Q(x) \, dx + C$$
+
+&nbsp;
+
+**Alternate Method**
+
+&nbsp;
+
+This alternate method involves some memorization. If you can memorize the standard form from step a), the integrating factor $\mu(x)$, and the $y(x)$ formula in step d) then you can avoid the product rule derivation steps in b) and c).
+
+
+&nbsp;
+
+### <u>Example</u>
+
+&nbsp;
+
+Solve for $y(x)$ in the differential equation $\displaystyle x \, y'(x) - x + y(x) = 0$
+
+&nbsp;
+
+**Solution**
+
+&nbsp;
+
+Dividing every term by $x$ and rearrangement gives us the standard form in step a) as follows:
+
+&nbsp;
+
+$$\displaystyle y'(x) + \dfrac{y(x)}{x} = 1$$
+
+&nbsp;
+
+We have $P(x) = 1/x$ and $Q(x) = 1$. Our integrating factor $\mu(x)$ would be $\text{exp}(\int 1/x \, dx) = \text{exp}( \text{ln}(x)) = x$.
+
+We use the formula in part d) to obtain the solution for $y(x)$:
+
+&nbsp;
+
+$$\begin{array} {lcl}
+y(x) & = & \dfrac{1}{\mu(x)} \, \int \mu(x) Q(x) \, dx + C\\ \\
+y(x) & = & \dfrac{1}{x} \, \int x \cdot 1 \, dx + C\\ \\
+y(x) & = & \dfrac{1}{x} \, \dfrac{x^2}{2} \,  + C\\ \\
+y(x) & = & \dfrac{x}{2} \,  + C\\ \\
+\end{array}$$
+
+&nbsp;
+
+We have the general solution to $y(x)$. Now we find the constant $C$ in $y(x)$ such that it satisfies $x \, y'(x) - x + y(x) = 0$. (Note that $y'(x) = 1/2$).
+
+&nbsp;
+
+$$\begin{array} {lcl}
+ x \, y'(x) - x + y(x) & = & 0\\ \\
+\dfrac{x}{2} - x + \dfrac{x}{2} + C & = & 0\\ \\
+C & = & 0\\ \\
+\end{array}$$
+
+&nbsp;
+
+With $C = 0$, we check our solution $y(x)$ to see if it does satisfy $x \, y'(x) - x + y(x) = 0$.
+
+&nbsp;
+
+**Check**
+
+&nbsp;
+
+$$\begin{array} {lcl}
+ x \, y'(x) - x + y(x) & = & \dfrac{x}{2} - x + \dfrac{x}{2}\\ \\
+                                 & = & 0\\ \\
+\end{array}$$
+
+
+
+&nbsp;
+
+### <u>Notes</u>
+
+&nbsp;
+
+* The example above is a simple one to illustrate how to obtain $y(x)$. Other problems involve more computations.
+
+* I have used $y$ and $y(x)$ interchangeably.
+
+* Don't forget the constant of integration $C$! However, the constant of integration is not needed in the integration factor $\mu(x)$.
+
+* Differential Equations is tricky as it takes a lot of work and one mistake can destroy everything.
+
+&nbsp;
+
+### <u>Reference</u>
+
+&nbsp;
+
+* Nagle R.K. et al., Fundamentals of Differential Equations and Boundary Value Problems - 5th Edition.
+
+* The featured spiral like image is taken from http://www.thegreatcourses.com/courses/mastering-differential-equations-the-visual-method.html.

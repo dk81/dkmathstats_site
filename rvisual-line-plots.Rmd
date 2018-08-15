@@ -1,0 +1,185 @@
+---
+title: "Line Plots In R And ggplot2"
+output: html_document
+---
+
+&nbsp;
+
+Hi. Here is some work that I have done with line plots in R and ggplot2.
+
+&nbsp;
+
+### <u>Table Of Contents</u>
+
+&nbsp;
+
+* <a href="#data">Belgian Phone Calls Data</a>
+
+* <a href="#line">A Simple Line Plot</a>
+
+* <a href="#variations">Some Variations Of The Line Plot</a>
+
+* <a href="#refs">References</a>
+
+&nbsp;
+
+<a name="data"></a>
+
+### <u>Belgian Phone Calls Data</u>
+
+&nbsp;
+
+The dataset that I have chosen for this is on Belgian phone calls data from 1950 to 1973. The R documentation in the MASS library has this information about this dataset.
+
+&nbsp;
+
+<center>![phones_doc](./images/lineplot_phones_doc.jpg)</center>
+
+&nbsp;
+
+To start, load the libraries MASS and ggplot2.
+
+&nbsp;
+
+```{r}
+# Line Plots In R
+# Reference: R Graphics Cookbook by Winston Chang (2012)
+
+library(MASS) # Dataset library
+library(ggplot2) # Data visualization
+```
+
+&nbsp;
+
+From the MASS dataset library, there is a dataset called `phones`. This phones data is saved into a variable called `belgium_phonecalls`.
+
+&nbsp;
+
+```{r}
+# Belgium Phone Calls Data:
+
+belgium_phonecalls <- data.frame(phones)
+```
+
+&nbsp;
+
+The `head()` and `tail()` functions are used to look at a small sample of the data.
+
+&nbsp;
+
+```{r}
+# Preview the data:
+
+head(belgium_phonecalls); tail(belgium_phonecalls)
+```
+
+&nbsp;
+
+I do not like the year values with the last digits only. Adding 1900 to the first column would be ideal here. Also, I rename the column names using `colnames()`.
+
+&nbsp;
+
+```{r}
+# Add 1900 to the year column:
+
+belgium_phonecalls[, 1] <- 1900 + belgium_phonecalls[, 1]
+
+# Rename column names:
+
+colnames(belgium_phonecalls) <- c("Year", "Number_Calls")
+
+# Preview the data again:
+
+head(belgium_phonecalls); tail(belgium_phonecalls)
+```
+
+&nbsp;
+
+<a name="line"></a>
+
+### <u>A Simple Line Plot</u>
+
+&nbsp;
+
+Using the `ggplot2` package in R, a simple line plot can be created from our data table.
+
+&nbsp;
+
+```{r}
+## Simple Line Plot:
+
+plot <- ggplot(belgium_phonecalls, aes(x = Year, y = Number_Calls)) 
+
+plot + geom_line()
+```
+
+&nbsp;
+
+One can easily see that the number of phone calls (in millions) has increased dramatically starting at around 1963 to about 1968. Someone with domain knowledge of Belgium and the phone industry would likely know what contributed to the increase and decrease number of phone calls from around 1963 to 1970.
+
+&nbsp;
+
+<a name="variations"></a>
+
+### <u>Some Variations Of The Line Plot</u>
+
+&nbsp;
+
+The neat thing about `ggplot2` in R is that it provides more variety and more choice for the R user/programmer. Here are some variations of the line plot.
+
+If I want to add data points with the line, I simply add geom_point with `geom_line()` on top of the `ggplot()` function saved in plot.
+
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4} 
+## Adding dots with the line:
+
+plot + geom_line() + geom_point()
+```
+
+&nbsp;
+
+The points above are somewhat small and the colour could be changed. Here is a different version of the above.
+
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4} 
+## Coloured dots and coloured line:
+
+plot + geom_line(colour = "darkgreen") + 
+  geom_point(colour = "blue", shape = 21, size = 3, fill = "blue")
+```
+
+&nbsp;
+
+The line colour has been changed to dark green and the points have a different size, shape and are now blue.
+
+To make the plot more complete, labels and other features need to be added. Here is the code and output.
+
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4} 
+## A polished line plot with labels:
+
+plot + geom_line(colour = "darkgreen") + 
+  geom_point(colour = "blue", shape = 21, size = 3, fill = "blue") +
+  labs(x = "\n Year \n", y = "Number Of Calls (Millions) \n", 
+       title = "Belgian Phone Calls Data (1950 - 1973) \n") + 
+  theme(plot.title = element_text(hjust = 0.5, colour = "brown"), 
+        axis.title.x = element_text(face="bold", size = 12),
+        axis.title.y = element_text(face="bold", size = 12),
+        axis.text.x = element_text(vjust = 0.2),
+        legend.title = element_text(face="bold", size = 10)) 
+```
+
+&nbsp;
+
+<a name="refs"></a>
+
+### <u>References</u>
+
+&nbsp;
+
+R Graphics Cookbook by Winston Chang (2012)
+
+R Documentation in the faraway package.

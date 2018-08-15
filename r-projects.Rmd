@@ -9,6 +9,26 @@ This page contains links on a bunch of R programming projects.
 
 &nbsp;
 
+# <u>Categories</u>
+
+&nbsp;
+
+* <a href="#mathstats">Math & Stats In R</a>
+
+* <a href="#rvisual">Data Visualization In R</a>
+
+* <a href="#visualprojects">Data Visualization Projects In R</a>
+
+* <a href="#rdata">Data Analysis & Data Manipulation In R</a>
+
+* <a href="#textmining">Text Mining & Text Analysis In R</a>
+
+* <a href="#ml">Machine Learning Experimental Work</a>
+
+&nbsp;
+
+<a name="mathstats"></a>
+
 ### <u>Math & Stats In R</u>
 
 &nbsp;
@@ -25,6 +45,8 @@ This page contains links on a bunch of R programming projects.
 
 [Plotting Math Functions In R](./rmath-plotting-math-functions.html)
 
+
+<a name="rvisual"></a>
 
 &nbsp;
 
@@ -44,9 +66,21 @@ This page contains links on a bunch of R programming projects.
 
 [Heatmaps In R With ggplot2](./rvisual-heatmaps.html)
 
+[Pie Charts In R](./rvisual-piecharts.html)
 
+[Line Plots In R & ggplot2](./rvisual-line-plots.html)
+
+[Data Visualization In R With The ggvis Package](./rvisual-ggvis-guide.html)
+
+[Scatterplots In R Using The ggvis Package](./rvisual-scatterplots-ggvis.html)
+
+[Working With A Two-By-Two Table In R](./rvisual-twoway-table.html)
+
+[Multiple Plots In One Graph With R](./rvisual-multiple-plots.html)
 
 &nbsp;
+
+<a name="visualprojects"></a>
 
 ### <u>Data Visualization Projects In R</u>
 
@@ -54,9 +88,13 @@ This page contains links on a bunch of R programming projects.
 
 [Making A Rock, Paper, Scissors Table In R](./rvisual-rockpaperscissors.html)
 
-[Making A Rock, Paper, Scissors, Lizard, Spock Table In R](./rvisual-rpsls.html)
+[Creating A Rock, Paper, Scissors, Lizard, Spock Table In R](./rvisual-rpsls.html)
+
+[Creating A Pokémon (Gen 6+) Types Table In R](./rvisual-pokemon-table.html)
 
 &nbsp;
+
+<a name="rdata"></a>
 
 ### <u>Data Analysis & Data Manipulation In R</u>
 
@@ -67,12 +105,16 @@ This page contains links on a bunch of R programming projects.
 
 &nbsp;
 
+<a name="textmining"></a>
+
 ### <u>Text Mining & Text Analysis In R</u>
 
 &nbsp;
 
 
 &nbsp;
+
+<a name="ml"></a>
 
 ### <u>Machine Learning Experimental Work</u>
 

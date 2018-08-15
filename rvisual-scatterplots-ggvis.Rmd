@@ -1,0 +1,271 @@
+---
+title: "Scatterplots In R Using The ggvis Package"
+output: html_document
+---
+
+&nbsp;
+
+Hello. In this page, I will talk about displaying scatterplots using the statistical program R and the R package `ggvis` for data visualization.
+
+&nbsp;
+
+### <u>Table of Contents</u>
+
+&nbsp;
+
+* The Dataset
+* Looking At The Data
+* The Scatterplots and Linear Models
+* Notes and Thoughts
+* References
+
+&nbsp;
+
+### <u>The Dataset</u>
+
+&nbsp;
+
+This particular dataset is based on time or time spent on the internet. Variables of interest in this dataset are the number of internet users, the population of the country and the number of Facebook users.
+
+&nbsp;
+
+### <u>Looking at The Data</u>
+
+&nbsp;
+
+In R, we load the libraries ggvis and dplyr. Loading ggvis will allow us to access the plots, graphs and other visual tools in the library. The dplyr package will allows us to use the %>% syntax for ggvis. More info on the %>% can be found here. The dataset was from here.
+
+The code and output can be found below:
+
+&nbsp;
+
+```{r}
+# ggvis
+
+# The dataset:
+
+# Load ggvis
+library(ggvis)
+library(dplyr)
+
+url <- "http://sites.williams.edu/bklingen/files/2015/05/InternetUse.csv"
+
+internet_data <- read.csv(url)
+
+head(internet_data)
+
+dim(internet_data)
+
+str(internet_data)
+```
+
+&nbsp;
+
+The output looks messy but we can still extract key information. There are 32 observations (rows) and 11 variables (columns). The 32 observations are countries with their own population size, number of internet users, number of Facebook users, GDP and the like.
+
+As mentioned earlier, the variables of interest in this dataset are the population of the country, the number of internet users, and the number of Facebook users.
+
+The numbers in the population of the country and in other variables are really large and would be bad in the plots (overcrowding).
+
+We put the population numbers, and the number of users in the hundred thousands. Here is the code and output:
+
+```{r}
+# We want to see the relationship between population size vs internet users.
+# internet_users vs facebook_users.
+
+# Subset data and scale into one hundred thousands:
+
+pop_size <- internet_data$Population.Size / 100000
+
+internet_users <- internet_data$Internet.Users / 100000
+
+facebook_users <- internet_data$Facebook.Users / 100000
+
+# Need just population size, internet users, facebook users (Extract 3 columns):
+
+internet_user_data <- data.frame(cbind(pop_size, internet_users, facebook_users))
+
+summary(internet_user_data)
+
+```
+
+&nbsp;
+
+We create a new dataset from the original data set with just population size, the number of internet users and the number of facebook users.
+
+&nbsp;
+
+### <u>The Scatterplots and Linear Models</u>
+
+After looking at our data and cleaning it up a bit, we plot the data.
+
+We will plot two scatterplots. The first will be comparing Population size versus the number of internet users. In the second plot, it will be the number of internet users versus the number of Facebook users.
+
+&nbsp;
+
+**Model 1**
+
+&nbsp;
+
+Here is the code and output of the first model.
+
+```{r, echo = TRUE, fig.width=4, fig.height=4}
+# Plotting Linear Models:
+# Source: http://ggvis.rstudio.com/cookbook.html
+# Source: http://ggvis.rstudio.com/axes-legends.html
+
+
+## Linear Model 1: Population size vs Internet Users:
+
+internet_user_data %>%
+ggvis(x = ~pop_size, y = ~internet_users) %>%
+  layer_points() %>%
+  layer_model_predictions(model = "lm", se = TRUE, stroke := "red") %>%
+  add_axis("x", title = "Population Size (In Hundred Thousands)",  title_offset = 50) %>%
+  add_axis("y", title = "Number of Internet Users (In Hundred Thousands)",title_offset = 50)
+```
+
+&nbsp;
+
+Above is the visual of the scatterplot and a linear model ("line of best fit"). If we want the linear model in a more mathematical form such as $y = mx + b$ we run this code.
+
+&nbsp;
+
+```{r}
+net_pop_model <- lm(data = internet_user_data, internet_users ~ pop_size)
+
+coef(net_pop_model)
+```
+
+&nbsp;
+
+The linear model fitted is (Units In Per Hundred Thousand):
+
+&nbsp;
+
+$$\text{Number of Internet Users} = 0.2860429 \times \text{Population Size} + 184.4877 923$$
+
+&nbsp;
+
+According to the model, for every unit (or 100,000) increase of the population, the number of internet users increases by 0.2860429 * 1 = 0.2860429 (or about 28604 users).
+
+One can notice the three most rightward points on the plot. In statistics, such extreme values are called outliers. There are ways of determining whether or not a point is an outlier but it won't be discussed here. You could say that if a point is far away from the rest of the points and the line then it is likely an outlier.
+
+One way of finding the outliers here is to find the points with a population size of over 3000 (per 100 thousand). The code is below.
+
+&nbsp;
+
+```{r}
+# What are the three extreme points (outliers) from the scatterplot?
+
+## Extract the three outliers:
+
+three_outliers <- subset(internet_user_data, pop_size > 3000)
+
+three_outliers
+
+# Indices of rows 7, 13 and 31 of outliers, extracting countries of outliers.
+
+internet_data[c(7, 13, 31), "country"]
+```
+
+&nbsp;
+
+Those three points large population sizes and a large number of internet users belong to the countries of China, India and the United States.
+
+&nbsp;
+
+**Model 2**
+
+&nbsp;
+
+In the second model, we compare the number of internet users to the number of Facebook users.
+
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4}
+### Linear Model 2: Internet Users vs Facebook Users:
+
+internet_user_data %>%
+  ggvis(x = ~internet_users, y = ~facebook_users) %>%
+  layer_points() %>%
+  layer_model_predictions(model = "lm", se = TRUE, stroke := "blue") %>%
+  add_axis("x", title = "Number of Internet Users (In Hundred Thousands)", title_offset = 50) %>%
+  add_axis("y", title = "Number of Facebook Users (In Hundred Thousands)",title_offset = 50)
+```
+
+&nbsp;
+
+The slope here is positive (upward sloping) and is less steep (more flat). Let's find out what the linear model is.
+
+&nbsp;
+
+```{r}
+net_fb_model <- lm(data = internet_user_data, facebook_users ~ internet_users)
+
+coef(net_fb_model)
+```
+
+&nbsp;
+
+The linear model here is:
+
+&nbsp;
+
+$$\text{Number of Facebook Users} = 0.08383939 \times \text{Number of Internet Users} + 189.96371821$$
+
+&nbsp;
+
+Again we have three outliers in this second plot.
+
+&nbsp;
+
+```{r}
+# What are the three extreme points (outliers) from the scatterplot?
+
+## Extract the three outliers:
+
+three_outliers_net_fb <- subset(internet_user_data, internet_users > 1500)
+
+three_outliers_net_fb
+
+# Indices of rows 7, 13 and 31 of outliers, extracting countries of outliers.
+
+internet_data[c(7, 13, 31), "country"]
+```
+
+&nbsp;
+
+The three outliers are from China, India and the United States once again.
+
+
+&nbsp;
+
+### <u>Notes and Thoughts</u>
+
+&nbsp;
+
+I am aware that the linear model should go through the origin as if there is no population then there cannot be any internet users nor Facebook users. Also, no internet users means no Facebook users. However, I do not know at this time how to plot a linear model through the origin (intercept of zero) using ggvis.
+
+In R, one can plot a linear model through the origin. As an example we can have:
+
+&nbsp;
+
+```{r}
+net_fb_model_origin <- lm(data = internet_user_data, facebook_users ~ 0 +internet_users)
+coef(net_fb_model_origin)
+```
+
+&nbsp;
+
+$$\text{Number of Facebook Users} = 0.1637 \times \text{Number of Internet Users}$$
+
+&nbsp;
+
+### <u>References</u>
+
+&nbsp;
+
+* http://ggvis.rstudio.com/cookbook.html
+* http://ggvis.rstudio.com/axes-legends.html
+* DataCamp

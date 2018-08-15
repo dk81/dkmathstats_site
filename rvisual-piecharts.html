@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Pie Charts In R</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Pie Charts In R</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hi there. I have played around with making pie charts in the statistical programming language R. The pie charts shown here are from the base R package and from the ggplot2 data visualization package.</p>
+<p> </p>
+<div id="table-of-contents" class="section level3">
+<h3><u>Table Of Contents</u></h3>
+<p> </p>
+<ul>
+<li>References</li>
+<li>The Sample Data: Favourite Food Survey</li>
+<li>A Pie Chart Using Base R Graphics</li>
+<li>Using ggplot2 To Create A Pie Chart</li>
+<li>Adding Percentage Labels To The Pie Chart Using ggplot2</li>
+<li>Adding Percentage And Count Labels To The Pie Chart Using ggplot2</li>
+</ul>
+<p> </p>
+</div>
+<div id="references" class="section level3">
+<h3><u>References</u></h3>
+<p> </p>
+<ul>
+<li><a href="http://www.sthda.com/english/wiki/ggplot2-pie-chart-quick-start-guide-r-software-and-data-visualization" class="uri">http://www.sthda.com/english/wiki/ggplot2-pie-chart-quick-start-guide-r-software-and-data-visualization</a></li>
+<li><a href="http://stackoverflow.com/questions/20442693/how-to-use-ggplot2-to-generate-a-pie-graph" class="uri">http://stackoverflow.com/questions/20442693/how-to-use-ggplot2-to-generate-a-pie-graph</a></li>
+<li><a href="http://stackoverflow.com/questions/41338757/adding-percentage-labels-on-pie-chart-in-r" class="uri">http://stackoverflow.com/questions/41338757/adding-percentage-labels-on-pie-chart-in-r</a></li>
+<li><a href="http://stackoverflow.com/questions/7145826/how-to-format-a-number-as-percentage-in-r" class="uri">http://stackoverflow.com/questions/7145826/how-to-format-a-number-as-percentage-in-r</a></li>
+<li>R Graphics Cookbook by Winston Chang (O’Reilly Media, 2012)</li>
+</ul>
+<p> </p>
+</div>
+<div id="the-sample-data-favourite-food-survey" class="section level3">
+<h3><u>The Sample Data: Favourite Food Survey</u></h3>
+<p> </p>
+<p>For the pie chart, I am creating a fake sample dataset. This data table will contain favourite food choices and their counts from a survey.</p>
+<p>The food choices are Pizza, Pasta, Sushi, and Caesar Salad.</p>
+<p> </p>
+<pre class="r"><code>food_choices &lt;- c(&quot;Pizza&quot;, &quot;Pasta&quot;, &quot;Sushi&quot;, &quot;Caesar Salad&quot;)
+
+counts &lt;- c(17, 10, 8, 11)
+
+table &lt;- data.frame(food_choices, counts) # Create data frame</code></pre>
+<p> </p>
+<p>You can check the contents of the table by typing out table and/or using the <code>str()</code> command in R.</p>
+<p> </p>
+<pre class="r"><code># Check table:
+
+table</code></pre>
+<pre><code>##   food_choices counts
+## 1        Pizza     17
+## 2        Pasta     10
+## 3        Sushi      8
+## 4 Caesar Salad     11</code></pre>
+<pre class="r"><code># Check structure of table:
+
+str(table)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    4 obs. of  2 variables:
+##  $ food_choices: Factor w/ 4 levels &quot;Caesar Salad&quot;,..: 3 2 4 1
+##  $ counts      : num  17 10 8 11</code></pre>
+<p> </p>
+<p>The column names in the table can be changed as well by using <code>colnames()</code>.</p>
+<p> </p>
+<pre class="r"><code>colnames(table) &lt;- c(&quot;Food&quot;, &quot;Count&quot;)
+
+# Check:
+
+table</code></pre>
+<pre><code>##           Food Count
+## 1        Pizza    17
+## 2        Pasta    10
+## 3        Sushi     8
+## 4 Caesar Salad    11</code></pre>
+<p> </p>
+<p>One could compute the total number of people in this food survey. (Add from top to bottom of second column in table.)</p>
+<p> </p>
+<pre class="r"><code># Total Counts In Survey:
+
+total_count &lt;- sum(table[,2])
+
+total_count</code></pre>
+<pre><code>## [1] 46</code></pre>
+<p> </p>
+</div>
+<div id="a-pie-chart-using-base-r-graphics" class="section level3">
+<h3><u>A Pie Chart Using Base R Graphics</u></h3>
+<p> </p>
+<p>In base R, the <code>pie()</code> function is used to create a pie chart. The <code>pie()</code> function requires many arguments. In this example, I use x, labels, col (colours), and main (title).</p>
+<p> </p>
+<pre class="r"><code>## Base R Pie Chart With Labels:
+
+pie(table[, 2], labels = table[,1], 
+col = c(&quot;Blue&quot;, &quot;Red&quot;, &quot;Green&quot;, &quot;Orange&quot;),
+main = &quot;Favourite Foods Survey&quot;)</code></pre>
+<p><img src="rvisual-piecharts_files/figure-html/unnamed-chunk-5-1.png" width="384" /></p>
+<p> </p>
+<p>This pie chart from base R looks okay but I rather use ggplot2 for this. Also, I have not added in percentage labels here. One could find out how to do it somewhere online.</p>
+<p> </p>
+</div>
+<div id="using-ggplot2-to-create-a-pie-chart" class="section level3">
+<h3><u>Using ggplot2 To Create A Pie Chart</u></h3>
+<p> </p>
+<p>The ggplot2 package in R is very good for data visuals. ggplot2 allows R users to create pie charts, bar graphs, scatter plots, regression lines and more.</p>
+<p>Load the ggplot2 package using this code below.</p>
+<p> </p>
+<pre class="r"><code>library(ggplot2)</code></pre>
+<p> </p>
+<p>In ggplot2, the pie chart follows from the bar graph. This next lines of codes shows why a bar graph is not that good for displaying this data.</p>
+<p> </p>
+<pre class="r"><code># Why Barplot Is Not A Good Visual:
+
+ggplot(table, aes(x = &quot;&quot;, y = Count, fill = Food)) +
+geom_bar(width = 1, stat = &quot;identity&quot;)</code></pre>
+<p><img src="rvisual-piecharts_files/figure-html/unnamed-chunk-7-1.png" width="384" /></p>
+<p> </p>
+<p>To create the actual pie chart more code is needed on top of the existing code for the bar graph. The main line of code is <code>coord_polar(theta = &quot;y&quot;, start = 0)</code> which will convert the bar graph into a pie (circular) graph.</p>
+<p> </p>
+<pre class="r"><code># Pie Chart:
+
+ggplot(table, aes(x = &quot;&quot;, y = Count, fill = Food)) +
+     geom_bar(width = 1, stat = &quot;identity&quot;) +
+     coord_polar(theta = &quot;y&quot;, start = 0) +
+     scale_fill_manual(values = c(&quot;Blue&quot;, &quot;Red&quot;, &quot;Green&quot;, &quot;Orange&quot;)) +
+     labs(x = &quot;&quot;, y = &quot;&quot;, title = &quot;Favourite Food Survey \n&quot;,
+          fill = &quot;Colour Choices&quot;) + 
+     theme(plot.title = element_text(hjust = 0.5), 
+           legend.title = element_text(hjust = 0.5, face=&quot;bold&quot;, size = 10))</code></pre>
+<p><img src="rvisual-piecharts_files/figure-html/unnamed-chunk-8-1.png" width="384" /></p>
+<p> </p>
+<p>From the previous code, <code>scale_fill_manual()</code> allows for colour choices in the pieces of the pie chart. The <code>labs()</code> function allows for customization of the title and labels. The <code>theme()</code> functions allows for customization of the appearance of the title.</p>
+<p> </p>
+</div>
+<div id="adding-percentage-labels-to-the-pie-chart-using-ggplot2" class="section level3">
+<h3><u>Adding Percentage Labels To The Pie Chart Using ggplot2</u></h3>
+<p> </p>
+<p>The pie chart above is very nice but it could use percentage labels. Adding the percentage labels takes a bit of work here but it is manageable.</p>
+<p>The dplyr package for data manipulation and data wrangling is loaded into R.</p>
+<p> </p>
+<pre class="r"><code># Pie Chart With Percentage Labels:
+
+# http://stackoverflow.com/questions/41338757/adding-percentage-labels-on-pie-chart-in-r
+# For percents the reference is:
+# http://stackoverflow.com/questions/7145826/how-to-format-a-number-as-percentage-in-r
+library(dplyr) #Data Wrangling and Manipulation</code></pre>
+<p> </p>
+<p>The next lines of code will convert the values under the Food column as factors and add label positions based on cumulative counts and midpoints. These labels will come out as percentages on the pie chart. The reference used is from <a href="http://stackoverflow.com/questions/41338757/adding-percentage-labels-on-pie-chart-in-r" class="uri">http://stackoverflow.com/questions/41338757/adding-percentage-labels-on-pie-chart-in-r</a>.</p>
+<p> </p>
+<pre class="r"><code># http://stackoverflow.com/questions/41338757/adding-percentage-labels-on-pie-chart-in-r
+# food_choices[length(food_choices):1] is the reverse of 
+# food_choices &lt;- c(&quot;Pizza&quot;, &quot;Pasta&quot;, &quot;Sushi&quot;, &quot;Caesar Salad&quot;)
+
+table_percent &lt;- table %&gt;%
+            mutate(Food = factor(Food, 
+                levels = food_choices[length(food_choices):1]),
+              cumulative = cumsum(Count),
+                midpoint = cumulative - Count / 2,
+                labels = paste0(round((Count/ sum(Count)) * 100, 1), &quot;%&quot;))
+
+# Check table:
+
+table_percent</code></pre>
+<pre><code>##           Food Count cumulative midpoint labels
+## 1        Pizza    17         17      8.5    37%
+## 2        Pasta    10         27     22.0  21.7%
+## 3        Sushi     8         35     31.0  17.4%
+## 4 Caesar Salad    11         46     40.5  23.9%</code></pre>
+<p> </p>
+<p>Now the <code>ggplot()</code> command along with the corresponding code can be used. The line with <code>geom_text()</code> enables the percentage labels onto the pie chart.</p>
+<p> </p>
+<pre class="r"><code># ggplot Pie Chart with percentage labels
+
+ggplot(table_percent, aes(x = &quot;&quot;, y = Count, fill = Food)) +
+ geom_bar(width = 1, stat = &quot;identity&quot;) +
+ coord_polar(theta = &quot;y&quot;, start = 0) +
+ scale_fill_manual(values = c(&quot;Blue&quot;, &quot;Red&quot;, &quot;Green&quot;, &quot;Orange&quot;)) +
+ labs(x = &quot;&quot;, y = &quot;&quot;, title = &quot;Favourite Food Survey \n&quot;,
+ fill = &quot;Food Choices&quot;) + 
+ geom_text(aes(x = 1.2, y = midpoint , label = labels), color=&quot;black&quot;,
+ fontface = &quot;bold&quot;) +
+ theme(plot.title = element_text(hjust = 0.5), 
+ legend.title = element_text(hjust = 0.5, face=&quot;bold&quot;, size = 10)) </code></pre>
+<p><img src="rvisual-piecharts_files/figure-html/unnamed-chunk-11-1.png" width="384" /></p>
+<p> </p>
+</div>
+<div id="adding-percentage-and-count-labels-to-the-pie-chart-using-ggplot2" class="section level3">
+<h3><u>Adding Percentage And Count Labels To The Pie Chart Using ggplot2</u></h3>
+<p> </p>
+<p>Percentages are sometimes misleading. It is better to add counts with them. The code here is very similar to the previous code but the line with <code>paste0()</code> is modified such that the counts are included.</p>
+<p> </p>
+<pre class="r"><code># Pie Chart With Percentage &amp; Counts Labels:
+
+table_labels &lt;- table %&gt;%
+  mutate(Food = factor(Food, 
+                       levels = food_choices[length(food_choices):1]),
+         cumulative = cumsum(Count),
+         midpoint = cumulative - Count / 2,
+         labels = paste0(round((Count/ sum(Count)) * 100, 1), &quot;%&quot;, &quot; (&quot;, Count, &quot;) &quot;))
+
+# Check table:
+
+table_labels</code></pre>
+<pre><code>##           Food Count cumulative midpoint      labels
+## 1        Pizza    17         17      8.5   37% (17) 
+## 2        Pasta    10         27     22.0 21.7% (10) 
+## 3        Sushi     8         35     31.0  17.4% (8) 
+## 4 Caesar Salad    11         46     40.5 23.9% (11)</code></pre>
+<p> </p>
+<p>The <code>paste0()</code> function is R’s version of concatenation. We can combine values and strings together with <code>paste0()</code>.</p>
+<p>Running the <code>ggplot()</code> function with the add-on code gives us a nice pie chart.</p>
+<p> </p>
+<pre class="r"><code># ggplot Pie Chart with percentage labels
+
+ggplot(table_labels, aes(x = &quot;&quot;, y = Count, fill = Food)) +
+  geom_bar(width = 1, stat = &quot;identity&quot;) +
+  coord_polar(theta = &quot;y&quot;, start = 0) +
+  scale_fill_manual(values = c(&quot;Blue&quot;, &quot;Red&quot;, &quot;Green&quot;, &quot;Orange&quot;)) +
+  labs(x = &quot;&quot;, y = &quot;&quot;, title = &quot;Favourite Food Survey \n&quot;,
+       fill = &quot;Food Choices&quot;) + 
+  geom_text(aes(x = 1.2, y = midpoint , label = labels), color=&quot;black&quot;,
+            fontface = &quot;bold&quot;) +
+  theme(plot.title = element_text(hjust = 0.5), 
+        legend.title = element_text(hjust = 0.5, face=&quot;bold&quot;, size = 10))  </code></pre>
+<p><img src="rvisual-piecharts_files/figure-html/unnamed-chunk-13-1.png" width="384" /></p>
+<p> </p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

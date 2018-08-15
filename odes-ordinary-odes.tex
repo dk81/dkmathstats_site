@@ -1,0 +1,340 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Solving Linear Ordinary Differential Equations},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Solving Linear Ordinary Differential Equations}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
+
+\begin{document}
+\maketitle
+
+~
+
+Hello. This post will be a short guide on solving first order linear
+ordinary differential equations (ODEs). It is assumed that the reader
+knows derivatives and integrals from calculus. Knowing product rule
+helps here.
+
+~
+
+\section{Topics}\label{topics}
+
+~
+
+\begin{itemize}
+\tightlist
+\item
+  The Linear Differential Equation \& Theory
+\item
+  What Is The Integrating Factor \(\mu(x)\)?
+\item
+  The Method for Solving Linear Equations
+\item
+  Example
+\item
+  Notes
+\end{itemize}
+
+~
+
+\subsubsection{The Linear Differential Equation \&
+Theory}\label{the-linear-differential-equation-theory}
+
+~
+
+We start with a first order linear differential equation of the form:
+
+~
+
+\[\displaystyle a_1(x) \, \dfrac{dy}{dx} + a_0(x) \, y = b(x)\] ~
+
+Dividing both sides (all terms) by \(a_1(x)\) gives us:
+
+~
+
+\[\displaystyle \dfrac{dy}{dx} + \dfrac{a_0(x)}{a_1(x)} \, y = \dfrac{b(x)}{a_1(x)}\]
+
+~
+
+Setting \(\dfrac{a_0(x)}{a_1(x)}\) as \(P(x)\) and setting
+\(\dfrac{b(x)}{a_1(x)}\) as \(Q(x)\) gives us the standard form as
+follows:
+
+~
+
+\[\text{ (1)} \displaystyle \dfrac{dy}{dx} + P(x) \, y = Q(x)\]
+
+~
+
+Ultimately, we want to solve for \(y(x)\) from the standard form. The
+procedure in doing so is not as simple as solving separable differential
+equations. The procedure here will require some ``clever'' calculus.
+
+From (1), we multiply both sides by an integrating factor \(\mu(x)\)
+(What \(\mu(x)\) is will be explained later.):
+
+~
+
+\[\text{ (2)}\displaystyle \mu(x) \dfrac{dy}{dx} + \mu(x) P(x) \, y = \mu(x) Q(x)\]
+
+~
+
+Recall that the calculus product rule is
+\(\dfrac{d}{dx}(f(x) \, g(x)) = f'(x) \, g(x) + f(x) \, g'(x)\).
+
+By setting \(\mu(x) P(x)\) as \(\mu'(x)\) and recognizing that
+\(\mu(x) \dfrac{dy}{dx} + \mu'(x) \, y = \dfrac{d}{dx}(\mu(x) \, y)\),
+equation (2) can be expressed as:
+
+~
+
+\[\text{ (3)} \displaystyle \dfrac{d}{dx}( \mu(x) \, y ) = \mu(x) Q(x)\]
+
+~
+
+Taking the indefinite integral on both sides with respect to the
+variable \(x\) in (3) gives:
+
+~
+
+\[\text{ (4)}\displaystyle \mu(x) \, y = \int \mu(x) Q(x) dx + C\]
+
+~
+
+The solution \(y = y(x)\) to the standard from (1) above is:
+
+~
+
+\[\text{ (5)}\displaystyle y(x) = \dfrac{1}{\mu(x)} \, \int \mu(x) Q(x) \, dx + C\]
+~
+
+with \(C\) as the constant of integration.
+
+~
+
+\subsubsection{\texorpdfstring{What Is The Integrating Factor
+\(\mu(x)\)?}{What Is The Integrating Factor \textbackslash{}mu(x)?}}\label{what-is-the-integrating-factor-mux}
+
+~
+
+We have solved for \(y(x)\) but what exactly is \(\mu(x)\) when we
+multiplied both sides of the standard form? Let us investigate.
+
+Before we obtained equation (3) above, we had \(\mu(x) P(x) = \mu'(x)\)
+. This is a separable differential equation. We solve for \(\mu(x)\):
+
+Source:
+\url{http://quicklatex.com/cache3/43/ql_13b732a74dc29394e28c2436d96fce43_l3.png}
+Since the integral of \(P(x)\) contains a constant anyways, we do not
+need the \(C\) constant. The integration factor is
+\(\mu(x) = \text{exp}(\int P(x) \, dx)\). (Recall that
+\(\text{exp}(x) = e^x.)\)
+
+~
+
+\subsubsection{The Method for Solving Linear
+Equations}\label{the-method-for-solving-linear-equations}
+
+~
+
+The above was the theory of solving for \(y(x)\). What if you don't care
+too much about the theory and just want the procedure?
+
+~
+
+Here is the method:
+
+Step a) Make sure when dealing with a first order differential equation,
+you have the equation in standard form as follows:
+
+~
+
+\[\displaystyle \dfrac{dy}{dx} + P(x) \, y = Q(x)\]
+
+~
+
+Step b)
+
+Multiply both sides (all terms) by the integration factor
+\(\mu(x) = \text{exp}(\int P(x) \, dx)\):
+
+~
+
+\[\displaystyle \mu(x) \dfrac{dy}{dx} + \mu(x) P(x) \, y = \mu(x) Q(x)\]
+
+~
+
+Step c)
+
+With \(\mu(x) P(x) = \mu'(x)\) and the left side being the result of a
+product rule of \(\dfrac{d}{dx}[ \mu(x) \, y]\). Rewrite the above
+equation as:
+
+~
+
+\[\displaystyle \dfrac{d}{dx}[ \mu(x) \, y] = \mu(x) Q(x)\] ~
+
+Step d)
+
+Integrate both sides with respect to \(x\) and solve for \(y(x)\) to
+obtain:
+
+~
+
+\[\displaystyle y(x) = \dfrac{1}{\mu(x)} \, \int \mu(x) Q(x) \, dx + C\]
+
+~
+
+Alternate Method
+
+This alternate method involves some memorization. If you can memorize
+the standard form from step a), the integrating factor \(\mu(x)\), and
+the \(y(x)\) formula in step d) then you can avoid the product rule
+derivation steps in b) and c).
+
+Example
+
+Solve for \(y(x)\) in the differential equation
+\(\displaystyle x \, y'(x) - x + y(x) = 0\)
+
+Solution:
+
+Dividing every term by \(x\) and rearrangement gives us the standard
+form a) as follows:
+
+\(\displaystyle y'(x) + \dfrac{y(x)}{x} = 1\) We have \(P(x) = 1/x\) and
+\(Q(x) = 1\). Our integrating factor \(\mu(x)\) would be
+\(\text{exp}(\int 1/x \, dx) = \text{exp}( \text{ln}(x)) = x\).
+
+We use the formula in d) to obtain the solution for \(y(x)\):
+
+Source:
+\url{http://quicklatex.com/cache3/04/ql_32fa6f74a8c1458c8b074b3595641804_l3.png}
+We have the general solution to \(y(x)\). Now we find the constant \(C\)
+in \(y(x)\) such that it satisfies \(x \, y'(x) - x + y(x) = 0\). (Note
+that \(y'(x) = 1/2\)).
+
+Source:
+\url{http://quicklatex.com/cache3/ff/ql_37c529f1357e1fb118596b3c4fa988ff_l3.png}
+With \(C = 0\), we check our solution \(y(x)\) to see if it does satisfy
+\$ x , y'(x) - x + y(x) = 0\$.
+
+Check
+
+Source:
+\url{http://quicklatex.com/cache3/67/ql_918c3c2f72178e24ac8add6b0e620567_l3.png}
+
+~
+
+\subsubsection{Notes}\label{notes}
+
+~
+
+\begin{itemize}
+\item
+  The example above is a simple one to illustrate how to obtain
+  \(y(x)\). Other problems involve more computations.
+\item
+  I have used \(y\) and \(y(x)\) interchangeably.
+\item
+  Don't forget the constant of integration \(C\)! However, the constant
+  of integration is not needed in the integration factor \(\mu(x)\).
+\item
+  Differential Equations is tricky as it takes a lot of work and one
+  mistake can destroy everything.
+\end{itemize}
+
+~
+
+\subsubsection{Reference}\label{reference}
+
+~
+
+\begin{itemize}
+\item
+  Nagle R.K. et al., Fundamentals of Differential Equations and Boundary
+  Value Problems - 5th Edition.
+\item
+  The featured spiral like image is taken from
+  \url{http://www.thegreatcourses.com/courses/mastering-differential-equations-the-visual-method.html}.
+\end{itemize}
+
+
+\end{document}
