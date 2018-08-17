@@ -149,7 +149,7 @@ For the most part, the frequency distributions are quite similar. The Inverse CD
 
 Example Three - Pareto Distribution
 
-Despite people knowing about Pareto's 80-20 rule, the Pareto distribution is not really discussed much in introductory probability & statistics books (in my opinion).
+Despite people knowing about Pareto's 80-20 rule, the Pareto distribution is not really discussed much in introductory probability & statistics books (in my opinion).
 
 Given the shape parameter $k$ and the scale parameter $\lambda$, the Pareto distribution has a probability density function (pdf) of:
 
