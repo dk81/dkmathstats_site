@@ -236,8 +236,6 @@ $(document).ready(function () {
 
 library(faraway)
 library(corrplot)</code></pre>
-<pre><code>## Warning: package &#39;corrplot&#39; was built under R version 3.4.4</code></pre>
-<pre><code>## corrplot 0.84 loaded</code></pre>
 <p> </p>
 <p>From the faraway package, there is a dataset called <code>teengamb</code>. This dataset is about teen gambling and more information on this dataset can be found by typing in <code>?teengamb</code>. I save this teengamb data into a new variable (copy) called <code>gamb_data</code>.</p>
 <p> </p>
@@ -392,11 +390,6 @@ corrplot(corr_gamb, tl.col = &quot;blue&quot;, bg = &quot;gray&quot;, tl.srt = 3
 
 library(ggplot2)
 library(reshape2)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;reshape2&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:tidyr&#39;:
-## 
-##     smiths</code></pre>
 <p> </p>
 <p>The melt function is used to break up the correlation table into a long format table. This table will consist of 25 rows (5 variables times 5 variables) with three columns. The first two columns consist of variable pairs and the third column will the contain the correlation measures for the variable pairs.</p>
 <p> </p>
