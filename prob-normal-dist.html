@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>prob-normal-dist</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">prob-normal-dist</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hi there. In this post, I will talk about the famous Normal Distribution. This topic is covered in numerous introductory probability and statistics courses and is well known. The normal distribution is sometimes referred to as a Gaussian or a bell-shaped curve. This post serves as an overview of the normal distribution and its related topics.</p>
+<p>This post is suitable for a student who is first learning about the normal distribution assuming a good calculus background, and knows basic summary statistics and integration. If there are any topics that seem to crazy for you, it may be best for you to skip it and search for material that suits you.</p>
+<p>The featured red normal distribution image is taken from <a href="http://www.statlect.com/ucdnrm1.htm" class="uri">http://www.statlect.com/ucdnrm1.htm</a>.</p>
+<p> </p>
+<div id="topics" class="section level3">
+<h3><u>Topics</u></h3>
+<p> </p>
+<ul>
+<li>What Is The Normal Distribution?</li>
+<li>The Standard Normal Distribution: A Special Case</li>
+<li>The Cumulative Distribution Function (CDF)</li>
+<li>The Z-Score Table</li>
+<li>68, 95, 99.7% “Rule”</li>
+<li>Using the Z-Score Table</li>
+<li>More Properties (Moment Generating Functions, Skewness, Kurtosis)</li>
+<li>Distributions Related to Normal (Chi-Squared, t-Dist, Lognormal, Multivariate Normal)</li>
+</ul>
+<p> </p>
+</div>
+<div id="what-is-the-normal-distribution" class="section level3">
+<h3><u>1) What Is The Normal Distribution?</u></h3>
+<p>The normal distribution or Gaussian is a continuous probability distribution where it is symmetric at its mean <span class="math inline">\(\mu\)</span> (pronounced like mew). It is the only distribution where its mean is equal to its median and mode.</p>
+<p>The density function of the normal distribution is:</p>
+<p>$f(x; , ^{2}) =  ^{- }  -&lt; x &lt; $ where the mean (“average”) is <span class="math inline">\(\mu\)</span> and the variance is <span class="math inline">\(\sigma^{2}\)</span>. Both <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^{2}\)</span> are constants.</p>
+<p>We denote a normal random variable <span class="math inline">\(X\)</span> as <span class="math inline">\(X \sim N(\mu, \sigma^{2})\)</span>.</p>
+<p>The mean of the normal distribution is given by <span class="math inline">\(E[X] = \mu\)</span>.</p>
+<p>Its variance is given by <span class="math inline">\(\text{Var}(X) = E[X^2] - (E[X])^{2} = \sigma^{2}\)</span></p>
+<p>The area under the curve for the normal distribution is one or:</p>
+<p><span class="math inline">\(\displaystyle \int_{-\infty}^{+ \infty} \dfrac{1}{\sqrt{2 \, \pi \, \sigma^{2}}} \text{ e}^{- \dfrac{(x - \mu)^{2}}{2 \sigma^{2}}} dx = 1\)</span> The mean, median and mode (peak) of the normal distribution occurs when <span class="math inline">\(x = \mu\)</span>.</p>
+<p>The Normal distribution is a symmetric (zero skewness) distribution where the mean, median and mode are all equal to each other.</p>
+</div>
+<div id="the-standard-normal-distribution-a-special-case" class="section level3">
+<h3><u>2) The Standard Normal Distribution: A Special Case</u></h3>
+<p>When <span class="math inline">\(\mu = 0\)</span> and <span class="math inline">\(\sigma^{2} = 1\)</span> in the normal distribution, we have the standard normal distribution as a special case. A random variable that follows a standard normal distribution is often denoted by <span class="math inline">\(Z \sim \text{N}(0,1)\)</span>.</p>
+<p>Alternatively, one can say that if <span class="math inline">\(X \sim \text{N}(\mu, \sigma^{2})\)</span> then the random variable <span class="math inline">\(Z = \dfrac{(X - \mu)}{\sigma}\)</span> has a N(0, 1) distribution. This N(0,1) distribution is known as the standard normal distribution (Casella &amp; Berger).</p>
+<p>We can show that the standard normal random variable has a mean of 0 and a variance of 1 using expected value and variance properties when <span class="math inline">\(X \sim \text{N}(\mu, \sigma^{2})\)</span>.</p>
+<p><span class="math inline">\(E[Z] = E[\dfrac{(X - \mu)}{\sigma}] = \dfrac{(E[X] - \mu)}{\sigma} = \dfrac{0 -0}{\sigma} = 0\)</span> <span class="math inline">\(\text{and } Var(Z) = Var(\dfrac{(X - \mu)}{\sigma}) = \dfrac{Var(X) - 0}{\sigma^2} = \dfrac{\sigma^2}{\sigma^2} = 1\)</span> The probability density function of a standard normal distribution is: <span class="math inline">\(\displaystyle f(x; \mu = 0, \sigma^{2} = 1) = \dfrac{1}{\sqrt{2\pi}} \text{ e}^{- x^2 / 2} \text{ ,} -\infty &lt; x &lt; \infty\)</span></p>
+<p>The mean, median and mode (peak) of the standard normal distribution is at <span class="math inline">\(x = \mu = 0\)</span>.</p>
+</div>
+<div id="the-cumulative-distribution-function-cdf" class="section level3">
+<h3><u>3) The Cumulative Distribution Function (CDF)</u></h3>
+<p>The CDF is the probability that a real-valued random variable <span class="math inline">\(X\)</span> with a given probability distribution is less than or equal to a quantity <span class="math inline">\(x\)</span>. It is often denoted by <span class="math inline">\(P(X \leq x)\)</span>.</p>
+<p>For the standard normal distribution we have the CDF denoted by <span class="math inline">\(P(Z \leq z)\)</span>. Other notations include <span class="math inline">\(\Phi(z)\)</span>, <span class="math inline">\(N(z)\)</span> or <span class="math inline">\(F(z)\)</span>.</p>
+<p>We can also have the equal or greater than case with <span class="math inline">\(P(Z \geq z)\)</span> or <span class="math inline">\((1 - P(Z \leq z))\)</span> or <span class="math inline">\((1 - \Phi(z))\)</span> or <span class="math inline">\((1 - F(z))\)</span> or <span class="math inline">\(N(-z)\)</span></p>
+<hr />
+<p>CDF Properties</p>
+<p>For any random variable X:</p>
+<p><span class="math inline">\(0 \leq P(X \leq x) \leq 1\)</span></p>
+<p><span class="math inline">\(P(a &lt; X &lt; b) = P(X &lt; b) - P(X &lt; a)\)</span> for values <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>. <span class="math inline">\(P(X &gt; -\infty) = 1\)</span></p>
+<p><span class="math inline">\(P(X &lt; +\infty) = F(\infty) = N(\infty) = 1\)</span></p>
+<p>If <span class="math inline">\(P(X \leq x) = 0.5\)</span> then <span class="math inline">\(x\)</span> is the median (<span class="math inline">\(50^{th}\)</span> percentile). For a standard normal distribution, the median is at <span class="math inline">\(x = \mu = 0\)</span>.</p>
+<p><span class="math inline">\(P(X \leq x)\)</span> is the same as <span class="math inline">\(P(- \infty \leq X \leq x)\)</span> and <span class="math inline">\(P(X \geq x)\)</span> is the same as <span class="math inline">\(P( x \leq X \leq \infty)\)</span></p>
+<p><span class="math inline">\(P(X \leq x) + P(X \geq x) = 1\)</span> or <span class="math inline">\(P(X \geq x) = 1 - P(X \leq x)\)</span></p>
+<p>With the standard normal case: <span class="math inline">\(P(Z \leq z) + P(Z \geq z) = 1\)</span> or <span class="math inline">\(N(z) + N(-z) = 1\)</span></p>
+</div>
+<div id="the-z-score-table" class="section level3">
+<h3><u>4) The Z-Score Table</u></h3>
+<p>We now look at the z-score table. The Z-Score Table applies to the standard normal distribution only and it helps us computes probabilities.</p>
+<p>In <span class="math inline">\(P(Z \leq z)\)</span> and in <span class="math inline">\(P(Z \geq z)\)</span> the quantity <span class="math inline">\(z\)</span> is the z-score.</p>
+<p>From the formula <span class="math inline">\(Z = \dfrac{(X - \mu)}{\sigma}\)</span>, we can have <span class="math inline">\(X = \mu + \sigma Z\)</span> (where <span class="math inline">\(\mu \neq 0\)</span> and <span class="math inline">\(\sigma^2 \neq 1\)</span>).</p>
+<p>The z-score is the number of standard deviations above or below the mean <span class="math inline">\(\mu\)</span>. Remember that <span class="math inline">\(z\)</span> can be positive or negative while <span class="math inline">\(\sigma\)</span> is the square root of <span class="math inline">\(\sigma^2\)</span> and cannot be negative. If the z-score <span class="math inline">\(z\)</span> is positive then <span class="math inline">\(z\)</span> is greater than the mean <span class="math inline">\(\mu\)</span>. A negative z-score represents <span class="math inline">\(z\)</span> less than the mean <span class="math inline">\(\mu\)</span>.</p>
+<p>The z-score has no units (such as km, inches, etc.).</p>
+<hr />
+<p>Warning!</p>
+<p>One has to be careful when using the z-score table. There are different versions of the z-score table. One corresponds to <span class="math inline">\(P(X &lt; a)\)</span>, one goes with <span class="math inline">\(P(X &gt; a)\)</span>, and a few have <span class="math inline">\(P(X &gt; 0) = P(0 &lt; X &lt; \infty)\)</span></p>
+<hr />
+<p>If one is asked to find the probability of a random variable below a certain value then you should use <span class="math inline">\(P(X &lt; a)\)</span> and refer to the z-score table and the diagrams carefully!</p>
+<p>It may be helpful to know that <span class="math inline">\(P(Z &gt; 0) = P(Z &lt; 0) = 0.5\)</span> such that <span class="math inline">\(P(Z &gt; 0) + P(Z &lt; 0) = 1\)</span>.</p>
+<p> </p>
+</div>
+<div id="rule" class="section level3">
+<h3><u>5) 68, 95, 99.7% “Rule”</u></h3>
+<p> </p>
+<p>There is a memory aid called the 68, 95, 99.7 rule. Three numbers represents (approximate) probabilities associated with a range of 1, 2 and 3 standard deviations (respectively) in the standard normal distribution.</p>
+<p> </p>
+<hr />
+<p> </p>
+<ol style="list-style-type: decimal">
+<li>Case 1 (Between -1 and +1 standard deviations from the mean).</li>
+</ol>
+<p>Math Notation: <span class="math inline">\(P( |Z| \leq 1) = P( -1 \leq Z \leq 1) = 0.68\)</span></p>
+<p>Meaning: 68% of the values are between -1 and +1 standard deviations (z-scores of -1 and + 1) from the mean.</p>
+<hr />
+<p>2)Case 2 (Between -2 and +2 standard deviations from the mean).</p>
+<p>Math Notation: <span class="math inline">\(P( |Z| \leq 1) = P( -1 \leq Z \leq 1) = 0.95\)</span></p>
+<p>Meaning: 95% of the values are between -2 and +2 standard deviations from the mean.</p>
+<hr />
+<ol start="3" style="list-style-type: decimal">
+<li>Case 3 (Between -3 and +3 standard deviations from the mean).</li>
+</ol>
+<p>Math Notation: <span class="math inline">\(P( |Z| \leq 1) = P( -1 \leq Z \leq 1) = 0.997\)</span></p>
+<p>Meaning: 99.7% of the values are between -2 and +2 standard deviations from the mean.</p>
+<hr />
+<p>If you wanted the probability for 0 to 1 standard deviation from the mean in the standard normal distribution, just simply divide by 2 from 0.68 to get 0.34. Likewise with the 0.95 and 0.997 values.</p>
+<p>The image below summarizes the 68, 95 and 99.7 rule:</p>
+<p>This image is taken from <a href="http://www.oswego.edu/~srp/stats/6895997.htm" class="uri">http://www.oswego.edu/~srp/stats/6895997.htm</a></p>
+<p> </p>
+</div>
+<div id="using-the-z-score-table" class="section level3">
+<h3><u>6) Using the Z-Score Table</h3>
+<p> </p>
+<p>It is not expected of students (and people in general) to compute probabilities given z-scores by hand. A z-score table takes care of the computations. Here is a sample z-score table.</p>
+<p>This z-score table deals with the case of <span class="math inline">\(P(Z &lt; z)\)</span> or the probability of the random variable <span class="math inline">\(Z\)</span> is less than (or equal to) a z-score quantity. If you want the <span class="math inline">\(P(Z &gt; z)\)</span> case, you would use <span class="math inline">\(1 - P(Z &lt; z)\)</span> as stated in the bottom box of the above image.</p>
+<p>Notice how there are two separate tables in the image where each side refers to a negative z-score (below the mean) and a positive z-score (above the mean). Remember that regardless of the sign of the z-score we deal with <span class="math inline">\(P(Z &lt; z)\)</span> according to the image.</p>
+<p>The left side of the table refers to the ones digit and the tenths of the z-score and the top part refers to the hundreths of the z-score. As an example, if I wanted to find the probability of <span class="math inline">\(Z\)</span> less than 2.11, I look for 2.1 in the right table and then 0.01 from the top while still being in the same row as 2.1.</p>
+<p>When you want to use the z-score table but you are only given a normal random variable (not a standard normal) such as <span class="math inline">\(X\)</span> and not <span class="math inline">\(Z\)</span>, you need to standardize the random variable <span class="math inline">\(X\)</span> into <span class="math inline">\(Z\)</span> as follows:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle P(a \leq X \leq b) = P(a &lt; X &lt; b) = P( \dfrac{a - \mu}{\sigma} &lt; Z &lt; \dfrac{b - \mu}{\sigma})\]</span> where (where <span class="math inline">\(\mu \neq 0\)</span> and <span class="math inline">\(\sigma^2 \neq 1\)</span>).</p>
+<p>Suppose the average test score was an 72 out of 100 and the standard deviation is 5. Assuming normality, if we wanted the probability (or percentage) of those who scored between a score of 65 to 85 (inclusive) we would have:</p>
+<p>Source: <a href="http://quicklatex.com/cache3/72/ql_71a6f7bd47bf894c7ae6cda01c9ef872_l3.png" class="uri">http://quicklatex.com/cache3/72/ql_71a6f7bd47bf894c7ae6cda01c9ef872_l3.png</a> So about 92.7% of students had a score between 65 and a 85 which is between -1.4 standard deviation and 2.6 standard deviations from the mean score of 72 (assuming normality).</p>
+<p> </p>
+</div>
+<div id="more-properties-extra-material" class="section level3">
+<h3><u>7) More Properties (Extra Material)</u></h3>
+<p> </p>
+<p>Moment Generating Function, Skewness and Kurtosis Of A Normal</p>
+<p>These next topics are more mathematical/probabilistic in nature. It is more suited for math majors, probability and statistics majors, econometrics people, etc.</p>
+<hr />
+<ol style="list-style-type: lower-alpha">
+<li>Moment Generating Function</li>
+</ol>
+<p>An alternate way to characterize a random variable besides its probability density function (pdf) is through its moment generating function (mgf). For a normal random variable <span class="math inline">\(X\)</span> with a mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>, its moment generating function is <span class="math inline">\(M_{X}(t) = E[\text{e}^{tX}] = \text{e}^{\mu t + \sigma^2 t^2 / 2}.\)</span></p>
+<p>For a standard normal random variable where <span class="math inline">\(\mu = 0\)</span> and <span class="math inline">\(\sigma^2 = 1\)</span> the moment generating function above condenses to <span class="math inline">\(M_{X}(t) = E[\text{e}^{tX}] = \text{e}^{t^2 / 2}\)</span>.</p>
+<hr />
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Skewness of Normal</li>
+</ol>
+<p>Skewness refers to the symmetry of a distribution. The skewness formula is given by <span class="math inline">\(E[Z^{3}] = (\dfrac{E[(X - \mu)]}{\sigma})^3 = \dfrac{E[(X - \mu)^3]}{\sigma^3}.\)</span> The normal distribution has zero skewness and it is a symmetric probability distribution.</p>
+<p>Here is an image which summarizes skewness:</p>
+<p>This image is taken from <a href="http://www.managedfuturesinvesting.com/managed-futures/news/aisource-news/2015/10/13/what-is-skewness" class="uri">http://www.managedfuturesinvesting.com/managed-futures/news/aisource-news/2015/10/13/what-is-skewness</a>.</p>
+<hr />
+<ol start="3" style="list-style-type: lower-alpha">
+<li>Kurtosis of Normal</li>
+</ol>
+<p>Kurtosis refers to the peak and shape of a distribution. The kurtosis of a distribution is <span class="math inline">\(E[Z^{4}] = \dfrac{E[(X - \mu)^4]}{\sigma^4}\)</span>. For the normal distribution, its kurtosis is 3 and its excess kurtosis is the kurtosis minus 3 which is just 0.</p>
+<p>The normal distribution is known as a mesokurtic distribution.</p>
+<p>This image provides a good visual of kurtosis:</p>
+<p>The image is from <a href="http://www.pqsystems.com/eline/2001/02/b.htm" class="uri">http://www.pqsystems.com/eline/2001/02/b.htm</a>.</p>
+<p> </p>
+</div>
+<div id="probability-distributions-related-to-the-normal" class="section level3">
+<h3><u>8) Probability Distributions Related to the Normal</u></h3>
+<p> </p>
+<p>There are many other probability distribution that are related to the normal distribution. Some of them are derived from the normal distribution.</p>
+<hr />
+<p> </p>
+<ol style="list-style-type: lower-alpha">
+<li>Chi-Squared Distribution</li>
+</ol>
+<p> </p>
+<p>Assuming that <span class="math inline">\(Z\)</span> is a N(0,1) random variable, then <span class="math inline">\(Z^2 \sim \chi_{1}^{2}\)</span>. This means that the square of a standard normal random variable is a chi squared random variable with one degree of freedom.</p>
+<p>If <span class="math inline">\(X_{1}, X_{2}, ... , X_{n}\)</span> are independent and each <span class="math inline">\(X_{p_i}^2\)</span> for <span class="math inline">\(i =1,2, ... , n\)</span> then <span class="math inline">\(X_{1} + X_{2} + ... + X_{n} \sim \chi^{2}_{p_{1} + ... + p_{n}}.\)</span></p>
+<p>The probability distribution of a chi squared random variable with p degrees of freedom is:</p>
+<p><span class="math inline">\(\displaystyle f(x | p) = \dfrac{1}{\Gamma(p/2) 2^{p/2}} x^{p/2 - 1}\text{e}^{-x/2}\)</span> with <span class="math inline">\(0 \leq x &lt; \infty\)</span>.</p>
+<hr />
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Student’s t-Distribution</li>
+</ol>
+<p>Suppose we have a random sample from a <span class="math inline">\(N(\mu, \sigma^2)\)</span> distribution. The ratio <span class="math inline">\(T = \dfrac{(\bar{X} - \mu)}{(S/ \sqrt{n})}\)</span> has a Student’s t distribution with (n - 1) degrees of freedom. The ratio T is also a random variable and its probability density function is:</p>
+<p><span class="math inline">\(\displaystyle f_{T}(t) = \dfrac{ \Gamma(\dfrac{p + 1}{2}) }{\Gamma(\dfrac{p}{2})} \, \dfrac{1}{(p\pi)^{1/2}} \, \dfrac{1}{(1 + t^2 / p)^{(p + 1) /2}}\)</span> with <span class="math inline">\(-\infty &lt; t &lt; \infty\)</span>.</p>
+<hr />
+<ol start="3" style="list-style-type: lower-alpha">
+<li>Lognormal Distribution</li>
+</ol>
+<p>If X has a random variable whose logarithm is normally distributed ( $X n( , ^2) $ ), then the random variable X has a lognormal distribution. The lognormal probability density function is:</p>
+<p><span class="math inline">\(f(x | \mu, \sigma^2) = \dfrac{1}{\sqrt{2 \, \pi \, \sigma^{2}}} \dfrac{1}{x} \text{exp}(- (\text{log } x - \mu)^2 / 2\sigma^2)\)</span> where <span class="math inline">\(\text{exp}(x) = \text{e}^{x}\)</span>.</p>
+<p>The expected value of the lognormal pdf is <span class="math inline">\(E[X] = \text{exp}( \mu + \dfrac{\sigma^2}{2})\)</span> and the variance of a lognormal random variable is <span class="math inline">\(Var(X) = \text{exp}( 2(\mu + \sigma^2)) - \text{exp}(2\mu + \sigma^2).\)</span></p>
+<hr />
+<ol start="4" style="list-style-type: lower-alpha">
+<li>Multivariate Normal Distribution</li>
+</ol>
+<p>When we extend the univariate normal from before into the multivariate normal distribution, we now deal with linear algebra topics such as vectors and matrices.</p>
+<p>The multivariate normal distribution in <span class="math inline">\(p\)</span>-dimensions is denoted by <span class="math inline">\(N_{p}(\mu, \Sigma)\)</span> is given by:</p>
+<p><span class="math inline">\(\displaystyle f(\textbf{x}) = \dfrac{1}{(2\pi)^{p/2}\, |\Sigma|^{1/2}} \, \text{e}^{-(\textbf{x} - \mu)^{T} \Sigma^{-1}({x} - \mu)/2\)</span></p>
+<p>where <span class="math inline">\(|\Sigma|\)</span> is the determinant of the variance-covariance matrix <span class="math inline">\(\Sigma\)</span>, <span class="math inline">\(\mu\)</span> is the mean vector and for i = 1, 2, …, p, and <span class="math inline">\(-\infty &lt; x_{i} &lt; \infty\)</span>.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,5 +1,5 @@
 ---
-title: "rvisual-corrplots"
+title: "Correlation Plots Using The corrplot and ggplot2 Packages In R"
 output: html_document
 ---
 
@@ -13,15 +13,17 @@ Hi there. Here is some work on correlation plots in R I have worked on. Most of 
 
 &nbsp;
 
-* A Look At The Data
+* <a href="#data">A Look At The Data</a>
 
-* Correlation Plots Using The corrplot Package
+* <a href="#corrplot">Correlation Plots Using The corrplot Package</a>
 
-* Using ggplot2 To Create Correlation Plots
+* <a href="#ggplot2">Using ggplot2 To Create Correlation Plots</a>
 
-* References
+* <a href="#refs">References</a>
 
 &nbsp;
+
+<a name="data"></a>
 
 
 ### <u>A Look At The Data</u>
@@ -114,6 +116,8 @@ In a correlation matrix, the numeric entries along the main diagonal from top le
 Notice that the correlation matrix is a symmetric matrix. The transpose of a symmetric matrix is the same matrix as before. As an example, the correlation of status and income (row 2, column 3) is -0.2750340 which is the same as the correlation of income and status (row 3, column 2) which is also -0.2750340.
 
 &nbsp;
+
+<a name="corrplot"></a>
 
 ### <u>Correlation Plots Using The corrplot Package</u>
 
@@ -208,6 +212,10 @@ corrplot(corr_gamb, tl.col = "blue", bg = "gray", tl.srt = 35,
 
 &nbsp;
 
+<a name="ggplot2"></a>
+
+---
+
 ### <u>Using ggplot2 To Create Correlation Plots</u>
 
 &nbsp;
@@ -243,7 +251,7 @@ tail(melted_gamb)
 
 &nbsp;
 
-```{r, echo = TRUE, fig.width=4, fig.height=4} 
+```{r, echo = TRUE, fig.width=5, fig.height=5} 
 # A Full Correlation Plot Using ggplot2
 
 ## Version One: Correlation Plot using ggplot2:
@@ -268,7 +276,9 @@ In this table, red tiles represent negative correlations between the two associa
 
 &nbsp;
 
-Version Two: Upper Triangular Correlation Plot using ggplot2
+---
+
+**Version Two: Upper Triangular Correlation Plot using ggplot2**
 
 The full correlation matrix provides more than enough information. An upper triangular matrix of the correlation matrix provides less cluster and there is no loss of information. (Recall that the correlation matrix is a symmetric matrix so we can afford to drop the multiple entries.)
 
@@ -289,7 +299,7 @@ upper_gamb
 
 &nbsp;
 
-```{r, echo = TRUE, fig.width=4, fig.height=4}
+```{r, echo = TRUE, fig.width=5, fig.height=5}
 # Melt this upper triangular matrix and remove NA values:
 
 up_m_gamb <- melt(upper_gamb, na.rm = TRUE)
@@ -319,49 +329,38 @@ Having a upper triangular matrix version of the correlation matrix is less intim
 
 (This upper triangular matrix form is not exactly like the one from linear algebra but I think the above image is good enough for displaying purposes.)
 
+&nbsp;
 
+---
 
-Version Three: Lower Triangular Correlation Plot using ggplot2
+**Version Three: Lower Triangular Correlation Plot using ggplot2**
+
+&nbsp;
 
 Here is the code and output for the lower triangular part of the correlation matrix. The code is similar to the upper triangular case.
 
-> ## Version Three: Lower Triangular Correlation Plot using ggplot2:
-> 
-> # Create new copy:
-> 
-> lower_gamb <- corr_gamb
-> 
-> # Make lower triangular matrix by setting NA to upper triangular part:
-> lower_gamb[upper.tri(lower_gamb)] <- NA
-> 
-> lower_gamb
-              Sex      Status     Income     Verbal Gamble
-Sex     1.0000000          NA         NA         NA     NA
-Status -0.4809353  1.00000000         NA         NA     NA
-Income -0.1154586 -0.27503402  1.0000000         NA     NA
-Verbal -0.1069762  0.53161022 -0.1755707  1.0000000     NA
-Gamble -0.4078053 -0.05042081  0.6220769 -0.2200562      1
-> 
-> # Melt this upper triangular matrix and remove NA values:
-> 
-> lower_m_gamb <- melt(lower_gamb, na.rm = TRUE)
-> 
-> head(lower_m_gamb)
-    Var1   Var2      value
-1    Sex    Sex  1.0000000
-2 Status    Sex -0.4809353
-3 Income    Sex -0.1154586
-4 Verbal    Sex -0.1069762
-5 Gamble    Sex -0.4078053
-7 Status Status  1.0000000
-> tail(lower_m_gamb)
-     Var1   Var2      value
-13 Income Income  1.0000000
-14 Verbal Income -0.1755707
-15 Gamble Income  0.6220769
-19 Verbal Verbal  1.0000000
-20 Gamble Verbal -0.2200562
-25 Gamble Gamble  1.0000000
+&nbsp;
+
+```{r, echo = TRUE, fig.width=5, fig.height=5} 
+## Version Three: Lower Triangular Correlation Plot using ggplot2:
+
+# Create new copy:
+
+lower_gamb <- corr_gamb
+
+# Make lower triangular matrix by setting NA to upper triangular part:
+lower_gamb[upper.tri(lower_gamb)] <- NA
+
+lower_gamb
+
+# Melt this upper triangular matrix and remove NA values:
+
+lower_m_gamb <- melt(lower_gamb, na.rm = TRUE)
+
+head(lower_m_gamb)
+
+tail(lower_m_gamb)
+
 # Ggplot lower triangular correlation matrix:
 
 ggplot(data = lower_m_gamb, aes(x = Var1, y = Var2, fill = value)) +
@@ -376,10 +375,12 @@ ggplot(data = lower_m_gamb, aes(x = Var1, y = Var2, fill = value)) +
         legend.title = element_text(face="bold", colour="brown", size = 10)) +
   geom_text(aes(x = Var1, y = Var2, label = round(value, 2)), color = "black", 
             fontface = "bold", size = 5)
-
+```
 
 
 &nbsp;
+
+<a name="refs"></a>
 
 ### <u>References</u>
 

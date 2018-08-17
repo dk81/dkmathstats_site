@@ -1,0 +1,26 @@
+---
+title: "A Short Guide On Counterexamples"
+output: html_document
+---
+
+&nbsp;
+
+This page is a short guide on counterexamples.
+
+&nbsp;
+
+---
+
+In the field of mathematics, logic is used to prove or disporve mathematical claims, theories and even formulas. There is an area of mathematics called mathematical logic which is very similar to formal logic in philosophy. Having logic skills is nice to have for everyday life and for workplace settings (law).
+
+---
+
+&nbsp;
+
+A counterexample is an example which is used to disprove a claim or theorem. 
+
+As an example, if someone made a claim that all four sided shapes are squares and rectangles, you can disprove that claim by saying that a trapezoid is also a four sided shape which is neither a square nor a rectangle (with angle and side length arguments). The trapezoid being mentioned here is a counterexample for this scenario.
+
+If someone claimed that everybody likes the colour red then it takes at least one person to say "But I don't" (truthfully) to prove that not everybody likes the colour red.
+
+In everyday life, the concept of counterexamples is not too difficult. In a more mathematical and logic based framework, finding counterexamples can be difficult.

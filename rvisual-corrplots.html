@@ -11,7 +11,7 @@
 
 
 
-<title>rvisual-corrplots</title>
+<title>Correlation Plots Using The corrplot and ggplot2 Packages In R</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -191,7 +191,7 @@ $(document).ready(function () {
   <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
 </li>
 <li>
-  <a href="r-projects.html">R Programming Projects</a>
+  <a href="r-projects.html">R Programming</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -205,7 +205,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">rvisual-corrplots</h1>
+<h1 class="title toc-ignore">Correlation Plots Using The corrplot and ggplot2 Packages In R</h1>
 
 </div>
 
@@ -217,12 +217,13 @@ $(document).ready(function () {
 <h1><u>Sections</u></h1>
 <p> </p>
 <ul>
-<li><p>A Look At The Data</p></li>
-<li><p>Correlation Plots Using The corrplot Package</p></li>
-<li><p>Using ggplot2 To Create Correlation Plots</p></li>
-<li><p>References</p></li>
+<li><p><a href="#data">A Look At The Data</a></p></li>
+<li><p><a href="#corrplot">Correlation Plots Using The corrplot Package</a></p></li>
+<li><p><a href="#ggplot2">Using ggplot2 To Create Correlation Plots</a></p></li>
+<li><p><a href="#refs">References</a></p></li>
 </ul>
 <p> </p>
+<p><a name="data"></a></p>
 <div id="a-look-at-the-data" class="section level3">
 <h3><u>A Look At The Data</u></h3>
 <p> </p>
@@ -235,6 +236,8 @@ $(document).ready(function () {
 
 library(faraway)
 library(corrplot)</code></pre>
+<pre><code>## Warning: package &#39;corrplot&#39; was built under R version 3.4.4</code></pre>
+<pre><code>## corrplot 0.84 loaded</code></pre>
 <p> </p>
 <p>From the faraway package, there is a dataset called <code>teengamb</code>. This dataset is about teen gambling and more information on this dataset can be found by typing in <code>?teengamb</code>. I save this teengamb data into a new variable (copy) called <code>gamb_data</code>.</p>
 <p> </p>
@@ -311,6 +314,7 @@ corr_gamb</code></pre>
 <p>In a correlation matrix, the numeric entries along the main diagonal from top left to bottom right are ones. One could show (by hand) that the correlation of two identical random variables is one. (I.e. Correlation of status and status is one).</p>
 <p>Notice that the correlation matrix is a symmetric matrix. The transpose of a symmetric matrix is the same matrix as before. As an example, the correlation of status and income (row 2, column 3) is -0.2750340 which is the same as the correlation of income and status (row 3, column 2) which is also -0.2750340.</p>
 <p> </p>
+<p><a name="corrplot"></a></p>
 </div>
 <div id="correlation-plots-using-the-corrplot-package" class="section level3">
 <h3><u>Correlation Plots Using The corrplot Package</u></h3>
@@ -375,6 +379,8 @@ corrplot(corr_gamb, tl.col = &quot;blue&quot;, bg = &quot;gray&quot;, tl.srt = 3
          col = colour_set(100))</code></pre>
 <p><img src="rvisual-corrplots_files/figure-html/unnamed-chunk-11-1.png" width="480" /></p>
 <p> </p>
+<p><a name="ggplot2"></a></p>
+<hr />
 </div>
 <div id="using-ggplot2-to-create-correlation-plots" class="section level3">
 <h3><u>Using ggplot2 To Create Correlation Plots</u></h3>
@@ -386,6 +392,11 @@ corrplot(corr_gamb, tl.col = &quot;blue&quot;, bg = &quot;gray&quot;, tl.srt = 3
 
 library(ggplot2)
 library(reshape2)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;reshape2&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:tidyr&#39;:
+## 
+##     smiths</code></pre>
 <p> </p>
 <p>The melt function is used to break up the correlation table into a long format table. This table will consist of 25 rows (5 variables times 5 variables) with three columns. The first two columns consist of variable pairs and the third column will the contain the correlation measures for the variable pairs.</p>
 <p> </p>
@@ -426,11 +437,12 @@ ggplot(data = melted_gamb, aes(x = Var1, y = Var2, fill = value)) +
         legend.title = element_text(face=&quot;bold&quot;, colour=&quot;brown&quot;, size = 10)) +
   geom_text(aes(x = Var1, y = Var2, label = round(value, 2)), color = &quot;black&quot;, 
             fontface = &quot;bold&quot;, size = 5)</code></pre>
-<p><img src="rvisual-corrplots_files/figure-html/unnamed-chunk-14-1.png" width="384" /></p>
+<p><img src="rvisual-corrplots_files/figure-html/unnamed-chunk-14-1.png" width="480" /></p>
 <p> </p>
 <p>In this table, red tiles represent negative correlations between the two associated variables and the blue tiles represent positive correlations between two variables. The correlations along the main diagonal are ones.</p>
 <p> </p>
-<p>Version Two: Upper Triangular Correlation Plot using ggplot2</p>
+<hr />
+<p><strong>Version Two: Upper Triangular Correlation Plot using ggplot2</strong></p>
 <p>The full correlation matrix provides more than enough information. An upper triangular matrix of the correlation matrix provides less cluster and there is no loss of information. (Recall that the correlation matrix is a symmetric matrix so we can afford to drop the multiple entries.)</p>
 <p>For upper and lower triangular matrices, there is some additional data manipulation work needed to have the data prepared for plotting.</p>
 <p> </p>
@@ -482,25 +494,69 @@ ggplot(data = up_m_gamb, aes(x = Var1, y = Var2, fill = value)) +
   legend.title = element_text(face=&quot;bold&quot;, colour=&quot;brown&quot;, size = 10)) +
   geom_text(aes(x = Var1, y = Var2, label = round(value, 2)), color = &quot;black&quot;, 
   fontface = &quot;bold&quot;, size = 5)</code></pre>
-<p><img src="rvisual-corrplots_files/figure-html/unnamed-chunk-16-1.png" width="384" /></p>
+<p><img src="rvisual-corrplots_files/figure-html/unnamed-chunk-16-1.png" width="480" /></p>
 <p> </p>
 <p>Having a upper triangular matrix version of the correlation matrix is less intimidating and it is easier to read. You may have to explain that for example that the correlation of income and status and the correlation of status and income are the same (due to symmetry).</p>
 <p>(This upper triangular matrix form is not exactly like the one from linear algebra but I think the above image is good enough for displaying purposes.)</p>
-<p>Version Three: Lower Triangular Correlation Plot using ggplot2</p>
-<p>Here is the code and output for the lower triangular part of the correlation matrix. The code is similar to the upper triangular case.</p>
-<blockquote>
-<h2 id="version-three-lower-triangular-correlation-plot-using-ggplot2">Version Three: Lower Triangular Correlation Plot using ggplot2:</h2>
-<h1 id="create-new-copy">Create new copy:</h1>
-<p>lower_gamb &lt;- corr_gamb</p>
-<h1 id="make-lower-triangular-matrix-by-setting-na-to-upper-triangular-part">Make lower triangular matrix by setting NA to upper triangular part:</h1>
-<p>lower_gamb[upper.tri(lower_gamb)] &lt;- NA</p>
-<p>lower_gamb Sex Status Income Verbal Gamble Sex 1.0000000 NA NA NA NA Status -0.4809353 1.00000000 NA NA NA Income -0.1154586 -0.27503402 1.0000000 NA NA Verbal -0.1069762 0.53161022 -0.1755707 1.0000000 NA Gamble -0.4078053 -0.05042081 0.6220769 -0.2200562 1</p>
-<h1 id="melt-this-upper-triangular-matrix-and-remove-na-values">Melt this upper triangular matrix and remove NA values:</h1>
-<p>lower_m_gamb &lt;- melt(lower_gamb, na.rm = TRUE)</p>
-<p>head(lower_m_gamb) Var1 Var2 value 1 Sex Sex 1.0000000 2 Status Sex -0.4809353 3 Income Sex -0.1154586 4 Verbal Sex -0.1069762 5 Gamble Sex -0.4078053 7 Status Status 1.0000000 tail(lower_m_gamb) Var1 Var2 value 13 Income Income 1.0000000 14 Verbal Income -0.1755707 15 Gamble Income 0.6220769 19 Verbal Verbal 1.0000000 20 Gamble Verbal -0.2200562 25 Gamble Gamble 1.0000000 # Ggplot lower triangular correlation matrix:</p>
-</blockquote>
-<p>ggplot(data = lower_m_gamb, aes(x = Var1, y = Var2, fill = value)) + geom_tile() + scale_fill_gradient2(midpoint = 0.5, mid =“grey70”, limits = c(-1, +1)) + labs(title = “Correlation Matrix On Teen Gambling Data ”, x = “”, y = “”, fill = “Correlation Measure”) + theme(plot.title = element_text(hjust = 0.5, colour = “blue”), axis.title.x = element_text(face=“bold”, colour=“darkgreen”, size = 12), axis.title.y = element_text(face=“bold”, colour=“darkgreen”, size = 12), legend.title = element_text(face=“bold”, colour=“brown”, size = 10)) + geom_text(aes(x = Var1, y = Var2, label = round(value, 2)), color = “black”, fontface = “bold”, size = 5)</p>
 <p> </p>
+<hr />
+<p><strong>Version Three: Lower Triangular Correlation Plot using ggplot2</strong></p>
+<p> </p>
+<p>Here is the code and output for the lower triangular part of the correlation matrix. The code is similar to the upper triangular case.</p>
+<p> </p>
+<pre class="r"><code>## Version Three: Lower Triangular Correlation Plot using ggplot2:
+
+# Create new copy:
+
+lower_gamb &lt;- corr_gamb
+
+# Make lower triangular matrix by setting NA to upper triangular part:
+lower_gamb[upper.tri(lower_gamb)] &lt;- NA
+
+lower_gamb</code></pre>
+<pre><code>##               Sex      Status     Income     Verbal Gamble
+## Sex     1.0000000          NA         NA         NA     NA
+## Status -0.4809353  1.00000000         NA         NA     NA
+## Income -0.1154586 -0.27503402  1.0000000         NA     NA
+## Verbal -0.1069762  0.53161022 -0.1755707  1.0000000     NA
+## Gamble -0.4078053 -0.05042081  0.6220769 -0.2200562      1</code></pre>
+<pre class="r"><code># Melt this upper triangular matrix and remove NA values:
+
+lower_m_gamb &lt;- melt(lower_gamb, na.rm = TRUE)
+
+head(lower_m_gamb)</code></pre>
+<pre><code>##     Var1   Var2      value
+## 1    Sex    Sex  1.0000000
+## 2 Status    Sex -0.4809353
+## 3 Income    Sex -0.1154586
+## 4 Verbal    Sex -0.1069762
+## 5 Gamble    Sex -0.4078053
+## 7 Status Status  1.0000000</code></pre>
+<pre class="r"><code>tail(lower_m_gamb)</code></pre>
+<pre><code>##      Var1   Var2      value
+## 13 Income Income  1.0000000
+## 14 Verbal Income -0.1755707
+## 15 Gamble Income  0.6220769
+## 19 Verbal Verbal  1.0000000
+## 20 Gamble Verbal -0.2200562
+## 25 Gamble Gamble  1.0000000</code></pre>
+<pre class="r"><code># Ggplot lower triangular correlation matrix:
+
+ggplot(data = lower_m_gamb, aes(x = Var1, y = Var2, fill = value)) +
+  geom_tile() +
+  scale_fill_gradient2(midpoint = 0.5, mid =&quot;grey70&quot;, 
+                       limits = c(-1, +1)) +
+  labs(title = &quot;Correlation Matrix \n On Teen Gambling Data \n&quot;, 
+       x = &quot;&quot;, y = &quot;&quot;, fill = &quot;Correlation \n Measure&quot;) +
+  theme(plot.title = element_text(hjust = 0.5, colour = &quot;blue&quot;), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;darkgreen&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;darkgreen&quot;, size = 12),
+        legend.title = element_text(face=&quot;bold&quot;, colour=&quot;brown&quot;, size = 10)) +
+  geom_text(aes(x = Var1, y = Var2, label = round(value, 2)), color = &quot;black&quot;, 
+            fontface = &quot;bold&quot;, size = 5)</code></pre>
+<p><img src="rvisual-corrplots_files/figure-html/unnamed-chunk-17-1.png" width="480" /></p>
+<p> </p>
+<p><a name="refs"></a></p>
 </div>
 <div id="references" class="section level3">
 <h3><u>References</u></h3>

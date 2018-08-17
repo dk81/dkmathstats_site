@@ -1,0 +1,119 @@
+---
+title: "The Random Walk"
+output: html_document
+---
+
+&nbsp;
+
+<center><img src="http://motheyes.com/stochastic/unbounded.png" /></center>
+
+&nbsp;
+
+This image is from http://blog.motheyes.com/2010/03/ministry-of-stochastic-walks/ .
+
+&nbsp;
+
+Here is a short guide to the random walk found in probability. Note that this random walk will be a symmetrical random walk with equal probabilities of $\dfrac{1}{2}$ for each of the two outcomes.
+
+&nbsp;
+
+### <u>Introduction</u>
+
+&nbsp;
+
+Let us first consider a unbiased/even coin. We have a probability of 0.5 for heads and 0.5 for tails.
+
+Denote the outcome of tosses as $\omega = \omega_{1} \omega_{2} \omega_{3}...\omega_{n}$ where $\omega$) is omega for $n$ coin tosses. $\omega$ is an infinite sequence of outcomes $\omega_{1}, \omega_{2}$ up to $\omega_{n}$.
+
+Define the random variable $X_j$ for the $j^{th}$ coin toss for $j$ from 1 to n where:
+
+&nbsp;
+
+$$ X_j  = \begin{cases} +1, & \text{if }\omega_j = \text{Heads } \\ -1, & \text{if }\omega_j =\text{Tails}\end{cases}$$ 
+
+&nbsp;
+
+
+Each coin toss is either +1 for a heads or a -1 for a tails with a probability of 0.5 each.
+
+Note that this $X_j$ random variable does not have to relate to coin tosses. Once can define $X_j$ to be dependent on up/down movements, even/odd numbers, etc.
+
+&nbsp;
+
+### <u>Mean and Variance of $X_j$</u>
+
+&nbsp;
+
+$E[X_j] = 0$ since $E[X_j] = 1 \times \dfrac{1}{2} - 1 \times \dfrac{1}{2}= 0$.
+
+$Var(X_j) = 1$ since
+
+$$Var(X_j) = E[X_j^2] - (E[X_j])^2 = E[X_j^2] - 0^{2} = 1^2 \times \dfrac{1}{2} + (-1)^2 \times \dfrac{1}{2} = 1$$
+
+&nbsp;
+
+### <u>The Symmetrical Random Walk</u>
+
+&nbsp;
+
+Now we have the random variable $X_j$ for j from 1 to n. But, what if we want a running total of these +1 and -1 outcomes for 1 to n?
+
+Let us define $M_0 = 0$ and this "running total" as $M_k$ where:
+
+&nbsp;
+
+$$M_k = \displaystyle\sum_{j=1}^{k} X_j$$ for k = 1, 2, ...
+
+&nbsp;
+
+This stochastic (random) process $M_k$ is a symmetric random walk.
+
+&nbsp;
+
+### <u>Properties of the Symmetric Random Walk</u>
+
+&nbsp;
+
+Mean is zero:
+
+&nbsp;
+
+$$E[M_k] = E [\displaystyle\sum_{j=1}^{k} X_j] = \displaystyle\sum_{j=1}^{k} E[X_j] = \displaystyle\sum_{j=1}^{k} (1 * 0.5 + (- 1) * 0.5) = 0$$
+
+&nbsp;
+
+Variance is just $k$ for $M_k$.
+
+&nbsp;
+
+$$Var(M_k) = Var( \displaystyle\sum_{j=1}^{k} X_j ) = \displaystyle\sum_{j=1}^{k} Var(X_j) = \displaystyle\sum_{j=1}^{k} 1 = k$$
+
+&nbsp;
+
+Note that the independence of coin tosses was assumed such that the covariance in the double sum is zero.
+
+&nbsp;
+
+The symmetric random walk is a martingale. That is $\displaystyle E[M_l | F_k ] = M_k$. (The conditional expectation given the filtration at time $k < l$ is just the symmetric random walk at time k.) We don't expect the symmetric random walk to change from time $k$ to $l$.
+
+&nbsp;
+
+The quadratic variation of the symmetric random walk is just time k. This is because:
+
+&nbsp;
+
+$$[M, M]_k = \sum_{j=1}^{k} (M_j - M_j-1)^2 = \sum_{j=1}^{k} (X_j)^2 = \sum_{j=1}^{k}(\pm 1)^2 = k$$ (Add 1 k times).
+
+&nbsp;
+
+The increments of the symmetric random walk are independent. For example,
+$(M_1 - 0 = M_1 - M_0) , M_2 - M_1 , M_3 - M_2, ... ,$ and $M_k - M_{k-1}$ are independent increments. This means that increments over non-overlapping intervals are independent since the intervals depend on different coin tosses.
+
+&nbsp;
+
+### <u>Summary</u>
+
+&nbsp;
+
+The symmetric random walk is a "running total" on the random variable $X_j$. This random variable $X_j$ is either +1 or -1 with equal probabilities from one of two outcomes (heads / tails for example). The symmetric random walk has a lot useful properties and is useful for understanding Brownian Motion.
+

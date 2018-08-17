@@ -9,7 +9,7 @@ navbar:
       href: about.html
     - text: "Math & Stats Pages"
       href: mathstats_pages.html
-    - text: "R Programming Projects"     
+    - text: "R Programming"     
       href: r-projects.html
 output:
   html_document:

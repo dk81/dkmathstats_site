@@ -1,0 +1,387 @@
+---
+title: "Data Cleaning In R With The tidyr Package"
+output: html_document
+---
+
+&nbsp;
+
+Hello. I have been playing around with data cleaning and the tidyr package in the statistics programming language R. Here is a guide on it.
+
+&nbsp;
+
+### <u>Topics</u>
+
+&nbsp;
+
+* <a href="#clean">The Importance of Clean Data</a>
+* <a href="#tidy">Tidy Data</a>
+* <a href="#gather">gather()</a>
+* <a href="#spread">spread()</a>
+* <a href="#unite">unite()</a>
+* <a href="#separate">separate()</a>
+* <a href="#notes">Notes</a>
+* <a href="#refs">References</a>
+
+&nbsp;
+
+<a name="clean"></a>
+
+### <u>The Importance of Clean Data</u>
+
+&nbsp;
+
+As someone who took numerous statistics courses, the datasets given us to us students were often not very large and they were formatted in a way that was ready for statistical modeling and for statistical data analyses.
+
+What was not mentioned in my experiences was data handling and data cleaning. The clean data was taken for granted.
+
+In the event of non-organized data, data cleaning is needed in order for the data to be ready for tasks such as data manipulation, data extraction, statistical modeling and so on.
+
+The guide below will be a brief guide to the tidyr package in R and its functions.
+
+Assuming that tidyr is installed into R, load the package using the library function.
+
+&nbsp;
+
+```{r}
+library(tidyr)
+```
+
+&nbsp;
+
+<a name="tidy"></a>
+
+---
+
+### <u>Tidy Data</u>
+
+&nbsp;
+
+In a data set, we have variables as column names and observations in each row.
+
+With a tidy data set, each variable has its own column and each observation is in its own row.
+
+Column names which have X1, X2, X3 and so on are not very good as they are not descriptive enough. More appropriate column variables would be Price, Count and Gender for example.
+
+Values such as 1 and 2 for Gender are not ideal. They can be replaced by Male and Female.
+
+Years of 2000, 2001, 2002 and so on are not good as column names as we could have a Year column with 2000, 2001, 2000 inside the column corresponding to the observation/row.
+
+The next sections will look into various functions in R's tidyr package for data cleaning, data manipulation and formatting.
+
+&nbsp;
+
+<a name="gather"></a>
+
+---
+
+### <u>gather()</u>
+
+&nbsp;
+
+The `gather()` function in tidyr is for when you have column names which are not variables such as years 1998, 1999, 2000 for example. Gather() gathers columns into rows.
+
+This example in R shows how the `gather()` function is applied to the barley (named as immer) data from the `library(MASS)` dataset package in R.
+
+From the R documentation, here is information about the variables in the immer dataset.
+
+Loc: Location
+Var: The variety of barley ("manchuria", "svansota", "velvet", "trebi" and "peatland").
+Y1: Yield in 1931.
+Y2: Yield in 1932.
+
+&nbsp;
+
+```{r}
+library(MASS)
+
+barley <- immer
+
+head(barley)
+
+str(barley)
+
+```
+
+&nbsp;
+
+In the above code, a peek of the dataset was done along with looking at the variables. The column names were renamed before the `gather()` function was used.
+
+&nbsp;
+
+```{r}
+# Rename column names:
+
+# Y1 is yield in 1931, Y2 is yield in 1932
+
+col_names <- c("Location", "Barley_Type", "1931", "1932")
+
+colnames(barley) <- col_names
+
+# Take columns from 1931 and 1932 into rows. 
+# 1931 and 1932 belong into new column Year, values from the old 1931 & 1932 columns
+# are yield values with the respective year.
+
+barley2 <- gather(barley, "Year", "Yield", c(3, 4))
+
+head(barley2)
+tail(barley2)
+
+```
+
+&nbsp;
+
+In the gather function, barley was used as the dataset. New columns "Year" and "Yield" were created from columns three and four from barley as indicated by c(3,4).
+
+From `gather()`, the years 1931 and 1932 are in the new Year column. The values from the old columns of 1931 and 1932 are in the values column with the values corresponding with the year 1931 or 1932.
+
+&nbsp;
+
+<a name="spread"></a>
+
+---
+
+### <u>spread()</u>
+
+&nbsp;
+
+The opposite of gather is `spread()`. Spread() takes rows into columns.
+
+Here is an example using the suicide dataset in the faraway data package.
+
+The R documentation for the suicide dataset in the faraway package is as follows:
+
+&nbsp;
+
+y: number of people
+cause: method used - a factor with levels drug (suicide by solid or liquid matter), gas, gun (guns, knives or explosives) hang (hanging, strangling, suffocating or drowning, jump other
+age: a factor with levels m (middle-aged) o (old) y (young)
+sex: a factor with levels f m
+
+&nbsp;
+
+```{r}
+library(faraway)
+
+library(tidyr)
+
+# spread rows into columns: long to wide format
+
+library(faraway)
+
+library(tidyr)
+
+suicide_data <- suicide
+
+head(suicide_data)
+```
+
+&nbsp;
+
+After a quick look at the suicide dataset, the column names are not descriptive enough. It is best to change y into something like Counts.
+
+&nbsp;
+
+```{r}
+suicide_wide <- spread(suicide_data, sex, y)
+
+colnames(suicide_wide) <- c("Cause", "Age_Group", "Female_Count", "Male_Count")
+
+head(suicide_wide)
+```
+
+&nbsp;
+
+The `spread()` function here uses the suicide_data dataset, separates the y counts by sex (male and female). The colnames part of the code renames the columns as specified by the user. The new columns are `Cause`, `Age_Group`, `Female_Count`, `Male_Count`.
+
+&nbsp;
+
+---
+
+&nbsp;
+
+In the Age_Group column, the factors of m, o and y are vague and could use some edits. The following code will take these m, o and y values as numerics, change them to "Middle_Aged", "Old" and "Young" respectively and convert them as factors.
+
+&nbsp;
+
+
+```{r}
+# Convert the factors m, o, y to numerics 1, 2, 3:
+suicide_wide$Age_Group <- as.numeric(suicide_wide$Age_Group)
+
+# Convert the 1, 2, 3 to middle aged, old, and young factors
+suicide_wide$Age_Group[suicide_wide$Age_Group == 1] <- "Middle-Aged"
+suicide_wide$Age_Group[suicide_wide$Age_Group == 2] <- "Old"
+suicide_wide$Age_Group[suicide_wide$Age_Group == 3] <- "Young"
+
+# Convert the Age_Group column back as factors:
+
+suicide_wide$Age_Group <- as.factor(suicide_wide$Age_Group)
+
+head(suicide_wide)
+```
+
+---
+
+&nbsp;
+
+**Reversing spread() with gather()**
+
+&nbsp;
+
+We can undo the spread function with tidyr's `gather()` function as follows:
+
+&nbsp;
+
+```{r}
+## Putting it back using gather():
+
+
+suicide2 <- gather(suicide_wide, "Gender", "Count", 3:4)
+
+head(suicide2)
+
+suicide2$Gender[suicide2$Gender == "Female_Count"] <- "Female"
+suicide2$Gender[suicide2$Gender == "Male_Count"] <- "Male"
+
+head(suicide2)
+
+```
+
+&nbsp;
+
+<a name="unite"></a>
+
+---
+
+### <u>unite()</u>
+
+&nbsp;
+
+Several columns can be combines into one column using the `unite()` command. I was not able to find a suitable dataset for an example. Instead, randomly generated hours, minutes and days were used here. The `unite()` function will be used to combine hours, minutes and seconds into the HH:MM:SS time format.
+
+&nbsp;
+
+```{r}
+
+# unite Example
+
+# Fake data, generate hours, minutes and seconds
+
+hours <- round(runif(50, min = 0, max = 5), 0)
+minutes <- round(runif(50, min = 0, max = 60), 0)
+seconds <- round(runif(50, min = 0, max = 60), 0)
+
+# Put hours, minutes and seconds together as a data frame:
+sample <- data.frame(Hours = hours, Minutes = minutes, Seconds = seconds)
+
+# A peek at the data:
+head(sample)
+
+# Put a zero as first digit if value is less than ten to get 0X format.
+
+sample$Hours <- ifelse(sample$Hours < 10, paste0(0, sample$Hours), as.character(sample$Hours))
+sample$Minutes <- ifelse(sample$Minutes < 10, paste0(0, sample$Minutes), as.character(sample$Minutes))
+sample$Seconds <- ifelse(sample$Seconds < 10, paste0(0, sample$Seconds), as.character(sample$Seconds))
+
+# Another peek to check:
+head(sample)
+
+# Unite the Hours, Minutes, Seconds columns, this combined column is Time:
+
+united <- unite(sample, Time , Hours, Minutes, Seconds, sep = ":")
+
+# One last look:
+head(united)
+
+```
+
+&nbsp;
+
+With the `unite()` function, the dataset sample is specified. Time is the new column which combines Hours, Minutes, Seconds. The ":" in the sep argument gives the HH:MM:SS time format.
+
+Before the unite function paste0() was used. paste0() concatenates/combines strings together. I used ifelse() for the condition where the hour/minute/second is less than 10. If it was less than 10, a 0 was put in front. If not, then no 0 is needed in front as it satisfies the two digits in HH, MM or SS.
+
+Here is an example of paste0 and the brother function paste():
+
+&nbsp;
+
+```{r}
+# paste0 (mini tutorial)
+
+paste0("a", "1")
+
+paste("a", "1", sep = ".")
+
+```
+
+&nbsp;
+
+<a name="separate"></a>
+
+---
+
+### <u>separate()</u>
+
+&nbsp;
+
+The `separate()` function allows for splitting one column into multiple columns. I was not able to find a suitable dataset for an example. A made up sample dataset was created as an example.
+
+Suppose we have treatments A and B with numbers 1 and 2 as Male and Female (respectively). But the column treat_gender has values A_1, A_2, B_1 and B_2. The function `separate()` will be used to split into letters and numbers.
+
+&nbsp;
+
+```{r}
+# separate into multiple columns example:
+
+# Creating sample data:
+# 1 is male, 2 is female
+
+
+library(tidyr)
+
+treat_gender <- c("A_1", "A_2", "B_1", "B_2")
+Count <- c(3, 8 , 10, 6)
+
+sample <- data.frame(treat_gender, Count)
+sample
+
+
+# Separate column treat_gender into Treatment and Gender columns:
+data <- separate(sample, treat_gender, c("Treatment", "Gender"), sep = "_")
+
+# Change the 1 to Male and the 2 cases to Female
+data$Gender[data$Gender == 1] <- "Male"
+data$Gender[data$Gender == 2] <- "Female"
+
+data
+
+```
+
+&nbsp;
+
+---
+
+<a name="notes"></a>
+
+### <u>Notes</u>
+
+&nbsp;
+
+The tidyr package R makes data cleaning and data formatting much easier. The concepts here are not abstractly difficult but it does take a lot of practice.
+
+The tidyr package itself is not enough for data cleaning. Other techniques and functions may be needed.
+
+&nbsp;
+
+<a name="refs"></a>
+
+### <u>References</u>
+
+&nbsp;
+
+Some useful resources/references include:
+
+* https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf
+* Datacamp Courses have been helpful.
+* Various tidyr tutorials online (Can be easily google searched)
+* The featured image is from http://cdn.skilledup.com/wp-content/uploads/2015/01/paid-R-Program-courses-Feature_1290x688_MS.jpg.

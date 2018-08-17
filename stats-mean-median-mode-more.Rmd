@@ -15,19 +15,25 @@ Calculations are done using the statistical programming language R and the code 
 
 &nbsp;
 
-* Why Do We Need Mean, Median and Mode?
+* <a href="#why">Why Do We Need Mean, Median and Mode?</a>
 
-* Variance And Standard Deviation
+* <a href="#var">Variance And Standard Deviation</a>
 
-* Skewness
+* <a href="#skew">Skewness</a>
 
-* Kurtosis
+* <a href="#kurtosis">Kurtosis</a>
 
-* Fat Tails
+* <a href="#tails">Fat Tails</a>
 
-* The Use Of Statistical Software For The Dataset
+* <a href="#r">The Use Of Statistical Software For The Dataset</a>
+
+* <a href="#notes">Notes</a>
+
+* <a href="#refs">References</a>
 
 &nbsp;
+
+<a name="why"></a>
 
 ### <u>Why Do We Need Mean, Median and Mode?</u>
 
@@ -87,6 +93,8 @@ Keep in mind that the mean, median and mode values are only for a particular dat
 
 &nbsp;
 
+<a name="var"></a>
+
 ### <u>Variance & Standard Deviation</u>
 
 &nbsp;
@@ -120,6 +128,8 @@ The sample variance adds each value in the dataset subtracted by its sample mean
 With our clinic dataset, our sample variance is 0.018405 and its sample standard deviation is 0.135665.
 
 &nbsp;
+
+<a name="skewness"></a>
 
 ### <u>Skewness</u>
 
@@ -155,7 +165,7 @@ $$\displaystyle Mean < Median < Mode$$
 
 As a memory tip, notice how the median is in the middle of each of the inequalities above hence the word median. Due to this, you can just compare only the mean and mode.
 
-From the clinic dataset, the sample skewness is -0.1287248. This is a negative or left skewed sample. This makes sense as we have:
+From the clinic dataset, the sample skewness is -0.1390198. This is a negative or left skewed sample. This makes sense as we have:
 
 &nbsp;
 
@@ -164,7 +174,11 @@ $$\displaystyle (Mean = 1.6655) < (Median = 1.695) < (Mode = 1.75) $$
 
 The visual below summarizes skewness:
 
+&nbsp;
 
+<center>![skewness-image](./images/measure-of-skewness.jpg)</center>
+
+&nbsp;
 
 Image from: http://www.managedfuturesinvesting.com/managed-futures/news/aisource-news/2015/10/13/what-is-skewness
 
@@ -173,6 +187,8 @@ Image from: http://www.managedfuturesinvesting.com/managed-futures/news/aisource
 ---
 
 &nbsp;
+
+<a name="kurtosis"></a>
 
 ### <u>Kurtosis</u>
 
@@ -200,17 +216,19 @@ A leptokurtic distribution has a higher peak than a normal distribution. The kur
 
 A platykurtic distribution has a shorter peak than a normal distribution. The kurtosis is below three and the excess kurtosis is below 0.
 
-Referring to the clinic dataset above, the sample kurtosis (given by R) is -1.490004. We have the platykurtic distribution case.
+Referring to the clinic dataset above, the sample kurtosis (given by R) is 1.673126. We have the platykurtic distribution case.
 
-The following diagram is a great visual which summarizes the concept of kurtosis.
-
-
-
-
-
-(Image from http://www.pqsystems.com/eline/2001/02/b.htm)
+The following diagram is a great visual which summarizes the concept of kurtosis. (Source: https://www.quora.com/How-can-I-understand-different-types-of-kurtosis)
 
 &nbsp;
+
+<center>![kurtosis](./images/kurtosis4.gif)</center>
+
+&nbsp;
+
+
+
+<a name="tails"></a>
 
 ### <u>Fat Tails</u>
 
@@ -223,6 +241,8 @@ From a graphical point of view, we look at the tails or endpoints where there is
 From a non-graphical view, we would need to look at the probabilities beyond plus/minus three standard deviations (for example) and compare them to the probabilities of the normal distribution.
 
 &nbsp;
+
+<a name="r"></a>
 
 ### <u>The Use of Statistical Software for the Dataset</u>
 
@@ -248,14 +268,10 @@ mean(sample)
 
 median(sample)
 
-getMode <- function(x) {
-  names(sort(table(x), decreasing = TRUE)[1])
-}
 
-getMode(sample)
 
 # Load moments package for skewness & kurtosis:
-# install.packages("moments")
+# Use install.packages("moments") to install the package.
 
 library(moments)
 
@@ -265,6 +281,8 @@ kurtosis(sample)
 ```
 
 &nbsp;
+
+<a name="notes"></a>
 
 ### <u>Notes</u>
 
@@ -279,6 +297,8 @@ Some resources use kurtosis and excess kurtosis interchangeably. Be mindful of t
 You may use my code as it is not that hard to use.
 
 &nbsp;
+
+<a name="refs"></a>
 
 ### <u>References</u>
 

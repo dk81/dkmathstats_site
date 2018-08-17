@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>The Inverse CDF Method</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">The Inverse CDF Method</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hello. This post is a math and probability post. I will talk about generating non-uniform random variables/numbers with the Inverse CDF Method. The inverse CDF method involves computing quantiles from probabilities and using standard uniform random variables to generate non-uniform random variables.</p>
+<p>This topic relates to Probability Theory, and Monte Carlo Simulations.</p>
+<p> </p>
+<hr />
+<p> </p>
+<div id="table-of-contents" class="section level3">
+<h3><u>Table of Contents</u></h3>
+<p> </p>
+<ul>
+<li><a href="#intro">Introduction</a></li>
+<li><a href="#uniform">The Uniform Random Variable</a></li>
+<li><a href="#cdf">The Cumulative Distribution Function (CDF)</a></li>
+<li><a href="#inverse-cdf">The Inverse CDF Method For Generating Non-Uniform Random Numbers</a></li>
+<li><a href="#examples">Examples of the Inverse CDF Method</a></li>
+</ul>
+<p> </p>
+<p><a name="introduction"></a></p>
+</div>
+<div id="introduction" class="section level3">
+<h3><u>Introduction</u></h3>
+<p> </p>
+<p>Generating random numbers allows us to simulate natural random events without the actual events occurring. For example, instead of flipping a coin 1000 times, we can use software to simulate or emulate this for us.</p>
+<p>There is a lot of utility and usefulness in generating random numbers (and/or variables). Applications include finding averages, estimating the mean or frequency/probability distribution, extracting data for decision making and so on.</p>
+<p> </p>
+<p><a name="uniform"></a></p>
+</div>
+<div id="the-uniform-random-variable" class="section level3">
+<h3><u>The Uniform Random Variable</u></h3>
+<p> </p>
+<p>The uniform random variable is a continuous random variable which takes on values from parameters <span class="math inline">\(a\)</span> to <span class="math inline">\(b\)</span>. If <span class="math inline">\(V\)</span> is a uniform random variable the we denote the random variable <span class="math inline">\(V\)</span> as <span class="math inline">\(V \sim \text{Unif}(a,b)\)</span>. The uniform random variable takes on any value between a and b, inclusive.</p>
+<p>The continuous probability distribution of a uniform random variable is:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle f(v) = \dfrac{1}{b - a}\]</span>  </p>
+<p>If the parameters <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> are 0 and 1 respectively then <span class="math inline">\(V\)</span> is a standard uniform random variable <span class="math inline">\(U\)</span>. It would be denoted as <span class="math inline">\(U \sim \text{Unif}(0,1)\)</span>. The continuous probability distribution of a standard uniform random variable is just <span class="math inline">\(f(u) = \dfrac{1}{1 - 0} = 1\)</span>.</p>
+<p> </p>
+<p><a name="cdf"></a></p>
+</div>
+<div id="the-cumulative-distribution-function-cdf" class="section level3">
+<h3><u>The Cumulative Distribution Function (CDF)</u></h3>
+<p> </p>
+<p>The Cumulative Distribution Function or the CDF is the probability that a real-valued random variable <span class="math inline">\(X\)</span> with a given probability distribution is less than or equal to a quantity <span class="math inline">\(x\)</span>. It is often denoted by <span class="math inline">\(F(x) = P(X \leq x)\)</span>.</p>
+<p> </p>
+<hr />
+<p> </p>
+<p><strong>Some CDF Properties</strong></p>
+<p> </p>
+<ol style="list-style-type: decimal">
+<li><p>The CDF is a non-decreasing function.</p></li>
+<li><p><span class="math inline">\(\displaystyle \lim_{x\rightarrow\infty} F(x) = 1\)</span> (An upper bound and horizontal asymptote at <span class="math inline">\(F(x) = 1\)</span> if <span class="math inline">\(x\)</span> approaches <span class="math inline">\(\infty\)</span>.)</p></li>
+<li><p><span class="math inline">\(\displaystyle \lim_{x\rightarrow -\infty} F(x) = 0\)</span> (A lower bound and horizontal asymptote at <span class="math inline">\(F(x) = 0\)</span> if <span class="math inline">\(x\)</span> approaches -infinity.)</p></li>
+</ol>
+<p> </p>
+<p>The following image of a sample CDF summarizes the above three properties. This image is for a standard normal distribution.</p>
+<p> </p>
+<center>
+<img src="http://sasnrd.com/wp-content/uploads/2017/08/CDF_Normal.png" />
+</center>
+<p> </p>
+<p>Source Link: <a href="https://www.boost.org/doc/libs/1_53_0/libs/math/doc/sf_and_dist/html/math_toolkit/dist/dist_ref/dists/normal_dist.html" class="uri">https://www.boost.org/doc/libs/1_53_0/libs/math/doc/sf_and_dist/html/math_toolkit/dist/dist_ref/dists/normal_dist.html</a></p>
+<p> </p>
+<p>For a uniform random variable, the CDF is <span class="math inline">\(X \sim \text{Unif}(a,b)\)</span> is <span class="math inline">\(F(x) = \dfrac{x - a}{b - a}\)</span>.</p>
+<p> </p>
+<p><strong>Proof</strong></p>
+<p> </p>
+<p><span class="math display">\[\displaystyle F(x) = P(X \leq x) = \int_{a}^{x} \dfrac{1}{b-a} = \dfrac{x - a}{b - a}\]</span></p>
+<p> </p>
+<p>For the case of a standard uniform random variable, substituting <span class="math inline">\(b = 1\)</span> and <span class="math inline">\(a = 0\)</span> yields the CDF as <span class="math inline">\(F(x) = x\)</span>.</p>
+<p> </p>
+<p><a name="inverse-cdf"></a></p>
+</div>
+<div id="the-inverse-cdf-method-for-generating-non-uniform-random-numbers" class="section level3">
+<h3><u>The Inverse CDF Method For Generating Non-Uniform Random Numbers</u></h3>
+<p> </p>
+<p>We have discovered that the standard uniform random variable takes on values between 0 and 1 inclusive. The CDF of a (continuous) distribution also takes on values between 0 and 1 inclusive. In addition, the inverse CDF <span class="math inline">\(F^{-1}(x)\)</span> is also an increasing function (of <span class="math inline">\(x\)</span>). These facts are used when using the Inverse CDF Method for generating non-uniform random numbers.</p>
+<p>We now have the necessary background to understand the Inverse CDF Method. We use uniform random variables to generate non-uniform random variables. The algorithm is as follows:</p>
+<ol style="list-style-type: decimal">
+<li><p>Obtain or generate a draw (realization) <span class="math inline">\(u\)</span> from the standard uniform distribution <span class="math inline">\(U \sim \text{Unif}(0,1)\)</span></p></li>
+<li><p>The draw <span class="math inline">\(x\)</span> from the CDF <span class="math inline">\(F(x)\)</span> is given by <span class="math inline">\(x = F^{-1}(u)\)</span>.</p></li>
+</ol>
+<p> </p>
+<p><a name="examples"></a></p>
+</div>
+<div id="examples-of-the-inverse-cdf-method" class="section level3">
+<h3><u>Examples of the Inverse CDF Method</u></h3>
+<p> </p>
+<p><strong>Example One</strong></p>
+<p> </p>
+<p>Suppose we only know how to generate or sample Unif(0,1) random variables. We want to generate Unif(a,b) random variables. The Inverse CDF Method allows us to do this as follows.</p>
+<p>The CDF of Unif(a,b) is <span class="math inline">\(F(x) = \dfrac{x - a}{b - a}\)</span> for any <span class="math inline">\(x\)</span> in the open interval <span class="math inline">\((a, b)\)</span>. To obtain the inverse CDF, we solve for <span class="math inline">\(x\)</span> in <span class="math inline">\(F(x) = u = \dfrac{x - a}{b - a}\)</span>.</p>
+<p>The resulting inverse CDF is <span class="math inline">\(F^{-1}(u) = a + (b - a)u\)</span>.</p>
+<p>To generate a Unif(a, b) random variable <span class="math inline">\(X\)</span> from a random variable <span class="math inline">\(U \sim \text{Unif}0,1)\)</span>, we would set the random variable X as:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle X = a + (b-a)U\]</span></p>
+<p> </p>
+<p>A check can be made for a = 0 and b = 1 to see that <span class="math inline">\(X = U \sim \text{Unif}(0,1)\)</span>.</p>
+<hr />
+<p> </p>
+<p><strong>Example Two</strong></p>
+<p> </p>
+<p>In this example, we generate an exponential random variable with <span class="math inline">\(x &gt; 0\)</span> and the rate lambda as <span class="math inline">\(\lambda &gt; 0\)</span>. The continuous probability distribution of the exponential random variable is:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle f(x) = \lambda \text{e}^{-\lambda x}\]</span></p>
+<p> </p>
+<p>Integrating <span class="math inline">\(f(x)\)</span> with bounds from 0 to x gives:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle F(x) = \int_{0}^{x} \lambda \text{e}^{-\lambda u} \text{ du} = 1 - \text{e}^{-\lambda x}\]</span>.</p>
+<p> </p>
+<p>Solving for <span class="math inline">\(x = F^{-1}(u)\)</span> in <span class="math inline">\(1 - \text{e}^{-\lambda x}\)</span> gives us <span class="math inline">\(x = -\dfrac{1}{\lambda} ln(1 - u)\)</span>.</p>
+<p>The formula for X is <span class="math inline">\(X = -\dfrac{1}{\lambda} \text{ln}(1 - U)\)</span>. Alternatively, we can use <span class="math inline">\(X = -\dfrac{\text{ln}(U)}{\lambda}\)</span> since <span class="math inline">\((1 - U) \sim \text{Unif}(0, 1)\)</span> from <span class="math inline">\(U \sim \text{Unif}(0,1)\)</span>.</p>
+<p> </p>
+<hr />
+<p> </p>
+<p><strong>Example Three</strong></p>
+<p> </p>
+<p>This third example deals with the Pareto distribution. Given the shape parameter <span class="math inline">\(k\)</span> and the scale parameter <span class="math inline">\(\lambda\)</span>, the Pareto distribution has a probability density function (pdf) of:</p>
+<p> </p>
+<p><span class="math display">\[f(x) = \dfrac{k \lambda^k}{x^{(k + 1)}} \text{ for } x &gt; \lambda\]</span>  </p>
+<p>The cumulative distribution function (CDF) of the Pareto distribution involved integrating with bounds from <span class="math inline">\(\lambda\)</span> to <span class="math inline">\(x\)</span>.</p>
+<p> </p>
+<p><span class="math display">\[F(x) = P(X \leq x) = \int_{\lambda}^{x} \dfrac{k \lambda^k}{t^{(k + 1)}} \text{ dt } \]</span></p>
+<p><span class="math display">\[F(x) = \dfrac{k \lambda^k t^{-k}}{-k} \Bigg|_{t = \lambda}^{t = x} \]</span></p>
+<p><span class="math display">\[F(x) = \dfrac{k \lambda^k x^{-k}}{-k} - \dfrac{k \lambda^k \lambda^{-k}}{-k} \]</span></p>
+<p><span class="math display">\[F(x) = - \lambda^k x^{-k} + 1 \]</span></p>
+<p><span class="math display">\[F(x) = 1 - (\dfrac{\lambda}{x})^{k} \]</span></p>
+<p> </p>
+<p>To find the generating formula, set <span class="math inline">\(F(x) = u\)</span> and solve for <span class="math inline">\(x = F^{-1}(u)\)</span>. This u could be replaced by the standard uniform random variable <span class="math inline">\(U\)</span>.</p>
+<p> </p>
+<p><span class="math display">\[u = 1 - (\dfrac{\lambda}{x})^{k}\]</span></p>
+<p><span class="math display">\[ u - 1 = - (\dfrac{\lambda}{x})^{k}\]</span></p>
+<p><span class="math display">\[ 1 - u = (\dfrac{\lambda}{x})^{k}\]</span></p>
+<p><span class="math display">\[ x^k = \dfrac{\lambda^k}{1 - u}\]</span></p>
+<p><span class="math display">\[x = F^{-1}(u) = \frac{\lambda}{(1 - u)^{1/k}}\]</span></p>
+<p> </p>
+<p>The generating formula would be <span class="math inline">\(F^{-1}(U) = \frac{\lambda}{(1 - U)^{1/k}}\)</span> with <span class="math inline">\(U \sim \text{Unif}(0,1)\)</span>. You could replace <span class="math inline">\((1 - U)\)</span> with just <span class="math inline">\(U\)</span> since both <span class="math inline">\((1 - U)\)</span> and <span class="math inline">\(U\)</span> are standard uniform random variables.</p>
+<p> </p>
+</div>
+<div id="references" class="section level3">
+<h3><u>References</u></h3>
+<p> </p>
+<ul>
+<li>Financial Mathematics: A Comprehensive Treatment by Giuseppe Campolieti and Roman N. Makarov</li>
+<li><a href="http://www.math.wm.edu/~leemis/chart/UDR/PDFs/Pareto.pdf" class="uri">http://www.math.wm.edu/~leemis/chart/UDR/PDFs/Pareto.pdf</a></li>
+<li><a href="http://isites.harvard.edu/fs/docs/icb.topic1475777.files/stat110hw5solutions.pdf" class="uri">http://isites.harvard.edu/fs/docs/icb.topic1475777.files/stat110hw5solutions.pdf</a></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

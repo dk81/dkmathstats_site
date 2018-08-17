@@ -191,7 +191,7 @@ $(document).ready(function () {
   <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
 </li>
 <li>
-  <a href="r-projects.html">R Programming Projects</a>
+  <a href="r-projects.html">R Programming</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -218,14 +218,17 @@ $(document).ready(function () {
 <h3><u>Topics</u></h3>
 <p> </p>
 <ul>
-<li><p>Why Do We Need Mean, Median and Mode?</p></li>
-<li><p>Variance And Standard Deviation</p></li>
-<li><p>Skewness</p></li>
-<li><p>Kurtosis</p></li>
-<li><p>Fat Tails</p></li>
-<li><p>The Use Of Statistical Software For The Dataset</p></li>
+<li><p><a href="#why">Why Do We Need Mean, Median and Mode?</a></p></li>
+<li><p><a href="#var">Variance And Standard Deviation</a></p></li>
+<li><p><a href="#skew">Skewness</a></p></li>
+<li><p><a href="#kurtosis">Kurtosis</a></p></li>
+<li><p><a href="#tails">Fat Tails</a></p></li>
+<li><p><a href="#r">The Use Of Statistical Software For The Dataset</a></p></li>
+<li><p><a href="#notes">Notes</a></p></li>
+<li><p><a href="#refs">References</a></p></li>
 </ul>
 <p> </p>
+<p><a name="why"></a></p>
 </div>
 <div id="why-do-we-need-mean-median-and-mode" class="section level3">
 <h3><u>Why Do We Need Mean, Median and Mode?</u></h3>
@@ -258,6 +261,7 @@ hist(data)</code></pre>
 <p>The median is not affected too much from extreme outliers or values (such as 10 meters in the data set above).</p>
 <p>Keep in mind that the mean, median and mode values are only for a particular data set at a specific point in time. If one were to gather more measurements of patients heights, then the mean, median and mode values may change based on the new data set.</p>
 <p> </p>
+<p><a name="var"></a></p>
 </div>
 <div id="variance-standard-deviation" class="section level3">
 <h3><u>Variance &amp; Standard Deviation</u></h3>
@@ -276,6 +280,7 @@ hist(data)</code></pre>
 <p>The sample variance adds each value in the dataset subtracted by its sample mean squared. The sum of these squared differences is divided by the number of entries minus one. The sample standard deviation is the square root of the sample variance.</p>
 <p>With our clinic dataset, our sample variance is 0.018405 and its sample standard deviation is 0.135665.</p>
 <p> </p>
+<p><a name="skewness"></a></p>
 </div>
 <div id="skewness" class="section level3">
 <h3><u>Skewness</u></h3>
@@ -295,14 +300,20 @@ hist(data)</code></pre>
 <p><span class="math display">\[\displaystyle Mean &lt; Median &lt; Mode\]</span></p>
 <p> </p>
 <p>As a memory tip, notice how the median is in the middle of each of the inequalities above hence the word median. Due to this, you can just compare only the mean and mode.</p>
-<p>From the clinic dataset, the sample skewness is -0.1287248. This is a negative or left skewed sample. This makes sense as we have:</p>
+<p>From the clinic dataset, the sample skewness is -0.1390198. This is a negative or left skewed sample. This makes sense as we have:</p>
 <p> </p>
 <p><span class="math display">\[\displaystyle (Mean = 1.6655) &lt; (Median = 1.695) &lt; (Mode = 1.75) \]</span>  </p>
 <p>The visual below summarizes skewness:</p>
+<p> </p>
+<center>
+<img src="images/measure-of-skewness.jpg" alt="skewness-image" />
+</center>
+<p> </p>
 <p>Image from: <a href="http://www.managedfuturesinvesting.com/managed-futures/news/aisource-news/2015/10/13/what-is-skewness" class="uri">http://www.managedfuturesinvesting.com/managed-futures/news/aisource-news/2015/10/13/what-is-skewness</a></p>
 <p> </p>
 <hr />
 <p> </p>
+<p><a name="kurtosis"></a></p>
 </div>
 <div id="kurtosis" class="section level3">
 <h3><u>Kurtosis</u></h3>
@@ -317,10 +328,14 @@ hist(data)</code></pre>
 <p>The (famous) Normal Distribution or Gaussian has a Kurtosis of three or an excess kurtosis of zero. We also say that the normal distribution is mesokurtic.</p>
 <p>A leptokurtic distribution has a higher peak than a normal distribution. The kurtosis is above three and the excess kurtosis is above 0.</p>
 <p>A platykurtic distribution has a shorter peak than a normal distribution. The kurtosis is below three and the excess kurtosis is below 0.</p>
-<p>Referring to the clinic dataset above, the sample kurtosis (given by R) is -1.490004. We have the platykurtic distribution case.</p>
-<p>The following diagram is a great visual which summarizes the concept of kurtosis.</p>
-<p>(Image from <a href="http://www.pqsystems.com/eline/2001/02/b.htm" class="uri">http://www.pqsystems.com/eline/2001/02/b.htm</a>)</p>
+<p>Referring to the clinic dataset above, the sample kurtosis (given by R) is 1.673126. We have the platykurtic distribution case.</p>
+<p>The following diagram is a great visual which summarizes the concept of kurtosis. (Source: <a href="https://www.quora.com/How-can-I-understand-different-types-of-kurtosis" class="uri">https://www.quora.com/How-can-I-understand-different-types-of-kurtosis</a>)</p>
 <p> </p>
+<center>
+<img src="images/kurtosis4.gif" alt="kurtosis" />
+</center>
+<p> </p>
+<p><a name="tails"></a></p>
 </div>
 <div id="fat-tails" class="section level3">
 <h3><u>Fat Tails</u></h3>
@@ -329,6 +344,7 @@ hist(data)</code></pre>
 <p>From a graphical point of view, we look at the tails or endpoints where there is more area or probability than a normal distribution. The tails with more probability at the tails are “fat tails”.</p>
 <p>From a non-graphical view, we would need to look at the probabilities beyond plus/minus three standard deviations (for example) and compare them to the probabilities of the normal distribution.</p>
 <p> </p>
+<p><a name="r"></a></p>
 </div>
 <div id="the-use-of-statistical-software-for-the-dataset" class="section level3">
 <h3><u>The Use of Statistical Software for the Dataset</u></h3>
@@ -347,14 +363,8 @@ mean(sample)</code></pre>
 <pre><code>## [1] 1.6655</code></pre>
 <pre class="r"><code>median(sample)</code></pre>
 <pre><code>## [1] 1.695</code></pre>
-<pre class="r"><code>getMode &lt;- function(x) {
-  names(sort(table(x), decreasing = TRUE)[1])
-}
-
-getMode(sample)</code></pre>
-<pre><code>## [1] &quot;1.75&quot;</code></pre>
 <pre class="r"><code># Load moments package for skewness &amp; kurtosis:
-# install.packages(&quot;moments&quot;)
+# Use install.packages(&quot;moments&quot;) to install the package.
 
 library(moments)
 
@@ -363,6 +373,7 @@ skewness(sample)</code></pre>
 <pre class="r"><code>kurtosis(sample)</code></pre>
 <pre><code>## [1] 1.673126</code></pre>
 <p> </p>
+<p><a name="notes"></a></p>
 </div>
 <div id="notes" class="section level3">
 <h3><u>Notes</u></h3>
@@ -372,6 +383,7 @@ skewness(sample)</code></pre>
 <p>Some resources use kurtosis and excess kurtosis interchangeably. Be mindful of the value 3.</p>
 <p>You may use my code as it is not that hard to use.</p>
 <p> </p>
+<p><a name="refs"></a></p>
 </div>
 <div id="references" class="section level3">
 <h3><u>References</u></h3>

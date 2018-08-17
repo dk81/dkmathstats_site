@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>The Indicator Function</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">The Indicator Function</h1>
+
+</div>
+
+
+<p> </p>
+<p>This page will be about the indicator function. When I was a mathematics and statistics student, this topic was somewhat covered in an Introduction to Stochastic Calculus course. Not everyone has had a course in Stochastic Calculus so I will share some things that I know.</p>
+<p>One should have a basic knowledge of calculus, set theory and introductory probability and statistics before reading ahead.</p>
+<p> </p>
+<div id="definition" class="section level3">
+<h3><u>Definition</u></h3>
+<p> </p>
+<p>Let <span class="math inline">\(\Omega\)</span> (Omega) be a set with <span class="math inline">\(x\)</span> as an outcome of a random variable <span class="math inline">\(X\)</span>. Let <span class="math inline">\(A\)</span> be a subset of <span class="math inline">\(\Omega\)</span>. Denote the indicator function of the set A as <span class="math inline">\(I_A(\cdot)\)</span> and define it as:</p>
+<p> </p>
+<p><span class="math display">\[\mathbf{1}_A(x) = \begin{cases}1 &amp; \text{if } x\in A \\ 0 &amp; \text{if }x \notin A \end{cases}\]</span></p>
+<p> </p>
+<p>If <span class="math inline">\(x\)</span> is in the set A then the indicator function is 1 and if <span class="math inline">\(x\)</span> is not in the set A then the indicator function is zero. Sometimes this indicator function is called the characteristic function.</p>
+<p> </p>
+</div>
+<div id="properties" class="section level3">
+<h3><u>Properties</u></h3>
+<p> </p>
+<p><span class="math display">\[\mathbf{1}_{A&#39;}(x) = 1 - \mathbf{1}_A(x)\]</span></p>
+<p><span class="math display">\[\mathbf{1}_{A \cap B}(x) = \mathbf{1}_{A}(x) \cdot \mathbf{1}_{B}(x)\]</span></p>
+<p><span class="math display">\[\mathbf{1}_{A_1 \cap A_2 \cap \ldots \cap A_{n}}(x) = \mathbf{1}_{A_1}(x) \cdot \mathbf{1}_{A_2}(x) \cdot \ldots \cdot \mathbf{1}_{A_n}(x)\]</span></p>
+<p><span class="math display">\[\mathbf{1}_{A \cup B}(x) = \mathbf{1}_A(x) + \mathbf{1}_B(x) - \mathbf{1}_{A \cap B}(x)\]</span></p>
+<p><span class="math display">\[(\mathbf{1}_{A}(x))^2 = \mathbf{1}_A(x)\]</span></p>
+<p><span class="math display">\[\text{E}[\mathbf{1}_{A}(x)] = 1 \cdot \text{P}(A) + 0 \cdot \text{P}(A&#39;) = \text{P}(A)\]</span></p>
+<p><span class="math display">\[\text{Var}(\mathbf{1}_A(x)) = \text{P}(A)\cdot(1 - \text{P}(A))\]</span></p>
+<p> </p>
+<p>The proofs of these properties are not too difficult.</p>
+<p> </p>
+<p><strong>Example One (Heaviside Step Function)</strong></p>
+<p>Having the set <span class="math inline">\(A\)</span> as the positive half-line <span class="math inline">\([0, \infty)\)</span> makes the indicator function into the (right-continuous) Heaviside step function.</p>
+<p> </p>
+<p><span class="math display">\[\mathbf{1}_{[0, \infty)}(x) = \begin{cases}1 &amp; \text{if } x \in [0, \infty) \\ 0 &amp; \text{if } x \notin [0, \infty) \text{ or } x \in (- \infty, 0) \end{cases}\]</span></p>
+<p> </p>
+<p><strong>Example Two - Changing Integral Bounds Examples</strong></p>
+<p> </p>
+<p>Let <span class="math inline">\(f(x)\)</span> be any (non-random) function.</p>
+<p>The integral <span class="math inline">\(\int_{-\infty}^{+\infty} f(x) \cdot \mathbf{1}_{(0,1)} \text{ d}x\)</span> becomes <span class="math inline">\(\int_{0}^{1} f(x) \text{ d}x\)</span>.</p>
+<p>The second case involves the integral <span class="math inline">\(\int_{-\infty}^{+\infty} f(x) \cdot \mathbf{1}_{[0,1]} \text{ d}x\)</span> being equal to <span class="math inline">\(\int_{0}^{1} f(x) \text{ d}x\)</span>.</p>
+<p>This integral <span class="math inline">\(\int_{-\infty}^{+\infty} f(x) \cdot \mathbf{1}_{(0,\infty)} \text{ d}x\)</span> becomes <span class="math inline">\(\int_{0}^{\infty} f(x) \text{ d}x\)</span>.</p>
+<p>And the integral <span class="math inline">\(\int_{-\infty}^{+\infty} f(x) \cdot \mathbf{1}_{[0,\infty)} \text{ d}x\)</span> becomes <span class="math inline">\(\int_{0}^{\infty} f(x) \text{ d}x\)</span>.</p>
+<p>Note that the integral at a single point is zero. So using <span class="math inline">\([0,\infty)\)</span> versus <span class="math inline">\((0,\infty)\)</span> for example does not really matter.</p>
+<p> </p>
+</div>
+<div id="more-properties" class="section level3">
+<h3><u>More Properties</u></h3>
+<p> </p>
+<p>Here are a few more properties of the indicator functions.</p>
+<p><span class="math inline">\(\text{max}(A - B, 0) = (A - B)^{+} = (A - B) \cdot \mathbf{1}_{A \geq B}\)</span> since the max function is at least 0.</p>
+<p>But <span class="math inline">\(\text{max}(A - B, 0)\)</span> can also be expressed as <span class="math inline">\(- \text{min}(B - A, 0)\)</span> which is equal to:</p>
+<p> </p>
+<p><span class="math display">\[- (B - A) \cdot \mathbf{1}_{B\text{ }\leq\text{ } A} = (A - B) \cdot \mathbf{1}_{A \text{ }\geq\text{ } B}\]</span></p>
+<p> </p>
+<p>With the max function, if A is greater than B then the indicator function is a 1 and we choose <span class="math inline">\((A - B)\)</span> which is greater than <span class="math inline">\(0\)</span>. Otherwise the indicator is 0 since A is less than B which makes (A-B) less than 0 and we choose a maximum of 0.</p>
+<p>With the min function, if B is less than A then the indicator function is a 1 and we choose <span class="math inline">\((B - A)\)</span> which is less than 0. Otherwise the indicator is 0 since B is greater than A and we choose a minimum of 0.</p>
+<p>The negative in front of the <span class="math inline">\(\text{min}(B - A , 0)\)</span> was needed to match the <span class="math inline">\(\text{max}(A - B, 0)\)</span> function.</p>
+<p> </p>
+</div>
+<div id="applications" class="section level3">
+<h3><u>Applications</u></h3>
+<p> </p>
+<p>All I can think of is that indicator functions (characteristic functions) are used in (Graduate) probability theory, and in financial mathematics (Options Pricing).</p>
+<p>Indicator functions provide conveniences in notation. These functions are also found in pure math topics such as real analysis and measure theory. Indicator functions can also be found in statistical factorial designs.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

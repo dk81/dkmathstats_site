@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Variance, Covariance &amp; Correlation</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Variance, Covariance &amp; Correlation</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hello. This statistics post will be an introduction on sample variances, sample covariances and sample correlations. These topics are typically found in an introductory course to probability and statistics.</p>
+<p>No expected values will be shown here as there is more of a focus of sample data versus population data. (With that being said be mindful of the math notation.)</p>
+<p> </p>
+<div id="sections" class="section level3">
+<h3><u>Sections</u></h3>
+<p> </p>
+<p><a href="#mean">Review Of The Sample Mean</a></p>
+<p><a href="#var">The Sample Variance</a></p>
+<p><a href="#sd">Standard Deviation</a></p>
+<p><a href="#covar">Sample Covariances</a></p>
+<p><a href="#corr">Sample Correlations</a></p>
+<p><a href="#note">Correlation Does Not Imply Causation</a></p>
+<p> </p>
+<p><a name="mean"></a></p>
+</div>
+<div id="review-of-the-sample-mean" class="section level3">
+<h3><u>Review Of The Sample Mean</u></h3>
+<p> </p>
+<p>Recall that the formula for the sample mean of known data point values <span class="math inline">\(\bar{x}\)</span> is <span class="math inline">\(\bar{x} = \displaystyle\dfrac{\Sigma_{i = 1}^{n} x_i}{n} = \dfrac{1}{n} (x_1 + x_2 + \dots + x_{n})\)</span>.</p>
+<p>The sample mean is the equally weighted average of the data points and can be thought of as the center of the data. We use the sample mean <span class="math inline">\(\bar{x}\)</span> to estimate (or make an informed guess about) the population mean <span class="math inline">\(\mu\)</span>. Remember that the sample data is a subset of the larger population. (E.g. A sample of 100, 000 Canadians from Canada)</p>
+<p> </p>
+<p><strong>Note</strong></p>
+<p> </p>
+<p>Means, medians, and modes are measures of central tendency which determine the most likely values given sample data. The terms variances, covariances and correlations are measures of variation. These measures of variation are useful in determining how random a random variable is.</p>
+<p>When people say for example that the stock market is random, it is a vague statement as it does not specify any sort of quantity associated with the randomness of financial stocks (the range of values a financial stock can take on)</p>
+<p> </p>
+<p><a name="var"></a></p>
+</div>
+<div id="the-sample-variance" class="section level3">
+<h3><u>The Sample Variance</u></h3>
+<p> </p>
+<p>In the realm of probability and statistics, the variance can be thought of how far a set of (random) variables are from the mean.</p>
+<p>The population variance is given by</p>
+<p> </p>
+<p><span class="math display">\[\sigma^{2} = \displaystyle\dfrac{\Sigma_{i = 1}^{n} (X_i - \mu)^2}{n} = \dfrac{1}{n} [(X_1 - \mu)^2 + (X_2 - \mu)^2 + \dots + (X_{n} - \mu)^2)\]</span>.</p>
+<p> </p>
+<p>We take the values of each <span class="math inline">\(X_i\)</span>, subtract it by the mean and square it. We then take the sum of these differenced squares and divide by <span class="math inline">\(n\)</span>.</p>
+<p>This population variance is estimated by the sample variance (with known values). The sample variance is given by</p>
+<p> </p>
+<p><span class="math display">\[s^2 = \displaystyle\dfrac{\Sigma_{i = 1}^{n} (x_i - \bar{x})^2}{n} = \dfrac{1}{n - 1} [(x_1 - \bar{x})^2 + (x_2 - \bar{x})^2 + \dots + (x_{n} - \bar{x})^2)\]</span></p>
+<p> </p>
+<p>In the sample variance, we divide by (n - 1) which makes the sample variance an unbiased estimator of the population variance. In the long run or as the sample size <span class="math inline">\(n\)</span> gets larger (approaching <span class="math inline">\(\infty\)</span>), the sample variance would eventually reach (converge to) the population variance in theory.</p>
+<p>Because of the exponent of 2, the variance is a non-negative value. It can be 0 or greater. If the variance is 0, that means that there is no randomness/variation on the random variable.</p>
+<p> </p>
+<p><strong>A Slight Note on Notation</strong></p>
+<p> </p>
+<p>If we have <span class="math inline">\(X_i\)</span> then it is random and the value is unknown or unrealized. Once <span class="math inline">\(X_i\)</span> is known or realized it is no longer random. Iit is now a known quantity and we use <span class="math inline">\(x_i\)</span>. Similarly, <span class="math inline">\(S^2\)</span> is for the sample variance with unknown values but the sample variance <span class="math inline">\(s^2\)</span> goes with known values and is no longer random.</p>
+<p> </p>
+<p><a name="sd"></a></p>
+</div>
+<div id="standard-deviation" class="section level3">
+<h3><u>Standard Deviation</u></h3>
+<p> </p>
+<p>The standard deviation is the square root of the variance and is used as a measure of how spread out the values of a sample data are. If one knows about z-scores, the standard deviation is the number of z-scores from the mean. The variance being non-negative (0 or positive) ensures that the number inside the square root is positive.</p>
+<p>The standard deviation for a population is <span class="math inline">\(\sqrt{\sigma^2} = \sigma\)</span>.</p>
+<p>The sample standard deviation (of known values) is <span class="math inline">\(\sqrt{s^2} = s\)</span>.</p>
+<p> </p>
+<p><a name="covar"></a></p>
+</div>
+<div id="sample-covariances" class="section level3">
+<h3><u>Sample Covariances</u></h3>
+<p> </p>
+<p>The covariance is a varability measure of how two random variables change together. If the covariance is positve for random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> (as an example) then as X increases in numeric value then Y increases as well. For the negative covariance case, as X increases in numeric value then Y decreases in value.</p>
+<p>The sample covariance (with known values) is:</p>
+<p> </p>
+<p><span class="math display">\[s_{xy} = \displaystyle\dfrac{\Sigma_{i = 1}^{n} (x_i - \bar{x})(y_i - \bar{y})}{n} = \dfrac{1}{n - 1} [ (x_1 - \bar{x})(y_1 - \bar{y}) + (x_2 - \bar{x})(y_2 - \bar{y})+ \dots + (x_n - \bar{x})(y_n - \bar{y}))\]</span></p>
+<p> </p>
+<p>where <span class="math inline">\(\bar{x}\)</span> is the sample mean associated with X and <span class="math inline">\(\bar{y}\)</span> is the sample mean associated with Y.</p>
+<p>If <span class="math inline">\(y = x\)</span> then we have <span class="math inline">\(s_{xx}\)</span> or <span class="math inline">\(s_{yy}\)</span> which is in the same form as <span class="math inline">\(s^2\)</span> from earlier. Do keep in mind that <span class="math inline">\(s_{xx}\)</span> goes with the <span class="math inline">\(x_{i}\)</span>s and <span class="math inline">\(s_{yy}\)</span> goes with the <span class="math inline">\(y_{i}\)</span>s.</p>
+<p> </p>
+<p><a name="corr"></a></p>
+</div>
+<div id="sample-correlations" class="section level3">
+<h3><u>Sample Correlations</u></h3>
+<p> </p>
+<p>Correlation is not much different than covariance. Correlation is a variability measure which measures the relationship between two random variables (or sets of data). The sample correlation formula is as follows:</p>
+<p> </p>
+<p><span class="math display">\[r_{xy} = \dfrac{s_{xy}}{\sqrt{s_{xx} \text{ }s_{yy} }}\]</span></p>
+<p> </p>
+<p>The numerator is the covariance and the denominator is the square root of the sample variance with the <span class="math inline">\(x_{i}\)</span>s multiplied by the sample variance with <span class="math inline">\(y_{i}\)</span>s . Correlations can be viewed as scaled versions of covariances.</p>
+<p> </p>
+<p><strong>Notes</strong></p>
+<p> </p>
+<ul>
+<li><p>Correlations are between -1 to 1.</p></li>
+<li><p>A positive correlation between random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> means that as <span class="math inline">\(X\)</span> increases then <span class="math inline">\(Y\)</span> increases as well. With the negative correlation case, as <span class="math inline">\(X\)</span> increases then <span class="math inline">\(Y\)</span> decreases.</p></li>
+<li><p>Correlations close to zero suggest that the two variables have no relation with each other.</p></li>
+<li><p>A correlation close to -1 suggests a very strong relationship where as <span class="math inline">\(X\)</span> increases then <span class="math inline">\(Y\)</span> decreases. A correlation of +1 suggests a very strong relationship where as <span class="math inline">\(X\)</span> increases then <span class="math inline">\(Y\)</span> increases.</p></li>
+<li><p>Correlation measures of about 0.5 or -0.5 suggest a moderate correlation and values closer to 0 suggest a weak association between two random variables.</p></li>
+<li><p>The table image below is one aid to help associate correlation measures with relationship strengths between two (random) variables. (Other tables would have other definitions of moderate/strong/weak correlation strengths.)</p></li>
+</ul>
+<p> </p>
+<center>
+<img src="http://www.statisticshowto.com/wp-content/uploads/2012/10/pearson-2-small.png" />
+</center>
+<p> </p>
+<p>Link: <a href="http://www.statisticshowto.com/probability-and-statistics/correlation-coefficient-formula/" class="uri">http://www.statisticshowto.com/probability-and-statistics/correlation-coefficient-formula/</a></p>
+<p> </p>
+<p><a name="note"></a></p>
+</div>
+<div id="correlation-does-not-imply-causation" class="section level3">
+<h3><u>Correlation Does Not Imply Causation</u></h3>
+<p> </p>
+<p>The most important thing you should remember when it comes to correlations is that “Correlation does not mean causation!”. Correlations measure the relationship and dependence between two variables based on a sample from the population. The sample size <span class="math inline">\(n\)</span> may not be “large” relative to the population size. Also, there may be other variables which could affect the dependent variable <span class="math inline">\(Y\)</span>.</p>
+<p>The take home message is that just because <span class="math inline">\(X\)</span> appears to cause <span class="math inline">\(Y\)</span>, it doesn’t mean it actually does (as we don’t have all the data/information). There could be other variables (known and unknown) relate to the variable <span class="math inline">\(Y\)</span>.</p>
+<p> </p>
+<hr />
+<p> </p>
+</div>
+<div id="reference" class="section level3">
+<h3><u>Reference</u></h3>
+<p> </p>
+<ul>
+<li>Casella, G. and Berger R.L. (2002), Statistical Inference, 2nd Edition, Duxbury</li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

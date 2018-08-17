@@ -1,0 +1,47 @@
+---
+title: "The Bernoulli Random Variable"
+output: html_document
+---
+
+&nbsp;
+
+Here is a quick overview of the Bernoulli Random Variable from the field of probability and statistics.
+
+&nbsp;
+
+### <u>Introduction and Example</u>
+
+&nbsp;
+
+There are many scenarios out there where there are two possible outcomes and only one of the two outcomes is realized. An example would be if whether or not a sports team will win or lose this evening. We can model this example with the random variable $X$ where:
+
+&nbsp;
+
+$$ \displaystyle X = \left\{ \begin{array}{lr} 1 & \text{The sports team wins with probability }p. \\ 0 & \text{The sports team loses with probability }q = 1 - p.\\ \end{array} \right. $$
+&nbsp;
+
+The random variable $X$ either takes on the value of 1 or 0 depending on the future outcome of the sports team winning or losing. We use the numerical values of ones and zeros to model success and failure, right or wrong, and true or false.
+
+This random variable $X$ is called a Bernoulli random variable, named after the Swiss scientist Jacob Bernoulli. The probability $p$ is a probability from 0 to 1. Also $(1 - p)$ will be a probability from 0 to 1. If the probability $p$ is $p = 0.5$ , then the Bernoulli random variable is symmetric.
+
+The Bernoulli random variable takes on values of only 0 and 1 and no other numbers (nor in between).
+
+&nbsp;
+
+### <u>Definition of Bernoulli Random Variable</u>
+
+&nbsp;
+
+We define the Bernoulli random variable and its (discrete) probability distribution.
+
+Define $X$ as the Bernoulli random variable which takes on values of either x = 0 (failure) or x = 1. (success). The probability mass function associated with the Bernoulli random variable is:
+
+&nbsp;
+
+$$\displaystyle p(x) = \left\{ \begin{array}{lr} p & \text{if x = 1}. \\ q = 1 - p & \text{if x = 0}\\ \end{array} \right. $$
+
+&nbsp;
+
+It can also be written as $p(x) = p^{x} (1 - p)^{1 - x}$ where $p$ is the probability of "success" from 0 to 1 inclusive.
+
+There is more to be discussed about the Bernoulli random variable such as expected value but that would be beyond the scope of this post.

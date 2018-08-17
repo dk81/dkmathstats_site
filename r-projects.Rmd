@@ -1,5 +1,5 @@
 ---
-title: "R Programming Projects"
+title: "R Programming"
 output: html_document
 ---
 
@@ -68,7 +68,11 @@ This page contains links on a bunch of R programming projects.
 
 [Pie Charts In R](./rvisual-piecharts.html)
 
+[Boxplots In R](./rvisual-boxplots.html)
+
 [Line Plots In R & ggplot2](./rvisual-line-plots.html)
+
+[Correlation Plots Using The corrplot and ggplot2 Packages In R](./rvisual-corrplots.html)
 
 [Data Visualization In R With The ggvis Package](./rvisual-ggvis-guide.html)
 

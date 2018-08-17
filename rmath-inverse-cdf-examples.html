@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Examples Of The Inverse CDF Method In R [Monte Carlo Methods]</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Examples Of The Inverse CDF Method In R [Monte Carlo Methods]</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hi. This is a follow up math and stats post on the The Inverse CDF Method. Examples on how this Monte Carlo simulation method works will be shown here. The main idea is that we generate various random variables with standard uniform random variables.</p>
+<p> </p>
+<div id="sections" class="section level3">
+<h3><u>Sections</u></h3>
+<p> </p>
+<p>Example One - Generating Uniform Random Variables With Standard Uniform Random Variables</p>
+<p>Example Two - Exponential Distribution</p>
+<p>Example Three - Pareto Distribution</p>
+<p>References</p>
+<p> </p>
+</div>
+<div id="example-one---generating-uniform-random-variables-with-standard-uniform-random-variables" class="section level3">
+<h3><u>Example One - Generating Uniform Random Variables With Standard Uniform Random Variables</u></h3>
+<p>Before doing any random number generation in R, the ggplot2 package is loaded by typing in <code>library(ggplot2)</code>.</p>
+<p> </p>
+<pre class="r"><code># Inverse CDF Monte Carlo Method Examples (With ggplot2)
+
+library(ggplot2)
+set.seed(100)</code></pre>
+<p> </p>
+<p>I also implement a random seed such that the results can be reproduced. Not using a random seed would yield different results everytime random numbers/variables are generated.</p>
+<p>This first batch of code is about generating random numbers from a uniform distribution with a minimum of 2 and a maximum of 4. A plot (using ggplot2) is included.</p>
+</div>
+<div id="simulating-1-million-i.i.d-unifa-2-b-4-r.vs-case-plot" class="section level1">
+<h1>Simulating 1 Million i.i.d Unif(a = 2, b = 4) R.Vs Case &amp; Plot</h1>
+<p>uniforms_ab_sim &lt;- runif(n = 10^6, min = 2, max = 4)</p>
+</div>
+<div id="plot-of-simulated-unif2-4-random-variables-should-be-close-to-a-rectangle" class="section level1">
+<h1>Plot of simulated Unif(2, 4) random variables; Should be close to a rectangle:</h1>
+<p>ggplot(data = NULL, aes(uniforms_ab_sim)) + geom_histogram(binwidth = 0.1, boundary = 2) + labs(x = “Uniform Random Variable Value”, y = “Count ”, title = “Simulated Unif(2, 4) Random Variables Histogram ”) + theme(plot.title = element_text(hjust = 0.5), axis.title.x = element_text(face=“bold”, colour=“darkgreen”, size = 12), axis.title.y = element_text(face=“bold”, colour=“darkgreen”, size = 12))</p>
+<p>It may not be obvious to see how there are 1 million observations in the plot but I will explain it here. Each bin has a binwidth of 0.1 so there would be 20 bins from 2.0 to 4.0. The height of the (near) rectangle is 50000. The one million comes from 20 x 50000.</p>
+<p>This second batch of code is about generating the same uniform random variables with a minimum of 2 and a maximum of 4 but from the Inverse CDF Method. The generating formula is:</p>
+<p><span class="math display">\[a + (b - a)U\]</span></p>
+<p>where U is a standard uniform random variable with a minimum of 0 and a maximum of 1.</p>
+<p>Since I want to generate uniform random variables with a minimum of 2 and a maximum of 4, I have <span class="math inline">\(a = 2\)</span> and <span class="math inline">\(b = 4\)</span>. The code and output can be found below.</p>
+</div>
+<div id="the-generating-formula-for-generating-unifa-b-ends-up-being" class="section level1">
+<h1>The generating formula for generating Unif(a, b) ends up being:</h1>
+</div>
+<div id="f-1u-a-b---au-where-u-is-a-unif0-1-random-variable." class="section level1">
+<h1>F^(-1)(U) = a + (b - a)U where U is a Unif(0, 1) random variable.</h1>
+</div>
+<div id="generating-unifa-2-b-4-using-inverse-cdf-method-and-unif0-1" class="section level1">
+<h1>Generating Unif(a = 2, b = 4) using Inverse CDF Method and Unif(0, 1):</h1>
+<p>unif_invCDFs &lt;- 2 + 2*runif(n = 10^6, min = 0, max = 1)</p>
+</div>
+<div id="plot-should-be-similar-to-the-plot-before." class="section level1">
+<h1>Plot should be similar to the plot before.</h1>
+<p>ggplot(data = NULL, aes(unif_invCDFs)) + geom_histogram(binwidth = 0.1, boundary = 2) + labs(x = “Uniform Random Variable Value”, y = “Count ”, title = “Simulated Uniform Random Variables From The Inverse CDF Method ”) + theme(plot.title = element_text(hjust = 0.5), axis.title.x = element_text(face=“bold”, colour=“darkgreen”, size = 12), axis.title.y = element_text(face=“bold”, colour=“darkgreen”, size = 12))</p>
+<p>For the most part, the plot here is not much different from the plot above. The plots are not exactly the same due to randomness.</p>
+<p>Example Two - Exponential Distribution</p>
+<p>Recall that from the previous post that we generated an exponential random variable with <span class="math inline">\(x &gt; 0\)</span> and the rate lambda was <span class="math inline">\(\lambda &gt; 0\)</span>. The continuous probability distribution of the exponential random variable is:</p>
+<p><span class="math inline">\(\displaystyle f(x) = \lambda \text{e}^{-\lambda x\)</span></p>
+<p>From finding the inverse of the cumulative distribution function (CDF) we came to the generating formula for X as <span class="math inline">\(X = -\dfrac{1}{\lambda} \text{ln}(1 - U)\)</span>.</p>
+<p>Alternatively, we can use $X = - $ since <span class="math inline">\((1 - U) \sim \text{Unif}(0, 1)\)</span> from <span class="math inline">\(U \sim \text{Unif}(0,1)\)</span>.</p>
+<p>R Code</p>
+<p>We use this generating formula X to simulate exponential random variables from standard uniform random variables. A sample size of 10000 is used and the rate/lambda is 5. The code is for simulating exponential random variables directly from the rexp() function R and from the Inverse CDF Method.</p>
+<div id="example-two" class="section level3">
+<h3>Example Two:</h3>
+</div>
+</div>
+<div id="we-generate-exponential-random-variables-from-uniform-random-variables" class="section level1">
+<h1>We generate exponential random variables from uniform random variables</h1>
+</div>
+<div id="through-the-inverse-cdf-method." class="section level1">
+<h1>through the Inverse CDF Method.</h1>
+</div>
+<div id="exponential-simulation-in-r" class="section level1">
+<h1>Exponential simulation in R:</h1>
+<p>lambdaRate = 5 #lambdaRate value can be changed accordingly</p>
+</div>
+<div id="simulating-exponential-random-variables-with-a-sample-size-of-10000." class="section level1">
+<h1>Simulating exponential random variables with a sample size of 10000.</h1>
+<p>E &lt;- rexp(10000, lambdaRate)</p>
+</div>
+<div id="plot-of-exponential-random-variables-should-be-close-to-exponential-decay." class="section level1">
+<h1>Plot of exponential random variables; Should be close to exponential decay.</h1>
+<p>ggplot(data = NULL, aes(E)) + geom_histogram(binwidth = 0.1, boundary = 2) + labs(x = “Exponential Random Variable Value”, y = “Count ”, title = “Simulated Exponential Random Variables Histogram ”) + theme(plot.title = element_text(hjust = 0.5), axis.title.x = element_text(face=“bold”, colour=“darkgreen”, size = 12), axis.title.y = element_text(face=“bold”, colour=“darkgreen”, size = 12))</p>
+</div>
+<div id="simulating-exponential-random-variables-using-unif01-with-inverse-cdf-method" class="section level1">
+<h1>Simulating Exponential Random Variables Using Unif(0,1) With Inverse CDF Method</h1>
+<p>U &lt;- runif(n = 10000, min = 0, max = 1) # Simulate Unif(0,1) r.v’s X &lt;- -(log(U)/lambdaRate) # Generating formula from Inverse CDF</p>
+</div>
+<div id="plotting-the-simulation-results" class="section level1">
+<h1>Plotting the simulation results:</h1>
+<p>ggplot(data = NULL, aes(X)) + geom_histogram(binwidth = 0.1, boundary = 2) + labs(x = “Exponential Random Variable Value”, y = “Count ”, title = “Exponential Random Variables From The Inverse CDF Method”) + theme(plot.title = element_text(hjust = 0.5), axis.title.x = element_text(face=“bold”, colour=“darkgreen”, size = 12), axis.title.y = element_text(face=“bold”, colour=“darkgreen”, size = 12))</p>
+<p>For the most part, the frequency distributions are quite similar. The Inverse CDF Method for approximating/simulating an exponential random variable does a good job from standard uniform random variables.</p>
+<p>Example Three - Pareto Distribution</p>
+<p>Despite people knowing about Pareto’s 80-20 rule, the Pareto distribution is not really discussed much in introductory probability &amp; statistics books (in my opinion).</p>
+<p>Given the shape parameter <span class="math inline">\(k\)</span> and the scale parameter <span class="math inline">\(\lambda\)</span>, the Pareto distribution has a probability density function (pdf) of:</p>
+<p><span class="math display">\[f(x) = \dfrac{k \lambda^k}{x^{(k + 1)}} \text{ for } x &gt; \lambda\]</span></p>
+<p>The generating formula for the Pareto distribution is:</p>
+<p><span class="math display">\[\frac{\lambda}{U^{1/k}}\]</span></p>
+<p>with <span class="math inline">\(U\)</span> as the standard uniform random variable.</p>
+<p>Details of finding this generating formula involves integration and some algebra which can be found here.</p>
+<p>The code for generating Pareto random variables involves creating a function for the generating formula. This function allows the user to input the size of the generating sample and the parameter size for lambda and k. I show the code and plots for Pareto random variables for lambda and k being 1 and for lambda and k being 2.</p>
+<div id="example-three-pareto-distribution-simulations" class="section level3">
+<h3>Example Three: Pareto Distribution Simulations</h3>
+</div>
+</div>
+<div id="resources-httpwww.math.wm.eduleemischartudrpdfspareto.pdf" class="section level1">
+<h1>Resources: <a href="http://www.math.wm.edu/~leemis/chart/UDR/PDFs/Pareto.pdf" class="uri">http://www.math.wm.edu/~leemis/chart/UDR/PDFs/Pareto.pdf</a></h1>
+</div>
+<div id="httpisites.harvard.edufsdocsicb.topic1475777.filesstat110hw5solutions.pdf" class="section level1">
+<h1><a href="http://isites.harvard.edu/fs/docs/icb.topic1475777.files/stat110hw5solutions.pdf" class="uri">http://isites.harvard.edu/fs/docs/icb.topic1475777.files/stat110hw5solutions.pdf</a></h1>
+</div>
+<div id="inverse-cdf-method-for-simulating-pareto-rvs" class="section level1">
+<h1>Inverse CDF Method for simulating Pareto rvs:</h1>
+<p>pareto_invCDF_funct &lt;- function(n = 1, lambda = 1, k = 1){ unifs &lt;- runif(n, min = 0, max = 1) # Simulate standard uniforms. invCDF_formula &lt;- lambda/((1 - unifs)^(1/k)) # lambda / ((1 - U))^(1/k) invCDF_formula &lt;- lambda/(unifs^(1/k)) # U is a standard uniform rv; 1 - U also std. uniform</p>
+<p>return(invCDF_formula) }</p>
+<p>pareto_11 &lt;- pareto_invCDF_funct(10000, lambda = 1, k = 1)</p>
+</div>
+<div id="plot-of-simulated-pareto-lambda-1-k-1-random-variables" class="section level1">
+<h1>Plot of simulated Pareto lambda = 1, k = 1 random variables;</h1>
+<p>ggplot(data = NULL, aes(pareto_11)) + geom_histogram(binwidth = 0.1) + xlim(c(0, 25)) + labs(x = “Pareto Random Variable Value”, y = “Count ”, title = “Simulated Pareto Random Variables Histogram ”) + theme(plot.title = element_text(hjust = 0.5), axis.title.x = element_text(face=“bold”, colour=“darkgreen”, size = 12), axis.title.y = element_text(face=“bold”, colour=“darkgreen”, size = 12))</p>
+</div>
+<div id="pareto-with-lambda-2-and-k-2" class="section level1">
+<h1>Pareto with lambda = 2 and k = 2</h1>
+<p>pareto_22 &lt;- pareto_invCDF_funct(10000, lambda = 2, k = 2)</p>
+</div>
+<div id="plot-of-simulated-pareto-lambda-2-k-2-random-variables" class="section level1">
+<h1>Plot of simulated Pareto lambda = 2, k = 2 random variables;</h1>
+<p>ggplot(data = NULL, aes(pareto_22)) + geom_histogram(binwidth = 0.1) + xlim(c(0, 25)) + labs(x = “Pareto Random Variable Value”, y = “Count ”, title = “Simulated Pareto Random Variables Histogram ”) + theme(plot.title = element_text(hjust = 0.5), axis.title.x = element_text(face=“bold”, colour=“darkgreen”, size = 12), axis.title.y = element_text(face=“bold”, colour=“darkgreen”, size = 12))</p>
+<p>References</p>
+<p>Financial Mathematics: A Comprehensive Treatment by Giuseppe Campolieti and Roman N. Makarov Featured image from <a href="https://theclevermachine.files.wordpress.com/2012/09/inversetransformstudent3.png" class="uri">https://theclevermachine.files.wordpress.com/2012/09/inversetransformstudent3.png</a> <a href="http://www.math.wm.edu/~leemis/chart/UDR/PDFs/Pareto.pdf" class="uri">http://www.math.wm.edu/~leemis/chart/UDR/PDFs/Pareto.pdf</a> <a href="http://isites.harvard.edu/fs/docs/icb.topic1475777.files/stat110hw5solutions.pdf" class="uri">http://isites.harvard.edu/fs/docs/icb.topic1475777.files/stat110hw5solutions.pdf</a></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

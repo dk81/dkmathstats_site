@@ -7,7 +7,33 @@ output: html_document
 
 # <u>Categories</u>
 
+&nbsp;
 
+1. <a style="color: darkgreen;" href="#math">Mathematics</a>
+
+     - Unsorted
+     - Grade Nine
+     - Grade Ten
+     - Grade Eleven
+     - Grade Twelve
+     - Calculus (Grade 12/First Year University Level)
+     - Linear Algebra
+     - Differential Equations
+     - Set Theory
+     - Financial Topics
+
+&nbsp;
+
+2. <a style="color: darkgreen;" href="#probability">Probability</a>
+
+3. <a style="color: darkgreen;" href="#stats">Statistics</a>
+
+
+&nbsp;
+
+<a name="math"></a>
+
+# <u>Mathematics</u>
 
 &nbsp;
 
@@ -22,6 +48,8 @@ output: html_document
 [The Fibonacci Sequence](./math_fibonacci_seq.html)
 
 [Square Numbers](./math_square_numbers.html)
+
+[A Short Guide To Counterexamples](./math-counterexamples.html)
 
 
 &nbsp;
@@ -132,11 +160,11 @@ output: html_document
 
 [A Guide To Cross Products](./linalg-cross-products.html)
 
-[What Are Orthogonal (Perpendicular) Vectors?](linalg-orthogonal-vectors.html)
+[What Are Orthogonal (Perpendicular) Vectors?](./linalg-orthogonal-vectors.html)
 
-[Relating Cross Products, Orthognal Vectors & Dot Products](linalg-dot-cross-products.html)
+[Relating Cross Products, Orthognal Vectors & Dot Products](./linalg-dot-cross-products.html)
 
-[Area Of Paraellograms & Triangles With Cross Products](linalg-area-paraellogram.html)
+[Area Of Paraellograms & Triangles With Cross Products](./linalg-area-paraellogram.html)
 
 &nbsp;
 
@@ -156,31 +184,53 @@ output: html_document
 
 &nbsp;
 
-[An Introduction To Set Theory & Logic (Part 1/3)](set-theory01.html)
+[An Introduction To Set Theory & Logic (Part 1/3)](./set-theory01.html)
 
-[An Introduction To Set Theory & Logic (Part 2/3)](set-theory02.html)
+[An Introduction To Set Theory & Logic (Part 2/3)](./set-theory02.html)
 
-[An Introduction To Set Theory & Logic (Part 3/3)](set-theory03.html)
+[An Introduction To Set Theory & Logic (Part 3/3)](./set-theory03.html)
 
-[Connecting SQL Joins & Set Theory Concepts](set-theory-sql.html)
+[Connecting SQL Joins & Set Theory Concepts](./set-theory-sql.html)
 
 &nbsp;
 
 ### <u>Financial Topics</u>
 
+
+
+
 &nbsp;
 
-
 ---
+
+<a name="probability"></a>
 
 ## <u>Probability Topics</u>
 
 &nbsp;
 
+[The Uniform Random Variable](./prob-unifrv.html)
 
+[The Bernoulli Random Variable](./prob-bernoullirv.html)
+
+[The Indicator Function](./prob-indicator.html)
+
+[The Random Walk](./prob-randomwalk.html)
+
+[Brownian Motion](./prob-brownian.html)
+
+[The Inverse CDF Method](./prob-inverse-cdf.html)
+
+&nbsp;
 
 ---
+
+<a name="stats"></a>
 
 ## <u>Statistics Topics</u>
 
 &nbsp;
+
+[Understanding Mean, Median, Mode And More](./stats-mean-median-mode-more.html)
+
+[Variance, Covariance & Correlation](./stats-var-covar.html)

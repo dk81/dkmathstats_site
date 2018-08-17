@@ -1,0 +1,113 @@
+---
+title: "The Indicator Function"
+output: html_document
+---
+
+&nbsp;
+
+This page will be about the indicator function. When I was a mathematics and statistics student, this topic was somewhat covered in an Introduction to Stochastic Calculus course. Not everyone has had a course in Stochastic Calculus so I will share some things that I know.
+
+One should have a basic knowledge of calculus, set theory and introductory probability and statistics before reading ahead.
+
+&nbsp;
+
+### <u>Definition</u>
+
+&nbsp;
+
+Let $\Omega$ (Omega) be a set with $x$ as an outcome of a random variable $X$. Let $A$ be a subset of $\Omega$. Denote the indicator function of the set A as $I_A(\cdot)$ and define it as:
+
+&nbsp;
+
+$$\mathbf{1}_A(x) = \begin{cases}1 & \text{if } x\in A \\ 0 & \text{if }x \notin A \end{cases}$$
+
+&nbsp;
+
+If $x$ is in the set A then the indicator function is 1 and if $x$ is not in the set A then the indicator function is zero. Sometimes this indicator function is called the characteristic function.
+
+&nbsp;
+
+### <u>Properties</u>
+
+&nbsp;
+
+$$\mathbf{1}_{A'}(x) = 1 - \mathbf{1}_A(x)$$
+
+$$\mathbf{1}_{A \cap B}(x) = \mathbf{1}_{A}(x) \cdot \mathbf{1}_{B}(x)$$
+
+$$\mathbf{1}_{A_1 \cap A_2 \cap \ldots \cap A_{n}}(x) = \mathbf{1}_{A_1}(x) \cdot \mathbf{1}_{A_2}(x) \cdot \ldots \cdot \mathbf{1}_{A_n}(x)$$
+
+$$\mathbf{1}_{A \cup B}(x) = \mathbf{1}_A(x) + \mathbf{1}_B(x) - \mathbf{1}_{A \cap B}(x)$$
+
+$$(\mathbf{1}_{A}(x))^2 = \mathbf{1}_A(x)$$
+
+$$\text{E}[\mathbf{1}_{A}(x)] = 1 \cdot \text{P}(A) + 0 \cdot \text{P}(A') = \text{P}(A)$$
+
+$$\text{Var}(\mathbf{1}_A(x)) = \text{P}(A)\cdot(1 - \text{P}(A))$$
+
+&nbsp;
+
+The proofs of these properties are not too difficult. 
+
+&nbsp;
+
+**Example One (Heaviside Step Function)**
+
+Having the set $A$ as the positive half-line $[0, \infty)$ makes the indicator function into the (right-continuous) Heaviside step function.
+
+&nbsp;
+
+$$\mathbf{1}_{[0, \infty)}(x) = \begin{cases}1 & \text{if } x \in [0, \infty) \\ 0 & \text{if } x \notin [0, \infty) \text{ or } x \in (- \infty, 0) \end{cases}$$
+
+&nbsp;
+
+**Example Two - Changing Integral Bounds Examples**
+
+&nbsp;
+
+Let $f(x)$ be any (non-random) function.
+
+The integral $\int_{-\infty}^{+\infty} f(x) \cdot \mathbf{1}_{(0,1)} \text{ d}x$ becomes $\int_{0}^{1} f(x) \text{ d}x$.
+
+The second case involves the integral $\int_{-\infty}^{+\infty} f(x) \cdot \mathbf{1}_{[0,1]} \text{ d}x$ being equal to $\int_{0}^{1} f(x) \text{ d}x$.
+
+This integral $\int_{-\infty}^{+\infty} f(x) \cdot \mathbf{1}_{(0,\infty)} \text{ d}x$ becomes $\int_{0}^{\infty} f(x) \text{ d}x$.
+
+And the integral $\int_{-\infty}^{+\infty} f(x) \cdot \mathbf{1}_{[0,\infty)} \text{ d}x$ becomes $\int_{0}^{\infty} f(x) \text{ d}x$.
+
+Note that the integral at a single point is zero. So using $[0,\infty)$ versus $(0,\infty)$ for example does not really matter.
+
+&nbsp;
+
+### <u>More Properties</u>
+
+&nbsp;
+
+Here are a few more properties of the indicator functions.
+
+$\text{max}(A - B, 0) = (A - B)^{+} = (A - B) \cdot \mathbf{1}_{A \geq B}$ since the max function is at least 0.
+
+But $\text{max}(A - B, 0)$ can also be expressed as $- \text{min}(B - A, 0)$ which is equal to:
+
+&nbsp;
+
+$$- (B - A) \cdot \mathbf{1}_{B\text{ }\leq\text{ } A} = (A - B) \cdot \mathbf{1}_{A \text{ }\geq\text{ } B}$$
+
+&nbsp;
+
+With the max function, if A is greater than B then the indicator function is a 1 and we choose $(A - B)$ which is greater than $0$. Otherwise the indicator is 0 since A is less than B which makes (A-B) less than 0 and we choose a maximum of 0.
+
+With the min function, if B is less than A then the indicator function is a 1 and we choose $(B - A)$ which is less than 0. Otherwise the indicator is 0 since B is greater than A and we choose a minimum of 0.
+
+The negative in front of the $\text{min}(B - A , 0)$ was needed to match the $\text{max}(A - B, 0)$ function.
+
+&nbsp;
+
+### <u>Applications</u>
+
+&nbsp;
+
+All I can think of is that indicator functions (characteristic functions) are used in (Graduate) probability theory, and in financial mathematics (Options Pricing).
+
+Indicator functions provide conveniences in notation. These functions are also found in pure math topics such as real analysis and measure theory. Indicator functions can also be found in statistical factorial designs.
+

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>The Random Walk</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">The Random Walk</h1>
+
+</div>
+
+
+<p> </p>
+<center>
+<img src="http://motheyes.com/stochastic/unbounded.png" />
+</center>
+<p> </p>
+<p>This image is from <a href="http://blog.motheyes.com/2010/03/ministry-of-stochastic-walks/" class="uri">http://blog.motheyes.com/2010/03/ministry-of-stochastic-walks/</a> .</p>
+<p> </p>
+<p>Here is a short guide to the random walk found in probability. Note that this random walk will be a symmetrical random walk with equal probabilities of <span class="math inline">\(\dfrac{1}{2}\)</span> for each of the two outcomes.</p>
+<p> </p>
+<div id="introduction" class="section level3">
+<h3><u>Introduction</u></h3>
+<p> </p>
+<p>Let us first consider a unbiased/even coin. We have a probability of 0.5 for heads and 0.5 for tails.</p>
+<p>Denote the outcome of tosses as <span class="math inline">\(\omega = \omega_{1} \omega_{2} \omega_{3}...\omega_{n}\)</span> where <span class="math inline">\(\omega\)</span>) is omega for <span class="math inline">\(n\)</span> coin tosses. <span class="math inline">\(\omega\)</span> is an infinite sequence of outcomes <span class="math inline">\(\omega_{1}, \omega_{2}\)</span> up to <span class="math inline">\(\omega_{n}\)</span>.</p>
+<p>Define the random variable <span class="math inline">\(X_j\)</span> for the <span class="math inline">\(j^{th}\)</span> coin toss for <span class="math inline">\(j\)</span> from 1 to n where:</p>
+<p> </p>
+<p><span class="math display">\[ X_j  = \begin{cases} +1, &amp; \text{if }\omega_j = \text{Heads } \\ -1, &amp; \text{if }\omega_j =\text{Tails}\end{cases}\]</span></p>
+<p> </p>
+<p>Each coin toss is either +1 for a heads or a -1 for a tails with a probability of 0.5 each.</p>
+<p>Note that this <span class="math inline">\(X_j\)</span> random variable does not have to relate to coin tosses. Once can define <span class="math inline">\(X_j\)</span> to be dependent on up/down movements, even/odd numbers, etc.</p>
+<p> </p>
+</div>
+<div id="mean-and-variance-of-x_j" class="section level3">
+<h3><u>Mean and Variance of <span class="math inline">\(X_j\)</span></u></h3>
+<p> </p>
+<p><span class="math inline">\(E[X_j] = 0\)</span> since <span class="math inline">\(E[X_j] = 1 \times \dfrac{1}{2} - 1 \times \dfrac{1}{2}= 0\)</span>.</p>
+<p><span class="math inline">\(Var(X_j) = 1\)</span> since</p>
+<p><span class="math display">\[Var(X_j) = E[X_j^2] - (E[X_j])^2 = E[X_j^2] - 0^{2} = 1^2 \times \dfrac{1}{2} + (-1)^2 \times \dfrac{1}{2} = 1\]</span></p>
+<p> </p>
+</div>
+<div id="the-symmetrical-random-walk" class="section level3">
+<h3><u>The Symmetrical Random Walk</u></h3>
+<p> </p>
+<p>Now we have the random variable <span class="math inline">\(X_j\)</span> for j from 1 to n. But, what if we want a running total of these +1 and -1 outcomes for 1 to n?</p>
+<p>Let us define <span class="math inline">\(M_0 = 0\)</span> and this “running total” as <span class="math inline">\(M_k\)</span> where:</p>
+<p> </p>
+<p><span class="math display">\[M_k = \displaystyle\sum_{j=1}^{k} X_j\]</span> for k = 1, 2, …</p>
+<p> </p>
+<p>This stochastic (random) process <span class="math inline">\(M_k\)</span> is a symmetric random walk.</p>
+<p> </p>
+</div>
+<div id="properties-of-the-symmetric-random-walk" class="section level3">
+<h3><u>Properties of the Symmetric Random Walk</u></h3>
+<p> </p>
+<p>Mean is zero:</p>
+<p> </p>
+<p><span class="math display">\[E[M_k] = E [\displaystyle\sum_{j=1}^{k} X_j] = \displaystyle\sum_{j=1}^{k} E[X_j] = \displaystyle\sum_{j=1}^{k} (1 * 0.5 + (- 1) * 0.5) = 0\]</span></p>
+<p> </p>
+<p>Variance is just <span class="math inline">\(k\)</span> for <span class="math inline">\(M_k\)</span>.</p>
+<p> </p>
+<p><span class="math display">\[Var(M_k) = Var( \displaystyle\sum_{j=1}^{k} X_j ) = \displaystyle\sum_{j=1}^{k} Var(X_j) = \displaystyle\sum_{j=1}^{k} 1 = k\]</span></p>
+<p> </p>
+<p>Note that the independence of coin tosses was assumed such that the covariance in the double sum is zero.</p>
+<p> </p>
+<p>The symmetric random walk is a martingale. That is <span class="math inline">\(\displaystyle E[M_l | F_k ] = M_k\)</span>. (The conditional expectation given the filtration at time <span class="math inline">\(k &lt; l\)</span> is just the symmetric random walk at time k.) We don’t expect the symmetric random walk to change from time <span class="math inline">\(k\)</span> to <span class="math inline">\(l\)</span>.</p>
+<p> </p>
+<p>The quadratic variation of the symmetric random walk is just time k. This is because:</p>
+<p> </p>
+<p><span class="math display">\[[M, M]_k = \sum_{j=1}^{k} (M_j - M_j-1)^2 = \sum_{j=1}^{k} (X_j)^2 = \sum_{j=1}^{k}(\pm 1)^2 = k\]</span> (Add 1 k times).</p>
+<p> </p>
+<p>The increments of the symmetric random walk are independent. For example, <span class="math inline">\((M_1 - 0 = M_1 - M_0) , M_2 - M_1 , M_3 - M_2, ... ,\)</span> and <span class="math inline">\(M_k - M_{k-1}\)</span> are independent increments. This means that increments over non-overlapping intervals are independent since the intervals depend on different coin tosses.</p>
+<p> </p>
+</div>
+<div id="summary" class="section level3">
+<h3><u>Summary</u></h3>
+<p> </p>
+<p>The symmetric random walk is a “running total” on the random variable <span class="math inline">\(X_j\)</span>. This random variable <span class="math inline">\(X_j\)</span> is either +1 or -1 with equal probabilities from one of two outcomes (heads / tails for example). The symmetric random walk has a lot useful properties and is useful for understanding Brownian Motion.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

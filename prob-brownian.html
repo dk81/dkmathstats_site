@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Brownian Motion</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Brownian Motion</h1>
+
+</div>
+
+
+<p> </p>
+<center>
+<img src="http://experimentationlab.berkeley.edu/sites/default/files/images/300px-SingleParticleSimulations_01.png"/>
+</center>
+<p> </p>
+<p>The image is from <a href="http://experimentationlab.berkeley.edu/node/83" class="uri">http://experimentationlab.berkeley.edu/node/83</a>.</p>
+<p> </p>
+<p>Hello. This post will be about Brownian Motion. This topic is a probability and stochastic calculus topic.</p>
+<p> </p>
+<div id="prerequisites-and-audience" class="section level3">
+<h3><u>Prerequisites and Audience</u></h3>
+<p> </p>
+<p>This topic appeals to the probability and financial mathematics audience. One should be familiar with the normal distribution. It would also be helpful to read another previous article on the random walk.</p>
+<p> </p>
+</div>
+<div id="what-is-brownian-motion" class="section level3">
+<h3><u>What Is Brownian Motion?</u></h3>
+<p> </p>
+<p>Brownian Motion is a stochastic (random) process which is a normal distribution with a mean of 0 and a variance of time t. The variance of Brownian motion varies over time.</p>
+<p>Brownian Motion is a normal random variable and is denoted by <span class="math inline">\(W_{t} \sim N(0, t)\)</span>. Sometimes <span class="math inline">\(B_{t}\)</span> is used instead of <span class="math inline">\(W_{t}\)</span> and sometimes you see <span class="math inline">\(W(t)\)</span> or <span class="math inline">\(B(t)\)</span> instead of <span class="math inline">\(W_{t}\)</span> or <span class="math inline">\(B_{t}\)</span>.</p>
+<p> </p>
+</div>
+<div id="from-random-walks-to-brownian-motion" class="section level3">
+<h3><u>From Random Walks to Brownian Motion</u></h3>
+<p> </p>
+<p>The derivation of Brownian Motion comes from the random walk. In fact, it comes from the scaled symmetric random walk. The scaled symmetric random walk is defined by:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle W^{(n)}(t) = \dfrac{1}{\sqrt{n}}M_{nt}\]</span></p>
+<p> </p>
+<p>with <span class="math inline">\(M_{nt} = \displaystyle\sum_{j=1}^{nt} X_j\)</span>, <span class="math inline">\(nt\)</span> being a positive integer and:</p>
+<p><span class="math display">\[ X_j  = \begin{cases} +1, &amp; \text{if }\omega_j = \text{Heads } \\ -1, &amp; \text{if }\omega_j =\text{Tails}\end{cases}\]</span></p>
+<p> </p>
+</div>
+<div id="central-limit-theorem" class="section level3">
+<h3><u>Central Limit Theorem</u></h3>
+<p> </p>
+<p>Letting <span class="math inline">\(t \geq 0\)</span> be fixed. As n approaches infinity, then at time t the distribution of the scaled random walk $ W^{(n)}(t)$ converges to a normal distribution with mean 0 and variance t.</p>
+<p>The limit of these scaled random walks <span class="math inline">\(W^{(n)}(t)\)</span> as <span class="math inline">\(n \rightarrow \infty\)</span> is Brownian motion.</p>
+<p> </p>
+</div>
+<div id="properties" class="section level3">
+<h3><u>Properties</u></h3>
+<p> </p>
+<p>Some basic properties of Brownian Motion include:</p>
+<p> </p>
+<p><span class="math display">\[W(0) = W_{0} = 0\]</span></p>
+<p><span class="math display">\[E[W_{t}] = 0\]</span></p>
+<p><span class="math display">\[Var[W_{t}] = t\]</span>  </p>
+<hr />
+<p> </p>
+</div>
+<div id="covariance-of-brownian-motion" class="section level3">
+<h3><u>Covariance of Brownian Motion</u></h3>
+<p> </p>
+<p>If we have two times <span class="math inline">\(s\)</span> and <span class="math inline">\(t\)</span> with <span class="math inline">\(s &lt; t\)</span> the covariance of <span class="math inline">\(W_{s}\)</span> and <span class="math inline">\(W_{t}\)</span> is the minimum of the times <span class="math inline">\(s\)</span> and <span class="math inline">\(t\)</span> which is time <span class="math inline">\(s\)</span>. In notation, we have:</p>
+<p> </p>
+<p><span class="math display">\[ \displaystyle \text{Cov}(W(s), W(t)) = E[\,(W_{s} - E[W_{s}] \,)\, (W_{t} - E[W_{t}]) \,] \, = E[W_{s} W_{t}] = s .\]</span></p>
+<p> </p>
+<hr />
+<p> </p>
+</div>
+<div id="the-moment-generating-function-of-brownian-motion" class="section level3">
+<h3><u>The Moment Generating Function of Brownian Motion</u></h3>
+<p> </p>
+<p>The moment generating function (mgf) of a normal random variable X is given by</p>
+<p> </p>
+<p><span class="math display">\[M_{X}(s) = E[\text{e}^{sX}] = \text{e}^{\mu s + \sigma^2 s^2 / 2}\]</span>.</p>
+<p> </p>
+<p>Since Brownian Motion is <span class="math inline">\(W_{t} \sim N(0, t)\)</span>, the moment generating function of Brownian motion would be</p>
+<p> </p>
+<p><span class="math display">\[E[\text{e}^{sW_{t}}] = E[\text{e}^{t s^2/2}]\]</span>.</p>
+<p> </p>
+<hr />
+<p> </p>
+</div>
+<div id="martingale-property-of-bm" class="section level3">
+<h3><u>Martingale Property of BM</u></h3>
+<p> </p>
+<p>Brownian Motion is a martingale. In mathematical notation that is:</p>
+<p> </p>
+<p><span class="math display">\[E[W_{t} | \mathcal{F}_{s}] = W_{s}\]</span></p>
+<p> </p>
+<p>with times <span class="math inline">\(s\)</span> and <span class="math inline">\(t\)</span> and <span class="math inline">\(s &lt; t\)</span>.</p>
+<p>This means that the expectation of Brownian motion at time t given the filtration or history of the random process up to time s is just Brownian Motion at time s. For example, the expectation of Brownian motion at a later time given the present time is just Brownian motion at the present.</p>
+<p> </p>
+<hr />
+<p> </p>
+</div>
+<div id="independent-brownian-increments" class="section level3">
+<h3><u>Independent Brownian Increments</u></h3>
+<p> </p>
+<p>For <span class="math inline">\(0 = t_{0} &lt; t_{1} &lt; ... &lt; t_{m}\)</span>, the increments:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle W_{t_{1}} - 0 = W_{t_{1}} - W_{t_{0}} \, , \, W_{t_{2}} - W_{t_{1}} \, , \, ... , W_{t_{m}} - W_{t_{m - 1}}\]</span></p>
+<p> </p>
+<p>are independent of each other and their means are zero.</p>
+<p>Their variances are</p>
+<p> </p>
+<p><span class="math display">\[\text{Var}(W_{t_{m}} - W_{t_{m - 1}}) = t_{m} - t_{m-1}\]</span>.</p>
+<p> </p>
+<hr />
+<p> </p>
+</div>
+<div id="covariance-variance-matrix-of-brownian-motion" class="section level3">
+<h3><u>Covariance-Variance Matrix of Brownian Motion</u></h3>
+<p> </p>
+<p>Since each Brownian increment from above are independent and normally distributed, the random variables <span class="math inline">\(W(t_{1}), ... , W(t_{m})\)</span> are jointly normally distributed.</p>
+<p>The mean vector of the <span class="math inline">\(m\)</span>-dimensional vector <span class="math inline">\((W(t_{1}), W(t_{2}), ... , W(t_{m}))\)</span> is the zero vector.</p>
+<p>From before we had the covariance of Brownian Motion as <span class="math inline">\(s\)</span> assuming that <span class="math inline">\(s\)</span>. In the covariance-variance matrix for Brownian motion, each <span class="math inline">\((i, j)\)</span> entry is <span class="math inline">\(\text{Cov}(W_{i}, W_{j}) = \text{min}(i ,j)\)</span></p>
+<p>For example if we have the first row and second column entry in the covariance matrix, we have <span class="math inline">\(\text{Cov}(W_{1}, W_{2}) = 1\)</span> as <span class="math inline">\(i =1 &lt; j = 2\)</span>.</p>
+<p>Assume that we have the ordered times <span class="math inline">\(0 = t_{0} &lt; t_{1} &lt; ... &lt; t_{m}\)</span>. The m by m covariance-variance matrix of the <span class="math inline">\(m\)</span>-dimensional vector <span class="math inline">\((W(t_{1}), W(t_{2}), ... , W(t_{m}))\)</span> is as follows:</p>
+<p> </p>
+<p><span class="math display">\[\begin{bmatrix}
+    \text{Cov}(W_{1}, W_{1})       &amp; \text{Cov}(W_{1}, W_{2})  &amp; \dots &amp; \text{Cov}(W_{1}, W_{m})  \\
+   \text{Cov}(W_{2}, W_{1})       &amp; \text{Cov}(W_{2}, W_{2})  &amp; \dots &amp; \text{Cov}(W_{2}, W_{m})  \\
+    \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+   \text{Cov}(W_{m}, W_{1})       &amp; \text{Cov}(W_{m}, W_{2})  &amp; \dots &amp; \text{Cov}(W_{m}, W_{m})  \\
+\end{bmatrix}
+= 
+\begin{bmatrix}
+    t_{1}      &amp; t_{1}  &amp; \dots &amp; t_{1} \\
+   t_{1}      &amp; t_{2}  &amp; \dots &amp; t_{2}  \\
+    \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+  t_{1}     &amp; t_{2}  &amp; \dots &amp; t_{m}\\
+\end{bmatrix}\]</span></p>
+<p> </p>
+<p>Note that for <span class="math inline">\(i = 1, 2, 3, ... , m, \text{Cov}(W_{i}, W_{i}) = \text{Var}(W_{i}, W_{i}) = t_{i}\)</span>.</p>
+<p> </p>
+</div>
+<div id="notes" class="section level3">
+<h3><u>Notes</u></h3>
+<p> </p>
+<p>The covariance-variance matrix and covariance matrix refer to the same matrix.</p>
+<p>Topics such as filtration and the Brownian Motion reflection principle are not discussed in depth for simplicity.</p>
+<p>Multidimensional Brownian Motion is a more difficult case. Here we are mostly in one dimension.</p>
+<p>Brownian Motion is sometimes called the Wiener process. Don’t ask me why.</p>
+<p> </p>
+</div>
+<div id="reference" class="section level3">
+<h3><u>Reference</u></h3>
+<p> </p>
+<p>Certain parts of this material was taken from the book Stochastic Calculus for Finance II - Continuous Time Models by Steven E. Shreve.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
