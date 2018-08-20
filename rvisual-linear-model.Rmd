@@ -28,7 +28,7 @@ Hi. In this post, I will discuss fitting a linear model in the statistical progr
 
 &nbsp;
 
-The dataset chosen here is teengamb from the R package called faraway. A survey was conducted to study teenage gambling in Britain. One can find documentation of this data package here.
+The dataset chosen here is teengamb from the R package called faraway. A survey was conducted to study teenage gambling in Britain. One can find documentation of this data package with `?faraway`.
 
 In the teengamb dataset the sex variable is 0 for males and 1 for females, status is the socioeconomic status score dependent of the parents' job(s), income is in pounds per week, verbal is the verbal score in words out of 12 and the gamble variable is the annual gambling expenditure in pounds.
 
