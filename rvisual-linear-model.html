@@ -312,8 +312,8 @@ p &lt;- ggplot(aes(x = income, y = gamble), data = gamb_data)
 # Initial Plot:
 
 p + geom_point(aes(group = sex, colour = sex)) + 
- xlab(&quot;Annual Income (£)&quot;) +
- ylab(&quot;Annual Gambling Expenditures (£)&quot;) +
+ xlab(&quot;Annual Income&quot;) +
+ ylab(&quot;Annual Gambling Expenditures&quot;) +
  ggtitle(&quot;British Teen Gambling Survey Study&quot;) + 
  theme(plot.title = element_text(lineheight=.8, face=&quot;bold&quot;))</code></pre>
 <p><img src="rvisual-linear-model_files/figure-html/unnamed-chunk-3-1.png" width="384" /></p>
@@ -346,8 +346,8 @@ coef_model &lt;- coef(model); coef_model</code></pre>
 p + geom_point(aes(group = sex, colour = sex)) +
   geom_abline(slope = coef_male[2], intercept = coef_male[1], colour = &#39;blue&#39;) +
   geom_abline(slope = coef_female[2], intercept = coef_female[1], colour = &#39;red&#39;) +
-  xlab(&quot;Annual Income (£)&quot;) +
-  ylab(&quot;Annual Gambling Expenditures (£)&quot;) +
+  xlab(&quot;Annual Income&quot;) +
+  ylab(&quot;Annual Gambling Expenditures&quot;) +
   scale_colour_manual(values = c(&quot;red&quot;,&quot;blue&quot;),
                       labels = c(&quot;Male&quot;, &quot;Female&quot;),
                       name = &quot;Legend&quot;) +
@@ -359,8 +359,8 @@ p + geom_point(aes(group = sex, colour = sex)) +
 
 p + geom_point() +
  geom_abline(slope = coef_model[2], intercept = coef_model[1], colour = &#39;green&#39;) +
- xlab(&quot;Annual Income (£)&quot;) +
- ylab(&quot;Annual Gambling Expenditures (£)&quot;) +
+ xlab(&quot;Annual Income&quot;) +
+ ylab(&quot;Annual Gambling Expenditures&quot;) +
  ggtitle(&quot;British Teen Gambling Survey Study&quot;) + 
  theme(plot.title = element_text(lineheight=.8, face=&quot;bold&quot;))</code></pre>
 <p><img src="rvisual-linear-model_files/figure-html/unnamed-chunk-5-1.png" width="384" /></p>
@@ -387,7 +387,7 @@ p + geom_point() +
 <h3><u>Regression Through The Origin</u></h3>
 <p> </p>
 <p>Based on the context our data, we cannot have negative income and 0 income should relate to 0 gambling spending. (One could argue that you can have 0 income and still gamble with other people’s money but that is not assumed) We should be running a linear model through the origin point of (0, 0).</p>
-<p>To run a regression through the origin we add a 0 and a + with the independent variable in the lm() function in R.</p>
+<p>To run a regression through the origin we add a 0 and a + with the independent variable in the <code>lm()</code> function in R.</p>
 <p>The code will be similar as before but with different outputs.</p>
 <p> </p>
 <pre class="r"><code># Analysis:
@@ -421,8 +421,8 @@ coef_origin &lt;- coef(linear_model_origin); coef_origin</code></pre>
 p + geom_point(aes(group = sex, colour = sex)) +
  geom_abline(slope = coef_male_origin, intercept = 0, colour = &#39;blue&#39;) +
  geom_abline(slope = coef_female_origin, intercept = 0, colour = &#39;red&#39;) +
- xlab(&quot;Annual Income (£)&quot;) +
- ylab(&quot;Annual Gambling Expenditures (£)&quot;) +
+ xlab(&quot;Annual Income&quot;) +
+ ylab(&quot;Annual Gambling Expenditures&quot;) +
  scale_colour_manual(values = c(&quot;red&quot;,&quot;blue&quot;),
  labels = c(&quot;Female&quot;, &quot;Male&quot;),
  name = &quot;Legend&quot;) +
@@ -433,8 +433,8 @@ p + geom_point(aes(group = sex, colour = sex)) +
 
 p + geom_point() +
  geom_abline(slope = coef_origin, intercept = 0, colour = &#39;green&#39;) +
- xlab(&quot;Annual Income (£)&quot;) +
- ylab(&quot;Annual Gambling Expenditures (£)&quot;) +
+ xlab(&quot;Annual Income&quot;) +
+ ylab(&quot;Annual Gambling Expenditures&quot;) +
  ggtitle(&quot;British Teen Gambling Survey Study&quot;) + 
  theme(plot.title = element_text(lineheight=.8, face=&quot;bold&quot;))</code></pre>
 <p><img src="rvisual-linear-model_files/figure-html/unnamed-chunk-6-2.png" width="384" /></p>

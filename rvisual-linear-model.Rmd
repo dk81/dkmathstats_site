@@ -124,8 +124,8 @@ p <- ggplot(aes(x = income, y = gamble), data = gamb_data)
 # Initial Plot:
 
 p + geom_point(aes(group = sex, colour = sex)) + 
- xlab("Annual Income (£)") +
- ylab("Annual Gambling Expenditures (£)") +
+ xlab("Annual Income") +
+ ylab("Annual Gambling Expenditures") +
  ggtitle("British Teen Gambling Survey Study") + 
  theme(plot.title = element_text(lineheight=.8, face="bold"))
 ```
@@ -162,8 +162,8 @@ coef_female <- coef(model_female); coef_female
 p + geom_point(aes(group = sex, colour = sex)) +
   geom_abline(slope = coef_male[2], intercept = coef_male[1], colour = 'blue') +
   geom_abline(slope = coef_female[2], intercept = coef_female[1], colour = 'red') +
-  xlab("Annual Income (£)") +
-  ylab("Annual Gambling Expenditures (£)") +
+  xlab("Annual Income") +
+  ylab("Annual Gambling Expenditures") +
   scale_colour_manual(values = c("red","blue"),
                       labels = c("Male", "Female"),
                       name = "Legend") +
@@ -178,8 +178,8 @@ p + geom_point(aes(group = sex, colour = sex)) +
 
 p + geom_point() +
  geom_abline(slope = coef_model[2], intercept = coef_model[1], colour = 'green') +
- xlab("Annual Income (£)") +
- ylab("Annual Gambling Expenditures (£)") +
+ xlab("Annual Income") +
+ ylab("Annual Gambling Expenditures") +
  ggtitle("British Teen Gambling Survey Study") + 
  theme(plot.title = element_text(lineheight=.8, face="bold"))
 ```
@@ -226,7 +226,7 @@ $$Annual Gambling Exp. = -6.3246 + 0.0020 * AnnualIncome$$
 
 Based on the context our data, we cannot have negative income and 0 income should relate to 0 gambling spending. (One could argue that you can have 0 income and still gamble with other people's money but that is not assumed) We should be running a linear model through the origin point of (0, 0).
 
-To run a regression through the origin we add a 0 and a + with the independent variable in the lm() function in R.
+To run a regression through the origin we add a 0 and a + with the independent variable in the `lm()` function in R.
 
 The code will be similar as before but with different outputs.
 
@@ -262,8 +262,8 @@ coef_female_origin <- coef(model_female_origin); coef_female_origin
 p + geom_point(aes(group = sex, colour = sex)) +
  geom_abline(slope = coef_male_origin, intercept = 0, colour = 'blue') +
  geom_abline(slope = coef_female_origin, intercept = 0, colour = 'red') +
- xlab("Annual Income (£)") +
- ylab("Annual Gambling Expenditures (£)") +
+ xlab("Annual Income") +
+ ylab("Annual Gambling Expenditures") +
  scale_colour_manual(values = c("red","blue"),
  labels = c("Female", "Male"),
  name = "Legend") +
@@ -275,8 +275,8 @@ p + geom_point(aes(group = sex, colour = sex)) +
 
 p + geom_point() +
  geom_abline(slope = coef_origin, intercept = 0, colour = 'green') +
- xlab("Annual Income (£)") +
- ylab("Annual Gambling Expenditures (£)") +
+ xlab("Annual Income") +
+ ylab("Annual Gambling Expenditures") +
  ggtitle("British Teen Gambling Survey Study") + 
  theme(plot.title = element_text(lineheight=.8, face="bold"))
 ```
