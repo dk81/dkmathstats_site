@@ -47,8 +47,6 @@ This page contains links on a bunch of R programming projects.
 
 [Plotting Uniform Distributions In R With ggplot2](./rmath-uniform-plots.html)
 
-[Plotting Normal Distributions In R With ggplot2](./rmath-normal-plots.html)
-
 [Examples Of The Inverse CDF Method In R (Monte Carlo Methods)](./rmath-inverse-cdf-examples.html)
 
 [The Bisection Method In R](./rmath-bisection-method.html)
