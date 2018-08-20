@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Poisson Regression In R</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Poisson Regression In R</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hi there. Here is some experimental work that I have done with Poisson regression in R.</p>
+<p> </p>
+<div id="sections" class="section level3">
+<h3><u>Sections</u></h3>
+<p> </p>
+<ul>
+<li><p><a href="#poisson">The Poisson Regression Model</a></p></li>
+<li><p><a href="#example">Poisson Regression Using R Example</a></p></li>
+<li><p><a href="#refs">References</a></p></li>
+</ul>
+<p> </p>
+<p><a name="poisson"></a></p>
+</div>
+<div id="the-poisson-regression-model" class="section level3">
+<h3><u>The Poisson Regression Model</u></h3>
+<p> </p>
+<p>In ordinary least squares regression, the errors/residuals are assumed to be normally distributed and the responses are continuous (real numbers).</p>
+<p> </p>
+<p><span class="math display">\[Y = \beta_{0} + \beta_{1}x_{1} + \beta_{2}x_{2} + ... + \beta_{n}x_{n} + \epsilon\]</span></p>
+<p> </p>
+<p>In Poisson regression, the errors are not normally distributed and the responses are counts (discrete). The errors follow a Poisson distribution and we model the (natural) logarithm of the response variable. That is, we have <span class="math inline">\(\ln(\mu)\)</span> with <span class="math inline">\(\mu = \text{e}^{Y}\)</span> instead of just Y for the response variable. A link function is used to achieve the linear form.</p>
+<p> </p>
+<p><a name="example"></a></p>
+</div>
+<div id="poisson-regression-using-r-example" class="section level3">
+<h3><u>Poisson Regression Using R Example</u></h3>
+<p> </p>
+<p>In R, I work with a motor insurance dataset from the faraway library. I am interested to see the relationship of number of insurance claims based on the payments (in Swedish Kronas) through a plot.</p>
+<p>Here is the code and plot. (Use ?motorins to find documentation about the dataset.)</p>
+<p> </p>
+<pre class="r"><code># Example:
+
+library(faraway)
+library(ggplot2)
+
+# Third Party Motor Insurance Claims In Sweden (1977)
+
+data(motorins)
+
+head(motorins)</code></pre>
+<pre><code>##   Kilometres Zone Bonus Make Insured Claims Payment     perd
+## 1          1    1     1    1  455.13    108  392491 3634.176
+## 2          1    1     1    2   69.17     19   46221 2432.684
+## 3          1    1     1    3   72.88     13   15694 1207.231
+## 4          1    1     1    4 1292.39    124  422201 3404.847
+## 5          1    1     1    5  191.01     40  119373 2984.325
+## 6          1    1     1    6  477.66     57  170913 2998.474</code></pre>
+<p> </p>
+<p><strong>Fitting A Poisson Model</strong></p>
+<p> </p>
+<p>The Poisson model belongs to a class of generalized linear models (GLMs). In R, the glm() function along with having family = poisson is used to fit a Poisson model to the data.</p>
+<p> </p>
+<pre class="r"><code># Making The Number Of Claims As Dependent Variable Y, Total Value Of Payments as &quot;X&quot;:
+
+poisson_model &lt;- glm(Claims ~ Payment, family = poisson, data = motorins)
+
+summary(poisson_model)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = Claims ~ Payment, family = poisson, data = motorins)
+## 
+## Deviance Residuals: 
+##      Min        1Q    Median        3Q       Max  
+## -102.782    -7.947    -6.411    -2.388    51.007  
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) 3.748e+00  3.512e-03  1067.1   &lt;2e-16 ***
+## Payment     3.147e-07  4.460e-10   705.6   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 391567  on 1796  degrees of freedom
+## Residual deviance: 182358  on 1795  degrees of freedom
+## AIC: 190000
+## 
+## Number of Fisher Scoring iterations: 6</code></pre>
+<p> </p>
+<p><strong>A ggplot2 Plot</strong></p>
+<p> </p>
+<pre class="r"><code>poisson_model$model$fitted &lt;- predict(poisson_model, type = &quot;response&quot;)
+
+# ggplot2 Plot:
+
+ggplot(poisson_model$model) + 
+  geom_point(aes(Payment, Claims)) +
+  geom_line(aes(Payment, fitted)) + 
+  labs(x = &quot;\n Value Of Payments&quot;, y = &quot;Number Of Claims \n&quot;, 
+       title = &quot;Poisson Regression: Comparing Value Of Payments To Number Of Claims  \n&quot;) +
+  theme(plot.title = element_text(hjust = 0.5),
+        axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12))</code></pre>
+<p><img src="rmath-poisson-regression_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p> </p>
+<p><a name="refs"></a></p>
+</div>
+<div id="references" class="section level3">
+<h3><u>References</u></h3>
+<p> </p>
+<ul>
+<li><a href="http://www.theanalysisfactor.com/regression-models-for-count-data/" class="uri">http://www.theanalysisfactor.com/regression-models-for-count-data/</a></li>
+<li>Book: Extending The Linear Model With R By Julian J Faraway</li>
+<li><a href="https://stackoverflow.com/questions/23725555/add-simulated-poisson-distributions-to-a-ggplot" class="uri">https://stackoverflow.com/questions/23725555/add-simulated-poisson-distributions-to-a-ggplot</a></li>
+<li><a href="https://www.stat.wisc.edu/courses/st572-larget/handouts11-2.pdf" class="uri">https://www.stat.wisc.edu/courses/st572-larget/handouts11-2.pdf</a></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

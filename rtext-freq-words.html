@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Finding The Most Frequent Words In Text With R</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Finding The Most Frequent Words In Text With R</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hi there. This page is about using the statistical programming language R for obtaining the most frequent words in text.</p>
+<p>One approach is with a wordcloud. The second approach is through obtain counts for words and presenting them in a bar graph.</p>
+<p>(It is assumed that the reader is familiar with the dplyr package in R and its %&gt;% pipe operator.)</p>
+<p> </p>
+<div id="sections" class="section level3">
+<h3><u>Sections</u></h3>
+<p> </p>
+<ul>
+<li>The Peter Pan Ebook Text</li>
+<li>Data Cleaning &amp; Wordclouds</li>
+<li>Most Frequent Words In Peter Pan</li>
+<li>References</li>
+</ul>
+<p> </p>
+</div>
+<div id="the-peter-pan-ebook-text" class="section level3">
+<h3><u>The Peter Pan Ebook Text</u></h3>
+<p> </p>
+<p>For this example, I analyze a text file version of the book Peter Pan (1904). The link is from <a href="http://www.textfiles.com/etext/FICTION/barrie-peter-277.txt" class="uri">http://www.textfiles.com/etext/FICTION/barrie-peter-277.txt</a>.</p>
+<p>Before reading in the text, I load the wordcloud and tm libraries into R.</p>
+<p> </p>
+<pre class="r"><code># Example: Reading a text file version of Peter Pan (1904)
+# Link : http://www.textfiles.com/etext/FICTION/barrie-peter-277.txt
+# Use install.packages(&quot;package_name&quot;) to install packages.
+
+# Load packages (after installation):
+# Ref: https://stackoverflow.com/questions/8175912/load-multiple-packages-at-once
+
+packages &lt;- c(&quot;wordcloud&quot;, &quot;tm&quot;)
+
+lapply(packages, require , character.only = TRUE)</code></pre>
+<pre><code>## Loading required package: wordcloud</code></pre>
+<pre><code>## Loading required package: RColorBrewer</code></pre>
+<pre><code>## Loading required package: tm</code></pre>
+<pre><code>## Warning: package &#39;tm&#39; was built under R version 3.4.2</code></pre>
+<pre><code>## Loading required package: NLP</code></pre>
+<pre><code>## 
+## Attaching package: &#39;NLP&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:ggplot2&#39;:
+## 
+##     annotate</code></pre>
+<pre><code>## [[1]]
+## [1] TRUE
+## 
+## [[2]]
+## [1] TRUE</code></pre>
+<pre class="r"><code># Example: Reading a text file version of Peter Pan (1904)
+# Link : http://www.textfiles.com/etext/FICTION/barrie-peter-277.txt
+ 
+ 
+peter_pan &lt;- readLines(&quot;http://www.textfiles.com/etext/FICTION/barrie-peter-277.txt&quot;)</code></pre>
+<p> </p>
+<p>The <code>head()</code> function in R is used to preview the text.</p>
+<p> </p>
+<pre class="r"><code># Check peter pan:
+head(peter_pan, n = 20)</code></pre>
+<pre><code>##  [1] &quot;                                      1904&quot;                          
+##  [2] &quot;&quot;                                                                    
+##  [3] &quot;                                   PETER PAN&quot;                        
+##  [4] &quot;&quot;                                                                    
+##  [5] &quot;                               by James M. Barrie&quot;                   
+##  [6] &quot;&quot;                                                                    
+##  [7] &quot;                            CHAPTER I.&quot;                              
+##  [8] &quot;&quot;                                                                    
+##  [9] &quot;                        PETER BREAKS THROUGH.&quot;                       
+## [10] &quot;&quot;                                                                    
+## [11] &quot;  All children, except one, grow up. They soon know that they will&quot;  
+## [12] &quot;grow up, and the way Wendy knew was this. One day when she was two&quot;  
+## [13] &quot;years old she was playing in a garden, and she plucked another&quot;      
+## [14] &quot;flower and ran with it to her mother. I suppose she must have looked&quot;
+## [15] &quot;rather delightful, for Mrs. Darling put her hand to her heart and&quot;   
+## [16] &quot;cried, \&quot;Oh, why can&#39;t you remain like this for ever!\&quot; This was all&quot;
+## [17] &quot;that passed between them on the subject, but henceforth Wendy knew&quot;  
+## [18] &quot;that she must grow up. You always know after you are two. Two is the&quot;
+## [19] &quot;beginning of the end.&quot;                                               
+## [20] &quot;&quot;</code></pre>
+<p> </p>
+</div>
+<div id="data-cleaning-wordclouds" class="section level3">
+<h3><u>Data Cleaning &amp; Wordclouds</u></h3>
+<p> </p>
+<p>From the tm package in R, I insert the <code>peter_pan</code> variable into the <code>VectorSource()</code> function which then goes inside the <code>Corpus()</code> function. A corpus is a collection of text documents.</p>
+<p>The <code>tm_map()</code> functions are then used to extract words from text. This is done by removing whitespace, punctuation, numbers and converting letters to lowercase.</p>
+<pre class="r"><code>### Making a Wordcloud:
+
+# Clean up data; convert to lowercase, remove quotes, whitespace, punctuation, stopwords, etc.
+# Ref: https://www.youtube.com/watch?v=lRTerj8fdY0
+
+peter_text &lt;- Corpus(VectorSource(peter_pan))
+
+
+peter_text_clean &lt;- tm_map(peter_text, removePunctuation)
+peter_text_clean &lt;- tm_map(peter_text_clean, content_transformer(tolower))
+peter_text_clean &lt;- tm_map(peter_text_clean, removeNumbers)
+peter_text_clean &lt;- tm_map(peter_text_clean, stripWhitespace)</code></pre>
+<p> </p>
+<p><strong>Stopwords In English</strong></p>
+<p> </p>
+<p>There are a bunch of words in the English language that are used to make sentences flow but don’t have much meaning on its own. These words include: the, and, but, through, over, under, a, an, he, she, him, her and so on.</p>
+<p> </p>
+<pre class="r"><code>head(stopwords(&quot;english&quot;), n = 15) # Sample of English stopwords</code></pre>
+<pre><code>##  [1] &quot;i&quot;          &quot;me&quot;         &quot;my&quot;         &quot;myself&quot;     &quot;we&quot;        
+##  [6] &quot;our&quot;        &quot;ours&quot;       &quot;ourselves&quot;  &quot;you&quot;        &quot;your&quot;      
+## [11] &quot;yours&quot;      &quot;yourself&quot;   &quot;yourselves&quot; &quot;he&quot;         &quot;him&quot;</code></pre>
+<p> </p>
+<p>The <code>tm_map()</code> function is used again to remove the stopwords from the text.</p>
+<pre class="r"><code>peter_text_clean &lt;- tm_map(peter_text_clean, removeWords, stopwords(&#39;english&#39;))</code></pre>
+<p> </p>
+<p><strong>Creating Wordclouds</strong></p>
+<p> </p>
+<p>Once the text is all “clean” (reformatted), you can create the wordcloud. Making the wordcloud is not too difficult as it requires just the <code>wordcloud()</code> function.</p>
+<p> </p>
+<pre class="r"><code># Wordcloud with colours:
+
+wordcloud(peter_text_clean, scale = c(2, 1), min.freq = 50, colors = rainbow(30))</code></pre>
+<p><img src="rtext-freq-words_files/figure-html/unnamed-chunk-6-1.png" width="384" /></p>
+<p> </p>
+<p>From the wordcloud above you can see that peter and wendy stick out. The word said stands out too and could have been considered a stop word that would be removed. The bottom right contains the word hook as in Captain Hook and not so much a regular hook.</p>
+<p>To reduce the size of the wordcloud, I can raise the number in the min.freq argument in <code>wordcloud()</code>. In this case, I raise it to 70 such that the words in this wordcloud appear at least 70 times in the Peter Pan text.</p>
+<p> </p>
+<pre class="r"><code># Raise the minimum frequency requirements, less words appear in wordcloud:
+
+wordcloud(peter_text_clean, scale = c(2, 1), min.freq = 70, colors = rainbow(30))</code></pre>
+<p><img src="rtext-freq-words_files/figure-html/unnamed-chunk-7-1.png" width="384" /></p>
+<p> </p>
+</div>
+<div id="most-frequent-words-in-peter-pan" class="section level3">
+<h3><u>Most Frequent Words In Peter Pan</u></h3>
+<p> </p>
+<p>Wordclouds help the viewer determine popular words in text. They are also fun and entertaining to look at. The problem with wordclouds though is that you do not really the counts for each word.</p>
+<p>This second approach consists of tidying the data and displaying the word counts in a bar graph. The dplyr, ggplot2 and tidytext packages are used here.</p>
+<p>(Reference: Text Mining With R [Online Book])</p>
+<p>The first couple of lines of code consist of loading in the appropriate packages and reading the Peter Pan text.</p>
+<p> </p>
+<pre class="r"><code>### Analyzing The Frequencies Of Words In Text
+# Reference: Text Mining In R [Online Book] 
+
+library(dplyr)
+library(tidytext)
+library(ggplot2)
+
+peter_pan &lt;- readLines(&quot;http://www.textfiles.com/etext/FICTION/barrie-peter-277.txt&quot;)
+
+# Check peter pan:
+head(peter_pan, n = 20)</code></pre>
+<pre><code>##  [1] &quot;                                      1904&quot;                          
+##  [2] &quot;&quot;                                                                    
+##  [3] &quot;                                   PETER PAN&quot;                        
+##  [4] &quot;&quot;                                                                    
+##  [5] &quot;                               by James M. Barrie&quot;                   
+##  [6] &quot;&quot;                                                                    
+##  [7] &quot;                            CHAPTER I.&quot;                              
+##  [8] &quot;&quot;                                                                    
+##  [9] &quot;                        PETER BREAKS THROUGH.&quot;                       
+## [10] &quot;&quot;                                                                    
+## [11] &quot;  All children, except one, grow up. They soon know that they will&quot;  
+## [12] &quot;grow up, and the way Wendy knew was this. One day when she was two&quot;  
+## [13] &quot;years old she was playing in a garden, and she plucked another&quot;      
+## [14] &quot;flower and ran with it to her mother. I suppose she must have looked&quot;
+## [15] &quot;rather delightful, for Mrs. Darling put her hand to her heart and&quot;   
+## [16] &quot;cried, \&quot;Oh, why can&#39;t you remain like this for ever!\&quot; This was all&quot;
+## [17] &quot;that passed between them on the subject, but henceforth Wendy knew&quot;  
+## [18] &quot;that she must grow up. You always know after you are two. Two is the&quot;
+## [19] &quot;beginning of the end.&quot;                                               
+## [20] &quot;&quot;</code></pre>
+<p> </p>
+<p>The R programming language keeps growing with these new packages, topics and concepts. This so called tibble is just a neater data frame. (I only heard of this tibble recently.)</p>
+<p>Instead of using <code>data.frame()</code>, it would be <code>data_frame()</code>.</p>
+<p> </p>
+<pre class="r"><code>peter_pan_df &lt;- data_frame(Text = peter_pan) # tibble aka neater data frame
+
+head(peter_pan_df, n = 20)</code></pre>
+<pre><code>## # A tibble: 20 x 1
+##                                                                      Text
+##                                                                     &lt;chr&gt;
+##  1                                                                   1904
+##  2                                                                       
+##  3                                                              PETER PAN
+##  4                                                                       
+##  5                                                     by James M. Barrie
+##  6                                                                       
+##  7                                                             CHAPTER I.
+##  8                                                                       
+##  9                                                  PETER BREAKS THROUGH.
+## 10                                                                       
+## 11       All children, except one, grow up. They soon know that they will
+## 12     grow up, and the way Wendy knew was this. One day when she was two
+## 13         years old she was playing in a garden, and she plucked another
+## 14   flower and ran with it to her mother. I suppose she must have looked
+## 15      rather delightful, for Mrs. Darling put her hand to her heart and
+## 16 &quot;cried, \&quot;Oh, why can&#39;t you remain like this for ever!\&quot; This was all&quot;
+## 17     that passed between them on the subject, but henceforth Wendy knew
+## 18   that she must grow up. You always know after you are two. Two is the
+## 19                                                  beginning of the end.
+## 20</code></pre>
+<p> </p>
+<p>The <code>unnest_tokens()</code> function from the tidytext package picks out the individual words and places them as rows.</p>
+<pre class="r"><code>peter_words &lt;- peter_pan_df %&gt;% 
+                  unnest_tokens(output = word, input = Text) </code></pre>
+<p> </p>
+<p>An <code>anti_join()</code> is used to remove stopwords from <code>peter_words()</code>.</p>
+<p> </p>
+<pre class="r"><code>peter_words &lt;- peter_words %&gt;%
+                   anti_join(stop_words) # Remove stop words in peter_words</code></pre>
+<pre><code>## Joining, by = &quot;word&quot;</code></pre>
+<p> </p>
+<p>The <code>count()</code> function with the %&gt;% pipe operator from the dplyr package is used to obtain counts of the words.</p>
+<p> </p>
+<pre class="r"><code># Word Counts:
+
+peter_wordcounts &lt;- peter_words %&gt;% count(word, sort = TRUE)
+
+head(peter_wordcounts)</code></pre>
+<pre><code>## # A tibble: 6 x 2
+##    word     n
+##   &lt;chr&gt; &lt;int&gt;
+## 1 peter   374
+## 2 wendy   330
+## 3  hook   151
+## 4 cried   136
+## 5  john   127
+## 6  time   125</code></pre>
+<p> </p>
+<p>The data now has a column for words and a second column for the word counts. A bar graph can be prepared with the ggplot2 function <code>ggplot()</code>.</p>
+<p> </p>
+<pre class="r"><code># ggplot2 Plot:
+
+peter_wordcounts %&gt;% 
+  filter(n &gt; 70) %&gt;% 
+  mutate(word = reorder(word, n)) %&gt;% 
+    ggplot(aes(word, n)) + 
+    geom_col() +
+    coord_flip() +
+    labs(x = &quot;Word \n&quot;, y = &quot;\n Count &quot;, title = &quot;Frequent Words In Peter Pan \n&quot;) +
+    geom_text(aes(label = n), hjust = 1.2, colour = &quot;white&quot;, fontface = &quot;bold&quot;) +
+    theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12))</code></pre>
+<p><img src="rtext-freq-words_files/figure-html/unnamed-chunk-13-1.png" width="384" /></p>
+<p> </p>
+<p>The <code>geom_text()</code> part of code is key for displaying the counts on the bars. This eliminates the guesswork from the viewer. The word said was featured in the wordcloud but it does not appear here.</p>
+<p> </p>
+</div>
+<div id="references" class="section level3">
+<h3><u>References</u></h3>
+<p> </p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/8175912/load-multiple-packages-at-once" class="uri">https://stackoverflow.com/questions/8175912/load-multiple-packages-at-once</a></li>
+<li><a href="http://www.textfiles.com/etext/FICTION/barrie-peter-277.txt" class="uri">http://www.textfiles.com/etext/FICTION/barrie-peter-277.txt</a></li>
+<li>Text Mining In R: A Tidy Approach by Julia Silge &amp; David Robinson [Online Book]</li>
+<li>R Graphics Cookbook By Winston Chang</li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

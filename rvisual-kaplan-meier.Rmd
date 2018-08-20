@@ -1,0 +1,309 @@
+---
+title: "Plotting Kaplan-Meier Survival Times Curves In R With ggplot2"
+output: html_document
+---
+
+&nbsp;
+
+Hi. This page will be about plotting Kaplan-Meier survival curves using R with the ggplot2 data visualization package. When it comes to survival times between two groups we are dealing with the statistical field of survival analysis. Survival analysis deals with time to event data. Events can include a patient being ill, bankruptcy, an employee leaving a company, a person exiting a clinical trial and more.
+
+&nbsp;
+
+### <u>Sections</u>
+
+&nbsp;
+
+<a href="#refs">References</a>
+
+<a href="#dataset">The addicts Dataset</a>
+
+<a href="#import">Importing The Data</a>
+
+<a href="#look">Taking A Look At The Data</a>
+
+<a href="#baseplot">Plotting Survival Curves Using Base R Graphics</a>
+
+<a href="#ggplot2">Plotting Survival Curves Using ggplot2 and ggfortify</a>
+
+&nbsp;
+
+<a name="refs"></a>
+
+### <u>References</u>
+
+&nbsp;
+
+R Graphics Cookbook by Winston Chang (2012)
+
+The link http://rpubs.com/sinhrks/plot_surv is useful for understanding ggfortify.
+
+The dataset is from http://web1.sph.emory.edu/dkleinb/surv3.htm
+
+The book that I use for understanding Survival Analysis is called Survival Analysis - A Self Learning Text (3rd Edition, 2012) by David G. Kleinbaum & Mitchel Klein. This book teaches the subject in an applied manner and it is suitable for non-statisticians who wish to study the subject. A slight problem is that the R coding section in this book uses base R graphics and does not mention ggplot2.
+
+&nbsp;
+
+<a name="dataset"></a>
+
+### <u>The addicts Dataset</u>
+
+&nbsp;
+
+This addicts dataset can be downloaded from the website http://web1.sph.emory.edu/dkleinb/allDatasets/surv2datasets/addicts.dta. This is a .dta file or a STATA file so the haven package in R is needed to deal with this file type.
+
+This information is from the Survival Analysis - A Self Learning Text (3rd Edition, 2012). A 1991 Australian study by Caplehorn et al. compared two methadone clinics for heroin addicts. The patient's survival time (in days) is the amount of time the patient spent at the clinic before dropping out.
+
+In the addicts dataset, the variables are defined as:
+
+ID - Patient ID
+
+SURVT - The time in days until the patient dropped out of the clinic or was censored (missing information).
+
+STATUS - 1 for patient dropped out of the clinic or censored; o otherwise
+
+CLINIC - Methadone Treatment Clinic Number 1 or 2
+
+PRISON - An indicator whether the patient had a prison record. 1 for yes, 0 for no
+
+DOSE - Patient's maximum methadone does (mg/day, continuous variable)
+
+&nbsp;
+
+<a name="import"></a>
+
+### <u>Importing The Data</u>
+
+&nbsp;
+
+In the bookSurvival Analysis - A Self Learning Text (3rd Edition), the addicts dataset is loaded from the `C:\` drive in your computer. I propose that you can load this addicts dataset online under the link of http://web1.sph.emory.edu/dkleinb/surv3.htm. The only slight issue is that the file is a .dta file (for STATA users). To fix this, the haven package in R is used to deal with the .dta files.
+
+If the haven package is not installed into R, you can install haven by typing in:
+
+&nbsp;
+
+```
+install.packages("haven")
+```
+
+&nbsp;
+
+Here is the code for importing the data.
+
+```{r}
+# Survival Analysis - A Self Learning Text (3rd Edition)
+
+# addicts dataset and Chapter One:
+
+# Dataset can be found at http://web1.sph.emory.edu/dkleinb/surv3.htm.
+
+library(haven) #For importing STATA files.
+library(survival)
+
+url <- "http://web1.sph.emory.edu/dkleinb/allDatasets/surv2datasets/addicts.dta"
+
+# Import data and turn it into a data frame
+addicts <- data.frame(read_dta(url))
+```
+
+&nbsp;
+
+The `read_data()` function is needed to read the .dta file. I then convert this into a data.frame and save it to the variable addicts.
+
+&nbsp;
+
+<a name="look"></a>
+
+### <u>Taking A Look AtThe Data</u>
+
+&nbsp;
+
+It is usually a good idea to preview the data to have an idea of what the data looks like and the type of information you are dealing with. The `head()` and `tail()` functions are used here to preview the data.
+
+&nbsp;
+
+```{r}
+# A look at the addicts dataset:
+
+head(addicts)
+
+tail(addicts)
+```
+
+&nbsp;
+
+It may seem that the id column is redundant at first but if you look at the output from tail(addicts) you see that a few id numbers were skipped. We have 238 rows but the last id number is 266. Keep the id column and work with what we have.
+
+For more information on the variables, the `summary()` and `str()` functions can be used.
+
+&nbsp;
+
+```{r}
+# Summary and data structure:
+
+summary(addicts)
+       
+str(addicts)
+```
+
+&nbsp;
+
+In the `str()` output, all the variables are atomic. The variable clinic should be a factor and the rest of the variables should be numeric and not atomic.
+
+&nbsp;
+
+```{r}
+# Modify data types for each variable in addicts 
+# Clinic is a factor variable, everything else is numeric.
+
+addicts$id <- as.numeric(addicts$id)
+addicts$clinic <- as.factor(addicts$clinic)
+addicts$status <- as.numeric(addicts$status)
+addicts$survt <- as.numeric(addicts$survt)
+addicts$prison <- as.numeric(addicts$prison)
+addicts$dose <- as.numeric(addicts$dose)
+```
+
+&nbsp;
+
+I could verify the variable types by using `str()` again.
+
+&nbsp;
+
+```{r}
+# Check data types:
+str(addicts)
+```
+
+&nbsp;
+
+The `Surv()` function gives a list of times (in days) until the patient has dropped out of the methadone clinic. Cases with the plus sign indicate censorship rather than the event of the patient dropping out.
+
+&nbsp;
+
+```{r}
+# Survival times until event
+
+Surv(time = addicts$survt, event = addicts$status == 1)
+```
+
+&nbsp;
+
+An optional line of code is to look at the summary statistics of this `Surv()` function by using `summary()`.
+
+&nbsp;
+
+```{r}
+summary(Surv(time = addicts$survt, event = addicts$status == 1))
+```
+
+&nbsp;
+
+The shortest clinic staying time is 2 days and the longest time a patient stayed at a methadone clinic was 1076 days.
+
+&nbsp;
+
+<a name="baseplot"></a>
+
+### <u>Plotting Survival Curves Using Base R Graphics</u>
+
+&nbsp;
+
+To start, a variable Y is created as the survival object in R. This `Surv()` function is the outcome variable for `survfit()` which will be used later. (This `Surv()` function is the same as in the previous section.)
+
+&nbsp;
+
+```{r}
+# Chapter One: Estimating Survival Functions And Comparing Them Across Strata:
+
+# Surv creates survival object which is the response variable
+
+Y = Surv(addicts$survt, addicts$status == 1)
+```
+
+&nbsp;
+
+The `survfit()` function produces Kaplan-Meier survival estimates. It takes in our `Surv()` function indicated by Y. We stratify by clinic as we are comparing the two methadone clinics.
+
+&nbsp;
+
+```{r}
+# Actual Plot:
+# Stratify by CLINIC variable:
+
+kmfit = survfit(Y ~ addicts$clinic)
+```
+
+&nbsp;
+
+The summary function of kmfit gives a table of times (in days), the number of patients in the study, the number of patients who dropped out at each time point, the associated standard errors, the lower and upper limits of the 95% confidence intervals for the survival estimates.
+
+&nbsp;
+
+```{r}
+# Base R Plot:
+
+# Book had c(0,100,200,300,400,500,600,700,800,900,1000), I use the seq function.
+
+summary(kmfit, times = c(seq(0, 1000, by = 100)))
+
+# In CLINIC = 1, survival times stopped at 900 instead of 1000 as there is no subject
+# at risk on day 1000.
+
+# Could've also used 100*(0:10)
+```
+
+&nbsp;
+
+Here is the code and output for the Kaplan-Meier curves in base R graphics.
+
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4} 
+plot(kmfit, lty = c("solid", "dashed"), col = c("black", "grey"), xlab = "Survival Time In Days", ylab = "Survival Probabilities")
+
+legend("topright", c("Clinic 1", "Clinic 2"), lty = c("solid", "dashed"), col = c("black", "grey"))
+```
+
+&nbsp;
+
+<a name="ggplot2"></a>
+
+### <u>Plotting Survival Curves Using ggplot2 and ggfortify</u>
+
+&nbsp;
+
+The base R graphics version of the Kaplan-Meier survival curves is not visually appealing. With the help of the ggplot2 and ggfortify packages, nicer plots can be produced.
+
+Here is the code and output for the Kaplan-Meier curves with ggplot2 and ggfortify.
+
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4} 
+## Trying to find ggplot version of the above plots:
+
+# http://rpubs.com/sinhrks/plot_surv for ggfortify & survival curves
+# http://rpubs.com/sinhrks/plot_surv for ggfortify basics
+#
+
+# Plotting Survival Curves Using ggplot2 and ggfortify:
+
+library(ggplot2)
+library(ggfortify)
+
+model_fit <- survfit(Surv(survt, status) ~ clinic, data = addicts)
+
+autoplot(model_fit) + 
+ labs(x = "\n Survival Time (Days) ", y = "Survival Probabilities \n", 
+ title = "Survival Times Of \n Methadone Patients \n") + 
+ theme(plot.title = element_text(hjust = 0.5), 
+ axis.title.x = element_text(face="bold", colour="#FF7A33", size = 12),
+ axis.title.y = element_text(face="bold", colour="#FF7A33", size = 12),
+ legend.title = element_text(face="bold", size = 10))
+```
+
+&nbsp;
+
+In this plot, the colours help the reader identify which curve goes with which clinic. The shaded bands represent the confidence intervals and each time point. The plus signs represent the censored cases at a given time point.
+
+More patients stay in clinic 2 than in clinic 1 since the survival curve is higher than the curve for clinic 1. An investigation is recommended in determining on why a lot of the patients in clinic one leave. It could be the clinic, it could the selection of patients or something else not explained by the data.
+

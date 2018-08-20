@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>The Bisection Method In R</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">The Bisection Method In R</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hello there. This page is on using R to find approximate roots with the bisection method.</p>
+<p>You may want to refer to my page on The Bisection Method for more details.</p>
+<p> </p>
+<div id="sections" class="section level3">
+<h3><u>Sections</u></h3>
+<p> </p>
+<ul>
+<li><p><a href="#bisection">What Is The Bisection Method? (Brief)</a></p></li>
+<li><p><a href="#r">The Bisection Method In R</a></p></li>
+<li><p><a href="#examples">Some Examples</a></p></li>
+<li><p><a href="#refs">References</a></p></li>
+</ul>
+<p> </p>
+<p><a name="bisection"></a></p>
+</div>
+<div id="what-is-the-bisection-method-brief" class="section level3">
+<h3><u>What Is The Bisection Method? (Brief)</u></h3>
+<p> </p>
+<p>The Bisection Method belongs to a class of numerical methods found in applied/computational mathematics. There are cases when the exact answer to a question cannot be found. Approximate solutions (with a small acceptable margin of error) are used instead.</p>
+<p> </p>
+<p><a name="r"></a></p>
+</div>
+<div id="the-bisection-method-in-r" class="section level3">
+<h3><u>The Bisection Method In R</u></h3>
+<p> </p>
+<p>In my R code, I define a few functions as examples. I have the functions as <span class="math inline">\(x^2 - 7\)</span>, <span class="math inline">\(x^2 - 5\)</span> and <span class="math inline">\(e^x - 2\)</span>.</p>
+<p> </p>
+<pre class="r"><code># Bisection Method In R:
+
+# References: http://www.dummies.com/programming/r/how-to-use-functions-as-arguments-in-r/
+#             Tim Sauer - Numerical Analysis Second Edition
+
+funct_1 &lt;- function(x){
+  return(x^2 - 7)
+}
+
+funct_2 &lt;- function(x){
+  return(x^2 - 5)
+}
+
+funct_3 &lt;- function(x){
+  return(exp(x) - 2)
+}</code></pre>
+<p> </p>
+<p>In the bisection method function, I have the inputs as a, b from the interval [a, b], the tolerance (margin of error allowed) represented by tol and the function f. (I have f = funct_1 by default.)</p>
+<p>The output from the bisection method would be the approximate solution to the function. This approximate solution would be off from the exact solution by less than the tolerance.</p>
+<p> </p>
+<pre class="r"><code># Inputs: x, a and b in interval [a, b] and a function f.
+
+bisection_method &lt;- function(a, b, tol, f = funct_1){
+  if (f(a)*f(b) &gt; 0){
+    print(&quot;No root found.&quot;)
+  } else
+      while ((b - a)/2.0 &gt; tol){
+        midpt= (a + b)/2.0
+        if (f(midpt) == 0){
+          return(midpt) #The midpoint is the x-intercept/root.
+        } else if (f(a)*f(midpt) &lt; 0){ # Increasing but below 0 case
+            b = midpt
+        } else
+            a = midpt
+      }
+      return(midpt)
+}</code></pre>
+<p> </p>
+<p><a name="examples"></a></p>
+</div>
+<div id="some-examples" class="section level3">
+<h3><u>Some Examples</u></h3>
+<p> </p>
+<p>After defining the functions into R, function calls can be made. Here are some outputs from the bisection method.</p>
+<p> </p>
+<pre class="r"><code>bisection_method(a = -1, b = 3, tol = 0.0001) # sqrt(7)</code></pre>
+<pre><code>## [1] 2.64563</code></pre>
+<pre class="r"><code>bisection_method(a = -1, b = 3, tol = 0.0001, f = funct_2) # sqrt(5)</code></pre>
+<pre><code>## [1] 2.235962</code></pre>
+<pre class="r"><code>bisection_method(a = -1, b = 3, tol = 0.0001, f = funct_3) #ln(2) which is about 0.693</code></pre>
+<pre><code>## [1] 0.6932373</code></pre>
+<p> </p>
+<p><a name="refs"></a></p>
+</div>
+<div id="references" class="section level3">
+<h3><u>References</u></h3>
+<p> </p>
+<ul>
+<li><a href="http://www.dummies.com/programming/r/how-to-use-functions-as-arguments-in-r/" class="uri">http://www.dummies.com/programming/r/how-to-use-functions-as-arguments-in-r/</a></li>
+<li>Tim Sauer - Numerical Analysis Second Edition</li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

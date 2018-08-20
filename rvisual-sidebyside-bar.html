@@ -243,10 +243,10 @@ flip_results_B &lt;- sample(c(&quot;Heads&quot;, &quot;Tails&quot;), size = 1000
 table(flip_results_A) ; table(flip_results_B)</code></pre>
 <pre><code>## flip_results_A
 ## Heads Tails 
-##   293   707</code></pre>
+##   316   684</code></pre>
 <pre><code>## flip_results_B
 ## Heads Tails 
-##   318   682</code></pre>
+##   302   698</code></pre>
 <p> </p>
 <p>The next lines of code is about putting the results together in a data table format.</p>
 <p> </p>
@@ -269,14 +269,14 @@ head(flip_results); tail(flip_results)</code></pre>
 ## 2 Player A  Tails
 ## 3 Player A  Tails
 ## 4 Player A  Heads
-## 5 Player A  Heads
+## 5 Player A  Tails
 ## 6 Player A  Tails</code></pre>
 <pre><code>##        Player Result
 ## 1995 Player B  Tails
-## 1996 Player B  Heads
+## 1996 Player B  Tails
 ## 1997 Player B  Tails
-## 1998 Player B  Heads
-## 1999 Player B  Tails
+## 1998 Player B  Tails
+## 1999 Player B  Heads
 ## 2000 Player B  Tails</code></pre>
 <p> </p>
 <p>These coin flip results can be converted into a two by two table as a different visual. For graphing purposes, this 2 by 2 table is converted into a data frame.</p>
@@ -284,8 +284,8 @@ head(flip_results); tail(flip_results)</code></pre>
 <pre class="r"><code>table(flip_results)</code></pre>
 <pre><code>##           Result
 ## Player     Heads Tails
-##   Player A   293   707
-##   Player B   318   682</code></pre>
+##   Player A   316   684
+##   Player B   302   698</code></pre>
 <pre class="r"><code># The two by two table into a data frame for plotting:
 
 results &lt;- data.frame(table(flip_results))</code></pre>

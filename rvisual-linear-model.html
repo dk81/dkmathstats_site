@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Fitting A Linear Model In R Using ggplot2</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Fitting A Linear Model In R Using ggplot2</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hi. In this post, I will discuss fitting a linear model in the statistical program R with the ggplot2 data visualization package.</p>
+<p> </p>
+<div id="table-of-contents" class="section level3">
+<h3><u>Table Of Contents</u></h3>
+<p> </p>
+<ul>
+<li><a href="#data">The Dataset on Teen Gambling</a></li>
+<li><a href="#prep">Data Preparation</a></li>
+<li><a href="#model">Producing The Linear Model</a></li>
+<li><a href="#origin">Regression Through Origin</a></li>
+<li><a href="#notes">Notes &amp; Thoughts</a></li>
+<li><a href="#refs">References</a></li>
+</ul>
+<p><a name="data"></a></p>
+<p> </p>
+</div>
+<div id="the-dataset-on-teen-gambling" class="section level3">
+<h3><u>The Dataset on Teen Gambling</u></h3>
+<p> </p>
+<p>The dataset chosen here is teengamb from the R package called faraway. A survey was conducted to study teenage gambling in Britain. One can find documentation of this data package here.</p>
+<p>In the teengamb dataset the sex variable is 0 for males and 1 for females, status is the socioeconomic status score dependent of the parents’ job(s), income is in pounds per week, verbal is the verbal score in words out of 12 and the gamble variable is the annual gambling expenditure in pounds.</p>
+<p>The variables of interest are income and gamble. We want to see the relationship between annual incomes versus annual gambling expenses.</p>
+<p>The code and output below shows loading the libraries and a peek of the data.</p>
+<p> </p>
+<pre class="r"><code># Fitting a linear model with ggplot2 in R:
+
+# Accessing the data package faraway
+library(faraway)
+library(ggplot2)
+
+# Survey was conducted to study teen gambling:
+# This data frame contains the following columns:
+# sex 0=male, 1=female
+# status Socioeconomic status score based on parents&#39; occupation
+# income in pounds per week
+# verbal verbal score in words out of 12 correctly defined
+# gamble expenditure on gambling in pounds per year
+
+# Source: Ide-Smith &amp; Lea, 1988, Journal of Gambling Behavior, 4, 110-118
+
+gamb_data &lt;- data.frame(teengamb)
+ 
+head(gamb_data)</code></pre>
+<pre><code>##   sex status income verbal gamble
+## 1   1     51   2.00      8    0.0
+## 2   1     28   2.50      8    0.0
+## 3   1     37   2.00      6    0.0
+## 4   1     28   7.00      4    7.3
+## 5   1     65   2.00      8   19.6
+## 6   1     61   3.47      6    0.1</code></pre>
+<pre class="r"><code>str(gamb_data)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    47 obs. of  5 variables:
+##  $ sex   : int  1 1 1 1 1 1 1 1 1 1 ...
+##  $ status: int  51 28 37 28 65 61 28 27 43 18 ...
+##  $ income: num  2 2.5 2 7 2 3.47 5.5 6.42 2 6 ...
+##  $ verbal: int  8 8 6 4 8 6 7 5 6 7 ...
+##  $ gamble: num  0 0 0 7.3 19.6 0.1 1.45 6.6 1.7 0.1 ...</code></pre>
+<p> </p>
+<p>The gambling data set has 47 observations (rows) and 5 variables (columns). Getting the summary of the dataset will show minimums, maximums, mean, median and more for each variable.</p>
+<p><a name="prep"></a></p>
+<p> </p>
+</div>
+<div id="data-preparation" class="section level3">
+<h3><u>Data Preparation</u></h3>
+<p> </p>
+<p>The teengamb dataset could use a few tune-ups. The income is in pounds per week and the gambling spending is in pounds per year. Both variables should be on the same scale. Also, we would like to convert the 0s and 1s to Male and Female respectively.</p>
+<p>The code is as follows:</p>
+<p> </p>
+<pre class="r"><code># Note that income is in pounds per week while spending is in pounds per year.
+
+# Turn 0s to &#39;Male&#39; for males and 1s to &#39;Female&#39; for females in the Sex column:
+
+gamb_data[&#39;sex&#39;][gamb_data[&#39;sex&#39;] == 0] &lt;- &#39;Male&#39;
+gamb_data[&#39;sex&#39;][gamb_data[&#39;sex&#39;] == 1] &lt;- &#39;Female&#39;
+
+# Want to turn weekly income into annual income to compare annual gambling expenditure:
+
+gamb_data[&#39;income&#39;] &lt;- gamb_data[&#39;income&#39;] * 52
+
+# Male case data and female case data:
+
+gamb_male &lt;- subset(gamb_data, sex == &quot;Male&quot;)
+gamb_female &lt;- subset(gamb_data, sex == &quot;Female&quot;)</code></pre>
+<p><a name="model"></a></p>
+<p> </p>
+</div>
+<div id="producing-the-linear-model" class="section level3">
+<h3><u>Producing The Linear Model</u></h3>
+<p> </p>
+<p>After fixing up the data, we can produce linear models.</p>
+<p>We can produce linear models with combine the males and females and we can fit 2 linear models with one for males and the other for females.</p>
+<p>Before the linear models, we start with a scatterplot of our data:</p>
+<p> </p>
+<pre class="r"><code># Plotting the data for both genders of income vs gambling spending.
+#plot(x = gamb_data$income, y = gamb_data$gamble)
+
+p &lt;- ggplot(aes(x = income, y = gamble), data = gamb_data) 
+
+# Initial Plot:
+
+p + geom_point(aes(group = sex, colour = sex)) + 
+ xlab(&quot;Annual Income (£)&quot;) +
+ ylab(&quot;Annual Gambling Expenditures (£)&quot;) +
+ ggtitle(&quot;British Teen Gambling Survey Study&quot;) + 
+ theme(plot.title = element_text(lineheight=.8, face=&quot;bold&quot;))</code></pre>
+<p><img src="rvisual-linear-model_files/figure-html/unnamed-chunk-3-1.png" width="384" /></p>
+<p> </p>
+<p>Based on our sample and this plot, we can see that females overall have lower annual gambling expenditures than males. Many of the extreme values or outliers are from males. One can see that it is likely that if we were to fit a linear model to this data, the line would be upward sloping (positive). This would mean that as annual income increases, the annual gambling expenditure would increase as well.</p>
+<p>We now build the linear models and extract model coefficients such as the slope and intercept and use them for plotting in ggplot2.</p>
+<p>The <code>lm( dep_var ~ indep_var)</code> function is used to fit a linear model while the <code>coef()</code> function extracts the slope and intercept of the linear model.</p>
+<p> </p>
+<pre class="r"><code># Building linear models (full model, male case, female case):
+
+model &lt;- lm(gamb_data$gamble ~ gamb_data$income)
+
+model_male &lt;- lm(gamb_male$gamble ~ gamb_male$income)
+
+model_female &lt;- lm(gamb_female$gamble ~ gamb_female$income)
+
+# Extract coefficients (slope and intercept) of the linear models:
+
+coef_model &lt;- coef(model); coef_model</code></pre>
+<pre><code>##      (Intercept) gamb_data$income 
+##       -6.3245590        0.1061632</code></pre>
+<pre class="r"><code>coef_male &lt;- coef(model_male); coef_male</code></pre>
+<pre><code>##      (Intercept) gamb_male$income 
+##       -2.6596291        0.1253485</code></pre>
+<pre class="r"><code>coef_female &lt;- coef(model_female); coef_female</code></pre>
+<pre><code>##        (Intercept) gamb_female$income 
+##        3.139973694        0.003363799</code></pre>
+<pre class="r"><code># Building a plot with linear models (male vs female) :
+
+p + geom_point(aes(group = sex, colour = sex)) +
+  geom_abline(slope = coef_male[2], intercept = coef_male[1], colour = &#39;blue&#39;) +
+  geom_abline(slope = coef_female[2], intercept = coef_female[1], colour = &#39;red&#39;) +
+  xlab(&quot;Annual Income (£)&quot;) +
+  ylab(&quot;Annual Gambling Expenditures (£)&quot;) +
+  scale_colour_manual(values = c(&quot;red&quot;,&quot;blue&quot;),
+                      labels = c(&quot;Male&quot;, &quot;Female&quot;),
+                      name = &quot;Legend&quot;) +
+  ggtitle(&quot;British Teen Gambling Survey Study&quot;) + 
+  theme(plot.title = element_text(lineheight=.8, face=&quot;bold&quot;))</code></pre>
+<p><img src="rvisual-linear-model_files/figure-html/unnamed-chunk-4-1.png" width="384" /></p>
+<p> </p>
+<pre class="r"><code># Full model (male and female):
+
+p + geom_point() +
+ geom_abline(slope = coef_model[2], intercept = coef_model[1], colour = &#39;green&#39;) +
+ xlab(&quot;Annual Income (£)&quot;) +
+ ylab(&quot;Annual Gambling Expenditures (£)&quot;) +
+ ggtitle(&quot;British Teen Gambling Survey Study&quot;) + 
+ theme(plot.title = element_text(lineheight=.8, face=&quot;bold&quot;))</code></pre>
+<p><img src="rvisual-linear-model_files/figure-html/unnamed-chunk-5-1.png" width="384" /></p>
+<p> </p>
+<p>We can easily see that our model (blue and red dots) shows that males spend more on gambling as annual incomes increases compared to females.</p>
+<p>The model with just black dots is the overall model where males and females are together. Again, as annual income increases the gambling spending increases.</p>
+<p>Formally, we can express the model in a more mathematical way.</p>
+<p>For the male case in blue the fitted linear model can be expressed as:</p>
+<p> </p>
+<p><span class="math display">\[Annual Gambling Exp. = -2.6546 + 0.0024 * MaleIncome\]</span></p>
+<p> </p>
+<p>For the female case in red, the fitted linear model can be expressed as:</p>
+<p> </p>
+<p><span class="math display">\[Annual Gambling Exp. = 3.1400 + 0.0001 * FemaleIncome\]</span></p>
+<p> </p>
+<p>(6.468844e-05 is rounded to 0.0001 in 4 decimal places)</p>
+<p>For the overall linear model, the fitted linear model is:</p>
+<p> </p>
+<p><span class="math display">\[Annual Gambling Exp. = -6.3246 + 0.0020 * AnnualIncome\]</span></p>
+<p><a name="origin"></a></p>
+<p> </p>
+</div>
+<div id="regression-through-the-origin" class="section level3">
+<h3><u>Regression Through The Origin</u></h3>
+<p> </p>
+<p>Based on the context our data, we cannot have negative income and 0 income should relate to 0 gambling spending. (One could argue that you can have 0 income and still gamble with other people’s money but that is not assumed) We should be running a linear model through the origin point of (0, 0).</p>
+<p>To run a regression through the origin we add a 0 and a + with the independent variable in the lm() function in R.</p>
+<p>The code will be similar as before but with different outputs.</p>
+<p> </p>
+<pre class="r"><code># Analysis:
+
+# But we cannot have negative income so we run a linear model through origin:
+# 0 income means 0 gambling expenses
+
+# We fit a linear model through the origin:
+
+linear_model_origin &lt;- lm(gamb_data$gamble ~ 0 + gamb_data$income)
+
+model_male_origin &lt;- lm(gamb_male$gamble ~ 0 + gamb_male$income)
+
+model_female_origin &lt;- lm(gamb_female$gamble ~ 0 + gamb_female$income)
+
+# Extract slope:
+
+coef_origin &lt;- coef(linear_model_origin); coef_origin</code></pre>
+<pre><code>## gamb_data$income 
+##       0.08950466</code></pre>
+<pre class="r"><code>coef_male_origin &lt;- coef(model_male_origin); coef_male_origin</code></pre>
+<pre><code>## gamb_male$income 
+##        0.1191204</code></pre>
+<pre class="r"><code>coef_female_origin &lt;- coef(model_female_origin); coef_female_origin</code></pre>
+<pre><code>## gamb_female$income 
+##          0.0139747</code></pre>
+<pre class="r"><code># Plotting Through Origin (Male vs Female):
+
+# Full model (male vs female):
+
+p + geom_point(aes(group = sex, colour = sex)) +
+ geom_abline(slope = coef_male_origin, intercept = 0, colour = &#39;blue&#39;) +
+ geom_abline(slope = coef_female_origin, intercept = 0, colour = &#39;red&#39;) +
+ xlab(&quot;Annual Income (£)&quot;) +
+ ylab(&quot;Annual Gambling Expenditures (£)&quot;) +
+ scale_colour_manual(values = c(&quot;red&quot;,&quot;blue&quot;),
+ labels = c(&quot;Female&quot;, &quot;Male&quot;),
+ name = &quot;Legend&quot;) +
+ ggtitle(&quot;British Teen Gambling Survey Study&quot;) + 
+ theme(plot.title = element_text(lineheight=.8, face=&quot;bold&quot;))</code></pre>
+<p><img src="rvisual-linear-model_files/figure-html/unnamed-chunk-6-1.png" width="384" /></p>
+<pre class="r"><code># Full model through origin (male and female):
+
+p + geom_point() +
+ geom_abline(slope = coef_origin, intercept = 0, colour = &#39;green&#39;) +
+ xlab(&quot;Annual Income (£)&quot;) +
+ ylab(&quot;Annual Gambling Expenditures (£)&quot;) +
+ ggtitle(&quot;British Teen Gambling Survey Study&quot;) + 
+ theme(plot.title = element_text(lineheight=.8, face=&quot;bold&quot;))</code></pre>
+<p><img src="rvisual-linear-model_files/figure-html/unnamed-chunk-6-2.png" width="384" /></p>
+<p> </p>
+<p>For the overall model (black dots and green line), the linear model is:</p>
+<p> </p>
+<p><span class="math display">\[Annual Gambling Exp. = 0 + 0.0895 * AnnualIncome\]</span></p>
+<p> </p>
+<p>The fitted linear model for the male case is:</p>
+<p> </p>
+<p><span class="math display">\[Annual Gambling Exp. = 0 + 0.1191 * MaleIncome\]</span></p>
+<p> </p>
+<p>For the female case, the linear model is:</p>
+<p> </p>
+<p><span class="math display">\[Annual Gambling Exp. = 0 + 0.0140 * FemaleIncome\]</span></p>
+<p> </p>
+<p>(Numeric values are rounded to 4 decimal places.)</p>
+<p>The linear models through the origin are not much different than the linear models before. It does make more sense to fit a model through the origin based on the context of the data.</p>
+<p><a name="notes"></a></p>
+<p> </p>
+</div>
+<div id="notes-thoughts" class="section level3">
+<h3><u>Notes &amp; Thoughts</u></h3>
+<p> </p>
+<p>Based on the sample of 47 males and females in the survey study, females have lower gambling expenses compared to males. Overall, the more income one has, the higher the gambling expenses will be (from a likely male over female).</p>
+<p>Remember that statistics is based on partial information. It is dangerous and most likely not true that as income increases then gambling spending increases for every British teenager. If one wants more information, then a larger sample would be needed which comes at a cost.</p>
+<p>More variables could have been used for the linear models such as the socioeconomic status variable. That would be a multiple linear regression case.</p>
+<p>The preferred graph would be the one with the male and female cases. It provides a good visual between males and females in terms of gambling spending.</p>
+<p><a name="refs"></a></p>
+<p> </p>
+</div>
+<div id="references" class="section level3">
+<h3><u>References</u></h3>
+<p> </p>
+<ul>
+<li><a href="https://cran.r-project.org/web/packages/faraway/faraway.pdf" class="uri">https://cran.r-project.org/web/packages/faraway/faraway.pdf</a></li>
+<li>Ide-Smith &amp; Lea, 1988, Journal of Gambling Behavior, 4, 110-118</li>
+<li>Datacamp courses were really helpful too.</li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

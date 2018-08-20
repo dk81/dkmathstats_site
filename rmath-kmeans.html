@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>The k-Means Algorithm In R For Clustering Data</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">The k-Means Algorithm In R For Clustering Data</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hi. I have been doing some self-learning on R and this topic of the K-Means Algorithm. The contents below is based on me using the K-Means Algorithm on a small dataset as practice. Since I am a student of this topic, the information presented here may not be exact.</p>
+<p>The K-Means Algorithm is an unsupervised machine learning method which takes a collection of data points and partitions them into clusters (or subsets of the original data). This clustering method is useful for analyzing patterns within data and for labeling certain groups based on the data.</p>
+<p> </p>
+<div id="sections" class="section level3">
+<h3><u>Sections</u></h3>
+<p> </p>
+<ul>
+<li><p><a href="#refs">References</a></p></li>
+<li><p><a href="#data">The Dataset</a></p></li>
+<li><p><a href="#kmeans">Using The kmeans() Function In R</a></p></li>
+<li><p><a href="#outputs">The K-means Component Outputs In R</a></p></li>
+<li><p><a href="#scree">Choosing The Optimal Number Of Clusters (k) &amp; The Scree Plot</a></p></li>
+<li><p><a href="#altplots">Alternate Plots For Choosing The Number Of Clusters</a></p></li>
+</ul>
+<p> </p>
+<p><a name="refs"></a></p>
+</div>
+<div id="references" class="section level3">
+<h3><u>References</u></h3>
+<p> </p>
+<p>Here is some references that I have used here.</p>
+<ul>
+<li><p>R Graphics Cookbook By Winston Chang</p></li>
+<li><p>R Documentation (on kmeans).</p></li>
+<li><p><a href="https://www.r-bloggers.com/k-means-clustering-in-r/" class="uri">https://www.r-bloggers.com/k-means-clustering-in-r/</a></p></li>
+<li><p><a href="http://stackoverflow.com/questions/14524818/results-of-k-means-used-in-r" class="uri">http://stackoverflow.com/questions/14524818/results-of-k-means-used-in-r</a></p></li>
+</ul>
+<p>Datacamp videos and notes have been useful. One video that I have used is <a href="https://www.youtube.com/watch?v=NCTKZfpEkDg">this</a>.</p>
+<p> </p>
+<p><a name="data"></a></p>
+</div>
+<div id="the-dataset" class="section level3">
+<h3><u>The Dataset</u></h3>
+<p> </p>
+<p>The dataset I am using is from the faraway library in R. This data is called star and I renamed this as star_data. The R documentation for this dataset is also included below the code.</p>
+<p> </p>
+<pre class="r"><code>library(faraway)
+library(ggplot2)
+
+# Save star data from faraway data to star_data variable:
+
+star_data &lt;- star
+
+# Preview data:
+
+head(star_data)</code></pre>
+<pre><code>##   index temp light
+## 1     1 4.37  5.23
+## 2     2 4.56  5.74
+## 3     3 4.26  4.93
+## 4     4 4.56  5.74
+## 5     5 4.30  5.19
+## 6     6 4.46  5.46</code></pre>
+<p> </p>
+<p>The index column is not really needed and it can be removed.</p>
+<p> </p>
+<pre class="r"><code># Remove first column as it is not needed:
+
+star_data &lt;- star_data[, 2:3]</code></pre>
+<p> </p>
+<p>I can further examine the data by using the functions summary() and str().</p>
+<p> </p>
+<pre class="r"><code># Summary and data structure:
+
+summary(star_data)</code></pre>
+<pre><code>##       temp           light      
+##  Min.   :3.480   Min.   :3.940  
+##  1st Qu.:4.275   1st Qu.:4.540  
+##  Median :4.420   Median :5.100  
+##  Mean   :4.310   Mean   :5.012  
+##  3rd Qu.:4.455   3rd Qu.:5.435  
+##  Max.   :4.620   Max.   :6.290</code></pre>
+<pre class="r"><code>str(star_data)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    47 obs. of  2 variables:
+##  $ temp : num  4.37 4.56 4.26 4.56 4.3 4.46 3.84 4.57 4.26 4.37 ...
+##  $ light: num  5.23 5.74 4.93 5.74 5.19 5.46 4.65 5.27 5.57 5.12 ...</code></pre>
+<p> </p>
+<p>From the <code>str()</code> output, we see that the dataset has 47 observations (rows) and 2 variables (columns). It is not a large dataset but I am using this for illustration purposes.</p>
+<p>Here is a scatterplot of the data (before clustering).</p>
+<p> </p>
+<pre class="r"><code># Initial Plot (With Full Labels)
+
+ggplot(star_data, aes(x = temp, y = light)) + geom_point() + 
+  labs(x = &quot;\n Log Of Surface Temperature&quot;, y = &quot;Log Of Light Intensity \n&quot;, 
+       title = &quot;Temperature Vs Light Intensity For Star Data \n&quot;) + 
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour = &quot;darkgreen&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour = &quot;darkgreen&quot;, size = 12),
+        legend.title = element_text(face=&quot;bold&quot;, size = 10))</code></pre>
+<p><img src="rmath-kmeans_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p> </p>
+<p><a name="kmeans"></a></p>
+</div>
+<div id="using-the-kmeans-function-in-r" class="section level3">
+<h3><u>Using The kmeans() Function In R</u></h3>
+<p> </p>
+<p>The k-means algorithm takes a set of points (data) and splits/partitions them into k clusters. The user has the choice in determining how many clusters (k) he/she wants from the data.</p>
+<p>As I am learning the k-means algorithm myself, my explanation on this may be off but I will give it a try.</p>
+<p>Before the first iteration, the data is split into k clusters. The number of k clusters is user-defined. For each cluster a centroid/midpoint (average point) is associated with the cluster. There would be k centroids.</p>
+<p>The iterative steps are as follows:</p>
+<p> </p>
+<ol style="list-style-type: decimal">
+<li>Assign points to the nearest centroid. Points to the closest centroid are in that centroid’s cluster.</li>
+<li>Relocate the centroid’s location to the cluster’s midpoint.</li>
+<li>Repeat steps 1 and 2 for the next iteration. Note that the centroid/midpoint of a cluster can change between iterations. The algorithm stops if there are no more interations or if there is convergence (the centroids and clusters don’t change).</li>
+</ol>
+<p> </p>
+<p>For an alternate explanation, please refer to the Youtube video placed in the References section above.</p>
+<p>The k-means algorithm is not difficult to use in R. In R, it can be achieved by using the <code>kmeans()</code> function. Type in <code>?kmeans</code> to load up the R documentation for the <code>kmeans()</code> function in R.</p>
+<p>I first place a random seed in R. This is for reproducibility purposes. If you use this same random seed, you would get the same output and plot as me. If this random seed is not there, then outputs will vary even though you may run the code repeatedly.</p>
+<p> </p>
+<pre class="r"><code># Set random seed:
+
+set.seed(20)
+
+star_Cluster &lt;- kmeans(star_data, centers = 2, nstart = 25)
+star_Cluster</code></pre>
+<pre><code>## K-means clustering with 2 clusters of sizes 27, 20
+## 
+## Cluster means:
+##       temp    light
+## 1 4.320741 5.423704
+## 2 4.295500 4.456500
+## 
+## Clustering vector:
+##  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 
+##  1  1  2  1  1  1  2  1  1  1  1  1  1  2  2  2  2  2  2  1  2  2  2  2  1 
+## 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 
+##  2  2  2  2  1  2  1  1  1  2  1  1  1  1  1  2  1  1  1  1  1  2 
+## 
+## Within cluster sum of squares by cluster:
+## [1] 6.254615 1.891550
+##  (between_SS / total_SS =  56.9 %)
+## 
+## Available components:
+## 
+## [1] &quot;cluster&quot;      &quot;centers&quot;      &quot;totss&quot;        &quot;withinss&quot;    
+## [5] &quot;tot.withinss&quot; &quot;betweenss&quot;    &quot;size&quot;         &quot;iter&quot;        
+## [9] &quot;ifault&quot;</code></pre>
+<p> </p>
+<p>The above code is an examples of <code>kmeans()</code> in R. I use 2 clusters as indicated by centers = 2, and nstart = 25. The R documentation states the nstart refers to the number of random sets chosen. I don’t know too much about nstart so I would have to look more into it. By default, iter.max is 10 which is the amount of iterations.</p>
+<p>The outputs also gives information on how many points are in each cluster, which points go with which cluster, and the available components from <code>kmeans()</code>.</p>
+<p>In the next lines of code, I convert the cluster component to factors in order to enable the colour fills in ggplot2. The ggplot2 code and plot can be found below.</p>
+<p> </p>
+<pre class="r"><code># Create new copy of star_data for kmeans with 2 clusters
+
+star_data_cl2 &lt;- star_data
+
+# Add star_Cluster cluster component as new column to star_data_cl2:
+
+star_data_cl2$clusterType &lt;- as.factor(star_Cluster$cluster)
+
+# Plot with Two Clusters Indicated By Colours:
+
+ggplot(star_data_cl2, aes(x = temp, y = light, colour = clusterType)) + 
+  geom_point() + 
+  labs(x = &quot;\n Log Of Surface Temperature&quot;, y = &quot;Log Of Light Intensity \n&quot;, 
+       title = &quot;Temperature Vs Light Intensity For Star Data \n&quot;,
+       colour = &quot;Cluster Group&quot;) +  
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour = &quot;darkgreen&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour = &quot;darkgreen&quot;, size = 12),
+        legend.title = element_text(face=&quot;bold&quot;, size = 10))</code></pre>
+<p><img src="rmath-kmeans_files/figure-html/unnamed-chunk-6-1.png" width="480" /></p>
+<p> </p>
+<p><a name="outputs"></a></p>
+</div>
+<div id="the-k-means-component-outputs-in-r" class="section level3">
+<h3><u>The K-means Component Outputs In R</u></h3>
+<p> </p>
+<p>One natural question is what does the k-means algorithm output? What does it all mean? I try to figure it out using the R documentation. I have included a screenshot of the R documentation for the output of kmeans.</p>
+<p>The cluster output component outputs a vector of integers from 1 to the number of clusters inputted into <code>kmeans()</code> which is k. This vector shows which points go with each cluster. In this case the first point goes to cluster 1, the second point goes to cluster two and so on until observation/point 47 in the star data.</p>
+<p> </p>
+<pre class="r"><code>## Understanding the outputs of k-means:
+ 
+# cluster output from star_cluster:
+
+star_Cluster$cluster</code></pre>
+<pre><code>##  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 
+##  1  1  2  1  1  1  2  1  1  1  1  1  1  2  2  2  2  2  2  1  2  2  2  2  1 
+## 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 
+##  2  2  2  2  1  2  1  1  1  2  1  1  1  1  1  2  1  1  1  1  1  2</code></pre>
+<p> </p>
+<p>Centroid positions from each cluster can be determined from the centers output component from <code>kmeans()</code>. The first row represents the centroid for the first cluster and the second row represents the centroid position for the second cluster.</p>
+<p> </p>
+<pre class="r"><code># Cluster centres:
+
+star_Cluster$centers</code></pre>
+<pre><code>##       temp    light
+## 1 4.320741 5.423704
+## 2 4.295500 4.456500</code></pre>
+<p> </p>
+<p>Using the size component gives the number of points assigned to each cluster. Note that the number of points in each cluster do not have to be equal. The first cluster has 27 points while the second cluster has 20 points assigned to it from the 47 in the star data.</p>
+<p> </p>
+<pre class="r"><code># Size Of Each Cluster:
+
+star_Cluster$size</code></pre>
+<pre><code>## [1] 27 20</code></pre>
+<p> </p>
+<p>Here is the number of iterations. I am not sure what the documentation means by outer iteration. I would have to look at it in more detail.</p>
+<p> </p>
+<pre class="r"><code># Number of Iterations:
+
+star_Cluster$iter</code></pre>
+<pre><code>## [1] 1</code></pre>
+<p> </p>
+<p>There is an ifault component which I am not familiar with. The documentation says it’s for experts.</p>
+<p> </p>
+<pre class="r"><code># ifault component:
+
+star_Cluster$ifault</code></pre>
+<pre><code>## [1] 0</code></pre>
+<p> </p>
+<p>I left these remaining output components last as there are linked together and they are important. I think these measures use Euclidean distance by default.</p>
+<p>The withinss output component creates a vector of within-cluster sum of squares. The within-cluster sum of squares takes the sum of squares within each cluster. That is, we take the sum of the squares of each point minus In math notation, it would be something like:</p>
+<p> </p>
+<p><span class="math display">\[\sum_{i = 1}^{p} (\mathbf{x_i} - \mathbf{\bar{x_{k}}})^2\]</span></p>
+<p> </p>
+<p>where there are <span class="math inline">\(p\)</span> points in the k-th cluster and<span class="math inline">\(\mathbf{\bar{x_{k}}}\)</span> is the centroid of the k-th cluster. Note the boldface notation as each <span class="math inline">\(\mathbf{x_i}\)</span> point has a x-coordinate and a y-coordinate in two dimensions. In three dimensions, points are in (x, y, z) format and so on.</p>
+<p> </p>
+<pre class="r"><code># Within Cluster sum of squares (Sum Of Squares In Each Cluster):
+
+star_Cluster$withinss</code></pre>
+<pre><code>## [1] 6.254615 1.891550</code></pre>
+<p> </p>
+<p>The tot.withinss output component gives the total within cluster sum of squares. This is the sum of the above components of the vector.</p>
+<p> </p>
+<pre class="r"><code># Total Within Sum of Squares (Add Within Cluster SumSquares Together):
+
+star_Cluster$tot.withinss</code></pre>
+<pre><code>## [1] 8.146165</code></pre>
+<p> </p>
+<p>Between clusters sum of squares are given by betweenss. I am not exactly sure if it measures from centroid to centroid between clusters or from the nearest points between clusters. That would require some further investigation.</p>
+<p> </p>
+<pre class="r"><code># Between Clusters Sum Of Squares:
+
+star_Cluster$betweenss</code></pre>
+<pre><code>## [1] 10.75542</code></pre>
+<p> </p>
+<p>The total sum of squares is the sum of the between clusters sum of squares and the total within cluster sum of squares. (i.e. TSS = BSS + TWSS) This formula is used in the later section where there are alternate plots for choosing k clusters.</p>
+<p> </p>
+<pre class="r"><code># Total Sum Of Squares = BetweenSumSquares + Total Within SumSquares
+
+star_Cluster$totss</code></pre>
+<pre><code>## [1] 18.90159</code></pre>
+<p> </p>
+<p><a name="scree"></a></p>
+</div>
+<div id="choosing-the-optimal-number-of-clusters-k-the-scree-plot" class="section level3">
+<h3><u>Choosing The Optimal Number Of Clusters (k) &amp; The Scree Plot</u></h3>
+<p> </p>
+<p>When it comes this k-means algorithm, one may want to use some sort of metric or aid to help in choosing the number of clusters. The scree plot with the elbow method is one way to help in determining the optimal number of clusters.</p>
+<p>Note that this approach is from a statistics and optimization perspective. The chosen number of clusters could vary depending on the context of the data.</p>
+<p>In the previous section, I did the k-means algorithm for 2 clusters. I want to compare the algorithm from 1 cluster to 8 clusters. (You could use more than 8 clusters if you want to be more thorough.) A for loop is used to help build the scree plot.</p>
+<p> </p>
+<pre class="r"><code>####  Optimal Amount Of Clusters (k):
+
+# Scree Plot For Determining Optimal k Clusters.
+
+total_wsumsq &lt;- rep(0, 8) #Initialize
+
+for (k in 1:8){
+  star_kmeans &lt;- kmeans(star_data, centers = k, nstart = 25)
+  
+  # Scree Plot use total within cluster sum of squares
+  
+  total_wsumsq[k] &lt;- star_kmeans$tot.withinss 
+}
+
+## Scree Plot In Base R:
+
+plot(x = 1:8, y = total_wsumsq , xlab = &quot;Number Of Clusters (k)&quot;, 
+     ylab = &quot;Total Within Sum Of Squares&quot;) +
+  lines(x = 1:8, y = total_wsumsq)</code></pre>
+<p><img src="rmath-kmeans_files/figure-html/unnamed-chunk-16-1.png" width="384" /></p>
+<pre><code>## integer(0)</code></pre>
+<p> </p>
+<p>From the above scree plot, the “elbow” of the plot is at k = 3 (or you could say k = 4).</p>
+<p> </p>
+<p><strong>The ggplot2 Version Of The Scree Plot</strong></p>
+<p> </p>
+<p>If you want to get fancy and add colour to the scree plot. Here is the ggplot2 version of the scree plot.</p>
+<p> </p>
+<pre class="r"><code>## ggplot2 Version Of Scree Plot:
+
+# Create table
+
+scree_table &lt;- data.frame(cbind(1:8, total_wsumsq))
+
+scree_table </code></pre>
+<pre><code>##   V1 total_wsumsq
+## 1  1   18.9015872
+## 2  2    8.1461648
+## 3  3    3.1994379
+## 4  4    1.9850971
+## 5  5    1.4314322
+## 6  6    1.1715345
+## 7  7    0.9351188
+## 8  8    0.7721180</code></pre>
+<pre class="r"><code># Change column names:
+
+colnames(scree_table) &lt;- c(&quot;k&quot;, &quot;TWSS&quot;)
+
+# Scree ggplot plot:
+ggplot(scree_table, aes(x = k, y = TWSS)) + geom_point() + geom_line() +
+  labs(x = &quot;\n Number Of Clusters (k)&quot;, y = &quot;Total Within Sum Of Squares \n&quot;, 
+       title = &quot;Scree Plot For Star Data \n&quot;) + 
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour = &quot;darkgreen&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour = &quot;darkgreen&quot;, size = 12),
+        legend.title = element_text(face=&quot;bold&quot;, size = 10))</code></pre>
+<p><img src="rmath-kmeans_files/figure-html/unnamed-chunk-17-1.png" width="384" /></p>
+<p> </p>
+<p>The “elbow” of the scree plot is k = 3 (or k = 4).</p>
+<p>Choosing the number of clusters as three, here is the code and output for the K-Means algorithm on the star data.</p>
+<p> </p>
+<pre class="r"><code># From scree plot, choose k = 3 as our optimal choice for k:
+ 
+star_km3 &lt;- kmeans(star_data, centers = 3, nstart = 25)
+star_km3</code></pre>
+<pre><code>## K-means clustering with 3 clusters of sizes 17, 4, 26
+## 
+## Cluster means:
+##       temp    light
+## 1 4.281176 4.379412
+## 2 3.487500 5.990000
+## 3 4.455385 5.275385
+## 
+## Clustering vector:
+##  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 
+##  3  3  3  3  3  3  1  3  3  3  2  3  3  1  1  1  1  1  1  2  1  1  1  3  3 
+## 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 
+##  1  1  3  1  2  1  3  3  2  1  3  3  3  3  3  1  3  3  3  3  3  1 
+## 
+## Within cluster sum of squares by cluster:
+## [1] 1.165071 0.171275 1.863092
+##  (between_SS / total_SS =  83.1 %)
+## 
+## Available components:
+## 
+## [1] &quot;cluster&quot;      &quot;centers&quot;      &quot;totss&quot;        &quot;withinss&quot;    
+## [5] &quot;tot.withinss&quot; &quot;betweenss&quot;    &quot;size&quot;         &quot;iter&quot;        
+## [9] &quot;ifault&quot;</code></pre>
+<p> </p>
+<pre class="r"><code># Create table:
+
+star_km3_cl &lt;- star_data
+
+# Add star_km3 cluster component as new column to star_km3:
+
+star_km3_cl$clusterType &lt;- as.factor(star_km3$cluster)
+
+# Plot with Clusters Indicated By Colours:
+
+ggplot(star_km3_cl, aes(x = temp, y = light, color = clusterType)) + 
+  geom_point() + 
+  labs(x = &quot;\n Log Of Surface Temperature&quot;, y = &quot;Log Of Light Intensity \n&quot;, 
+       title = &quot;Temperature Vs Light Intensity For Star Data \n&quot;,
+       colour = &quot;Cluster Group&quot;) + 
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour = &quot;darkgreen&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour = &quot;darkgreen&quot;, size = 12),
+        legend.title = element_text(face=&quot;bold&quot;, size = 10))</code></pre>
+<p><img src="rmath-kmeans_files/figure-html/unnamed-chunk-19-1.png" width="384" /></p>
+<p> </p>
+<p><a name="altplots"></a></p>
+</div>
+<div id="alternate-plots-for-choosing-the-number-of-clusters" class="section level3">
+<h3><u>Alternate Plots For Choosing The Number Of Clusters</u></h3>
+<p> </p>
+<p><strong>First Alternate Plot</strong></p>
+<p> </p>
+<p>The scree plot above used the total within sum of squares versus the k number of clusters. This scree plot uses the number of clusters (k) vs the ratio of total within sum of squares over the total sum of squares.</p>
+<p>Here is the code and output.</p>
+<pre class="r"><code>### --- An Alternate Scree Plot - One (Proportions):
+
+
+# Alternate Scree Plot For Determining Optimal k Clusters.
+
+ratio &lt;- rep(0, 8)
+
+
+for (k in 1:8){
+   star_kmeans &lt;- kmeans(star_data, centers = k, nstart = 25)
+   
+   # Scree Plot use total within cluster sum of squares divided by
+   # Total sum of squares as a ratio
+   
+  ratio[k] &lt;- star_kmeans$tot.withinss / star_kmeans$totss
+}
+ 
+# Create table
+ 
+alt_scree &lt;- data.frame(cbind(1:8, ratio))
+ 
+alt_scree</code></pre>
+<pre><code>##   V1      ratio
+## 1  1 1.00000000
+## 2  2 0.43097782
+## 3  3 0.16926821
+## 4  4 0.10502277
+## 5  5 0.07573080
+## 6  6 0.06198074
+## 7  7 0.04961176
+## 8  8 0.04084937</code></pre>
+<pre class="r"><code># Change column names:
+
+colnames(alt_scree) &lt;- c(&quot;k&quot;, &quot;Ratio&quot;)
+
+# Scree ggplot plot:
+ggplot(alt_scree, aes(x = k, y = Ratio)) + geom_point() + geom_line() + 
+  labs(x = &quot;\n Number Of Clusters (k)&quot;, y = &quot;Within Sum Of Squares / Total Sum Of Squares Ratio \n&quot;,       title = &quot;Scree Plot For Star Data \n&quot;) + 
+      theme(plot.title = element_text(hjust = 0.5), 
+           axis.title.x = element_text(face=&quot;bold&quot;, colour = &quot;darkgreen&quot;, size = 12),
+           axis.title.y = element_text(face=&quot;bold&quot;, colour = &quot;darkgreen&quot;, size = 12),
+           legend.title = element_text(face=&quot;bold&quot;, size = 10))</code></pre>
+<p><img src="rmath-kmeans_files/figure-html/unnamed-chunk-20-1.png" width="480" /></p>
+<p> </p>
+<p><strong>Second Alternate Plot</strong></p>
+<p> </p>
+<p>Recall that after viewing the scree plot (elbow method) the chosen number of clusters was k = 3. The kmeans output included this part:</p>
+<p> </p>
+<pre><code>Within cluster sum of squares by cluster:
+[1] 1.165071 0.171275 1.863092
+ (between_SS / total_SS = 83.1 %)</code></pre>
+<p> </p>
+<p>This ratio of between clusters sum of squares over the total sum of squares is the total variance. This total variance is the total variance in the data explained by the clusters. I would like to plot this total variance versus the number of clusters (k).</p>
+<p> </p>
+<pre class="r"><code>## An Alternate Scree Plot - Two (Total Variance) :
+
+total_var &lt;- rep(0, 8)
+
+for (k in 1:8){
+ star_kmeans &lt;- kmeans(star_data, centers = k, nstart = 25)
+ 
+ # Scree Plot with total variance: Between Sum Of Squares / Total_SumSquares
+ 
+ total_var[k] &lt;- round( 100 * star_kmeans$betweenss / star_kmeans$totss, 2)
+ 
+}
+
+# Create table
+
+alt_scree2 &lt;- data.frame(cbind(1:8, total_var))
+
+alt_scree2</code></pre>
+<pre><code>##   V1 total_var
+## 1  1      0.00
+## 2  2     56.90
+## 3  3     83.07
+## 4  4     89.50
+## 5  5     92.43
+## 6  6     93.80
+## 7  7     95.05
+## 8  8     95.92</code></pre>
+<pre class="r"><code># Change column names:
+
+colnames(alt_scree2) &lt;- c(&quot;k&quot;, &quot;Total_Var&quot;)
+
+# Scree ggplot plot:
+ggplot(alt_scree2, aes(x = k, y = total_var)) + geom_point() + geom_line() + 
+ labs(x = &quot;\n Number Of Clusters (k)&quot;, y = &quot;Total Variance (Percent) \n&quot;, 
+ title = &quot;Determining The Optimal Number Of Clusters \n&quot;) + 
+ theme(plot.title = element_text(hjust = 0.5), 
+ axis.title.x = element_text(face=&quot;bold&quot;, colour = &quot;darkgreen&quot;, size = 12),
+ axis.title.y = element_text(face=&quot;bold&quot;, colour = &quot;darkgreen&quot;, size = 12),
+ legend.title = element_text(face=&quot;bold&quot;, size = 10))</code></pre>
+<p><img src="rmath-kmeans_files/figure-html/unnamed-chunk-21-1.png" width="480" /></p>
+<p> </p>
+<p>Even though the number of clusters chosen from the scree plot was 3, it seems that having 4 clusters is a good option as well. In general, increasing the number of clusters increases the total variance. In this case, going past 4 clusters does not increase the total variance that much.</p>
+<p> </p>
+<p><strong>Third Alternate Plot</strong></p>
+<p> </p>
+<p>This third plot would create the same output plot as the second plot. The formula used here would be in a slightly different form.</p>
+<p>Recall that the total sum of squares is the sum of the between-clusters sum of squares and the total within-cluster sum of squares. (i.e. TSS = BSS + TWSS)</p>
+<p><code>kmeans()</code> with <code>k = 3</code> in R gave an output of</p>
+<p> </p>
+<pre><code>Within cluster sum of squares by cluster:
+[1] 1.165071 0.171275 1.863092
+ (between_SS / total_SS = 83.1 %)</code></pre>
+<p> </p>
+<p>The formula in that output is <span class="math inline">\(\dfrac{BSS}{TSS}\)</span>. Using the rearranged equation <span class="math inline">\(BSS = TSS - TWSS\)</span>, the ratio becomes</p>
+<p> </p>
+<p><span class="math display">\[\dfrac{(TSS - TWSS)}{TSS} = 1 - \dfrac{TWSS}{TSS}\]</span>.</p>
+<p> </p>
+<p>This quantity looks somewhat familiar. It looks similar to to the general formula for the coefficient of determination <span class="math inline">\(R^2\)</span> (from linear regression). <span class="math inline">\(R^2\)</span> can be used as a measure of explained variance so this <span class="math inline">\(BSS / TSS = 1 - (TWSS / TSS)\)</span> is the total variance in the data explained by the clusters.</p>
+<p>Here is the code and output here. Note that TWSS / TSS is represented by ratio in R and was used in the first alternate plot.</p>
+<p> </p>
+<pre class="r"><code># Speculating that total variance is 1 - ratio = 1 - totalWSS / totalSumSq:
+
+# Scree ggplot plot (fix axes):
+ggplot(alt_scree2, aes(x = k, y = 100*(1 - ratio))) + geom_point() + geom_line() + 
+  labs(x = &quot;\n Number Of Clusters (k)&quot;, y = &quot;Total Variance (Percentage) \n&quot;, 
+       title = &quot;Determining The Optimal Number Of Clusters \n&quot;) + 
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour = &quot;blue&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour = &quot;blue&quot;, size = 12),
+        legend.title = element_text(face=&quot;bold&quot;, size = 10))</code></pre>
+<p><img src="rmath-kmeans_files/figure-html/unnamed-chunk-22-1.png" width="384" /></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

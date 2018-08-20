@@ -1,15 +1,22 @@
 ---
-title: "prob-normal-dist"
+title: "Plotting Normal Distributions In R Using ggplot2"
 output: html_document
 ---
 
 &nbsp;
 
-Hi there. In this post, I will talk about the famous Normal Distribution. This topic is covered in numerous introductory probability and statistics courses and is well known. The normal distribution is sometimes referred to as a Gaussian or a bell-shaped curve. This post serves as an overview of the normal distribution and its related topics.
+<center><img src="http://www.statisticshowto.com/wp-content/uploads/2013/09/standard-normal-distribution.jpg" /></center>
+
+&nbsp;
+
+The featured red normal distribution image is taken from http://www.statisticshowto.com/probability-and-statistics/normal-distributions/.
+
+&nbsp;
+
+Hi there. This page is about the famous Normal Distribution. This topic is covered in numerous introductory probability and statistics courses and is well known. The normal distribution is sometimes referred to as a Gaussian or a bell-shaped curve. This post serves as an overview of the normal distribution and its related topics.
 
 This post is suitable for a student who is first learning about the normal distribution assuming a good calculus background, and knows basic summary statistics and integration. If there are any topics that seem to crazy for you, it may be best for you to skip it and search for material that suits you.
 
-The featured red normal distribution image is taken from http://www.statlect.com/ucdnrm1.htm.
 
 &nbsp;
 
@@ -28,15 +35,20 @@ The featured red normal distribution image is taken from http://www.statlect.com
 
 &nbsp;
 
-
-
 ### <u>1) What Is The Normal Distribution?</u>
+
+&nbsp;
 
 The normal distribution or Gaussian is a continuous probability distribution where it is symmetric at its mean $\mu$ (pronounced like mew). It is the only distribution where its mean is equal to its median and mode.
 
 The density function of the normal distribution is:
 
-$\displaystyle f(x; \mu, \sigma^{2}) = \dfrac{1}{\sqrt{2 \, \pi \, \sigma^{2}}} \text{ e}^{- \dfrac{(x - \mu)^{2}}{2 \sigma^{2}}} \text{ ,} -\infty < x < \infty $
+&nbsp;
+
+$$\displaystyle f(x; \mu, \sigma^{2}) = \dfrac{1}{\sqrt{2 \, \pi \, \sigma^{2}}} \text{ e}^{- \dfrac{(x - \mu)^{2}}{2 \sigma^{2}}} \text{ ,} -\infty < x < \infty$$
+
+&nbsp;
+
 where the mean ("average") is $\mu$ and the variance is $\sigma^{2}$. Both $\mu$ and $\sigma^{2}$ are constants.
 
 We denote a normal random variable $X$ as $X \sim N(\mu, \sigma^{2})$.
@@ -47,13 +59,21 @@ Its variance is given by $\text{Var}(X) = E[X^2] - (E[X])^{2} = \sigma^{2}$
 
 The area under the curve for the normal distribution is one or:
 
-$\displaystyle \int_{-\infty}^{+ \infty} \dfrac{1}{\sqrt{2 \, \pi \, \sigma^{2}}} \text{ e}^{- \dfrac{(x - \mu)^{2}}{2 \sigma^{2}}} dx = 1$
+&nbsp;
+
+$$\displaystyle \int_{-\infty}^{+ \infty} \dfrac{1}{\sqrt{2 \, \pi \, \sigma^{2}}} \text{ e}^{- \dfrac{(x - \mu)^{2}}{2 \sigma^{2}}} dx = 1$$
+
+&nbsp;
+
 The mean, median and mode (peak) of the normal distribution occurs when $x = \mu$.
 
 The Normal distribution is a symmetric (zero skewness) distribution where the mean, median and mode are all equal to each other.
 
+&nbsp;
 
 ### <u>2) The Standard Normal Distribution: A Special Case</u>
+
+&nbsp;
 
 When $\mu = 0$ and $\sigma^{2} = 1$ in the normal distribution, we have the standard normal distribution as a special case. A random variable that follows a standard normal distribution is often denoted by $Z \sim \text{N}(0,1)$.
 
@@ -61,15 +81,31 @@ Alternatively, one can say that if $X \sim \text{N}(\mu, \sigma^{2})$ then the r
 
 We can show that the standard normal random variable has a mean of 0 and a variance of 1 using expected value and variance properties when $X \sim \text{N}(\mu, \sigma^{2})$.
 
-$E[Z] = E[\dfrac{(X - \mu)}{\sigma}] = \dfrac{(E[X] - \mu)}{\sigma} = \dfrac{0 -0}{\sigma} = 0$
-$\text{and } Var(Z) = Var(\dfrac{(X - \mu)}{\sigma}) = \dfrac{Var(X) - 0}{\sigma^2} = \dfrac{\sigma^2}{\sigma^2} = 1$
+&nbsp;
+
+$$E[Z] = E[\dfrac{(X - \mu)}{\sigma}] = \dfrac{(E[X] - \mu)}{\sigma} = \dfrac{0 -0}{\sigma} = 0$$
+
+&nbsp;
+
+$$\text{and } Var(Z) = Var(\dfrac{(X - \mu)}{\sigma}) = \dfrac{Var(X) - 0}{\sigma^2} = \dfrac{\sigma^2}{\sigma^2} = 1$$
+
+&nbsp;
+
 The probability density function of a standard normal distribution is:
-$\displaystyle f(x; \mu = 0, \sigma^{2} = 1) = \dfrac{1}{\sqrt{2\pi}} \text{ e}^{- x^2 / 2} \text{ ,} -\infty < x < \infty$
+
+&nbsp;
+
+$$\displaystyle f(x; \mu = 0, \sigma^{2} = 1) = \dfrac{1}{\sqrt{2\pi}} \text{ e}^{- x^2 / 2} \text{ ,} -\infty < x < \infty$$
+
+&nbsp;
 
 The mean, median and mode (peak) of the standard normal distribution is at $x = \mu = 0$.
 
+&nbsp;
 
 ### <u>3) The Cumulative Distribution Function (CDF)</u>
+
+&nbsp;
 
 The CDF is the probability that a real-valued random variable $X$ with a given probability distribution is less than or equal to a quantity $x$. It is often denoted by $P(X \leq x)$.
 
@@ -77,28 +113,54 @@ For the standard normal distribution we have the CDF denoted by $P(Z \leq z)$. O
 
 We can also have the equal or greater than case with $P(Z \geq z)$ or $(1 - P(Z \leq z))$ or $(1 - \Phi(z))$ or $(1 - F(z))$ or $N(-z)$
 
--------------------
+&nbsp;
 
-CDF Properties
+---
+
+&nbsp;
+
+**CDF Properties**
+
+&nbsp;
 
 For any random variable X:
 
-$0 \leq P(X \leq x) \leq 1$
+&nbsp;
 
-$P(a < X < b) = P(X < b) - P(X < a)$ for values $a$ and $b$. $P(X > -\infty) = 1$
+$$0 \leq P(X \leq x) \leq 1$$
 
-$P(X < +\infty) = F(\infty) = N(\infty) = 1$
+&nbsp;
+
+$$P(a < X < b) = P(X < b) - P(X < a) \text{ for values } a \text{ and } b. $$
+
+&nbsp;
+
+$$P(X > -\infty) = 1$$
+
+&nbsp;
+
+$$P(X < +\infty) = F(\infty) = N(\infty) = 1$$
+&nbsp;
 
 If $P(X \leq x) = 0.5$ then $x$ is the median ($50^{th}$ percentile). For a standard normal distribution, the median is at $x = \mu = 0$.
 
+&nbsp;
+
 $P(X \leq x)$ is the same as $P(- \infty \leq X \leq x)$ and $P(X \geq x)$ is the same as $P( x \leq X \leq \infty)$
 
-$P(X \leq x) + P(X \geq x) = 1$ or $P(X \geq x) = 1 - P(X \leq x)$
+&nbsp;
+
+$$P(X \leq x) + P(X \geq x) = 1$ or $P(X \geq x) = 1 - P(X \leq x)$$
+
+&nbsp;
 
 With the standard normal case: $P(Z \leq z) + P(Z \geq z) = 1$ or $N(z) + N(-z) = 1$
 
+&nbsp;
 
 ### <u>4) The Z-Score Table</u>
+
+&nbsp;
 
 We now look at the z-score table. The Z-Score Table applies to the standard normal distribution only and it helps us computes probabilities.
 
@@ -110,13 +172,23 @@ The z-score is the number of standard deviations above or below the mean $\mu$. 
 
 The z-score has no units (such as km, inches, etc.).
 
--------------------
+&nbsp;
 
-Warning!
+---
+
+&nbsp;
+
+**Warning!**
+
+&nbsp;
 
 One has to be careful when using the z-score table. There are different versions of the z-score table. One corresponds to $P(X < a)$, one goes with $P(X > a)$, and a few have $P(X > 0) = P(0 < X < \infty)$
 
--------------------
+&nbsp;
+
+---
+
+&nbsp;
 
 If one is asked to find the probability of a random variable below a certain value then you should use $P(X < a)$ and refer to the z-score table and the diagrams carefully!
 
@@ -136,48 +208,70 @@ There is a memory aid called the 68, 95, 99.7 rule. Three numbers represents (ap
 
 &nbsp;
 
-1) Case 1 (Between -1 and +1 standard deviations from the mean).
+**1) Case 1 (Between -1 and +1 standard deviations from the mean)**
+
+&nbsp;
 
 Math Notation: $P( |Z| \leq 1) = P( -1 \leq Z \leq 1) = 0.68$
 
 Meaning: 68% of the values are between -1 and +1 standard deviations (z-scores of -1 and + 1) from the mean.
 
--------
+&nbsp;
 
-2)Case 2 (Between -2 and +2 standard deviations from the mean).
+---
+
+&nbsp;
+
+**2)Case 2 (Between -2 and +2 standard deviations from the mean)**
 
 Math Notation: $P( |Z| \leq 1) = P( -1 \leq Z \leq 1) = 0.95$
 
 Meaning: 95% of the values are between -2 and +2 standard deviations from the mean.
 
--------
+&nbsp;
 
-3) Case 3 (Between -3 and +3 standard deviations from the mean).
+---
+
+&nbsp;
+
+**3) Case 3 (Between -3 and +3 standard deviations from the mean)**
 
 Math Notation: $P( |Z| \leq 1) = P( -1 \leq Z \leq 1) = 0.997$
 
 Meaning: 99.7% of the values are between -2 and +2 standard deviations from the mean.
 
--------
+&nbsp;
+
+---
+
+&nbsp;
 
 If you wanted the probability for 0 to 1 standard deviation from the mean in the standard normal distribution, just simply divide by 2 from 0.68 to get 0.34. Likewise with the 0.95 and 0.997 values.
 
 The image below summarizes the 68, 95 and 99.7 rule:
 
+&nbsp;
 
+<center><img src="http://www.oswego.edu/~srp/stats/images/normal_34.gif" /></center>
 
+&nbsp;
 
 
 This image is taken from http://www.oswego.edu/~srp/stats/6895997.htm
 
 &nbsp;
 
-### <u>6)  Using the Z-Score Table
+### <u>6)  Using the Z-Score Table</u>
 
 &nbsp;
 
 It is not expected of students (and people in general) to compute probabilities given z-scores by hand. A z-score table takes care of the computations. Here is a sample z-score table.
 
+&nbsp;
+
+
+
+&nbsp;
 
 
 This z-score table deals with the case of $P(Z < z)$ or the probability of the random variable $Z$ is less than (or equal to) a z-score quantity. If you want the $P(Z > z)$ case, you would use $1 - P(Z < z)$ as stated in the bottom box of the above image.
@@ -186,19 +280,21 @@ Notice how there are two separate tables in the image where each side refers to 
 
 The left side of the table refers to the ones digit and the tenths of the z-score and the top part refers to the hundreths of the z-score. As an example, if I wanted to find the probability of $Z$ less than 2.11, I look for 2.1 in the right table and then 0.01 from the top while still being in the same row as 2.1.
 
-
-
 When you want to use the z-score table but you are only given a normal random variable (not a standard normal) such as $X$ and not $Z$, you need to standardize the random variable $X$ into $Z$ as follows:
 
 &nbsp;
 
 $$\displaystyle P(a \leq X \leq b) = P(a < X < b) = P( \dfrac{a - \mu}{\sigma} < Z < \dfrac{b - \mu}{\sigma})$$
+&nbsp;
+
 where (where $\mu \neq 0$ and $\sigma^2 \neq 1$).
 
 Suppose the average test score was an 72 out of 100 and the standard deviation is 5. Assuming normality, if we wanted the probability (or percentage) of those who scored between a score of 65 to 85 (inclusive) we would have:
 
 
 Source: http://quicklatex.com/cache3/72/ql_71a6f7bd47bf894c7ae6cda01c9ef872_l3.png
+
+
 So about 92.7% of students had a score between 65 and a 85 which is between -1.4 standard deviation and 2.6 standard deviations from the mean score of 72 (assuming normality).
 
 &nbsp;
@@ -207,33 +303,40 @@ So about 92.7% of students had a score between 65 and a 85 which is between -1.4
 
 &nbsp;
 
-Moment Generating Function, Skewness and Kurtosis Of A Normal
-
 These next topics are more mathematical/probabilistic in nature. It is more suited for math majors, probability and statistics majors, econometrics people, etc.
 
--------
+&nbsp;
 
-a) Moment Generating Function
+
+---
+
+**a) Moment Generating Function**
+
+&nbsp;
 
 An alternate way to characterize a random variable besides its probability density function (pdf) is through its moment generating function (mgf). For a normal random variable $X$ with a mean $\mu$ and variance $\sigma^2$, its moment generating function is $M_{X}(t) = E[\text{e}^{tX}] = \text{e}^{\mu t + \sigma^2 t^2 / 2}.$
 
 For a standard normal random variable where $\mu = 0$ and $\sigma^2 = 1$ the moment generating function above condenses to $M_{X}(t) = E[\text{e}^{tX}] = \text{e}^{t^2 / 2}$.
 
--------
+---
 
-b) Skewness of Normal
+**b) Skewness of Normal**
 
 Skewness refers to the symmetry of a distribution. The skewness formula is given by $E[Z^{3}] = (\dfrac{E[(X - \mu)]}{\sigma})^3 = \dfrac{E[(X - \mu)^3]}{\sigma^3}.$ The normal distribution has zero skewness and it is a symmetric probability distribution.
 
 Here is an image which summarizes skewness:
 
+&nbsp;
 
+<center><img src="https://www.managedfuturesinvesting.com/images/default-source/default-album/skewness---mean-median-mode.jpg" /></center>
+
+&nbsp;
 
 This image is taken from http://www.managedfuturesinvesting.com/managed-futures/news/aisource-news/2015/10/13/what-is-skewness.
 
 -------
 
-c) Kurtosis of Normal
+**c) Kurtosis of Normal**
 
 Kurtosis refers to the peak and shape of a distribution. The kurtosis of a distribution is $E[Z^{4}] = \dfrac{E[(X - \mu)^4]}{\sigma^4}$. For the normal distribution, its kurtosis is 3 and its excess kurtosis is the kurtosis minus 3 which is just 0.
 
@@ -257,47 +360,81 @@ There are many other probability distribution that are related to the normal dis
 
 &nbsp;
 
-a) Chi-Squared Distribution
+**a) Chi-Squared Distribution**
 
 &nbsp;
 
 Assuming that $Z$ is a N(0,1) random variable, then $Z^2 \sim \chi_{1}^{2}$. This means that the square of a standard normal random variable is a chi squared random variable with one degree of freedom.
 
-If $X_{1}, X_{2}, ... , X_{n}$ are independent and each $X_{p_i}^2$ for $i =1,2, ... , n$ then $X_{1} + X_{2} + ... + X_{n} \sim \chi^{2}_{p_{1} + ... + p_{n}}.$
+If $X_{1}, X_{2}, ... , X_{n}$ are independent and each $X_{p_i}^2$ for $i =1,2, ... , n$ then 
+
+$$X_{1} + X_{2} + ... + X_{n} \sim \chi^{2}_{p_{1} + ... + p_{n}}.$$
 
 The probability distribution of a chi squared random variable with p degrees of freedom is:
 
-$\displaystyle f(x | p) = \dfrac{1}{\Gamma(p/2) 2^{p/2}} x^{p/2 - 1}\text{e}^{-x/2}$
-with $0 \leq x < \infty$.
+$$\displaystyle f(x | p) = \dfrac{1}{\Gamma(p/2) 2^{p/2}} x^{p/2 - 1}\text{e}^{-x/2}$
+with $0 \leq x < \infty$$.
 
--------
+&nbsp;
 
-b) Student's t-Distribution
+---
+
+&nbsp;
+
+**b) Student's t-Distribution**
+
+&nbsp;
 
 Suppose we have a random sample from a $N(\mu, \sigma^2)$ distribution. The ratio $T = \dfrac{(\bar{X} - \mu)}{(S/ \sqrt{n})}$ has a Student's t distribution with (n - 1) degrees of freedom. The ratio T is also a random variable and its probability density function is:
 
-$\displaystyle f_{T}(t) = \dfrac{ \Gamma(\dfrac{p + 1}{2}) }{\Gamma(\dfrac{p}{2})} \, \dfrac{1}{(p\pi)^{1/2}} \, \dfrac{1}{(1 + t^2 / p)^{(p + 1) /2}}$
+&nbsp;
+
+$$\displaystyle f_{T}(t) = \dfrac{ \Gamma(\dfrac{p + 1}{2}) }{\Gamma(\dfrac{p}{2})} \, \dfrac{1}{(p\pi)^{1/2}} \, \dfrac{1}{(1 + t^2 / p)^{(p + 1) /2}}$$
+
+&nbsp;
+
 with $-\infty < t < \infty$.
 
--------
+&nbsp;
 
-c) Lognormal Distribution
+---
+
+&nbsp;
+
+**c) Lognormal Distribution**
+
+&nbsp;
 
 If X has a random variable whose logarithm is normally distributed ( $X \sim n( \mu, \sigma^2) $ ), then the random variable X has a lognormal distribution. The lognormal probability density function is:
 
-$f(x | \mu, \sigma^2) = \dfrac{1}{\sqrt{2 \, \pi \, \sigma^{2}}} \dfrac{1}{x} \text{exp}(- (\text{log } x - \mu)^2 / 2\sigma^2)$ where $\text{exp}(x) = \text{e}^{x}$.
+&nbsp;
+
+$$f(x | \mu, \sigma^2) = \dfrac{1}{\sqrt{2 \, \pi \, \sigma^{2}}} \dfrac{1}{x} \text{exp}(- (\text{log } x - \mu)^2 / 2\sigma^2)$$
+
+&nbsp;
+
+where $\text{exp}(x) = \text{e}^{x}$.
 
 The expected value of the lognormal pdf is $E[X] = \text{exp}( \mu + \dfrac{\sigma^2}{2})$ and the variance of a lognormal random variable is $Var(X) = \text{exp}( 2(\mu + \sigma^2)) - \text{exp}(2\mu + \sigma^2).$
 
--------
+&nbsp;
 
-d) Multivariate Normal Distribution
+---
+
+&nbsp;
+
+**d) Multivariate Normal Distribution**
+
+&nbsp;
 
 When we extend the univariate normal from before into the multivariate normal distribution, we now deal with linear algebra topics such as vectors and matrices.
 
 The multivariate normal distribution in $p$-dimensions is denoted by $N_{p}(\mu, \Sigma)$ is given by:
 
-$\displaystyle f(\textbf{x}) = \dfrac{1}{(2\pi)^{p/2}\, |\Sigma|^{1/2}} \, \text{e}^{-(\textbf{x} - \mu)^{T} \Sigma^{-1}({x} - \mu)/2$
+&nbsp;
 
+$$f(\textbf{x}) = \dfrac{1}{(2\pi)^{p/2}\, |\Sigma|^{1/2}} \, \text{e}^{-(\textbf{x} - \mu)^{T} \Sigma^{-1}({x} - \mu)/2}$$
+
+&nbsp;
 
 where $|\Sigma|$ is the determinant of the variance-covariance matrix $\Sigma$, $\mu$ is the mean vector and for i = 1, 2, ..., p, and $-\infty < x_{i} < \infty$.

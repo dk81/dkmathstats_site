@@ -1,0 +1,117 @@
+---
+title: "Poisson Regression In R"
+output: html_document
+---
+
+&nbsp;
+
+Hi there. Here is some experimental work that I have done with Poisson regression in R.
+
+&nbsp;
+
+### <u>Sections</u>
+
+&nbsp;
+
+* <a href="#poisson">The Poisson Regression Model</a>
+
+* <a href="#example">Poisson Regression Using R Example</a>
+
+* <a href="#refs">References</a>
+
+&nbsp;
+
+<a name="poisson"></a>
+
+### <u>The Poisson Regression Model</u>
+
+&nbsp;
+
+In ordinary least squares regression, the errors/residuals are assumed to be normally distributed and the responses are continuous (real numbers).
+
+&nbsp;
+
+$$Y = \beta_{0} + \beta_{1}x_{1} + \beta_{2}x_{2} + ... + \beta_{n}x_{n} + \epsilon$$
+
+&nbsp;
+
+In Poisson regression, the errors are not normally distributed and the responses are counts (discrete). The errors follow a Poisson distribution and we model the (natural) logarithm of the response variable. That is, we have $\ln(\mu)$ with $\mu = \text{e}^{Y}$ instead of just Y for the response variable. A link function is used to achieve the linear form.
+
+&nbsp;
+
+<a name="example"></a>
+
+### <u>Poisson Regression Using R Example</u>
+
+&nbsp;
+
+In R, I work with a motor insurance dataset from the faraway library. I am interested to see the relationship of number of insurance claims based on the payments (in Swedish Kronas) through a plot.
+
+Here is the code and plot. (Use ?motorins to find documentation about the dataset.)
+
+&nbsp;
+
+```{r}
+# Example:
+
+library(faraway)
+library(ggplot2)
+
+# Third Party Motor Insurance Claims In Sweden (1977)
+
+data(motorins)
+
+head(motorins)
+```
+
+&nbsp;
+
+**Fitting A Poisson Model**
+
+&nbsp;
+
+The Poisson model belongs to a class of generalized linear models (GLMs). In R, the glm() function along with having family = poisson is used to fit a Poisson model to the data.
+
+&nbsp;
+
+```{r}
+# Making The Number Of Claims As Dependent Variable Y, Total Value Of Payments as "X":
+
+poisson_model <- glm(Claims ~ Payment, family = poisson, data = motorins)
+
+summary(poisson_model)
+```
+
+&nbsp;
+
+**A ggplot2 Plot**
+
+&nbsp;
+
+```{r, echo = TRUE, fig.width=7, fig.height=7} 
+poisson_model$model$fitted <- predict(poisson_model, type = "response")
+
+# ggplot2 Plot:
+
+ggplot(poisson_model$model) + 
+  geom_point(aes(Payment, Claims)) +
+  geom_line(aes(Payment, fitted)) + 
+  labs(x = "\n Value Of Payments", y = "Number Of Claims \n", 
+       title = "Poisson Regression: Comparing Value Of Payments To Number Of Claims  \n") +
+  theme(plot.title = element_text(hjust = 0.5),
+        axis.title.x = element_text(face="bold", colour="blue", size = 12),
+        axis.title.y = element_text(face="bold", colour="blue", size = 12))
+```
+
+&nbsp;
+
+<a name="refs"></a>
+
+### <u>References</u>
+
+&nbsp;
+
+* http://www.theanalysisfactor.com/regression-models-for-count-data/
+* Book: Extending The Linear Model With R By Julian J Faraway
+* https://stackoverflow.com/questions/23725555/add-simulated-poisson-distributions-to-a-ggplot
+* https://www.stat.wisc.edu/courses/st572-larget/handouts11-2.pdf

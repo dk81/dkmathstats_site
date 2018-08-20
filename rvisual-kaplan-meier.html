@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Plotting Kaplan-Meier Survival Times Curves In R With ggplot2</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Plotting Kaplan-Meier Survival Times Curves In R With ggplot2</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hi. This page will be about plotting Kaplan-Meier survival curves using R with the ggplot2 data visualization package. When it comes to survival times between two groups we are dealing with the statistical field of survival analysis. Survival analysis deals with time to event data. Events can include a patient being ill, bankruptcy, an employee leaving a company, a person exiting a clinical trial and more.</p>
+<p> </p>
+<div id="sections" class="section level3">
+<h3><u>Sections</u></h3>
+<p> </p>
+<p><a href="#refs">References</a></p>
+<p><a href="#dataset">The addicts Dataset</a></p>
+<p><a href="#import">Importing The Data</a></p>
+<p><a href="#look">Taking A Look At The Data</a></p>
+<p><a href="#baseplot">Plotting Survival Curves Using Base R Graphics</a></p>
+<p><a href="#ggplot2">Plotting Survival Curves Using ggplot2 and ggfortify</a></p>
+<p> </p>
+<p><a name="refs"></a></p>
+</div>
+<div id="references" class="section level3">
+<h3><u>References</u></h3>
+<p> </p>
+<p>R Graphics Cookbook by Winston Chang (2012)</p>
+<p>The link <a href="http://rpubs.com/sinhrks/plot_surv" class="uri">http://rpubs.com/sinhrks/plot_surv</a> is useful for understanding ggfortify.</p>
+<p>The dataset is from <a href="http://web1.sph.emory.edu/dkleinb/surv3.htm" class="uri">http://web1.sph.emory.edu/dkleinb/surv3.htm</a></p>
+<p>The book that I use for understanding Survival Analysis is called Survival Analysis - A Self Learning Text (3rd Edition, 2012) by David G. Kleinbaum &amp; Mitchel Klein. This book teaches the subject in an applied manner and it is suitable for non-statisticians who wish to study the subject. A slight problem is that the R coding section in this book uses base R graphics and does not mention ggplot2.</p>
+<p> </p>
+<p><a name="dataset"></a></p>
+</div>
+<div id="the-addicts-dataset" class="section level3">
+<h3><u>The addicts Dataset</u></h3>
+<p> </p>
+<p>This addicts dataset can be downloaded from the website <a href="http://web1.sph.emory.edu/dkleinb/allDatasets/surv2datasets/addicts.dta" class="uri">http://web1.sph.emory.edu/dkleinb/allDatasets/surv2datasets/addicts.dta</a>. This is a .dta file or a STATA file so the haven package in R is needed to deal with this file type.</p>
+<p>This information is from the Survival Analysis - A Self Learning Text (3rd Edition, 2012). A 1991 Australian study by Caplehorn et al. compared two methadone clinics for heroin addicts. The patient’s survival time (in days) is the amount of time the patient spent at the clinic before dropping out.</p>
+<p>In the addicts dataset, the variables are defined as:</p>
+<p>ID - Patient ID</p>
+<p>SURVT - The time in days until the patient dropped out of the clinic or was censored (missing information).</p>
+<p>STATUS - 1 for patient dropped out of the clinic or censored; o otherwise</p>
+<p>CLINIC - Methadone Treatment Clinic Number 1 or 2</p>
+<p>PRISON - An indicator whether the patient had a prison record. 1 for yes, 0 for no</p>
+<p>DOSE - Patient’s maximum methadone does (mg/day, continuous variable)</p>
+<p> </p>
+<p><a name="import"></a></p>
+</div>
+<div id="importing-the-data" class="section level3">
+<h3><u>Importing The Data</u></h3>
+<p> </p>
+<p>In the bookSurvival Analysis - A Self Learning Text (3rd Edition), the addicts dataset is loaded from the <code>C:\</code> drive in your computer. I propose that you can load this addicts dataset online under the link of <a href="http://web1.sph.emory.edu/dkleinb/surv3.htm" class="uri">http://web1.sph.emory.edu/dkleinb/surv3.htm</a>. The only slight issue is that the file is a .dta file (for STATA users). To fix this, the haven package in R is used to deal with the .dta files.</p>
+<p>If the haven package is not installed into R, you can install haven by typing in:</p>
+<p> </p>
+<pre><code>install.packages(&quot;haven&quot;)</code></pre>
+<p> </p>
+<p>Here is the code for importing the data.</p>
+<pre class="r"><code># Survival Analysis - A Self Learning Text (3rd Edition)
+
+# addicts dataset and Chapter One:
+
+# Dataset can be found at http://web1.sph.emory.edu/dkleinb/surv3.htm.
+
+library(haven) #For importing STATA files.
+library(survival)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;survival&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:faraway&#39;:
+## 
+##     rats</code></pre>
+<pre class="r"><code>url &lt;- &quot;http://web1.sph.emory.edu/dkleinb/allDatasets/surv2datasets/addicts.dta&quot;
+
+# Import data and turn it into a data frame
+addicts &lt;- data.frame(read_dta(url))</code></pre>
+<p> </p>
+<p>The <code>read_data()</code> function is needed to read the .dta file. I then convert this into a data.frame and save it to the variable addicts.</p>
+<p> </p>
+<p><a name="look"></a></p>
+</div>
+<div id="taking-a-look-atthe-data" class="section level3">
+<h3><u>Taking A Look AtThe Data</u></h3>
+<p> </p>
+<p>It is usually a good idea to preview the data to have an idea of what the data looks like and the type of information you are dealing with. The <code>head()</code> and <code>tail()</code> functions are used here to preview the data.</p>
+<p> </p>
+<pre class="r"><code># A look at the addicts dataset:
+
+head(addicts)</code></pre>
+<pre><code>##   id clinic status survt prison dose
+## 1  1      1      1   428      0   50
+## 2  2      1      1   275      1   55
+## 3  3      1      1   262      0   55
+## 4  4      1      1   183      0   30
+## 5  5      1      1   259      1   65
+## 6  6      1      1   714      0   55</code></pre>
+<pre class="r"><code>tail(addicts)</code></pre>
+<pre><code>##      id clinic status survt prison dose
+## 233 260      1      1    59      1   45
+## 234 261      1      1    33      1   60
+## 235 262      2      1   540      0   80
+## 236 263      2      0   551      0   65
+## 237 264      1      1    90      0   40
+## 238 266      1      1    47      0   45</code></pre>
+<p> </p>
+<p>It may seem that the id column is redundant at first but if you look at the output from tail(addicts) you see that a few id numbers were skipped. We have 238 rows but the last id number is 266. Keep the id column and work with what we have.</p>
+<p>For more information on the variables, the <code>summary()</code> and <code>str()</code> functions can be used.</p>
+<p> </p>
+<pre class="r"><code># Summary and data structure:
+
+summary(addicts)</code></pre>
+<pre><code>##        id             clinic          status           survt       
+##  Min.   :  1.00   Min.   :1.000   Min.   :0.0000   Min.   :   2.0  
+##  1st Qu.: 65.25   1st Qu.:1.000   1st Qu.:0.0000   1st Qu.: 171.2  
+##  Median :131.50   Median :1.000   Median :1.0000   Median : 367.5  
+##  Mean   :134.13   Mean   :1.315   Mean   :0.6303   Mean   : 402.6  
+##  3rd Qu.:205.75   3rd Qu.:2.000   3rd Qu.:1.0000   3rd Qu.: 585.5  
+##  Max.   :266.00   Max.   :2.000   Max.   :1.0000   Max.   :1076.0  
+##      prison            dose      
+##  Min.   :0.0000   Min.   : 20.0  
+##  1st Qu.:0.0000   1st Qu.: 50.0  
+##  Median :0.0000   Median : 60.0  
+##  Mean   :0.4664   Mean   : 60.4  
+##  3rd Qu.:1.0000   3rd Qu.: 70.0  
+##  Max.   :1.0000   Max.   :110.0</code></pre>
+<pre class="r"><code>str(addicts)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    238 obs. of  6 variables:
+##  $ id    : atomic  1 2 3 4 5 6 7 8 9 10 ...
+##   ..- attr(*, &quot;label&quot;)= chr &quot;Subject ID&quot;
+##   ..- attr(*, &quot;format.stata&quot;)= chr &quot;%10.0g&quot;
+##  $ clinic: atomic  1 1 1 1 1 1 1 1 1 1 ...
+##   ..- attr(*, &quot;label&quot;)= chr &quot;Coded 1 or 2&quot;
+##   ..- attr(*, &quot;format.stata&quot;)= chr &quot;%10.0g&quot;
+##  $ status: atomic  1 1 1 1 1 1 1 0 1 1 ...
+##   ..- attr(*, &quot;label&quot;)= chr &quot;status (0=censored, 1=endpoint)&quot;
+##   ..- attr(*, &quot;format.stata&quot;)= chr &quot;%10.0g&quot;
+##  $ survt : atomic  428 275 262 183 259 714 438 796 892 393 ...
+##   ..- attr(*, &quot;label&quot;)= chr &quot;survival time in days&quot;
+##   ..- attr(*, &quot;format.stata&quot;)= chr &quot;%10.0g&quot;
+##  $ prison: atomic  0 1 0 0 1 0 1 1 0 1 ...
+##   ..- attr(*, &quot;label&quot;)= chr &quot;0=none, 1=prison record&quot;
+##   ..- attr(*, &quot;format.stata&quot;)= chr &quot;%10.0g&quot;
+##  $ dose  : atomic  50 55 55 30 65 55 65 60 50 65 ...
+##   ..- attr(*, &quot;label&quot;)= chr &quot;methadone dose (mg/day)&quot;
+##   ..- attr(*, &quot;format.stata&quot;)= chr &quot;%10.0g&quot;</code></pre>
+<p> </p>
+<p>In the <code>str()</code> output, all the variables are atomic. The variable clinic should be a factor and the rest of the variables should be numeric and not atomic.</p>
+<p> </p>
+<pre class="r"><code># Modify data types for each variable in addicts 
+# Clinic is a factor variable, everything else is numeric.
+
+addicts$id &lt;- as.numeric(addicts$id)
+addicts$clinic &lt;- as.factor(addicts$clinic)
+addicts$status &lt;- as.numeric(addicts$status)
+addicts$survt &lt;- as.numeric(addicts$survt)
+addicts$prison &lt;- as.numeric(addicts$prison)
+addicts$dose &lt;- as.numeric(addicts$dose)</code></pre>
+<p> </p>
+<p>I could verify the variable types by using <code>str()</code> again.</p>
+<p> </p>
+<pre class="r"><code># Check data types:
+str(addicts)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    238 obs. of  6 variables:
+##  $ id    : num  1 2 3 4 5 6 7 8 9 10 ...
+##  $ clinic: Factor w/ 2 levels &quot;1&quot;,&quot;2&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ status: num  1 1 1 1 1 1 1 0 1 1 ...
+##  $ survt : num  428 275 262 183 259 714 438 796 892 393 ...
+##  $ prison: num  0 1 0 0 1 0 1 1 0 1 ...
+##  $ dose  : num  50 55 55 30 65 55 65 60 50 65 ...</code></pre>
+<p> </p>
+<p>The <code>Surv()</code> function gives a list of times (in days) until the patient has dropped out of the methadone clinic. Cases with the plus sign indicate censorship rather than the event of the patient dropping out.</p>
+<p> </p>
+<pre class="r"><code># Survival times until event
+
+Surv(time = addicts$survt, event = addicts$status == 1)</code></pre>
+<pre><code>##   [1]  428   275   262   183   259   714   438   796+  892   393   161+
+##  [12]  836   523   612   212   399   771   514   512   624   209   341 
+##  [23]  299   826+  262   566+  368   302   602+  652   293   564+  394 
+##  [34]  755   591   787+  739   550   837   612   581+  523   504   785 
+##  [45]  774   560   160   482   518   683   147   563   646   899   857 
+##  [56]  180   452   760   496   258   181   386   439+  563+  337   613+
+##  [67]  192   405+  667   905+  247   821   821   517+  346+  294   244 
+##  [78]   95   376   212    96   532   522   679   408+  840+  148+  168 
+##  [89]  489   541+  205   475+  237   517   749   150   465   708   713+
+## [100]  146+  450   555+  460    53+  122    35   532+  684+  769+  591+
+## [111]  769+  609+  932+  932+  587+   26    72+  641+  367+  633+  661 
+## [122]  232    13   563+  969+ 1052+  944+  881+  190    79   884+  170 
+## [133]  286   358+  326+  769+  161   564+  268   611+  322  1076+    2+
+## [144]  788+  575+  109   730+  790+  456+  231   143    86+ 1021+  684+
+## [155]  878   216   808+  268   222+  683+  496+  389   126    17   350 
+## [166]  531+  317+  461+   37   167   358    49   457   127     7    29 
+## [177]   62   150+  223   129+  204+  129   581   176    30    41   543+
+## [188]  210+  193   434   367   348    28+  337+  175+  149   546    84 
+## [199]  283+  533   207   216    28+   67    62+  111+  257   136   342+
+## [210]   41   531+   98+  145    50    53+  103+    2+  157    75    19 
+## [221]   35   394+  117   175   180   314   480+  325+  280   204   366 
+## [232]  531+   59    33   540   551+   90    47</code></pre>
+<p> </p>
+<p>An optional line of code is to look at the summary statistics of this <code>Surv()</code> function by using <code>summary()</code>.</p>
+<p> </p>
+<pre class="r"><code>summary(Surv(time = addicts$survt, event = addicts$status == 1))</code></pre>
+<pre><code>##       time            status      
+##  Min.   :   2.0   Min.   :0.0000  
+##  1st Qu.: 171.2   1st Qu.:0.0000  
+##  Median : 367.5   Median :1.0000  
+##  Mean   : 402.6   Mean   :0.6303  
+##  3rd Qu.: 585.5   3rd Qu.:1.0000  
+##  Max.   :1076.0   Max.   :1.0000</code></pre>
+<p> </p>
+<p>The shortest clinic staying time is 2 days and the longest time a patient stayed at a methadone clinic was 1076 days.</p>
+<p> </p>
+<p><a name="baseplot"></a></p>
+</div>
+<div id="plotting-survival-curves-using-base-r-graphics" class="section level3">
+<h3><u>Plotting Survival Curves Using Base R Graphics</u></h3>
+<p> </p>
+<p>To start, a variable Y is created as the survival object in R. This <code>Surv()</code> function is the outcome variable for <code>survfit()</code> which will be used later. (This <code>Surv()</code> function is the same as in the previous section.)</p>
+<p> </p>
+<pre class="r"><code># Chapter One: Estimating Survival Functions And Comparing Them Across Strata:
+
+# Surv creates survival object which is the response variable
+
+Y = Surv(addicts$survt, addicts$status == 1)</code></pre>
+<p> </p>
+<p>The <code>survfit()</code> function produces Kaplan-Meier survival estimates. It takes in our <code>Surv()</code> function indicated by Y. We stratify by clinic as we are comparing the two methadone clinics.</p>
+<p> </p>
+<pre class="r"><code># Actual Plot:
+# Stratify by CLINIC variable:
+
+kmfit = survfit(Y ~ addicts$clinic)</code></pre>
+<p> </p>
+<p>The summary function of kmfit gives a table of times (in days), the number of patients in the study, the number of patients who dropped out at each time point, the associated standard errors, the lower and upper limits of the 95% confidence intervals for the survival estimates.</p>
+<p> </p>
+<pre class="r"><code># Base R Plot:
+
+# Book had c(0,100,200,300,400,500,600,700,800,900,1000), I use the seq function.
+
+summary(kmfit, times = c(seq(0, 1000, by = 100)))</code></pre>
+<pre><code>## Call: survfit(formula = Y ~ addicts$clinic)
+## 
+##                 addicts$clinic=1 
+##  time n.risk n.event survival std.err lower 95% CI upper 95% CI
+##     0    163       0   1.0000  0.0000      1.00000        1.000
+##   100    137      20   0.8746  0.0262      0.82467        0.928
+##   200    110      20   0.7420  0.0353      0.67601        0.814
+##   300     87      20   0.6046  0.0399      0.53120        0.688
+##   400     68      14   0.5025  0.0415      0.42741        0.591
+##   500     53       9   0.4319  0.0418      0.35719        0.522
+##   600     30      16   0.2951  0.0403      0.22570        0.386
+##   700     20       8   0.2113  0.0383      0.14818        0.301
+##   800     10       8   0.1268  0.0326      0.07660        0.210
+##   900      1       7   0.0181  0.0172      0.00283        0.116
+## 
+##                 addicts$clinic=2 
+##  time n.risk n.event survival std.err lower 95% CI upper 95% CI
+##     0     75       0    1.000  0.0000        1.000        1.000
+##   100     66       5    0.932  0.0294        0.876        0.991
+##   200     58       7    0.832  0.0442        0.750        0.924
+##   300     50       7    0.730  0.0530        0.633        0.842
+##   400     43       3    0.685  0.0558        0.584        0.804
+##   500     39       2    0.653  0.0577        0.549        0.776
+##   600     27       1    0.634  0.0590        0.528        0.761
+##   700     19       1    0.606  0.0625        0.495        0.742
+##   800     11       1    0.575  0.0669        0.457        0.722
+##   900      7       1    0.517  0.0812        0.380        0.703
+##  1000      3       0    0.517  0.0812        0.380        0.703</code></pre>
+<pre class="r"><code># In CLINIC = 1, survival times stopped at 900 instead of 1000 as there is no subject
+# at risk on day 1000.
+
+# Could&#39;ve also used 100*(0:10)</code></pre>
+<p> </p>
+<p>Here is the code and output for the Kaplan-Meier curves in base R graphics.</p>
+<p> </p>
+<pre class="r"><code>plot(kmfit, lty = c(&quot;solid&quot;, &quot;dashed&quot;), col = c(&quot;black&quot;, &quot;grey&quot;), xlab = &quot;Survival Time In Days&quot;, ylab = &quot;Survival Probabilities&quot;)
+
+legend(&quot;topright&quot;, c(&quot;Clinic 1&quot;, &quot;Clinic 2&quot;), lty = c(&quot;solid&quot;, &quot;dashed&quot;), col = c(&quot;black&quot;, &quot;grey&quot;))</code></pre>
+<p><img src="rvisual-kaplan-meier_files/figure-html/unnamed-chunk-11-1.png" width="384" /></p>
+<p> </p>
+<p><a name="ggplot2"></a></p>
+</div>
+<div id="plotting-survival-curves-using-ggplot2-and-ggfortify" class="section level3">
+<h3><u>Plotting Survival Curves Using ggplot2 and ggfortify</u></h3>
+<p> </p>
+<p>The base R graphics version of the Kaplan-Meier survival curves is not visually appealing. With the help of the ggplot2 and ggfortify packages, nicer plots can be produced.</p>
+<p>Here is the code and output for the Kaplan-Meier curves with ggplot2 and ggfortify.</p>
+<p> </p>
+<pre class="r"><code>## Trying to find ggplot version of the above plots:
+
+# http://rpubs.com/sinhrks/plot_surv for ggfortify &amp; survival curves
+# http://rpubs.com/sinhrks/plot_surv for ggfortify basics
+#
+
+# Plotting Survival Curves Using ggplot2 and ggfortify:
+
+library(ggplot2)
+library(ggfortify)
+
+model_fit &lt;- survfit(Surv(survt, status) ~ clinic, data = addicts)
+
+autoplot(model_fit) + 
+ labs(x = &quot;\n Survival Time (Days) &quot;, y = &quot;Survival Probabilities \n&quot;, 
+ title = &quot;Survival Times Of \n Methadone Patients \n&quot;) + 
+ theme(plot.title = element_text(hjust = 0.5), 
+ axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;#FF7A33&quot;, size = 12),
+ axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;#FF7A33&quot;, size = 12),
+ legend.title = element_text(face=&quot;bold&quot;, size = 10))</code></pre>
+<p><img src="rvisual-kaplan-meier_files/figure-html/unnamed-chunk-12-1.png" width="384" /></p>
+<p> </p>
+<p>In this plot, the colours help the reader identify which curve goes with which clinic. The shaded bands represent the confidence intervals and each time point. The plus signs represent the censored cases at a given time point.</p>
+<p>More patients stay in clinic 2 than in clinic 1 since the survival curve is higher than the curve for clinic 1. An investigation is recommended in determining on why a lot of the patients in clinic one leave. It could be the clinic, it could the selection of patients or something else not explained by the data.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

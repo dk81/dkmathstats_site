@@ -1,0 +1,262 @@
+---
+title: "Finding The Most Frequent Words In Text With R"
+output: html_document
+---
+
+&nbsp;
+
+Hi there. This page is about using the statistical programming language R for obtaining the most frequent words in text.
+
+One approach is with a wordcloud. The second approach is through obtain counts for words and presenting them in a bar graph.
+
+(It is assumed that the reader is familiar with the dplyr package in R and its %>% pipe operator.)
+
+&nbsp;
+
+### <u>Sections</u>
+
+&nbsp;
+
+* The Peter Pan Ebook Text
+* Data Cleaning & Wordclouds
+* Most Frequent Words In Peter Pan
+* References
+
+&nbsp;
+
+
+### <u>The Peter Pan Ebook Text</u>
+
+&nbsp;
+
+For this example, I analyze a text file version of the book Peter Pan (1904). The link is from http://www.textfiles.com/etext/FICTION/barrie-peter-277.txt.
+
+Before reading in the text, I load the wordcloud and tm libraries into R.
+
+&nbsp;
+
+```{r}
+# Example: Reading a text file version of Peter Pan (1904)
+# Link : http://www.textfiles.com/etext/FICTION/barrie-peter-277.txt
+# Use install.packages("package_name") to install packages.
+
+# Load packages (after installation):
+# Ref: https://stackoverflow.com/questions/8175912/load-multiple-packages-at-once
+
+packages <- c("wordcloud", "tm")
+
+lapply(packages, require , character.only = TRUE)
+
+# Example: Reading a text file version of Peter Pan (1904)
+# Link : http://www.textfiles.com/etext/FICTION/barrie-peter-277.txt
+ 
+ 
+peter_pan <- readLines("http://www.textfiles.com/etext/FICTION/barrie-peter-277.txt")
+```
+
+&nbsp;
+
+The `head()` function in R is used to preview the text.
+
+&nbsp;
+
+```{r}
+
+# Check peter pan:
+head(peter_pan, n = 20)
+```
+
+&nbsp;
+
+### <u>Data Cleaning & Wordclouds</u>
+
+&nbsp;
+
+From the tm package in R, I insert the `peter_pan` variable into the `VectorSource()` function which then goes inside the `Corpus()` function. A corpus is a collection of text documents.
+
+The `tm_map()` functions are then used to extract words from text. This is done by removing whitespace, punctuation, numbers and converting letters to lowercase.
+
+```{r}
+### Making a Wordcloud:
+
+# Clean up data; convert to lowercase, remove quotes, whitespace, punctuation, stopwords, etc.
+# Ref: https://www.youtube.com/watch?v=lRTerj8fdY0
+
+peter_text <- Corpus(VectorSource(peter_pan))
+
+
+peter_text_clean <- tm_map(peter_text, removePunctuation)
+peter_text_clean <- tm_map(peter_text_clean, content_transformer(tolower))
+peter_text_clean <- tm_map(peter_text_clean, removeNumbers)
+peter_text_clean <- tm_map(peter_text_clean, stripWhitespace)
+```
+
+&nbsp;
+
+**Stopwords In English**
+
+&nbsp;
+
+
+There are a bunch of words in the English language that are used to make sentences flow but don't have much meaning on its own. These words include: the, and, but, through, over, under, a, an, he, she, him, her and so on.
+
+&nbsp;
+
+```{r}
+head(stopwords("english"), n = 15) # Sample of English stopwords
+```
+
+&nbsp;
+
+The `tm_map()` function is used again to remove the stopwords from the text.
+
+```{r}
+peter_text_clean <- tm_map(peter_text_clean, removeWords, stopwords('english'))
+```
+
+&nbsp;
+
+**Creating Wordclouds**
+
+&nbsp;
+
+Once the text is all "clean" (reformatted), you can create the wordcloud. Making the wordcloud is not too difficult as it requires just the `wordcloud()` function.
+
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4} 
+# Wordcloud with colours:
+
+wordcloud(peter_text_clean, scale = c(2, 1), min.freq = 50, colors = rainbow(30))
+```
+
+&nbsp;
+
+From the wordcloud above you can see that peter and wendy stick out. The word said stands out too and could have been considered a stop word that would be removed. The bottom right contains the word hook as in Captain Hook and not so much a regular hook.
+
+To reduce the size of the wordcloud, I can raise the number in the min.freq argument in `wordcloud()`. In this case, I raise it to 70 such that the words in this wordcloud appear at least 70 times in the Peter Pan text.
+
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4} 
+# Raise the minimum frequency requirements, less words appear in wordcloud:
+
+wordcloud(peter_text_clean, scale = c(2, 1), min.freq = 70, colors = rainbow(30))
+```
+
+&nbsp;
+
+### <u>Most Frequent Words In Peter Pan</u>
+
+&nbsp;
+
+Wordclouds help the viewer determine popular words in text. They are also fun and entertaining to look at. The problem with wordclouds though is that you do not really the counts for each word.
+
+This second approach consists of tidying the data and displaying the word counts in a bar graph. The dplyr, ggplot2 and tidytext packages are used here.
+
+(Reference: Text Mining With R [Online Book])
+
+The first couple of lines of code consist of loading in the appropriate packages and reading the Peter Pan text.
+
+&nbsp;
+
+```{r}
+### Analyzing The Frequencies Of Words In Text
+# Reference: Text Mining In R [Online Book] 
+
+library(dplyr)
+library(tidytext)
+library(ggplot2)
+
+peter_pan <- readLines("http://www.textfiles.com/etext/FICTION/barrie-peter-277.txt")
+
+# Check peter pan:
+head(peter_pan, n = 20)
+```
+
+&nbsp;
+
+The R programming language keeps growing with these new packages, topics and concepts. This so called tibble is just a neater data frame. (I only heard of this tibble recently.)
+
+Instead of using `data.frame()`, it would be `data_frame()`.
+
+&nbsp;
+
+```{r}
+peter_pan_df <- data_frame(Text = peter_pan) # tibble aka neater data frame
+
+head(peter_pan_df, n = 20)
+```
+
+&nbsp;
+
+The `unnest_tokens()` function from the tidytext package picks out the individual words and places them as rows.
+
+```{r}
+
+peter_words <- peter_pan_df %>% 
+                  unnest_tokens(output = word, input = Text) 
+```
+
+&nbsp;
+
+An `anti_join()` is used to remove stopwords from `peter_words()`.
+
+&nbsp;
+
+```{r}
+peter_words <- peter_words %>%
+                   anti_join(stop_words) # Remove stop words in peter_words
+```
+
+&nbsp;
+
+The `count()` function with the %>% pipe operator from the dplyr package is used to obtain counts of the words.
+
+&nbsp;
+
+```{r}
+# Word Counts:
+
+peter_wordcounts <- peter_words %>% count(word, sort = TRUE)
+
+head(peter_wordcounts)
+```
+
+&nbsp;
+
+The data now has a column for words and a second column for the word counts. A bar graph can be prepared with the ggplot2 function `ggplot()`.
+
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4}
+# ggplot2 Plot:
+
+peter_wordcounts %>% 
+  filter(n > 70) %>% 
+  mutate(word = reorder(word, n)) %>% 
+    ggplot(aes(word, n)) + 
+    geom_col() +
+    coord_flip() +
+    labs(x = "Word \n", y = "\n Count ", title = "Frequent Words In Peter Pan \n") +
+    geom_text(aes(label = n), hjust = 1.2, colour = "white", fontface = "bold") +
+    theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face="bold", colour="darkblue", size = 12),
+        axis.title.y = element_text(face="bold", colour="darkblue", size = 12))
+```
+
+&nbsp;
+
+The `geom_text()` part of code is key for displaying the counts on the bars. This eliminates the guesswork from the viewer. The word said was featured in the wordcloud but it does not appear here.
+
+
+&nbsp;
+
+### <u>References</u>
+
+&nbsp;
+
+* https://stackoverflow.com/questions/8175912/load-multiple-packages-at-once
+* http://www.textfiles.com/etext/FICTION/barrie-peter-277.txt
+* Text Mining In R: A Tidy Approach by Julia Silge & David Robinson [Online Book]
+* R Graphics Cookbook By Winston Chang

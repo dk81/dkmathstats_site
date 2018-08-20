@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Plotting Normal Distributions In R Using ggplot2</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Plotting Normal Distributions In R Using ggplot2</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hi. I have been experimenting with creating (standard) normal distributions (Gaussians) using R and ggplot2. Here is what I have come up with. It is assumed that the reader is familiar with the normal distribution, Z-scores, and standard deviations.</p>
+<p> </p>
+<div id="table-of-contents" class="section level3">
+<h3><u>Table Of Contents</u></h3>
+<p> </p>
+<p><strong>Part One</strong></p>
+<p> </p>
+<p><a href="#one-plot">Simple Normal Distribution Plots</a></p>
+<p><a href="#one-sameplot">Plotting Two Normal Distributions In The Same Plot</a></p>
+<p> </p>
+<p><strong>Part Two - Plotting Standard Normal Distributions With Areas</strong></p>
+<p> </p>
+<p><a href="#two-onesd">Filling The Area Within One Standard Deviation Of The Mean</a></p>
+<p><a href="#two-twosd">Filling The Area Within Two Standard Deviations Of The Mean</a></p>
+<p><a href="#two-threesd">Filling The Area Within Three Standard Deviations Of The Mean</a></p>
+<p> </p>
+<p><a href="#three">Part Three - Creating Normal Distribution Summary Plots</a></p>
+<p> </p>
+<p>This section has three versions of the normal distribution with percentage labels with the area under the normal curve. The code and outputs are provided.</p>
+<p><a href="#notes"><strong>Notes</strong></a></p>
+<p><a href="#refs"><strong>References</strong></a></p>
+<p> </p>
+<p><a name="one-plot"></a></p>
+</div>
+<div id="part-one" class="section level3">
+<h3><u>Part One</u></h3>
+<p> </p>
+<p><strong><u>Simple Normal Distribution Plots</u></strong></p>
+<p> </p>
+<p>In the ggplot2 package in R, plotting the normal distribution is not very difficult. In the code below, I specify a domain for the x-values. After the <code>ggplot()</code>, it is important to have the <code>stat_function()</code> part with <code>fun = dnorm</code>. The dnorm function refers to the (standard) normal distribution density function with mean = 0 and standard deviation of 1. (Do load the ggplot2 package in R by typing in <code>library(ggplot2)</code>.)</p>
+<p> </p>
+<pre class="r"><code>library(ggplot2)
+
+## Standard normal distribution:
+
+xvalues &lt;- data.frame(x = c(-3, 3))
+
+plot &lt;- ggplot(xvalues, aes(x = xvalues))
+
+plot + stat_function(fun = dnorm) + xlim(c(-4, 4))</code></pre>
+<p><img src="rmath-normal-plots_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p> </p>
+<p><strong>Adding Labels</strong></p>
+<p>Labels can be added by using the annotate function on top of <code>ggplot()</code>. Here is an example of it as shown by the code and output.</p>
+<p> </p>
+<pre class="r"><code>## Standard Normal Distribution Labelled.
+
+plot + stat_function(fun = dnorm) + xlim(c(-4, 4)) +
+  annotate(&quot;text&quot;, x = 2.3, y = 0.3, parse = TRUE, size = 7, fontface =&quot;bold&quot;,
+         label= &quot;frac(1, sqrt(2 * pi)) * e ^ {frac(-x^2, 2)}&quot;)</code></pre>
+<p><img src="rmath-normal-plots_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p> </p>
+<p><a name="one-sameplot"></a></p>
+<p><strong><u>Plotting Two Normal Distributions In The Same Plot</u></strong></p>
+<p> </p>
+<p>Multiple probability distributions and functions can be plotted together. In this example, I plot a standard normal distribution and a normal distribution with a mean of 2 and a standard deviation of 3. The standard normal distribution is represented from dnorm and the other normal distribution is represented by a custom function in each of the <code>stat_function()</code> parts.</p>
+<p> </p>
+<pre class="r"><code>## A different normal distribution
+
+normal2 &lt;- function(x){
+  dnorm(x, mean = 2, sd = 3)
+}
+
+plot + stat_function(fun = normal2) + xlim(c(-10, 15))</code></pre>
+<p><img src="rmath-normal-plots_files/figure-html/unnamed-chunk-3-1.png" width="576" /></p>
+<pre class="r"><code>## Put both normal distributions together:
+
+plot + stat_function(fun = dnorm, colour = &quot;blue&quot;) + 
+  stat_function(fun = normal2) + xlim(c(-10, 15)) + 
+  labs(x = &quot;\n x&quot;, y = &quot;y \n&quot;) +
+  theme(axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12)) +
+  geom_vline(xintercept = 0, linetype = &quot;dashed&quot;, colour = &quot;red&quot;) +
+  geom_vline(xintercept = 2, linetype = &quot;dashed&quot;, colour = &quot;brown&quot;)</code></pre>
+<p><img src="rmath-normal-plots_files/figure-html/unnamed-chunk-3-2.png" width="576" /></p>
+<p> </p>
+<p>Note that the vertical dashed lines represent the means of their respective normal distributions. The red dashed line is for the normal distribution centered at the mean of 0 and the brown dashed line is for the normal distribution centered at the mean of 3.</p>
+<p><a name="two-onesd"></a></p>
+<p> </p>
+<p><strong><u>Part Two - Plotting Standard Normal Distributions With Areas</u></strong></p>
+<p> </p>
+<p>In part two, areas under the standard normal distribution curve will be filled in. I fill in areas under the normal curve from within one standard deviation of the mean to three standard deviations of the mean.</p>
+<p>As a side note, recall that a key formula for standardizing a normal random variable is <span class="math inline">\(Z = \dfrac{X - \mu}{\sigma}\)</span> or <span class="math inline">\(X = \mu + \sigma Z\)</span>. If <span class="math inline">\(\mu = 0\)</span> and <span class="math inline">\(\sigma = 1\)</span> then <span class="math inline">\(Z = X\)</span> which means that the standard normal variable Z is equal to the normal random variable X.</p>
+<p> </p>
+<p><strong>Filling The Area Within One Standard Deviation Of The Mean</strong></p>
+<p> </p>
+<p>For filling in the area withing one standard deviation of the mean, it means that the area is filled in underneath the curve in the interval of -1 to 1. (In other words, I fill in the area underneath the standard normal curve within the z-scores of -1 to 1.) With this in mind, I create a custom function in R describing this.</p>
+<p> </p>
+<pre class="r"><code># Shading from x = -1 to x = 1 (within one std deviation):
+
+dnorm_one_sd &lt;- function(x){
+  norm_one_sd &lt;- dnorm(x)
+  # Have NA values outside interval x in [-1, 1]:
+  norm_one_sd[x &lt;= -1 | x &gt;= 1] &lt;- NA
+  return(norm_one_sd)
+}</code></pre>
+<p> </p>
+<p>This next line of code is for labelling and for educational purposes. If I want the percentage area under the standard normal distribution within one standard deviation, I compute the area going to <code>x = 1</code> (horizontally) minus the area going to x = -1. This can be achieved in R using the <code>pnorm()</code> function.</p>
+<p>(Note that the pnorm function is R’s version of the cumulative density function/CDF where it computes the area of the random variable equal or less than a specified amount. In math notation we have <span class="math inline">\(P(Z \leq z)\)</span> for a standard normal random variable Z and a fixed known quantity z.)</p>
+<p> </p>
+<pre class="r"><code>area_one_sd &lt;- round(pnorm(1) - pnorm(-1), 4)
+area_one_sd</code></pre>
+<pre><code>## [1] 0.6827</code></pre>
+<p> </p>
+<p>We see that the area underneath the standard normal curve within one standard deviation is 0.6827. Remember that entire area (all x values or <span class="math inline">\(x \in \Re\)</span>) of the standard normal curve is 1 (or 100%). The <code>round()</code> function is used to have the answer withing 4 decimal places.</p>
+<p>These next lines of code and its output combines the above parts to create the plot. This plot has the standard normal curve with a label and a filled in area within one standard deviation of the mean centered at 0.</p>
+<p> </p>
+<pre class="r"><code># Plot:
+
+plot + stat_function(fun = dnorm) + 
+ stat_function(fun = dnorm_one_sd, geom = &quot;area&quot;, fill = &quot;yellow&quot;, alpha = 0.3) +
+ geom_text(x = 0, y = 0.2, size = 4, fontface = &quot;bold&quot;,
+ label = paste0(area_one_sd * 100, &quot;%&quot;)) +
+ scale_x_continuous(breaks = c(-3:3)) + 
+ labs(x = &quot;\n z&quot;, y = &quot;f(z) \n&quot;, title = &quot;Standard Normal Distribution \n&quot;) +
+ theme(plot.title = element_text(hjust = 0.5), 
+ axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12),
+ axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12)) </code></pre>
+<p><img src="rmath-normal-plots_files/figure-html/unnamed-chunk-6-1.png" width="384" /></p>
+<p> </p>
+<p>For the shaded area effect it is key to put in your custom function (dnorm_one_sd), <code>geom = &quot;area&quot;</code> and the fill colour in <code>stat_function()</code>.</p>
+<p>Notice that two <code>stat_function()</code> functions were used. One is for creating the normal curve indicated by the black curve outline and the second <code>stat_function()</code> is for the yellow fill which is within one standard deviation from the mean of 0. The alpha argument determines the colour shading/contrast.</p>
+<p><a name="two-twosd"></a></p>
+<p> </p>
+<p><strong>Filling The Area Within Two Standard Deviations Of The Mean</strong></p>
+<p> </p>
+<p>The thought process and code is similar to the case above. Another custom function is made with another separate label for the code and plot.</p>
+<p> </p>
+<pre class="r"><code># Shading from x = -2 to x = 2 (within two std deviations):
+
+dnorm_two_sd &lt;- function(x){
+  norm_two_sd &lt;- dnorm(x)
+  # Have NA values outside interval x in [-2, 2]:
+  norm_two_sd[x &lt;= -2 | x &gt;= 2] &lt;- NA
+  return(norm_two_sd)
+}
+
+# Area underneath standard normal distribution within 2 standard deviations (z-score):
+
+area_two_sd &lt;- round(pnorm(2) - pnorm(-2), 4)
+area_two_sd</code></pre>
+<pre><code>## [1] 0.9545</code></pre>
+<pre class="r"><code>plot + stat_function(fun = dnorm) + 
+  stat_function(fun = dnorm_two_sd, geom = &quot;area&quot;, fill = &quot;orange&quot;, alpha = 0.3) +
+  geom_text(x = 0, y = 0.15, size = 4, fontface = &quot;bold&quot;,
+            label = paste0(area_two_sd * 100, &quot;%&quot;)) +
+  scale_x_continuous(breaks = c(-3:3)) + 
+  labs(x = &quot;\n z&quot;, y = &quot;f(z) \n&quot;, title = &quot;Standard Normal Distribution \n&quot;) +
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12))</code></pre>
+<p><img src="rmath-normal-plots_files/figure-html/unnamed-chunk-7-1.png" width="384" /></p>
+<p><a name="two-threesd"></a></p>
+<p> </p>
+<p><strong>Filling The Area Within Three Standard Deviations Of The Mean</strong></p>
+<p>Here is the code and output for the case of the area under the normal curve withing three standard deviations of the mean.</p>
+<p> </p>
+<pre class="r"><code># Shading from x = -3 to x = 3 (within three std deviations):
+
+dnorm_three_sd &lt;- function(x){
+  norm_three_sd &lt;- dnorm(x)
+  # Have NA values outside interval x in [-3, 3]:
+  norm_three_sd[x &lt;= -3 | x &gt;= 3] &lt;- NA
+  return(norm_three_sd)
+}
+
+# Area underneath standard normal distribution within 3 standard deviations (z-score):
+ 
+area_three_sd &lt;- round(pnorm(3) - pnorm(-3), 4)
+area_three_sd</code></pre>
+<pre><code>## [1] 0.9973</code></pre>
+<pre class="r"><code>plot + stat_function(fun = dnorm) + 
+  stat_function(fun = dnorm_three_sd, geom = &quot;area&quot;, fill = &quot;green&quot;, alpha = 0.3) +
+  geom_text(x = 0, y = 0.15, size = 4, fontface = &quot;bold&quot;,
+            label = paste0(area_three_sd * 100, &quot;%&quot;)) +
+  scale_x_continuous(breaks = c(-3:3)) + 
+  labs(x = &quot;\n z&quot;, y = &quot;f(z) \n&quot;, title = &quot;Standard Normal Distribution \n&quot;) +
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12)) </code></pre>
+<p><img src="rmath-normal-plots_files/figure-html/unnamed-chunk-8-1.png" width="384" /></p>
+<p><a name="three"></a></p>
+<p> </p>
+<p><strong><u>Part Three - Creating Normal Distribution Summary Plots</u></strong></p>
+<p> </p>
+<p>In this section, I will present code and output for creating informative normal distributions plots with useful labels such as the one below:</p>
+<p> </p>
+<center>
+<img src="http://www.muelaner.com/wp-content/uploads/2013/07/Standard_deviation_diagram.png" />
+</center>
+<p> </p>
+<p>Source: <a href="http://www.muelaner.com/wp-content/uploads/2013/07/Standard_deviation_diagram.png" class="uri">http://www.muelaner.com/wp-content/uploads/2013/07/Standard_deviation_diagram.png</a></p>
+<p> </p>
+<p><strong>Version One</strong></p>
+<p> </p>
+<pre class="r"><code># Summary plot for normal distribution (Version One)
+
+plot + stat_function(fun = dnorm) + 
+ stat_function(fun = dnorm_three_sd, geom = &quot;area&quot;, fill = &quot;green&quot;, alpha = 0.3) +
+ stat_function(fun = dnorm_two_sd, geom = &quot;area&quot;, fill = &quot;orange&quot;, alpha = 0.3) +
+ stat_function(fun = dnorm_one_sd, geom = &quot;area&quot;, fill = &quot;red&quot;, alpha = 0.3) +
+ geom_text(x = 0, y = 0.22, size = 4, fontface = &quot;bold&quot;,
+ label = paste0(&quot;&lt;------ &quot;, area_one_sd * 100, &quot;%&quot;, &quot; ------&gt;&quot;)) +
+ geom_text(x = 0, y = 0.15, size = 4, fontface = &quot;bold&quot;,
+ label = paste0(&quot;&lt;------------ &quot;, area_two_sd * 100, &quot;%&quot;, &quot; ------------&gt;&quot;)) +
+ geom_text(x = 0, y = 0.025, size = 4, fontface = &quot;bold&quot;,
+ label = paste0(&quot;&lt;------------------------- &quot;, area_three_sd * 100, 
+ &quot;%&quot;, &quot; -------------------------&gt;&quot;)) +
+ scale_x_continuous(breaks = c(-3:3)) + 
+ labs(x = &quot;\n z&quot;, y = &quot;f(z) \n&quot;, title = &quot;Standard Normal Distribution \n&quot;) +
+ theme(plot.title = element_text(hjust = 0.5), 
+ axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12),
+ axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12)) </code></pre>
+<p><img src="rmath-normal-plots_files/figure-html/unnamed-chunk-9-1.png" width="480" /></p>
+<p> </p>
+<p>The output comes out really nicely and can be used for informative purposes. The three percentage labels comes up from the three <code>geom_texts()</code>.</p>
+<p>Do keep in mind that the code here does refer to custom functions and variables which were made from the previous section.</p>
+<p>The <code>paste0()</code> function combines/concatenates strings and variables (outputs). I used <code>paste0()</code> to achieve the labels with arrows.</p>
+<p> </p>
+<p><strong>Version Two</strong></p>
+<p> </p>
+<p>This version is not much different that the first one above. It is just that the labels are different. I use the 68%, 95% and 99.7% labels which appeal to a lot of introductory statistics students.</p>
+<p> </p>
+<pre class="r"><code># Summary plot for normal distribution (Version Two)
+
+plot + stat_function(fun = dnorm) + 
+ stat_function(fun = dnorm_three_sd, geom = &quot;area&quot;, fill = &quot;green&quot;, alpha = 0.3) +
+ stat_function(fun = dnorm_two_sd, geom = &quot;area&quot;, fill = &quot;orange&quot;, alpha = 0.3) +
+ stat_function(fun = dnorm_one_sd, geom = &quot;area&quot;, fill = &quot;red&quot;, alpha = 0.3) +
+ geom_text(x = 0, y = 0.22, size = 4, fontface = &quot;bold&quot;,
+ label = paste0(&quot;&lt;------- &quot;, round(area_one_sd * 100, 0), &quot;%&quot;, &quot; -------&gt;&quot;)) +
+ geom_text(x = 0, y = 0.15, size = 4, fontface = &quot;bold&quot;,
+ label = paste0(&quot;&lt;------------- &quot;, round(area_two_sd * 100, 0), &quot;%&quot;, 
+ &quot; -------------&gt;&quot;)) +
+ geom_text(x = 0, y = 0.025, size = 4, fontface = &quot;bold&quot;,
+ label = paste0(&quot;&lt;-------------------------- &quot;, round(area_three_sd * 100, 1), 
+ &quot;%&quot;, &quot; --------------------------&gt;&quot;)) +
+ scale_x_continuous(breaks = c(-3:3)) + 
+ labs(x = &quot;\n z&quot;, y = &quot;f(z) \n&quot;, title = &quot;Standard Normal Distribution \n&quot;) +
+ theme(plot.title = element_text(hjust = 0.5), 
+ axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12),
+ axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12)) </code></pre>
+<p><img src="rmath-normal-plots_files/figure-html/unnamed-chunk-10-1.png" width="480" /></p>
+<p> </p>
+<p><strong>Version Three</strong></p>
+<p> </p>
+<p>This version three normal distribution summary plot is different from the first two. The two plots above are within 1, 2 and 3 standard deviations from the mean.</p>
+<p>This third plot provides a more comprehensive breakdown. As an example, a percentage label of 13.59% appears for the region from 1 standard deviation above (right of) the mean to 2 standard deviations above the mean. (The mean of a standard normal is 0.)</p>
+<p> </p>
+<pre class="r"><code># Summary plot for normal distribution (Version Three)
+
+plot + stat_function(fun = dnorm) + 
+ stat_function(fun = dnorm_three_sd, geom = &quot;area&quot;, fill = &quot;green&quot;, alpha = 0.3) +
+ stat_function(fun = dnorm_two_sd, geom = &quot;area&quot;, fill = &quot;orange&quot;, alpha = 0.3) +
+ stat_function(fun = dnorm_one_sd, geom = &quot;area&quot;, fill = &quot;orange&quot;, alpha = 0.3) +
+ geom_vline(xintercept = 0, colour = &quot;black&quot;, linetype = &quot;dashed&quot;) +
+ geom_text(x = 0.5, y = 0.2, size = 3.5, fontface = &quot;bold&quot;,
+ label = paste0(round((area_one_sd * 100)/2,2), &quot;%&quot;)) +
+ geom_text(x = -0.5, y = 0.2, size = 3.5, fontface = &quot;bold&quot;,
+ label = paste0(round((area_one_sd * 100)/2,2), &quot;%&quot;)) +
+ geom_text(x = 1.5, y = 0.05, size = 3.5, fontface = &quot;bold&quot;,
+ label = paste0(round((pnorm(2) - pnorm(1)) * 100,2), &quot;%&quot;)) +
+ geom_text(x = -1.5, y = 0.05, size = 3.5, fontface = &quot;bold&quot;,
+ label = paste0(round((pnorm(-1) - pnorm(-2)) * 100,2), &quot;%&quot;)) +
+ geom_text(x = 2.3, y = 0.01, size = 3.5, fontface = &quot;bold&quot;,
+ label = paste0(round((pnorm(3) - pnorm(2)) * 100,2), &quot;%&quot;)) +
+ geom_text(x = -2.3, y = 0.01, size = 3.5, fontface = &quot;bold&quot;,
+ label = paste0(round((pnorm(-2) - pnorm(-3)) * 100,2), &quot;%&quot;)) +
+ scale_x_continuous(breaks = c(-3:3)) + 
+ labs(x = &quot;\n z&quot;, y = &quot;f(z) \n&quot;, title = &quot;Standard Normal Distribution \n&quot;) +
+ theme(plot.title = element_text(hjust = 0.5), 
+ axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12),
+ axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12)) </code></pre>
+<p><img src="rmath-normal-plots_files/figure-html/unnamed-chunk-11-1.png" width="480" /></p>
+<p> </p>
+<p>To show the symmetry of the standard normal distribution, I have inserted a vertical dashed line at the <span class="math inline">\(mean = median = mode = 0\)</span>.</p>
+<p><a name="notes"></a></p>
+<p> </p>
+</div>
+<div id="notes" class="section level3">
+<h3><u>Notes</u></h3>
+<p> </p>
+<p>The ggplot2 data visualization package in R allows users to create some appealing and creative graphs, plots and visuals to display data. These colourful visuals can be very useful aids in communicating findings from data.</p>
+<p>It does require a bit of knowledge in mathematics, probability, statistics and programming to understand the code and output.</p>
+<p> </p>
+<p><a name="refs"></a></p>
+</div>
+<div id="references" class="section level3">
+<h3><u>References</u></h3>
+<p> </p>
+<ul>
+<li><p><a href="http://www.sthda.com/english/wiki/ggplot2-add-straight-lines-to-a-plot-horizontal-vertical-and-regression-lines" class="uri">http://www.sthda.com/english/wiki/ggplot2-add-straight-lines-to-a-plot-horizontal-vertical-and-regression-lines</a></p></li>
+<li><p>R Graphics Cookbook by Winston Chang (2012)</p></li>
+<li><p>R Documentation (for the pnorm, dnorm functions).</p></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

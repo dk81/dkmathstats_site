@@ -45,6 +45,21 @@ This page contains links on a bunch of R programming projects.
 
 [Plotting Math Functions In R](./rmath-plotting-math-functions.html)
 
+[Plotting Uniform Distributions In R With ggplot2](./rmath-uniform-plots.html)
+
+[Plotting Normal Distributions In R With ggplot2](./rmath-normal-plots.html)
+
+[Examples Of The Inverse CDF Method In R (Monte Carlo Methods)](./rmath-inverse-cdf-examples.html)
+
+[The Bisection Method In R](./rmath-bisection-method.html)
+
+[Random Walks In R](./rmath-random-walks.html)
+
+[Creating Multiple Random Walks In R](./rmath-multiple-rwalks.html)
+
+[The k-Means Algorithm In R For Clustering Data](./rmath-kmeans.html)
+
+[Poisson Regression](./rmath-poisson-regression.html)
 
 <a name="rvisual"></a>
 
@@ -53,6 +68,8 @@ This page contains links on a bunch of R programming projects.
 ### <u>Data Visualization In R</u>
 
 &nbsp;
+
+[Fitting A Linear Model In R Using ggplot2](./rvisual-linear-model.html)
 
 [Making Bar Graphs In R Using ggplot2](./rvisual-bargraphs.html)
 
@@ -82,6 +99,10 @@ This page contains links on a bunch of R programming projects.
 
 [Multiple Plots In One Graph With R](./rvisual-multiple-plots.html)
 
+[Plotting Continuous Probability Distributions In R With ggplot2](./rvisual-cont-prob-dists.html)
+
+[Plotting Time Series Data using ggplot2 & plotly Packages In R](./rvisual-timeseries-plot.html)
+
 &nbsp;
 
 <a name="visualprojects"></a>
@@ -94,6 +115,7 @@ This page contains links on a bunch of R programming projects.
 
 [Creating A Rock, Paper, Scissors, Lizard, Spock Table In R](./rvisual-rpsls.html)
 
+[Plotting Kaplan-Meier Survival Times Curves In R With ggplot2](./rvisual-kaplan-meier.html)
 
 &nbsp;
 
@@ -103,6 +125,7 @@ This page contains links on a bunch of R programming projects.
 
 &nbsp;
 
+[Data Cleaning In R With The tidyr Package](./ranalysis-tidyr-clean.html)
 
 
 
@@ -114,6 +137,7 @@ This page contains links on a bunch of R programming projects.
 
 &nbsp;
 
+[Finding The Most Frequent Words In Text With R](./rtext-freq-words.html)
 
 &nbsp;
 
