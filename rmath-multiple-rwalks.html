@@ -467,8 +467,6 @@ ggplot(rw_paths2, aes(x = Time, y = Position, group = Path, colour = Path)) +
 
 # Replicate function version:
 
-library(ggplot2)
-
 # Using the cumsum() function to generate random walk more efficently:
 
 time &lt;- 100
@@ -523,8 +521,8 @@ rw_paths &lt;- data.frame(rw_paths)
 
 # Wide Format To Long Format Data:
 
-library(tidyr)
-library(dplyr)
+#library(tidyr)
+#library(dplyr)
 
 rw_paths2 &lt;- rw_paths %&gt;% gather(Path, Position, -Time)
 

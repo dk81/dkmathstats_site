@@ -258,9 +258,9 @@ plot + stat_function(fun = dnorm) + xlim(c(-4, 4))</code></pre>
 <p> </p>
 <pre class="r"><code>## Standard Normal Distribution Labelled.
 
-plot + stat_function(fun = dnorm) + xlim(c(-4, 4)) +
-  annotate(&quot;text&quot;, x = 2.3, y = 0.3, parse = TRUE, size = 7, fontface =&quot;bold&quot;,
-         label= &quot;frac(1, sqrt(2 * pi)) * e ^ {frac(-x^2, 2)}&quot;)</code></pre>
+plot + stat_function(fun = dnorm) + 
+  xlim(c(-4, 4)) +
+  annotate(&quot;text&quot;, x = 2.3, y = 0.25, size = 7, parse = TRUE, label= &quot;frac(1, sqrt(2 * pi)) * e^{frac(-x^2, 2)}&quot;)</code></pre>
 <p><img src="rmath-normal-plots_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p> </p>
 <p><a name="one-sameplot"></a></p>

@@ -82,12 +82,12 @@ Labels can be added by using the annotate function on top of `ggplot()`. Here is
 
 &nbsp;
 
-```{r fig.align="center"}
+```{r, fig.align="center"}
 ## Standard Normal Distribution Labelled.
 
-plot + stat_function(fun = dnorm) + xlim(c(-4, 4)) +
-  annotate("text", x = 2.3, y = 0.3, parse = TRUE, size = 7, fontface ="bold",
-         label= "frac(1, sqrt(2 * pi)) * e ^ {frac(-x^2, 2)}")
+plot + stat_function(fun = dnorm) + 
+  xlim(c(-4, 4)) +
+  annotate("text", x = 2.3, y = 0.25, size = 7, parse = TRUE, label= "frac(1, sqrt(2 * pi)) * e^{frac(-x^2, 2)}")
 ```
 
 &nbsp;
