@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Loading A .JSON File Into R</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Loading A .JSON File Into R</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hi. I have been doing some self-learning on the topic of loading a .JSON file into the statistical programming language R. The concept of a .JSON file is somewhat new to me as it was not shown to me in my university studies. Through self-learning, trial and error and a few resources, I have been able to work with .JSON files in R.</p>
+<p> </p>
+<div id="sections" class="section level3">
+<h3><u>Sections</u></h3>
+<p> </p>
+<ul>
+<li><p><a href="#intro">Introduction</a></p></li>
+<li><p><a href="#load">Loading A .JSON File Into R</a></p></li>
+<li><p><a href="#work">Some Data Manipulation Work</a></p></li>
+<li><p><a href="#refs">Resources/References</a></p></li>
+</ul>
+<p><a name="intro"></a></p>
+<p> </p>
+</div>
+<div id="introduction" class="section level3">
+<h3><u>Introduction</u></h3>
+<p> </p>
+<p>According to this website, JSON files store data in a text format that is human readable. The JSON acronym stands for Javascript Object Notation. These JSON files can be read into R using a custom package such as jsonlite.</p>
+<p><a name="load"></a></p>
+<p> </p>
+</div>
+<div id="loading-a-.json-file-into-r" class="section level3">
+<h3><u>Loading A .JSON File Into R</u></h3>
+<p> </p>
+<p>If the jsonlite package is not installed into R, you can type in</p>
+<p> </p>
+<pre><code>install.packages(&quot;jsonlite&quot;)</code></pre>
+<p> </p>
+<p>to install jsonlite into R/RStudio.</p>
+<p>After installation, the jsonlite package can be loaded into R by typing in</p>
+<p> </p>
+<pre><code>library(jsonlite)</code></pre>
+<p> </p>
+<p>Since I am loading in the .JSON file from the internet, I copy the URL link and save it to a variable. The <code>fromJSON()</code> command will load in the variable containing the URL.</p>
+<p> </p>
+<pre class="r"><code># Resources: 
+
+# https://stackoverflow.com/questions/2617600/importing-data-from-a-json-file-into-r
+# https://www.datacamp.com/community/tutorials/r-data-import-tutorial#javascript
+# http://www.tutorialspoint.com/r/r_json_files.htm
+# https://stackoverflow.com/questions/9704213/r-remove-part-of-string
+# http://stat545.com/block022_regular-expression.html
+# https://github.com/jdorfman/awesome-json-datasets
+
+
+##### Pokemon (Gen 1) JSON File:
+
+library(jsonlite)
+
+pokemon_url &lt;- &quot;https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json&quot;
+
+pokemon_data &lt;- fromJSON(pokemon_url)</code></pre>
+<p> </p>
+<p>You could preview this data by typing in <code>head(pokemon_data)</code> but the output would be very large. I did not include the output here.</p>
+<p>To have the data is a more useable format for data analysis in R, the <code>data.frame()</code> function is used here. I also preview the data frame with the <code>head()</code> and <code>tail()</code> functions.</p>
+<p> </p>
+<pre class="r"><code>pokemon_df &lt;- data.frame(pokemon_data)
+
+## Preview the data:
+
+head(pokemon_df)</code></pre>
+<pre><code>##   pokemon.id pokemon.num pokemon.name
+## 1          1         001    Bulbasaur
+## 2          2         002      Ivysaur
+## 3          3         003     Venusaur
+## 4          4         004   Charmander
+## 5          5         005   Charmeleon
+## 6          6         006    Charizard
+##                                        pokemon.img  pokemon.type
+## 1 http://www.serebii.net/pokemongo/pokemon/001.png Grass, Poison
+## 2 http://www.serebii.net/pokemongo/pokemon/002.png Grass, Poison
+## 3 http://www.serebii.net/pokemongo/pokemon/003.png Grass, Poison
+## 4 http://www.serebii.net/pokemongo/pokemon/004.png          Fire
+## 5 http://www.serebii.net/pokemongo/pokemon/005.png          Fire
+## 6 http://www.serebii.net/pokemongo/pokemon/006.png  Fire, Flying
+##   pokemon.height pokemon.weight    pokemon.candy pokemon.candy_count
+## 1         0.71 m         6.9 kg  Bulbasaur Candy                  25
+## 2         0.99 m        13.0 kg  Bulbasaur Candy                 100
+## 3         2.01 m       100.0 kg  Bulbasaur Candy                  NA
+## 4         0.61 m         8.5 kg Charmander Candy                  25
+## 5         1.09 m        19.0 kg Charmander Candy                 100
+## 6         1.70 m        90.5 kg Charmander Candy                  NA
+##   pokemon.egg pokemon.spawn_chance pokemon.avg_spawns pokemon.spawn_time
+## 1        2 km               0.6900              69.00              20:00
+## 2 Not in Eggs               0.0420               4.20              07:00
+## 3 Not in Eggs               0.0170               1.70              11:30
+## 4        2 km               0.2530              25.30              08:45
+## 5 Not in Eggs               0.0120               1.20              19:00
+## 6 Not in Eggs               0.0031               0.31              13:34
+##   pokemon.multipliers         pokemon.weaknesses
+## 1                1.58 Fire, Ice, Flying, Psychic
+## 2            1.2, 1.6 Fire, Ice, Flying, Psychic
+## 3                NULL Fire, Ice, Flying, Psychic
+## 4                1.65        Water, Ground, Rock
+## 5                1.79        Water, Ground, Rock
+## 6                NULL      Water, Electric, Rock
+##            pokemon.next_evolution           pokemon.prev_evolution
+## 1     002, 003, Ivysaur, Venusaur                             NULL
+## 2                   003, Venusaur                   001, Bulbasaur
+## 3                            NULL     001, 002, Bulbasaur, Ivysaur
+## 4 005, 006, Charmeleon, Charizard                             NULL
+## 5                  006, Charizard                  004, Charmander
+## 6                            NULL 004, 005, Charmander, Charmeleon</code></pre>
+<pre class="r"><code>tail(pokemon_df)</code></pre>
+<pre><code>##     pokemon.id pokemon.num pokemon.name
+## 146        146         146      Moltres
+## 147        147         147      Dratini
+## 148        148         148    Dragonair
+## 149        149         149    Dragonite
+## 150        150         150       Mewtwo
+## 151        151         151          Mew
+##                                          pokemon.img   pokemon.type
+## 146 http://www.serebii.net/pokemongo/pokemon/146.png   Fire, Flying
+## 147 http://www.serebii.net/pokemongo/pokemon/147.png         Dragon
+## 148 http://www.serebii.net/pokemongo/pokemon/148.png         Dragon
+## 149 http://www.serebii.net/pokemongo/pokemon/149.png Dragon, Flying
+## 150 http://www.serebii.net/pokemongo/pokemon/150.png        Psychic
+## 151 http://www.serebii.net/pokemongo/pokemon/151.png        Psychic
+##     pokemon.height pokemon.weight pokemon.candy pokemon.candy_count
+## 146         2.01 m        60.0 kg          None                  NA
+## 147         1.80 m         3.3 kg Dratini Candy                  25
+## 148         3.99 m        16.5 kg Dratini Candy                 100
+## 149         2.21 m       210.0 kg Dratini Candy                  NA
+## 150         2.01 m       122.0 kg          None                  NA
+## 151         0.41 m         4.0 kg          None                  NA
+##     pokemon.egg pokemon.spawn_chance pokemon.avg_spawns pokemon.spawn_time
+## 146 Not in Eggs               0.0000               0.00                N/A
+## 147       10 km               0.3000              30.00              06:41
+## 148 Not in Eggs               0.0200               2.00              11:57
+## 149 Not in Eggs               0.0011               0.11              23:38
+## 150 Not in Eggs               0.0000               0.00                N/A
+## 151 Not in Eggs               0.0000               0.00                N/A
+##     pokemon.multipliers       pokemon.weaknesses
+## 146                NULL    Water, Electric, Rock
+## 147          1.83, 1.84       Ice, Dragon, Fairy
+## 148                2.05       Ice, Dragon, Fairy
+## 149                NULL Ice, Rock, Dragon, Fairy
+## 150                NULL         Bug, Ghost, Dark
+## 151                NULL         Bug, Ghost, Dark
+##             pokemon.next_evolution       pokemon.prev_evolution
+## 146                           NULL                         NULL
+## 147 148, 149, Dragonair, Dragonite                         NULL
+## 148                 149, Dragonite                 147, Dratini
+## 149                           NULL 147, 148, Dratini, Dragonair
+## 150                           NULL                         NULL
+## 151                           NULL                         NULL</code></pre>
+<p> </p>
+<p>As you can see, this data frame contains many rows and many columns. Due to the context of this data, some entries contain NULL or N/A.</p>
+<p><a name="work"></a></p>
+<p> </p>
+</div>
+<div id="some-data-manipulation-work" class="section level3">
+<h3><u>Some Data Manipulation Work</u></h3>
+<p> </p>
+<p>After loading in data, you may to have to do some data manipulation tasks to have the data ready for data analysis and other statistical work. In this section, I show a few things I have done to this dataset (through experimentation, trial and error).</p>
+<p>I first remove the pokemon.id column as I have the pokemon.num column.</p>
+<p> </p>
+<pre class="r"><code>## Data Cleaning / Formatting
+
+pokemon_df &lt;- pokemon_df[ , -1] # Remove the id column as it&#39;s the same as second column</code></pre>
+<p> </p>
+<p>You can verify that the pokemon.id (first column) is removed with the <code>head()</code> function.</p>
+<p>Next, I rename the columns (manually) by using the <code>colnames()</code> function.</p>
+<p> </p>
+<pre class="r"><code>## Rename columns:
+
+colnames(pokemon_df) &lt;- c(&quot;Pokemon.Number&quot;, &quot;Name&quot;, &quot;Image.Link&quot;, &quot;Types&quot;, &quot;Height&quot;,
+                           &quot;Weight&quot;, &quot;Pokemon.Candy&quot;, &quot;Candy.Count&quot;, &quot;Egg&quot;, &quot;Spawn.Chance&quot;,
+                           &quot;Avg.Spawns&quot;, &quot;Spawn.Time&quot;, &quot;Multipliers&quot;, &quot;Weaknesses&quot;,
+                           &quot;Next.Evolutions&quot;, &quot;Prev.Evolutions&quot;)
+ 
+head(pokemon_df)</code></pre>
+<pre><code>##   Pokemon.Number       Name
+## 1            001  Bulbasaur
+## 2            002    Ivysaur
+## 3            003   Venusaur
+## 4            004 Charmander
+## 5            005 Charmeleon
+## 6            006  Charizard
+##                                         Image.Link         Types Height
+## 1 http://www.serebii.net/pokemongo/pokemon/001.png Grass, Poison 0.71 m
+## 2 http://www.serebii.net/pokemongo/pokemon/002.png Grass, Poison 0.99 m
+## 3 http://www.serebii.net/pokemongo/pokemon/003.png Grass, Poison 2.01 m
+## 4 http://www.serebii.net/pokemongo/pokemon/004.png          Fire 0.61 m
+## 5 http://www.serebii.net/pokemongo/pokemon/005.png          Fire 1.09 m
+## 6 http://www.serebii.net/pokemongo/pokemon/006.png  Fire, Flying 1.70 m
+##     Weight    Pokemon.Candy Candy.Count         Egg Spawn.Chance
+## 1   6.9 kg  Bulbasaur Candy          25        2 km       0.6900
+## 2  13.0 kg  Bulbasaur Candy         100 Not in Eggs       0.0420
+## 3 100.0 kg  Bulbasaur Candy          NA Not in Eggs       0.0170
+## 4   8.5 kg Charmander Candy          25        2 km       0.2530
+## 5  19.0 kg Charmander Candy         100 Not in Eggs       0.0120
+## 6  90.5 kg Charmander Candy          NA Not in Eggs       0.0031
+##   Avg.Spawns Spawn.Time Multipliers                 Weaknesses
+## 1      69.00      20:00        1.58 Fire, Ice, Flying, Psychic
+## 2       4.20      07:00    1.2, 1.6 Fire, Ice, Flying, Psychic
+## 3       1.70      11:30        NULL Fire, Ice, Flying, Psychic
+## 4      25.30      08:45        1.65        Water, Ground, Rock
+## 5       1.20      19:00        1.79        Water, Ground, Rock
+## 6       0.31      13:34        NULL      Water, Electric, Rock
+##                   Next.Evolutions                  Prev.Evolutions
+## 1     002, 003, Ivysaur, Venusaur                             NULL
+## 2                   003, Venusaur                   001, Bulbasaur
+## 3                            NULL     001, 002, Bulbasaur, Ivysaur
+## 4 005, 006, Charmeleon, Charizard                             NULL
+## 5                  006, Charizard                  004, Charmander
+## 6                            NULL 004, 005, Charmander, Charmeleon</code></pre>
+<p> </p>
+<p>From the Spawn Chance column, I convert the decimals into percentages. I use the <code>round()</code> function to convert the decimals into percentage values along with the <code>paste0()</code> function to add the percentage sign.</p>
+<p> </p>
+<pre class="r"><code>## Convert Spawn Chance column from decimals to percentages.
+
+pokemon_df$Spawn.Chance &lt;- paste0(round(pokemon_df$Spawn.Chance * 100, 2), &quot;%&quot;)
+
+head(pokemon_df)</code></pre>
+<pre><code>##   Pokemon.Number       Name
+## 1            001  Bulbasaur
+## 2            002    Ivysaur
+## 3            003   Venusaur
+## 4            004 Charmander
+## 5            005 Charmeleon
+## 6            006  Charizard
+##                                         Image.Link         Types Height
+## 1 http://www.serebii.net/pokemongo/pokemon/001.png Grass, Poison 0.71 m
+## 2 http://www.serebii.net/pokemongo/pokemon/002.png Grass, Poison 0.99 m
+## 3 http://www.serebii.net/pokemongo/pokemon/003.png Grass, Poison 2.01 m
+## 4 http://www.serebii.net/pokemongo/pokemon/004.png          Fire 0.61 m
+## 5 http://www.serebii.net/pokemongo/pokemon/005.png          Fire 1.09 m
+## 6 http://www.serebii.net/pokemongo/pokemon/006.png  Fire, Flying 1.70 m
+##     Weight    Pokemon.Candy Candy.Count         Egg Spawn.Chance
+## 1   6.9 kg  Bulbasaur Candy          25        2 km          69%
+## 2  13.0 kg  Bulbasaur Candy         100 Not in Eggs         4.2%
+## 3 100.0 kg  Bulbasaur Candy          NA Not in Eggs         1.7%
+## 4   8.5 kg Charmander Candy          25        2 km        25.3%
+## 5  19.0 kg Charmander Candy         100 Not in Eggs         1.2%
+## 6  90.5 kg Charmander Candy          NA Not in Eggs        0.31%
+##   Avg.Spawns Spawn.Time Multipliers                 Weaknesses
+## 1      69.00      20:00        1.58 Fire, Ice, Flying, Psychic
+## 2       4.20      07:00    1.2, 1.6 Fire, Ice, Flying, Psychic
+## 3       1.70      11:30        NULL Fire, Ice, Flying, Psychic
+## 4      25.30      08:45        1.65        Water, Ground, Rock
+## 5       1.20      19:00        1.79        Water, Ground, Rock
+## 6       0.31      13:34        NULL      Water, Electric, Rock
+##                   Next.Evolutions                  Prev.Evolutions
+## 1     002, 003, Ivysaur, Venusaur                             NULL
+## 2                   003, Venusaur                   001, Bulbasaur
+## 3                            NULL     001, 002, Bulbasaur, Ivysaur
+## 4 005, 006, Charmeleon, Charizard                             NULL
+## 5                  006, Charizard                  004, Charmander
+## 6                            NULL 004, 005, Charmander, Charmeleon</code></pre>
+<p> </p>
+</div>
+<div id="splitting-the-pokemon-types-column-into-two-separate-columns" class="section level3">
+<h3><u>Splitting The Pokémon Types Column Into Two Separate Columns</u></h3>
+<p> </p>
+<p>In the Types column of the Pokémon dataset, some of the entries contain two types. I want to split this types columns into two separate columns where the first column is one Pokémon type and the second column is for the second Pokémon type. If the Pokémon has only one type, the entry for the second column would be <NA>.</p>
+<p>In order to achieve the separation of the column, I load in the tidyr and dplyr packages into R.</p>
+<p> </p>
+<pre class="r"><code>## Separate pokemon types into separate columns. If pokemon is single type, second type is NULL.
+
+library(tidyr)
+library(dplyr)</code></pre>
+<p> </p>
+<p>After loading in the packages, the <code>separate()</code> function is used to separate the Types column into two columns named <code>Type_One</code> and <code>Type_Two</code>. I separate the entries by the comma and one white space with the <code>sep = &quot;,\\s&quot;</code> where <code>&quot;,\\s&quot;</code> is a regular expression in R.</p>
+<p> </p>
+<pre class="r"><code>pokemon_df2 &lt;- pokemon_df %&gt;% separate(col = Types, into = c(&quot;Type_One&quot;, &quot;Type_Two&quot;), sep = &quot;,\\s&quot;)</code></pre>
+<pre><code>## Warning: Too few values at 89 locations: 4, 5, 7, 8, 9, 10, 11, 19, 20, 23,
+## 24, 25, 26, 27, 28, 29, 30, 32, 33, 35, ...</code></pre>
+<pre class="r"><code>head(pokemon_df2)</code></pre>
+<pre><code>##   Pokemon.Number       Name
+## 1            001  Bulbasaur
+## 2            002    Ivysaur
+## 3            003   Venusaur
+## 4            004 Charmander
+## 5            005 Charmeleon
+## 6            006  Charizard
+##                                         Image.Link  Type_One  Type_Two
+## 1 http://www.serebii.net/pokemongo/pokemon/001.png c(&quot;Grass&quot; &quot;Poison&quot;)
+## 2 http://www.serebii.net/pokemongo/pokemon/002.png c(&quot;Grass&quot; &quot;Poison&quot;)
+## 3 http://www.serebii.net/pokemongo/pokemon/003.png c(&quot;Grass&quot; &quot;Poison&quot;)
+## 4 http://www.serebii.net/pokemongo/pokemon/004.png      Fire      &lt;NA&gt;
+## 5 http://www.serebii.net/pokemongo/pokemon/005.png      Fire      &lt;NA&gt;
+## 6 http://www.serebii.net/pokemongo/pokemon/006.png  c(&quot;Fire&quot; &quot;Flying&quot;)
+##   Height   Weight    Pokemon.Candy Candy.Count         Egg Spawn.Chance
+## 1 0.71 m   6.9 kg  Bulbasaur Candy          25        2 km          69%
+## 2 0.99 m  13.0 kg  Bulbasaur Candy         100 Not in Eggs         4.2%
+## 3 2.01 m 100.0 kg  Bulbasaur Candy          NA Not in Eggs         1.7%
+## 4 0.61 m   8.5 kg Charmander Candy          25        2 km        25.3%
+## 5 1.09 m  19.0 kg Charmander Candy         100 Not in Eggs         1.2%
+## 6 1.70 m  90.5 kg Charmander Candy          NA Not in Eggs        0.31%
+##   Avg.Spawns Spawn.Time Multipliers                 Weaknesses
+## 1      69.00      20:00        1.58 Fire, Ice, Flying, Psychic
+## 2       4.20      07:00    1.2, 1.6 Fire, Ice, Flying, Psychic
+## 3       1.70      11:30        NULL Fire, Ice, Flying, Psychic
+## 4      25.30      08:45        1.65        Water, Ground, Rock
+## 5       1.20      19:00        1.79        Water, Ground, Rock
+## 6       0.31      13:34        NULL      Water, Electric, Rock
+##                   Next.Evolutions                  Prev.Evolutions
+## 1     002, 003, Ivysaur, Venusaur                             NULL
+## 2                   003, Venusaur                   001, Bulbasaur
+## 3                            NULL     001, 002, Bulbasaur, Ivysaur
+## 4 005, 006, Charmeleon, Charizard                             NULL
+## 5                  006, Charizard                  004, Charmander
+## 6                            NULL 004, 005, Charmander, Charmeleon</code></pre>
+<p> </p>
+<p>I am not sure why that the result from <code>separate()</code> gives a format of c(“Type1” for the Type_One column and “Type2”) for the Type_Two column.</p>
+<p>Next, I want to remove the first c, brackets and quotes from the two columns. I load in the stringr package into R to enable functions for dealing with strings/text. After loading in stringr, I use the <code>str_replace_all()</code> function to remove the first c, brackets and quotes. Regular expressions are used here.</p>
+<p> </p>
+<pre class="r"><code># Remove the c, brackets and quotes in Type One and Type Two columns:
+
+library(stringr) 
+
+
+pokemon_df2$Type_One &lt;- pokemon_df2$Type_One %&gt;% 
+                           str_replace_all(&quot;\\(|\\)&quot;, &quot;&quot;) %&gt;% 
+                           str_replace_all(&#39;^c\\&quot;&#39;, &quot;&quot;) %&gt;% 
+                           str_replace_all(&#39;\\&quot;$&#39;, &quot;&quot;)
+ 
+pokemon_df2$Type_Two &lt;- pokemon_df2$Type_Two %&gt;% 
+                            str_replace_all(&quot;\\(|\\)&quot;, &quot;&quot;) %&gt;% 
+                            str_replace_all(&#39;\\&quot;$&#39;, &quot;&quot;) %&gt;% 
+                            str_replace_all(&#39;^\\&quot;&#39;, &quot;&quot;)
+                         
+
+head(pokemon_df2)</code></pre>
+<pre><code>##   Pokemon.Number       Name
+## 1            001  Bulbasaur
+## 2            002    Ivysaur
+## 3            003   Venusaur
+## 4            004 Charmander
+## 5            005 Charmeleon
+## 6            006  Charizard
+##                                         Image.Link Type_One Type_Two
+## 1 http://www.serebii.net/pokemongo/pokemon/001.png    Grass   Poison
+## 2 http://www.serebii.net/pokemongo/pokemon/002.png    Grass   Poison
+## 3 http://www.serebii.net/pokemongo/pokemon/003.png    Grass   Poison
+## 4 http://www.serebii.net/pokemongo/pokemon/004.png     Fire     &lt;NA&gt;
+## 5 http://www.serebii.net/pokemongo/pokemon/005.png     Fire     &lt;NA&gt;
+## 6 http://www.serebii.net/pokemongo/pokemon/006.png     Fire   Flying
+##   Height   Weight    Pokemon.Candy Candy.Count         Egg Spawn.Chance
+## 1 0.71 m   6.9 kg  Bulbasaur Candy          25        2 km          69%
+## 2 0.99 m  13.0 kg  Bulbasaur Candy         100 Not in Eggs         4.2%
+## 3 2.01 m 100.0 kg  Bulbasaur Candy          NA Not in Eggs         1.7%
+## 4 0.61 m   8.5 kg Charmander Candy          25        2 km        25.3%
+## 5 1.09 m  19.0 kg Charmander Candy         100 Not in Eggs         1.2%
+## 6 1.70 m  90.5 kg Charmander Candy          NA Not in Eggs        0.31%
+##   Avg.Spawns Spawn.Time Multipliers                 Weaknesses
+## 1      69.00      20:00        1.58 Fire, Ice, Flying, Psychic
+## 2       4.20      07:00    1.2, 1.6 Fire, Ice, Flying, Psychic
+## 3       1.70      11:30        NULL Fire, Ice, Flying, Psychic
+## 4      25.30      08:45        1.65        Water, Ground, Rock
+## 5       1.20      19:00        1.79        Water, Ground, Rock
+## 6       0.31      13:34        NULL      Water, Electric, Rock
+##                   Next.Evolutions                  Prev.Evolutions
+## 1     002, 003, Ivysaur, Venusaur                             NULL
+## 2                   003, Venusaur                   001, Bulbasaur
+## 3                            NULL     001, 002, Bulbasaur, Ivysaur
+## 4 005, 006, Charmeleon, Charizard                             NULL
+## 5                  006, Charizard                  004, Charmander
+## 6                            NULL 004, 005, Charmander, Charmeleon</code></pre>
+<p> </p>
+<p>From the code in <code>pokemon_df2$Type_One</code>, <code>str_replace_all(&quot;\\(|\\)&quot;, &quot;&quot;)</code> replaces the bracket with a blank character. This <code>str_replace_all('^c\\&quot;', &quot;&quot;)</code> function removes the c (at the beginning) and the first quote. The third str_replace_all with ’\“$’ removes the quote and the end of the string.</p>
+<p>In <code>pokemon_df2$Type_Two</code>, the first <code>str_replace_all()</code> removes brackets, the second one removes the ending quote, and the third <code>str_replace_all()</code> removes the quote at the start of the string.</p>
+<p><a name="refs"></a></p>
+<p> </p>
+</div>
+<div id="resourcesreferences" class="section level3">
+<h3><u>Resources/References</u></h3>
+<p> </p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/2617600/importing-data-from-a-json-file-into-r" class="uri">https://stackoverflow.com/questions/2617600/importing-data-from-a-json-file-into-r</a></li>
+<li><a href="https://www.datacamp.com/community/tutorials/r-data-import-tutorial#javascript" class="uri">https://www.datacamp.com/community/tutorials/r-data-import-tutorial#javascript</a></li>
+<li><a href="http://www.tutorialspoint.com/r/r_json_files.htm" class="uri">http://www.tutorialspoint.com/r/r_json_files.htm</a></li>
+<li><a href="https://stackoverflow.com/questions/9704213/r-remove-part-of-string" class="uri">https://stackoverflow.com/questions/9704213/r-remove-part-of-string</a></li>
+<li><a href="http://stat545.com/block022_regular-expression.html" class="uri">http://stat545.com/block022_regular-expression.html</a></li>
+<li><a href="https://github.com/jdorfman/awesome-json-datasets" class="uri">https://github.com/jdorfman/awesome-json-datasets</a></li>
+<li><a href="https://stackoverflow.com/questions/7195805/removing-brackets-from-a-string" class="uri">https://stackoverflow.com/questions/7195805/removing-brackets-from-a-string</a></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

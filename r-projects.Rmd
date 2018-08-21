@@ -131,6 +131,10 @@ This page contains links on a bunch of R programming projects.
 
 [Data Manipulation In R: The melt Function](./ranalysis-meltFunction.html)
 
+[Reading In Various File Types In R](./ranalysis-readfile-types.html)
+
+[Loading A .JSON File Into R](./ranalysis-JSON.html)
+
 [Analyzing the German Soccer (Bundesliga) League Using R & The dplyr Package](./ranalysis-bundesligR.html)
 
 [Analyzing Soccer Data From The 2010 World Cup In R and the dplyr Package](./ranalysis-soccer2010.html)
