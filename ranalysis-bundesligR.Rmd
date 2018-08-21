@@ -1,8 +1,7 @@
 ---
 title: "Analyzing the German Soccer (Bundesliga) League Using R & The dplyr Package"
-output:
-  html_document: default
-  pdf_document: default
+output: html_document
+
 ---
 
 &nbsp;
@@ -302,7 +301,7 @@ winning_teams
 &nbsp;
 
 ```{r}
-# Total Number Of Games Played, Wins, Draws, Losses & Goals For FC Bayern München
+# Total Number Of Games Played, Wins, Draws, Losses & Goals For FC Bayern Munchen
 
 bayern_totals <- soccer %>% group_by(Team) %>%
                      filter(Team == "FC Bayern Muenchen") %>%
