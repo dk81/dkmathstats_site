@@ -1,0 +1,386 @@
+---
+title: "Analyzing the German Soccer (Bundesliga) League Using R & The dplyr Package"
+output: html_document
+---
+
+&nbsp;
+
+Hello. I have been playing around with German soccer (Bundesliga) data in R using the `dplyr` package. 
+
+&nbsp;
+
+### <u>Topics</u>
+
+&nbsp;
+
+* <a href="#bundesligR">The Bundesliga Data Using bundesligR</a>
+
+* <a href="#data">The Dataset</a>
+
+* <a href="#select">Selecting Data Using R's dplyr Package</a>
+
+* <a href="#refs">References</a>
+
+<a name="bundesligR"></a>
+
+&nbsp;
+
+### <u>The Bundesliga Data Using bundesligR</u>
+
+&nbsp;
+
+There is a neat data package in R called `bundesligR`. `bundesligR` is also a dataset which contains all final tables of Germany's top tier soccer league, the Bundesliga.
+
+Notable teams from the Bundesliga include FC Bayern München (Munich), Borussia Dortmund, Bayer 04 Leverkusen, and Borussia Mönchengladbach.
+
+If you have not installed the `bundesligR` or the `dplyr` package, you can install them both using:
+
+&nbsp;
+
+```
+install.packages("bundesligR")
+
+install.packages("dplyr")
+```
+
+
+<a name="data"></a>
+
+&nbsp;
+
+
+### <u>The Dataset</u>
+
+&nbsp;
+
+After installation, we convert the bundesligR dataset into a data frame and name it soccer. We also take a look at the data. The data spans from 1964 to 2016.
+
+&nbsp;
+
+```{r}
+library(dplyr)
+library(bundesligR)
+
+soccer <- as.data.frame(bundesligR)
+
+head(soccer)
+
+```
+
+&nbsp;
+
+The team with the most points at the end of a season is the title winner for that season. The Season variable if the year in which the season starts. From `head(soccer)`, the most recent data is from the 2015 Season (Late Summer 2015 to Spring 2016).
+
+Position refers to the ranking on the table. Team is the football team. Played refers to the number of games played in the season. W, D and L refers to Wins Draws and Losses for the team. GF is goals for the team or how many goals scored for the season, GA is short for goals against the team and GD is goal differential which is GF - GA.
+
+With points, a win gives the winning team 3 points, a draw gives 1 point and a loss gives zero points. The points system before 1995 had 2 points for wins under the variable Pts_pre_95.
+
+The full R Documentation of the bundesligR dataset can be found with `??bundesligR`
+
+The last column Pts_pre_95 will be removed from the dataset. Also a few column names will be renamed.
+
+&nbsp;
+
+```{r}
+# Season is the year when the season started until the end of the next year.
+
+# Rename a few columns: W = Wins, D = Draws, L = Losses
+
+# Remove Pts_pre_95 variable/column
+soccer <- soccer %>% 
+              select(-Pts_pre_95) %>%
+              rename(Games.Played = Played, Wins = W, Draws = D, Losses = L)
+
+head(soccer)
+```
+
+
+&nbsp;
+
+The %>% pipe operator is used for easier reading. Instead of select(soccer, -Pts_pre_95), we use soccer %>% select(-Pts_pre_95). The negative sign in front of the column Pts_pre_95 inside select() tells R to remove the specified column. Remove a column is easier than selecting everything else.
+
+The `rename()` part is used to rename past columns.
+
+<a name="select"></a>
+
+
+&nbsp;
+
+### <u>Selecting Data Using R's dplyr Package</u>
+
+&nbsp;
+
+Now we use `dplyr` to help us find some interesting data of the Bundesliga in its history.
+
+&nbsp;
+
+<u>2015-2016 Season</u>
+
+&nbsp;
+
+Here were the results from last year's (previous) Bundesliga season. The `filter()` function is used here.
+
+&nbsp;
+
+```{r}
+season_2015 <- soccer %>% filter(Season == 2015)
+```
+
+&nbsp;
+
+This season was interesting in the sense that it was a very good season for Borussia Dortmund and they were still 10 points away from FC Bayern München. The gap between Borussia Dortmund at second place and third place was 18 points.
+
+&nbsp;
+
+---
+
+&nbsp;
+
+<u>Best Season Of All Time</u>
+
+&nbsp;
+
+The best season of all time in the Bundesliga belongs to the team which had the most points at the end of the season.
+
+&nbsp;
+
+```{r}
+# Best season where the title winning team had the most 
+# points in history from 1964-2016.
+
+best_season <- soccer %>% filter(Points == max(Points))
+best_season
+```
+
+&nbsp;
+
+For the 2012-2013 season, FC Bayern München won the Bundesliga with a record 91 points. They also won the DFB-Pokal and the UEFA Champions League for that season, winning the treble. (Winning the treble is very difficult.) 
+
+&nbsp;
+
+---
+
+&nbsp;
+
+<u>Worst Season Of All Time</u>
+
+&nbsp;
+
+The worst season of all time in the Bundesliga belongs to the worst last placed team (and is also relegated to Bundesliga 2 which is the lower tier league).
+
+&nbsp;
+
+```{r}
+# Worst season where the last place (and relegated) team had the lowest points
+# in history from 1964 to 2016.
+
+worst_season <- soccer %>% filter(Points == min(Points))
+worst_season 
+```
+
+&nbsp;
+
+SC Tasmania 1900 Berlin came in dead last in 1965 with 10 points from 2 wins, 4 draws, and 28 losses.
+
+&nbsp;
+
+---
+
+&nbsp;
+
+<u>Top 5 Teams Per Season</u>
+
+&nbsp;
+
+We can find the top 5 teams per season in this data. As this subset is quite large, we look at the top 5 teams from the 2010-2011 season to the 2015-2016 season.
+
+&nbsp;
+
+```{r}
+# Top 5 Teams per Season w/o GF and GA
+
+top5 <- soccer %>% group_by(Season) %>%
+             filter(Position <= 5)
+
+top5 <- data.frame(top5)
+
+head(top5, n = 30)
+```
+
+&nbsp;
+
+---
+
+&nbsp;
+
+<u>Number of Titles for FC Bayern München</u>
+
+&nbsp;
+
+We can also find the number of times a certain team wins the Bundesliga title by placing first in a season. Here, we look at FC Bayern München and their number of Bundesliga titles.
+
+&nbsp;
+
+```{r}
+# How Many Times Bayern Muenchen won the Bundesliga title
+# in (1964-2016). They won in 1931-1932
+
+bayern_wins <- soccer %>% group_by(Season) %>%
+                 filter(Team == "FC Bayern Muenchen" & Points == max(Points))
+
+bayern_wins <- as.data.frame(bayern_wins)
+bayern_wins
+
+bayern_winCount <- nrow(bayern_wins); bayern_winCount
+```
+
+&nbsp;
+
+From 1964 to now (2016),FC Bayern München has won the Bundesliga title 25 times, an impressive feat.
+
+&nbsp;
+
+---
+
+&nbsp;
+
+Number Of Titles For Borussia Dortmund
+
+Here are the number of titles for Borussia Dortmund.
+
+&nbsp;
+
+```{r}
+# How Many Times Borussia Dortmund won the Bundesliga title in (1964-2016). 
+
+dortmund_wins <- soccer %>% group_by(Season) %>%
+                 filter(Team == "Borussia Dortmund" & Points == max(Points))
+
+dortmund_wins <- as.data.frame(dortmund_wins)
+dortmund_wins
+
+dortmund_winCount <- nrow(dortmund_wins); dortmund_winCount
+```
+
+
+&nbsp;
+---
+
+&nbsp;
+
+<u>List of Title Winning Teams In The Bundesliga</u>
+
+&nbsp;
+
+Here is the full list of title winning teams in the Bundesliga.
+
+&nbsp;
+
+```{r}
+winning_teams <- soccer %>% group_by(Season) %>%
+                    filter(Points == max(Points)) %>%
+                    group_by(Team) %>%
+                    count(Team) %>%
+                    rename(Title_Wins = n) %>%
+                    arrange(desc(Title_Wins))
+
+winning_teams <- data.frame(winning_teams)
+
+winning_teams
+```
+
+&nbsp;
+
+---
+
+&nbsp;
+
+<u>Total Number of Games Played, Wins, Draws, Losses & Goals For FC Bayern München</u>
+
+&nbsp;
+
+```{r}
+# Total Number Of Games Played, Wins, Draws, Losses & Goals For FC Bayern München
+
+bayern_totals <- soccer %>% group_by(Team) %>%
+                     filter(Team == "FC Bayern Muenchen") %>%
+                     summarise_each(funs(sum), Games_Played = Games.Played, Wins = Wins,
+                                    Draws = Draws, Losses = Losses, GF = GF, GA = GA, GD = GD)
+
+bayern_totals <- data.frame(bayern_totals)
+bayern_totals
+```
+
+&nbsp;
+
+---
+
+&nbsp;
+
+<u>Total Number of Games Played, Wins, Draws and Losses, Goals for Bayern Muenchen, Borussia Dortmund & Borussia Moenchengladbach & Bayer 04 Leverkusen</u>
+
+&nbsp;
+
+```{r}
+# Total Number of Games Played, Wins, Draws and Losses, Goals for Bayern Muenchen, Borussia Dortmund & Borussia Moenchengladbach & Bayer 04 Leverkusen
+
+bteams <- soccer %>% group_by(Team) %>%
+                     filter(Team %in% c("FC Bayern Muenchen", "Borussia Dormund",
+                                        "Borussia Moenchengladbach", "Bayer 04 Leverkusen")) %>%
+                     summarise_each(funs(sum), Games_Played = Games.Played, Wins = Wins,
+                                    Draws = Draws, Losses = Losses, GF = GF, GA = GA, GD = GD)
+
+bteams <- data.frame(bteams)
+bteams
+```
+&nbsp;
+
+
+
+We can add win rates as a new column where the win rate is the number of wins divided by the number of games played. The dplyr function `mutate()` is used to create a new column into the data.
+
+&nbsp;
+
+```{r}
+bteams_wrate <- bteams %>% mutate(Win.Rate = round(Wins / Games_Played, 2))
+
+bteams_wrate
+```
+
+&nbsp;
+
+---
+
+&nbsp;
+
+<u>Total Number of Games Played, Wins, Draws and Losses, goals for all Teams Who Played In The Bundesliga</u>
+
+&nbsp;
+
+```{r}
+# Overall Record
+
+teams <- soccer %>% group_by(Team) %>%
+                     summarise_each(funs(sum), Games_Played = Games.Played, Wins = Wins,
+                                    Draws = Draws, Losses = Losses, GF = GF, GA = GA, GD = GD) %>%
+                     mutate(Win.Rate = round(Wins / Games_Played, 2)) %>%
+                     arrange(desc(Wins), desc(Win.Rate))
+
+teams <- data.frame(teams)
+
+teams
+```
+
+&nbsp;
+
+---
+
+<a name="refs"></a>
+
+&nbsp;
+
+### <u>References</u>
+
+&nbsp;
+
+The featured image is from http://arysports.tv/wp-content/uploads/2015/11/bundesliga.jpg.

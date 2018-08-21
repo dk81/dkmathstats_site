@@ -395,19 +395,9 @@ rw_paths_t &lt;- data.frame(rw_paths_t)</code></pre>
 <pre class="r"><code># Wide Format To Long Format Data:
 
 library(tidyr)
-library(dplyr)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:MASS&#39;:
-## 
-##     select</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union</code></pre>
-<pre class="r"><code>rw_paths2 &lt;- rw_paths_t %&gt;% gather(Path, Position, -Time)
+library(dplyr)
+
+rw_paths2 &lt;- rw_paths_t %&gt;% gather(Path, Position, -Time)
 
 # Check:
 

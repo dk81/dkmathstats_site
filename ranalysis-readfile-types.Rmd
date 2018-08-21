@@ -1,0 +1,202 @@
+---
+title: "Reading In Various File Types In R"
+output: html_document
+---
+
+&nbsp;
+
+Hi there. In this page, I showcase how to read in various file types into R. This R code and work is experimental in nature as I was testing out stuff.
+
+&nbsp;
+
+### <u>Table Of Contents</u>
+
+&nbsp;
+
+* Reading In STATA Files Into R
+* Reading In SPSS Files Into R
+* SAS Files Into R
+* Excel Files Into R
+* Loading In .csv Files Into R
+* Loading In .data Files Into R
+* References
+
+&nbsp;
+
+Note that the first three sections deal with R's `haven` package.
+
+&nbsp;
+
+### <u>Reading In STATA Files Into R</u>
+
+&nbsp;
+
+Not all places keep up to date with software and use R. There may be certain places that use STATA.
+
+I have once used STATA for a survival analysis course where the instructor was familiar with STATA and not R. A classmate told me that STATA is used a lot in econometrics (statistics and economics).
+
+There are two ways to load in a STATA file into R. You can use `read_stata()` or `read_dta()`. The code below deals with url links.
+
+&nbsp;
+
+```{r}
+# Reading Files In R
+
+library(haven) # For SPSS, STATA and SAS files
+
+library(readxl) # For excel files.
+```
+
+&nbsp;
+
+```{r}
+### 1) STATA file
+# http://www.principlesofeconometrics.com/stata.htm
+
+# read_stata() function:
+
+quizzes_data <- read_stata("http://www.principlesofeconometrics.com/stata/quizzes.dta")
+
+head(quizzes_data) # Preview data
+
+# read_dta() function:
+
+housing_df <- data.frame(read_dta("http://www.principlesofeconometrics.com/stata/housing.dta"))
+
+head(housing_df) # Preview data
+```
+
+&nbsp;
+
+### <u>Reading In SPSS Files Into R</u>
+
+&nbsp;
+
+The main function for reading in an SPSS file is the `read_spss()` function from the haven package in R.
+
+&nbsp;
+
+```{r}
+### 2) SPSS file
+# http://staff.bath.ac.uk/pssiw/stats2/page16/page16.html
+# relates people's body temperatures and heart rates
+
+spss_url <- "http://staff.bath.ac.uk/pssiw/stats2/temprate.sav"
+
+# Use read_sav or read_spss()
+
+temp_rate_df <- data.frame(read_spss(spss_url))
+
+head(temp_rate_df)
+```
+
+&nbsp;
+
+### <u>SAS Files Into R</u>
+
+&nbsp;
+
+Loading in a SAS file into R is pretty straightforward as well. The key function here is the `read_sas()` function.
+
+&nbsp;
+
+```{r}
+### 3) SAS files
+# http://libguides.library.kent.edu/SAS/SubsetData
+
+sas_url <- "http://libguides.library.kent.edu/ld.php?content_id=11205331"
+
+sas_dataset <- data.frame(read_sas(sas_url))
+
+head(sas_dataset) # Preview data
+```
+
+&nbsp;
+
+### <u>Excel Files Into R</u>
+
+&nbsp;
+
+From experimentation, I have found loading in Excel files into R somewhat difficult. I have found out that (I think) there is no way to load in an .xlsx file from a URL alone. The solution I propose is to save the file into a folder. Then you would set that folder as the working directory in RStudio with the Set As Working Directory from the More drop down.
+
+Once you have set your working directory folder, you can load in the Excel file into R. Be mindful of spelling and punctuation.
+
+&nbsp;
+
+```
+excel_data = data.frame(read_excel("SuperStoreUS_2015.xlsx"))
+
+head(excel_data, n = 10)
+```
+
+&nbsp;
+
+### <u>Loading In .csv Files Into R</u>
+
+&nbsp;
+
+Loading in .csv files is not very difficult. Do make sure to include header = TRUE if the first rows are column titles and the `sep = argument`.
+
+&nbsp;
+
+```{r}
+### 5) .csv files
+
+# Ref: http://introcs.cs.princeton.edu/java/data/
+
+countries_data <- read.csv("http://introcs.cs.princeton.edu/java/data/countries.csv", 
+                        header = TRUE, sep = ",")
+head(countries_data)
+```
+
+&nbsp;
+
+### <u>Loading In .data Files Into R</u>
+
+&nbsp;
+
+From time to time I do play around with some datasets from the UCI Machine Learning Repository website. Some of them have this .data file extension. For this case, the read.table() function is used.
+
+&nbsp;
+
+```{r}
+### 6) .data files
+
+# Source: UCI Machine Learning Repository
+# Read in the .data file:
+# https://stackoverflow.com/questions/21101927/read-files-with-extension-data-into-r
+
+url <- "http://archive.ics.uci.edu/ml/machine-learning-databases/balloons/adult-stretch.data"
+
+balloons_data <- read.table(url, sep = "\t", dec = ",") # Reading in a .data file.
+
+head(balloons_data)
+```
+
+&nbsp;
+
+It appears that this balloons_data comes in as a single column with values that have four commas. This single column could be separated with the separate function from the tidyr package in R.
+
+&nbsp;
+
+```{r}
+library(tidyr)
+
+col_names <- c("Color", "size", "act", "age", "inflated")
+
+sep_data <- separate(balloons_data, col = "V1", into = col_names, sep = ",")
+
+head(sep_data)
+```
+
+&nbsp;
+
+### <u>References</u>
+
+&nbsp;
+
+* https://stackoverflow.com/questions/21101927/read-files-with-extension-data-into-r
+* http://www.milanor.net/blog/read-excel-files-from-r/
+* http://libguides.library.kent.edu/SAS/SubsetData
+* http://staff.bath.ac.uk/pssiw/stats2/page16/page16.html
+* https://github.com/rstudio/cheatsheets/raw/master/source/pdfs/data-import-cheatsheet.pdf

@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Text Analysis In R On Dr.Seuss Fox In Socks</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Text Analysis In R On Dr.Seuss Fox In Socks</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hello there. In this page, the focus is on text analysis (text mining) with the R programming language on the Fox In Socks book. Read out aloud Youtube videos such as <a href="https://www.youtube.com/watch?v=FMRMCMKPEFc">this</a> are available.</p>
+<p> </p>
+<center>
+<img src="foxInSocks.jpg" />
+</center>
+<p> </p>
+<p>Source: <a href="http://ecx.images-amazon.com/images/I/51KGN0dwloL._SL600_.jpg" class="uri">http://ecx.images-amazon.com/images/I/51KGN0dwloL._SL600_.jpg</a></p>
+<p> </p>
+<div id="topics" class="section level3">
+<h3><u>Topics</u></h3>
+<p> </p>
+<ul>
+<li>References</li>
+<li>Getting Started</li>
+<li>Wordcounts In Fox In Socks</li>
+<li>Bigrams Counts In Fox In Socks</li>
+<li>A Look At Positive and Negative Words With Sentiment Analysis</li>
+</ul>
+<p> </p>
+</div>
+<div id="references" class="section level3">
+<h3><u>References</u></h3>
+<p> </p>
+<ul>
+<li>R Graphics Cookbook By Winston Chang</li>
+<li><a href="http://ai.eecs.umich.edu/people/dreeves/Fox-In-Socks.txt" class="uri">http://ai.eecs.umich.edu/people/dreeves/Fox-In-Socks.txt</a></li>
+<li><a href="http://lightonphiri.org/blog/ggplot2-multiple-plots-in-one-graph-using-gridextra" class="uri">http://lightonphiri.org/blog/ggplot2-multiple-plots-in-one-graph-using-gridextra</a></li>
+<li>Text Mining with R - A Tidy Approach by Julia Silge and David Robinson</li>
+<li><a href="https://stackoverflow.com/questions/3472980/ggplot-how-to-change-facet-labels" class="uri">https://stackoverflow.com/questions/3472980/ggplot-how-to-change-facet-labels</a></li>
+</ul>
+<p> </p>
+</div>
+<div id="getting-started" class="section level3">
+<h3><u>Getting Started</u></h3>
+<p> </p>
+<p>In R, you want to load the following libraries:</p>
+<p> </p>
+<ul>
+<li>dplyr for data manipulation</li>
+<li>ggplot2 for data visualization graphics</li>
+<li>tidyr for data cleaning</li>
+<li>tidytext for obtaining word counts and doing sentiment analysis</li>
+</ul>
+<p> </p>
+<p>To load libraries into R, use the <code>library()</code> function. For installation of packages, use <code>install.packages(&quot;pkg_name&quot;)</code>.</p>
+<p> </p>
+<pre class="r"><code># Text Mining on the Dr. Suess - Fox In Socks
+
+# Text Version Of Book Source: 
+# http://ai.eecs.umich.edu/people/dreeves/Fox-In-Socks.txt
+
+# 1) Word Counts In Fox In Socks
+# 2) Bigrams in Fox In Socks
+# 3) Sentiment Analysis - nrc, bing and AFINN Lexicons (Three In One Plot)
+
+
+#----------------------------------
+
+# Load libraries into R:
+# Install packages with install.packages(&quot;pkg_name&quot;)
+
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(tidytext)</code></pre>
+<pre><code>## Warning: package &#39;tidytext&#39; was built under R version 3.4.4</code></pre>
+<p> </p>
+<p>Note that the Fox In Socks book is obtained from <a href="http://ai.eecs.umich.edu/people/dreeves/Fox-In-Socks.txt" class="uri">http://ai.eecs.umich.edu/people/dreeves/Fox-In-Socks.txt</a> as indicated in the comments in the above code.</p>
+<p> </p>
+</div>
+<div id="wordcounts-in-fox-in-socks" class="section level3">
+<h3><u>Wordcounts In Fox In Socks</u></h3>
+<p> </p>
+<p>With text mining/analysis, it is possible to obtain word counts from books or any piece of text. Knowing word counts from a book gives an idea of what the book is about and which words are emphasized.</p>
+<p>The text file can be found online. There is no need for setting a directory or copying and pasting.</p>
+<p> </p>
+<pre class="r"><code>foxSocks_book &lt;- readLines(&quot;http://ai.eecs.umich.edu/people/dreeves/Fox-In-Socks.txt&quot;)
+
+# Preview the start of the book:
+
+foxSocks_book_df &lt;- data_frame(Text = foxSocks_book) # tibble aka neater data frame
+
+head(foxSocks_book_df, n = 15) </code></pre>
+<pre><code>## # A tibble: 15 x 1
+##                              Text
+##                             &lt;chr&gt;
+##  1      Fox in Socks by Dr. Seuss
+##  2      -------------------------
+##  3                               
+##  4                            Fox
+##  5                          Socks
+##  6                            Box
+##  7                           Knox
+##  8                               
+##  9                   Knox in box.
+## 10                  Fox in socks.
+## 11                               
+## 12   Knox on fox in socks in box.
+## 13                               
+## 14 Socks on Knox and Knox in box.
+## 15</code></pre>
+<p> </p>
+<p>Notice that there is the title and a bunch of dashed lines at the top of this text file (website link). The title and dashed lines are not of importance and can be removed in R. This can be done by selecting only from the fourth line onwards.</p>
+<p> </p>
+<pre class="r"><code># Remove first three lines that say Fox In Socks by Dr. Seuss, 
+# ---------- and a blank line:
+
+foxSocks_book_df &lt;- foxSocks_book_df[4:nrow(foxSocks_book_df), ]</code></pre>
+<p> </p>
+<p>From the tidytext package in R, the <code>unnest_tokens()</code> function is the first step to obtaining word counts from the Fox In Socks book.</p>
+<p> </p>
+<pre class="r"><code># Unnest tokens: each word in the stories in a row:
+
+foxSocks_words &lt;- foxSocks_book_df %&gt;% 
+  unnest_tokens(output = word, input = Text) 
+
+# Preview with head() function:
+
+head(foxSocks_words, n = 10)</code></pre>
+<pre><code>## # A tibble: 10 x 1
+##     word
+##    &lt;chr&gt;
+##  1   fox
+##  2 socks
+##  3   box
+##  4  knox
+##  5  knox
+##  6    in
+##  7   box
+##  8   fox
+##  9    in
+## 10 socks</code></pre>
+<p> </p>
+<p>English words such as for, the, and, me, myself carry very little meaning on their own. These words are called stop words. An anti join can be used to keep words that are not stop words in Fox In Socks.</p>
+<p> </p>
+<pre class="r"><code># Remove English stop words from Fox In Socks:
+# Stop words include me, you, for, myself, he, she
+
+foxSocks_words &lt;- foxSocks_words %&gt;%
+  anti_join(stop_words)</code></pre>
+<pre><code>## Joining, by = &quot;word&quot;</code></pre>
+<p> </p>
+<p>From foxSocks_words, word counts can be obtained with the use of the <code>count()</code> function from R’s dplyr package.</p>
+<p> </p>
+<pre class="r"><code># Word Counts in Fox In Socks:
+
+foxSocks_wordcounts &lt;- foxSocks_words %&gt;% count(word, sort = TRUE)
+
+# Print top 15 words
+head(foxSocks_wordcounts, n = 15)</code></pre>
+<pre><code>## # A tibble: 15 x 2
+##       word     n
+##      &lt;chr&gt; &lt;int&gt;
+##  1     sir    37
+##  2   socks    19
+##  3     fox    17
+##  4    knox    17
+##  5  battle    11
+##  6 tweetle    11
+##  7  puddle    10
+##  8     goo     9
+##  9    sews     9
+## 10    band     8
+## 11 beetles     8
+## 12  chicks     8
+## 13  beetle     7
+## 14     box     7
+## 15   broom     7</code></pre>
+<p> </p>
+<p>The word counts results can be displayed as a horizontal bar graph with the use of <code>ggplot2</code> graphics in R. Here is the code and output for the top twenty five words in Fox In Socks (after filtering out the stopwords).</p>
+<p> </p>
+<pre class="r"><code># Plot of Word Counts (Top 25 Words):
+
+foxSocks_wordcounts[1:25, ] %&gt;% 
+  mutate(word = reorder(word, n)) %&gt;% 
+  ggplot(aes(word, n)) + 
+  geom_col(fill = &quot;red&quot;) +
+  coord_flip() +
+  labs(x = &quot;Word \n&quot;, y = &quot;\n Count &quot;, title = &quot;The 25 Most Common Words In \n Fox In Socks \n&quot;) +
+  geom_text(aes(label = n), hjust = 1, colour = &quot;white&quot;, fontface = &quot;bold&quot;, size = 3.5) +
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.ticks.x = element_blank(),
+        axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12))</code></pre>
+<p><img src="rtext-foxsocks_files/figure-html/unnamed-chunk-7-1.png" width="384" /></p>
+<p> </p>
+<p>Top words include sir, socks, knox, fox, tweetle, and battle. From the top 25 words, there are repeats in the sense of having plurals and singular forms.</p>
+<p> </p>
+</div>
+<div id="bigrams-counts-in-fox-in-socks" class="section level3">
+<h3><u>Bigrams Counts In Fox In Socks</u></h3>
+<p> </p>
+<p>Instead of the counts of single words, counts of two word phrases or bigrams can be obtained.</p>
+<p> </p>
+<pre class="r"><code># 2) Bigrams (Two-Word Phrases) In Fox In Socks
+
+foxSocks_bigrams &lt;- foxSocks_book_df %&gt;% 
+  unnest_tokens(bigram, input = Text, token = &quot;ngrams&quot;, n = 2)
+
+# Look at the bigrams:
+
+foxSocks_bigrams</code></pre>
+<pre><code>## # A tibble: 841 x 1
+##        bigram
+##         &lt;chr&gt;
+##  1  fox socks
+##  2  socks box
+##  3   box knox
+##  4  knox knox
+##  5    knox in
+##  6     in box
+##  7    box fox
+##  8     fox in
+##  9   in socks
+## 10 socks knox
+## # ... with 831 more rows</code></pre>
+<p> </p>
+<p>Removing stop words from the bigrams requires a bit more work. In this case, tidyr and the dplyr packages are used together in R. First, the <code>separate()</code> function from tidyr is used to split the bigrams into their two separate words. Any stopwords that are in the bigrams are removed with two <code>filter()</code> functions. After filtering, counts are obtained.</p>
+<p> </p>
+<pre class="r"><code># Remove stop words from bigrams with tidyr&#39;s separate function
+# along with the filter() function
+
+foxSocks_bigrams_sep &lt;- foxSocks_bigrams %&gt;%
+  separate(bigram, c(&quot;word1&quot;, &quot;word2&quot;), sep = &quot; &quot;)
+
+foxSocks_bigrams_filt &lt;- foxSocks_bigrams_sep %&gt;%
+  filter(!word1 %in% stop_words$word) %&gt;%
+  filter(!word2 %in% stop_words$word)
+
+# Filtered bigram counts:
+foxSocks_bigrams_counts &lt;- foxSocks_bigrams_filt %&gt;% 
+  count(word1, word2, sort = TRUE)
+
+head(foxSocks_bigrams_counts, n = 15)</code></pre>
+<pre><code>## # A tibble: 15 x 3
+##      word1   word2     n
+##      &lt;chr&gt;   &lt;chr&gt; &lt;int&gt;
+##  1    knox     sir     5
+##  2    slow     joe     5
+##  3 tweetle  beetle     5
+##  4 tweetle beetles     5
+##  5    luke    luck     4
+##  6  paddle  battle     4
+##  7   quick   trick     4
+##  8     sue    sews     4
+##  9 beetles  battle     3
+## 10   bends   ben&#39;s     3
+## 11    blue     goo     3
+## 12  crow&#39;s clothes     3
+## 13     fox     sir     3
+## 14     joe    crow     3
+## 15  puddle  paddle     3</code></pre>
+<p> </p>
+<p>The separated words can be reunited together with tidyr’s <code>unite()</code> function.</p>
+<p> </p>
+<pre class="r"><code># Unite the words with the unite() function:
+
+foxSocks_bigrams_counts &lt;- foxSocks_bigrams_counts %&gt;%
+  unite(bigram, word1, word2, sep = &quot; &quot;)
+
+foxSocks_bigrams_counts</code></pre>
+<pre><code>## # A tibble: 199 x 2
+##             bigram     n
+##  *           &lt;chr&gt; &lt;int&gt;
+##  1        knox sir     5
+##  2        slow joe     5
+##  3  tweetle beetle     5
+##  4 tweetle beetles     5
+##  5       luke luck     4
+##  6   paddle battle     4
+##  7     quick trick     4
+##  8        sue sews     4
+##  9  beetles battle     3
+## 10     bends ben&#39;s     3
+## # ... with 189 more rows</code></pre>
+<p> </p>
+<p>After unification, the results can be displayed with <code>ggplot2</code> graphics.</p>
+<p> </p>
+<pre class="r"><code># We can now make a plot of the word counts.
+# ggplot2 Plot Of Top 25 Bigrams From Fox In Socks:
+
+foxSocks_bigrams_counts[1:25, ] %&gt;% 
+  ggplot(aes(reorder(bigram, n), n)) + 
+  geom_col(fill = &quot;#b3b06f&quot;) +
+  coord_flip() +
+  labs(x = &quot;Bigram \n&quot;, y = &quot;\n Count &quot;, title = &quot;The 25 Most Common Bigrams In \n Dr. Seuss Fox In Socks \n&quot;) +
+  geom_text(aes(label = n), hjust = 1.2, colour = &quot;black&quot;, fontface = &quot;bold&quot;) +
+  theme(plot.title = element_text(hjust = 0.5, colour = &quot;darkblue&quot;, size = 14), 
+        axis.title.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;darkred&quot;, size = 12))</code></pre>
+<p><img src="rtext-foxsocks_files/figure-html/unnamed-chunk-11-1.png" width="384" /></p>
+<p> </p>
+<p>The bigrams tied for first place at a count of 5 are:</p>
+<p> </p>
+<ul>
+<li>tweetle beetles</li>
+<li>tweetle beetle</li>
+<li>slow joe</li>
+<li>knox sir</li>
+</ul>
+<p> </p>
+<p>Notice how a lot of these bigrams do rhyme. Having kids get used to rhymes works on reading and listening skills.</p>
+<p> </p>
+</div>
+<div id="a-look-at-positive-and-negative-words-with-sentiment-analysis" class="section level3">
+<h3><u>A Look At Positive and Negative Words With Sentiment Analysis</u></h3>
+<p> </p>
+<p>A big part of sentiment analysis involves the analysis of negative and positive words in text. The three main lexicons which (subjectively) scores and/or categorizes words are nrc, bing and AFINN.</p>
+<p>In my other text mining posts, I have separate plots for sentiment analysis for each of the three lexicons. This time around the three sentiment plots will be displayed all in one.</p>
+<p>In the code below, the word_labels_nrc variable stores plot labels which is used later. An <code>inner_join</code> along with <code>get_sentiments(&quot;nrc&quot;)</code> is used to select words from foxSocks_wordcounts that are also in <code>get_sentiments(&quot;nrc&quot;)</code>. Since the nrc lexicon has additional sentiments such as trust, fear and anger, the <code>filter()</code> function is used to select only words that are categorized as negative or positive.</p>
+<p> </p>
+<pre class="r"><code># 3) Sentiment Analysis 
+# Are the stories positive, negative, neutral?
+# http://lightonphiri.org/blog/ggplot2-multiple-plots-in-one-graph-using-gridextra
+
+
+#### Using nrc, bing and AFINN lexicons
+
+word_labels_nrc &lt;- c(
+  `negative` = &quot;Negative Words&quot;,
+  `positive` = &quot;Positive Words&quot;
+)
+
+### nrc lexicons:
+# get_sentiments(&quot;nrc&quot;)
+
+foxSocks_words_nrc &lt;- foxSocks_wordcounts %&gt;%
+  inner_join(get_sentiments(&quot;nrc&quot;), by = &quot;word&quot;) %&gt;%
+  filter(sentiment %in% c(&quot;positive&quot;, &quot;negative&quot;))
+
+# Preview common words with sentiment label:
+
+head(foxSocks_words_nrc, n = 12)</code></pre>
+<pre><code>## # A tibble: 12 x 3
+##      word     n sentiment
+##     &lt;chr&gt; &lt;int&gt;     &lt;chr&gt;
+##  1    sir    37  positive
+##  2 battle    11  negative
+##  3    goo     9  negative
+##  4  trick     6  negative
+##  5    sue     5  negative
+##  6   luck     4  positive
+##  7 paddle     4  positive
+##  8  fight     2  negative
+##  9 muddle     2  negative
+## 10    pig     2  negative
+## 11   sick     2  negative
+## 12   dumb     1  negative</code></pre>
+<p> </p>
+<p>Instead of displaying the nrc sentiment plot right away, the plot is saved into the variable nrc_plot. The intent is to save the three sentiment plots into three separate variables and then use them to display all three bar plots in one graph.</p>
+<p> </p>
+<pre class="r"><code># Sentiment Plot with nrc Lexicon 
+
+nrc_plot &lt;- foxSocks_words_nrc %&gt;%
+  ggplot(aes(x = reorder(word, n), y = n, fill = sentiment)) + 
+  geom_bar(stat = &quot;identity&quot;, position = &quot;identity&quot;) +
+  geom_text(aes(label = n), colour = &quot;black&quot;, hjust = 1, fontface = &quot;bold&quot;, size = 3) +
+  facet_wrap(~sentiment, nrow = 2, scales = &quot;free_y&quot;, labeller = as_labeller(word_labels_nrc)) +
+  labs(x = &quot;\n Word \n&quot;, y = &quot;\n Word Count &quot;, title = &quot;nrc Lexicon \n Sentiment Analysis On Fox In Socks \n&quot;) +
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12),
+        strip.background = element_rect(fill = &quot;lightblue&quot;),
+        strip.text.x = element_text(size = 10, face = &quot;bold&quot;)) +
+  scale_fill_manual(values=c(&quot;#FF0000&quot;, &quot;#01DF3A&quot;), guide=FALSE) + 
+  coord_flip()</code></pre>
+<p> </p>
+<p>With the bing lexicon, words are categorized as either negative or positive. The code for dealing with the bing lexicon is very similar to the one with the nrc case. Instead of the <code>filter()</code> function, there is the <code>ungroup()</code> function.</p>
+<p> </p>
+<pre class="r"><code>### bing lexicon:
+# get_sentiments(&quot;bing&quot;)
+
+word_labels_bing &lt;- c(
+  `negative` = &quot;Negative Words&quot;,
+  `positive` = &quot;Positive Words&quot;
+)
+
+foxSocks_words_bing &lt;- foxSocks_wordcounts %&gt;%
+  inner_join(get_sentiments(&quot;bing&quot;), by = &quot;word&quot;) %&gt;%
+  ungroup()
+
+# Preview the words and counts:
+
+head(foxSocks_words_bing, n = 15)</code></pre>
+<pre><code>## # A tibble: 15 x 3
+##      word     n sentiment
+##     &lt;chr&gt; &lt;int&gt;     &lt;chr&gt;
+##  1   slow     6  negative
+##  2  trick     6  negative
+##  3    sue     5  negative
+##  4  likes     4  positive
+##  5   luck     4  positive
+##  6   easy     3  positive
+##  7   bent     2  negative
+##  8 breaks     2  negative
+##  9 breeze     2  positive
+## 10   free     2  positive
+## 11 freeze     2  negative
+## 12 muddle     2  negative
+## 13    pig     2  negative
+## 14   poor     2  negative
+## 15   sick     2  negative</code></pre>
+<p> </p>
+<p>The bing sentiment plot in R is saved into the <code>bing_plot</code> variable for later use.</p>
+<p> </p>
+<pre class="r"><code># Sentiment Plot with bing Lexicon:
+
+bing_plot &lt;- foxSocks_words_bing %&gt;%
+  ggplot(aes(x = reorder(word, n), y = n, fill = sentiment)) + 
+  geom_bar(stat = &quot;identity&quot;, position = &quot;identity&quot;) +
+  geom_text(aes(label = n), colour = &quot;black&quot;, hjust = 1, fontface = &quot;bold&quot;, size = 3) +
+  facet_wrap(~sentiment, nrow = 2, scales = &quot;free_y&quot;, labeller = as_labeller(word_labels_bing)) +
+  labs(x = &quot;\n Word \n&quot;, y = &quot;\n Word Count &quot;, title = &quot;bing Lexicon \n Sentiment Analysis On Fox In Socks \n&quot;) +
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12),
+        strip.background = element_rect(fill = &quot;#BEE1D3&quot;),
+        strip.text.x = element_text(size = 10, face = &quot;bold&quot;, colour = &quot;black&quot;)) +
+  scale_fill_manual(values=c(&quot;#FF0000&quot;, &quot;#01DF3A&quot;), guide=FALSE) + 
+  coord_flip()</code></pre>
+<p> </p>
+<p>Words under the AFINN lexicon have a numeric score from -5 to +5. I have included a new column which categorizes the word as negative if the score is below 0 and positive if the score is above 0.</p>
+<p> </p>
+<pre class="r"><code>### AFINN lexicon:
+
+# Change labels 
+# (Source: https://stackoverflow.com/questions/3472980/ggplot-how-to-change-facet-labels)
+
+foxSocks_words_AFINN &lt;- foxSocks_wordcounts %&gt;%
+  inner_join(get_sentiments(&quot;afinn&quot;), by = &quot;word&quot;) %&gt;%
+  mutate(is_positive = score &gt; 0) 
+
+head(foxSocks_words_AFINN, n = 15)</code></pre>
+<pre><code>## # A tibble: 15 x 4
+##       word     n score is_positive
+##      &lt;chr&gt; &lt;int&gt; &lt;int&gt;       &lt;lgl&gt;
+##  1  battle    11    -1       FALSE
+##  2  blocks     5    -1       FALSE
+##  3   likes     4     2        TRUE
+##  4    luck     4     3        TRUE
+##  5    easy     3     1        TRUE
+##  6   fight     2    -1       FALSE
+##  7    free     2     1        TRUE
+##  8    poor     2    -2       FALSE
+##  9    sick     2    -2       FALSE
+## 10    stop     2    -1       FALSE
+## 11 battles     1    -1       FALSE
+## 12   block     1    -1       FALSE
+## 13    dumb     1    -3       FALSE
+## 14     fun     1     4        TRUE
+## 15    hate     1    -3       FALSE</code></pre>
+<pre class="r"><code>word_labels_AFINN &lt;- c(
+  `FALSE` = &quot;Negative Words&quot;,
+  `TRUE` = &quot;Positive Words&quot;
+)
+
+afinn_plot &lt;- foxSocks_words_AFINN %&gt;%
+  ggplot(aes(x = reorder(word, n), y = n, fill = is_positive)) + 
+  geom_bar(stat = &quot;identity&quot;, position = &quot;identity&quot;) +
+  geom_text(aes(label = n), colour = &quot;black&quot;, hjust = 1, fontface = &quot;bold&quot;, size = 3) +
+  facet_wrap(~is_positive, scales = &quot;free_y&quot;, nrow = 2, labeller = as_labeller(word_labels_AFINN)) +
+  labs(x = &quot;\n Word \n&quot;, y = &quot;\n Word Count &quot;, title = &quot;AFINN Lexicon \n Sentiment Analysis On Fox In Socks  \n&quot;,
+       fill = c(&quot;Negative&quot;, &quot;Positive&quot;)) +
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12),
+        strip.background = element_rect(fill = &quot;#D5ADA4&quot;),
+        strip.text.x = element_text(size = 10, face = &quot;bold&quot;, colour = &quot;black&quot;)) +
+  scale_fill_manual(values=c(&quot;#FF0000&quot;, &quot;#01DF3A&quot;), guide=FALSE) + 
+  coord_flip()</code></pre>
+<p> </p>
+</div>
+<div id="multiple-plots-in-one-graph" class="section level3">
+<h3><u>Multiple Plots In One Graph</u></h3>
+<p> </p>
+<p>Putting multiple plots into one graph is actually quite simple. The <code>grid.arrange()</code> function from the gridExtra R package takes in plot objects and an argument for the number of columns.</p>
+<p> </p>
+<pre class="r"><code># Mutliple plots in one graph:
+
+library(gridExtra)</code></pre>
+<pre><code>## Warning: package &#39;gridExtra&#39; was built under R version 3.4.4</code></pre>
+<pre><code>## 
+## Attaching package: &#39;gridExtra&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     combine</code></pre>
+<pre class="r"><code># arrange plots in grid
+grid.arrange(nrc_plot, bing_plot, afinn_plot, ncol = 3)</code></pre>
+<p><img src="rtext-foxsocks_files/figure-html/unnamed-chunk-17-1.png" width="1152" /></p>
+<p> </p>
+<pre class="r"><code># nrc plot alone:
+
+nrc_plot</code></pre>
+<p><img src="rtext-foxsocks_files/figure-html/unnamed-chunk-18-1.png" width="480" /></p>
+<pre class="r"><code># bing plot alone:
+
+bing_plot</code></pre>
+<p><img src="rtext-foxsocks_files/figure-html/unnamed-chunk-18-2.png" width="480" /></p>
+<pre class="r"><code># afinn plot alone:
+
+afinn_plot</code></pre>
+<p><img src="rtext-foxsocks_files/figure-html/unnamed-chunk-18-3.png" width="480" /></p>
+<p> </p>
+<hr />
+<p> </p>
+<p>From the nrc lexicon sentiment analysis results, the top positive words are sir, paddle and luck. I think sir is considered positive as it is used as a sign of respect. I am not sure why paddle is positive. Negative words from the nrc lexicon include battle, goo, trick and sue. Note that lexicons are not great with context. Sue can be a verb or a name. In this case, nrc recognizes sue as a negative verb.</p>
+<p>The bing lexicon does not recognize battle as a negative word but it does recognize the words slow, poor and freeze as negative. Positive words from the bing lexicon include luck, likes, easy, free and breeze. Sir is not included here.</p>
+<p>In the AFINN lexicon results, negative words include battle, blocks, stop, sick, poor and fight. Positive words does not include sir but it does include the words luck, likes, easy, free, slick and fun.</p>
+<p>According to bing and AFINN, the Fox In Socks is more negative than positive if you are looking at word counts (after filtering out stopwords). Since nrc considers sir as positive, nrc considers the book as more positive than negative. These lexicons are subjective and not perfect. Some information is better than none in this case.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

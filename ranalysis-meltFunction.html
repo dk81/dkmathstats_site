@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Data Manipulation In R: The melt Function</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Data Manipulation In R: The melt Function</h1>
+
+</div>
+
+
+<p>Hi there. I was playing around with the melt function from the reshape2 package in R. This melt function helps in converting data from a wide format to a long format which would be ready for data analysis, plotting, graphing, etc.</p>
+<p>Here is some of the work I have come with.</p>
+<p> </p>
+<div id="sections" class="section level3">
+<h3><u>Sections</u></h3>
+<p> </p>
+<ul>
+<li><p><a href="#reshape2">Installing and Loading The reshape2 Package In R</a></p></li>
+<li><p><a href="#one">Example One: Kangaroo Data From Wide Format To Long Format</a></p></li>
+<li><p><a href="#two">Example Two: Melting A Table</a></p></li>
+<li><p><a href="#three">Example Three: Melting A Table Of Results From Coin Flipping and Rolling A Die</a></p></li>
+<li><p><a href="#refs">References</a></p></li>
+</ul>
+<p><a name="reshape2"></a></p>
+<p> </p>
+</div>
+<div id="installing-and-loading-the-reshape2-package-in-r" class="section level3">
+<h3><u>Installing and Loading The reshape2 Package In R</u></h3>
+<p> </p>
+<p>To install the <code>reshape2</code> package in R you can type in:</p>
+<p> </p>
+<pre><code>install.packages(&quot;reshape2&quot;)</code></pre>
+<p> </p>
+<p>To enable the functions in the reshape2 package use the line</p>
+<p> </p>
+<pre class="r"><code>library(reshape2)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;reshape2&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:tidyr&#39;:
+## 
+##     smiths</code></pre>
+<p> </p>
+<p>Once the reshape2 package is loaded into R, the melt function can be used to convert data from a wide format to a long format or convert tables into a (long) format which would be ready for analysis and plotting.</p>
+<p><a name="one"></a></p>
+<p> </p>
+</div>
+<div id="example-one-kangaroo-data-from-wide-format-to-long-format" class="section level3">
+<h3><u>Example One: Kangaroo Data From Wide Format To Long Format</u></h3>
+<p> </p>
+<p>In this first example, I deal with a kangaroo measurements dataset from the faraway library in R.</p>
+<p>The dataset called kanga from the faraway package is saved into kangaroo_data. Then the <code>head()</code> and <code>tail()</code> functions are used the preview the data.</p>
+<p> </p>
+<pre class="r"><code># Example One: Wide Format Data To Long Format Data
+
+# Get kangaroo measurements data from faraway package and save it to a variable.
+
+kangaroo_data &lt;- faraway::kanga
+
+# Preview the data:
+
+head(kangaroo_data)</code></pre>
+<pre><code>##     species  sex basilar.length occipitonasal.length palate.length
+## 1 giganteus Male           1312                 1445           882
+## 2 giganteus Male           1439                 1503           985
+## 3 giganteus Male           1378                 1464           934
+## 4 giganteus Male           1315                 1367           895
+## 5 giganteus Male           1413                 1500           969
+## 6 giganteus Male           1090                 1195           740
+##   palate.width nasal.length nasal.width squamosal.depth lacrymal.width
+## 1           NA          609         241             180            394
+## 2          230          629         222             150            416
+## 3           NA          620         233             135            403
+## 4          230          564         207             158            394
+## 5           NA          645         247             161            426
+## 6           NA          493         189             122            350
+##   zygomatic.width orbital.width .rostral.width occipital.depth crest.width
+## 1             782           249            227             531         153
+## 2             824           233            248             632         141
+## 3             778           244            240             575         144
+## 4             801           224            242             568         116
+## 5             823           241            252             607         120
+## 6             673           234            185             462         188
+##   foramina.length mandible.length mandible.width mandible.depth
+## 1              88            1086            131            179
+## 2             100            1158            148            181
+## 3             107            1131            116            169
+## 4              79            1090            132            189
+## 5              99            1175            131            197
+## 6              90             901            101            138
+##   ramus.height
+## 1          591
+## 2          643
+## 3          610
+## 4          594
+## 5          654
+## 6          476</code></pre>
+<p> </p>
+<p>The <code>summary()</code> function and the <code>str()</code> function is used to check some summary statistics and to check the variable types in the data.</p>
+<p> </p>
+<pre class="r"><code># Summary and data structure:
+ 
+summary(kangaroo_data)</code></pre>
+<pre><code>##         species       sex     basilar.length occipitonasal.length
+##  fuliginosus:50   Female:75   Min.   :1030   Min.   :1121        
+##  giganteus  :50   Male  :73   1st Qu.:1380   1st Qu.:1465        
+##  melanops   :48               Median :1486   Median :1566        
+##                               Mean   :1490   Mean   :1558        
+##                               3rd Qu.:1592   3rd Qu.:1661        
+##                               Max.   :1893   Max.   :1945        
+##                               NA&#39;s   :1      NA&#39;s   :2           
+##  palate.length   palate.width    nasal.length    nasal.width   
+##  Min.   : 665   Min.   :172.0   Min.   :434.0   Min.   :141.0  
+##  1st Qu.: 942   1st Qu.:233.8   1st Qu.:602.5   1st Qu.:214.8  
+##  Median :1016   Median :256.0   Median :669.0   Median :233.5  
+##  Mean   :1021   Mean   :256.9   Mean   :662.9   Mean   :232.8  
+##  3rd Qu.:1106   3rd Qu.:282.0   3rd Qu.:716.5   3rd Qu.:251.5  
+##  Max.   :1315   Max.   :332.0   Max.   :893.0   Max.   :308.0  
+##  NA&#39;s   :1      NA&#39;s   :24      NA&#39;s   :1                      
+##  squamosal.depth lacrymal.width  zygomatic.width  orbital.width  
+##  Min.   :121.0   Min.   :303.0   Min.   : 640.0   Min.   :190.0  
+##  1st Qu.:161.5   1st Qu.:411.0   1st Qu.: 824.5   1st Qu.:230.0  
+##  Median :179.0   Median :440.0   Median : 879.0   Median :239.0  
+##  Mean   :179.7   Mean   :441.4   Mean   : 876.6   Mean   :239.4  
+##  3rd Qu.:192.0   3rd Qu.:470.2   3rd Qu.: 926.0   3rd Qu.:249.0  
+##  Max.   :299.0   Max.   :547.0   Max.   :1090.0   Max.   :290.0  
+##  NA&#39;s   :1                       NA&#39;s   :1                       
+##  .rostral.width  occipital.depth  crest.width    foramina.length 
+##  Min.   :173.0   Min.   :435.0   Min.   : 13.0   Min.   : 60.00  
+##  1st Qu.:247.0   1st Qu.:611.0   1st Qu.:100.8   1st Qu.: 84.75  
+##  Median :268.0   Median :650.0   Median :125.0   Median : 94.50  
+##  Mean   :271.8   Mean   :650.9   Mean   :123.5   Mean   : 94.51  
+##  3rd Qu.:294.0   3rd Qu.:698.0   3rd Qu.:151.0   3rd Qu.:104.00  
+##  Max.   :371.0   Max.   :798.0   Max.   :216.0   Max.   :137.00  
+##  NA&#39;s   :3       NA&#39;s   :11                                      
+##  mandible.length mandible.width mandible.depth   ramus.height  
+##  Min.   : 856    Min.   :101    Min.   :132.0   Min.   :473.0  
+##  1st Qu.:1155    1st Qu.:130    1st Qu.:181.8   1st Qu.:648.8  
+##  Median :1242    Median :138    Median :194.5   Median :700.0  
+##  Mean   :1247    Mean   :139    Mean   :195.9   Mean   :698.8  
+##  3rd Qu.:1347    3rd Qu.:148    3rd Qu.:210.2   3rd Qu.:751.5  
+##  Max.   :1568    Max.   :169    Max.   :271.0   Max.   :880.0  
+##  NA&#39;s   :12</code></pre>
+<pre class="r"><code>str(kangaroo_data)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    148 obs. of  20 variables:
+##  $ species             : Factor w/ 3 levels &quot;fuliginosus&quot;,..: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ sex                 : Factor w/ 2 levels &quot;Female&quot;,&quot;Male&quot;: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ basilar.length      : int  1312 1439 1378 1315 1413 1090 1294 1377 1296 1470 ...
+##  $ occipitonasal.length: int  1445 1503 1464 1367 1500 1195 1421 1504 1439 1563 ...
+##  $ palate.length       : int  882 985 934 895 969 740 872 954 878 987 ...
+##  $ palate.width        : int  NA 230 NA 230 NA NA 239 248 208 236 ...
+##  $ nasal.length        : int  609 629 620 564 645 493 606 660 630 672 ...
+##  $ nasal.width         : int  241 222 233 207 247 189 226 240 215 231 ...
+##  $ squamosal.depth     : int  180 150 135 158 161 122 155 159 NA 185 ...
+##  $ lacrymal.width      : int  394 416 403 394 426 350 396 417 387 429 ...
+##  $ zygomatic.width     : int  782 824 778 801 823 673 780 812 759 856 ...
+##  $ orbital.width       : int  249 233 244 224 241 234 237 240 248 227 ...
+##  $ .rostral.width      : int  227 248 240 242 252 185 238 245 219 268 ...
+##  $ occipital.depth     : int  531 632 575 568 607 462 577 614 584 659 ...
+##  $ crest.width         : int  153 141 144 116 120 188 149 128 151 103 ...
+##  $ foramina.length     : int  88 100 107 79 99 90 101 91 117 94 ...
+##  $ mandible.length     : int  1086 1158 1131 1090 1175 901 1084 1149 1069 1240 ...
+##  $ mandible.width      : int  131 148 116 132 131 101 124 129 121 132 ...
+##  $ mandible.depth      : int  179 181 169 189 197 138 168 175 159 196 ...
+##  $ ramus.height        : int  591 643 610 594 654 476 578 628 578 683 ...</code></pre>
+<p> </p>
+<p>Notice how the 18 variables/columns out of 20 are all measurement variables. These 18 variables/columns can be combined together into one column which would represent the measurement type. Also there would be an additional column which would contain the measurement values associated with the measurement type. This is where the <code>melt()</code> function from the reshape2 package comes in.</p>
+<p> </p>
+<pre class="r"><code># Melt The Data From Wide To Long Format (Remove NA values):
+
+kangaroo_long &lt;- melt(kangaroo_data, na.rm = TRUE, value.name = &quot;Measurement_Value&quot;)</code></pre>
+<pre><code>## Using species, sex as id variables</code></pre>
+<pre class="r"><code># Preview melted data and check dimensions:
+
+head(kangaroo_long)</code></pre>
+<pre><code>##     species  sex       variable Measurement_Value
+## 1 giganteus Male basilar.length              1312
+## 2 giganteus Male basilar.length              1439
+## 3 giganteus Male basilar.length              1378
+## 4 giganteus Male basilar.length              1315
+## 5 giganteus Male basilar.length              1413
+## 6 giganteus Male basilar.length              1090</code></pre>
+<pre class="r"><code>dim(kangaroo_long)</code></pre>
+<pre><code>## [1] 2607    4</code></pre>
+<p> </p>
+<p>This melted data has 2607 rows and 4 columns versus 148 rows and 20 columns from the non-melted data. The column variable represents the measurement type and Measurement_Value represents the measurement value associated with the measurement type.</p>
+<p>The columns of the melted data can be renamed by using <code>colnames()</code> to make things look professional.</p>
+<p> </p>
+<pre class="r"><code># Rename columns:
+
+colnames(kangaroo_long) &lt;- c(&quot;Species&quot;, &quot;Sex&quot;, &quot;Measurement&quot;, &quot;Amount&quot;)
+
+# Preview melted data again:
+
+head(kangaroo_long)</code></pre>
+<pre><code>##     Species  Sex    Measurement Amount
+## 1 giganteus Male basilar.length   1312
+## 2 giganteus Male basilar.length   1439
+## 3 giganteus Male basilar.length   1378
+## 4 giganteus Male basilar.length   1315
+## 5 giganteus Male basilar.length   1413
+## 6 giganteus Male basilar.length   1090</code></pre>
+<pre class="r"><code>tail(kangaroo_long)</code></pre>
+<pre><code>##          Species    Sex  Measurement Amount
+## 2659 fuliginosus Female ramus.height    740
+## 2660 fuliginosus Female ramus.height    751
+## 2661 fuliginosus Female ramus.height    736
+## 2662 fuliginosus Female ramus.height    747
+## 2663 fuliginosus Female ramus.height    739
+## 2664 fuliginosus Female ramus.height    807</code></pre>
+<p><a name="two"></a></p>
+<p> </p>
+</div>
+<div id="example-two-melting-a-table" class="section level3">
+<h3><u>Example Two: Melting A Table</u></h3>
+<p> </p>
+<p>This next example will feature the melt function decomposing a table into a format ready for data analysis and plotting in R.</p>
+<p>I first create two vectors/arrays where one of the two is a small list of colours and the other vector consists of sizes.</p>
+<p> </p>
+<pre class="r"><code># Example Two - Custom Example
+
+colours &lt;- c(&quot;Yellow&quot;, &quot;Green&quot;, &quot;Red&quot;, &quot;Blue&quot;, &quot;Black&quot;, &quot;White&quot;)
+sizes &lt;- c(&quot;Small&quot;, &quot;Medium&quot;, &quot;Large&quot;)
+
+# Number of elements/objects in each array/vector (Set):
+
+length(colours) #6</code></pre>
+<pre><code>## [1] 6</code></pre>
+<pre class="r"><code>length(sizes) #3</code></pre>
+<pre><code>## [1] 3</code></pre>
+<p> </p>
+<p>Next, I create a Cartesian Product of colours and sizes in R using the <code>expand.grid()</code> function. This function will create all combinations from each of the colours with each of the sizes.</p>
+<p>(For example, I would have [Yellow, Small], [Yellow, Medium], all the way to [White, Large].)</p>
+<p> </p>
+<pre class="r"><code># Create Cartesian Product (All combinations)
+cartesianProd &lt;- expand.grid(colours, sizes)
+
+cartesianProd</code></pre>
+<pre><code>##      Var1   Var2
+## 1  Yellow  Small
+## 2   Green  Small
+## 3     Red  Small
+## 4    Blue  Small
+## 5   Black  Small
+## 6   White  Small
+## 7  Yellow Medium
+## 8   Green Medium
+## 9     Red Medium
+## 10   Blue Medium
+## 11  Black Medium
+## 12  White Medium
+## 13 Yellow  Large
+## 14  Green  Large
+## 15    Red  Large
+## 16   Blue  Large
+## 17  Black  Large
+## 18  White  Large</code></pre>
+<pre class="r"><code># Length should be 
+nrow(cartesianProd) #6 x 3 = 18</code></pre>
+<pre><code>## [1] 18</code></pre>
+<p> </p>
+<p>Suppose I wanted to create a table which shows the number of cases for each combination. In this scenario, I have a count of 1 for each combination. The <code>table()</code> function in R creates such a table/matrix.</p>
+<p> </p>
+<pre class="r"><code># Create a table with counts
+
+table &lt;- table(cartesianProd)
+
+table</code></pre>
+<pre><code>##         Var2
+## Var1     Small Medium Large
+##   Yellow     1      1     1
+##   Green      1      1     1
+##   Red        1      1     1
+##   Blue       1      1     1
+##   Black      1      1     1
+##   White      1      1     1</code></pre>
+<p> </p>
+<p>This table has its uses but it is not ideal for data analysis and plotting in R. This is where the <code>melt()</code> function comes in. The <code>melt()</code> function will create the Cartesian product from before along with another column with the counts.</p>
+<p> </p>
+<pre class="r"><code># Undoing the table using melt function in reshape2 package
+
+melted_table &lt;- melt(table)
+
+melted_table</code></pre>
+<pre><code>##      Var1   Var2 value
+## 1  Yellow  Small     1
+## 2   Green  Small     1
+## 3     Red  Small     1
+## 4    Blue  Small     1
+## 5   Black  Small     1
+## 6   White  Small     1
+## 7  Yellow Medium     1
+## 8   Green Medium     1
+## 9     Red Medium     1
+## 10   Blue Medium     1
+## 11  Black Medium     1
+## 12  White Medium     1
+## 13 Yellow  Large     1
+## 14  Green  Large     1
+## 15    Red  Large     1
+## 16   Blue  Large     1
+## 17  Black  Large     1
+## 18  White  Large     1</code></pre>
+<p> </p>
+<p>The column names can be renamed as follows:</p>
+<p> </p>
+<pre class="r"><code># Change column names:
+
+colnames(melted_table) &lt;- c(&quot;Colours&quot;, &quot;Sizes&quot;, &quot;Count&quot;)</code></pre>
+<p><a name="three"></a></p>
+<p> </p>
+</div>
+<div id="example-three-melting-a-table-of-results-from-coin-flipping-and-rolling-a-die" class="section level3">
+<h3><u>Example Three: Melting A Table Of Results From Coin Flipping and Rolling A Die</u></h3>
+<p> </p>
+<p>In this third and last example, I generate/simulate results from a coin flip and a dice roll. I repeat this coin flip and dice roll 300 times and display the results in a table with counts. This table is then melted using the melt function to convert the table into a long format.</p>
+<p> </p>
+<pre class="r"><code># Example Three - Sample Generated Data Of Coin Flip and Roll a Die (300 times) 
+ 
+# 0 = tails, 1 = Heads, C(1:6) is the same as c(1, 2, 3, 4, 5, 6)
+ 
+# Set seed 
+ 
+set.seed(177)
+ 
+# Generate data (using the random seed):
+ 
+coin_flips &lt;- sample(c(0, 1), 300, replace = TRUE)
+die_rolls &lt;- sample(c(1:6), size = 300, replace = TRUE)
+ 
+# Convert 0s to Tails and convert 1s to Heads:
+ 
+coin_flips[coin_flips == 0] &lt;- &quot;Tails&quot;
+coin_flips[coin_flips == 1] &lt;- &quot;Heads&quot;
+ 
+# Create data.frame before table:
+ 
+results_df &lt;- data.frame(coin_flips, die_rolls)
+
+head(results_df)</code></pre>
+<pre><code>##   coin_flips die_rolls
+## 1      Tails         1
+## 2      Tails         6
+## 3      Heads         5
+## 4      Tails         2
+## 5      Tails         2
+## 6      Tails         1</code></pre>
+<pre class="r"><code>tail(results_df)</code></pre>
+<pre><code>##     coin_flips die_rolls
+## 295      Heads         3
+## 296      Heads         5
+## 297      Heads         6
+## 298      Heads         3
+## 299      Heads         2
+## 300      Heads         1</code></pre>
+<p> </p>
+<p>In order to simulate the coin flips and die rolls, the sample function is used. Zeroes corresponds to tails and ones corresponds to heads.</p>
+<p>As usual the column names are renamed.</p>
+<p> </p>
+<pre class="r"><code># Change column names:
+
+colnames(results_df) &lt;- c(&quot;Coin_Flip&quot;, &quot;Roll_Number&quot;)</code></pre>
+<p> </p>
+<p>A table is created using the <code>table()</code> function in R to create a table of counts depending on the coin flip outcome and the die roll number.</p>
+<p> </p>
+<pre class="r"><code># Create Table:
+
+results_table &lt;- table(results_df)
+
+results_table</code></pre>
+<pre><code>##          Roll_Number
+## Coin_Flip  1  2  3  4  5  6
+##     Heads 33 29 28 20 32 29
+##     Tails 17 23 21 22 27 19</code></pre>
+<p> </p>
+<p>The table output comes out nicely. As an example, a coin flip of heads and a roll number of 5 appears 32 times.</p>
+<p>The melt function in this case converts the table into a data frame in the long format. Here is the code and output.</p>
+<p> </p>
+<pre class="r"><code># Use Melt Function To Convert Table Into A Three Column Data Frame
+# With Coin_Flip Outcome, Die Roll Number and Number Of Times
+
+melted_table &lt;- melt(results_table)
+
+melted_table</code></pre>
+<pre><code>##    Coin_Flip Roll_Number value
+## 1      Heads           1    33
+## 2      Tails           1    17
+## 3      Heads           2    29
+## 4      Tails           2    23
+## 5      Heads           3    28
+## 6      Tails           3    21
+## 7      Heads           4    20
+## 8      Tails           4    22
+## 9      Heads           5    32
+## 10     Tails           5    27
+## 11     Heads           6    29
+## 12     Tails           6    19</code></pre>
+<p> </p>
+<p>The column names need some tweaking.</p>
+<p> </p>
+<pre class="r"><code># Change Third column name from value to Count:
+
+names(melted_table)[names(melted_table) == &quot;value&quot;] &lt;- c(&quot;Count&quot;)
+ 
+# Verify:
+ 
+melted_table</code></pre>
+<pre><code>##    Coin_Flip Roll_Number Count
+## 1      Heads           1    33
+## 2      Tails           1    17
+## 3      Heads           2    29
+## 4      Tails           2    23
+## 5      Heads           3    28
+## 6      Tails           3    21
+## 7      Heads           4    20
+## 8      Tails           4    22
+## 9      Heads           5    32
+## 10     Tails           5    27
+## 11     Heads           6    29
+## 12     Tails           6    19</code></pre>
+<p> </p>
+</div>
+<div id="plotting-the-data" class="section level3">
+<h3><u>Plotting The Data</u></h3>
+<p> </p>
+<p>Now this data is ready for data analysis/plotting. Here is the code and output.</p>
+<p> </p>
+<pre class="r"><code># Check structure of data:
+
+str(melted_table)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    12 obs. of  3 variables:
+##  $ Coin_Flip  : Factor w/ 2 levels &quot;Heads&quot;,&quot;Tails&quot;: 1 2 1 2 1 2 1 2 1 2 ...
+##  $ Roll_Number: int  1 1 2 2 3 3 4 4 5 5 ...
+##  $ Count      : int  33 17 29 23 28 21 20 22 32 27 ...</code></pre>
+<pre class="r"><code># Change Roll_number to factors:
+
+melted_table$Roll_Number &lt;- factor(melted_table$Roll_Number)
+
+# ggplot Heatmap Grid:
+
+library(ggplot2)
+ggplot(melted_table, aes(x = Coin_Flip, y = Roll_Number, fill = Count)) +
+  geom_tile() +
+  scale_x_discrete(labels = c(&quot;Heads&quot;, &quot;Tails&quot;)) +
+  scale_y_discrete(labels = c(&quot;One&quot;,&quot;Two&quot;,&quot;Three&quot;,&quot;Four&quot;,&quot;Five&quot;,&quot;Six&quot;)) +
+  scale_fill_gradient2(midpoint = median(melted_table$Count), mid=&quot;grey70&quot;, 
+                       limits = c(min(melted_table$Count), max(melted_table$Count))) +
+  labs(x = &quot;\n Coin Flip Result&quot;, y = &quot;Die Roll Number \n&quot;, 
+       title = &quot;Coin Flip and Die Roll Results (300 Times) \n&quot;,
+       fill = &quot;\n Count \n&quot;) +
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;darkgreen&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;darkgreen&quot;, size = 12),
+        legend.title = element_text(face=&quot;bold&quot;, colour=&quot;brown&quot;, size = 10)) +
+  geom_text(aes(x = Coin_Flip, y = Roll_Number, label = Count), color = &quot;black&quot;, 
+            fontface = &quot;bold&quot;, size = 5) </code></pre>
+<p><img src="ranalysis-meltFunction_files/figure-html/unnamed-chunk-16-1.png" width="384" /></p>
+<p><a name="refs"></a></p>
+<p> </p>
+<hr />
+<p> </p>
+</div>
+<div id="references" class="section level3">
+<h3><u>References</u></h3>
+<p> </p>
+<ul>
+<li><p>R Graphics Cookbook by Winston Chang (2012)</p></li>
+<li><p><a href="http://seananderson.ca/2013/10/19/reshape.html" class="uri">http://seananderson.ca/2013/10/19/reshape.html</a></p></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

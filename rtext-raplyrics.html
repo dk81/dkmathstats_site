@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Text Mining/Analysis On A Few Rap Lyrics With R Programming</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Text Mining/Analysis On A Few Rap Lyrics With R Programming</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hi there. In this page, I share some work in the R programming language where I analyze rap lyrics. The rap lyrics are analyzed with text mining. Results are shared through code output and plots.</p>
+<p>References include the R Graphics Cookbook by Winston Chang and Text Mining with R - A Tidy Approach by Julia Silge and David Robinson. Lyrics were taken from a lyrics website (azlyrics.com I think).</p>
+<p> </p>
+<div id="sections" class="section level3">
+<h3><u>Sections</u></h3>
+<p> </p>
+<ul>
+<li><a href="#intro">Introduction</a></li>
+<li><a href="#remember">Fort Minor - Remember The Name Lyrics Analysis</a></li>
+<li><a href="#lose-yourself">Eminem - Lose Yourself Lyrics Analysis</a></li>
+</ul>
+<p><a name="intro"></a></p>
+<p> </p>
+</div>
+<div id="introduction" class="section level3">
+<h3><u>Introduction</u></h3>
+<p> </p>
+<p>Looking at rap music is one option when it comes to analyzing text. Rap lyrics generally contain more words than other musical genres.</p>
+<p>In this page, I share some experimental work in the R programming language where I analyze rap lyrics from the tracks Fort Minor - Remember The Name and Eminem - Lose Yourself.</p>
+<p>The R packages that I use are dplyr for data wrangling and data manipulation, <code>ggplot2</code> for plotting results, <code>tidytext</code> for text analysis, and <code>tidyr</code> for data cleaning and data formatting.</p>
+<p> </p>
+<pre class="r"><code># Load libraries into R:
+
+library(dplyr)
+library(ggplot2)
+library(tidytext)
+library(tidyr)</code></pre>
+<p><a name="remember"></a></p>
+<p> </p>
+</div>
+<div id="fort-minor---remember-the-name-lyrics-analysis" class="section level3">
+<h3><u>Fort Minor - Remember The Name Lyrics Analysis</u></h3>
+<p> </p>
+<p>The artist Fort Minor was a side project from the Linkin Park member Mike Shinoda. Mike sometimes provides vocals in the form of rapping in a few of the Linkin Park tracks. Fort Minor’s Remember The Name single was released in 2005 and was featured in the video game NBA Live 06, the 2006 &amp; 2007 NBA Playoffs and in the 2008 NBA draft.</p>
+<p> </p>
+<center>
+<img src="fort_minor_remember_the_name.jpg" />
+</center>
+<p> </p>
+<p>Source: <a href="https://www.rarerecords.com.au/wp-content/uploads/2016/05/FORT-MINOR-Remember-The-Name.jpg" class="uri">https://www.rarerecords.com.au/wp-content/uploads/2016/05/FORT-MINOR-Remember-The-Name.jpg</a></p>
+<p> </p>
+<pre class="r"><code>### 1) Fort Minor - Remember The Name
+
+# Read Fort Minor - Remember The Name lyrics into R:
+
+remember_lyrics &lt;- readLines(&quot;fortMinor_rememberTheName_lyrics.txt&quot;)</code></pre>
+<pre><code>## Warning in readLines(&quot;fortMinor_rememberTheName_lyrics.txt&quot;): incomplete
+## final line found on &#39;fortMinor_rememberTheName_lyrics.txt&#39;</code></pre>
+<pre class="r"><code># Preview the lyrics:
+
+remember_lyrics_df &lt;- data_frame(Text = remember_lyrics) # tibble aka neater data frame
+
+head(remember_lyrics_df, n = 10)</code></pre>
+<pre><code>## # A tibble: 10 x 1
+##                                                             Text
+##                                                            &lt;chr&gt;
+##  1                                         You ready?! Let&#39;s go!
+##  2 Yeah, for those of you that want to know what we&#39;re all about
+##  3                                 It&#39;s like this y&#39;all (c&#39;mon!)
+##  4                                                              
+##  5                                                              
+##  6                This is ten percent luck, twenty percent skill
+##  7                    Fifteen percent concentrated power of will
+##  8                     Five percent pleasure, fifty percent pain
+##  9            And a hundred percent reason to remember the name!
+## 10</code></pre>
+<p> </p>
+<p>The key function that will help in obtaining word counts is the <code>unnest_tokens()</code> function. Each word from the song lyrics will be in a row.</p>
+<p> </p>
+<pre class="r"><code># Unnest tokens: each word in the lyrics in a row:
+
+remember_words &lt;- remember_lyrics_df %&gt;% 
+unnest_tokens(output = word, input = Text)
+
+# Preview with head() function:
+
+head(remember_words, n = 10)</code></pre>
+<pre><code>## # A tibble: 10 x 1
+##     word
+##    &lt;chr&gt;
+##  1   you
+##  2 ready
+##  3 let&#39;s
+##  4    go
+##  5  yeah
+##  6   for
+##  7 those
+##  8    of
+##  9   you
+## 10  that</code></pre>
+<p> </p>
+<p><u><strong>Word Counts In Fort Minor - Remember The Name</strong></u></p>
+<p> </p>
+<p>There are words in the English language that do not offer much meaning on its own but it helps make sentences flow. These words are called stop words. An <code>anti_join()</code> from the dplyr package in R is used to remove stop words from the Remember The Name lyrics.</p>
+<p> </p>
+<pre class="r"><code>### 1a) Word Counts in Remember The Name:
+
+# Remove English stop words from Remember The Name:
+# Stop words include the, and, me , you, myself, of, etc.
+
+remember_words &lt;- remember_words %&gt;%
+anti_join(stop_words)</code></pre>
+<pre><code>## Joining, by = &quot;word&quot;</code></pre>
+<p> </p>
+<p>The <code>count()</code> function is used to obtain the words counts. These results are plotted as a sideways bar graph with the ggplot2 package functions.</p>
+<p> </p>
+<pre class="r"><code># Word Counts:
+
+remember_wordcounts &lt;- remember_words %&gt;% count(word, sort = TRUE)
+
+head(remember_wordcounts, n = 15)</code></pre>
+<pre><code>## # A tibble: 15 x 2
+##            word     n
+##           &lt;chr&gt; &lt;int&gt;
+##  1      percent    28
+##  2      hundred     6
+##  3        skill     6
+##  4       twenty     5
+##  5 concentrated     4
+##  6      fifteen     4
+##  7        fifty     4
+##  8         luck     4
+##  9         pain     4
+## 10     pleasure     4
+## 11        power     4
+## 12       reason     4
+## 13     remember     4
+## 14          ten     4
+## 15        heard     3</code></pre>
+<pre class="r"><code># Plot of Word Counts (Top 15 Words):
+
+remember_wordcounts[1:15, ] %&gt;% 
+  mutate(word = reorder(word, n)) %&gt;% 
+  ggplot(aes(word, n)) + 
+  geom_col(fill = &quot;red&quot;) +
+  coord_flip() +
+  labs(x = &quot;Word \n&quot;, y = &quot;\n Count &quot;, title = &quot;Word Counts In \n Fort Minor - Remember The Name \n&quot;) +
+  geom_text(aes(label = n), hjust = 1.2, colour = &quot;white&quot;, fontface = &quot;bold&quot;) +
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12))</code></pre>
+<p><img src="rtext-raplyrics_files/figure-html/unnamed-chunk-5-1.png" width="576" /></p>
+<p> </p>
+<p>In Fort Minor - Remember The Name, the word percent is used a lot. The word skill comes in at second place with a count of 6. Other common words include number words, reason, power, pleasure, and pain. These common words pretty much come from the chorus.</p>
+<p> </p>
+<pre><code>This is ten percent luck, twenty percent skill,
+
+Fifteen percent concentrated power of will
+
+Five percent pleasure, fifty percent pain
+
+And a hundred percent reason to remember the name!</code></pre>
+<p> </p>
+<p><u><strong>Bigrams: Two Word Phrases</strong></u></p>
+<p> </p>
+<pre class="r"><code>### 1b) Bigrams (Two-Word Phrases) in Remember The Name:
+
+remember_bigrams &lt;- remember_lyrics_df %&gt;% 
+unnest_tokens(bigram, input = Text, token = &quot;ngrams&quot;, n = 2)
+
+# Look at the bigrams:
+
+remember_bigrams</code></pre>
+<pre><code>## # A tibble: 667 x 1
+##         bigram
+##          &lt;chr&gt;
+##  1   you ready
+##  2 ready let&#39;s
+##  3    let&#39;s go
+##  4     go yeah
+##  5    yeah for
+##  6   for those
+##  7    those of
+##  8      of you
+##  9    you that
+## 10   that want
+## # ... with 657 more rows</code></pre>
+<p> </p>
+<p>Just like with the single words, we want to remove stop words in the bigrams. We can’t easily remove the stop words in the bigrams and the two word phrases are in one column. The <code>separate()</code> function from R’s tidyr package is used to separate the words into two separate words. From R’s dplyr package, the <code>filter()</code> function is used to remove words that are stop words.</p>
+<p> </p>
+<pre class="r"><code># Remove stop words from bigrams with tidyr&#39;s separate function
+# along with the filter() function
+
+bigrams_remember_sep &lt;- remember_bigrams %&gt;%
+separate(bigram, c(&quot;word1&quot;, &quot;word2&quot;), sep = &quot; &quot;)
+
+bigrams_remember_filt &lt;- bigrams_remember_sep %&gt;%
+filter(!word1 %in% stop_words$word) %&gt;%
+filter(!word2 %in% stop_words$word)
+
+# Filtered bigram counts:
+bigrams_remember_counts &lt;- bigrams_remember_filt %&gt;%
+count(word1, word2, sort = TRUE)
+
+head(bigrams_remember_counts, n = 15)</code></pre>
+<pre><code>## # A tibble: 15 x 3
+##           word1        word2     n
+##           &lt;chr&gt;        &lt;chr&gt; &lt;int&gt;
+##  1      hundred      percent     6
+##  2      percent        skill     5
+##  3       twenty      percent     5
+##  4 concentrated        power     4
+##  5      fifteen      percent     4
+##  6        fifty      percent     4
+##  7         luck       twenty     4
+##  8      percent concentrated     4
+##  9      percent         luck     4
+## 10      percent         pain     4
+## 11      percent     pleasure     4
+## 12      percent       reason     4
+## 13     pleasure        fifty     4
+## 14        skill      fifteen     4
+## 15          ten      percent     4</code></pre>
+<p> </p>
+<p>The words are united with the use of the <code>unite()</code> function along with their counts. A bar graph with the help of ggplot2 can be generated.</p>
+<p> </p>
+<pre class="r"><code># Unite the words with the unite() function:
+
+remember_bigrams_counts &lt;- bigrams_remember_counts %&gt;%
+unite(bigram, word1, word2, sep = &quot; &quot;)
+
+remember_bigrams_counts</code></pre>
+<pre><code>## # A tibble: 52 x 2
+##                  bigram     n
+##  *                &lt;chr&gt; &lt;int&gt;
+##  1      hundred percent     6
+##  2        percent skill     5
+##  3       twenty percent     5
+##  4   concentrated power     4
+##  5      fifteen percent     4
+##  6        fifty percent     4
+##  7          luck twenty     4
+##  8 percent concentrated     4
+##  9         percent luck     4
+## 10         percent pain     4
+## # ... with 42 more rows</code></pre>
+<pre class="r"><code># We can now make a plot of the word counts.
+
+# ggplot2 Plot (Counts greater than 8)
+# Bottom axis removed with element_blank()
+# Counts in the bar with geom_text.
+
+remember_bigrams_counts[1:15, ] %&gt;% 
+  ggplot(aes(reorder(bigram, n), n)) + 
+  geom_col(fill = &quot;red&quot;) +
+  coord_flip() +
+  labs(x = &quot;Bigram \n&quot;, y = &quot;\n Count &quot;, title = &quot;Bigrams In Fort Minor - Remember The Name \n&quot;) +
+  geom_text(aes(label = n), hjust = 1.2, colour = &quot;white&quot;, fontface = &quot;bold&quot;) +
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12))</code></pre>
+<p><img src="rtext-raplyrics_files/figure-html/unnamed-chunk-8-1.png" width="576" /></p>
+<p> </p>
+<p>These results from the bigram end up being not as interesting. The common bigrams are pretty much from the chorus.</p>
+<p> </p>
+<p><u><strong>Trigrams: Three Word Phrases</strong></u></p>
+<p> </p>
+<p>Out of curiousity and experimentation, I wanted to look at three word phrases or trigrams.</p>
+<p>Phrases which contain three words are called trigrams. In the <code>unnest_tokens()</code> function, you would need to change the n = argument to 3.</p>
+<p> </p>
+<pre class="r"><code>### 1c) Trigrams (Three-Word Phrases) in Remember The Name:
+
+remember_trigrams &lt;- remember_lyrics_df %&gt;%
+unnest_tokens(bigram, input = Text, token = &quot;ngrams&quot;, n = 3)
+
+# Look at the trigrams:
+
+remember_trigrams</code></pre>
+<pre><code>## # A tibble: 666 x 1
+##             bigram
+##              &lt;chr&gt;
+##  1 you ready let&#39;s
+##  2  ready let&#39;s go
+##  3   let&#39;s go yeah
+##  4     go yeah for
+##  5  yeah for those
+##  6    for those of
+##  7    those of you
+##  8     of you that
+##  9   you that want
+## 10    that want to
+## # ... with 656 more rows</code></pre>
+<p> </p>
+<p>The code below is very similar to the one for the bigrams. R’s separate function is used to separate the three words. The <code>filter()</code> function is used to remove the stop words from the trigrams. Lastly, the <code>unite()</code> function is used to put the filtered words back into trigrams.</p>
+<p> </p>
+<pre class="r"><code># Remove stop words from the trigrams with tidyr&#39;s separate function
+
+remember_sep_tri &lt;- remember_trigrams %&gt;%
+separate(bigram, c(&quot;word1&quot;, &quot;word2&quot;, &quot;word3&quot;), sep = &quot; &quot;)
+
+rem_tri_filtered &lt;- remember_sep_tri %&gt;%
+filter(!word1 %in% stop_words$word) %&gt;%
+filter(!word2 %in% stop_words$word) %&gt;%
+filter(!word3 %in% stop_words$word)
+
+# Filtered trigram counts:
+remember_trigrams_filt &lt;- rem_tri_filtered %&gt;%
+count(word1, word2, word3, sort = TRUE)
+
+head(remember_trigrams_filt, n = 15)</code></pre>
+<pre><code>## # A tibble: 15 x 4
+##       word1        word2        word3     n
+##       &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt; &lt;int&gt;
+##  1   twenty      percent        skill     5
+##  2  fifteen      percent concentrated     4
+##  3    fifty      percent         pain     4
+##  4  hundred      percent       reason     4
+##  5     luck       twenty      percent     4
+##  6  percent concentrated        power     4
+##  7  percent         luck       twenty     4
+##  8  percent     pleasure        fifty     4
+##  9  percent        skill      fifteen     4
+## 10 pleasure        fifty      percent     4
+## 11    skill      fifteen      percent     4
+## 12      ten      percent         luck     4
+## 13   eighty      percent         fear     1
+## 14   fuckin     nihilist    porcupine     1
+## 15  hundred      percent       forget     1</code></pre>
+<p> </p>
+<pre class="r"><code># Unite the words with the unite() function:
+
+remember_trigrams_counts &lt;- remember_trigrams_filt %&gt;%
+unite(bigram, word1, word2, word3, sep = &quot; &quot;)
+
+remember_trigrams_counts</code></pre>
+<pre><code>## # A tibble: 23 x 2
+##                          bigram     n
+##  *                        &lt;chr&gt; &lt;int&gt;
+##  1         twenty percent skill     5
+##  2 fifteen percent concentrated     4
+##  3           fifty percent pain     4
+##  4       hundred percent reason     4
+##  5          luck twenty percent     4
+##  6   percent concentrated power     4
+##  7          percent luck twenty     4
+##  8       percent pleasure fifty     4
+##  9        percent skill fifteen     4
+## 10       pleasure fifty percent     4
+## # ... with 13 more rows</code></pre>
+<p> </p>
+<p>Filtered trigrams can be plotted with the help of the ggplot2 graphics.</p>
+<p> </p>
+<pre class="r"><code># ggplot2 Plot (Counts greater than 8)
+# Bottom axis removed with element_blank()
+# Counts in the bar with geom_text.
+
+remember_trigrams_counts[1:15, ] %&gt;%
+    ggplot(aes(reorder(bigram, n), n)) +
+    geom_col(fill = &quot;blue&quot;) +
+    coord_flip() +
+    labs(x = &quot;Trigram \n&quot;, y = &quot;\n Count &quot;, title = &quot;Trigrams In Fort Minor - Remember The Name \n&quot;) +
+    geom_text(aes(label = n), hjust = 1.2, colour = &quot;white&quot;, fontface = &quot;bold&quot;) +
+    theme(plot.title = element_text(hjust = 0.5),
+          axis.title.x = element_blank(),
+          axis.ticks.x = element_blank(),
+          axis.text.x = element_blank(),
+          axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12))</code></pre>
+<p><img src="rtext-raplyrics_files/figure-html/unnamed-chunk-12-1.png" width="576" /></p>
+<p> </p>
+<p>Like in the results from the bigrams, the common trigrams feature words from the chorus. The top trigram is twenty percent skill. (What the heck is fuckin nihilist porcupine?)</p>
+<p> </p>
+<p><u><strong>Sentiment Analysis</strong></u></p>
+<p> </p>
+<p>The sentiment analysis done here looks at whether the words in the lyrics are either positive or negative. There are three main lexicons which are nrc, AFINN and bing. Here, the nrc lexicon and bing lexicon results are presented.</p>
+<p> </p>
+<p><strong>nrc Lexicon</strong></p>
+<p> </p>
+<pre class="r"><code>### 1d) Sentiment Analysis:
+
+# There are three main lexicons from the tidytext R package.
+# These three are bing, AFINN and nrc.
+# nrc and bing lexicons used here.
+
+
+### nrc lexicons:
+# get_sentiments(&quot;nrc&quot;)
+
+remember_words_nrc &lt;- remember_wordcounts %&gt;%
+        inner_join(get_sentiments(&quot;nrc&quot;), by = &quot;word&quot;) %&gt;%
+        filter(sentiment %in% c(&quot;positive&quot;, &quot;negative&quot;))
+
+head(remember_words_nrc)</code></pre>
+<pre><code>## # A tibble: 6 x 3
+##     word     n sentiment
+##    &lt;chr&gt; &lt;int&gt;     &lt;chr&gt;
+## 1   luck     4  positive
+## 2   pain     4  negative
+## 3 reason     4  positive
+## 4   shit     2  negative
+## 5   shot     2  negative
+## 6  birth     1  positive</code></pre>
+<pre class="r"><code># Sentiment Plot with nrc Lexicon
+
+remember_words_nrc %&gt;%
+    ggplot(aes(x = reorder(word, n), y = n, fill = sentiment)) +
+    geom_bar(stat = &quot;identity&quot;, position = &quot;identity&quot;) +
+    geom_text(aes(label = n), colour = &quot;black&quot;, hjust = 1, fontface = &quot;bold&quot;, size = 3.2) +
+    facet_wrap(~sentiment, scales = &quot;free_y&quot;) +
+    labs(x = &quot;\n Word \n&quot;, y = &quot;\n Word Count &quot;, title = &quot;Negative &amp; Positive Words \n In Fort Minor - Remember The Name \n With The nrc Lexicon \n&quot;) +
+    theme(plot.title = element_text(hjust = 0.5),
+    axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12),
+    axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12)) +
+    scale_fill_manual(values=c(&quot;#FF0000&quot;, &quot;#01DF3A&quot;), guide=FALSE) +
+    coord_flip()</code></pre>
+<p><img src="rtext-raplyrics_files/figure-html/unnamed-chunk-13-1.png" width="576" /></p>
+<p> </p>
+<p>With the use of the nrc lexicon, the sentiment analysis results show that there is a near 50-50 balance of negative to positive words. This is somewhat misleading as the rapping in the track is quite aggressive in tone and there are quite a few swear words.</p>
+<p> </p>
+<p><strong>Bing Lexicon</strong></p>
+<p> </p>
+<pre class="r"><code>### bing lexicon:
+# get_sentiments(&quot;bing&quot;)
+
+remember_words_bing &lt;- remember_wordcounts %&gt;%
+                       inner_join(get_sentiments(&quot;bing&quot;), by = &quot;word&quot;) %&gt;%
+                      ungroup()
+
+
+head(remember_words_bing)</code></pre>
+<pre><code>## # A tibble: 6 x 3
+##       word     n sentiment
+##      &lt;chr&gt; &lt;int&gt;     &lt;chr&gt;
+## 1    skill     6  positive
+## 2     luck     4  positive
+## 3     pain     4  negative
+## 4 pleasure     4  positive
+## 5     shit     2  negative
+## 6     blow     1  negative</code></pre>
+<pre class="r"><code># Sentiment Plot with bing Lexicon
+
+remember_words_bing %&gt;%
+      ggplot(aes(x = reorder(word, n), y = n, fill = sentiment)) +
+      geom_bar(stat = &quot;identity&quot;, position = &quot;identity&quot;) +
+      geom_text(aes(label = n), colour = &quot;black&quot;, hjust = 1, fontface = &quot;bold&quot;, size = 3.2) +
+      facet_wrap(~sentiment, scales = &quot;free_y&quot;) +
+      labs(x = &quot;\n Word \n&quot;, y = &quot;\n Word Count &quot;, title = &quot;Negative &amp; Positive Words \n In Fort Minor - Remember The Name \n With The bing Lexicon \n&quot;) +
+      theme(plot.title = element_text(hjust = 0.5),
+      axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12),
+      axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12)) +
+      scale_fill_manual(values=c(&quot;#FF0000&quot;, &quot;#01DF3A&quot;), guide=FALSE) +
+      coord_flip()</code></pre>
+<p><img src="rtext-raplyrics_files/figure-html/unnamed-chunk-14-1.png" width="576" /></p>
+<p> </p>
+<p>The results under the bing lexicon are much different that the one with the nrc lexicon. Under the bing lexicon, there are more negative scoring words while the top positive word has a higher count than the top negative word.</p>
+<p><a name="lose-yourself"></a></p>
+<p> </p>
+<hr />
+</div>
+<div id="eminem---lose-yourself-lyrics-analysis" class="section level3">
+<h3><u>Eminem - Lose Yourself Lyrics Analysis</u></h3>
+<p> </p>
+<p>For the second rap song, I have chosen to look at the rap song Lose Yourself by Eminem. This track was featured in the movie 8 Mile (2002).</p>
+<p> </p>
+<center>
+<img src="eminem-lose-yourself.jpg" />
+</center>
+<p> </p>
+<p>Source: <a href="http://mimo.recordingconnection.com/wp-content/uploads/2013/09/eminem-lose-yourself-628x628.jpg" class="uri">http://mimo.recordingconnection.com/wp-content/uploads/2013/09/eminem-lose-yourself-628x628.jpg</a></p>
+<p>The R code here is not much different than the one for Fort Minor - Remember The Name. (There are no trigrams though.)</p>
+<p> </p>
+<pre class="r"><code># Read Eminem - Lose Yourself lyrics into R:
+
+loseyourself_lyrics &lt;- readLines(&quot;eminem_loseYourself.txt&quot;)</code></pre>
+<pre><code>## Warning in readLines(&quot;eminem_loseYourself.txt&quot;): incomplete final line
+## found on &#39;eminem_loseYourself.txt&#39;</code></pre>
+<pre class="r"><code># Preview the lyrics:
+
+loseyourself_lyrics_df &lt;- data_frame(Text = loseyourself_lyrics ) # tibble aka neater data frame
+
+head(loseyourself_lyrics_df, n = 10)</code></pre>
+<pre><code>## # A tibble: 10 x 1
+##                                                                       Text
+##                                                                      &lt;chr&gt;
+##  1                          Look, if you had, one shot, or one opportunity
+##  2                      To seize everything you ever wanted. In one moment
+##  3                              Would you capture it, or just let it slip?
+##  4                                                                      Yo
+##  5                                                                        
+##  6                        His palms are sweaty, knees weak, arms are heavy
+##  7                   There&#39;s vomit on his sweater already, mom&#39;s spaghetti
+##  8 He&#39;s nervous, but on the surface he looks calm and ready to drop bombs,
+##  9                          But he keeps on forgetting what he wrote down,
+## 10                                            The whole crowd goes so loud</code></pre>
+<pre class="r"><code># Unnest tokens: each word in the lyrics in a row:
+
+loseyourself_words &lt;- loseyourself_lyrics_df %&gt;%
+unnest_tokens(output = word, input = Text)
+
+# Preview with head() function:
+
+head(loseyourself_lyrics_df, n = 10)</code></pre>
+<pre><code>## # A tibble: 10 x 1
+##                                                                       Text
+##                                                                      &lt;chr&gt;
+##  1                          Look, if you had, one shot, or one opportunity
+##  2                      To seize everything you ever wanted. In one moment
+##  3                              Would you capture it, or just let it slip?
+##  4                                                                      Yo
+##  5                                                                        
+##  6                        His palms are sweaty, knees weak, arms are heavy
+##  7                   There&#39;s vomit on his sweater already, mom&#39;s spaghetti
+##  8 He&#39;s nervous, but on the surface he looks calm and ready to drop bombs,
+##  9                          But he keeps on forgetting what he wrote down,
+## 10                                            The whole crowd goes so loud</code></pre>
+<p> </p>
+<p><strong><u>Word Counts In Eminem - Lose Yourself</u></strong></p>
+<p> </p>
+<pre class="r"><code>#### 2a) Word Counts in Lose Yourself:
+
+# Remove English stop words from Lose Yourself:
+# Stop words include the, and, me , you, myself, of, etc.
+
+loseyourself_words &lt;- loseyourself_words %&gt;%
+anti_join(stop_words)</code></pre>
+<pre><code>## Joining, by = &quot;word&quot;</code></pre>
+<pre class="r"><code># Word Counts:
+
+loseyourself_wordcounts &lt;- loseyourself_words %&gt;% count(word, sort = TRUE)
+
+head(loseyourself_wordcounts, n = 15)</code></pre>
+<pre><code>## # A tibble: 15 x 2
+##           word     n
+##          &lt;chr&gt; &lt;int&gt;
+##  1        shot     9
+##  2      moment     8
+##  3 opportunity     8
+##  4          yo     8
+##  5          da     7
+##  6        blow     6
+##  7      chance     6
+##  8    lifetime     6
+##  9        lose     6
+## 10        miss     6
+## 11       music     6
+## 12        home     3
+## 13        life     3
+## 14     capture     2
+## 15       coast     2</code></pre>
+<p> </p>
+<p><strong><u>Word Counts Bar Graph Plot</u></strong></p>
+<p> </p>
+<pre class="r"><code># Plot of Word Counts (Top 20 Words):
+
+loseyourself_wordcounts[1:20, ] %&gt;%
+    mutate(word = reorder(word, n)) %&gt;%
+    ggplot(aes(word, n)) +
+    geom_col(fill = &quot;red&quot;) +
+    coord_flip() +
+    labs(x = &quot;Word \n&quot;, y = &quot;\n Count &quot;, title = &quot;Word Counts In \n Eminem - Lose Yourself \n&quot;) +
+    geom_text(aes(label = n), hjust = 1.2, colour = &quot;white&quot;, fontface = &quot;bold&quot;) +
+    theme(plot.title = element_text(hjust = 0.5),
+          axis.title.x = element_blank(),
+          axis.ticks.x = element_blank(),
+          axis.text.x = element_blank(),
+          axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12))</code></pre>
+<p><img src="rtext-raplyrics_files/figure-html/unnamed-chunk-17-1.png" width="576" /></p>
+<p> </p>
+<p>The most frequent word from Lose Yourself is shot. In addition, you know you have a rap song when you have words such as yo and da. Some other high frequency words in the track include miss, lose, opportunity, moment, lifetime and chance.</p>
+<p> </p>
+<p><u><strong>Bigrams In Lose Yourself</strong></u></p>
+<p> </p>
+<pre class="r"><code>### 2b) Bigrams (Two-Word Phrases) in Remember The Name:
+
+loseyourself_bigrams &lt;- loseyourself_lyrics_df %&gt;%
+unnest_tokens(bigram, input = Text, token = &quot;ngrams&quot;, n = 2)
+
+# Look at the bigrams:
+
+loseyourself_bigrams</code></pre>
+<pre><code>## # A tibble: 806 x 1
+##             bigram
+##              &lt;chr&gt;
+##  1         look if
+##  2          if you
+##  3         you had
+##  4         had one
+##  5        one shot
+##  6         shot or
+##  7          or one
+##  8 one opportunity
+##  9  opportunity to
+## 10        to seize
+## # ... with 796 more rows</code></pre>
+<pre class="r"><code># Remove stop words from bigrams with tidyr&#39;s separate function
+# along with the filter() function
+
+bigrams_loseyourself_sep &lt;- loseyourself_bigrams %&gt;%
+separate(bigram, c(&quot;word1&quot;, &quot;word2&quot;), sep = &quot; &quot;)
+
+bigrams_loseyourself_filt &lt;- bigrams_loseyourself_sep %&gt;%
+filter(!word1 %in% stop_words$word) %&gt;%
+filter(!word2 %in% stop_words$word)
+
+# Filtered bigram counts:
+bigrams_loseyourself_counts &lt;- bigrams_loseyourself_filt %&gt;%
+count(word1, word2, sort = TRUE)
+
+head(bigrams_loseyourself_counts, n = 15)</code></pre>
+<pre><code>## # A tibble: 15 x 3
+##          word1     word2     n
+##          &lt;chr&gt;     &lt;chr&gt; &lt;int&gt;
+##  1    lifetime        yo     6
+##  2          da        da     4
+##  3          da       dum     2
+##  4         dum        da     2
+##  5        baby      mama     1
+##  6       blaow      snap     1
+##  7         buy   diapers     1
+##  8        call      rage     1
+##  9     clock&#39;s       run     1
+## 10        cold   product     1
+## 11        cold     water     1
+## 12        dogs     caged     1
+## 13     drama&#39;s screaming     1
+## 14        drop     bombs     1
+## 15 everybody&#39;s    joking     1</code></pre>
+<pre class="r"><code># Unite the words with the unite() function:
+
+loseyourself_bigrams_counts &lt;- bigrams_loseyourself_counts %&gt;%
+unite(bigram, word1, word2, sep = &quot; &quot;)
+
+loseyourself_bigrams_counts</code></pre>
+<pre><code>## # A tibble: 57 x 2
+##          bigram     n
+##  *        &lt;chr&gt; &lt;int&gt;
+##  1  lifetime yo     6
+##  2        da da     4
+##  3       da dum     2
+##  4       dum da     2
+##  5    baby mama     1
+##  6   blaow snap     1
+##  7  buy diapers     1
+##  8    call rage     1
+##  9  clock&#39;s run     1
+## 10 cold product     1
+## # ... with 47 more rows</code></pre>
+<p> </p>
+<p><u><strong>Bigrams Plot</strong></u></p>
+<p> </p>
+<pre class="r"><code># We can now make a plot of the bigrams.
+
+# ggplot2 Plot (Counts greater than 8)
+# Bottom axis removed with element_blank()
+# Counts in the bar with geom_text.
+
+loseyourself_bigrams_counts[1:20, ] %&gt;%
+    ggplot(aes(reorder(bigram, n), n)) +
+    geom_col(fill = &quot;red&quot;) +
+    coord_flip() +
+    labs(x = &quot;Bigram \n&quot;, y = &quot;\n Count &quot;, title = &quot;Bigrams In Eminem - Lose Yourself \n&quot;) +
+    geom_text(aes(label = n), hjust = 1.2, colour = &quot;white&quot;, fontface = &quot;bold&quot;) +
+    theme(plot.title = element_text(hjust = 0.5),
+          axis.title.x = element_blank(),
+          axis.ticks.x = element_blank(),
+          axis.text.x = element_blank(),
+          axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12))</code></pre>
+<p><img src="rtext-raplyrics_files/figure-html/unnamed-chunk-19-1.png" width="576" /></p>
+<p> </p>
+<p>The most frequent bigram is lifetime yo followed by da da. These bigram counts results ended up being not too interesting.</p>
+<p> </p>
+<p><u><strong>Sentiment Analysis On Eminem - Lose Yourself</strong></u></p>
+<p> </p>
+<p>The nrc and bing lexicons are used again.</p>
+<p> </p>
+<p><strong>nrc Lexicon</strong></p>
+<p> </p>
+<pre class="r"><code>### 2c) Sentiment Analysis:
+
+# nrc and bing lexicons used here.
+
+### nrc lexicons:
+# get_sentiments(&quot;nrc&quot;)
+
+loseyourself_words_nrc &lt;- loseyourself_wordcounts %&gt;%
+                            inner_join(get_sentiments(&quot;nrc&quot;), by = &quot;word&quot;) %&gt;%
+                            filter(sentiment %in% c(&quot;positive&quot;, &quot;negative&quot;))
+
+head(loseyourself_words_nrc)</code></pre>
+<pre><code>## # A tibble: 6 x 3
+##          word     n sentiment
+##         &lt;chr&gt; &lt;int&gt;     &lt;chr&gt;
+## 1        shot     9  negative
+## 2 opportunity     8  positive
+## 3        lose     6  negative
+## 4       music     6  positive
+## 5     capture     2  negative
+## 6       coast     2  positive</code></pre>
+<pre class="r"><code># Sentiment Plot with nrc Lexicon
+
+loseyourself_words_nrc %&gt;%
+      ggplot(aes(x = reorder(word, n), y = n, fill = sentiment)) +
+      geom_bar(stat = &quot;identity&quot;, position = &quot;identity&quot;) +
+      geom_text(aes(label = n), colour = &quot;black&quot;, hjust = 1, fontface = &quot;bold&quot;, size = 3.2) +
+      facet_wrap(~sentiment, scales = &quot;free_y&quot;) +
+      labs(x = &quot;\n Word \n&quot;, y = &quot;\n Word Count &quot;, title = &quot;Negative &amp; Positive Words \n In Eminem -            Lose Yourself \n With The nrc Lexicon \n&quot;) +
+      theme(plot.title = element_text(hjust = 0.5),
+      axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12),
+      axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12)) +
+      scale_fill_manual(values=c(&quot;#FF0000&quot;, &quot;#01DF3A&quot;), guide=FALSE) +
+      coord_flip()</code></pre>
+<p><img src="rtext-raplyrics_files/figure-html/unnamed-chunk-20-1.png" width="576" /></p>
+<p> </p>
+<p>Under the nrc lexicon, there is a near 50-50 split on positive and negative words in Eminem’s Lose Yourself. The top positive word is opportunity and the top negative word is shot. I am skeptical of the word music being a positive word.</p>
+<p> </p>
+<p><strong>bing Lexicon</strong></p>
+<p> </p>
+<pre class="r"><code>### bing lexicon:
+# get_sentiments(&quot;bing&quot;)
+
+loseyourself_words_bing &lt;- remember_wordcounts %&gt;%
+                            inner_join(get_sentiments(&quot;nrc&quot;), by = &quot;word&quot;) %&gt;%
+                            filter(sentiment %in% c(&quot;positive&quot;, &quot;negative&quot;))
+
+head(loseyourself_words_bing)</code></pre>
+<pre><code>## # A tibble: 6 x 3
+##     word     n sentiment
+##    &lt;chr&gt; &lt;int&gt;     &lt;chr&gt;
+## 1   luck     4  positive
+## 2   pain     4  negative
+## 3 reason     4  positive
+## 4   shit     2  negative
+## 5   shot     2  negative
+## 6  birth     1  positive</code></pre>
+<pre class="r"><code># Sentiment Plot with bing Lexicon
+
+loseyourself_words_bing %&gt;%
+      ggplot(aes(x = reorder(word, n), y = n, fill = sentiment)) +
+      geom_bar(stat = &quot;identity&quot;, position = &quot;identity&quot;) +
+      geom_text(aes(label = n), colour = &quot;black&quot;, hjust = 1, fontface = &quot;bold&quot;, size = 3.2) +
+      facet_wrap(~sentiment, scales = &quot;free_y&quot;) +
+      labs(x = &quot;\n Word \n&quot;, y = &quot;\n Word Count &quot;, title = &quot;Negative &amp; Positive Words \n In Eminem -            Lose Yourself \n With The bing Lexicon \n&quot;) +
+      theme(plot.title = element_text(hjust = 0.5),
+      axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12),
+      axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12)) +
+      scale_fill_manual(values=c(&quot;#FF0000&quot;, &quot;#01DF3A&quot;), guide=FALSE) +
+      coord_flip()</code></pre>
+<p><img src="rtext-raplyrics_files/figure-html/unnamed-chunk-21-1.png" width="576" /></p>
+<p> </p>
+<p>From using the bing lexicon, we find that the results are more skewed to the negative side than with the nrc lexicon.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

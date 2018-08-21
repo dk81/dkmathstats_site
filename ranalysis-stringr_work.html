@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>A Look At R’s stringr Package</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">A Look At R’s stringr Package</h1>
+
+</div>
+
+
+<p> </p>
+<p>Image Source: <a href="https://www.rstudio.com/wp-content/uploads/2014/06/RStudio-Ball.png" class="uri">https://www.rstudio.com/wp-content/uploads/2014/06/RStudio-Ball.png</a></p>
+<p> </p>
+<p><strong>Warning</strong> This post is very long.</p>
+<p> </p>
+<p>Hi there. I have been playing around with the stringr package in the statistical programming language R. This stringr package is a neat package for dealing with strings (text) and data cleaning/formatting.</p>
+<p>In this page I showcase some experimentation work I have done using the stringr package function. I go over large portion of the functions in stringr but not all. (There are a few functions that I have not tested or not familiar with.)</p>
+<p>My reference here is the R documentation on stringr and its functions.</p>
+<p>Note: I am not that familiar with regular expressions but I am learning about it through this page.</p>
+<p> </p>
+<div id="sections" class="section level3">
+<h3><u>Sections</u></h3>
+<p> </p>
+<ul>
+<li><p>The stringr Package In R</p></li>
+<li><p>Installing and Loading stringr</p></li>
+<li>A Look At The stringr Functions
+<ul>
+<li><a href="#length">Length Of Strings</a></li>
+<li><a href="#convert">Converting To Uppercase, Lowercase, Titles</a></li>
+<li><a href="#combine">Combining Multiple Strings Into A Single String</a></li>
+<li><a href="#matches">The Number Of Matches In A String</a></li>
+<li><a href="#detect">Detecting Matches In A String</a></li>
+<li><a href="#duplicate">Duplicating &amp; Multiplying Strings</a></li>
+<li><a href="#extract">Extract A Matching Pattern From A String</a></li>
+<li><a href="#position">Locating The Position Of A Pattern In A String</a></li>
+<li><a href="#match">String Matching</a></li>
+<li><a href="#sorting">Ordering/Sorting Strings</a></li>
+<li><a href="#padding">Padding Strings</a></li>
+<li><a href="#replace">Replacing Patterns In Strings</a></li>
+<li><a href="#split">Splitting Strings</a></li>
+<li><a href="#substrings">Substrings From Strings</a></li>
+<li><a href="#trimming">Trimming Strings</a></li>
+<li><a href="#truncating">Truncating Strings</a></li>
+<li><a href="#words">Extracting Words From A Sentence</a></li>
+</ul></li>
+</ul>
+<p> </p>
+</div>
+<div id="the-stringr-package-in-r" class="section level3">
+<h3><u>The stringr Package In R</u></h3>
+<p> </p>
+<p>There are cases where you may need to manage strings/text in R. This stringr package is useful for dealing with such strings.</p>
+<p>In R/RStudio, you can type in <code>??stringr</code> and then click on <code>stringr::stringr</code> from the help window to find out some information on stringr. Other resources on stringr include the R documentation here (.pdf) and this webpage.</p>
+<p> </p>
+</div>
+<div id="installing-and-loading-stringr" class="section level3">
+<h3><u>Installing and Loading stringr</u></h3>
+<p> </p>
+<p>To install the stringr package, type in <code>install.packages(&quot;stringr&quot;)</code> into R/Rstudio.</p>
+<p>After installing the stringr package into R, you can load the stringr package by typing in</p>
+<p> </p>
+<pre class="r"><code>library(stringr)</code></pre>
+<p> </p>
+<p>Once the stringr package is loaded, the functions in the stringr package can be used.</p>
+<p> </p>
+</div>
+<div id="a-look-at-the-stringr-functions" class="section level3">
+<h3><u>A Look At The stringr Functions</u></h3>
+<p> </p>
+<p>There are quite a few functions in the stringr package so I am keeping details at a minimum. Each subsection refers to a specific function in stringr. Examples are included to show how the functions operate.</p>
+<p> </p>
+<p><a name="length"></a></p>
+<p><strong>Length Of Strings</strong></p>
+<p> </p>
+<p>The length or number of characters in a string can be determined with the str_length() function from stringr. Please refer to the examples below.</p>
+<p> </p>
+<pre class="r"><code>## Length of strings:
+
+str_length(&quot;Hello&quot;)</code></pre>
+<pre><code>## [1] 5</code></pre>
+<pre class="r"><code>str_length(c(&quot;Green&quot;, NA, &quot;R&quot;, &quot;Programming&quot;))</code></pre>
+<pre><code>## [1]  5 NA  1 11</code></pre>
+<p> </p>
+<p><a name="convert"></a></p>
+<p><strong>Converting To Uppercase, Lowercase, Titles</strong></p>
+<p> </p>
+<p>Converting strings to uppercase/lowercase letters or to a title format is not difficult. The functions involved are <code>str_to_upper()</code>, <code>str_to_lower()</code> and <code>str_to_title()</code>.</p>
+<p> </p>
+<pre class="r"><code>## Converting cases in a string:
+
+word &lt;- &quot;Green&quot;
+
+print(str_to_upper(word)) # Uppercase</code></pre>
+<pre><code>## [1] &quot;GREEN&quot;</code></pre>
+<pre class="r"><code>print(str_to_lower(word)) # Lowercase</code></pre>
+<pre><code>## [1] &quot;green&quot;</code></pre>
+<pre class="r"><code>print(str_to_title(word)) # Title, first letter upper case, rest lowercase</code></pre>
+<pre><code>## [1] &quot;Green&quot;</code></pre>
+<p> </p>
+<p><a name="combine"></a></p>
+<p><strong>Combining Multiple Strings Into A Single String</strong></p>
+<p> </p>
+<p>You can combine/concatenate multiple strings into a single string with the <code>str_c()</code> function. According to the R documentation, the function has this format.</p>
+<p> </p>
+<pre><code>str_c(..., sep = &quot;&quot;, collapse = NULL)</code></pre>
+<p> </p>
+<p>Here are some examples.</p>
+<p> </p>
+<pre class="r"><code>## My example:
+
+fibonacci_ten &lt;- c(&quot;1&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;5&quot;, &quot;8&quot;, &quot;13&quot;, &quot;21&quot;, &quot;34&quot;, &quot;55&quot;)
+
+str_c(&quot;Number: &quot;, fibonacci_ten)</code></pre>
+<pre><code>##  [1] &quot;Number: 1&quot;  &quot;Number: 1&quot;  &quot;Number: 2&quot;  &quot;Number: 3&quot;  &quot;Number: 5&quot; 
+##  [6] &quot;Number: 8&quot;  &quot;Number: 13&quot; &quot;Number: 21&quot; &quot;Number: 34&quot; &quot;Number: 55&quot;</code></pre>
+<pre class="r"><code>str_c(&quot;Number&quot;, fibonacci_ten, sep = &quot; - &quot;)</code></pre>
+<pre><code>##  [1] &quot;Number - 1&quot;  &quot;Number - 1&quot;  &quot;Number - 2&quot;  &quot;Number - 3&quot;  &quot;Number - 5&quot; 
+##  [6] &quot;Number - 8&quot;  &quot;Number - 13&quot; &quot;Number - 21&quot; &quot;Number - 34&quot; &quot;Number - 55&quot;</code></pre>
+<pre class="r"><code>str_c(&quot;The number &quot;, fibonacci_ten, &quot; is a Fibonacci number.&quot;)</code></pre>
+<pre><code>##  [1] &quot;The number 1 is a Fibonacci number.&quot; 
+##  [2] &quot;The number 1 is a Fibonacci number.&quot; 
+##  [3] &quot;The number 2 is a Fibonacci number.&quot; 
+##  [4] &quot;The number 3 is a Fibonacci number.&quot; 
+##  [5] &quot;The number 5 is a Fibonacci number.&quot; 
+##  [6] &quot;The number 8 is a Fibonacci number.&quot; 
+##  [7] &quot;The number 13 is a Fibonacci number.&quot;
+##  [8] &quot;The number 21 is a Fibonacci number.&quot;
+##  [9] &quot;The number 34 is a Fibonacci number.&quot;
+## [10] &quot;The number 55 is a Fibonacci number.&quot;</code></pre>
+<pre class="r"><code>str_c(fibonacci_ten[-10], &quot; is less than or equal to &quot;, fibonacci_ten[-1])</code></pre>
+<pre><code>## [1] &quot;1 is less than or equal to 1&quot;   &quot;1 is less than or equal to 2&quot;  
+## [3] &quot;2 is less than or equal to 3&quot;   &quot;3 is less than or equal to 5&quot;  
+## [5] &quot;5 is less than or equal to 8&quot;   &quot;8 is less than or equal to 13&quot; 
+## [7] &quot;13 is less than or equal to 21&quot; &quot;21 is less than or equal to 34&quot;
+## [9] &quot;34 is less than or equal to 55&quot;</code></pre>
+<pre class="r"><code>str_c(c(&quot;1&quot;, NA, &quot;10&quot;), &quot;2&quot;) # missing values cases = missing outputs, concatenate strings</code></pre>
+<pre><code>## [1] &quot;12&quot;  NA    &quot;102&quot;</code></pre>
+<p><a name="matches"></a></p>
+<p> </p>
+<p><strong>The Number Of Matches In A String</strong></p>
+<p> </p>
+<p>The <code>str_count()</code> function can help in finding the number of a specific pattern in a string. Examples are shown below.</p>
+<pre class="r"><code>## Number of matches in a string using str_count():
+
+fruit &lt;- &quot;strawberry&quot;
+
+str_count(fruit, pattern = &quot;r&quot;) # Find r&#39;s</code></pre>
+<pre><code>## [1] 3</code></pre>
+<pre class="r"><code>str_count(fruit, pattern = &quot;w&quot;) # Find w&#39;s</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="r"><code>str_count(fruit, pattern = c(&quot;w&quot;, &quot;a&quot;, &quot;y&quot;, &quot;r&quot;)) # Find w&#39;s, a&#39;s, y&#39;s and r&#39;s</code></pre>
+<pre><code>## [1] 1 1 1 3</code></pre>
+<pre class="r"><code>colours &lt;- c(&quot;green&quot;, &quot;red&quot;, &quot;blue&quot;, &quot;purple&quot;, &quot;orange&quot;, &quot;yellow&quot;, &quot;teal&quot;)
+
+str_count(colours, pattern = &quot;e&quot;) # Find number of e&#39;s in colours; output is a vector</code></pre>
+<pre><code>## [1] 2 1 1 1 1 1 1</code></pre>
+<pre class="r"><code>str_count(colours, pattern = &quot;l&quot;) # Find number of l&#39;s in colours</code></pre>
+<pre><code>## [1] 0 0 1 1 0 2 1</code></pre>
+<p> </p>
+<p><a name="detect"></a></p>
+<p><strong>Detecting Matches In A String</strong></p>
+<p> </p>
+<p>In stringr, you can detect certain matches/patterns in a string with the <code>str_detect()</code> function. Knowledge of regular expressions is helpful depending on what you want to detect. Outputs from <code>str_detect()</code> are either TRUE or FALSE.</p>
+<p> </p>
+<pre class="r"><code>## Detect matches in a string using str_count(). Output is a logical vector.
+## Regular expressions can be used too.
+
+item &lt;- &quot;chair&quot;
+
+str_detect(item, pattern = &quot;a&quot;) # Is there an a?</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>str_detect(item, pattern = &quot;y&quot;) # Is there a y?</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code>str_detect(item, pattern = &quot;[aeiou]&quot;) # Is there a vowel?</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>str_detect(item, pattern = &quot;^c&quot;) # Is there a starting c?</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>str_detect(item, pattern = &quot;c$&quot;) # Is there an ending c?</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code>str_detect(c(item, &quot;TV&quot;), pattern = &quot;^c&quot;) # Is there a starting c?</code></pre>
+<pre><code>## [1]  TRUE FALSE</code></pre>
+<p> </p>
+<p><a name="duplicate"></a></p>
+<p><strong>Duplicating &amp; Multiplying Strings</strong></p>
+<p> </p>
+<p>You can create duplicates and multiply strings together with the <code>str_dup()</code> function.</p>
+<p> </p>
+<pre class="r"><code>## Duplicating and combining strings:
+# These examples are similar to the R documentation examples.
+
+food &lt;- c(&quot;Pizza&quot;, &quot;Chicken&quot;, &quot;Noodles&quot;, &quot;Salad&quot;)
+
+str_dup(food, 2) # Double</code></pre>
+<pre><code>## [1] &quot;PizzaPizza&quot;     &quot;ChickenChicken&quot; &quot;NoodlesNoodles&quot; &quot;SaladSalad&quot;</code></pre>
+<pre class="r"><code>str_dup(food, 1:4) # Single for Pizza, 2x Chicken, 3x Noodles, 4x Salad</code></pre>
+<pre><code>## [1] &quot;Pizza&quot;                 &quot;ChickenChicken&quot;        &quot;NoodlesNoodlesNoodles&quot;
+## [4] &quot;SaladSaladSaladSalad&quot;</code></pre>
+<pre class="r"><code>str_c(food, str_dup(&quot;!&quot;, 1:4)) # Add exclamation marks to food items.</code></pre>
+<pre><code>## [1] &quot;Pizza!&quot;     &quot;Chicken!!&quot;  &quot;Noodles!!!&quot; &quot;Salad!!!!&quot;</code></pre>
+<p> </p>
+<p><a name="extract"></a>  </p>
+<p><strong>Extract A Matching Pattern From A String</strong></p>
+<p>The <code>str_extract()</code> function from the stringr package allows for extracting certain patterns from a string. You can use a single string or a vector of strings in <code>str_extract()</code>. Regular expressions can be used as well here. More examples can be found in the stringr documentation.</p>
+<p> </p>
+<pre class="r"><code>## Extract the matching pattern from string:
+# Can use regular expressions; more examples in documentation.
+
+colours &lt;- c(&quot;green&quot;, &quot;red&quot;, &quot;blue&quot;, &quot;purple&quot;, &quot;orange&quot;, &quot;yellow&quot;, &quot;teal&quot;)
+
+str_extract(string = colours, pattern = &quot;e&quot;) # Extract letter e.</code></pre>
+<pre><code>## [1] &quot;e&quot; &quot;e&quot; &quot;e&quot; &quot;e&quot; &quot;e&quot; &quot;e&quot; &quot;e&quot;</code></pre>
+<pre class="r"><code>str_extract(string = colours, pattern = &quot;[aeiou]&quot;) # Extract vowels.</code></pre>
+<pre><code>## [1] &quot;e&quot; &quot;e&quot; &quot;u&quot; &quot;u&quot; &quot;o&quot; &quot;e&quot; &quot;e&quot;</code></pre>
+<pre class="r"><code>str_extract_all(string = colours, pattern = &quot;e&quot;) # Extract all cases of letter e.</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;e&quot; &quot;e&quot;
+## 
+## [[2]]
+## [1] &quot;e&quot;
+## 
+## [[3]]
+## [1] &quot;e&quot;
+## 
+## [[4]]
+## [1] &quot;e&quot;
+## 
+## [[5]]
+## [1] &quot;e&quot;
+## 
+## [[6]]
+## [1] &quot;e&quot;
+## 
+## [[7]]
+## [1] &quot;e&quot;</code></pre>
+<pre class="r"><code>str_extract_all(string = colours, pattern = &quot;[aeiou]&quot;) # Extract all vowel cases.</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;e&quot; &quot;e&quot;
+## 
+## [[2]]
+## [1] &quot;e&quot;
+## 
+## [[3]]
+## [1] &quot;u&quot; &quot;e&quot;
+## 
+## [[4]]
+## [1] &quot;u&quot; &quot;e&quot;
+## 
+## [[5]]
+## [1] &quot;o&quot; &quot;a&quot; &quot;e&quot;
+## 
+## [[6]]
+## [1] &quot;e&quot; &quot;o&quot;
+## 
+## [[7]]
+## [1] &quot;e&quot; &quot;a&quot;</code></pre>
+<p> </p>
+<p><a name="position"></a></p>
+<p><strong>Locating The Position Of A Pattern In A String</strong></p>
+<p> </p>
+<p>There are times when you would rather locate the position of the pattern in a string versus extracting that pattern. The <code>str_locate()</code> function requires a string and a pattern which would output the position of the specified pattern.</p>
+<p>If the input is a vector of strings, the output would be a matrix where the number of rows is the number of strings and there would be two columns. The first column represents the starting position for a string and the second column represents the ending position of the string. If the pattern is a single character, the start and end position would be the same.</p>
+<p> </p>
+<pre class="r"><code># Locating the position of patterns in a string:
+
+colours &lt;- c(&quot;green&quot;, &quot;red&quot;, &quot;blue&quot;, &quot;purple&quot;, &quot;orange&quot;, &quot;yellow&quot;, &quot;teal&quot;)
+
+str_locate(colours, &quot;e&quot;) # Find position of e.</code></pre>
+<pre><code>##      start end
+## [1,]     3   3
+## [2,]     2   2
+## [3,]     4   4
+## [4,]     6   6
+## [5,]     6   6
+## [6,]     2   2
+## [7,]     2   2</code></pre>
+<pre class="r"><code>str_locate(colours, &quot;a&quot;) # Find position of a.</code></pre>
+<pre><code>##      start end
+## [1,]    NA  NA
+## [2,]    NA  NA
+## [3,]    NA  NA
+## [4,]    NA  NA
+## [5,]     3   3
+## [6,]    NA  NA
+## [7,]     3   3</code></pre>
+<pre class="r"><code># Find cases of letter e in green, d in red, u in blue, p in purple and so on:
+
+str_locate(colours, c(&quot;e&quot;, &quot;d&quot;, &quot;u&quot;, &quot;p&quot;, &quot;n&quot;, &quot;y&quot;, &quot;l&quot;))</code></pre>
+<pre><code>##      start end
+## [1,]     3   3
+## [2,]     3   3
+## [3,]     3   3
+## [4,]     1   1
+## [5,]     4   4
+## [6,]     1   1
+## [7,]     4   4</code></pre>
+<pre class="r"><code>str_locate_all(colours, &quot;e&quot;) # Find positions of e in each colour in colours.</code></pre>
+<pre><code>## [[1]]
+##      start end
+## [1,]     3   3
+## [2,]     4   4
+## 
+## [[2]]
+##      start end
+## [1,]     2   2
+## 
+## [[3]]
+##      start end
+## [1,]     4   4
+## 
+## [[4]]
+##      start end
+## [1,]     6   6
+## 
+## [[5]]
+##      start end
+## [1,]     6   6
+## 
+## [[6]]
+##      start end
+## [1,]     2   2
+## 
+## [[7]]
+##      start end
+## [1,]     2   2</code></pre>
+<pre class="r"><code>str_locate_all(colours, &quot;o&quot;) # Find positions of o in each colour in colours.</code></pre>
+<pre><code>## [[1]]
+##      start end
+## 
+## [[2]]
+##      start end
+## 
+## [[3]]
+##      start end
+## 
+## [[4]]
+##      start end
+## 
+## [[5]]
+##      start end
+## [1,]     1   1
+## 
+## [[6]]
+##      start end
+## [1,]     5   5
+## 
+## [[7]]
+##      start end</code></pre>
+<p> </p>
+<p>If there is no such pattern, the output would be NA or blank.</p>
+<p> </p>
+<p><a name="match"></a></p>
+<p><strong>String Matching</strong></p>
+<p> </p>
+<p>You can match certain patterns in a string using the <code>str_match()</code> function. This function is very similar to <code>str_extract()</code>.</p>
+<p> </p>
+<pre class="r"><code>## String matching:
+
+str_match(string = &quot;yellow&quot;, pattern = &quot;ll&quot;)</code></pre>
+<pre><code>##      [,1]
+## [1,] &quot;ll&quot;</code></pre>
+<pre class="r"><code>str_match_all(string = &quot;parallelogram&quot;, pattern = &quot;l&quot;)</code></pre>
+<pre><code>## [[1]]
+##      [,1]
+## [1,] &quot;l&quot; 
+## [2,] &quot;l&quot; 
+## [3,] &quot;l&quot;</code></pre>
+<p> </p>
+<p><a name="sorting"></a></p>
+<p><strong>Ordering/Sorting Strings</strong></p>
+<p> </p>
+<p>A useful function is ordering/sorting strings. The functions used here are <code>str_order()</code> and <code>str_sort()</code>. Given a vector of strings, <code>str_order()</code> outputs the positions in ABC order (by default). The <code>str_order()</code> function outputs the elements in the vector in ABC order.</p>
+<p>The template code from the R documentation for both functions are shown below. (I do not know what locale means here.)</p>
+<p> </p>
+<pre><code>str_order(x, decreasing = FALSE, na_last = TRUE, locale = &quot;&quot;, ...)
+str_sort(x, decreasing = FALSE, na_last = TRUE, locale = &quot;&quot;, ...)</code></pre>
+<p> </p>
+<p>The first example uses five numbers.</p>
+<p> </p>
+<pre class="r"><code>## String Order/Sort:
+
+# Template Code: str_order(x, decreasing = FALSE, na_last = TRUE, locale = &quot;&quot;, ...)
+#                str_sort(x, decreasing = FALSE, na_last = TRUE, locale = &quot;&quot;, ...)
+# Don&#39;t know what locale is.
+
+five_numbers &lt;- as.character(c(1:5))
+five_numbers</code></pre>
+<pre><code>## [1] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; &quot;5&quot;</code></pre>
+<pre class="r"><code># Order from higherst to lowest, decr is FALSE by default:
+
+str_order(five_numbers, decreasing = TRUE) # Gives positions in vector.</code></pre>
+<pre><code>## [1] 5 4 3 2 1</code></pre>
+<pre class="r"><code>str_sort(five_numbers , decreasing = TRUE) # Outputs each number in vector.</code></pre>
+<pre><code>## [1] &quot;5&quot; &quot;4&quot; &quot;3&quot; &quot;2&quot; &quot;1&quot;</code></pre>
+<p> </p>
+<p>Note: It is recommended to not sort numbered strings using <code>str_sort()</code> or <code>str_order()</code>. Here is an example.</p>
+<p> </p>
+<pre class="r"><code># Example - Ordering numbers as strings is bad.
+
+str_sort(as.character(c(1:10)), decreasing = TRUE)</code></pre>
+<pre><code>##  [1] &quot;9&quot;  &quot;8&quot;  &quot;7&quot;  &quot;6&quot;  &quot;5&quot;  &quot;4&quot;  &quot;3&quot;  &quot;2&quot;  &quot;10&quot; &quot;1&quot;</code></pre>
+<p> </p>
+<p>The output above does not have “10” as the first string. This “10” is second last as I think it looks at the first digit and this “10” is before “1” because of this extra digit.</p>
+<p>These next examples are about sorting text alphabetically.</p>
+<pre class="r"><code># Ordering objects:
+
+objects &lt;- c(&quot;Box&quot;, &quot;TV&quot;, &quot;Computer&quot;, &quot;Phone&quot;, &quot;Oven&quot;)
+
+# ABC order:
+
+str_order(objects) # Gives positions in vector.</code></pre>
+<pre><code>## [1] 1 3 5 4 2</code></pre>
+<pre class="r"><code>str_sort(objects) # Outputs each number in vector.</code></pre>
+<pre><code>## [1] &quot;Box&quot;      &quot;Computer&quot; &quot;Oven&quot;     &quot;Phone&quot;    &quot;TV&quot;</code></pre>
+<pre class="r"><code># ZYX Order:
+
+str_order(objects, decreasing = TRUE) # Gives positions in vector.</code></pre>
+<pre><code>## [1] 2 4 5 3 1</code></pre>
+<pre class="r"><code>str_sort(objects , decreasing = TRUE) # Outputs each number in vector.</code></pre>
+<pre><code>## [1] &quot;TV&quot;       &quot;Phone&quot;    &quot;Oven&quot;     &quot;Computer&quot; &quot;Box&quot;</code></pre>
+<p> </p>
+<p><strong>Padding Strings</strong></p>
+<p> </p>
+<p>Padding strings involve adding characters to the left/right or both sides of a string. The code template from the R documentation is shown below along with some examples.</p>
+<p> </p>
+<pre class="r"><code>## Padding a string:
+
+# Template: str_pad(string, width, side = c(&quot;left&quot;, &quot;right&quot;, &quot;both&quot;), pad = &quot; &quot;)
+
+str_pad(&quot;Jello&quot;, width = 7, side = &quot;right&quot;, pad = &quot;!&quot;)</code></pre>
+<pre><code>## [1] &quot;Jello!!&quot;</code></pre>
+<pre class="r"><code>str_pad(&quot;Jello&quot;, width = 7, side = &quot;left&quot;, pad = &quot;J&quot;)</code></pre>
+<pre><code>## [1] &quot;JJJello&quot;</code></pre>
+<pre class="r"><code># Add 2 Js both sides and 2 !s both sides a vector with 2 elements.
+
+str_pad(&quot;Jello&quot;, width = 9, side = &quot;both&quot;, pad = c(&quot;J&quot;, &quot;!&quot;))</code></pre>
+<pre><code>## [1] &quot;JJJelloJJ&quot; &quot;!!Jello!!&quot;</code></pre>
+<pre class="r"><code># Making JJJello!!. Inside str_pad makes Jello!!, Outside one adds 2 Js to Jello!!:
+
+str_pad(str_pad(&quot;Jello&quot;, width = 7, side = &quot;right&quot;, pad = &quot;!&quot;),
+         width = 9, side = &quot;left&quot;, pad = &quot;J&quot;)</code></pre>
+<pre><code>## [1] &quot;JJJello!!&quot;</code></pre>
+<p> </p>
+<p><a name="replace"></a></p>
+<p><strong>Replacing Patterns In Strings</strong></p>
+<p> </p>
+<p>You can replace patterns in strings with the <code>str_replace()</code> and <code>str_replace_all()</code> functions from stringr. The user would have to specify the pattern to be replaced inside a string (or a vector of strings) and a replacement.</p>
+<p> </p>
+<pre class="r"><code>## String Replace:
+
+term &lt;- &quot;yellowjello&quot;
+
+# Replace &quot;ll&quot; with black space:
+
+str_replace(term, pattern = &quot;ll&quot;, replacement = &quot;&quot;) # First instance</code></pre>
+<pre><code>## [1] &quot;yeowjello&quot;</code></pre>
+<pre class="r"><code>str_replace_all(term, pattern = &quot;ll&quot;, replacement = &quot;&quot;) # All instances</code></pre>
+<pre><code>## [1] &quot;yeowjeo&quot;</code></pre>
+<pre class="r"><code># Replace &quot;ll&quot; with &quot;nn&quot; :
+
+str_replace(term, pattern = &quot;ll&quot;, replacement = &quot;nn&quot;)</code></pre>
+<pre><code>## [1] &quot;yennowjello&quot;</code></pre>
+<pre class="r"><code>str_replace_all(term, pattern = &quot;ll&quot;, replacement = &quot;nn&quot;)</code></pre>
+<pre><code>## [1] &quot;yennowjenno&quot;</code></pre>
+<p> </p>
+<p><a name="split"></a></p>
+<p><strong>Splitting Strings</strong></p>
+<p> </p>
+<p>Given a string or a vector of strings, you can split strings with the <code>str_split()</code> function. There is also the <code>str_split_fixed()</code> function where the output is a character matrix versus a character vector from <code>str_split()</code>. The code below shows the R documentation template code with some of my examples.</p>
+<p> </p>
+<pre class="r"><code>## String Split - Split strings into pieces.
+
+# Template: str_split(string, pattern, n = Inf, simplify = FALSE)
+
+str_split(&quot;Hannah Banana&quot;, pattern = &quot; &quot;)</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;Hannah&quot; &quot;Banana&quot;</code></pre>
+<pre class="r"><code>str_split(&quot;ABC&quot;, pattern = &quot;&quot;) # Split into each character</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;A&quot; &quot;B&quot; &quot;C&quot;</code></pre>
+<pre class="r"><code>oils &lt;- &quot;Canola, Sunflower, Avocado, Sesame, Olive, Castor, Peanut&quot;
+
+str_split(oils, pattern = &quot;, &quot;)</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;Canola&quot;    &quot;Sunflower&quot; &quot;Avocado&quot;   &quot;Sesame&quot;    &quot;Olive&quot;     &quot;Castor&quot;   
+## [7] &quot;Peanut&quot;</code></pre>
+<pre class="r"><code>str_split(oils, pattern = &quot;, &quot;, n = 2)</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;Canola&quot;                                           
+## [2] &quot;Sunflower, Avocado, Sesame, Olive, Castor, Peanut&quot;</code></pre>
+<pre class="r"><code>str_split(oils, pattern = &quot;, &quot;, n = 1) # One vector</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;Canola, Sunflower, Avocado, Sesame, Olive, Castor, Peanut&quot;</code></pre>
+<pre class="r"><code>str_split(oils, pattern = &quot;, &quot;, n = 3)</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;Canola&quot;                                
+## [2] &quot;Sunflower&quot;                             
+## [3] &quot;Avocado, Sesame, Olive, Castor, Peanut&quot;</code></pre>
+<pre class="r"><code>str_split(oils, pattern = &quot;, &quot;, n = 3, simplify = TRUE) # Return character matrix</code></pre>
+<pre><code>##      [,1]     [,2]        [,3]                                    
+## [1,] &quot;Canola&quot; &quot;Sunflower&quot; &quot;Avocado, Sesame, Olive, Castor, Peanut&quot;</code></pre>
+<pre class="r"><code>str_split_fixed(string = oils, pattern = &quot;, &quot;, n = 3)</code></pre>
+<pre><code>##      [,1]     [,2]        [,3]                                    
+## [1,] &quot;Canola&quot; &quot;Sunflower&quot; &quot;Avocado, Sesame, Olive, Castor, Peanut&quot;</code></pre>
+<pre class="r"><code>str_split_fixed(string = oils, pattern = &quot;, &quot;, n = 2)</code></pre>
+<pre><code>##      [,1]     [,2]                                               
+## [1,] &quot;Canola&quot; &quot;Sunflower, Avocado, Sesame, Olive, Castor, Peanut&quot;</code></pre>
+<p> </p>
+<p><a name="substrings"></a></p>
+<p> </p>
+<p><strong>Substrings From Strings</strong></p>
+<p> </p>
+<p>Suppose you have a string (or strings) where you want a subset/portion of the string(s). The <code>str_sub()</code> function allows the R user to extract substrings from strings. Start and end positions are needed along with the string object itself in <code>str_sub()</code>. (You could also use <code>str_locate()</code> to find positions of patterns.)</p>
+<p> </p>
+<pre class="r"><code>## String Sub:
+# Extract &amp; replace substrings from a character vector.
+
+name &lt;- &quot;Roger Federer&quot;
+
+str_sub(name, start = 1, end = 5) # Roger</code></pre>
+<pre><code>## [1] &quot;Roger&quot;</code></pre>
+<pre class="r"><code>str_sub(name, start = 7, end = 13) # Federer</code></pre>
+<pre><code>## [1] &quot;Federer&quot;</code></pre>
+<pre class="r"><code># str_count(name) = 13; Output is Federer:
+
+str_sub(name, start = 7, end = str_length(name))</code></pre>
+<pre><code>## [1] &quot;Federer&quot;</code></pre>
+<pre class="r"><code># Fed:
+
+str_locate(name, pattern = &quot;Fed&quot;) #7 and 9:</code></pre>
+<pre><code>##      start end
+## [1,]     7   9</code></pre>
+<pre class="r"><code>str_sub(name, start = 7, end = 9)</code></pre>
+<pre><code>## [1] &quot;Fed&quot;</code></pre>
+<p> </p>
+<p><a name="trimming"></a></p>
+<p><strong>Trimming Strings</strong></p>
+<p> </p>
+<p>Any whitespace in strings can be trimmed/removed by using the <code>str_trim()</code> function. The user has to specify whether to trim from the left, right or both sides of the string.</p>
+<p> </p>
+<pre class="r"><code>## String Trim to trim whitespace at start and end of a string:
+
+test &lt;- &quot; Hi &quot;
+
+str_trim(test, &quot;left&quot;)</code></pre>
+<pre><code>## [1] &quot;Hi &quot;</code></pre>
+<pre class="r"><code>str_trim(test, &quot;right&quot;)</code></pre>
+<pre><code>## [1] &quot; Hi&quot;</code></pre>
+<pre class="r"><code>str_trim(test, &quot;both&quot;)</code></pre>
+<pre><code>## [1] &quot;Hi&quot;</code></pre>
+<pre class="r"><code>test_cases &lt;- c(&quot; Hi &quot;, &quot; Hey! &quot;)
+
+str_trim(test_cases, &quot;left&quot;)</code></pre>
+<pre><code>## [1] &quot;Hi &quot;   &quot;Hey! &quot;</code></pre>
+<pre class="r"><code>str_trim(test_cases, &quot;right&quot;)</code></pre>
+<pre><code>## [1] &quot; Hi&quot;   &quot; Hey!&quot;</code></pre>
+<pre class="r"><code>str_trim(test_cases, &quot;both&quot;)</code></pre>
+<pre><code>## [1] &quot;Hi&quot;   &quot;Hey!&quot;</code></pre>
+<p> </p>
+<p><a name="truncating"></a></p>
+<p><strong>Truncating Strings</strong></p>
+<p> </p>
+<p>Truncate can be seen as another word for trim or subset. In stringr, the <code>str_trunc()</code> function takes a string, a specified width (substring length), and a side of either right, left or center. The ellipsis = “…” is there by default. The output for <code>str_trunc()</code> gives a substring customized to the arguments in <code>str_trunc()</code>.</p>
+<p>The code below includes the template code from the R documentation and some examples.</p>
+<p> </p>
+<pre class="r"><code>## String Truncate: Extract a number of characters from a string:
+
+# Template: str_trunc(string, width, side = c(&quot;right&quot;, &quot;left&quot;, &quot;center&quot;), ellipsis = &quot;...&quot;)
+
+long_sentence &lt;- &quot;This is a very long sentence with many different letters.&quot;
+
+str_trunc(string = long_sentence, width = 25, side = &quot;right&quot;)</code></pre>
+<pre><code>## [1] &quot;This is a very long se...&quot;</code></pre>
+<pre class="r"><code>str_trunc(string = long_sentence, width = 25, side = &quot;left&quot;)</code></pre>
+<pre><code>## [1] &quot;...any different letters.&quot;</code></pre>
+<pre class="r"><code>str_trunc(string = long_sentence, width = 25, side = &quot;center&quot;)</code></pre>
+<pre><code>## [1] &quot;This is a v...nt letters.&quot;</code></pre>
+<p> </p>
+<p><a name="words"></a></p>
+<p><strong>Extracting Words From A Sentence</strong></p>
+<p> </p>
+<p>Given a string that is a sentence, the <code>word()</code> function from stringr can extract words. The user has to specify a start and end. If you want to extract the first two words in a sentence you would use start = 1 and end = 2. You can somewhat view each word in a sentence as elements in an array/vector.</p>
+<p> </p>
+<pre class="r"><code>## word(): Extract words from a sentence.
+
+sentence &lt;- &quot;The cat in a hat is missing.&quot;
+
+word(string = sentence, start = 1, end = 2) # Extract first two words.</code></pre>
+<pre><code>## [1] &quot;The cat&quot;</code></pre>
+<pre class="r"><code>word(string = sentence, -1) # Extract last word.</code></pre>
+<pre><code>## [1] &quot;missing.&quot;</code></pre>
+<pre class="r"><code>word(string = sentence, -3) # Extract third last word.</code></pre>
+<pre><code>## [1] &quot;hat&quot;</code></pre>
+<pre class="r"><code># Multiple sentences case:
+
+sentence_list &lt;- c(&quot;Watch out there!&quot;, &quot;Here is my car.&quot;)
+
+word(sentence_list, 1) # First word in each sentence.</code></pre>
+<pre><code>## [1] &quot;Watch&quot; &quot;Here&quot;</code></pre>
+<pre class="r"><code>word(sentence_list, start = 1:2, end = -1)</code></pre>
+<pre><code>## [1] &quot;Watch out there!&quot; &quot;is my car.&quot;</code></pre>
+<p> </p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -125,7 +125,19 @@ This page contains links on a bunch of R programming projects.
 
 [Data Cleaning In R With The tidyr Package](./ranalysis-tidyr-clean.html)
 
+[R's sapply() Function With Examples](./ranalysis-sapply.html)
 
+[A Look At R's stringr Package](./ranalysis-sapply.html)
+
+[Data Manipulation In R: The melt Function](./ranalysis-meltFunction.html)
+
+[Reading In Various File Types In R](./ranalysis-readfile-types.html)
+
+[Loading A .JSON File Into R](./ranalysis-JSON.html)
+
+[Analyzing the German Soccer (Bundesliga) League Using R & The dplyr Package](./ranalysis-bundesligR.html)
+
+[Analyzing Soccer Data From The 2010 World Cup In R and the dplyr Package](./ranalysis-soccer2010.html)
 
 &nbsp;
 
@@ -136,6 +148,12 @@ This page contains links on a bunch of R programming projects.
 &nbsp;
 
 [Finding The Most Frequent Words In Text With R](./rtext-freq-words.html)
+
+[Text Analysis In R On Linkin Park - Meteora Song Lyrics](./rtext-meteora.html)
+
+[Text Mining/Analysis On A Few Rap Lyrics With R Programming](./rtext-raplyrics.html)
+
+[Text Analysis In R On Dr.Seuss Fox In Socks](./rtext-foxsocks.html)
 
 &nbsp;
 

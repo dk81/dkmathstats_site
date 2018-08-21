@@ -1,0 +1,376 @@
+---
+title: "Data Manipulation In R: The melt Function"
+output: html_document
+---
+
+Hi there. I was playing around with the melt function from the reshape2 package in R. This melt function helps in converting data from a wide format to a long format which would be ready for data analysis, plotting, graphing, etc.
+
+Here is some of the work I have come with.
+
+&nbsp;
+
+### <u>Sections</u>
+
+&nbsp;
+
+* <a href="#reshape2">Installing and Loading The reshape2 Package In R</a>
+
+* <a href="#one">Example One: Kangaroo Data From Wide Format To Long Format</a>
+
+* <a href="#two">Example Two: Melting A Table</a>
+
+* <a href="#three">Example Three: Melting A Table Of Results From Coin Flipping and Rolling A Die</a>
+
+* <a href="#refs">References</a>
+
+<a name="reshape2"></a>
+
+&nbsp;
+
+### <u>Installing and Loading The reshape2 Package In R</u>
+
+&nbsp;
+
+
+To install the `reshape2` package in R you can type in:
+
+&nbsp;
+
+```
+install.packages("reshape2")
+```
+&nbsp;
+
+To enable the functions in the reshape2 package use the line
+
+&nbsp;
+
+```{r}
+library(reshape2)
+```
+
+&nbsp;
+
+Once the reshape2 package is loaded into R, the melt function can be used to convert data from a wide format to a long format or convert tables into a (long) format which would be ready for analysis and plotting.
+
+<a name="one"></a>
+
+&nbsp;
+
+### <u>Example One: Kangaroo Data From Wide Format To Long Format</u>
+
+&nbsp;
+
+In this first example, I deal with a kangaroo measurements dataset from the faraway library in R.
+
+The dataset called kanga from the faraway package is saved into kangaroo_data. Then the `head()` and `tail()` functions are used the preview the data.
+
+&nbsp;
+
+```{r}
+# Example One: Wide Format Data To Long Format Data
+
+# Get kangaroo measurements data from faraway package and save it to a variable.
+
+kangaroo_data <- faraway::kanga
+
+# Preview the data:
+
+head(kangaroo_data)
+```
+
+&nbsp;
+
+The `summary()` function and the `str()` function is used to check some summary statistics and to check the variable types in the data.
+
+&nbsp;
+
+```{r}
+# Summary and data structure:
+ 
+summary(kangaroo_data)
+
+str(kangaroo_data)
+```
+
+&nbsp;
+
+Notice how the 18 variables/columns out of 20 are all measurement variables. These 18 variables/columns can be combined together into one column which would represent the measurement type. Also there would be an additional column which would contain the measurement values associated with the measurement type. This is where the `melt()` function from the reshape2 package comes in.
+
+&nbsp;
+
+```{r}
+# Melt The Data From Wide To Long Format (Remove NA values):
+
+kangaroo_long <- melt(kangaroo_data, na.rm = TRUE, value.name = "Measurement_Value")
+
+# Preview melted data and check dimensions:
+
+head(kangaroo_long)
+
+dim(kangaroo_long)
+```
+
+&nbsp;
+
+This melted data has 2607 rows and 4 columns versus 148 rows and 20 columns from the non-melted data. The column variable represents the measurement type and Measurement_Value represents the measurement value associated with the measurement type.
+
+The columns of the melted data can be renamed by using `colnames()` to make things look professional.
+
+&nbsp;
+
+```{r}
+# Rename columns:
+
+colnames(kangaroo_long) <- c("Species", "Sex", "Measurement", "Amount")
+
+# Preview melted data again:
+
+head(kangaroo_long)
+
+tail(kangaroo_long)
+
+```
+
+<a name="two"></a>
+
+&nbsp;
+
+### <u>Example Two: Melting A Table</u>
+
+&nbsp;
+
+This next example will feature the melt function decomposing a table into a format ready for data analysis and plotting in R.
+
+I first create two vectors/arrays where one of the two is a small list of colours and the other vector consists of sizes.
+
+&nbsp;
+
+```{r}
+# Example Two - Custom Example
+
+colours <- c("Yellow", "Green", "Red", "Blue", "Black", "White")
+sizes <- c("Small", "Medium", "Large")
+
+# Number of elements/objects in each array/vector (Set):
+
+length(colours) #6
+
+length(sizes) #3
+```
+
+&nbsp;
+
+Next, I create a Cartesian Product of colours and sizes in R using the `expand.grid()` function. This function will create all combinations from each of the colours with each of the sizes.
+
+(For example, I would have [Yellow, Small], [Yellow, Medium], all the way to [White, Large].)
+
+&nbsp;
+
+```{r}
+# Create Cartesian Product (All combinations)
+cartesianProd <- expand.grid(colours, sizes)
+
+cartesianProd
+
+# Length should be 
+nrow(cartesianProd) #6 x 3 = 18
+```
+
+&nbsp;
+
+Suppose I wanted to create a table which shows the number of cases for each combination. In this scenario, I have a count of 1 for each combination. The `table()` function in R creates such a table/matrix.
+
+&nbsp;
+
+```{r}
+# Create a table with counts
+
+table <- table(cartesianProd)
+
+table
+```
+  
+&nbsp;
+
+This table has its uses but it is not ideal for data analysis and plotting in R. This is where the `melt()` function comes in. The `melt()` function will create the Cartesian product from before along with another column with the counts.
+
+&nbsp;
+
+```{r}
+# Undoing the table using melt function in reshape2 package
+
+melted_table <- melt(table)
+
+melted_table
+```
+
+&nbsp;
+
+The column names can be renamed as follows:
+
+&nbsp;
+
+```{r}
+# Change column names:
+
+colnames(melted_table) <- c("Colours", "Sizes", "Count")
+```
+
+<a name="three"></a>
+
+&nbsp;
+
+### <u>Example Three: Melting A Table Of Results From Coin Flipping and Rolling A Die</u>
+
+&nbsp;
+
+In this third and last example, I generate/simulate results from a coin flip and a dice roll. I repeat this coin flip and dice roll 300 times and display the results in a table with counts. This table is then melted using the melt function to convert the table into a long format.
+
+&nbsp;
+
+```{r}
+# Example Three - Sample Generated Data Of Coin Flip and Roll a Die (300 times) 
+ 
+# 0 = tails, 1 = Heads, C(1:6) is the same as c(1, 2, 3, 4, 5, 6)
+ 
+# Set seed 
+ 
+set.seed(177)
+ 
+# Generate data (using the random seed):
+ 
+coin_flips <- sample(c(0, 1), 300, replace = TRUE)
+die_rolls <- sample(c(1:6), size = 300, replace = TRUE)
+ 
+# Convert 0s to Tails and convert 1s to Heads:
+ 
+coin_flips[coin_flips == 0] <- "Tails"
+coin_flips[coin_flips == 1] <- "Heads"
+ 
+# Create data.frame before table:
+ 
+results_df <- data.frame(coin_flips, die_rolls)
+
+head(results_df)
+
+tail(results_df)
+
+```
+
+&nbsp;
+
+In order to simulate the coin flips and die rolls, the sample function is used. Zeroes corresponds to tails and ones corresponds to heads.
+
+As usual the column names are renamed.
+
+&nbsp;
+
+```{r}
+# Change column names:
+
+colnames(results_df) <- c("Coin_Flip", "Roll_Number")
+```
+
+&nbsp;
+
+A table is created using the `table()` function in R to create a table of counts depending on the coin flip outcome and the die roll number.
+
+&nbsp;
+
+```{r}
+# Create Table:
+
+results_table <- table(results_df)
+
+results_table
+```
+
+&nbsp;
+
+The table output comes out nicely. As an example, a coin flip of heads and a roll number of 5 appears 32 times.
+
+The melt function in this case converts the table into a data frame in the long format. Here is the code and output.
+
+&nbsp;
+
+```{r}
+# Use Melt Function To Convert Table Into A Three Column Data Frame
+# With Coin_Flip Outcome, Die Roll Number and Number Of Times
+
+melted_table <- melt(results_table)
+
+melted_table
+```
+
+&nbsp;
+
+The column names need some tweaking.
+
+&nbsp;
+
+```{r}
+# Change Third column name from value to Count:
+
+names(melted_table)[names(melted_table) == "value"] <- c("Count")
+ 
+# Verify:
+ 
+melted_table
+```
+
+&nbsp;
+
+### <u>Plotting The Data</u>
+
+&nbsp;
+
+Now this data is ready for data analysis/plotting. Here is the code and output.
+
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4}
+# Check structure of data:
+
+str(melted_table)
+
+# Change Roll_number to factors:
+
+melted_table$Roll_Number <- factor(melted_table$Roll_Number)
+
+# ggplot Heatmap Grid:
+
+library(ggplot2)
+ggplot(melted_table, aes(x = Coin_Flip, y = Roll_Number, fill = Count)) +
+  geom_tile() +
+  scale_x_discrete(labels = c("Heads", "Tails")) +
+  scale_y_discrete(labels = c("One","Two","Three","Four","Five","Six")) +
+  scale_fill_gradient2(midpoint = median(melted_table$Count), mid="grey70", 
+                       limits = c(min(melted_table$Count), max(melted_table$Count))) +
+  labs(x = "\n Coin Flip Result", y = "Die Roll Number \n", 
+       title = "Coin Flip and Die Roll Results (300 Times) \n",
+       fill = "\n Count \n") +
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face="bold", colour="darkgreen", size = 12),
+        axis.title.y = element_text(face="bold", colour="darkgreen", size = 12),
+        legend.title = element_text(face="bold", colour="brown", size = 10)) +
+  geom_text(aes(x = Coin_Flip, y = Roll_Number, label = Count), color = "black", 
+            fontface = "bold", size = 5) 
+```
+
+
+<a name="refs"></a>
+
+&nbsp;
+
+---
+
+&nbsp;
+
+### <u>References</u>
+
+&nbsp;
+
+* R Graphics Cookbook by Winston Chang (2012)
+
+* http://seananderson.ca/2013/10/19/reshape.html

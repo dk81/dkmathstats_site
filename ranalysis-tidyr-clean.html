@@ -264,9 +264,13 @@ $(document).ready(function () {
 <p>From the R documentation, here is information about the variables in the immer dataset.</p>
 <p>Loc: Location Var: The variety of barley (“manchuria”, “svansota”, “velvet”, “trebi” and “peatland”). Y1: Yield in 1931. Y2: Yield in 1932.</p>
 <p> </p>
-<pre class="r"><code>library(MASS)
-
-barley &lt;- immer
+<pre class="r"><code>library(MASS)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;MASS&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     select</code></pre>
+<pre class="r"><code>barley &lt;- immer
 
 head(barley)</code></pre>
 <pre><code>##   Loc Var    Y1    Y2
@@ -446,12 +450,12 @@ sample &lt;- data.frame(Hours = hours, Minutes = minutes, Seconds = seconds)
 # A peek at the data:
 head(sample)</code></pre>
 <pre><code>##   Hours Minutes Seconds
-## 1     0       7      31
-## 2     1      18      40
-## 3     1      59      58
-## 4     4      32      28
-## 5     5      23      58
-## 6     3      38      46</code></pre>
+## 1     4       4      38
+## 2     2      32      42
+## 3     2      42      38
+## 4     2      43      23
+## 5     2      52      25
+## 6     1       4      24</code></pre>
 <pre class="r"><code># Put a zero as first digit if value is less than ten to get 0X format.
 
 sample$Hours &lt;- ifelse(sample$Hours &lt; 10, paste0(0, sample$Hours), as.character(sample$Hours))
@@ -461,12 +465,12 @@ sample$Seconds &lt;- ifelse(sample$Seconds &lt; 10, paste0(0, sample$Seconds), a
 # Another peek to check:
 head(sample)</code></pre>
 <pre><code>##   Hours Minutes Seconds
-## 1    00      07      31
-## 2    01      18      40
-## 3    01      59      58
-## 4    04      32      28
-## 5    05      23      58
-## 6    03      38      46</code></pre>
+## 1    04      04      38
+## 2    02      32      42
+## 3    02      42      38
+## 4    02      43      23
+## 5    02      52      25
+## 6    01      04      24</code></pre>
 <pre class="r"><code># Unite the Hours, Minutes, Seconds columns, this combined column is Time:
 
 united &lt;- unite(sample, Time , Hours, Minutes, Seconds, sep = &quot;:&quot;)
@@ -474,12 +478,12 @@ united &lt;- unite(sample, Time , Hours, Minutes, Seconds, sep = &quot;:&quot;)
 # One last look:
 head(united)</code></pre>
 <pre><code>##       Time
-## 1 00:07:31
-## 2 01:18:40
-## 3 01:59:58
-## 4 04:32:28
-## 5 05:23:58
-## 6 03:38:46</code></pre>
+## 1 04:04:38
+## 2 02:32:42
+## 3 02:42:38
+## 4 02:43:23
+## 5 02:52:25
+## 6 01:04:24</code></pre>
 <p> </p>
 <p>With the <code>unite()</code> function, the dataset sample is specified. Time is the new column which combines Hours, Minutes, Seconds. The “:” in the sep argument gives the HH:MM:SS time format.</p>
 <p>Before the unite function paste0() was used. paste0() concatenates/combines strings together. I used ifelse() for the condition where the hour/minute/second is less than 10. If it was less than 10, a 0 was put in front. If not, then no 0 is needed in front as it satisfies the two digits in HH, MM or SS.</p>
