@@ -31,7 +31,7 @@ Hello. I have been playing around with German soccer (Bundesliga) data in R usin
 
 There is a neat data package in R called `bundesligR`. `bundesligR` is also a dataset which contains all final tables of Germany's top tier soccer league, the Bundesliga.
 
-Notable teams from the Bundesliga include FC Bayern München (Munich), Borussia Dortmund, Bayer 04 Leverkusen, and Borussia Mönchengladbach.
+Notable teams from the Bundesliga include FC Bayern Munchen (Munich), Borussia Dortmund, Bayer 04 Leverkusen, and Borussia Monchengladbach.
 
 If you have not installed the `bundesligR` or the `dplyr` package, you can install them both using:
 
@@ -128,7 +128,7 @@ season_2015 <- soccer %>% filter(Season == 2015)
 
 &nbsp;
 
-This season was interesting in the sense that it was a very good season for Borussia Dortmund and they were still 10 points away from FC Bayern München. The gap between Borussia Dortmund at second place and third place was 18 points.
+This season was interesting in the sense that it was a very good season for Borussia Dortmund and they were still 10 points away from FC Bayern Munchen. The gap between Borussia Dortmund at second place and third place was 18 points.
 
 &nbsp;
 
@@ -154,7 +154,7 @@ best_season
 
 &nbsp;
 
-For the 2012-2013 season, FC Bayern München won the Bundesliga with a record 91 points. They also won the DFB-Pokal and the UEFA Champions League for that season, winning the treble. (Winning the treble is very difficult.) 
+For the 2012-2013 season, FC Bayern Munchen won the Bundesliga with a record 91 points. They also won the DFB-Pokal and the UEFA Champions League for that season, winning the treble. (Winning the treble is very difficult.) 
 
 &nbsp;
 
@@ -213,11 +213,11 @@ head(top5, n = 30)
 
 &nbsp;
 
-<u>Number of Titles for FC Bayern München</u>
+<u>Number of Titles for FC Bayern Munchen</u>
 
 &nbsp;
 
-We can also find the number of times a certain team wins the Bundesliga title by placing first in a season. Here, we look at FC Bayern München and their number of Bundesliga titles.
+We can also find the number of times a certain team wins the Bundesliga title by placing first in a season. Here, we look at FC Bayern Munchen and their number of Bundesliga titles.
 
 &nbsp;
 
@@ -236,7 +236,7 @@ bayern_winCount <- nrow(bayern_wins); bayern_winCount
 
 &nbsp;
 
-From 1964 to now (2016),FC Bayern München has won the Bundesliga title 25 times, an impressive feat.
+From 1964 to now (2016),FC Bayern Munchen has won the Bundesliga title 25 times, an impressive feat.
 
 &nbsp;
 
