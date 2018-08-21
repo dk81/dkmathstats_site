@@ -229,7 +229,7 @@ $(document).ready(function () {
 <h3><u>The Bundesliga Data Using bundesligR</u></h3>
 <p> </p>
 <p>There is a neat data package in R called <code>bundesligR</code>. <code>bundesligR</code> is also a dataset which contains all final tables of Germany’s top tier soccer league, the Bundesliga.</p>
-<p>Notable teams from the Bundesliga include FC Bayern München (Munich), Borussia Dortmund, Bayer 04 Leverkusen, and Borussia Monchengladbach.</p>
+<p>Notable teams from the Bundesliga include FC Bayern Munchen (Munich), Borussia Dortmund, Bayer 04 Leverkusen, and Borussia Monchengladbach.</p>
 <p>If you have not installed the <code>bundesligR</code> or the <code>dplyr</code> package, you can install them both using:</p>
 <p> </p>
 <pre><code>install.packages(&quot;bundesligR&quot;)
@@ -303,7 +303,7 @@ head(soccer)</code></pre>
 ## 5 51 49  2     52
 ## 6 46 42  4     50</code></pre>
 <p> </p>
-<p>The %&gt;% pipe operator is used for easier reading. Instead of select(soccer, -Pts_pre_95), we use soccer %&gt;% select(-Pts_pre_95). The negative sign in front of the column Pts_pre_95 inside select() tells R to remove the specified column. Remove a column is easier than selecting everything else.</p>
+<p>The <code>%&gt;%</code> pipe operator is used for easier reading. Instead of <code>select(soccer, -Pts_pre_95)</code>, we use <code>soccer %&gt;% select(-Pts_pre_95)</code>. The negative sign in front of the column Pts_pre_95 inside <code>select()</code> tells R to remove the specified column. Remove a column is easier than selecting everything else.</p>
 <p>The <code>rename()</code> part is used to rename past columns.</p>
 <p><a name="select"></a></p>
 <p> </p>
@@ -507,7 +507,7 @@ bayern_wins</code></pre>
 <p> </p>
 <hr />
 <p> </p>
-<p>Number Of Titles For Borussia Dortmund</p>
+<p><u>Number Of Titles For Borussia Dortmund</u></p>
 <p>Here are the number of titles for Borussia Dortmund.</p>
 <p> </p>
 <pre class="r"><code># How Many Times Borussia Dortmund won the Bundesliga title in (1964-2016). 

@@ -97,7 +97,7 @@ head(soccer)
 
 &nbsp;
 
-The %>% pipe operator is used for easier reading. Instead of select(soccer, -Pts_pre_95), we use soccer %>% select(-Pts_pre_95). The negative sign in front of the column Pts_pre_95 inside select() tells R to remove the specified column. Remove a column is easier than selecting everything else.
+The `%>%` pipe operator is used for easier reading. Instead of `select(soccer, -Pts_pre_95)`, we use `soccer %>% select(-Pts_pre_95)`. The negative sign in front of the column Pts_pre_95 inside `select()` tells R to remove the specified column. Remove a column is easier than selecting everything else.
 
 The `rename()` part is used to rename past columns.
 
@@ -244,7 +244,7 @@ From 1964 to now (2016),FC Bayern Munchen has won the Bundesliga title 25 times,
 
 &nbsp;
 
-Number Of Titles For Borussia Dortmund
+<u>Number Of Titles For Borussia Dortmund</u>
 
 Here are the number of titles for Borussia Dortmund.
 
