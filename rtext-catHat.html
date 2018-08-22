@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Using R Programming &amp; Text Analysis On The Dr. Seuss - The Cat In The Hat Kids Book</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Using R Programming &amp; Text Analysis On The Dr. Seuss - The Cat In The Hat Kids Book</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hi there. In this page, I share some experimental work in the programming language R. I use R and text analysis to analyze the words in the Dr. Seuss - The Cat In The Hat kids book.</p>
+<p> </p>
+<center>
+<img src="catHat.jpg" />
+</center>
+<p> </p>
+<p>Image Source: <a href="http://wooderice.com/wp-content/uploads/2014/04/catinthehat.jpg" class="uri">http://wooderice.com/wp-content/uploads/2014/04/catinthehat.jpg</a></p>
+<p> </p>
+<div id="sections" class="section level3">
+<h3><u>Sections</u></h3>
+<p> </p>
+<ul>
+<li><a href="#intro">Introduction</a></li>
+<li><a href="#wordclouds">Wordclouds On The Most Common Words In The Cat In The Hat</a></li>
+<li><a href="#common">Most Common Words Plot</a></li>
+<li><a href="#sentiment">Sentiment Analysis On The Cat In The Hat</a></li>
+<li><a href="#refs">References</a></li>
+</ul>
+<p><a name="intro"></a></p>
+<p> </p>
+</div>
+<div id="introduction" class="section level3">
+<h3><u>Introduction</u></h3>
+<p> </p>
+<p>A text version of the book can be found from <a href="https://github.com/robertsdionne/rwet/blob/master/hw2/drseuss.txt" class="uri">https://github.com/robertsdionne/rwet/blob/master/hw2/drseuss.txt</a>. The contents are copied and pasted to a different .txt file for offline use.</p>
+<p>The R packages that are loaded in are:</p>
+<ul>
+<li>dplyr</li>
+<li>tidyr</li>
+<li>ggplot2</li>
+<li>tidytext</li>
+<li>wordcloud</li>
+<li>tm</li>
+</ul>
+<p> </p>
+<pre class="r"><code># Text Mining on the Dr. Seuss - The Cat In The Hat Kids Book
+
+# Text Version Of Book Source: 
+# https://github.com/robertsdionne/rwet/blob/master/hw2/drseuss.txt
+
+# 1) Wordclouds 
+# 2) Word Counts 
+# 3) Sentiment Analysis - nrc, bing and AFINN Lexicons
+
+#----------------------------------
+
+# Load libraries into R:
+# Install packages with install.packages(&quot;pkg_name&quot;)
+
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(tidytext)</code></pre>
+<pre><code>## Warning: package &#39;tidytext&#39; was built under R version 3.4.4</code></pre>
+<pre class="r"><code>library(wordcloud)</code></pre>
+<pre><code>## Loading required package: RColorBrewer</code></pre>
+<pre class="r"><code>library(tm)</code></pre>
+<pre><code>## Warning: package &#39;tm&#39; was built under R version 3.4.2</code></pre>
+<pre><code>## Loading required package: NLP</code></pre>
+<pre><code>## 
+## Attaching package: &#39;NLP&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:ggplot2&#39;:
+## 
+##     annotate</code></pre>
+<p> </p>
+<p><a name="wordclouds"></a></p>
+<p> </p>
+</div>
+<div id="wordclouds-of-the-most-common-words-in-the-cat-in-the-hat-book" class="section level3">
+<h3><u>Wordclouds Of The Most Common Words In The Cat In The Hat Book</u></h3>
+<p> </p>
+<p>To start, I load in the The Cat In The Hat book from the offline text file with the <code>readLines()</code> function. Afterwards, the <code>readLines()</code> object is put into a VectorSource and then into a Corpus.</p>
+<p>Once you have the Corpus object, the <code>tm_map()</code> functions can be used to clean up the text. Options include removing punctuations, converting text to lowercase, removing numbers, removing whitespace and removing stopwords (words like the, and, or, for, me).</p>
+<p> </p>
+<pre class="r"><code># 1) Wordclouds
+# Reference: http://www.sthda.com/english/wiki/text-mining-and-word-cloud-fundamentals-in-r-5-simple-steps-you-should-know
+# Ref 2: https://www.youtube.com/watch?v=JoArGkOpeU0
+
+catHat_book &lt;- readLines(&quot;cat_in_the_hat_textbook.txt&quot;)</code></pre>
+<pre><code>## Warning in readLines(&quot;cat_in_the_hat_textbook.txt&quot;): incomplete final line
+## found on &#39;cat_in_the_hat_textbook.txt&#39;</code></pre>
+<pre class="r"><code>catHat_text &lt;- Corpus(VectorSource(catHat_book))
+
+# Clean the text up:
+
+catHat_clean &lt;- tm_map(catHat_text, removePunctuation)
+catHat_clean &lt;- tm_map(catHat_clean, content_transformer(tolower))
+catHat_clean &lt;- tm_map(catHat_clean, removeNumbers)
+catHat_clean &lt;- tm_map(catHat_clean, stripWhitespace)
+
+# Remove English stopwords such as: the, and or, over, under, and so on:
+
+catHat_clean &lt;- tm_map(catHat_clean, removeWords, stopwords(&#39;english&#39;))</code></pre>
+<p> </p>
+<p>The next step is to convert the <code>tm_map()</code> object in a Term Document Matrix and then into a data frame. Once a data frame is obtained, wordclouds along with bar graphs can be generated.</p>
+<p> </p>
+<pre class="r"><code># Convert to Term Document Matrix:
+
+td_mat&lt;- TermDocumentMatrix(catHat_clean)
+matrix &lt;- as.matrix(td_mat)
+sorted &lt;- sort(rowSums(matrix),decreasing=TRUE)
+data_text &lt;- data.frame(word = names(sorted), freq = sorted)
+
+#Preview data:
+head(data_text, 30)</code></pre>
+<pre><code>##          word freq
+## like     like   88
+## will     will   58
+## said     said   43
+## sir       sir   37
+## one       one   35
+## fish     fish   34
+## house   house   29
+## cat       cat   29
+## say       say   29
+## now       now   29
+## things things   26
+## fox       fox   26
+## eat       eat   26
+## grinch grinch   26
+## two       two   25
+## can       can   25
+## box       box   25
+## look     look   24
+## thing   thing   22
+## socks   socks   22
+## hat       hat   20
+## know     know   20
+## hop       hop   18
+## good     good   17
+## new       new   17
+## knox     knox   17
+## little little   16
+## mouse   mouse   16
+## bump     bump   15
+## saw       saw   15</code></pre>
+<p> </p>
+<p>The <code>wordcloud()</code> function from the wordcloud package allows for the generation of a colourful wordcloud as shown below.</p>
+<p> </p>
+<pre class="r"><code># Wordcloud with colours:
+
+set.seed(1234)
+wordcloud(words = data_text$word, freq = data_text$freq, min.freq = 5,
+max.words = 100, random.order=FALSE, rot.per=0.35, 
+colors = rainbow(30))</code></pre>
+<p><img src="rtext-catHat_files/figure-html/unnamed-chunk-4-1.png" width="384" /></p>
+<p> </p>
+<p>To make the wordcloud smaller you can raise the minimum frequency requirement for words by changing the value of the min.freq argument in <code>wordcloud()</code>.</p>
+<p> </p>
+<pre class="r"><code># Wordcloud with colours with lower max words and raise minimum frequency:
+
+wordcloud(words = data_text$word, freq = data_text$freq, min.freq = 15,
+ max.words = 80, random.order=FALSE, rot.per=0.35, 
+ colors = rainbow(30))</code></pre>
+<p><img src="rtext-catHat_files/figure-html/unnamed-chunk-5-1.png" width="384" /></p>
+<p> </p>
+<p>It appears that the word like is the most common along with the words will, sir, fish, things and grinch.</p>
+<p><a name="common"></a></p>
+<p> </p>
+</div>
+<div id="the-most-common-words-in-the-cat-in-the-hat-book" class="section level3">
+<h3><u>The Most Common Words In The Cat In The Hat Book</u></h3>
+<p> </p>
+<p>In my other text mining/analysis projects in R pages, I use the tidytext approach with the tidytext package and the <code>unnest_tokens()</code> function to obtain the most common words in the The Cat In The Hat book. However, in this page I still use code from the previous section. The <code>data_text</code> object is already preprocessed with the <code>tm_map()</code> functions and is ready for plotting with ggplot2.</p>
+<p>I take the top 25 most common words from The Cat In The Hat book. To obtain the bars, you need the <code>geom_col()</code> function. Sideways bars can be obtained with the <code>coord_flip()</code> addon function. Labels and text can be added with the <code>labs()</code> function and the geom_text function respectively. The <code>theme()</code> function allows for adjustment of aesthetics such as text colours, text sizes and so forth.</p>
+<p> </p>
+<pre class="r"><code># Wordcounts Plot:
+
+# ggplot2 bar plot (Top 25 Words)
+
+data_text[1:25, ] %&gt;% 
+    mutate(word = reorder(word, freq)) %&gt;% 
+    ggplot(aes(word, freq)) + 
+    geom_col(fill = &quot;lightblue&quot;) +
+    coord_flip() +
+    labs(x = &quot;Word \n&quot;, y = &quot;\n Count &quot;, title = &quot;Word Counts In \n The Cat In The Hat Book \n (Top 25) \n&quot;) +
+    geom_text(aes(label = freq), hjust = 1.2, colour = &quot;black&quot;, fontface = &quot;bold&quot;, size = 3.7) +
+    theme(plot.title = element_text(hjust = 0.5, colour = &quot;darkgreen&quot;, size = 15), 
+          axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12),
+          axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12), 
+          panel.grid.major = element_blank(),
+          panel.grid.minor= element_blank())</code></pre>
+<p><img src="rtext-catHat_files/figure-html/unnamed-chunk-6-1.png" width="384" /></p>
+<p> </p>
+<p>In the wordclouds, you were unable to determine the counts associated with each word. With the bar graph with numeric texts, you can clearly see the counts with the words.</p>
+<p>The most common words in The Cat In The Hat include like, will, said, sir, one, fish and say.</p>
+<p><a name="sentiment"></a></p>
+<p> </p>
+</div>
+<div id="sentiment-analysis" class="section level3">
+<h3><u>Sentiment Analysis</u></h3>
+<p> </p>
+<p>Sentiment analysis looks at a piece of text and determines whether the text is positive or negative (depending on the lexicon). Three lexicons are used here for analyzing words.</p>
+<p>Do keep in mind that each lexicon has its own way of scoring the words in terms of positive/negative sentiment. In addition, some words are in certain lexicons and some words are not. These lexicons are not perfect as they are subjective with the scoring.</p>
+<p>I read in the book into R (again) and convert the book into a tibble (neater data frame). The <code>head()</code> function is used to preview/check the start of the book.</p>
+<p> </p>
+<pre class="r"><code># 3) Sentiment Analysis 
+# Is the book positive, negative, neutral?
+
+catHat_book &lt;- readLines(&quot;cat_in_the_hat_textbook.txt&quot;)</code></pre>
+<pre><code>## Warning in readLines(&quot;cat_in_the_hat_textbook.txt&quot;): incomplete final line
+## found on &#39;cat_in_the_hat_textbook.txt&#39;</code></pre>
+<pre class="r"><code># Preview the start of the book:
+
+catHat_book_df &lt;- data_frame(Text = catHat_book) # tibble aka neater data frame
+
+head(catHat_book_df, n = 15)</code></pre>
+<pre><code>## # A tibble: 15 x 1
+##                             Text
+##                            &lt;chr&gt;
+##  1        The sun did not shine.
+##  2       It was too wet to play.
+##  3        So we sat in the house
+##  4 All that cold, cold, wet day.
+##  5                              
+##  6       I sat there with Sally.
+##  7         We sat there, we two.
+##  8    &quot;And I said, \&quot;How I wish&quot;
+##  9   &quot;We had something to do!\&quot;&quot;
+## 10                              
+## 11             Too wet to go out
+## 12    And too cold to play ball.
+## 13       So we sat in the house.
+## 14        We did nothing at all.
+## 15</code></pre>
+<p> </p>
+<p>The <code>unnest_tokens()</code> function is then applied on the <code>data_frame()</code> object. Each word in The Cat In The Hat now has its own row. An <code>anti_join()</code> is used to remove English stop words such as the, and, for, my, myself. A <code>count()</code> function is used to obtain the counts for each word with the <code>sort = TRUE</code> argument.</p>
+<p> </p>
+<pre class="r"><code>catHat_book_words &lt;- catHat_book_df %&gt;% 
+unnest_tokens(output = word, input = Text)
+
+# Retrieve word counts as set up for sentiment lexicons:
+
+catHat_book_wordcounts &lt;- catHat_book_words %&gt;%
+                            anti_join(stop_words) %&gt;% 
+                            count(word, sort = TRUE)</code></pre>
+<pre><code>## Joining, by = &quot;word&quot;</code></pre>
+<p> </p>
+<p><strong>nrc Lexicon</strong></p>
+<p> </p>
+<p>The nrc Lexicon categorizes words as either having the sentiment of trust, fear, negative, sadness, fear, anger or positive. Here, the sentiments of interest from the nrc lexicon are negative and positive.</p>
+<p> </p>
+<pre class="r"><code>#### Using nrc, bing and AFINN lexicons
+
+word_labels_nrc &lt;- c(
+`negative` = &quot;Negative Words&quot;,
+`positive` = &quot;Positive Words&quot;
+)
+
+### nrc lexicons:
+# get_sentiments(&quot;nrc&quot;)
+
+catHat_book_words_nrc &lt;- catHat_book_wordcounts %&gt;%
+                          inner_join(get_sentiments(&quot;nrc&quot;), by = &quot;word&quot;) %&gt;%
+                          filter(sentiment %in% c(&quot;positive&quot;, &quot;negative&quot;))
+
+# Preview common words with sentiment label:
+
+head(catHat_book_words_nrc, n = 12)</code></pre>
+<pre><code>## # A tibble: 12 x 3
+##      word     n sentiment
+##     &lt;chr&gt; &lt;int&gt;     &lt;chr&gt;
+##  1    sir    37  positive
+##  2    eat    26  positive
+##  3    fun    16  positive
+##  4 mother    15  negative
+##  5 mother    15  positive
+##  6   tree    15  positive
+##  7   sing    13  positive
+##  8 battle    11  negative
+##  9  green    10  positive
+## 10  noise    10  negative
+## 11    goo     9  negative
+## 12  trick     9  negative</code></pre>
+<p> </p>
+<p>Here is the code and output for the word counts influenced by the nrc Lexicon for The Cat In The Hat book. There is a lot of code in the section below as I wanted to make the plot look nicer than usual.</p>
+<p> </p>
+<pre class="r"><code># Sentiment Plot with nrc Lexicon (Word Count over 5)
+
+catHat_book_words_nrc %&gt;%
+          filter(n &gt; 5) %&gt;%
+          ggplot(aes(x = reorder(word, n), y = n, fill = sentiment)) + 
+          geom_bar(stat = &quot;identity&quot;, position = &quot;identity&quot;) +
+          geom_text(aes(label = n), colour = &quot;black&quot;, hjust = 1, fontface = &quot;bold&quot;, size = 3) +
+          facet_wrap(~sentiment, nrow = 2, scales = &quot;free_y&quot;, labeller = as_labeller(word_labels_nrc)) +
+          labs(x = &quot;\n Word \n&quot;, y = &quot;\n Word Count &quot;, title = &quot;Negative &amp; Positive Words In \n The Cat In The Hat Kids&#39; Book \n With The nrc Lexicon \n&quot;) +
+          theme(plot.title = element_text(hjust = 0.5), 
+                axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12),
+                axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12),
+                strip.background = element_rect(fill = &quot;lightblue&quot;),
+                strip.text.x = element_text(size = 10, face = &quot;bold&quot;)) +
+                scale_fill_manual(values=c(&quot;#FF0000&quot;, &quot;#01DF3A&quot;), guide=FALSE) + 
+                coord_flip()</code></pre>
+<p><img src="rtext-catHat_files/figure-html/unnamed-chunk-10-1.png" width="384" /></p>
+<p> </p>
+<p><strong>bing Lexicon</strong></p>
+<p> </p>
+<p>Words under the bing lexicon categorizes certain words as either positive or negative. In the bar plot below, you will see that the selected top words are different than the ones from the nrc lexicon. (These lexicons are subjective.)</p>
+<p> </p>
+<pre class="r"><code>### bing lexicon:
+# get_sentiments(&quot;bing&quot;)
+ 
+word_labels_bing &lt;- c(
+              `negative` = &quot;Negative Words&quot;,
+              `positive` = &quot;Positive Words&quot;
+ )
+
+catHat_book_words_bing &lt;- catHat_book_wordcounts %&gt;%
+    inner_join(get_sentiments(&quot;bing&quot;), by = &quot;word&quot;) %&gt;%
+    ungroup()
+
+# Preview the words and counts:
+
+head(catHat_book_words_bing, n = 15)</code></pre>
+<pre><code>## # A tibble: 15 x 3
+##     word     n sentiment
+##    &lt;chr&gt; &lt;int&gt;     &lt;chr&gt;
+##  1   fun    16  positive
+##  2  bump    15  negative
+##  3  fast    11  positive
+##  4 likes    10  positive
+##  5 noise    10  negative
+##  6  dark     9  negative
+##  7 trick     9  negative
+##  8  fear     8  negative
+##  9   bad     7  negative
+## 10  cold     7  negative
+## 11   sad     7  negative
+## 12  slow     7  negative
+## 13   top     6  positive
+## 14  fall     5  negative
+## 15 funny     5  negative</code></pre>
+<p> </p>
+<pre class="r"><code># Sentiment Plot with bing Lexicon (Counts over 3):
+
+catHat_book_words_bing %&gt;%
+      filter(n &gt; 3) %&gt;%
+      ggplot(aes(x = reorder(word, n), y = n, fill = sentiment)) +
+      geom_bar(stat = &quot;identity&quot;, position = &quot;identity&quot;) +
+      geom_text(aes(label = n), colour = &quot;black&quot;, hjust = 1, fontface = &quot;bold&quot;, size = 3) +
+      facet_wrap(~sentiment, nrow = 2, scales = &quot;free_y&quot;, labeller = as_labeller(word_labels_bing)) +
+      labs(x = &quot;\n Word \n&quot;, y = &quot;\n Word Count &quot;, title = &quot;Negative &amp; Positive Words In \n The Cat In The Hat Kids&#39; Book \n With The bing Lexicon \n&quot;) +
+      theme(plot.title = element_text(hjust = 0.5),
+            axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12),
+            axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12),
+            strip.background = element_rect(fill = &quot;#BEE1D3&quot;),
+            strip.text.x = element_text(size = 10, face = &quot;bold&quot;, colour = &quot;black&quot;)) +
+            scale_fill_manual(values=c(&quot;#FF0000&quot;, &quot;#01DF3A&quot;), guide=FALSE) +
+            coord_flip()</code></pre>
+<p><img src="rtext-catHat_files/figure-html/unnamed-chunk-12-1.png" width="384" /></p>
+<p> </p>
+<p>The top negative word according to bing is bump. Other intriguing negative words include sue, funny, trick and noise. The word sue is either a verb as in to sue someone or it could be a name. I am not sure if I agree funny being a negative word. The word trick can be used as a verb as in to trick someone or as a noun such as a magic trick. Bing interprets trick more as a verb I presume.</p>
+<p> </p>
+<p><strong>AFINN Lexicon</strong></p>
+<p> </p>
+<p>Words from the AFINN lexicon are given a score from -5 to + 5 (whole numbers only). Scores below zero are for negative words and positive numbers are for positive words. I have used the <code>mutate()</code> function from R’s dplyr package to add a new column which indicates whether a word is positive or negative. This extra column helps in creating separate plots into one plot under <code>ggplot2</code>.</p>
+<p> </p>
+<pre class="r"><code>### AFINN lexicon:
+
+# Change labels 
+# (Source: https://stackoverflow.com/questions/3472980/ggplot-how-to-change-facet-labels)
+
+catHat_book_words_AFINN &lt;- catHat_book_wordcounts %&gt;%
+                inner_join(get_sentiments(&quot;afinn&quot;), by = &quot;word&quot;) %&gt;%
+                mutate(is_positive = score &gt; 0) 
+
+head(catHat_book_words_AFINN, n = 15)</code></pre>
+<pre><code>## # A tibble: 15 x 4
+##      word     n score is_positive
+##     &lt;chr&gt; &lt;int&gt; &lt;int&gt;       &lt;lgl&gt;
+##  1    fun    16     4        TRUE
+##  2 battle    11    -1       FALSE
+##  3  likes    10     2        TRUE
+##  4   stop     9    -1       FALSE
+##  5   fear     8    -2       FALSE
+##  6    bad     7    -3       FALSE
+##  7   dear     7     2        TRUE
+##  8    sad     7    -2       FALSE
+##  9    top     6     2        TRUE
+## 10 blocks     5    -1       FALSE
+## 11  funny     5     4        TRUE
+## 12    fan     4     3        TRUE
+## 13  fight     4    -1       FALSE
+## 14   luck     4     3        TRUE
+## 15  shame     4    -2       FALSE</code></pre>
+<pre class="r"><code>word_labels_AFINN &lt;- c(
+  `FALSE` = &quot;Negative Words&quot;,
+  `TRUE` = &quot;Positive Words&quot;
+)
+
+catHat_book_words_AFINN %&gt;%
+  filter(n &gt; 3) %&gt;%
+  ggplot(aes(x = reorder(word, n), y = n, fill = is_positive)) + 
+  geom_bar(stat = &quot;identity&quot;, position = &quot;identity&quot;) +
+  geom_text(aes(label = n), colour = &quot;black&quot;, hjust = 1, fontface = &quot;bold&quot;, size = 3.2) +
+  facet_wrap(~is_positive, scales = &quot;free_y&quot;, nrow = 2, labeller = as_labeller(word_labels_AFINN)) +
+  labs(x = &quot;\n Word \n&quot;, y = &quot;\n Word Count &quot;, title = &quot;Negative &amp; Positive Words In \n The Cat In The Hat Kids&#39; Book \n With The AFINN Lexicon  \n&quot;,
+       fill = c(&quot;Negative&quot;, &quot;Positive&quot;)) +
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12),
+        strip.background = element_rect(fill = &quot;#D5ADA4&quot;),
+        strip.text.x = element_text(size = 10, face = &quot;bold&quot;, colour = &quot;black&quot;)) +
+  scale_fill_manual(values=c(&quot;#FF0000&quot;, &quot;#01DF3A&quot;), guide=FALSE) + 
+  coord_flip()</code></pre>
+<p><img src="rtext-catHat_files/figure-html/unnamed-chunk-13-1.png" width="384" /></p>
+<p> </p>
+<p>Under AFINN, the most negative word is battle and the most positive word is fun. The word fun is featured in all three lexicons and the “negative” word bad is featured in all three as well. As different as these lexicons are in terms of categorization, there are a few common words between the three lexicons.</p>
+<p>The nrc lexicon scores the The Cat In The Hat book more positively than bing and AFINN. bing gives the book a more negative score overall and the AFINN results are fairly balanced.</p>
+<p><a name="refs"></a></p>
+<p> </p>
+</div>
+<div id="references" class="section level3">
+<h3><u>References</u></h3>
+<p> </p>
+<ul>
+<li>R Graphics Cookbook By Winston Chang</li>
+<li>Text Mining With R: A Tidy Approach By Julia Silge &amp; David Robinson</li>
+<li><a href="http://www.sthda.com/english/wiki/text-mining-and-word-cloud-fundamentals-in-r-5-simple-steps-you-should-know" class="uri">http://www.sthda.com/english/wiki/text-mining-and-word-cloud-fundamentals-in-r-5-simple-steps-you-should-know</a></li>
+<li><a href="https://www.youtube.com/watch?v=JoArGkOpeU0" class="uri">https://www.youtube.com/watch?v=JoArGkOpeU0</a></li>
+<li><a href="https://github.com/robertsdionne/rwet/blob/master/hw2/drseuss.txt" class="uri">https://github.com/robertsdionne/rwet/blob/master/hw2/drseuss.txt</a></li>
+<li><a href="https://stackoverflow.com/questions/3472980/ggplot-how-to-change-facet-labels" class="uri">https://stackoverflow.com/questions/3472980/ggplot-how-to-change-facet-labels</a></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

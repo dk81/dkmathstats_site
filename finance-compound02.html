@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>What Is Compound Interest (Part 2/2)</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">What Is Compound Interest (Part 2/2)</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hello. This page is a follow up from the <a href="./finance-compound01.html">What Is Compound Interest (Part 1/2)</a> page. There is more math and theory in this lengthy post. One may want to skip right to the tips and notes section for more practical advice.</p>
+<p>Remember that one should invest and handle their own funds at their own risk!</p>
+<p>The pictures below are from my camera phone and my Wipebook.</p>
+<p> </p>
+<center>
+<img src="guadagnare-col-trading.jpg" />
+</center>
+<p>The featured image is from <a href="http://www.comefaretradingonline.com/images/guadagnare-col-trading.jpg" class="uri">http://www.comefaretradingonline.com/images/guadagnare-col-trading.jpg</a></p>
+<p> </p>
+<div id="table-of-contents" class="section level3">
+<h3><u>Table Of Contents</u></h3>
+<p> </p>
+<ul>
+<li><a href="#intro">Introduction</a></li>
+<li><a href="#periods">Compound Interest Periods</a></li>
+<li><a href="#intrates">Equivalent Interest Rates</a></li>
+<li><a href="#tvm">Time Value of Money, Present Value and Future Value</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#tips">Tips and Notes</a></li>
+</ul>
+<p><a name="intro"></a></p>
+<p> </p>
+</div>
+<div id="introduction" class="section level3">
+<h3><u>Introduction</u></h3>
+<p> </p>
+<p>In the previous post, the interest rate was compounded annually or once a year. Note that all interest rates are not the same in the sense they may be compounded multiple times a year. (Interest rates can differ in numerical value too!) We also take a look at semi-annual compounding, quarterly compounding, monthly compounding, and continuous compounding.</p>
+<p>Recall that we started out with the idea that $1 today is not the same as $1 from 10 years ago nor 10 years from now (due to inflation, deflation, currency rates, etc).</p>
+<p><a name="periods"></a></p>
+<p> </p>
+</div>
+<div id="compound-interest-periods" class="section level3">
+<h3><u>Compound Interest Periods</u></h3>
+<p> </p>
+<p>As before, it is assumed that the funds/monies are to be reinvested or left in the account without withdrawals.</p>
+<p>In the previous post, the annually compounded interested rate was used. This annual interest rate lasts for 12 months. Alternatively, we can say that the interest period is 12 months.</p>
+<p> </p>
+<center>
+<img src="images/annual.jpg" />
+</center>
+<p> </p>
+<p>If we have a semi-compounded interest rate then we have 2 periods of 6 months each per year. Each interest rate period lasts for six months.</p>
+<p> </p>
+<center>
+<img src="images/semiAnnual.jpg" />
+</center>
+<p> </p>
+<p>For the quarterly compounded interest rate (compounded 4 times a year) then we have 4 periods of 3 months each per year. Each interest rate period lasts for three months.</p>
+<p> </p>
+<center>
+<img src="images/quarterly.jpg" />
+</center>
+<p> </p>
+<p>For the interest rate being compounded monthly (compounded 12 times a year) then we have 12 periods of 1 month each per year. Each interest rate period lasts for one month.</p>
+<p> </p>
+<center>
+<img src="images/quarterly.jpg" />
+</center>
+<p> </p>
+<p>If we have the interest rate being compounded weekly (or 52 times a year) then we have 52 periods of 1 week each per year. Each interest rate period lasts for one week.</p>
+<p>Also, some interest rates are compounded daily.</p>
+<p> </p>
+<p><strong>Accumulated Value</strong></p>
+<p> </p>
+<p>The accumulated value of $1 at the end of <span class="math inline">\(m\)</span> interest periods for <span class="math inline">\(n\)</span> years is:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \begin{array}{lr} \displaystyle (1 + \dfrac{i^{(m)}}{m})^{mn} \end{array} \]</span>  </p>
+<p>where <span class="math inline">\(i^{(m)}\)</span> is the nominal interest rate which is compounded <span class="math inline">\(m\)</span> times per year.</p>
+<p>(For example <span class="math inline">\(i^{(12)} = 12\%\)</span> means a nominal interest rate of 12% compounded monthly or 12 times a year.)</p>
+<p>With the case of continuous compounding where the interest is compounded infinitely, the accumulated value of $1 at the end of <span class="math inline">\(n\)</span> years is <span class="math inline">\(e^{rt}\)</span> where <span class="math inline">\(r\)</span> is the fixed annual interest rate and <span class="math inline">\(t\)</span> is the number of years. The proof follows from deriving Euler’s constant e in Calculus.</p>
+<p><a name="intrates"></a></p>
+<p> </p>
+</div>
+<div id="equivalent-interest-rates" class="section level3">
+<h3><u>Equivalent Interest Rates</u></h3>
+<p> </p>
+<p>We now look at equivalent interest rates. For example a 5% interest rate compounded annually and a 5% interest rate compounded semi annually are not the same. Likewise, a 7% interest compounded quarterly and a 5% interest rate compounded semi annually are not the same.</p>
+<p>To go from an interest rate to another interest rate (with different compounding) we set up this equation:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \begin{array}{lcl} (1 + \dfrac{i^{(m)}}{m})^{m} &amp; = &amp; (1 + \dfrac{i^{(n)}}{n})^{n} \end{array} \]</span></p>
+<p> </p>
+<p>where <span class="math inline">\(i^{(m)}\)</span> and <span class="math inline">\(i^{(n)}\)</span> are different interest rates and <span class="math inline">\(m \neq n\)</span>.</p>
+<p>Suppose we know a certain interest rate such as <span class="math inline">\(i^{(m)}\)</span> compounded <span class="math inline">\(m\)</span> times for example and want to know <span class="math inline">\(i^{(n)}\)</span> with <span class="math inline">\(n\)</span> compounding periods. The above formula (algebraically rearranged) can help finding an equivalent interest rate <span class="math inline">\(i^{(n)}\)</span> or <span class="math inline">\(i^{(m)}\)</span>.</p>
+<p> </p>
+<p><strong>Annual Effective Rate</strong></p>
+<p> </p>
+<p>Suppose we want to know the annual effective rate <span class="math inline">\(i^{(1)} = i\)</span> from other interest rates. We use a variation or special case of the above equation setup as follows:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \begin{array}{lcl} (1 + i) &amp; = &amp; (1 + \dfrac{i^{(n)}}{n})^{n} \end{array}\]</span></p>
+<p> </p>
+<p>Through rearrangement the interest rate <span class="math inline">\(i\)</span> is just <span class="math inline">\(i = (1 + \dfrac{i^{(n)}}{n})^{n} - 1\)</span> for the annual year. For the continuous compounded interest rate case we have <span class="math inline">\(i = \text{e}^{n} - 1.\)</span></p>
+<p><a name="tvm"></a></p>
+<p> </p>
+</div>
+<div id="time-value-of-money-present-value-and-future-value-of-money" class="section level3">
+<h3><u>Time Value of Money, Present Value and Future Value of Money</u></h3>
+<p> </p>
+<p>We now look at the time value of money. Recall that $1 today does not have the same value as $1 in the future nor it is the same $1 in the past due to inflation, deflation or randomly changing currency exchange rates over time.</p>
+<p>To illustrate the concept of time value of money we assume a constant or fixed positive interest rate <span class="math inline">\(i\)</span> or <span class="math inline">\(i^{(m)}\)</span> and an amount <span class="math inline">\(P\)</span> today (time <span class="math inline">\(t=0\)</span>).</p>
+<p>The future (or final) value <span class="math inline">\(F\)</span> of the invested amount <span class="math inline">\(P\)</span> at time <span class="math inline">\(t = mn\)</span> (from now) would be:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \begin{array}{lcl} \displaystyle F &amp; = &amp; P \cdot(1 + \dfrac{i^{(m)}}{m})^{mn} \end{array}\]</span></p>
+<p> </p>
+<p>(m for number of compounding periods and n number of years)</p>
+<p> </p>
+<p>This future value is larger than <span class="math inline">\(P\)</span> as the growth rate <span class="math inline">\((1 + \dfrac{i^{(m)}}{m})\)</span> is larger than 1.</p>
+<p>Suppose we wanted to know how much money to invest into a savings account today in order to have a future amount <span class="math inline">\(F\)</span> <span class="math inline">\(t\)</span> years (<span class="math inline">\(t = mn\)</span>) from now. Instead of multiplying the growth rate, we divide by the growth rate.</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \begin{array}{lcl} \displaystyle P &amp; = &amp; F \cdot (1 + \dfrac{i^{(m)}}{m})^{-(mn)} \end{array} \]</span></p>
+<p> </p>
+<p>The image below summarizes the time value of money, present value and future value concepts.</p>
+<p> </p>
+<center>
+<img src="images/timevalueMoney.jpg" />
+</center>
+<p><a name="examples"></a></p>
+<p> </p>
+</div>
+<div id="examples" class="section level3">
+<h3><u>Examples</u></h3>
+<p> </p>
+<p>These examples are not necessarily real life examples! They are for illustrating concepts and to give you a good idea on how interest rates work.</p>
+<p> </p>
+<p><strong>1) Example One (RESP Savings)</strong></p>
+<p> </p>
+<p>Suppose that a family (in Canada) would like to start a Registered Education Savings Plan (RESP) to start saving money for their child’s education. They would like invest their money as a one time plan through a lump sum payment.</p>
+<p>The lump sum payment after fees (principal) is <span class="math inline">\(P = \$ 8100\)</span>. The time horizon is 15 years with a fixed semi-annually compounded interest rate of <span class="math inline">\(i^{(2)} = 3\%\)</span> per annum.</p>
+<p>The calculations of the future value of the savings after 15 years is as follows:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \begin{array}{lcl} FV &amp; = &amp; \$ 8100 \cdot (1 + \dfrac{0.03}{2})^{2 \cdot 15}\\ &amp; = &amp; \$8100 \cdot (1 + 0.015)^{30} \\ &amp; = &amp; \$ 12,660.95 \end{array} \]</span></p>
+<p> </p>
+<p><strong>2) Example Two (RESP Savings with a different lump sum and time horizon)</strong></p>
+<p> </p>
+<p>Assuming the same interest rate as in example one above, suppose the principal is now <span class="math inline">\(P = \$ 7400\)</span> and the time horizon is 17 years. The calculations would be:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \begin{array}{lcl} FV &amp; = &amp; \$7400 \cdot (1 + \dfrac{0.03}{2})^{2 \cdot 17}\\ &amp; = &amp; \$7400\cdot (1 + 0.015)^{34} \\ &amp; = &amp; \$12,276.57 \end{array} \]</span></p>
+<p> </p>
+<p>As you can clearly see, increasing the time horizon and/or increasing the (invested) principal amount (exponentially) increases the funds over time.</p>
+<p> </p>
+<p><strong>3) Example Three (Continuous Compounded Interest)</strong></p>
+<p> </p>
+<p>If we were to use a continuously compounded interest in the examples above, the calculations would not be that much different. The calculations would be as follows:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \begin{array}{lcl} FV &amp; = &amp; \$8,100\text{e}^{0.03 \cdot 15}\\ &amp; = &amp; \$8,100\text{e}^{0.45}\\ &amp; = &amp; \$12,703.33 \end{array} \]</span></p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \begin{array}{lcl} FV &amp; = &amp; \$ 7,400\text{e}^{0.03 \cdot 17}\\ &amp; = &amp; \$ 7,400\text{e}^{0.51}\\ &amp; = &amp; \$ 12,323.15 \end{array} \]</span></p>
+<p> </p>
+<p>All else equal, using the continuous compounded rate over the semi-annually compounded interest rate yields slightly more money in the savings.</p>
+<p> </p>
+<p><strong>4) Example Four (Paying Back a Loan)</strong></p>
+<p> </p>
+<p>Suppose we currently have a loan of $21, 500 from 5 years ago. Up to now, no (partial) payments have been made to reduce this loan amount. The daily interest is 3.78% per annum. What is the loan amount now?</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \begin{array}{lcl} FV &amp; = &amp; \$21,500 \cdot (1 + \dfrac{0.0378}{365})^{5 \cdot 365}\\ &amp; = &amp; \$21,500 \cdot (1.000048767)^{1825} \\ &amp; = &amp; \$25,972.63 \end{array} \]</span></p>
+<p> </p>
+<p><strong>5) Example Five (Finding Out Original Loan)</strong></p>
+<p> </p>
+<p>Here is a slightly more involved example. Suppose that we now know that we owe $7,890 in loans right now. We want to know what was the original loan amount 2 years ago. No payments were made to reduce the loan amount and we assume a fixed interest rate of 4% semi-annually. Note that payments are annual. What was the original loan amount?</p>
+<p>First we switch from a semi-annual interest rate to an annual interest rate to match the annual payment structure of the loan. We use the annual effective rate formula as such:</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \begin{array}{lcl} i^{(1)}&amp; = &amp; (1 + \dfrac{i^{(2)}}{2})^{2} - 1 \\ &amp; = &amp; (1 + \dfrac{0.04}{2})^{2} - 1 \\ &amp; = &amp; (1.02)^{2} - 1 \\ &amp; = &amp; 0.0404 \\ &amp; = &amp; 4.04\% \\ \end{array} \]</span></p>
+<p> </p>
+<p>We now use this new 4.04% to discount the known $7,890 amount to find the original loan amount from 2 years ago (with annual payments).</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle \begin{array}{lcl} P &amp; = &amp; \$ 7,890 \cdot (1 + \dfrac{0.0404}{1})^{- 2 \cdot 1}\\ &amp; = &amp; \$ 7,890 \cdot (1.0404)^{-2} \\ &amp; = &amp; \$ 7,289.14 \end{array} \]</span>.</p>
+<p> </p>
+<p>The original loan amount from two years ago was $7,289.14 at a 4% semi-annual interest rate with annual payments (which were not made). A summary picture is below.</p>
+<p> </p>
+<center>
+<img src="example4_interest.jpg" />
+</center>
+<p><a name="tips"></a></p>
+<p> </p>
+</div>
+<div id="tips-and-notes" class="section level3">
+<h3><u>Tips and Notes</u></h3>
+<p> </p>
+<p>Saving early is a good idea. That way, the compound interest will work well over time. However, this assumes you have enough income to put aside for a savings account.</p>
+<p>When it comes to borrowing and loans. It is important to try to pay back loans as soon as possible. If loans are not paid off over time then compound interest can work against you (snowball effect). That $1000 loan can turn into $10,000 with all the accumulated interest over time.</p>
+<p>We do not assume multiple principal payments. That would be more for annuities, another payment method where it deals with regular payments (every month/year/time period).</p>
+<p>Be aware of fees. We assumed no fees nor deductions.</p>
+<p>We assumed that interest rates are fixed or non-random (for simplicity mostly). Dealing with variable/random interest rates is much, much harder. Be aware.</p>
+<p>Different financial products will carry various interest rates with different compounding frequencies. For example, an annual interest rate of 5% is not the same as 5% interest compounded daily.</p>
+<p> </p>
+<hr />
+<p> </p>
+<p>Reference: Financial Mathematics: A Comprehensive Treatment by Giuseppe Campolieti and Roman N. Makarov</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

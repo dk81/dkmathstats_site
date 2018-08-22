@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>What Is Compound Interest (Part 1/2)</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">What Is Compound Interest (Part 1/2)</h1>
+
+</div>
+
+
+<p> </p>
+<div class="figure">
+<img src="moneyImage.png" />
+
+</div>
+<p> </p>
+<p>Hello. In this post, I will discuss about the personal finance topic of compound interest (interest on interest). The follow up to this post can be found here.</p>
+<p> </p>
+<p><strong>Disclaimer</strong></p>
+<p> </p>
+<p>I am no financial advisor. I am sharing what I know about finance based on what I have learned from financial mathematics coruses. Manage your money and funds at your own risk.</p>
+<p> </p>
+<div id="table-of-contents" class="section level3">
+<h3><u>Table of Contents</u></h3>
+<p> </p>
+<ul>
+<li><a href="#intro">Introduction</li>
+<li><a href="#nonmath">What Is Compound Interest (Non-Math Version)</li>
+<li><a href="#math">What Is Compound Interest (Math Version)</li>
+<li><a href="#compound">The Impact of Compound Interest</li>
+<li><a href="#examples">Examples: Financial Products Which Use Compound Interest</li>
+<li><a href="#summary">Summary and Tips</li>
+<li><a href="#refs">References</li>
+</ul>
+<p><a name="intro"></a></p>
+<p> </p>
+</div>
+<div id="introduction" class="section level3">
+<h3><u>Introduction</u></h3>
+<p> </p>
+<p>We start out with the idea that $1 today is not the same as $1 from 10 years ago or 10 years from now. Assuming that dollar is not from savings or a loan, the dollar is affected by inflation (or deflation) or a different currency exchange rate.</p>
+<p>In the case of a one dollar in a savings account, a dollar now is not that same as a dollar 10 years from now. Why? It is because of compound interest. A similar argument can be made for the dollar from a loan.</p>
+<p>The concept of compound interest is interesting in the sense on its impact on savings and loans. It is like a double edge sword with a snowball effect. It can work for you or against you. And if compound interest goes on for a long time then the snowball effect increases in magnitude significantly over time.</p>
+<p><a name="nonmath"></a></p>
+<p> </p>
+</div>
+<div id="what-is-compound-interest-non-math-version" class="section level3">
+<h3><u>What Is Compound Interest? (Non-Math Version)</u></h3>
+<p> </p>
+<p>Before we define compound interest, we look at interest first and other definitions.</p>
+<p>Principal - The initial amount/capital being borrowed in a loan or invested into a savings account.</p>
+<p>Interest - A compensation amount that the borrower pays the lender for borrowing the principal amount. The lender receives this compensation amount from the borrower (lender wants extra money for letting borrower use the money).</p>
+<p>Interest rate - A compensation rate/percentage from the principal for the year in which the capital has been invested or borrowed.</p>
+<p>Future Value - The value at a later point in time when the principal in the account has been affected by (compound) interest over time.</p>
+<p> </p>
+<hr />
+<p><strong>Example</strong></p>
+<p> </p>
+<p>Suppose we invest or deposit $100 into a savings account with an interest rate of 5% per annum (year). We plan to withdraw the savings (with interest) in 3 years.</p>
+<p>In year one:</p>
+<p>The principal here is $100. At the end of the first year the interest accrued or realized in the account is <span class="math inline">\((0.05) \times \$ 100 = \$ 5\)</span>. The amount in the account is now $ $100 + $ 5 = $ 105$ (The formula is Principal + Accumulated Interest = New Amount)</p>
+<p>In year two:</p>
+<p>The principal here is $105. At the end of the second year the interest accrued or realized in the account is <span class="math inline">\((0.05) \times \$ 105= \$ 5.25\)</span>. The amount in the account is now $105 + $5.25 = $110.25.</p>
+<p>In year three:</p>
+<p>The principal here at the start of year three is $110.25. At the end of the third year the interest accrued is <span class="math inline">\((0.05) \times \$ 110.25 = \$ 5.51\)</span>. The amount in the account is now $110.25 + $5.51 = $115.76.</p>
+<p>We take out our savings with the accrued interest at the end of the third year and receive the future value of $115.76 (no deductions assumed).</p>
+<p>Notice how each the interest at the end of the year is different. You may expect the interest to be $5 at the year one, two and three. However, the interest amounts were $5, $5.25 and $5.51. These amounts were different because we still had money in the savings account. Leaving the money into the savings reinvests the principal allowing the interest do its work on the “new principal”. This reinvestment trait is a main contributor to compound interest.</p>
+<p>In simple terms, compound interest is interest on interest. Note that compound interest works the same way as above with loans (where you were lent money and have to pay it back with interest).</p>
+<p><a name="math"></a></p>
+<p> </p>
+</div>
+<div id="what-is-compound-interest-math-version" class="section level3">
+<h3><u>What Is Compound Interest? (Math Version)</u></h3>
+<p> </p>
+<p>Here is the more technical and math oriented explanation of compound interest. Definitions of the terms are as defined in the previous section.</p>
+<p>Compound interest is essentially interest on interest. In the mathematics sense, interest on interest is multiplying interest on interest over a period of time. Compound interest is based on exponential growth.</p>
+<p> </p>
+<hr />
+<p> </p>
+<p><strong>Example Revisited</strong></p>
+<p> </p>
+<p>We revisit the example where we invest or deposit $100 into a savings account with an interest rate of 5% per annum (year). We plan to withdraw the savings (with interest) in 3 years.</p>
+<p>In year one:</p>
+<p>The principal here is $100. At the end of the first year the interest accrued or realized in the account is <span class="math inline">\((0.05) \times \$ 100 = \$ 5\)</span>. The amount in the account is now $100 + $5 = $105. We can also compute the savings amount after one year as <span class="math inline">\(\$ 100(1 + .05) = \$ 100(1.05) = \$105\)</span></p>
+<p>In year two:</p>
+<p>The principal here is $105. At the end of the second year the interest accrued or realized in the account is <span class="math inline">\((0.05) \times \$ 105= \$ 5.25\)</span>. The amount in the account is now $105 + $5.25 = $110.25. Alternatively we can get the $110.25 from $ $ 100(1.05) (1.05) = $ 100(1.05)^{2} = $ 110.25$</p>
+<p>In year three:</p>
+<p>The future value after year three is $ $ 100 (1.05)^{3} = $ 115.76$</p>
+<p> </p>
+</div>
+<div id="the-general-formula" class="section level3">
+<h3><u>The General Formula</u></h3>
+<p> </p>
+<p>What if we want a general formula in order to deal with different principal amounts, different interest rates, different length of time and such? The following formula will be helpful. Note that this formula assumes an annual interest rate.</p>
+<p> </p>
+<p><span class="math display">\[\displaystyle V(t) = P (1 + i)^{t} \]</span></p>
+<p> </p>
+<p>where:</p>
+<p> </p>
+<p>P: The Principal or the money initially invested into the account</p>
+<p>V: The amount of the funds at time <span class="math inline">\(t\)</span> when the principal has been subjected to interest and time.</p>
+<p>i: Interest rate per year (or per compounding period)</p>
+<p>t: Number of years.</p>
+<p>(1 + i): Growth Rate which is at least 1. Interest rates should be positive.</p>
+<p><a name="compound"></a></p>
+<p> </p>
+</div>
+<div id="the-impact-of-compound-interest" class="section level3">
+<h3><u>The Impact of Compound Interest</u></h3>
+<p> </p>
+<p>We revisit the example from before again. There was $100 in interest with an annual interest rate of 5% per annum. For years 1, 2 and 3 the future values were computed. The following chart will show more future values using the general formula from above.</p>
+<p> </p>
+<table>
+<thead>
+<tr class="header">
+<th>Year From Now</th>
+<th>Savings (Future) Value at End of Year</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><span class="math inline">\(100(1.05)^1 = \$105.00\)</span></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><span class="math inline">\(100(1.05)^2 = \$110.25\)</span></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><span class="math inline">\(100(1.05)^3 = \$115.76\)</span></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><span class="math inline">\(100(1.05)^4 = \$121.55\)</span></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><span class="math inline">\(100(1.05)^5 = \$127.63\)</span></td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td><span class="math inline">\(100(1.05)^6 = \$134.01\)</span></td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td><span class="math inline">\(100(1.05)^7 = \$140.71\)</span></td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td><span class="math inline">\(100(1.05)^8 = \$147.75\)</span></td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td><span class="math inline">\(100(1.05)^9 = \$155.13\)</span></td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td><span class="math inline">\(100(1.05)^{10} = \$162.89\)</span></td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<p>As you can see that the growth of the savings is not increasing by $5 every year. The interest on interest growth is exponential growth. A sample image of the compound interest growth is below:</p>
+<p> </p>
+<center>
+<img src="compound_chart.jpg" />
+</center>
+<p>Source: <a href="http://moneytipcentral.com/what-is-compound-interest" class="uri">http://moneytipcentral.com/what-is-compound-interest</a></p>
+<p> </p>
+<p>A higher initial principal gives the account a bit of a “head start” as there is a lot of funds in the account already.</p>
+<p>A higher interest rate gives higher growth on the principal and future values.</p>
+<p>As more time goes on, the value in the account increases significantly (steepness of curve).</p>
+<p><a name="examples"></a></p>
+<p> </p>
+</div>
+<div id="examples-of-financial-products-which-use-compound-interest" class="section level3">
+<h3><u>Examples of Financial Products Which Use Compound Interest</u></h3>
+<p> </p>
+<p>In a society which is dependent on finances, many of us deal with financial products which use compound interests. Such products include:</p>
+<p> </p>
+<ul>
+<li>Registered Education Savings Plans (RESPs) [Common in Canada]</li>
+<li>Bonds</li>
+<li>Credit Card Loans</li>
+<li>Mortgages</li>
+<li>RRSPs for Retirement</li>
+</ul>
+<p> </p>
+<p><a name="summary"></a></p>
+<p> </p>
+</div>
+<div id="summary-and-tips" class="section level3">
+<h3><u>Summary and Tips</u></h3>
+<p> </p>
+<ul>
+<li><p>Saving early is a good idea. That way, the compound interest will work in your favor over time.</p></li>
+<li><p>Compound interest follows a snowball like effect. It starts small but then it can grow bigger and bigger over time. Once the snowball is big, it is hard to stop it.</p></li>
+<li><p>However, this assumes you have enough income to put aside for a savings account.</p></li>
+<li><p>When it comes to borrowing and loans. It is important to try to pay back loans as soon as possible. If loans are not paid off over time then compound interest can work against you. For example, that $1000 loan can turn into $10,000 with all the accumulated interest over time.</p></li>
+<li><p>We do not assume multiple principal payments. That would be more for annuities, another payment method.</p></li>
+<li><p>Be aware of fees. We assumed no fees nor deductions.</p></li>
+<li><p>In this post, we assumed interest rates to be annual or compounded annually. The concept of compounding semi-annually, quarterly, monthly or even continuously has not been covered here.</p></li>
+</ul>
+<p> </p>
+<p><a name="refs"></a></p>
+</div>
+<div id="references" class="section level3">
+<h3><u>References</u></h3>
+<p> </p>
+<p>The featured image is from <a href="http://windgatewealthmanagement.com/wp-content/uploads/2.png" class="uri">http://windgatewealthmanagement.com/wp-content/uploads/2.png</a>.</p>
+<p>Book Reference: Financial Mathematics: A Comprehensive Treatment by Giuseppe Campolieti and Roman N. Makarov</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

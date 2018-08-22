@@ -125,6 +125,10 @@ This page contains links on a bunch of R programming projects.
 
 [Data Cleaning In R With The tidyr Package](./ranalysis-tidyr-clean.html)
 
+[Data Manipulation In R Using The dplyr Package](./ranalysis-dplyr.html)
+
+[Analyzing Big Data & Baby Names In R Using data.table](./ranalysis-babynames_datatable.html)
+
 [R's sapply() Function With Examples](./ranalysis-sapply.html)
 
 [A Look At R's stringr Package](./ranalysis-sapply.html)
@@ -132,8 +136,6 @@ This page contains links on a bunch of R programming projects.
 [Data Manipulation In R: The melt Function](./ranalysis-meltFunction.html)
 
 [Reading In Various File Types In R](./ranalysis-readfile-types.html)
-
-[Loading A .JSON File Into R](./ranalysis-JSON.html)
 
 [Analyzing the German Soccer (Bundesliga) League Using R & The dplyr Package](./ranalysis-bundesligR.html)
 
@@ -154,6 +156,10 @@ This page contains links on a bunch of R programming projects.
 [Text Mining/Analysis On A Few Rap Lyrics With R Programming](./rtext-raplyrics.html)
 
 [Text Analysis In R On Dr.Seuss Fox In Socks](./rtext-foxsocks.html)
+
+[Wordcounts & Wordclouds In Dr. Seuss - Green Eggs & Ham Book](./rtext-greeneggs.html)
+
+[Using R Programming & Text Analysis On The Dr. Seuss - The Cat In The Hat Kids Book](./rtext-catHat.html)
 
 &nbsp;
 

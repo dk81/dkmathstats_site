@@ -196,8 +196,11 @@ output: html_document
 
 ### <u>Financial Topics</u>
 
+&nbsp;
 
+[What Is Compound Interest (Part 1/2)](./finance-compound01.html)
 
+[What Is Compound Interest (Part 2/2)](./finance-compound02.html)
 
 &nbsp;
 

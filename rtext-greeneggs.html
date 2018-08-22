@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Wordcounts &amp; Wordclouds In Dr. Seuss - Green Eggs &amp; Ham Book</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Wordcounts &amp; Wordclouds In Dr. Seuss - Green Eggs &amp; Ham Book</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hi there. In this page, I use the R programming language to do text analysis and text mining to obtain wordcounts and wordclouds from the Dr. Seuss - Green Eggs &amp; Ham book. The topic of bigrams (two word phrases) is not discussed here this time around.</p>
+<p> </p>
+<center>
+<img src="greenEggs.png" />
+</center>
+<p> </p>
+<p>Source: <a href="http://mommyneedsabottle.com/wp-content/uploads/2015/08/GreenEggs_Ad.png" class="uri">http://mommyneedsabottle.com/wp-content/uploads/2015/08/GreenEggs_Ad.png</a></p>
+<p> </p>
+<div id="sections" class="section level3">
+<h3><u>Sections</u></h3>
+<p> </p>
+<ul>
+<li><a href="#intro">Introduction &amp; Getting Started</a></li>
+<li><a href="#wordclouds">Wordcounts &amp; Wordclouds In Green Eggs &amp; Ham</a></li>
+<li><a href="#generate">Generating The Plots</a></li>
+<li><a href="#combine">Combining The Bar Plots Into One Graph With grid.arrange()</a></li>
+<li><a href="#refs">References &amp; Resources</a></li>
+</ul>
+<p><a name="intro"></a></p>
+<p> </p>
+</div>
+<div id="introduction-getting-started" class="section level3">
+<h3><u>Introduction &amp; Getting Started</u></h3>
+<p> </p>
+<p>One of the first children’s book I was introduced to was Dr. Seuss - Green Eggs &amp; Ham. I would read this book a lot at the doctor’s office when I was young.</p>
+<p>A .txt version of the book can be found online through this link. Since there is no title or weird characters, there is no need for data cleaning in R.</p>
+<p>Wordcounts and wordclouds are generated in the tidy way as described from the (online) book Text Mining With R: A Tidy Approach by Julia Silge and David Robinson.</p>
+<p> </p>
+<p><strong>Loading Libraries In R</strong></p>
+<p> </p>
+<p>The R packages of interest are <code>dplyr</code>, <code>tidyr</code>, <code>ggplot2</code>, <code>tidytext</code>, <code>wordcloud</code> and <code>gridExtra</code>.</p>
+<p> </p>
+<pre class="r"><code># Load libraries into R:
+# Install packages with install.packages(&quot;pkg_name&quot;)
+
+library(dplyr) # Data Manipulation
+library(tidyr) # Data Wrangling
+library(ggplot2) # Data Visualization
+library(tidytext) # For text mining and analysis
+library(wordcloud) # Wordcloud capabilities
+library(gridExtra) # Multiple plots in one</code></pre>
+<p><a name="wordclouds"></a></p>
+<p> </p>
+</div>
+<div id="wordcounts-wordclouds-in-green-eggs-ham" class="section level3">
+<h3><u>Wordcounts &amp; Wordclouds In Green Eggs &amp; Ham</u></h3>
+<p> </p>
+<p>With the <code>tidytext</code> package in R, you can obtain wordcounts from pieces of text. To be able to generate wordclouds, you would require the wordcloud R package. My other text mining posts mention creating wordclouds with the use of the tm package but in this case I am using the tidytext and wordcloud packages.</p>
+<p>There is a text version of the Green Eggs &amp; Ham book online here. This text file is the book itself so there is no need for data cleaning. To read in the file, use the <code>readLines()</code> function in R.</p>
+<p> </p>
+<pre class="r"><code># 1) Wordcounts in Green Eggs And Ham
+
+greenEggs_book &lt;- readLines(&quot;https://www.clear.rice.edu/comp200/resources/texts/Green%20Eggs%20and%20Ham.txt&quot;)
+
+# Preview the start of the book:
+
+greenEggs_book_df &lt;- data_frame(Text = greenEggs_book) # tibble aka neater data frame
+
+head(greenEggs_book_df, n = 15) </code></pre>
+<pre><code>## # A tibble: 15 x 1
+##                             Text
+##                            &lt;chr&gt;
+##  1                      I am Sam
+##  2                      Sam I am
+##  3                              
+##  4                That Sam-I-am!
+##  5                That Sam-I-am!
+##  6  I do not like that Sam-I-am!
+##  7                              
+##  8                  Do you like 
+##  9           green eggs and ham?
+## 10 I do not like them, Sam-I-am.
+## 11                 I do not like
+## 12           green eggs and ham.
+## 13                              
+## 14          Would you like them 
+## 15                here or there?</code></pre>
+<p> </p>
+<p>From the tidytext package, the <code>unnest_tokens()</code> function converts the text in a way such that each row is just a single word.</p>
+<p> </p>
+<pre class="r"><code># Unnest tokens: Have each word in a row:
+
+greenEggs_words &lt;- greenEggs_book_df %&gt;% 
+  unnest_tokens(output = word, input = Text) 
+
+# Preview with head() function:
+
+head(greenEggs_words, n = 10)</code></pre>
+<pre><code>## # A tibble: 10 x 1
+##     word
+##    &lt;chr&gt;
+##  1     i
+##  2    am
+##  3   sam
+##  4   sam
+##  5     i
+##  6    am
+##  7  that
+##  8   sam
+##  9     i
+## 10    am</code></pre>
+<p> </p>
+<p>Normally, I want to remove stopwords from the text as they carry very little meaning on their own. This time around, I will obtain word counts in Green Eggs &amp; Ham when the stopwords are filtered out and the word counts of the original book itself. To filter out the stop words the <code>anti_join()</code> function from R’s dplyr package is used. The variable which is associated with the filtered text is <code>greenEggs_words_filt</code>.</p>
+<p> </p>
+<pre class="r"><code># Remove English stop words from Fox In Socks:
+# Stop words include me, you, for, myself, he, she
+
+greenEggs_words_filt &lt;- greenEggs_words %&gt;%
+  anti_join(stop_words)</code></pre>
+<pre><code>## Joining, by = &quot;word&quot;</code></pre>
+<p> </p>
+<p>With the use of dplyr’s pipe operator (%&gt;%) and its <code>count()</code> function, counts for each word can be obtained for the filtered case and the non-filtered case.</p>
+<p> </p>
+<pre class="r"><code># Word Counts in Fox In Socks (No stopwords)
+
+greenEggs_wordcounts &lt;- greenEggs_words %&gt;% count(word, sort = TRUE)
+
+# Word Counts in Fox In Socks (Stopwords removed)
+
+greenEggs_wordcounts_filt &lt;- greenEggs_words_filt %&gt;% count(word, sort = TRUE)
+
+# Print top 15 words
+
+head(greenEggs_wordcounts, n = 15)</code></pre>
+<pre><code>## # A tibble: 15 x 2
+##     word     n
+##    &lt;chr&gt; &lt;int&gt;
+##  1     i    84
+##  2   not    84
+##  3  them    61
+##  4     a    59
+##  5  like    45
+##  6    in    41
+##  7    do    37
+##  8   you    34
+##  9 would    26
+## 10   and    25
+## 11   eat    24
+## 12  will    21
+## 13  with    19
+## 14   sam    18
+## 15    am    15</code></pre>
+<pre class="r"><code>head(greenEggs_wordcounts_filt, n = 15)</code></pre>
+<pre><code>## # A tibble: 15 x 2
+##     word     n
+##    &lt;chr&gt; &lt;int&gt;
+##  1   eat    24
+##  2   sam    18
+##  3  eggs    11
+##  4 green    11
+##  5   ham    10
+##  6 train     9
+##  7 house     8
+##  8 mouse     8
+##  9   box     7
+## 10   car     7
+## 11  dark     7
+## 12   fox     7
+## 13  tree     6
+## 14  goat     4
+## 15  rain     4</code></pre>
+<p> </p>
+<p><a name="generate"></a></p>
+</div>
+<div id="generating-the-plots" class="section level3">
+<h3><u>Generating The Plots</u></h3>
+<p> </p>
+<p><strong>Case One: Wordcounts Plot and Wordcloud With Stopwords</strong></p>
+<p>Plots are generated with the use of R’s ggplot2 data visualization package. The plots are saved into variables which will be used the <code>grid.arrange()</code> function later for multiple plots.</p>
+<p>From the unfiltered version, I take the top 15 most common words in the Green Eggs &amp; Ham book. The results from the plot are not too inspiring besides the name sam.</p>
+<p> </p>
+<pre class="r"><code>## a) Plot &amp; Wordcloud With StopWords
+
+# Bar Graph (Top 15 Words):
+
+green_wordcounts_plot &lt;- greenEggs_wordcounts[1:15, ] %&gt;% 
+                          mutate(word = reorder(word, n)) %&gt;% 
+                          ggplot(aes(word, n)) + 
+                          geom_col(fill = &quot;#807af5&quot;) +
+                          coord_flip() +
+                          labs(x = &quot;Word \n&quot;, y = &quot;\n Count &quot;, title = &quot;The 15 Most Common Words In \n Green Eggs And Ham \n&quot;) +
+                          geom_text(aes(label = n), hjust = 1, colour = &quot;white&quot;, fontface = &quot;bold&quot;, size = 3.5) +
+                          theme(plot.title = element_text(hjust = 0.5), axis.ticks.x = element_blank(),
+                          axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12),
+                          axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12)) 
+
+# Print plot:
+
+green_wordcounts_plot</code></pre>
+<p><img src="rtext-greeneggs_files/figure-html/unnamed-chunk-6-1.png" width="384" /></p>
+<p> </p>
+<p>Most of the preprocessing has already been done with the dplyr functions. Generating the wordcloud does not take much extra code.</p>
+<p> </p>
+<pre class="r"><code># Wordcounts Wordcloud:
+
+greenEggs_wordcounts %&gt;%
+  with(wordcloud(words = word, freq = n, min.freq = 2, max.words = 100, random.order=FALSE, rot.per=0.35, colors = rainbow(30)))</code></pre>
+<p><img src="rtext-greeneggs_files/figure-html/unnamed-chunk-7-1.png" width="384" /></p>
+<p> </p>
+<p><strong>Case Two: Wordcounts Plot and Wordcloud Without Stopwords</strong></p>
+<p> </p>
+<p>The code is not much different from case one. In this case, the filtered version of the word counts is used.</p>
+<p> </p>
+<pre class="r"><code>## b) Plot &amp; Wordcloud With No StopWords
+
+# Bar Graph (Top 15 Words):
+
+green_wordcounts_plot_filt &lt;- greenEggs_wordcounts_filt[1:15, ] %&gt;% 
+  mutate(word = reorder(word, n)) %&gt;% 
+  ggplot(aes(word, n)) + 
+  geom_col(fill = &quot;#d9232f&quot;) +
+  coord_flip() +
+  labs(x = &quot;Word \n&quot;, y = &quot;\n Count &quot;, title = &quot;The 15 Most Common Words In \n Green Eggs And Ham \n (No Stopwords) \n&quot;) +
+  geom_text(aes(label = n), hjust = 1, colour = &quot;white&quot;, fontface = &quot;bold&quot;, size = 3.5) +
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.ticks.x = element_blank(),
+        axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;darkblue&quot;, size = 12)) 
+
+# Print plot:
+
+green_wordcounts_plot_filt</code></pre>
+<p><img src="rtext-greeneggs_files/figure-html/unnamed-chunk-8-1.png" width="384" /></p>
+<p> </p>
+<p>From the results, top words include:</p>
+<p> </p>
+<ul>
+<li>eat</li>
+<li>sam</li>
+<li>green</li>
+<li>eggs</li>
+<li>ham</li>
+<li>mouse</li>
+<li>house</li>
+<li>fox</li>
+</ul>
+<p> </p>
+<p>These top words indicate that the book has something to do with sam, eggs, ham, eating and the colour green.</p>
+<p>Generating the wordcloud in R with the <code>wordcloud</code> package is not much different as in the first case.</p>
+<p> </p>
+<pre class="r"><code># Wordcounts Wordcloud:
+
+greenEggs_wordcounts_filt %&gt;%
+  with(wordcloud(words = word, freq = n, min.freq = 2, max.words = 100, random.order=FALSE, rot.per=0.35, colors = rainbow(30)))</code></pre>
+<p><img src="rtext-greeneggs_files/figure-html/unnamed-chunk-9-1.png" width="384" /></p>
+<p><a name="combine"></a></p>
+<p> </p>
+</div>
+<div id="combining-the-bar-plots-into-one-graph-with-grid.arrange" class="section level3">
+<h3><u>Combining The Bar Plots Into One Graph With grid.arrange()</u></h3>
+<p>The horizontal bar graphs from earlier were saved into variables. From the gridExtra package in R, the two variables containing the plots can be used in the grid.arrange() function to generate a plot with multiple graphs.</p>
+<p> </p>
+<pre class="r"><code>## Bar graphs together
+
+grid.arrange(green_wordcounts_plot, green_wordcounts_plot_filt, ncol = 2)</code></pre>
+<p><img src="rtext-greeneggs_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p> </p>
+<p>There is a clear and definite difference with the graphs when the English stopwords such as I, the, of, will and with are removed. The results carry more meaning.</p>
+<p><a name="refs"></a></p>
+<p> </p>
+</div>
+<div id="references-resources" class="section level3">
+<h3><u>References &amp; Resources</u></h3>
+<p> </p>
+<ul>
+<li>R Graphics Cookbook By Winston Chang</li>
+<li>Text Mining With R: A Tidy Approach By Julia Silge and David Robinson</li>
+<li><a href="https://www.clear.rice.edu/comp200/resources/texts/Green%20Eggs%20and%20Ham.txt">https://www.clear.rice.edu/comp200/resources/texts/Green%20Eggs%20and%20Ham.txt</a></li>
+<li><a href="http://www.sthda.com/english/wiki/text-mining-and-word-cloud-fundamentals-in-r-5-simple-steps-you-should-know" class="uri">http://www.sthda.com/english/wiki/text-mining-and-word-cloud-fundamentals-in-r-5-simple-steps-you-should-know</a></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

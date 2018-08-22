@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Plotting Continuous Probability Distributions In R With ggplot2</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Plotting Continuous Probability Distributions In R With ggplot2</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hello there. This page is about plotting various (continuous) probability distributions in R with ggplot2. Through experimentation and trial and error, here is what I have come with. As there are many different probability distributions, I will go through a sample of them.</p>
+<p>To install the ggplot2 package into R, try typing in:</p>
+<p> </p>
+<pre><code>install.packages(&quot;ggplot2&quot;)</code></pre>
+<p> </p>
+<p>To load in the <code>ggplot2</code> package into R, type in</p>
+<p> </p>
+<pre class="r"><code>library(ggplot2)</code></pre>
+<p> </p>
+<p>Most of the R &amp; ggplot2 code in the below sections will have a format similar to:</p>
+<p> </p>
+<pre><code># Main Code Template:
+
+# ggplot(x = data.frame(c(a, b)), aes(x = x)) 
+#   + stat_function(fun = function_name) +
+#   other add-on functions such as labels, text and so on.</code></pre>
+<p> </p>
+<div id="sections" class="section level3">
+<h3><u>Sections</u></h3>
+<p> </p>
+<ul>
+<li>Standard Uniform Distribution</li>
+<li>Exponential Distribution</li>
+<li>Weibull Distribution</li>
+<li>Gamma Distribution</li>
+<li>Cauchy Distribution</li>
+<li>Pareto Distribution Plots With Custom Function</li>
+<li>Notes</li>
+<li>References</li>
+</ul>
+<p> </p>
+<p>You may want to refer to a few of my other pages:</p>
+<p>Plotting Normal Distributions In R Using ggplot2</p>
+<p><a href="./rmath-uniform-plots.html">Plotting Uniform Distributions In R With ggplot2</a></p>
+<p> </p>
+</div>
+<div id="standard-uniform-distribution" class="section level3">
+<h3><u>Standard Uniform Distribution</u></h3>
+<p> </p>
+<p>Given values of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>, the random variable <span class="math inline">\(U\)</span> follows a uniform distribution with a probability density function (pdf) of:</p>
+<p> </p>
+<p><span class="math display">\[f(u) = \dfrac{1}{b - a}\]</span></p>
+<p> </p>
+<p>for <span class="math inline">\(a \leq u \leq b\)</span>.</p>
+<p>If <span class="math inline">\(a = 0\)</span> and <span class="math inline">\(b = 1\)</span>, the uniform distribution becomes the standard uniform distribution. We would now have</p>
+<p> </p>
+<p><span class="math display">\[f(u) = 1\]</span></p>
+<p> </p>
+<p>for <span class="math inline">\(0 \leq x \leq 1\)</span>.</p>
+<p> </p>
+<p><strong>R Code</strong></p>
+<p> </p>
+<p>In R, the code for the uniform density function is:</p>
+<p> </p>
+<pre><code>dunif(x, min = 0, max = 1, log = FALSE)</code></pre>
+<p> </p>
+<p>where we have <span class="math inline">\(x\)</span>, min which is like <span class="math inline">\(a\)</span> and max which is like <span class="math inline">\(b\)</span>. (I am not sure what log is for but I would leave it at the FALSE default.)</p>
+<p>The code presented below starts with the <code>ggplot()</code> function taking in 0 and 1 as limits for the horizontal axis. The <code>xlim()</code> and <code>ylim()</code> optional functions are used to adjust to the <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> parameters. Two <code>stat_functions()</code> are used for the colour fill to represent the area and for the probability density line. Add-on functions such as <code>labs()</code> and <code>theme()</code> are for labels and adjusting text.</p>
+<p> </p>
+<pre class="r"><code>## 1) Standard Uniform Distribution Plot [Unif(0, 1)]
+
+# Template Code from R Doc. : dunif(x, min = 0, max = 1, log = FALSE)
+
+a &lt;- 0; b &lt;- 1
+
+ggplot(data.frame(x = c(a, b)), aes(x = x)) + xlim(c(a, b)) + ylim(0, 1/(b - a)) +
+  stat_function(fun = dunif, args = list(min = a, max = b), geom = &quot;area&quot;, fill = &quot;purple&quot;, alpha = 0.35) + 
+  stat_function(fun = dunif, args = list(min = a, max = b)) + 
+  labs(x = &quot;\n u&quot;, y = &quot;f(u) \n&quot;, title = &quot;Standard Uniform Distribution Density Plot \n&quot;) +    
+  theme(plot.title = element_text(hjust = 0.5), 
+    axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12),
+    axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12))</code></pre>
+<p><img src="rvisual-cont-prob-dists_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p> </p>
+<p>Inside stat_function, it is important to include <code>args = list()</code>. Inside this <code>list()</code>, you input the parameters/values for the function that you are using. In this case, the uniform distribution function <code>dunif()</code> requires a minimum and a maximum.</p>
+<p> </p>
+</div>
+<div id="exponential-distribution-plot" class="section level3">
+<h3><u>Exponential Distribution Plot</u></h3>
+<p> </p>
+<p>Given a rate of <span class="math inline">\(\lambda\)</span> (lambda), the probability density function for the exponential distribution is:</p>
+<p> </p>
+<p><span class="math display">\[f(x; \lambda) = \lambda \text{e}^{-\lambda x}\]</span>  </p>
+<p>for <span class="math inline">\(x \geq 0\)</span>.</p>
+<p>In the R documentation, the code for the exponential distribution’s density function is:</p>
+<p> </p>
+<pre><code>dexp(x, rate = 1, log = FALSE)</code></pre>
+<p> </p>
+<p>This first plot deals with the case when the rate/lambda is equal to 1 in the exponential distribution.</p>
+<p> </p>
+<pre class="r"><code>## 2) Exponential Distribution Plot:
+
+# Template Code in R Doc.: dexp(x, rate = 1, log = FALSE)
+# Mean is 1/rate
+
+# Initialize some values.
+
+x_lower &lt;- 0
+x_upper &lt;- 5
+
+max_height &lt;- max(dexp(x_lower:x_upper, rate = 1, log = FALSE))
+max_height</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="r"><code>ggplot(data.frame(x = c(x_lower, x_upper)), aes(x = x)) + xlim(x_lower, x_upper) + 
+    ylim(0, max_height) +
+    stat_function(fun = dexp, args = list(rate = 1), geom = &quot;area&quot;, fill = &quot;blue&quot;, alpha = 0.25) + 
+    stat_function(fun = dexp, args = list(rate = 1)) + 
+    labs(x = &quot;\n x&quot;, y = &quot;f(x) \n&quot;, title = &quot;Exponential Distribution Density Plot With Rate = 1 \n&quot;) + 
+    theme(plot.title = element_text(hjust = 0.5), 
+          axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12),
+          axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12))</code></pre>
+<p><img src="rvisual-cont-prob-dists_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p> </p>
+<p>This plot is expected when <span class="math inline">\(\lambda = 1\)</span> as this is simply exponential decay (i.e. <span class="math inline">\(\text{e}^{-x}\)</span>).</p>
+<p> </p>
+</div>
+<div id="plotting-multiple-exponential-distribution-plots" class="section level3">
+<h3><u>Plotting Multiple Exponential Distribution Plots</u></h3>
+<p> </p>
+<p>Suppose you want to compare multiple exponential distribution plots with different rates. This can be done in the ggplot2 framework with the use of multiple stat_functions with different rate values in each of the <code>list()</code> functions for <code>args = list()</code>.</p>
+<pre class="r"><code># Multiple Exponential Distribution Plots:
+ 
+x_lower &lt;- 0
+x_upper &lt;- 5
+ 
+max_height2 &lt;- max(dexp(x_lower:x_upper, rate = 1, log = FALSE), 
+                    dexp(x_lower:x_upper, rate = 2, log = FALSE),
+                    dexp(x_lower:x_upper, rate = 3, log = FALSE),
+                    dexp(x_lower:x_upper, rate = 0.5, log = FALSE))
+ 
+max_height2</code></pre>
+<pre><code>## [1] 3</code></pre>
+<pre class="r"><code>ggplot(data.frame(x = c(x_lower, x_upper)), aes(x = x)) + xlim(x_lower, x_upper) + 
+     ylim(0, max_height2) +
+     stat_function(fun = dexp, args = list(rate = 0.5), aes(colour = &quot;0.5&quot;)) + 
+     stat_function(fun = dexp, args = list(rate = 1), aes(colour = &quot;1&quot;)) + 
+     stat_function(fun = dexp, args = list(rate = 2), aes(colour = &quot;2&quot;)) + 
+     stat_function(fun = dexp, args = list(rate = 3), aes(colour = &quot;3&quot;)) + 
+     scale_color_manual(&quot;Rate&quot;, values = c(&quot;blue&quot;, &quot;green&quot;, &quot;red&quot;, &quot;purple&quot;)) +
+     labs(x = &quot;\n x&quot;, y = &quot;f(x) \n&quot;, 
+        title = &quot;Exponential Distribution Density Plots \n&quot;) + 
+     theme(plot.title = element_text(hjust = 0.5), 
+         axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12),
+         axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12),
+         legend.title = element_text(face=&quot;bold&quot;, size = 10),
+         legend.position = &quot;right&quot;)</code></pre>
+<p><img src="rvisual-cont-prob-dists_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># https://stackoverflow.com/questions/31792634/adding-legend-to-ggplot2-with-multiple-lines-on-plot
+# https://stackoverflow.com/questions/19950219/using-legend-with-stat-function-in-ggplot2</code></pre>
+<p> </p>
+</div>
+<div id="weibull-distribution" class="section level3">
+<h3><u>Weibull Distribution</u></h3>
+<p> </p>
+<p>The Weibull distribution depends on shape and scale parameters. A special case of the Weibull distribution is the Exponential distribution where the shape parameter from the Weibull is one.</p>
+<p>In R, the code for the Weibull density function is:</p>
+<p> </p>
+<pre><code>dweibull(x, shape, scale = 1, log = FALSE)</code></pre>
+<p> </p>
+<p>The code for Weibull distribution plot is very similar to the code for the first Exponential distribution plot above. Instead of <code>dexp()</code>, it would be <code>dweibull()</code> instead. Do note the changes in the <code>args = list()</code> parts in two <code>stat_function()</code> parts.</p>
+<p> </p>
+<pre class="r"><code># R Doc. Template for Weibull: dweibull(x, shape, scale = 1, log = FALSE)
+
+# Initialize some values.
+
+x_lower_wei &lt;- 0
+x_upper_wei &lt;- 5
+
+max_height_wei &lt;- max(dweibull(x_lower_wei:x_upper_wei, shape = 1, scale = 1, log = FALSE))
+max_height_wei</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="r"><code># Shape Parameter (a) of 1 turns Weibull distribution to exponential distribution:
+
+ggplot(data.frame(x = c(x_lower_wei , x_upper_wei)), aes(x = x)) + 
+  xlim(c(x_lower_wei , x_upper_wei)) + 
+  ylim(0, max_height_wei) +
+  stat_function(fun = dweibull, args = list(shape = 1, scale = 1), geom = &quot;area&quot;, 
+                fill = &quot;green&quot;, alpha = 0.25) + 
+  stat_function(fun = dweibull, args = list(shape = 1, scale = 1)) + 
+  labs(x = &quot;\n x&quot;, y = &quot;f(x) \n&quot;, 
+       title = &quot;Weibull Distribution With \n Shape &amp; Scale Parameters = 1 \n&quot;) + 
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12))</code></pre>
+<p><img src="rvisual-cont-prob-dists_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p> </p>
+</div>
+<div id="multiple-weibull-distribution-plots" class="section level3">
+<h3><u>Multiple Weibull Distribution Plots</u></h3>
+<p> </p>
+<p>I have included code and a plot of three Weibull distributions with varying shape and scale parameters. Fitting multiple densities into one plot is good for comparisons.</p>
+<p> </p>
+<pre class="r"><code># Plotting Three Weibull Distributions:
+
+
+x_lower_wei &lt;- 0
+x_upper_wei &lt;- 10
+
+# Excluded ylimits this time.
+
+ggplot(data.frame(x = c(x_lower_wei , x_upper_wei)), aes(x = x)) + 
+  xlim(c(x_lower_wei , x_upper_wei)) + 
+  stat_function(fun = dweibull, args = list(shape = 2, scale = 3), aes(colour = &quot;2 &amp; 3&quot;)) + 
+  stat_function(fun = dweibull, args = list(shape = 3, scale = 3), aes(colour = &quot;3 &amp; 3&quot;)) + 
+  stat_function(fun = dweibull, args = list(shape = 3, scale = 4), aes(colour = &quot;3 &amp; 4&quot;)) + 
+  scale_color_manual(&quot;Shape &amp; Scale \n Parameters&quot;, values = c(&quot;blue&quot;, &quot;green&quot;, &quot;red&quot;)) +
+  labs(x = &quot;\n x&quot;, y = &quot;f(x) \n&quot;, 
+       title = &quot;Weibull Distribution Plots&quot;) + 
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12),
+        legend.title = element_text(face=&quot;bold&quot;, size = 10),
+        legend.position = &quot;right&quot;)</code></pre>
+<p><img src="rvisual-cont-prob-dists_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p> </p>
+</div>
+<div id="gamma-distributions" class="section level3">
+<h3><u>Gamma Distributions</u></h3>
+<p> </p>
+<p>The Gamma distribution is a continuous probability distribution which depends on shape and rate parameters. In R, the code for the gamma density is <code>dgamma()</code>. In the comment, I have put in a note that you have to specify the rate or scale but not both.</p>
+<p>The code and output below is one example of plotting a Gamma distribution.</p>
+<p> </p>
+<pre class="r"><code># R Doc Code for Gamma Dist:
+# dgamma(x, shape, rate = 1, scale = 1/rate, log = FALSE)
+# Have to specify rate or scale but not both.
+
+# Initialize some values.
+
+x_lower_g &lt;- 0
+x_upper_g &lt;- 5
+
+# No limitations on height.
+
+# Gamma Distribution Plot With Rate = 2 and Scale = 0.5
+
+ggplot(data.frame(x = c(x_lower_g , x_upper_g)), aes(x = x)) + 
+  xlim(c(x_lower_g , x_upper_g)) + 
+  stat_function(fun = dgamma, args = list(rate = 2, shape = 2), geom = &quot;area&quot;, 
+                fill = &quot;orange&quot;, alpha = 0.25) + 
+  stat_function(fun = dgamma, args = list(rate = 2, shape = 2)) + 
+  labs(x = &quot;\n x&quot;, y = &quot;f(x) \n&quot;, 
+       title = &quot;Gamma Distribution With Rate &amp; Shape = 2 \n&quot;) + 
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12))</code></pre>
+<p><img src="rvisual-cont-prob-dists_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p> </p>
+</div>
+<div id="multiple-gamma-distributions" class="section level3">
+<h3><u>Multiple Gamma Distributions</u></h3>
+<p> </p>
+<p>Since the Gamma distribution depends on shape and rate parameters, you can play around with different values of the rate and shape parameters and plot multiple Gamma distributions.</p>
+<p> </p>
+<pre class="r"><code># Multiple Gamma Distributions:
+
+x_lower_g &lt;- 0
+x_upper_g &lt;- 5
+
+ggplot(data.frame(x = c(x_lower_g , x_upper_g)), aes(x = x)) + 
+  xlim(c(x_lower_g , x_upper_g)) + 
+  stat_function(fun = dgamma, args = list(rate = 2, shape = 2), aes(colour = &quot;2 &amp; 2&quot;)) + 
+  stat_function(fun = dgamma, args = list(rate = 1, shape = 2), aes(colour = &quot;1 &amp; 2&quot;)) + 
+  stat_function(fun = dgamma, args = list(rate = 2, shape = 3), aes(colour = &quot;2 &amp; 3&quot;)) + 
+  scale_color_manual(&quot;Rate &amp; Shape \n Parameters&quot;, values = c(&quot;black&quot;, &quot;blue&quot;, &quot;red&quot;)) +
+  labs(x = &quot;\n x&quot;, y = &quot;f(x) \n&quot;, 
+       title = &quot;Gamma Distribution Plots&quot;) + 
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12),
+        legend.title = element_text(face=&quot;bold&quot;, size = 10),
+        legend.position = &quot;right&quot;)</code></pre>
+<p><img src="rvisual-cont-prob-dists_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p> </p>
+</div>
+<div id="cauchy-distributions" class="section level3">
+<h3><u>Cauchy Distributions</u></h3>
+<p> </p>
+<p>The Cauchy distribution is one that is taught in some more higher level probability and statistics courses. One could compare this distribution to the normal distribution as the shape does look similar.</p>
+<p>In R, <code>dcauchy()</code> is the function for the Cauchy density. Make sure to specify the location and scale parameters for the Cauchy distribution.</p>
+<p> </p>
+<pre class="r"><code>## 5) Cauchy Distribution:
+
+# R Doc code template: dcauchy(x, location = 0, scale = 1, log = FALSE)
+
+x_lower_chy &lt;- -7
+x_upper_chy &lt;- 7
+
+max_height &lt;- max(dcauchy(x_lower_chy:x_upper_chy , location = 0, scale = 1, log = FALSE))
+max_height</code></pre>
+<pre><code>## [1] 0.3183099</code></pre>
+<pre class="r"><code>ggplot(data.frame(x = c(x_lower_chy, x_upper_chy )), aes(x = x)) + xlim(c(x_lower_chy, x_upper_chy )) + 
+  ylim(0, max_height) +
+  stat_function(fun = dcauchy, args = list(location = 0, scale = 1), geom = &quot;area&quot;, 
+                fill = &quot;green&quot;, alpha = 0.25) + 
+  stat_function(fun = dcauchy, args = list(location = 0, scale = 1)) + 
+  labs(x = &quot;\n x&quot;, y = &quot;f(x) \n&quot;, 
+       title = &quot;Cauchy Distribution With \n Location &amp; Scale Parameters As 0 &amp; 1 \n&quot;) + 
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12))</code></pre>
+<p><img src="rvisual-cont-prob-dists_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p> </p>
+</div>
+<div id="multiple-cauchy-distribution-plots" class="section level3">
+<h3><u>Multiple Cauchy Distribution Plots</u></h3>
+<p> </p>
+<pre class="r"><code>## Mutliple Cauchy Density Plots:
+
+x_lower_chy &lt;- -10
+x_upper_chy &lt;- 10
+
+ggplot(data.frame(x = c(x_lower_chy , x_upper_chy)), aes(x = x)) + 
+  xlim(c(x_lower_chy , x_upper_chy)) + 
+  stat_function(fun = dcauchy, args = list(location = 0, scale = 1), aes(colour = &quot;0 &amp; 1&quot;)) + 
+  stat_function(fun = dcauchy, args = list(location = -1, scale = 1), aes(colour = &quot;-1 &amp; 1&quot;)) + 
+  stat_function(fun = dcauchy, args = list(location = 2, scale = 2), aes(colour = &quot;2 &amp; 2&quot;)) + 
+  scale_color_manual(&quot;Location &amp; Shape \n Parameters&quot;, values = c(&quot;green&quot;, &quot;purple&quot;, &quot;red&quot;)) +
+  labs(x = &quot;\n x&quot;, y = &quot;f(x) \n&quot;, 
+       title = &quot;Cauchy Distribution Plots&quot;) + 
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12),
+        legend.title = element_text(face=&quot;bold&quot;, size = 8),
+        legend.position = &quot;right&quot;)</code></pre>
+<p><img src="rvisual-cont-prob-dists_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p> </p>
+</div>
+<div id="pareto-distribution-plots-with-custom-function" class="section level3">
+<h3><u>Pareto Distribution Plots With Custom Function</u></h3>
+<p> </p>
+<p>In the previous sections, we have used a built in R function inside of <code>stat_function()</code>. However, not all probability distribution functions have a built in R function that is ready to use.</p>
+<p>With the Pareto distribution, a custom function needs to be made. The parameters for the Pareto distribution are lambda and k. (Yes, I forgot to put an if statement which would consider the support of the distribution.)</p>
+<p> </p>
+<pre class="r"><code># 6) Pareto Distribution Using Custom Function:
+
+# Resource: http://www.math.wm.edu/~leemis/chart/UDR/PDFs/Pareto.pdf
+
+# Pareto Density Function:
+pareto_pdf &lt;- function(x, lambda = 1, k = 1){
+    density &lt;- (k*(lambda^k)) / (x^(k + 1))
+    return(density)
+}
+
+x_lower_pareto &lt;- 1
+x_upper_pareto &lt;- 10
+
+ggplot(data.frame(x = c(x_lower_pareto, x_upper_pareto)), aes(x = x)) + 
+  stat_function(fun = pareto_pdf, args = list(lambda = 1, k = 1),
+                geom = &quot;area&quot;, fill = &quot;green&quot;, alpha = 0.5) + 
+  stat_function(fun = pareto_pdf, args = list(lambda = 1, k = 1)) + 
+  labs(x = &quot;\n x&quot;, y = &quot;f(x) \n&quot;, 
+       title = &quot;Pareto Distribution Plot \n&quot;) + 
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12))</code></pre>
+<p><img src="rvisual-cont-prob-dists_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p> </p>
+<p><strong>Multiple Pareto Distributions</strong></p>
+<p> </p>
+<p>For plotting multiple distributions, the custom function is needed as well.</p>
+<p> </p>
+<pre class="r"><code># Multiple Pareto Distributions:
+
+ggplot(data.frame(x = c(x_lower_pareto, x_upper_pareto)), aes(x = x)) + 
+  xlim(c(x_lower_pareto, x_upper_pareto)) +
+  stat_function(fun = pareto_pdf, args = list(lambda = 1, k = 1), aes(colour = &quot;1 &amp; 1&quot;)) + 
+  stat_function(fun = pareto_pdf, args = list(lambda = 2, k = 1), aes(colour = &quot;2 &amp; 1&quot;)) + 
+  stat_function(fun = pareto_pdf, args = list(lambda = 2, k = 1.5), aes(colour = &quot;2 &amp; 1.5&quot;)) + 
+  scale_color_manual(&quot;Lambda &amp; k \n Values&quot;, values = c(&quot;green&quot;, &quot;purple&quot;, &quot;red&quot;)) +
+  labs(x = &quot;\n x&quot;, y = &quot;f(x) \n&quot;, 
+       title = &quot;Pareto Distribution Plots \n&quot;) + 
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;blue&quot;, size = 12),
+        legend.title = element_text(face=&quot;bold&quot;, size = 8),
+        legend.position = &quot;right&quot;)</code></pre>
+<p><img src="rvisual-cont-prob-dists_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p> </p>
+<p><strong>Notes</strong></p>
+<p> </p>
+<p>The code provided could add some if statements to let the user know if certain x-values are not valid.</p>
+<p>Making plots for other probability distributions requires a simple adjustment in the <code>stat_function()</code> part.</p>
+<p>If there is no built in functions for you to use, you would need to write up a custom function for that probability density function.</p>
+<p> </p>
+</div>
+<div id="references" class="section level3">
+<h3><u>References</u></h3>
+<p> </p>
+<p>R Graphics Cookbook By Winston Chang (2012)</p>
+<p><a href="http://www.math.wm.edu/~leemis/chart/UDR/PDFs/Pareto.pdf" class="uri">http://www.math.wm.edu/~leemis/chart/UDR/PDFs/Pareto.pdf</a></p>
+<p><a href="https://stackoverflow.com/questions/31792634/adding-legend-to-ggplot2-with-multiple-lines-on-plot" class="uri">https://stackoverflow.com/questions/31792634/adding-legend-to-ggplot2-with-multiple-lines-on-plot</a></p>
+<p><a href="https://stackoverflow.com/questions/19950219/using-legend-with-stat-function-in-ggplot2" class="uri">https://stackoverflow.com/questions/19950219/using-legend-with-stat-function-in-ggplot2</a></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

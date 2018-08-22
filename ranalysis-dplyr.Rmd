@@ -1,0 +1,352 @@
+---
+title: "Data Manipulation In R Using The dplyr Package"
+output: html_document
+---
+
+&nbsp;
+
+Hello. In this page, I experiment with data manipulation and extracting information from data using the `dplyr` package in the statistical program R. Here is my guide to dplyr and R.
+
+&nbsp;
+
+### <u>Table Of Contents</u>
+
+&nbsp;
+
+* <a href="#what">What Is The dplyr Package in R?</a>
+* <a href="#five">Five Main Functions In The dplyr R Package</a>
+* <a href="#dataset">An Example of dplyr In R - The Dataset</a>
+* <a href="#import">Importing the Dataset</a>
+* <a href="#dplyr">Using the dplyr Functions In R</a>
+* <a href="#pipe">The %>% Pipe Operator In dplyr</a>
+* <a href="#refs">References</a>
+
+<a name="what"></a>
+
+
+&nbsp;
+
+### <u>What Is The dplyr Package in R?</u>
+
+&nbsp;
+
+The `dplyr` package in R allows the user to transform and summarize data from data sets and data frames. In a sense, the `dplyr` package is somewhat similar to SQL. In SQL, queries are used to extract information from data tables while dplyr extracts information from data sets.
+
+`dplyr` can also be used on large datasets as well.
+
+
+<a name="five"></a>
+
+&nbsp;
+
+### <u>Five Main Functions In The dplyr R Package</u>
+
+&nbsp;
+
+In the dplyr package there are five main functions for transforming the data and for extracting information from the data.
+
+&nbsp;
+
+* filter() for extracting rows which meet a criteria
+* select() for selecting/subsetting columns
+* summarise() for extracting information about the dataset (e.g. average)
+* mutate() for making new variables/columns in the dataset
+* group_by() for grouping data into rows
+
+&nbsp;
+
+There are other more functions in the dplyr package, but these 5 are the more important ones.
+
+
+<a name="dataset"></a>
+
+&nbsp;
+
+### <u>An Example of dplyr In R - The Dataset</u>
+
+&nbsp;
+
+The poisons dataset is being used and the information is from from https://vincentarelbundock.github.io/Rdatasets/doc/boot/poisons.html.
+
+The data is a result from an experiment on animals with three poisons and four treatments.
+
+&nbsp;
+
+**Variables**
+
+time: The survival time of the animal in units of 10 hours
+
+poison: A factor with levels of 1, 2, 3 depending on the poison type being used
+
+treat: A factor with levels of A, B, C and D based on the treatment type.
+
+
+<a name="import"></a>
+
+&nbsp;
+
+### <u>Importing the Dataset</u>
+
+&nbsp;
+
+If the `dplyr` package in R is not installed into the system, one can install dplyr into R using the command:
+
+&nbsp;
+
+```
+install.packages("dplyr")
+```
+
+&nbsp;
+
+To enable the dplyr package and its commands (such as filter, summarise), type in:
+
+&nbsp;
+
+```{r}
+library(dplyr)
+```
+
+&nbsp;
+
+In the next steps, the url website address is stored into the url variable and we import and read the url as a comma separated value file (.csv) into R. This imported .csv file is converted to a data frame and stored into the animal_surv variable.
+
+&nbsp;
+
+```{r}
+url <- "https://vincentarelbundock.github.io/Rdatasets/csv/boot/poisons.csv"
+
+animal_surv <- data.frame(read.csv(url, header = TRUE))
+```
+
+&nbsp;
+
+After importing the data, we take a look at the data using the `head()`, `tail()` and `summary()` functions in R.
+
+&nbsp;
+
+```{r}
+
+head(animal_surv)
+
+tail(animal_surv)
+
+summary(animal_surv)
+```
+
+&nbsp;
+
+The `head()` function looks at the top 6 rows (by default) of the dataset. The `tail()` function is like the `head()` function but it looks at the bottom 6 rows (by default). The `summary()` function looks at the dataset and outputs the minimum, median, mean , maximum, first quartile and third quartile for each variable (column).
+
+One could point out that there is this X column which is not needed. We can fix this by removing the first column of the dataset as follows.
+
+&nbsp;
+
+```{r}
+animal_surv <- animal_surv[, -1]
+
+head(animal_surv)
+```
+
+
+<a name="dplyr"></a>
+
+&nbsp;
+
+### <u>Using the dplyr Functions In R</u>
+
+&nbsp;
+
+We now have the data ready for analysis. Some of the dplyr functions will be used here as reference and as examples.
+
+Instead of looking at the first or last rows of data, we can use the `sample_n()` function.
+
+&nbsp;
+
+**sample_n()**
+
+&nbsp;
+
+```{r}
+## sample_n Function From dplyr:
+## Randomly select ten rows and view
+
+sample_n(animal_surv, 10, replace = FALSE)
+
+```
+
+&nbsp;
+
+---
+
+&nbsp;
+
+**select()**
+
+&nbsp;
+
+Suppose we want just the poison and time columns and not treat. There are two ways to do this.
+
+&nbsp;
+
+```{r}
+# Select rows with poison and times (2 ways):
+
+head(select(animal_surv, time, poison))
+
+head(select(animal_surv, -(treat)))
+```
+
+&nbsp;
+
+For illustration purposes, the `head()` function was used to show this output. For the full select output remove the `head()` function.
+
+&nbsp;
+
+---
+
+**filter()**
+
+&nbsp;
+
+The filter function extracts rows which meet a logical criteria. Here is an example.
+
+&nbsp;
+
+```{r}
+# Select poison column of data:
+filter(animal_surv, poison == 1)
+```
+
+&nbsp;
+
+---
+
+**summarise()**
+
+&nbsp;
+
+The `summarise()` function in dplyr summarises the data into a single row of values. There are two examples below.
+
+&nbsp;
+
+```{r}
+# Summarise data: Mean of the times:
+summarise(animal_surv, mean_times = mean(time));
+```
+
+&nbsp;
+
+---
+
+**group_by()**
+
+&nbsp;
+
+The second example uses the `summarise()` function along with the `group_by()` dplyr function. In this second example, the mean times are taken and are grouped by each poison type.
+
+&nbsp;
+
+```{r}
+# Mean of survival times grouped/categorized by poision:
+summarise(group_by(animal_surv, poison), mean_time_poison = mean(time))
+```
+
+
+<a name="pipe"></a>
+
+&nbsp;
+
+### <u>The %>% Pipe Operator In dplyr</u>
+
+&nbsp;
+
+Notice how in each command, the first argument was the dataset `animal_surv`. There is a way such that we do not have to type the dataset out every time.
+
+The `%>%` pipe operator allows us to condense the amount of code and acts as a "and then" operator. Here are a few examples.
+
+```{r}
+# Select poison column of data (without %>%)
+
+filter(animal_surv, poison == 1)
+
+# With operator:
+
+animal_surv %>% filter(poison == 1)
+
+# Earlier we had the mean of survival times grouped/categorized by poison:
+summarise(group_by(animal_surv, poison), mean_time_poison = mean(time))
+
+### More readable code of above using the pipe operator %>%:
+
+animal_surv %>% group_by(poison) %>% summarise(mean_time_poison = mean(time))
+```
+
+&nbsp;
+
+In the first example, the `animal_surv` variable is passed as the first argument in `filter()` using the `%>%` pipe operator.
+
+With the second example, the animal_surv variable is passed as the first argument in `group_by()` and then the `group_by(poison)` is passed as the first argument in summarise. The dataset animal_surv is implied in summrise too.
+
+The output for the above commands are ommitted to save space here.
+
+Another example of the pipe operator and the `filter()` function is this one below.
+
+&nbsp;
+
+```{r}
+# Filter function (Treatment D is bad):
+
+animal_surv %>% filter(treat != "D")
+```
+
+&nbsp;
+
+---
+
+**mutate()**
+
+&nbsp;
+
+Suppose we want to add a new column/variable to our dataset. This new variable answers the question "Does the case have more than 1 hour of survival time?"
+
+We use the `mutate()` function to add a new column given an equation or a criteria.
+
+&nbsp;
+
+```{r}
+# Mutate function and adding a column to the dataset. Does the case have more than 1 hour
+# of survival time?:
+
+new_data <- mutate(animal_surv, one_hour_plus = time > 1)
+```
+
+&nbsp;
+
+From the new dataset with the extra column we can extract information from it.
+
+&nbsp;
+
+```{r}
+# See data with times over an hour (2 ways):
+
+new_data %>% filter(one_hour_plus == TRUE)
+
+animal_surv %>% filter(time > 1)
+```
+
+<a name="refs"></a>
+
+
+&nbsp;
+
+### <u>References</u>
+
+&nbsp;
+
+The featured image is from https://www.rstudio.com/wp-content/uploads/2014/06/RStudio-Ball.png.
+
+This introductory tutorial on the dplyr package is helpful as well.
+
+The Datacamp course on using dplyr is helpful too.
+
