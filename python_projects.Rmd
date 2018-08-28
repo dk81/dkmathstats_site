@@ -1,26 +1,79 @@
 ---
-title: "Python Programming Projects"
+title: "Python Programming"
 output: html_document
 ---
 
 &nbsp;
 
-This page contains links on a bunch of Python programming projects. 
+This page contains a list of Python programming projects done in Jupyter notebook. The projects can be found through my Binder link of https://mybinder.org/v2/gh/dk81/jupyterNotebook/master.
+
+&nbsp;
+
+# <u>Categories</u>
+
+&nbsp;
+
+* <a href="#mathstats">Math And Stats In Python</a>
+
+* <a href="#visual">Data Visualization In Python</a>
+
+* <a href="#manip">Data Manipulation In Python</a>
+
+&nbsp;
+
+<a name="mathstats"></a>
+
+### <u>Math And Stats In Python</u>
+
+&nbsp;
+
+* Arithmetic Sequences & Series In Python
+
+* Norms & Dot Products In Python
+
+* Mean, Median, Mode & Variance In Python
+
+* The Bisection Method In Python
+
+* Linear Algebra With Python & Numpy
+
+* Simple Linear Regression In Python
+
+* Random Walk Plots In Python
+
+&nbsp;
+
+<a name="visual"></a>
+
+### <u>Data Visualization In Python</u>
+
+&nbsp;
+
+* Histograms In Python
+
+* Bar Graphs In Python
+
+* A Pie Chart In Python
+
+* Plots With Python & Seaborn
+
+* A Rock, Paper, Scissors Table Plot In Python
+
+* A Rock, Paper, Scissors, Lizard, Spock Table Plot In Python
+
+* A Pokemon Types Table In Python
 
 
-### <u> Mathematics, Probability & Statistics In Python
+&nbsp;
 
+<a name="manip"></a>
 
+### <u>Data Manipulation In Python</u>
 
+* Some Work With pandas In Python
 
+* Experimental Work With Python's pandas & matplotlib
 
-### <u> Data Visualization In Python
+* Finding The Most Common Baby Names In A Dataset With Python
 
-
-
-
-### <u> Data Manipulation With Python
-
-
-
-
+&nbsp;

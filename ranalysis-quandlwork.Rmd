@@ -1,0 +1,158 @@
+---
+title: "Using R & Quandl To Look At Financial Data"
+output: html_document
+---
+
+&nbsp;
+
+Hi there. This page is focused on using R with the `Quandl` package to look at financial data from the Quandl website.
+
+There is this [guide](https://www.quandl.com/tools/r) from the Quandl website from getting financial data directly into R. Youtube videos can supplement your learning and understanding with this topic.
+
+You also need your own API key to access Quandl's database. This can be acquired through signing in.
+
+&nbsp;
+
+**Installation**
+
+In R (or RStudio), install the Quandl package with `install.packages("Quandl")`. From the code below, I load in `Quandl`, `ggplot2`, `plotly` and `dplyr`.
+
+&nbsp;
+
+```{r}
+# If you need to install Quandl:
+
+# install.packages("Quandl")
+
+# Loading Financial data With Quandl:
+
+library(Quandl)
+library(ggplot2)
+library(plotly)
+library(dplyr)
+
+# Helpful Youtube guide: https://www.youtube.com/watch?v=qg5alOoczNo
+
+# https://www.quandl.com/tools/r
+```
+
+&nbsp;
+
+
+From the Quandl package, you need to tell R that you are using your Quandl API key for authorization. Think of the API key as a password. Quandl's api_key() function takes in the API key code as the argument.
+
+&nbsp;
+
+```
+# Authorization (Set your own API key):
+
+Quandl.api_key("api_key")
+```
+
+&nbsp;
+
+
+
+&nbsp;
+
+```{r, echo = FALSE}
+# Authorization (Set your own API key):
+
+Quandl.api_key("A7CUbSQwdYgJcFLdpQcR")
+```
+
+&nbsp;
+
+
+For this page, I use the datasets that are free. This [link](https://www.quandl.com/data/ZILLOW/C3821_ZHVITT-Zillow-Home-Value-Index-City-Zillow-Home-Value-Index-Top-Tier-Clarkson-NY) contains estimated median home prices according to Zillow. 
+
+To access the data, use the `Quandl()` function along with the page's Quandl code (top right corner of page).
+
+<center>![](./images/quandl_code01.jpg)</center>
+
+
+&nbsp;
+
+```{r, echo = TRUE, fig.width=4, fig.height=4, fig.align="center"} 
+### Look at some data:
+# Link: https://www.quandl.com/data/ZILLOW/C3821_ZHVITT-Zillow-Home-Value-Index-City-Zillow-Home-Value-Index-Top-Tier-Clarkson-NY
+
+# 1) 
+
+clarkson_ny_prices <- Quandl("ZILLOW/C3821_ZHVITT")
+
+# Preview data:
+
+head(clarkson_ny_prices)
+tail(clarkson_ny_prices)
+
+# A simple plotly Plot:
+
+plot_ly(data = clarkson_ny_prices, x = ~Date, y = ~Value) %>%
+  add_lines(y = clarkson_ny_prices$Value) %>%
+  layout(xaxis = list(title = "\n Date", titlefont = "Courier New, monospace"), 
+         yaxis = list(title = "Price \n", 
+                      titlefont = "Courier New, monospace"),
+         title = "Zillow's Home Value Index For Clarkson, NY \n") 
+```
+
+&nbsp;
+
+
+---
+
+
+
+&nbsp;
+
+```{r, echo=TRUE, fig.height=6, fig.width=6, message=FALSE, warning=FALSE}
+# 2) Platinum Prices From Johnson Matthey Database:
+
+plat_prices <- Quandl("JOHNMATT/PLAT")
+
+head(plat_prices)
+tail(plat_prices)
+
+# Rename columns:
+
+colnames(plat_prices) <- c("Date", "HK_0830", "HK_1400", "LDN_0800", "NY_0930")
+
+# ggplot Lines (Considering all prices/columns)
+
+ggplot(plat_prices, aes(x = Date)) +
+  geom_line(aes(y = HK_0830), col = "black") +
+  scale_x_date(date_breaks = "1 year", date_labels = "%h %Y") +
+  labs(x = "\n Date", y = "Closing Price \n", 
+       title = "\n Platinum Prices \n ") + 
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face="bold", colour="#FF7A33", size = 12),
+        axis.title.y = element_text(face="bold", colour="#FF7A33", size = 12),
+        axis.text.x = element_text(angle = 90, vjust = 0.15, hjust = 1),
+        panel.grid.major = element_blank()) 
+```
+
+&nbsp;
+
+
+
+&nbsp;
+
+```{r, echo=TRUE, fig.height=6, fig.width=6, message=FALSE, warning=FALSE}
+# ggplot Lines (Considering all prices/columns)
+
+ggplot(plat_prices, aes(x = Date)) +
+  geom_line(aes(y = HK_0830), col = "black") +
+  geom_line(aes(y = HK_1400), col = "green") +
+  geom_line(aes(y = LDN_0800), col = "red") +
+  geom_line(aes(y = NY_0930), col = "blue") + 
+  scale_x_date(date_breaks = "1 year", date_labels = "%h %Y") +
+  labs(x = "\n Date", y = "Closing Price \n", 
+       title = "\n Platinum Prices \n ") + 
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face="bold", colour="#FF7A33", size = 12),
+        axis.title.y = element_text(face="bold", colour="#FF7A33", size = 12),
+        axis.text.x = element_text(angle = 90, vjust = 0.15, hjust = 1),
+        panel.grid.major = element_blank())
+```
+
+&nbsp;

@@ -11,6 +11,8 @@ navbar:
       href: mathstats_pages.html
     - text: "R Programming"     
       href: r-projects.html
+    - text: "Python Programming"     
+      href: python_projects.html
 output:
   html_document:
     theme: flatly

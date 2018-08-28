@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Decision Trees In R</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming</a>
+</li>
+<li>
+  <a href="python_projects.html">Python Programming</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Decision Trees In R</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hi there. In this post, I share some experimental work that I have done with decision trees in R.</p>
+<p> </p>
+<div id="sections" class="section level3">
+<h3><u>Sections</u></h3>
+<p> </p>
+<ul>
+<li><a href="#overview">Decision Trees Overview</a></li>
+<li><a href="#one">Example One - Grades Dataset</a></li>
+<li><a href="#two">Example Two - Wine Quality Data</a></li>
+<li><a href="#refs">References</a></li>
+</ul>
+<p><a name="overview"></a></p>
+<p> </p>
+</div>
+<div id="decision-trees-overview" class="section level3">
+<h3><u>Decision Trees Overview</u></h3>
+<p> </p>
+<p>Decision trees are used as a tool for making predictions on categorical variables. These trees also give information on decision options and the criteria involved in these decisions. They appear in a flow chart type of fashion that is easy to follow for the viewer.</p>
+<p>An example of a decision tree is shown below.</p>
+<p> </p>
+<center>
+<img src="images/decision-tree-example.png" />
+</center>
+<p> </p>
+<p>Image Source: <a href="https://databricks.com/wp-content/uploads/2014/09/decision-tree-example.png" class="uri">https://databricks.com/wp-content/uploads/2014/09/decision-tree-example.png</a></p>
+<p><a name="one"></a></p>
+<p> </p>
+</div>
+<div id="example-one---a-small-grades-dataset" class="section level3">
+<h3><u>Example One - A Small Grades Dataset</u></h3>
+<p> </p>
+<p>In this example, I work with a small dataset from R’s <code>faraway</code> library. This dataset is called <code>spector</code> and it investigates whether a student’s grade in an economics class has improved under a new teaching method. Here is an image of the documentation (or use <code>??faraway</code> and click on spector).</p>
+<p> </p>
+<center>
+<img src="econ_data_doc.jpg" />
+</center>
+<p> </p>
+<p>In R, I load in the faraway package and take a look at the data with the <code>head()</code>, <code>tail()</code> and <code>str()</code> functions.</p>
+<p> </p>
+<pre class="r"><code># Decision Trees In R:
+
+# References:
+
+# https://www.tutorialspoint.com/r/r_decision_tree.htm
+# https://www.r-bloggers.com/a-brief-tour-of-the-trees-and-forests/
+# https://www.youtube.com/watch?v=JFJIQ0_2ijg
+# http://trevorstephens.com/kaggle-titanic-tutorial/r-part-3-decision-trees/
+
+# Load packages:
+
+library(faraway)
+library(party)
+library(rpart)
+
+grades_data &lt;- spector
+
+# Preview data:
+
+head(grades_data)</code></pre>
+<pre><code>##   grade psi tuce  gpa
+## 1     0   0   20 2.66
+## 2     0   0   22 2.89
+## 3     0   0   24 3.28
+## 4     0   0   12 2.92
+## 5     1   0   21 4.00
+## 6     0   0   17 2.86</code></pre>
+<pre class="r"><code>tail(grades_data)</code></pre>
+<pre><code>##    grade psi tuce  gpa
+## 27     1   1   17 3.39
+## 28     0   1   24 2.67
+## 29     1   1   21 3.65
+## 30     1   1   23 4.00
+## 31     0   1   21 3.10
+## 32     1   1   19 2.39</code></pre>
+<pre class="r"><code>str(grades_data)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    32 obs. of  4 variables:
+##  $ grade: num  0 0 0 0 1 0 0 0 0 1 ...
+##  $ psi  : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ tuce : num  20 22 24 12 21 17 17 21 25 29 ...
+##  $ gpa  : num  2.66 2.89 3.28 2.92 4 2.86 2.76 2.87 3.03 3.92 ...</code></pre>
+<p> </p>
+<p>I test out this decision tree from the <code>ctree()</code> function.</p>
+<p> </p>
+<pre class="r"><code># Create decision treeby using ctree(). Did the student&#39;s grade improved?
+
+tree_output &lt;- ctree(formula = grade ~ psi + tuce + gpa, 
+                     data = grades_data)
+
+
+
+plot(tree_output)</code></pre>
+<p><img src="rmachine-decisiontrees_files/figure-html/unnamed-chunk-2-1.png" width="576" /></p>
+<p> </p>
+<p>This output does not look great nor informative. The <code>ctree()</code> function is not recommended in my opinion.</p>
+<p>I then try making a decision tree with the rpart package in R. Here is what I got.</p>
+<p> </p>
+<pre class="r"><code>## Using rpart package:
+
+model_fit &lt;- rpart(formula = grade ~ psi + tuce + gpa, method = &quot;class&quot;, 
+                   data = grades_data)
+
+# Plot tree
+plot(model_fit,  uniform = TRUE, main = &quot;Classification Tree For Grade Improvements&quot;)
+text(model_fit, use.n = TRUE, all=TRUE, cex = .8)</code></pre>
+<p><img src="rmachine-decisiontrees_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p> </p>
+<p>For some reason, the output got cutoff in my Rstudio program. A different tool would be needed.</p>
+<p>What worked for me was using the rpart and rattle packages together to create a good decision tree with colour. The <code>fancyRpartPlot()</code> function from the rattle package does the trick.</p>
+<p> </p>
+<pre class="r"><code>## Using rpart package:
+
+library(rpart)
+library(rattle)</code></pre>
+<pre><code>## Rattle: A free graphical interface for data mining with R.
+## Version 4.1.0 Copyright (c) 2006-2015 Togaware Pty Ltd.
+## Type &#39;rattle()&#39; to shake, rattle, and roll your data.</code></pre>
+<pre class="r"><code>model_fit &lt;- rpart(formula = grade ~ ., method = &quot;class&quot;, 
+                   data = grades_data)
+
+# Plot tree
+fancyRpartPlot(model_fit)</code></pre>
+<p><img src="rmachine-decisiontrees_files/figure-html/unnamed-chunk-4-1.png" width="384" /></p>
+<p><a name="two"></a></p>
+<p> </p>
+</div>
+<div id="example-two---wine-quality-data" class="section level3">
+<h3><u>Example Two - Wine Quality Data</u></h3>
+<p> </p>
+<p>This second example deals with wine quality data. I load in the data from a website URL link.</p>
+<p> </p>
+<pre class="r"><code># Example Two:
+
+# Load packages:
+
+library(party)
+library(rpart)
+
+
+url &lt;- &quot;https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-white.csv&quot;
+
+white_wine_data &lt;- read.csv(url, header = TRUE, sep = &quot;;&quot;)</code></pre>
+<p> </p>
+<p>Previewing the data with the <code>head()</code> and <code>tail()</code> functions gives:</p>
+<p> </p>
+<pre class="r"><code># Preview the data:
+ 
+head(white_wine_data)</code></pre>
+<pre><code>##   fixed.acidity volatile.acidity citric.acid residual.sugar chlorides
+## 1           7.0             0.27        0.36           20.7     0.045
+## 2           6.3             0.30        0.34            1.6     0.049
+## 3           8.1             0.28        0.40            6.9     0.050
+## 4           7.2             0.23        0.32            8.5     0.058
+## 5           7.2             0.23        0.32            8.5     0.058
+## 6           8.1             0.28        0.40            6.9     0.050
+##   free.sulfur.dioxide total.sulfur.dioxide density   pH sulphates alcohol
+## 1                  45                  170  1.0010 3.00      0.45     8.8
+## 2                  14                  132  0.9940 3.30      0.49     9.5
+## 3                  30                   97  0.9951 3.26      0.44    10.1
+## 4                  47                  186  0.9956 3.19      0.40     9.9
+## 5                  47                  186  0.9956 3.19      0.40     9.9
+## 6                  30                   97  0.9951 3.26      0.44    10.1
+##   quality
+## 1       6
+## 2       6
+## 3       6
+## 4       6
+## 5       6
+## 6       6</code></pre>
+<p> </p>
+<p>You can examine the data a bit further with the <code>summary()</code> and <code>str()</code> functions in R.</p>
+<p> </p>
+<pre class="r"><code># Check summary and data structure:
+ 
+summary(white_wine_data)</code></pre>
+<pre><code>##  fixed.acidity    volatile.acidity  citric.acid     residual.sugar  
+##  Min.   : 3.800   Min.   :0.0800   Min.   :0.0000   Min.   : 0.600  
+##  1st Qu.: 6.300   1st Qu.:0.2100   1st Qu.:0.2700   1st Qu.: 1.700  
+##  Median : 6.800   Median :0.2600   Median :0.3200   Median : 5.200  
+##  Mean   : 6.855   Mean   :0.2782   Mean   :0.3342   Mean   : 6.391  
+##  3rd Qu.: 7.300   3rd Qu.:0.3200   3rd Qu.:0.3900   3rd Qu.: 9.900  
+##  Max.   :14.200   Max.   :1.1000   Max.   :1.6600   Max.   :65.800  
+##    chlorides       free.sulfur.dioxide total.sulfur.dioxide
+##  Min.   :0.00900   Min.   :  2.00      Min.   :  9.0       
+##  1st Qu.:0.03600   1st Qu.: 23.00      1st Qu.:108.0       
+##  Median :0.04300   Median : 34.00      Median :134.0       
+##  Mean   :0.04577   Mean   : 35.31      Mean   :138.4       
+##  3rd Qu.:0.05000   3rd Qu.: 46.00      3rd Qu.:167.0       
+##  Max.   :0.34600   Max.   :289.00      Max.   :440.0       
+##     density             pH          sulphates         alcohol     
+##  Min.   :0.9871   Min.   :2.720   Min.   :0.2200   Min.   : 8.00  
+##  1st Qu.:0.9917   1st Qu.:3.090   1st Qu.:0.4100   1st Qu.: 9.50  
+##  Median :0.9937   Median :3.180   Median :0.4700   Median :10.40  
+##  Mean   :0.9940   Mean   :3.188   Mean   :0.4898   Mean   :10.51  
+##  3rd Qu.:0.9961   3rd Qu.:3.280   3rd Qu.:0.5500   3rd Qu.:11.40  
+##  Max.   :1.0390   Max.   :3.820   Max.   :1.0800   Max.   :14.20  
+##     quality     
+##  Min.   :3.000  
+##  1st Qu.:5.000  
+##  Median :6.000  
+##  Mean   :5.878  
+##  3rd Qu.:6.000  
+##  Max.   :9.000</code></pre>
+<pre class="r"><code>str(white_wine_data)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    4898 obs. of  12 variables:
+##  $ fixed.acidity       : num  7 6.3 8.1 7.2 7.2 8.1 6.2 7 6.3 8.1 ...
+##  $ volatile.acidity    : num  0.27 0.3 0.28 0.23 0.23 0.28 0.32 0.27 0.3 0.22 ...
+##  $ citric.acid         : num  0.36 0.34 0.4 0.32 0.32 0.4 0.16 0.36 0.34 0.43 ...
+##  $ residual.sugar      : num  20.7 1.6 6.9 8.5 8.5 6.9 7 20.7 1.6 1.5 ...
+##  $ chlorides           : num  0.045 0.049 0.05 0.058 0.058 0.05 0.045 0.045 0.049 0.044 ...
+##  $ free.sulfur.dioxide : num  45 14 30 47 47 30 30 45 14 28 ...
+##  $ total.sulfur.dioxide: num  170 132 97 186 186 97 136 170 132 129 ...
+##  $ density             : num  1.001 0.994 0.995 0.996 0.996 ...
+##  $ pH                  : num  3 3.3 3.26 3.19 3.19 3.26 3.18 3 3.3 3.22 ...
+##  $ sulphates           : num  0.45 0.49 0.44 0.4 0.4 0.44 0.47 0.45 0.49 0.45 ...
+##  $ alcohol             : num  8.8 9.5 10.1 9.9 9.9 10.1 9.6 8.8 9.5 11 ...
+##  $ quality             : int  6 6 6 6 6 6 6 6 6 6 ...</code></pre>
+<p> </p>
+<p>One decision tree I want to try out is predicting quality based on the wine’s pH, alcohol content, sulphates and chlorides.</p>
+<p> </p>
+<pre class="r"><code>## Using rpart package:
+
+library(rpart)
+library(rpart.plot)
+
+winemodel_fit &lt;- rpart(formula = quality ~ pH + alcohol + sulphates + chlorides , method = &quot;class&quot;, 
+                   data = white_wine_data)
+
+# Plot tree
+#plot(winemodel_fit,  uniform = TRUE, main = &quot;Asessing White Wine Quality&quot;)
+# text(winemodel_fit, use.n = TRUE, all=TRUE, cex = .8)
+
+
+rpart.plot(winemodel_fit) #Decision Tree Using Rpart.Plot</code></pre>
+<p><img src="rmachine-decisiontrees_files/figure-html/unnamed-chunk-8-1.png" width="384" /></p>
+<p> </p>
+<p>This decision tree comes out nicely and you can easily read it from top to bottom. Note that the sample size is 4898. Numbers at the top of the nodes represent the predicted wine quality number. Quality scores are from 3 to 9. The percentages at the bottom represent the percentage of the sample size. As an example, the 63% in the second row left node is 63% of 4898. In this node, a quality score of 6 is predicted at .44 (or 44%). It appears that the predictions are using a likelihood approach where the quality score is chosen based on the highest percentage.</p>
+<p>An alternate decision tree would include counts instead of percentages corresponding to the wine quality.</p>
+<p> </p>
+<pre class="r"><code>rpart.plot(winemodel_fit, type = 4, extra = 101) #Decision Tree Using Rpart.Plot</code></pre>
+<p><img src="rmachine-decisiontrees_files/figure-html/unnamed-chunk-9-1.png" width="384" /></p>
+<p> </p>
+<p>From the rattle and RColorBrewer packages in R, there is an another alternate decision tree you can create. This tree has percentages and not counts in the nodes.</p>
+<p> </p>
+<pre class="r"><code>library(rattle)
+library(RColorBrewer)
+
+fancyRpartPlot(winemodel_fit)</code></pre>
+<p><img src="rmachine-decisiontrees_files/figure-html/unnamed-chunk-10-1.png" width="384" /></p>
+<p> </p>
+<p><strong>A Full Decision Tree</strong></p>
+<p> </p>
+<p>The decision trees above were predicting wine quality with some of the other variables. This tree will predict wine quality with all of the other variables. This tree will have more nodes and branches.</p>
+<p> </p>
+<pre class="r"><code># Full Decision Tree:
+
+winemodel_fit2 &lt;- rpart(formula = quality ~ . , method = &quot;class&quot;, 
+                       data = white_wine_data)
+
+rpart.plot(winemodel_fit2, type = 4, extra = 101) #Decision Tree Using Rpart.Plot</code></pre>
+<p><img src="rmachine-decisiontrees_files/figure-html/unnamed-chunk-11-1.png" width="480" /></p>
+<pre class="r"><code>fancyRpartPlot(winemodel_fit2)</code></pre>
+<p><img src="rmachine-decisiontrees_files/figure-html/unnamed-chunk-11-2.png" width="480" /></p>
+<p> </p>
+<p>These trees have added more detail by adding volatile.acidity and free.sulfur.dioxide into the decisions. I am not sure if these additional factors actually affect the quality and taste of the wine. It would be best to consult with wine experts to see if these results are valid. (Wine quality seems like a subjective measure as well.)</p>
+<p><a name="refs"></a></p>
+<p> </p>
+</div>
+<div id="references" class="section level3">
+<h3><u>References</u></h3>
+<p> </p>
+<ul>
+<li><a href="https://www.tutorialspoint.com/r/r_decision_tree.htm" class="uri">https://www.tutorialspoint.com/r/r_decision_tree.htm</a></li>
+<li><a href="https://www.r-bloggers.com/a-brief-tour-of-the-trees-and-forests/" class="uri">https://www.r-bloggers.com/a-brief-tour-of-the-trees-and-forests/</a></li>
+<li><a href="https://www.youtube.com/watch?v=JFJIQ0_2ijg" class="uri">https://www.youtube.com/watch?v=JFJIQ0_2ijg</a></li>
+<li><a href="http://trevorstephens.com/kaggle-titanic-tutorial/r-part-3-decision-trees/" class="uri">http://trevorstephens.com/kaggle-titanic-tutorial/r-part-3-decision-trees/</a></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
