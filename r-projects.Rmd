@@ -61,6 +61,8 @@ This page contains links on a bunch of R programming projects.
 
 [Poisson Regression](./rmath-poisson-regression.html)
 
+[Simulating White Noise](./rtimeseries-simWhiteNoise.html)
+
 <a name="rvisual"></a>
 
 &nbsp;
@@ -200,4 +202,4 @@ After the repository is loaded, go to the RCode folder and you can find the topi
 
 [Decision Trees In R](./rmachine-decisiontrees.html)
 
-
+[k-Means Clustering In R](./rmachine-kmeans01.html)
