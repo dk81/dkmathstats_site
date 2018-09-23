@@ -498,9 +498,9 @@ legend(&quot;topright&quot;, c(&quot;Clinic 1&quot;, &quot;Clinic 2&quot;), lty 
 # Plotting Survival Curves Using ggplot2 and ggfortify:
 
 library(ggplot2)
-library(ggfortify)
-
-model_fit &lt;- survfit(Surv(survt, status) ~ clinic, data = addicts)
+library(ggfortify)</code></pre>
+<pre><code>## Warning: package &#39;ggfortify&#39; was built under R version 3.4.4</code></pre>
+<pre class="r"><code>model_fit &lt;- survfit(Surv(survt, status) ~ clinic, data = addicts)
 
 autoplot(model_fit) + 
  labs(x = &quot;\n Survival Time (Days) &quot;, y = &quot;Survival Probabilities \n&quot;, 

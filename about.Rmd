@@ -5,10 +5,7 @@ title: "About Me"
 &nbsp;
 
 - __Name:__ David
-- __Interests:__ Mathematics, R Programming, Python programming
+- __Interests:__ Mathematics, Statistics, R Programming, Python programming
+- __E-Mail:__ dku8691@protonmail.com
 
-This website contains material from my other [website](www.dkmathstats.com). Content from there will be transferred to here. I plan to discontinue my website hosting from the other website and use this website as my main one.
-
-I can be e-mailed at `dku8691@protonmail.com` if you find typos, errors or if you have any questions. 
-
-In addition, as I am job hunting in the Toronto area (as of August 2018) in search of statistics, data analyst and/or data science roles.
+I am currently job hunting in the Toronto area (as of August 2018) in search of statistics, data analyst and/or data science roles. 

@@ -203,3 +203,5 @@ After the repository is loaded, go to the RCode folder and you can find the topi
 [Decision Trees In R](./rmachine-decisiontrees.html)
 
 [k-Means Clustering In R](./rmachine-kmeans01.html)
+
+[K Nearest Neighbours](./rmachine-knearestneighbours.html)
