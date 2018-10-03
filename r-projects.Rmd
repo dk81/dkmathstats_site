@@ -205,3 +205,5 @@ After the repository is loaded, go to the RCode folder and you can find the topi
 [k-Means Clustering In R](./rmachine-kmeans01.html)
 
 [K Nearest Neighbours](./rmachine-knearestneighbours.html)
+
+[Logistic Regression In R](./rmachine-logisticRegression.html)

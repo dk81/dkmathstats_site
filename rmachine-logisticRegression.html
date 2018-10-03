@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Logistic Regression In R</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming</a>
+</li>
+<li>
+  <a href="python_projects.html">Python Programming</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Logistic Regression In R</h1>
+
+</div>
+
+
+<p> </p>
+<p>Hi. This page is on using the R programming language for doing logistic regression. In regular linear regression, the response variable is a numeric variable while the response variable in logistic regression is a binary variable.</p>
+<p>References include the Udemy Course - R For Data Science &amp; Machine Learning By Jose Portilla and the Introduction To Statistical Learning With R Book.</p>
+<p>The packages that are used in R are <code>ISLR</code>, <code>ggplot2</code> and <code>caTools</code>. From the <code>ISLR</code> library, the Default dataset is used. This default data looks at credit card defaults. The response variable here is the default variable which is either Yes or No.</p>
+<p> </p>
+<pre class="r"><code># Logistic Regression In R
+
+# Reference: Udemy Course - R For Data Science &amp; Machine Learning By Jose Portilla
+
+# Book &amp; Library Reference: Introduction To Statistical Learning With R
+# Book Info Link:https://www-bcf.usc.edu/~gareth/ISL/ 
+
+library(ISLR)</code></pre>
+<pre><code>## Warning: package &#39;ISLR&#39; was built under R version 3.4.4</code></pre>
+<pre class="r"><code>library(ggplot2)
+
+default_data &lt;- Default
+
+# Preview the data:
+
+head(default_data)</code></pre>
+<pre><code>##   default student   balance    income
+## 1      No      No  729.5265 44361.625
+## 2      No     Yes  817.1804 12106.135
+## 3      No      No 1073.5492 31767.139
+## 4      No      No  529.2506 35704.494
+## 5      No      No  785.6559 38463.496
+## 6      No     Yes  919.5885  7491.559</code></pre>
+<pre class="r"><code>tail(default_data)</code></pre>
+<pre><code>##       default student   balance   income
+## 9995       No     Yes  172.4130 14955.94
+## 9996       No      No  711.5550 52992.38
+## 9997       No      No  757.9629 19660.72
+## 9998       No      No  845.4120 58636.16
+## 9999       No      No 1569.0091 36669.11
+## 10000      No     Yes  200.9222 16862.95</code></pre>
+<pre class="r"><code>str(default_data)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    10000 obs. of  4 variables:
+##  $ default: Factor w/ 2 levels &quot;No&quot;,&quot;Yes&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ student: Factor w/ 2 levels &quot;No&quot;,&quot;Yes&quot;: 1 2 1 1 1 2 1 2 1 1 ...
+##  $ balance: num  730 817 1074 529 786 ...
+##  $ income : num  44362 12106 31767 35704 38463 ...</code></pre>
+<p> </p>
+<p>From the <code>head()</code>, <code>tail()</code> and <code>str()</code> outputs, we see that there are four columns/variables and 10000 observations. The response variable of interest is the default variable. Credit card defaults are either Yes or No.</p>
+<p>With the <code>table()</code> function, counts on the default column can be retrieved.</p>
+<p> </p>
+<pre class="r"><code># Check default column on counts
+table(default_data$default)</code></pre>
+<pre><code>## 
+##   No  Yes 
+## 9667  333</code></pre>
+<p> </p>
+<p>For a visual of the counts, a barplot can be generated with the use of R’s <code>ggplot2</code> graphics.</p>
+<p> </p>
+<pre class="r"><code># Initial Barplot (No Labels):
+
+ggplot(default_data, aes(x = default)) +
+  geom_bar() +
+  labs(x = &quot;\n Credit Default Status&quot;, y = &quot;Count\n&quot;, 
+       title = &quot;Credit Default Status Of Customers \n&quot;) +
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;darkgreen&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;darkgreen&quot;, size = 12),
+        legend.title = element_text(face=&quot;bold&quot;, colour=&quot;brown&quot;, size = 10)) </code></pre>
+<p><img src="rmachine-logisticRegression_files/figure-html/unnamed-chunk-3-1.png" width="384" /></p>
+<p> </p>
+<p>When it comes to logistic regression in R, it is not ideal to keep “Yes and”No&quot; in the default column of the dataset. A function is created such that if the default status is “Yes” it gets converted into 1 and if it is a “No” it gets converted into a 0. This function is then used in a <code>sapply()</code> function on the default column.</p>
+<p> </p>
+<pre class="r"><code># For logistic regression purposes: change No to 0 and Yes to 1 for default column.
+
+# Combine never-worked and without pay groups into unemployed
+
+default_change &lt;- function(def_status){
+  if (def_status== &#39;Yes&#39;){
+    return(1)
+  }else{
+    return(0)
+  }
+}
+
+# Use sapply on type_employer column:
+# Yes turns into 1 and No turns into 0 for logistic regression.
+
+default_data$default &lt;- sapply(default_data$default, default_change)</code></pre>
+<p> </p>
+<p>The changes can be verified with the use of the <code>table()</code> and <code>str()</code> functions.</p>
+<p> </p>
+<pre class="r"><code># Check with table() and str() functions.
+
+table(default_data$default)</code></pre>
+<pre><code>## 
+##    0    1 
+## 9667  333</code></pre>
+<pre class="r"><code>str(default_data)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    10000 obs. of  4 variables:
+##  $ default: num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ student: Factor w/ 2 levels &quot;No&quot;,&quot;Yes&quot;: 1 2 1 1 1 2 1 2 1 1 ...
+##  $ balance: num  730 817 1074 529 786 ...
+##  $ income : num  44362 12106 31767 35704 38463 ...</code></pre>
+<p> </p>
+<p>To fit a logistic regression model in R, use the <code>glm()</code> function with the appropriate formula, family and data. For the family argument, do use <code>binomial(link = &quot;logit&quot;)</code> for logistic regression. (Using a different link function is for a different regression model such as linear and poisson.)</p>
+<p> </p>
+<pre class="r"><code># Running logistic regression model 
+# Use binomial(link = &#39;logit&#39;)
+
+log_model &lt;- glm(formula = default ~ . , family = binomial(link=&#39;logit&#39;), data = default_data)
+
+# Run summary of logistic model:
+
+summary(log_model)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = default ~ ., family = binomial(link = &quot;logit&quot;), 
+##     data = default_data)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.4691  -0.1418  -0.0557  -0.0203   3.7383  
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -1.087e+01  4.923e-01 -22.080  &lt; 2e-16 ***
+## studentYes  -6.468e-01  2.363e-01  -2.738  0.00619 ** 
+## balance      5.737e-03  2.319e-04  24.738  &lt; 2e-16 ***
+## income       3.033e-06  8.203e-06   0.370  0.71152    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 2920.6  on 9999  degrees of freedom
+## Residual deviance: 1571.5  on 9996  degrees of freedom
+## AIC: 1579.5
+## 
+## Number of Fisher Scoring iterations: 8</code></pre>
+<p> </p>
+<p>This next part looks at creating a training data set and a test set from the credit default data. The logistic regression model is with the training data and the test data is with the <code>predict()</code> function.</p>
+<p>The <code>sample.split()</code> helps in splitting the data into a training set and into a test set.</p>
+<p> </p>
+<pre class="r"><code># ---------------------------------------------------------------------
+# Using test cases for predictions, make training data and test data
+
+library(caTools)</code></pre>
+<pre><code>## Warning: package &#39;caTools&#39; was built under R version 3.4.4</code></pre>
+<pre class="r"><code>set.seed(101)
+
+split = sample.split(default_data$default, SplitRatio = 0.70)
+
+train_data = subset(default_data, split == TRUE)
+test_data = subset(default_data, split == FALSE)</code></pre>
+<p> </p>
+<p>The <code>glm()</code> function is used again for fitting a logistic regression model. This time the data input is the training data.</p>
+<p> </p>
+<pre class="r"><code># Running the logistic regression model again:
+
+log_model2 &lt;- glm(formula = default ~ . , family = binomial(link=&#39;logit&#39;), data = train_data)
+
+summary(log_model2)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = default ~ ., family = binomial(link = &quot;logit&quot;), 
+##     data = train_data)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.1874  -0.1384  -0.0546  -0.0200   3.5201  
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -1.129e+01  6.023e-01 -18.739   &lt;2e-16 ***
+## studentYes  -3.877e-01  2.864e-01  -1.354    0.176    
+## balance      5.778e-03  2.793e-04  20.690   &lt;2e-16 ***
+## income       1.134e-05  1.002e-05   1.132    0.258    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 2043.8  on 6999  degrees of freedom
+## Residual deviance: 1082.6  on 6996  degrees of freedom
+## AIC: 1090.6
+## 
+## Number of Fisher Scoring iterations: 8</code></pre>
+<p> </p>
+<p>Any testing data is used for predictions. The <code>predict()</code> function is associated with the test_data and <code>type = &quot;response&quot;</code> is used.</p>
+<p>In the <code>ifelse()</code> function, if any probabilities is above 0.5 assign a one and anything below 0.5 assign a 0.</p>
+<p> </p>
+<pre class="r"><code># Model Diagnostics
+
+fitted_probs &lt;- predict(log_model2, newdata = test_data, type = &#39;response&#39;)
+
+fitted_results &lt;- ifelse(fitted_probs &gt; 0.5, 1, 0)</code></pre>
+<p> </p>
+<p>The misclassification error is a percentage where the test_data default values (0 or 1) do not match the fitted results.</p>
+<p>Taking one minus the misclassification error gives the accuracy of of the predictions.</p>
+<p> </p>
+<pre class="r"><code># Obtaining the accuracy of predictions:
+
+misClassError &lt;- mean(fitted_results != test_data$default)
+
+print(paste(&#39;Accuracy&#39;, 1 - misClassError))</code></pre>
+<pre><code>## [1] &quot;Accuracy 0.972333333333333&quot;</code></pre>
+<p> </p>
+<p>A confusion matrix of counts can be displayed in a table format in R with the use of the <code>table()</code> function of the default column where the fitted probabilities are above 0.5. Predictions are on the top and the actual outcomes are on the rows.</p>
+<p> </p>
+<pre class="r"><code># Confusion matrix of Counts 
+# (Predictions on top FALSE/TRUE, actual as rows):
+
+table(test_data$default, fitted_probs &gt; 0.5)</code></pre>
+<pre><code>##    
+##     FALSE TRUE
+##   0  2885   15
+##   1    68   32</code></pre>
+<p> </p>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
