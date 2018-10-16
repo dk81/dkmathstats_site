@@ -19,6 +19,8 @@ This page contains a list of Python programming projects done in Jupyter noteboo
 
 * <a href="#manip">Data Manipulation In Python</a>
 
+* <a href="#ml">Machine Learning Experimental Work In Python</a>
+
 &nbsp;
 
 <a name="mathstats"></a>
@@ -70,10 +72,26 @@ This page contains a list of Python programming projects done in Jupyter noteboo
 
 ### <u>Data Manipulation In Python</u>
 
+&nbsp;
+
 * Some Work With pandas In Python
 
 * Experimental Work With Python's pandas & matplotlib
 
 * Finding The Most Common Baby Names In A Dataset With Python
+
+* Looking At A Wages and Education of Young Males Dataset In Python With pandas & matplotlib
+
+&nbsp;
+
+<a name="ml"></a>
+
+### <u>Machine Learning Experimental Work In Python</u>
+
+&nbsp;
+
+* K-Means Clustering On A Professor Salaries Dataset
+
+* K-Means Clustering On A Wages Dataset
 
 &nbsp;
