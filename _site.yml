@@ -11,9 +11,9 @@ navbar:
       href: mathstats_pages.html
     - text: "R Programming"     
       href: r-projects.html
-    - text: "Python Programming"     
+    - text: "Python Items"     
       href: python_projects.html
-    - text: "Math Tutoring In Toronto Area"     
+    - text: "Toronto Tutoring"     
       href: toronto_math_tutoring.html
 output:
   html_document:
