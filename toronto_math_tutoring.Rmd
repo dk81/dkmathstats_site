@@ -3,10 +3,6 @@ title: "Toronto Math Tutoring"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 &nbsp;
 
 Hi there. If you are in the Toronto area and are in need of mathematics tutoring, I am available. I am currently near Yorkdale Mall (North York) and can travel to the Downtown area, the Annex area (Bathurst) and the east end (Danforth) of Toronto. 
@@ -69,10 +65,6 @@ Courses
 
 - One student with Grade Twelve Advanced Functions
 - Another student with Grade 10, 11 and 12 Mathematics
-
-
-
-
 
 
 ---
