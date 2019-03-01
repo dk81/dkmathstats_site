@@ -13,6 +13,8 @@ navbar:
       href: r-projects.html
     - text: "Python Programming"     
       href: python_projects.html
+    - text: "Math Tutoring In Toronto Area"     
+      href: toronto_math_tutoring.html
 output:
   html_document:
     theme: flatly

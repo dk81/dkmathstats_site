@@ -8,4 +8,6 @@ title: "About Me"
 - __Interests:__ Mathematics, Statistics, R Programming, Python programming
 - __E-Mail:__ dku8691@protonmail.com
 
-I am currently job hunting in the Toronto area (as of August 2018) in search of statistics, data analyst and/or data science roles. 
+
+
+I am open to tutoring mathematics and statistics in the Toronto area. You can find more details here about location and my math tutoring experiences.
