@@ -29,6 +29,8 @@ This page contains a list of Python programming projects done in Jupyter noteboo
 
 ### <u>General Python Concepts</u>
 
+&nbsp;
+
 * Lambda Functions In Python
 
 * The map() Function
