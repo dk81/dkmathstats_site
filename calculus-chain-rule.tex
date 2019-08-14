@@ -1,0 +1,215 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Calculus Chain Rule},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\providecommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Calculus Chain Rule}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
+
+\begin{document}
+\maketitle
+
+~
+
+Image Source
+
+~
+
+This post will be about the chain rule. The chain rule was one of those
+topics that took a bit of time for me to understand when I was a younger
+math student. It is assumed that the reader knows about the product
+rule.
+
+~
+
+\hypertarget{a-motivating-example}{%
+\subsubsection{A Motivating Example}\label{a-motivating-example}}
+
+~
+
+Consider a simple function such as \(f(x) = x^3\). The derivative would
+be simply \(f'(x) = 3x^2\).
+
+But what if was expressed as \(f'(x) = 3x^2 * 1\)? Where did this 1 come
+from? Let's try this:
+
+~
+
+\[f'(x) = 3x^2 \dfrac{d}{dx} x\]
+
+~
+
+The 1came from the derivative of x with respect to x.
+
+So what did we do above? We took the derivative of \(x^3\) and then
+multiplied it by the derivative of \(x\).
+
+~
+
+\hypertarget{the-chain-rule}{%
+\subsubsection{The Chain Rule}\label{the-chain-rule}}
+
+~
+
+Given a (continuous) function \(h(x) = f(g(x))\) where and \(f(x)\) and
+\(g(x)\) are different (continuous) functions. Then
+
+~
+
+\[\displaystyle h'(x) = f'( g(x) ) g'(x)\].
+
+~
+
+This means we take the derivative of the outside function \(f(g(x)\) and
+then take the derivative of the inside function \(g(x)\). It can be
+possible that the function inside \(g(x)\) can be a different function
+such as \(k(x)\) which is different from \(x\).
+
+~
+
+\hypertarget{examples}{%
+\subsubsection{Examples}\label{examples}}
+
+~
+
+\textbf{Example 1}
+
+~
+
+The function \(x^3\) from earlier has \(g(x) = x\), \(f(x) = x^3\),
+\(f'(x) = 3x^2\) and \(g'(x) = 1\). The derivative of \(x^3\) is simply
+\(3x^2\).
+
+~
+
+\textbf{Example 2}
+
+~
+
+Consider the function \(h(x) = \sin(2x)\). The outside function is
+\(f(x) = \sin(x)\) with \(f'(x) = \cos(x)\). The inside function is
+\(g(x) = 2x\) with \(g'(x) = 2\).
+
+By Chain Rule, the derivative \(h'(x)\) is \(2 \cos(2x)\).
+
+~
+
+\textbf{Example 3 (Combining with Product Rule)}
+
+~
+
+Suppose that we have \(h(x) = x e^{x^2}\). Through product rule and
+chain rule on the derivative of \(e^{x^2}\) gives:
+
+~
+
+\[\begin{array}{lcl} h'(x) & = & e^{x^2} + x \times e^{x^2} \times 2x \\ & = & e^{x^2} (1 + 2x^2) \\ \end{array}\]
+
+~
+
+\textbf{Example 4 (Multiple Chain Rule)}
+
+~
+
+There are cases when you may have to use multiple chain rules along with
+product rules, quotient rules and so on.
+
+Consider \(h(x) = \cos((2x + 1)^2)\). The derivative \(h'(x)\) is:
+
+~
+
+\[\begin{array}{lcl} h'(x) & = & - \sin(x^2) \dfrac{d}{dx} (2x + 1)^{2} \\ & = & - \sin(x^2) \times 2(2x + 1) \times \dfrac{d}{dx} (2x + 1) \\ & = & -2 \sin(x^2) (2x + 1) \times 2\\ & = & -4 \sin(x^2) (2x + 1) \end{array}\]
+~
+
+\hypertarget{tips-for-learning-chain-rule}{%
+\subsubsection{Tips for Learning Chain
+Rule}\label{tips-for-learning-chain-rule}}
+
+~
+
+Take it one step at a time.
+
+Identify the outside function(s) and inside function(s). Start from the
+outside to the inside.
+
+Practice with the simple functions such as \(x\), \(\cos(x)\),
+\(\dfrac{1}{x}\) and so on.
+
+
+\end{document}

@@ -8,5 +8,10 @@ title: "About Me"
 - __Interests:__ Mathematics, Statistics, R Programming, Python programming
 - __E-Mail:__ dku8691@protonmail.com
 
+&nbsp;
 
+---
 
+**My Resume, Math Tutoring History & Math Tutoring In Toronto**
+
+[Resume & Math Tutoring In Toronto](./mathTutoringToronto.html)
