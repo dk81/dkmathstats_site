@@ -70,9 +70,7 @@ h6 {
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -97,6 +95,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -111,7 +112,6 @@ body {
   padding-top: 65px;
   margin-top: -65px;
 }
-
 .section h2 {
   padding-top: 65px;
   margin-top: -65px;
@@ -131,6 +131,43 @@ body {
 .section h6 {
   padding-top: 65px;
   margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -152,19 +189,85 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
 });
 </script>
 
 <!-- code folding -->
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -239,11 +342,6 @@ $(document).ready(function () {
 <p>To enable the functions in the reshape2 package use the line</p>
 <p> </p>
 <pre class="r"><code>library(reshape2)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;reshape2&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:data.table&#39;:
-## 
-##     dcast, melt</code></pre>
 <p> </p>
 <p>Once the reshape2 package is loaded into R, the melt function can be used to convert data from a wide format to a long format or convert tables into a (long) format which would be ready for analysis and plotting.</p>
 <p><a name="one"></a></p>
@@ -543,20 +641,20 @@ results_df &lt;- data.frame(coin_flips, die_rolls)
 
 head(results_df)</code></pre>
 <pre><code>##   coin_flips die_rolls
-## 1      Tails         1
-## 2      Tails         6
-## 3      Heads         5
-## 4      Tails         2
-## 5      Tails         2
-## 6      Tails         1</code></pre>
+## 1      Tails         2
+## 2      Heads         3
+## 3      Tails         6
+## 4      Heads         5
+## 5      Tails         5
+## 6      Heads         4</code></pre>
 <pre class="r"><code>tail(results_df)</code></pre>
 <pre><code>##     coin_flips die_rolls
-## 295      Heads         3
-## 296      Heads         5
-## 297      Heads         6
-## 298      Heads         3
-## 299      Heads         2
-## 300      Heads         1</code></pre>
+## 295      Tails         1
+## 296      Heads         2
+## 297      Tails         1
+## 298      Heads         4
+## 299      Heads         1
+## 300      Tails         5</code></pre>
 <p> </p>
 <p>In order to simulate the coin flips and die rolls, the sample function is used. Zeroes corresponds to tails and ones corresponds to heads.</p>
 <p>As usual the column names are renamed.</p>
@@ -574,8 +672,8 @@ results_table &lt;- table(results_df)
 results_table</code></pre>
 <pre><code>##          Roll_Number
 ## Coin_Flip  1  2  3  4  5  6
-##     Heads 33 29 28 20 32 29
-##     Tails 17 23 21 22 27 19</code></pre>
+##     Heads 28 29 23 22 28 27
+##     Tails 24 23 19 29 28 20</code></pre>
 <p> </p>
 <p>The table output comes out nicely. As an example, a coin flip of heads and a roll number of 5 appears 32 times.</p>
 <p>The melt function in this case converts the table into a data frame in the long format. Here is the code and output.</p>
@@ -587,18 +685,18 @@ melted_table &lt;- melt(results_table)
 
 melted_table</code></pre>
 <pre><code>##    Coin_Flip Roll_Number value
-## 1      Heads           1    33
-## 2      Tails           1    17
+## 1      Heads           1    28
+## 2      Tails           1    24
 ## 3      Heads           2    29
 ## 4      Tails           2    23
-## 5      Heads           3    28
-## 6      Tails           3    21
-## 7      Heads           4    20
-## 8      Tails           4    22
-## 9      Heads           5    32
-## 10     Tails           5    27
-## 11     Heads           6    29
-## 12     Tails           6    19</code></pre>
+## 5      Heads           3    23
+## 6      Tails           3    19
+## 7      Heads           4    22
+## 8      Tails           4    29
+## 9      Heads           5    28
+## 10     Tails           5    28
+## 11     Heads           6    27
+## 12     Tails           6    20</code></pre>
 <p> </p>
 <p>The column names need some tweaking.</p>
 <p> </p>
@@ -610,18 +708,18 @@ names(melted_table)[names(melted_table) == &quot;value&quot;] &lt;- c(&quot;Coun
  
 melted_table</code></pre>
 <pre><code>##    Coin_Flip Roll_Number Count
-## 1      Heads           1    33
-## 2      Tails           1    17
+## 1      Heads           1    28
+## 2      Tails           1    24
 ## 3      Heads           2    29
 ## 4      Tails           2    23
-## 5      Heads           3    28
-## 6      Tails           3    21
-## 7      Heads           4    20
-## 8      Tails           4    22
-## 9      Heads           5    32
-## 10     Tails           5    27
-## 11     Heads           6    29
-## 12     Tails           6    19</code></pre>
+## 5      Heads           3    23
+## 6      Tails           3    19
+## 7      Heads           4    22
+## 8      Tails           4    29
+## 9      Heads           5    28
+## 10     Tails           5    28
+## 11     Heads           6    27
+## 12     Tails           6    20</code></pre>
 <p> </p>
 </div>
 <div id="plotting-the-data" class="section level3">
@@ -635,7 +733,7 @@ str(melted_table)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    12 obs. of  3 variables:
 ##  $ Coin_Flip  : Factor w/ 2 levels &quot;Heads&quot;,&quot;Tails&quot;: 1 2 1 2 1 2 1 2 1 2 ...
 ##  $ Roll_Number: int  1 1 2 2 3 3 4 4 5 5 ...
-##  $ Count      : int  33 17 29 23 28 21 20 22 32 27 ...</code></pre>
+##  $ Count      : int  28 24 29 23 23 19 22 29 28 28 ...</code></pre>
 <pre class="r"><code># Change Roll_number to factors:
 
 melted_table$Roll_Number &lt;- factor(melted_table$Roll_Number)

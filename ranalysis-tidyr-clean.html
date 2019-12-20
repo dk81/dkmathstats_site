@@ -70,9 +70,7 @@ h6 {
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -97,6 +95,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -111,7 +112,6 @@ body {
   padding-top: 65px;
   margin-top: -65px;
 }
-
 .section h2 {
   padding-top: 65px;
   margin-top: -65px;
@@ -131,6 +131,43 @@ body {
 .section h6 {
   padding-top: 65px;
   margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -152,19 +189,85 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
 });
 </script>
 
 <!-- code folding -->
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -456,12 +559,12 @@ sample &lt;- data.frame(Hours = hours, Minutes = minutes, Seconds = seconds)
 # A peek at the data:
 head(sample)</code></pre>
 <pre><code>##   Hours Minutes Seconds
-## 1     4       4      38
-## 2     2      32      42
-## 3     2      42      38
-## 4     2      43      23
-## 5     2      52      25
-## 6     1       4      24</code></pre>
+## 1     3      34      29
+## 2     2      40      45
+## 3     2      50      33
+## 4     2      50      10
+## 5     3      57      40
+## 6     1      13      45</code></pre>
 <pre class="r"><code># Put a zero as first digit if value is less than ten to get 0X format.
 
 sample$Hours &lt;- ifelse(sample$Hours &lt; 10, paste0(0, sample$Hours), as.character(sample$Hours))
@@ -471,12 +574,12 @@ sample$Seconds &lt;- ifelse(sample$Seconds &lt; 10, paste0(0, sample$Seconds), a
 # Another peek to check:
 head(sample)</code></pre>
 <pre><code>##   Hours Minutes Seconds
-## 1    04      04      38
-## 2    02      32      42
-## 3    02      42      38
-## 4    02      43      23
-## 5    02      52      25
-## 6    01      04      24</code></pre>
+## 1    03      34      29
+## 2    02      40      45
+## 3    02      50      33
+## 4    02      50      10
+## 5    03      57      40
+## 6    01      13      45</code></pre>
 <pre class="r"><code># Unite the Hours, Minutes, Seconds columns, this combined column is Time:
 
 united &lt;- unite(sample, Time , Hours, Minutes, Seconds, sep = &quot;:&quot;)
@@ -484,12 +587,12 @@ united &lt;- unite(sample, Time , Hours, Minutes, Seconds, sep = &quot;:&quot;)
 # One last look:
 head(united)</code></pre>
 <pre><code>##       Time
-## 1 04:04:38
-## 2 02:32:42
-## 3 02:42:38
-## 4 02:43:23
-## 5 02:52:25
-## 6 01:04:24</code></pre>
+## 1 03:34:29
+## 2 02:40:45
+## 3 02:50:33
+## 4 02:50:10
+## 5 03:57:40
+## 6 01:13:45</code></pre>
 <p> </p>
 <p>With the <code>unite()</code> function, the dataset sample is specified. Time is the new column which combines Hours, Minutes, Seconds. The “:” in the sep argument gives the HH:MM:SS time format.</p>
 <p>Before the unite function paste0() was used. paste0() concatenates/combines strings together. I used ifelse() for the condition where the hour/minute/second is less than 10. If it was less than 10, a 0 was put in front. If not, then no 0 is needed in front as it satisfies the two digits in HH, MM or SS.</p>

@@ -70,9 +70,7 @@ h6 {
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -97,6 +95,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -111,7 +112,6 @@ body {
   padding-top: 65px;
   margin-top: -65px;
 }
-
 .section h2 {
   padding-top: 65px;
   margin-top: -65px;
@@ -131,6 +131,43 @@ body {
 .section h6 {
   padding-top: 65px;
   margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -152,19 +189,85 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
 });
 </script>
 
 <!-- code folding -->
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -251,14 +354,11 @@ $(document).ready(function () {
 
 # To install use: install.packages(&quot;data.table&quot;)
 
-library(babynames)</code></pre>
-<pre><code>## Warning: package &#39;babynames&#39; was built under R version 3.4.2</code></pre>
-<pre class="r"><code>library(data.table)</code></pre>
-<pre><code>## data.table 1.10.4</code></pre>
-<pre><code>##   The fastest way to learn (by data.table authors): https://www.datacamp.com/courses/data-analysis-the-data-table-way</code></pre>
-<pre><code>##   Documentation: ?data.table, example(data.table) and browseVignettes(&quot;data.table&quot;)</code></pre>
-<pre><code>##   Release notes, videos and slides: http://r-datatable.com</code></pre>
-<pre class="r"><code>set.seed(45L)
+library(babynames)
+
+library(data.table)
+
+set.seed(45L)
 
 baby_table &lt;- data.table(babynames)</code></pre>
 <p> </p>
@@ -277,7 +377,7 @@ sum(is.na(baby_table))</code></pre>
 <p> </p>
 <pre class="r"><code># Dimensions of dataset: (1.82 million rows with 5 columns)
 dim(baby_table)</code></pre>
-<pre><code>## [1] 1858689       5</code></pre>
+<pre><code>## [1] 1924665       5</code></pre>
 <pre class="r"><code># Column names of the baby_data:
 
 names(baby_table)</code></pre>
@@ -287,7 +387,7 @@ names(baby_table)</code></pre>
 <p>The <code>names()</code> function returns the names of the 5 columns. These 5 columns are year, sex, name, n (the counts for the name), prop (proportion or percentage of total population).</p>
 <p> </p>
 <pre class="r"><code>str(baby_table)</code></pre>
-<pre><code>## Classes &#39;data.table&#39; and &#39;data.frame&#39;:   1858689 obs. of  5 variables:
+<pre><code>## Classes &#39;data.table&#39; and &#39;data.frame&#39;:   1924665 obs. of  5 variables:
 ##  $ year: num  1880 1880 1880 1880 1880 1880 1880 1880 1880 1880 ...
 ##  $ sex : chr  &quot;F&quot; &quot;F&quot; &quot;F&quot; &quot;F&quot; ...
 ##  $ name: chr  &quot;Mary&quot; &quot;Anna&quot; &quot;Emma&quot; &quot;Elizabeth&quot; ...
@@ -296,18 +396,18 @@ names(baby_table)</code></pre>
 ##  - attr(*, &quot;.internal.selfref&quot;)=&lt;externalptr&gt;</code></pre>
 <pre class="r"><code>summary(baby_table)</code></pre>
 <pre><code>##       year          sex                name                 n          
-##  Min.   :1880   Length:1858689     Length:1858689     Min.   :    5.0  
-##  1st Qu.:1950   Class :character   Class :character   1st Qu.:    7.0  
-##  Median :1983   Mode  :character   Mode  :character   Median :   12.0  
-##  Mean   :1973                                         Mean   :  183.4  
-##  3rd Qu.:2002                                         3rd Qu.:   32.0  
-##  Max.   :2015                                         Max.   :99680.0  
+##  Min.   :1880   Length:1924665     Length:1924665     Min.   :    5.0  
+##  1st Qu.:1951   Class :character   Class :character   1st Qu.:    7.0  
+##  Median :1985   Mode  :character   Mode  :character   Median :   12.0  
+##  Mean   :1975                                         Mean   :  180.9  
+##  3rd Qu.:2003                                         3rd Qu.:   32.0  
+##  Max.   :2017                                         Max.   :99686.0  
 ##       prop          
 ##  Min.   :2.260e-06  
-##  1st Qu.:3.900e-06  
-##  Median :7.350e-06  
-##  Mean   :1.391e-04  
-##  3rd Qu.:2.324e-05  
+##  1st Qu.:3.870e-06  
+##  Median :7.300e-06  
+##  Mean   :1.363e-04  
+##  3rd Qu.:2.288e-05  
 ##  Max.   :8.155e-02</code></pre>
 <p> </p>
 <p>The <code>str()</code> function returns the structure of the dataset and information about the column variables.</p>
@@ -315,20 +415,20 @@ names(baby_table)</code></pre>
 <p> </p>
 <pre class="r"><code>head(baby_table)</code></pre>
 <pre><code>##    year sex      name    n       prop
-## 1: 1880   F      Mary 7065 0.07238433
-## 2: 1880   F      Anna 2604 0.02667923
-## 3: 1880   F      Emma 2003 0.02052170
-## 4: 1880   F Elizabeth 1939 0.01986599
-## 5: 1880   F    Minnie 1746 0.01788861
-## 6: 1880   F  Margaret 1578 0.01616737</code></pre>
+## 1: 1880   F      Mary 7065 0.07238359
+## 2: 1880   F      Anna 2604 0.02667896
+## 3: 1880   F      Emma 2003 0.02052149
+## 4: 1880   F Elizabeth 1939 0.01986579
+## 5: 1880   F    Minnie 1746 0.01788843
+## 6: 1880   F  Margaret 1578 0.01616720</code></pre>
 <pre class="r"><code>tail(baby_table)</code></pre>
-<pre><code>##    year sex   name n         prop
-## 1: 2015   M   Zyah 5 2.466855e-06
-## 2: 2015   M Zykell 5 2.466855e-06
-## 3: 2015   M Zyking 5 2.466855e-06
-## 4: 2015   M  Zykir 5 2.466855e-06
-## 5: 2015   M  Zyrus 5 2.466855e-06
-## 6: 2015   M   Zyus 5 2.466855e-06</code></pre>
+<pre><code>##    year sex   name n     prop
+## 1: 2017   M Zyhier 5 2.55e-06
+## 2: 2017   M  Zykai 5 2.55e-06
+## 3: 2017   M Zykeem 5 2.55e-06
+## 4: 2017   M  Zylin 5 2.55e-06
+## 5: 2017   M  Zylis 5 2.55e-06
+## 6: 2017   M  Zyrie 5 2.55e-06</code></pre>
 <p> </p>
 <p>The <code>head()</code> and <code>tail()</code> functions for a dataset returns the first 6 and last 6 (respectively) rows of data. One can use the n = argument to change the number of rows to view. I used <code>n = 10</code> here for both <code>head()</code> and <code>tail()</code> functions.</p>
 <p>We see that the names collected were from the years 1880 to 2014.</p>
@@ -355,19 +455,19 @@ names(baby_table)</code></pre>
 # Rows from 25 to 28 
 
 baby_table[25:29, ]</code></pre>
-<pre><code>##    year sex     name   n        prop
-## 1: 1880   F Gertrude 787 0.008063194
-## 2: 1880   F    Julia 783 0.008022212
-## 3: 1880   F   Hattie 769 0.007878775
-## 4: 1880   F    Edith 768 0.007868530
-## 5: 1880   F   Mattie 704 0.007212819</code></pre>
+<pre><code>##    year sex     name   n       prop
+## 1: 1880   F Gertrude 787 0.00806311
+## 2: 1880   F    Julia 783 0.00802213
+## 3: 1880   F   Hattie 769 0.00787869
+## 4: 1880   F    Edith 768 0.00786845
+## 5: 1880   F   Mattie 704 0.00721275</code></pre>
 <pre class="r"><code>baby_table[25:29]</code></pre>
-<pre><code>##    year sex     name   n        prop
-## 1: 1880   F Gertrude 787 0.008063194
-## 2: 1880   F    Julia 783 0.008022212
-## 3: 1880   F   Hattie 769 0.007878775
-## 4: 1880   F    Edith 768 0.007868530
-## 5: 1880   F   Mattie 704 0.007212819</code></pre>
+<pre><code>##    year sex     name   n       prop
+## 1: 1880   F Gertrude 787 0.00806311
+## 2: 1880   F    Julia 783 0.00802213
+## 3: 1880   F   Hattie 769 0.00787869
+## 4: 1880   F    Edith 768 0.00786845
+## 5: 1880   F   Mattie 704 0.00721275</code></pre>
 <p> </p>
 <p>Here is an example where we select a row with a condition. We choose rows with the name Marissa.</p>
 <p> </p>
@@ -376,34 +476,34 @@ baby_table[25:29, ]</code></pre>
 marissa &lt;- baby_table[name == &quot;Marissa&quot;]
 
 head(marissa, n = 10)</code></pre>
-<pre><code>##     year sex    name  n         prop
-##  1: 1936   F Marissa  5 4.640677e-06
-##  2: 1946   F Marissa  7 4.340194e-06
-##  3: 1947   F Marissa  7 3.850849e-06
-##  4: 1949   F Marissa  7 3.987470e-06
-##  5: 1950   F Marissa  7 3.979708e-06
-##  6: 1951   F Marissa  7 3.790613e-06
-##  7: 1952   F Marissa 15 7.885834e-06
-##  8: 1953   F Marissa 20 1.036745e-05
-##  9: 1954   F Marissa 20 1.004706e-05
-## 10: 1955   F Marissa 40 1.995637e-05</code></pre>
+<pre><code>##     year sex    name  n      prop
+##  1: 1936   F Marissa  5 4.640e-06
+##  2: 1946   F Marissa  7 4.340e-06
+##  3: 1947   F Marissa  7 3.850e-06
+##  4: 1949   F Marissa  7 3.990e-06
+##  5: 1950   F Marissa  7 3.980e-06
+##  6: 1951   F Marissa  7 3.790e-06
+##  7: 1952   F Marissa 15 7.890e-06
+##  8: 1953   F Marissa 19 9.850e-06
+##  9: 1954   F Marissa 19 9.540e-06
+## 10: 1955   F Marissa 40 1.995e-05</code></pre>
 <p> </p>
 <p>We can also select rows with multiple names as the condition.</p>
 <pre class="r"><code># Select rows with names of Zach and Penny.
 
 baby_table[name %in% c(&quot;Zach&quot;, &quot;Penny&quot;)]</code></pre>
-<pre><code>##      year sex  name   n         prop
-##   1: 1882   F Penny   5 4.321671e-05
-##   2: 1888   F Penny   6 3.167113e-05
-##   3: 1890   F Penny   6 2.975290e-05
-##   4: 1892   F Penny   6 2.667674e-05
-##   5: 1897   F Penny   5 2.013896e-05
-##  ---                                
-## 227: 2013   M  Zach  71 3.526095e-05
-## 228: 2014   F Penny 342 1.756050e-04
-## 229: 2014   M  Zach  67 3.284645e-05
-## 230: 2015   F Penny 371 1.917205e-04
-## 231: 2015   M  Zach  71 3.502935e-05</code></pre>
+<pre><code>##      year sex  name   n       prop
+##   1: 1882   F Penny   5 0.00004322
+##   2: 1888   F Penny   6 0.00003167
+##   3: 1890   F Penny   6 0.00002975
+##   4: 1892   F Penny   6 0.00002668
+##   5: 1897   F Penny   5 0.00002014
+##  ---                              
+## 231: 2015   M  Zach  72 0.00003532
+## 232: 2016   F Penny 418 0.00021676
+## 233: 2016   M  Zach  39 0.00001933
+## 234: 2017   F Penny 354 0.00018881
+## 235: 2017   M  Zach  47 0.00002394</code></pre>
 <p><a name="columns"></a></p>
 <p> </p>
 </div>
@@ -434,7 +534,7 @@ head(no_propor)</code></pre>
 ## 5: 1880   F    Minnie 1746
 ## 6: 1880   F  Margaret 1578</code></pre>
 <pre class="r"><code>dim(no_propor)</code></pre>
-<pre><code>## [1] 1858689       4</code></pre>
+<pre><code>## [1] 1924665       4</code></pre>
 <p> </p>
 <p>Instead of using <code>.()</code>, we could use the <code>list()</code> function as follows.</p>
 <p> </p>
@@ -448,11 +548,11 @@ baby_table[, list(year, sex, name, n)]</code></pre>
 ##       4: 1880   F Elizabeth 1939
 ##       5: 1880   F    Minnie 1746
 ##      ---                        
-## 1858685: 2015   M    Zykell    5
-## 1858686: 2015   M    Zyking    5
-## 1858687: 2015   M     Zykir    5
-## 1858688: 2015   M     Zyrus    5
-## 1858689: 2015   M      Zyus    5</code></pre>
+## 1924661: 2017   M     Zykai    5
+## 1924662: 2017   M    Zykeem    5
+## 1924663: 2017   M     Zylin    5
+## 1924664: 2017   M     Zylis    5
+## 1924665: 2017   M     Zyrie    5</code></pre>
 <p> </p>
 <pre class="r"><code># Note that .() is needed to output a data.table object, otherwise we get a vector.
 
@@ -462,7 +562,7 @@ counts &lt;- baby_table[, .(Total_Count = sum(n), Standard_Deviation_Counts = sd
 
 counts</code></pre>
 <pre><code>##    Total_Count Standard_Deviation_Counts
-## 1:   340851912                  1555.357</code></pre>
+## 1:   348120517                  1533.337</code></pre>
 <p> </p>
 <p>Note that if we do not use <code>.()</code> or <code>list()</code> in j we would not return a data.table object. We would instead get a vector and an undesirable output.</p>
 <p>We can also run a few calculations to retrieve counts, means (average), standard deviations and such.</p>
@@ -485,8 +585,8 @@ gender_count &lt;- baby_table[, .N, by = sex]
 
 gender_count</code></pre>
 <pre><code>##    sex       N
-## 1:   F 1100858
-## 2:   M  757831</code></pre>
+## 1:   F 1138293
+## 2:   M  786372</code></pre>
 <p> </p>
 <p>The counts above were the number of rows for each gender. But each row has an n value of the counts per row. We have to sum these n values for each gender to retrieve the true counts for each gender.</p>
 <pre class="r"><code># Calculating the total number of males and females:
@@ -495,8 +595,8 @@ gender &lt;- baby_table[, .(Total.Gender = sum(n)), by = sex]
 
 gender</code></pre>
 <pre><code>##    sex Total.Gender
-## 1:   F    168861581
-## 2:   M    171990331</code></pre>
+## 1:   F    172371079
+## 2:   M    175749438</code></pre>
 <p> </p>
 <p>We now check if the female total counts and the male total counts match the total counts from the last example in the previous section.</p>
 <p> </p>
@@ -525,21 +625,21 @@ aggregate &lt;- baby_table[, .(Name.Count = sum(n)), by = name][order(-Name.Coun
 
 head(aggregate, n = 15)</code></pre>
 <pre><code>##            name Name.Count
-##  1:       James    5144205
-##  2:        John    5117331
-##  3:      Robert    4823167
-##  4:     Michael    4345569
-##  5:        Mary    4133216
-##  6:     William    4087556
-##  7:       David    3602623
-##  8:      Joseph    2592388
-##  9:     Richard    2567700
-## 10:     Charles    2383998
-## 11:      Thomas    2298810
-## 12: Christopher    2014117
-## 13:      Daniel    1890558
-## 14:   Elizabeth    1616108
-## 15:    Patricia    1575916</code></pre>
+##  1:       James    5173828
+##  2:        John    5137142
+##  3:      Robert    4834915
+##  4:     Michael    4372536
+##  5:        Mary    4138360
+##  6:     William    4118553
+##  7:       David    3624225
+##  8:      Joseph    2614083
+##  9:     Richard    2572613
+## 10:     Charles    2398453
+## 11:      Thomas    2313415
+## 12: Christopher    2031626
+## 13:      Daniel    1915517
+## 14:   Elizabeth    1634860
+## 15:     Matthew    1595949</code></pre>
 <p> </p>
 <p>We see that the name James is the most popular baby name from the dataset</p>
 <p>Notice that the by keyword was used and that a the sum function was used to create a new variable Name.Count. In addition, we used chaining with the order command. Instead of having</p>
@@ -563,21 +663,21 @@ aggregate &lt;- aggregate[order(-Name.Count)]</code></pre>
 
 head(agg_male, n = 15)</code></pre>
 <pre><code>##            name Name.Count
-##  1:       James    5120990
-##  2:        John    5095674
-##  3:      Robert    4803068
-##  4:     Michael    4323928
-##  5:     William    4071645
-##  6:       David    3589754
-##  7:      Joseph    2581785
-##  8:     Richard    2558165
-##  9:     Charles    2371621
-## 10:      Thomas    2290364
-## 11: Christopher    2004667
-## 12:      Daniel    1882435
-## 13:     Matthew    1566027
-## 14:      George    1457646
-## 15:     Anthony    1413852</code></pre>
+##  1:       James    5150472
+##  2:        John    5115466
+##  3:      Robert    4814815
+##  4:     Michael    4350824
+##  5:     William    4102604
+##  6:       David    3611329
+##  7:      Joseph    2603445
+##  8:     Richard    2563082
+##  9:     Charles    2386048
+## 10:      Thomas    2304948
+## 11: Christopher    2022164
+## 12:      Daniel    1907357
+## 13:     Matthew    1590440
+## 14:      George    1464186
+## 15:     Anthony    1432718</code></pre>
 <p> </p>
 <p>We see that the 5 most popular male baby names are James, John, Robert, Michael and William.</p>
 <hr />
@@ -588,21 +688,21 @@ head(agg_male, n = 15)</code></pre>
 
 head(agg_female, n = 15)</code></pre>
 <pre><code>##          name Name.Count
-##  1:      Mary    4118058
-##  2: Elizabeth    1610948
-##  3:  Patricia    1570954
-##  4:  Jennifer    1464067
-##  5:     Linda    1451331
-##  6:   Barbara    1433339
-##  7:  Margaret    1242141
-##  8:     Susan    1120810
-##  9:   Dorothy    1106106
-## 10:     Sarah    1065265
-## 11:   Jessica    1042201
-## 12:     Helen    1016686
-## 13:     Nancy    1001342
-## 14:     Betty     999066
-## 15:     Karen     984468</code></pre>
+##  1:      Mary    4123200
+##  2: Elizabeth    1629679
+##  3:  Patricia    1571692
+##  4:  Jennifer    1466281
+##  5:     Linda    1452249
+##  6:   Barbara    1434060
+##  7:  Margaret    1246649
+##  8:     Susan    1121440
+##  9:   Dorothy    1107096
+## 10:     Sarah    1073895
+## 11:   Jessica    1044939
+## 12:     Helen    1018290
+## 13:     Nancy    1002010
+## 14:     Betty     999474
+## 15:     Karen     985655</code></pre>
 <p> </p>
 <p>The top five female baby names from the dataset are Mary, Elizabeth, Patricia, Jennifer and Linda.</p>
 <p><a name="index"></a></p>
@@ -625,36 +725,36 @@ setkey(key_table, name)
 # name is keyed column, search for rows with name = &quot;Mario&quot;
 
 key_table[&quot;Mario&quot;]</code></pre>
-<pre><code>##      year sex  name    n         prop
-##   1: 1897   M Mario    7 5.740387e-05
-##   2: 1900   M Mario    5 3.083755e-05
-##   3: 1901   M Mario    6 5.190536e-05
-##   4: 1902   M Mario   10 7.533013e-05
-##   5: 1903   M Mario    6 4.639438e-05
-##  ---                                 
-## 180: 2011   M Mario 1597 7.879047e-04
-## 181: 2012   M Mario 1442 7.126023e-04
-## 182: 2013   M Mario 1417 7.037291e-04
-## 183: 2014   M Mario 1361 6.672242e-04
-## 184: 2015   M Mario 1285 6.339818e-04</code></pre>
+<pre><code>##      year sex  name    n       prop
+##   1: 1897   M Mario    7 0.00005740
+##   2: 1900   M Mario    5 0.00003084
+##   3: 1901   M Mario    6 0.00005191
+##   4: 1902   M Mario   10 0.00007533
+##   5: 1903   M Mario    6 0.00004639
+##  ---                               
+## 182: 2013   M Mario 1419 0.00070361
+## 183: 2014   M Mario 1364 0.00066720
+## 184: 2015   M Mario 1288 0.00063189
+## 185: 2016   M Mario 1153 0.00057142
+## 186: 2017   M Mario 1129 0.00057506</code></pre>
 <p> </p>
 <p>The next example is about selecting multiple names in <code>setkey()</code>.</p>
 <p> </p>
 <pre class="r"><code># name is the keyed column
 # search for all rows where name is Mario or Dennis:
 key_table[c(&quot;Mario&quot;, &quot;Dennis&quot;)]</code></pre>
-<pre><code>##      year sex   name   n         prop
-##   1: 1897   M  Mario   7 5.740387e-05
-##   2: 1900   M  Mario   5 3.083755e-05
-##   3: 1901   M  Mario   6 5.190536e-05
-##   4: 1902   M  Mario  10 7.533013e-05
-##   5: 1903   M  Mario   6 4.639438e-05
-##  ---                                 
-## 413: 2012   M Dennis 658 3.251681e-04
-## 414: 2013   M Dennis 622 3.089058e-04
-## 415: 2014   F Dennis   6 3.080789e-06
-## 416: 2014   M Dennis 573 2.809107e-04
-## 417: 2015   M Dennis 584 2.881287e-04</code></pre>
+<pre><code>##      year sex   name   n       prop
+##   1: 1897   M  Mario   7 0.00005740
+##   2: 1900   M  Mario   5 0.00003084
+##   3: 1901   M  Mario   6 0.00005191
+##   4: 1902   M  Mario  10 0.00007533
+##   5: 1903   M  Mario   6 0.00004639
+##  ---                               
+## 419: 2015   M Dennis 589 0.00028896
+## 420: 2016   F Dennis   7 0.00000363
+## 421: 2016   M Dennis 586 0.00029042
+## 422: 2017   F Dennis   5 0.00000267
+## 423: 2017   M Dennis 510 0.00025977</code></pre>
 <p> </p>
 <hr />
 <p><strong>The nomatch argument</strong></p>
@@ -665,50 +765,50 @@ key_table[c(&quot;Mario&quot;, &quot;Dennis&quot;)]</code></pre>
 # By default it is NA, nomatch = 0 means no rows to be returned if no matches
 
 key_table[c(&quot;April&quot;, &quot;What&quot;)]</code></pre>
-<pre><code>##      year sex  name   n         prop
-##   1: 1917   F April   6 5.339494e-06
-##   2: 1919   F April   8 6.810539e-06
-##   3: 1920   F April  10 8.038340e-06
-##   4: 1921   F April  12 9.377337e-06
-##   5: 1923   F April   6 4.790740e-06
-##  ---                                
-## 131: 2012   F April 782 4.043327e-04
-## 132: 2013   F April 716 3.727317e-04
-## 133: 2014   F April 793 4.071776e-04
-## 134: 2015   F April 797 4.118631e-04
-## 135:   NA  NA  What  NA           NA</code></pre>
+<pre><code>##      year  sex  name   n       prop
+##   1: 1917    F April   6 0.00000534
+##   2: 1919    F April   8 0.00000681
+##   3: 1920    F April  10 0.00000804
+##   4: 1921    F April  12 0.00000938
+##   5: 1923    F April   6 0.00000479
+##  ---                               
+## 133: 2014    F April 792 0.00040581
+## 134: 2015    F April 803 0.00041279
+## 135: 2016    F April 823 0.00042677
+## 136: 2017    F April 691 0.00036855
+## 137:   NA &lt;NA&gt;  What  NA         NA</code></pre>
 <p> </p>
 <p>By default, the nomatch argument is set to NA as follows.</p>
 <p> </p>
 <pre class="r"><code>key_table[c(&quot;April&quot;, &quot;What&quot;), nomatch = NA]</code></pre>
-<pre><code>##      year sex  name   n         prop
-##   1: 1917   F April   6 5.339494e-06
-##   2: 1919   F April   8 6.810539e-06
-##   3: 1920   F April  10 8.038340e-06
-##   4: 1921   F April  12 9.377337e-06
-##   5: 1923   F April   6 4.790740e-06
-##  ---                                
-## 131: 2012   F April 782 4.043327e-04
-## 132: 2013   F April 716 3.727317e-04
-## 133: 2014   F April 793 4.071776e-04
-## 134: 2015   F April 797 4.118631e-04
-## 135:   NA  NA  What  NA           NA</code></pre>
+<pre><code>##      year  sex  name   n       prop
+##   1: 1917    F April   6 0.00000534
+##   2: 1919    F April   8 0.00000681
+##   3: 1920    F April  10 0.00000804
+##   4: 1921    F April  12 0.00000938
+##   5: 1923    F April   6 0.00000479
+##  ---                               
+## 133: 2014    F April 792 0.00040581
+## 134: 2015    F April 803 0.00041279
+## 135: 2016    F April 823 0.00042677
+## 136: 2017    F April 691 0.00036855
+## 137:   NA &lt;NA&gt;  What  NA         NA</code></pre>
 <p> </p>
 <p>Setting nomatch to 0 will omit the row(s) which are not a match.</p>
 <p> </p>
 <pre class="r"><code>key_table[c(&quot;April&quot;, &quot;What&quot;), nomatch = 0]</code></pre>
-<pre><code>##      year sex  name   n         prop
-##   1: 1917   F April   6 5.339494e-06
-##   2: 1919   F April   8 6.810539e-06
-##   3: 1920   F April  10 8.038340e-06
-##   4: 1921   F April  12 9.377337e-06
-##   5: 1923   F April   6 4.790740e-06
-##  ---                                
-## 130: 2011   F April 792 4.096533e-04
-## 131: 2012   F April 782 4.043327e-04
-## 132: 2013   F April 716 3.727317e-04
-## 133: 2014   F April 793 4.071776e-04
-## 134: 2015   F April 797 4.118631e-04</code></pre>
+<pre><code>##      year sex  name   n       prop
+##   1: 1917   F April   6 0.00000534
+##   2: 1919   F April   8 0.00000681
+##   3: 1920   F April  10 0.00000804
+##   4: 1921   F April  12 0.00000938
+##   5: 1923   F April   6 0.00000479
+##  ---                              
+## 132: 2013   F April 716 0.00037217
+## 133: 2014   F April 792 0.00040581
+## 134: 2015   F April 803 0.00041279
+## 135: 2016   F April 823 0.00042677
+## 136: 2017   F April 691 0.00036855</code></pre>
 <p> </p>
 <hr />
 <p><strong>Counting Methods</strong></p>
@@ -719,13 +819,13 @@ key_table[c(&quot;April&quot;, &quot;What&quot;)]</code></pre>
 # Counting the number of Marios and Marias (together):
 
 key_table[c(&quot;Mario&quot;, &quot;Maria&quot;), sum(n)]</code></pre>
-<pre><code>## [1] 684551</code></pre>
+<pre><code>## [1] 692672</code></pre>
 <pre class="r"><code># Counting the number of Marios and Marias separately:
 
 key_table[c(&quot;Mario&quot;, &quot;Maria&quot;), sum(n), by = .EACHI]</code></pre>
 <pre><code>##     name     V1
-## 1: Mario 142805
-## 2: Maria 541746</code></pre>
+## 1: Mario 145110
+## 2: Maria 547562</code></pre>
 <p> </p>
 <hr />
 <p><strong>Selecting Multiple Columns in Keys</strong></p>
@@ -743,15 +843,15 @@ setkey(key_table, year, name)
 # Search for the year 2000 with name Sophie:
 
 key_table[.(2000, &quot;Sophie&quot;)]</code></pre>
-<pre><code>##    year sex   name    n        prop
-## 1: 2000   F Sophie 2102 0.001053919</code></pre>
+<pre><code>##    year sex   name    n      prop
+## 1: 2000   F Sophie 2101 0.0010532</code></pre>
 <pre class="r"><code># Search for years 2000, 2001 with names Caitlin and Raj:
 
 key_table[.(c(2000, 2001), c(&quot;Caitlin&quot;, &quot;Raj&quot;))]</code></pre>
-<pre><code>##    year sex    name    n         prop
-## 1: 2000   F Caitlin 4102 2.056696e-03
-## 2: 2000   M Caitlin    5 2.395811e-06
-## 3: 2001   M     Raj   74 3.580083e-05</code></pre>
+<pre><code>##    year sex    name    n       prop
+## 1: 2000   F Caitlin 4102 0.00205626
+## 2: 2000   M Caitlin    5 0.00000240
+## 3: 2001   M     Raj   74 0.00003579</code></pre>
 <p><a name="names"></a></p>
 <p> </p>
 <hr />
@@ -769,16 +869,16 @@ new_col &lt;- setnames(new_col, &quot;n&quot;, &quot;Count&quot;)
 
 head(new_col, n = 10)</code></pre>
 <pre><code>##     year sex      name Count       prop
-##  1: 1880   F      Mary  7065 0.07238433
-##  2: 1880   F      Anna  2604 0.02667923
-##  3: 1880   F      Emma  2003 0.02052170
-##  4: 1880   F Elizabeth  1939 0.01986599
-##  5: 1880   F    Minnie  1746 0.01788861
-##  6: 1880   F  Margaret  1578 0.01616737
-##  7: 1880   F       Ida  1472 0.01508135
-##  8: 1880   F     Alice  1414 0.01448711
-##  9: 1880   F    Bertha  1320 0.01352404
-## 10: 1880   F     Sarah  1288 0.01319618</code></pre>
+##  1: 1880   F      Mary  7065 0.07238359
+##  2: 1880   F      Anna  2604 0.02667896
+##  3: 1880   F      Emma  2003 0.02052149
+##  4: 1880   F Elizabeth  1939 0.01986579
+##  5: 1880   F    Minnie  1746 0.01788843
+##  6: 1880   F  Margaret  1578 0.01616720
+##  7: 1880   F       Ida  1472 0.01508119
+##  8: 1880   F     Alice  1414 0.01448696
+##  9: 1880   F    Bertha  1320 0.01352390
+## 10: 1880   F     Sarah  1288 0.01319605</code></pre>
 <p><a name="order"></a></p>
 <p> </p>
 <hr />
@@ -797,16 +897,16 @@ setcolorder(ordered, new_order)
 
 head(ordered, n = 10)</code></pre>
 <pre><code>##     year      name sex    n       prop
-##  1: 1880      Mary   F 7065 0.07238433
-##  2: 1880      Anna   F 2604 0.02667923
-##  3: 1880      Emma   F 2003 0.02052170
-##  4: 1880 Elizabeth   F 1939 0.01986599
-##  5: 1880    Minnie   F 1746 0.01788861
-##  6: 1880  Margaret   F 1578 0.01616737
-##  7: 1880       Ida   F 1472 0.01508135
-##  8: 1880     Alice   F 1414 0.01448711
-##  9: 1880    Bertha   F 1320 0.01352404
-## 10: 1880     Sarah   F 1288 0.01319618</code></pre>
+##  1: 1880      Mary   F 7065 0.07238359
+##  2: 1880      Anna   F 2604 0.02667896
+##  3: 1880      Emma   F 2003 0.02052149
+##  4: 1880 Elizabeth   F 1939 0.01986579
+##  5: 1880    Minnie   F 1746 0.01788843
+##  6: 1880  Margaret   F 1578 0.01616720
+##  7: 1880       Ida   F 1472 0.01508119
+##  8: 1880     Alice   F 1414 0.01448696
+##  9: 1880    Bertha   F 1320 0.01352390
+## 10: 1880     Sarah   F 1288 0.01319605</code></pre>
 <p><a name="remove"></a></p>
 <p> </p>
 <hr />
@@ -825,12 +925,12 @@ no_years &lt;- no_years[, year := NULL];
 
 head(no_years);</code></pre>
 <pre><code>##    sex      name    n       prop
-## 1:   F      Mary 7065 0.07238433
-## 2:   F      Anna 2604 0.02667923
-## 3:   F      Emma 2003 0.02052170
-## 4:   F Elizabeth 1939 0.01986599
-## 5:   F    Minnie 1746 0.01788861
-## 6:   F  Margaret 1578 0.01616737</code></pre>
+## 1:   F      Mary 7065 0.07238359
+## 2:   F      Anna 2604 0.02667896
+## 3:   F      Emma 2003 0.02052149
+## 4:   F Elizabeth 1939 0.01986579
+## 5:   F    Minnie 1746 0.01788843
+## 6:   F  Margaret 1578 0.01616720</code></pre>
 <p> </p>
 <p>We can also remove multiple columns. Here, we remove the year, sex and prop columns leaving us with the name and n columns.</p>
 <p> </p>
