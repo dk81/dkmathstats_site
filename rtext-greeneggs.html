@@ -70,9 +70,7 @@ h6 {
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -97,6 +95,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -111,7 +112,6 @@ body {
   padding-top: 65px;
   margin-top: -65px;
 }
-
 .section h2 {
   padding-top: 65px;
   margin-top: -65px;
@@ -131,6 +131,43 @@ body {
 .section h6 {
   padding-top: 65px;
   margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -152,19 +189,85 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
 });
 </script>
 
 <!-- code folding -->
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -274,23 +377,23 @@ greenEggs_book_df &lt;- data_frame(Text = greenEggs_book) # tibble aka neater da
 
 head(greenEggs_book_df, n = 15) </code></pre>
 <pre><code>## # A tibble: 15 x 1
-##                             Text
-##                            &lt;chr&gt;
-##  1                      I am Sam
-##  2                      Sam I am
-##  3                              
-##  4                That Sam-I-am!
-##  5                That Sam-I-am!
-##  6  I do not like that Sam-I-am!
-##  7                              
-##  8                  Do you like 
-##  9           green eggs and ham?
+##    Text                         
+##    &lt;chr&gt;                        
+##  1 I am Sam                     
+##  2 Sam I am                     
+##  3 &quot;&quot;                           
+##  4 That Sam-I-am!               
+##  5 That Sam-I-am!               
+##  6 I do not like that Sam-I-am! 
+##  7 &quot;&quot;                           
+##  8 &quot;Do you like &quot;               
+##  9 green eggs and ham?          
 ## 10 I do not like them, Sam-I-am.
-## 11                 I do not like
-## 12           green eggs and ham.
-## 13                              
-## 14          Would you like them 
-## 15                here or there?</code></pre>
+## 11 I do not like                
+## 12 green eggs and ham.          
+## 13 &quot;&quot;                           
+## 14 &quot;Would you like them &quot;       
+## 15 here or there?</code></pre>
 <p> </p>
 <p>From the tidytext package, the <code>unnest_tokens()</code> function converts the text in a way such that each row is just a single word.</p>
 <p> </p>
@@ -303,18 +406,18 @@ greenEggs_words &lt;- greenEggs_book_df %&gt;%
 
 head(greenEggs_words, n = 10)</code></pre>
 <pre><code>## # A tibble: 10 x 1
-##     word
+##    word 
 ##    &lt;chr&gt;
-##  1     i
-##  2    am
-##  3   sam
-##  4   sam
-##  5     i
-##  6    am
-##  7  that
-##  8   sam
-##  9     i
-## 10    am</code></pre>
+##  1 i    
+##  2 am   
+##  3 sam  
+##  4 sam  
+##  5 i    
+##  6 am   
+##  7 that 
+##  8 sam  
+##  9 i    
+## 10 am</code></pre>
 <p> </p>
 <p>Normally, I want to remove stopwords from the text as they carry very little meaning on their own. This time around, I will obtain word counts in Green Eggs &amp; Ham when the stopwords are filtered out and the word counts of the original book itself. To filter out the stop words the <code>anti_join()</code> function from R’s dplyr package is used. The variable which is associated with the filtered text is <code>greenEggs_words_filt</code>.</p>
 <p> </p>
@@ -339,42 +442,42 @@ greenEggs_wordcounts_filt &lt;- greenEggs_words_filt %&gt;% count(word, sort = T
 
 head(greenEggs_wordcounts, n = 15)</code></pre>
 <pre><code>## # A tibble: 15 x 2
-##     word     n
+##    word      n
 ##    &lt;chr&gt; &lt;int&gt;
-##  1     i    84
-##  2   not    84
-##  3  them    61
-##  4     a    59
-##  5  like    45
-##  6    in    41
-##  7    do    37
-##  8   you    34
+##  1 i        84
+##  2 not      84
+##  3 them     61
+##  4 a        59
+##  5 like     45
+##  6 in       41
+##  7 do       37
+##  8 you      34
 ##  9 would    26
-## 10   and    25
-## 11   eat    24
-## 12  will    21
-## 13  with    19
-## 14   sam    18
-## 15    am    15</code></pre>
+## 10 and      25
+## 11 eat      24
+## 12 will     21
+## 13 with     19
+## 14 sam      18
+## 15 am       15</code></pre>
 <pre class="r"><code>head(greenEggs_wordcounts_filt, n = 15)</code></pre>
 <pre><code>## # A tibble: 15 x 2
-##     word     n
+##    word      n
 ##    &lt;chr&gt; &lt;int&gt;
-##  1   eat    24
-##  2   sam    18
-##  3  eggs    11
+##  1 eat      24
+##  2 sam      18
+##  3 eggs     11
 ##  4 green    11
-##  5   ham    10
+##  5 ham      10
 ##  6 train     9
 ##  7 house     8
 ##  8 mouse     8
-##  9   box     7
-## 10   car     7
-## 11  dark     7
-## 12   fox     7
-## 13  tree     6
-## 14  goat     4
-## 15  rain     4</code></pre>
+##  9 box       7
+## 10 car       7
+## 11 dark      7
+## 12 fox       7
+## 13 tree      6
+## 14 goat      4
+## 15 rain      4</code></pre>
 <p> </p>
 <p><a name="generate"></a></p>
 </div>
@@ -481,7 +584,7 @@ grid.arrange(green_wordcounts_plot, green_wordcounts_plot_filt, ncol = 2)</code>
 <ul>
 <li>R Graphics Cookbook By Winston Chang</li>
 <li>Text Mining With R: A Tidy Approach By Julia Silge and David Robinson</li>
-<li><a href="https://www.clear.rice.edu/comp200/resources/texts/Green%20Eggs%20and%20Ham.txt">https://www.clear.rice.edu/comp200/resources/texts/Green%20Eggs%20and%20Ham.txt</a></li>
+<li><a href="https://www.clear.rice.edu/comp200/resources/texts/Green%20Eggs%20and%20Ham.txt" class="uri">https://www.clear.rice.edu/comp200/resources/texts/Green%20Eggs%20and%20Ham.txt</a></li>
 <li><a href="http://www.sthda.com/english/wiki/text-mining-and-word-cloud-fundamentals-in-r-5-simple-steps-you-should-know" class="uri">http://www.sthda.com/english/wiki/text-mining-and-word-cloud-fundamentals-in-r-5-simple-steps-you-should-know</a></li>
 </ul>
 </div>

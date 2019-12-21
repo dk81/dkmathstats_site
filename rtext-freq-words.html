@@ -70,9 +70,7 @@ h6 {
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -97,6 +95,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -111,7 +112,6 @@ body {
   padding-top: 65px;
   margin-top: -65px;
 }
-
 .section h2 {
   padding-top: 65px;
   margin-top: -65px;
@@ -131,6 +131,43 @@ body {
 .section h6 {
   padding-top: 65px;
   margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -152,19 +189,85 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
 });
 </script>
 
 <!-- code folding -->
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -295,10 +398,18 @@ head(peter_pan, n = 20)</code></pre>
 peter_text &lt;- Corpus(VectorSource(peter_pan))
 
 
-peter_text_clean &lt;- tm_map(peter_text, removePunctuation)
-peter_text_clean &lt;- tm_map(peter_text_clean, content_transformer(tolower))
-peter_text_clean &lt;- tm_map(peter_text_clean, removeNumbers)
-peter_text_clean &lt;- tm_map(peter_text_clean, stripWhitespace)</code></pre>
+peter_text_clean &lt;- tm_map(peter_text, removePunctuation)</code></pre>
+<pre><code>## Warning in tm_map.SimpleCorpus(peter_text, removePunctuation):
+## transformation drops documents</code></pre>
+<pre class="r"><code>peter_text_clean &lt;- tm_map(peter_text_clean, content_transformer(tolower))</code></pre>
+<pre><code>## Warning in tm_map.SimpleCorpus(peter_text_clean,
+## content_transformer(tolower)): transformation drops documents</code></pre>
+<pre class="r"><code>peter_text_clean &lt;- tm_map(peter_text_clean, removeNumbers)</code></pre>
+<pre><code>## Warning in tm_map.SimpleCorpus(peter_text_clean, removeNumbers):
+## transformation drops documents</code></pre>
+<pre class="r"><code>peter_text_clean &lt;- tm_map(peter_text_clean, stripWhitespace)</code></pre>
+<pre><code>## Warning in tm_map.SimpleCorpus(peter_text_clean, stripWhitespace):
+## transformation drops documents</code></pre>
 <p> </p>
 <p><strong>Stopwords In English</strong></p>
 <p> </p>
@@ -311,6 +422,8 @@ peter_text_clean &lt;- tm_map(peter_text_clean, stripWhitespace)</code></pre>
 <p> </p>
 <p>The <code>tm_map()</code> function is used again to remove the stopwords from the text.</p>
 <pre class="r"><code>peter_text_clean &lt;- tm_map(peter_text_clean, removeWords, stopwords(&#39;english&#39;))</code></pre>
+<pre><code>## Warning in tm_map.SimpleCorpus(peter_text_clean, removeWords,
+## stopwords(&quot;english&quot;)): transformation drops documents</code></pre>
 <p> </p>
 <p><strong>Creating Wordclouds</strong></p>
 <p> </p>
@@ -377,28 +490,28 @@ head(peter_pan, n = 20)</code></pre>
 
 head(peter_pan_df, n = 20)</code></pre>
 <pre><code>## # A tibble: 20 x 1
-##                                                                      Text
-##                                                                     &lt;chr&gt;
-##  1                                                                   1904
-##  2                                                                       
-##  3                                                              PETER PAN
-##  4                                                                       
-##  5                                                     by James M. Barrie
-##  6                                                                       
-##  7                                                             CHAPTER I.
-##  8                                                                       
-##  9                                                  PETER BREAKS THROUGH.
-## 10                                                                       
-## 11       All children, except one, grow up. They soon know that they will
-## 12     grow up, and the way Wendy knew was this. One day when she was two
-## 13         years old she was playing in a garden, and she plucked another
-## 14   flower and ran with it to her mother. I suppose she must have looked
-## 15      rather delightful, for Mrs. Darling put her hand to her heart and
+##    Text                                                                  
+##    &lt;chr&gt;                                                                 
+##  1 &quot;                                      1904&quot;                          
+##  2 &quot;&quot;                                                                    
+##  3 &quot;                                   PETER PAN&quot;                        
+##  4 &quot;&quot;                                                                    
+##  5 &quot;                               by James M. Barrie&quot;                   
+##  6 &quot;&quot;                                                                    
+##  7 &quot;                            CHAPTER I.&quot;                              
+##  8 &quot;&quot;                                                                    
+##  9 &quot;                        PETER BREAKS THROUGH.&quot;                       
+## 10 &quot;&quot;                                                                    
+## 11 &quot;  All children, except one, grow up. They soon know that they will&quot;  
+## 12 grow up, and the way Wendy knew was this. One day when she was two    
+## 13 years old she was playing in a garden, and she plucked another        
+## 14 flower and ran with it to her mother. I suppose she must have looked  
+## 15 rather delightful, for Mrs. Darling put her hand to her heart and     
 ## 16 &quot;cried, \&quot;Oh, why can&#39;t you remain like this for ever!\&quot; This was all&quot;
-## 17     that passed between them on the subject, but henceforth Wendy knew
-## 18   that she must grow up. You always know after you are two. Two is the
-## 19                                                  beginning of the end.
-## 20</code></pre>
+## 17 that passed between them on the subject, but henceforth Wendy knew    
+## 18 that she must grow up. You always know after you are two. Two is the  
+## 19 beginning of the end.                                                 
+## 20 &quot;&quot;</code></pre>
 <p> </p>
 <p>The <code>unnest_tokens()</code> function from the tidytext package picks out the individual words and places them as rows.</p>
 <pre class="r"><code>peter_words &lt;- peter_pan_df %&gt;% 
@@ -418,14 +531,14 @@ peter_wordcounts &lt;- peter_words %&gt;% count(word, sort = TRUE)
 
 head(peter_wordcounts)</code></pre>
 <pre><code>## # A tibble: 6 x 2
-##    word     n
+##   word      n
 ##   &lt;chr&gt; &lt;int&gt;
 ## 1 peter   374
 ## 2 wendy   330
-## 3  hook   151
+## 3 hook    151
 ## 4 cried   136
-## 5  john   127
-## 6  time   125</code></pre>
+## 5 john    127
+## 6 time    125</code></pre>
 <p> </p>
 <p>The data now has a column for words and a second column for the word counts. A bar graph can be prepared with the ggplot2 function <code>ggplot()</code>.</p>
 <p> </p>

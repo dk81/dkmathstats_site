@@ -70,9 +70,7 @@ h6 {
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -97,6 +95,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -111,7 +112,6 @@ body {
   padding-top: 65px;
   margin-top: -65px;
 }
-
 .section h2 {
   padding-top: 65px;
   margin-top: -65px;
@@ -131,6 +131,43 @@ body {
 .section h6 {
   padding-top: 65px;
   margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -152,19 +189,85 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
 });
 </script>
 
 <!-- code folding -->
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -266,17 +369,9 @@ $(document).ready(function () {
 library(dplyr)
 library(tidyr)
 library(ggplot2)
-library(tidytext)</code></pre>
-<pre><code>## Warning: package &#39;tidytext&#39; was built under R version 3.4.4</code></pre>
-<pre class="r"><code>library(wordcloud)
+library(tidytext)
+library(wordcloud)
 library(tm)</code></pre>
-<pre><code>## Warning: package &#39;tm&#39; was built under R version 3.4.2</code></pre>
-<pre><code>## Loading required package: NLP</code></pre>
-<pre><code>## 
-## Attaching package: &#39;NLP&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:ggplot2&#39;:
-## 
-##     annotate</code></pre>
 <p> </p>
 <p><a name="wordclouds"></a></p>
 <p> </p>
@@ -298,14 +393,23 @@ catHat_book &lt;- readLines(&quot;cat_in_the_hat_textbook.txt&quot;)</code></pre
 
 # Clean the text up:
 
-catHat_clean &lt;- tm_map(catHat_text, removePunctuation)
-catHat_clean &lt;- tm_map(catHat_clean, content_transformer(tolower))
-catHat_clean &lt;- tm_map(catHat_clean, removeNumbers)
-catHat_clean &lt;- tm_map(catHat_clean, stripWhitespace)
-
-# Remove English stopwords such as: the, and or, over, under, and so on:
+catHat_clean &lt;- tm_map(catHat_text, removePunctuation)</code></pre>
+<pre><code>## Warning in tm_map.SimpleCorpus(catHat_text, removePunctuation):
+## transformation drops documents</code></pre>
+<pre class="r"><code>catHat_clean &lt;- tm_map(catHat_clean, content_transformer(tolower))</code></pre>
+<pre><code>## Warning in tm_map.SimpleCorpus(catHat_clean, content_transformer(tolower)):
+## transformation drops documents</code></pre>
+<pre class="r"><code>catHat_clean &lt;- tm_map(catHat_clean, removeNumbers)</code></pre>
+<pre><code>## Warning in tm_map.SimpleCorpus(catHat_clean, removeNumbers): transformation
+## drops documents</code></pre>
+<pre class="r"><code>catHat_clean &lt;- tm_map(catHat_clean, stripWhitespace)</code></pre>
+<pre><code>## Warning in tm_map.SimpleCorpus(catHat_clean, stripWhitespace):
+## transformation drops documents</code></pre>
+<pre class="r"><code># Remove English stopwords such as: the, and or, over, under, and so on:
 
 catHat_clean &lt;- tm_map(catHat_clean, removeWords, stopwords(&#39;english&#39;))</code></pre>
+<pre><code>## Warning in tm_map.SimpleCorpus(catHat_clean, removeWords,
+## stopwords(&quot;english&quot;)): transformation drops documents</code></pre>
 <p> </p>
 <p>The next step is to convert the <code>tm_map()</code> object in a Term Document Matrix and then into a data frame. Once a data frame is obtained, wordclouds along with bar graphs can be generated.</p>
 <p> </p>
@@ -421,23 +525,23 @@ catHat_book_df &lt;- data_frame(Text = catHat_book) # tibble aka neater data fra
 
 head(catHat_book_df, n = 15)</code></pre>
 <pre><code>## # A tibble: 15 x 1
-##                             Text
-##                            &lt;chr&gt;
-##  1        The sun did not shine.
-##  2       It was too wet to play.
-##  3        So we sat in the house
+##    Text                         
+##    &lt;chr&gt;                        
+##  1 The sun did not shine.       
+##  2 It was too wet to play.      
+##  3 So we sat in the house       
 ##  4 All that cold, cold, wet day.
-##  5                              
-##  6       I sat there with Sally.
-##  7         We sat there, we two.
-##  8    &quot;And I said, \&quot;How I wish&quot;
-##  9   &quot;We had something to do!\&quot;&quot;
-## 10                              
-## 11             Too wet to go out
-## 12    And too cold to play ball.
-## 13       So we sat in the house.
-## 14        We did nothing at all.
-## 15</code></pre>
+##  5 &quot;&quot;                           
+##  6 I sat there with Sally.      
+##  7 We sat there, we two.        
+##  8 &quot;And I said, \&quot;How I wish&quot;   
+##  9 &quot;We had something to do!\&quot;&quot;  
+## 10 &quot;&quot;                           
+## 11 Too wet to go out            
+## 12 And too cold to play ball.   
+## 13 So we sat in the house.      
+## 14 We did nothing at all.       
+## 15 &quot;&quot;</code></pre>
 <p> </p>
 <p>The <code>unnest_tokens()</code> function is then applied on the <code>data_frame()</code> object. Each word in The Cat In The Hat now has its own row. An <code>anti_join()</code> is used to remove English stop words such as the, and, for, my, myself. A <code>count()</code> function is used to obtain the counts for each word with the <code>sort = TRUE</code> argument.</p>
 <p> </p>
@@ -473,20 +577,20 @@ catHat_book_words_nrc &lt;- catHat_book_wordcounts %&gt;%
 
 head(catHat_book_words_nrc, n = 12)</code></pre>
 <pre><code>## # A tibble: 12 x 3
-##      word     n sentiment
-##     &lt;chr&gt; &lt;int&gt;     &lt;chr&gt;
-##  1    sir    37  positive
-##  2    eat    26  positive
-##  3    fun    16  positive
-##  4 mother    15  negative
-##  5 mother    15  positive
-##  6   tree    15  positive
-##  7   sing    13  positive
-##  8 battle    11  negative
-##  9  green    10  positive
-## 10  noise    10  negative
-## 11    goo     9  negative
-## 12  trick     9  negative</code></pre>
+##    word       n sentiment
+##    &lt;chr&gt;  &lt;int&gt; &lt;chr&gt;    
+##  1 sir       37 positive 
+##  2 eat       26 positive 
+##  3 fun       16 positive 
+##  4 mother    15 negative 
+##  5 mother    15 positive 
+##  6 tree      15 positive 
+##  7 sing      13 positive 
+##  8 battle    11 negative 
+##  9 green     10 positive 
+## 10 noise     10 negative 
+## 11 goo        9 negative 
+## 12 trick      9 negative</code></pre>
 <p> </p>
 <p>Here is the code and output for the word counts influenced by the nrc Lexicon for The Cat In The Hat book. There is a lot of code in the section below as I wanted to make the plot look nicer than usual.</p>
 <p> </p>
@@ -528,23 +632,23 @@ catHat_book_words_bing &lt;- catHat_book_wordcounts %&gt;%
 
 head(catHat_book_words_bing, n = 15)</code></pre>
 <pre><code>## # A tibble: 15 x 3
-##     word     n sentiment
-##    &lt;chr&gt; &lt;int&gt;     &lt;chr&gt;
-##  1   fun    16  positive
-##  2  bump    15  negative
-##  3  fast    11  positive
-##  4 likes    10  positive
-##  5 noise    10  negative
-##  6  dark     9  negative
-##  7 trick     9  negative
-##  8  fear     8  negative
-##  9   bad     7  negative
-## 10  cold     7  negative
-## 11   sad     7  negative
-## 12  slow     7  negative
-## 13   top     6  positive
-## 14  fall     5  negative
-## 15 funny     5  negative</code></pre>
+##    word      n sentiment
+##    &lt;chr&gt; &lt;int&gt; &lt;chr&gt;    
+##  1 fun      16 positive 
+##  2 bump     15 negative 
+##  3 fast     11 positive 
+##  4 likes    10 positive 
+##  5 noise    10 negative 
+##  6 dark      9 negative 
+##  7 trick     9 negative 
+##  8 fear      8 negative 
+##  9 bad       7 negative 
+## 10 cold      7 negative 
+## 11 sad       7 negative 
+## 12 slow      7 negative 
+## 13 top       6 positive 
+## 14 fall      5 negative 
+## 15 funny     5 negative</code></pre>
 <p> </p>
 <pre class="r"><code># Sentiment Plot with bing Lexicon (Counts over 3):
 
@@ -581,23 +685,23 @@ catHat_book_words_AFINN &lt;- catHat_book_wordcounts %&gt;%
 
 head(catHat_book_words_AFINN, n = 15)</code></pre>
 <pre><code>## # A tibble: 15 x 4
-##      word     n score is_positive
-##     &lt;chr&gt; &lt;int&gt; &lt;int&gt;       &lt;lgl&gt;
-##  1    fun    16     4        TRUE
-##  2 battle    11    -1       FALSE
-##  3  likes    10     2        TRUE
-##  4   stop     9    -1       FALSE
-##  5   fear     8    -2       FALSE
-##  6    bad     7    -3       FALSE
-##  7   dear     7     2        TRUE
-##  8    sad     7    -2       FALSE
-##  9    top     6     2        TRUE
-## 10 blocks     5    -1       FALSE
-## 11  funny     5     4        TRUE
-## 12    fan     4     3        TRUE
-## 13  fight     4    -1       FALSE
-## 14   luck     4     3        TRUE
-## 15  shame     4    -2       FALSE</code></pre>
+##    word       n score is_positive
+##    &lt;chr&gt;  &lt;int&gt; &lt;int&gt; &lt;lgl&gt;      
+##  1 fun       16     4 TRUE       
+##  2 battle    11    -1 FALSE      
+##  3 likes     10     2 TRUE       
+##  4 stop       9    -1 FALSE      
+##  5 fear       8    -2 FALSE      
+##  6 bad        7    -3 FALSE      
+##  7 dear       7     2 TRUE       
+##  8 sad        7    -2 FALSE      
+##  9 top        6     2 TRUE       
+## 10 blocks     5    -1 FALSE      
+## 11 funny      5     4 TRUE       
+## 12 fan        4     3 TRUE       
+## 13 fight      4    -1 FALSE      
+## 14 luck       4     3 TRUE       
+## 15 shame      4    -2 FALSE</code></pre>
 <pre class="r"><code>word_labels_AFINN &lt;- c(
   `FALSE` = &quot;Negative Words&quot;,
   `TRUE` = &quot;Positive Words&quot;

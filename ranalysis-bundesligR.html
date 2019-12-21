@@ -382,8 +382,10 @@ head(soccer)</code></pre>
 
 # Remove Pts_pre_95 variable/column
 soccer &lt;- soccer %&gt;% 
-              select(-Pts_pre_95) %&gt;%
               rename(Games.Played = Played, Wins = W, Draws = D, Losses = L)
+
+soccer &lt;- subset(soccer, select = -Pts_pre_95)
+
 
 head(soccer)</code></pre>
 <pre><code>##   Season Position                      Team Games.Played Wins Draws Losses

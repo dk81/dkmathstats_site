@@ -70,9 +70,7 @@ h6 {
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -97,6 +95,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -111,7 +112,6 @@ body {
   padding-top: 65px;
   margin-top: -65px;
 }
-
 .section h2 {
   padding-top: 65px;
   margin-top: -65px;
@@ -131,6 +131,43 @@ body {
 .section h6 {
   padding-top: 65px;
   margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -152,19 +189,85 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
 });
 </script>
 
 <!-- code folding -->
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -258,7 +361,7 @@ $(document).ready(function () {
 <li>tidytext for obtaining word counts and doing sentiment analysis</li>
 </ul>
 <p> </p>
-<p>To load libraries into R, use the <code>library()</code> function. For installation of packages, use <code>install.packages(&quot;pkg_name&quot;)</code>.</p>
+<p>To load libraries into R, use the <code>library()</code> function. For installation of packages, use <code>install.packages("pkg_name")</code>.</p>
 <p> </p>
 <pre class="r"><code># Text Mining on the Dr. Suess - Fox In Socks
 
@@ -297,23 +400,23 @@ foxSocks_book_df &lt;- data_frame(Text = foxSocks_book) # tibble aka neater data
 
 head(foxSocks_book_df, n = 15) </code></pre>
 <pre><code>## # A tibble: 15 x 1
-##                              Text
-##                             &lt;chr&gt;
-##  1      Fox in Socks by Dr. Seuss
-##  2      -------------------------
-##  3                               
-##  4                            Fox
-##  5                          Socks
-##  6                            Box
-##  7                           Knox
-##  8                               
-##  9                   Knox in box.
-## 10                  Fox in socks.
-## 11                               
-## 12   Knox on fox in socks in box.
-## 13                               
+##    Text                          
+##    &lt;chr&gt;                         
+##  1 Fox in Socks by Dr. Seuss     
+##  2 -------------------------     
+##  3 &quot;&quot;                            
+##  4 Fox                           
+##  5 Socks                         
+##  6 Box                           
+##  7 Knox                          
+##  8 &quot;&quot;                            
+##  9 Knox in box.                  
+## 10 Fox in socks.                 
+## 11 &quot;&quot;                            
+## 12 Knox on fox in socks in box.  
+## 13 &quot;&quot;                            
 ## 14 Socks on Knox and Knox in box.
-## 15</code></pre>
+## 15 &quot;&quot;</code></pre>
 <p> </p>
 <p>Notice that there is the title and a bunch of dashed lines at the top of this text file (website link). The title and dashed lines are not of importance and can be removed in R. This can be done by selecting only from the fourth line onwards.</p>
 <p> </p>
@@ -333,17 +436,17 @@ foxSocks_words &lt;- foxSocks_book_df %&gt;%
 
 head(foxSocks_words, n = 10)</code></pre>
 <pre><code>## # A tibble: 10 x 1
-##     word
+##    word 
 ##    &lt;chr&gt;
-##  1   fox
+##  1 fox  
 ##  2 socks
-##  3   box
-##  4  knox
-##  5  knox
-##  6    in
-##  7   box
-##  8   fox
-##  9    in
+##  3 box  
+##  4 knox 
+##  5 knox 
+##  6 in   
+##  7 box  
+##  8 fox  
+##  9 in   
 ## 10 socks</code></pre>
 <p> </p>
 <p>English words such as for, the, and, me, myself carry very little meaning on their own. These words are called stop words. An anti join can be used to keep words that are not stop words in Fox In Socks.</p>
@@ -364,23 +467,23 @@ foxSocks_wordcounts &lt;- foxSocks_words %&gt;% count(word, sort = TRUE)
 # Print top 15 words
 head(foxSocks_wordcounts, n = 15)</code></pre>
 <pre><code>## # A tibble: 15 x 2
-##       word     n
-##      &lt;chr&gt; &lt;int&gt;
-##  1     sir    37
-##  2   socks    19
-##  3     fox    17
-##  4    knox    17
-##  5  battle    11
+##    word        n
+##    &lt;chr&gt;   &lt;int&gt;
+##  1 sir        37
+##  2 socks      19
+##  3 fox        17
+##  4 knox       17
+##  5 battle     11
 ##  6 tweetle    11
-##  7  puddle    10
-##  8     goo     9
-##  9    sews     9
-## 10    band     8
+##  7 puddle     10
+##  8 goo         9
+##  9 sews        9
+## 10 band        8
 ## 11 beetles     8
-## 12  chicks     8
-## 13  beetle     7
-## 14     box     7
-## 15   broom     7</code></pre>
+## 12 chicks      8
+## 13 beetle      7
+## 14 box         7
+## 15 broom       7</code></pre>
 <p> </p>
 <p>The word counts results can be displayed as a horizontal bar graph with the use of <code>ggplot2</code> graphics in R. Here is the code and output for the top twenty five words in Fox In Socks (after filtering out the stopwords).</p>
 <p> </p>
@@ -416,17 +519,17 @@ foxSocks_bigrams &lt;- foxSocks_book_df %&gt;%
 
 foxSocks_bigrams</code></pre>
 <pre><code>## # A tibble: 841 x 1
-##        bigram
-##         &lt;chr&gt;
-##  1  fox socks
-##  2  socks box
-##  3   box knox
-##  4  knox knox
-##  5    knox in
-##  6     in box
-##  7    box fox
-##  8     fox in
-##  9   in socks
+##    bigram    
+##    &lt;chr&gt;     
+##  1 fox socks 
+##  2 socks box 
+##  3 box knox  
+##  4 knox knox 
+##  5 knox in   
+##  6 in box    
+##  7 box fox   
+##  8 fox in    
+##  9 in socks  
 ## 10 socks knox
 ## # ... with 831 more rows</code></pre>
 <p> </p>
@@ -448,23 +551,23 @@ foxSocks_bigrams_counts &lt;- foxSocks_bigrams_filt %&gt;%
 
 head(foxSocks_bigrams_counts, n = 15)</code></pre>
 <pre><code>## # A tibble: 15 x 3
-##      word1   word2     n
-##      &lt;chr&gt;   &lt;chr&gt; &lt;int&gt;
-##  1    knox     sir     5
-##  2    slow     joe     5
-##  3 tweetle  beetle     5
+##    word1   word2       n
+##    &lt;chr&gt;   &lt;chr&gt;   &lt;int&gt;
+##  1 knox    sir         5
+##  2 slow    joe         5
+##  3 tweetle beetle      5
 ##  4 tweetle beetles     5
-##  5    luke    luck     4
-##  6  paddle  battle     4
-##  7   quick   trick     4
-##  8     sue    sews     4
-##  9 beetles  battle     3
-## 10   bends   ben&#39;s     3
-## 11    blue     goo     3
-## 12  crow&#39;s clothes     3
-## 13     fox     sir     3
-## 14     joe    crow     3
-## 15  puddle  paddle     3</code></pre>
+##  5 luke    luck        4
+##  6 paddle  battle      4
+##  7 quick   trick       4
+##  8 sue     sews        4
+##  9 beetles battle      3
+## 10 bends   ben&#39;s       3
+## 11 blue    goo         3
+## 12 crow&#39;s  clothes     3
+## 13 fox     sir         3
+## 14 joe     crow        3
+## 15 puddle  paddle      3</code></pre>
 <p> </p>
 <p>The separated words can be reunited together with tidyr’s <code>unite()</code> function.</p>
 <p> </p>
@@ -475,18 +578,18 @@ foxSocks_bigrams_counts &lt;- foxSocks_bigrams_counts %&gt;%
 
 foxSocks_bigrams_counts</code></pre>
 <pre><code>## # A tibble: 199 x 2
-##             bigram     n
-##  *           &lt;chr&gt; &lt;int&gt;
-##  1        knox sir     5
-##  2        slow joe     5
-##  3  tweetle beetle     5
+##    bigram              n
+##    &lt;chr&gt;           &lt;int&gt;
+##  1 knox sir            5
+##  2 slow joe            5
+##  3 tweetle beetle      5
 ##  4 tweetle beetles     5
-##  5       luke luck     4
-##  6   paddle battle     4
-##  7     quick trick     4
-##  8        sue sews     4
-##  9  beetles battle     3
-## 10     bends ben&#39;s     3
+##  5 luke luck           4
+##  6 paddle battle       4
+##  7 quick trick         4
+##  8 sue sews            4
+##  9 beetles battle      3
+## 10 bends ben&#39;s         3
 ## # ... with 189 more rows</code></pre>
 <p> </p>
 <p>After unification, the results can be displayed with <code>ggplot2</code> graphics.</p>
@@ -524,7 +627,7 @@ foxSocks_bigrams_counts[1:25, ] %&gt;%
 <p> </p>
 <p>A big part of sentiment analysis involves the analysis of negative and positive words in text. The three main lexicons which (subjectively) scores and/or categorizes words are nrc, bing and AFINN.</p>
 <p>In my other text mining posts, I have separate plots for sentiment analysis for each of the three lexicons. This time around the three sentiment plots will be displayed all in one.</p>
-<p>In the code below, the word_labels_nrc variable stores plot labels which is used later. An <code>inner_join</code> along with <code>get_sentiments(&quot;nrc&quot;)</code> is used to select words from foxSocks_wordcounts that are also in <code>get_sentiments(&quot;nrc&quot;)</code>. Since the nrc lexicon has additional sentiments such as trust, fear and anger, the <code>filter()</code> function is used to select only words that are categorized as negative or positive.</p>
+<p>In the code below, the word_labels_nrc variable stores plot labels which is used later. An <code>inner_join</code> along with <code>get_sentiments("nrc")</code> is used to select words from foxSocks_wordcounts that are also in <code>get_sentiments("nrc")</code>. Since the nrc lexicon has additional sentiments such as trust, fear and anger, the <code>filter()</code> function is used to select only words that are categorized as negative or positive.</p>
 <p> </p>
 <pre class="r"><code># 3) Sentiment Analysis 
 # Are the stories positive, negative, neutral?
@@ -549,20 +652,20 @@ foxSocks_words_nrc &lt;- foxSocks_wordcounts %&gt;%
 
 head(foxSocks_words_nrc, n = 12)</code></pre>
 <pre><code>## # A tibble: 12 x 3
-##      word     n sentiment
-##     &lt;chr&gt; &lt;int&gt;     &lt;chr&gt;
-##  1    sir    37  positive
-##  2 battle    11  negative
-##  3    goo     9  negative
-##  4  trick     6  negative
-##  5    sue     5  negative
-##  6   luck     4  positive
-##  7 paddle     4  positive
-##  8  fight     2  negative
-##  9 muddle     2  negative
-## 10    pig     2  negative
-## 11   sick     2  negative
-## 12   dumb     1  negative</code></pre>
+##    word       n sentiment
+##    &lt;chr&gt;  &lt;int&gt; &lt;chr&gt;    
+##  1 sir       37 positive 
+##  2 battle    11 negative 
+##  3 goo        9 negative 
+##  4 trick      6 negative 
+##  5 sue        5 negative 
+##  6 luck       4 positive 
+##  7 paddle     4 positive 
+##  8 fight      2 negative 
+##  9 muddle     2 negative 
+## 10 pig        2 negative 
+## 11 sick       2 negative 
+## 12 dumb       1 negative</code></pre>
 <p> </p>
 <p>Instead of displaying the nrc sentiment plot right away, the plot is saved into the variable nrc_plot. The intent is to save the three sentiment plots into three separate variables and then use them to display all three bar plots in one graph.</p>
 <p> </p>
@@ -600,23 +703,23 @@ foxSocks_words_bing &lt;- foxSocks_wordcounts %&gt;%
 
 head(foxSocks_words_bing, n = 15)</code></pre>
 <pre><code>## # A tibble: 15 x 3
-##      word     n sentiment
-##     &lt;chr&gt; &lt;int&gt;     &lt;chr&gt;
-##  1   slow     6  negative
-##  2  trick     6  negative
-##  3    sue     5  negative
-##  4  likes     4  positive
-##  5   luck     4  positive
-##  6   easy     3  positive
-##  7   bent     2  negative
-##  8 breaks     2  negative
-##  9 breeze     2  positive
-## 10   free     2  positive
-## 11 freeze     2  negative
-## 12 muddle     2  negative
-## 13    pig     2  negative
-## 14   poor     2  negative
-## 15   sick     2  negative</code></pre>
+##    word       n sentiment
+##    &lt;chr&gt;  &lt;int&gt; &lt;chr&gt;    
+##  1 slow       6 negative 
+##  2 trick      6 negative 
+##  3 sue        5 negative 
+##  4 likes      4 positive 
+##  5 luck       4 positive 
+##  6 easy       3 positive 
+##  7 bent       2 negative 
+##  8 breaks     2 negative 
+##  9 breeze     2 positive 
+## 10 free       2 positive 
+## 11 freeze     2 negative 
+## 12 muddle     2 negative 
+## 13 pig        2 negative 
+## 14 poor       2 negative 
+## 15 sick       2 negative</code></pre>
 <p> </p>
 <p>The bing sentiment plot in R is saved into the <code>bing_plot</code> variable for later use.</p>
 <p> </p>
@@ -649,23 +752,23 @@ foxSocks_words_AFINN &lt;- foxSocks_wordcounts %&gt;%
 
 head(foxSocks_words_AFINN, n = 15)</code></pre>
 <pre><code>## # A tibble: 15 x 4
-##       word     n score is_positive
-##      &lt;chr&gt; &lt;int&gt; &lt;int&gt;       &lt;lgl&gt;
-##  1  battle    11    -1       FALSE
-##  2  blocks     5    -1       FALSE
-##  3   likes     4     2        TRUE
-##  4    luck     4     3        TRUE
-##  5    easy     3     1        TRUE
-##  6   fight     2    -1       FALSE
-##  7    free     2     1        TRUE
-##  8    poor     2    -2       FALSE
-##  9    sick     2    -2       FALSE
-## 10    stop     2    -1       FALSE
-## 11 battles     1    -1       FALSE
-## 12   block     1    -1       FALSE
-## 13    dumb     1    -3       FALSE
-## 14     fun     1     4        TRUE
-## 15    hate     1    -3       FALSE</code></pre>
+##    word        n score is_positive
+##    &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;lgl&gt;      
+##  1 battle     11    -1 FALSE      
+##  2 blocks      5    -1 FALSE      
+##  3 likes       4     2 TRUE       
+##  4 luck        4     3 TRUE       
+##  5 easy        3     1 TRUE       
+##  6 fight       2    -1 FALSE      
+##  7 free        2     1 TRUE       
+##  8 poor        2    -2 FALSE      
+##  9 sick        2    -2 FALSE      
+## 10 stop        2    -1 FALSE      
+## 11 battles     1    -1 FALSE      
+## 12 block       1    -1 FALSE      
+## 13 dumb        1    -3 FALSE      
+## 14 fun         1     4 TRUE       
+## 15 hate        1    -3 FALSE</code></pre>
 <pre class="r"><code>word_labels_AFINN &lt;- c(
   `FALSE` = &quot;Negative Words&quot;,
   `TRUE` = &quot;Positive Words&quot;
@@ -694,14 +797,9 @@ afinn_plot &lt;- foxSocks_words_AFINN %&gt;%
 <p> </p>
 <pre class="r"><code># Mutliple plots in one graph:
 
-library(gridExtra)</code></pre>
-<pre><code>## Warning: package &#39;gridExtra&#39; was built under R version 3.4.4</code></pre>
-<pre><code>## 
-## Attaching package: &#39;gridExtra&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
-## 
-##     combine</code></pre>
-<pre class="r"><code># arrange plots in grid
+library(gridExtra)
+
+# arrange plots in grid
 grid.arrange(nrc_plot, bing_plot, afinn_plot, ncol = 3)</code></pre>
 <p><img src="rtext-foxsocks_files/figure-html/unnamed-chunk-17-1.png" width="1152" /></p>
 <p> </p>

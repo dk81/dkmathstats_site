@@ -89,8 +89,10 @@ The last column Pts_pre_95 will be removed from the dataset. Also a few column n
 
 # Remove Pts_pre_95 variable/column
 soccer <- soccer %>% 
-              select(-Pts_pre_95) %>%
               rename(Games.Played = Played, Wins = W, Draws = D, Losses = L)
+
+soccer <- subset(soccer, select = -Pts_pre_95)
+
 
 head(soccer)
 ```

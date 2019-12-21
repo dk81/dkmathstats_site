@@ -70,9 +70,7 @@ h6 {
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -97,6 +95,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -111,7 +112,6 @@ body {
   padding-top: 65px;
   margin-top: -65px;
 }
-
 .section h2 {
   padding-top: 65px;
   margin-top: -65px;
@@ -131,6 +131,43 @@ body {
 .section h6 {
   padding-top: 65px;
   margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -152,19 +189,85 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
 });
 </script>
 
 <!-- code folding -->
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -237,24 +340,24 @@ library(ggplot2)
 wn_sim_100 &lt;- arima.sim(model = list(order = c(0, 0, 0)), n = 100)
 
 head(wn_sim_100)</code></pre>
-<pre><code>## [1] -0.51412739 -1.41178960 -0.10955893 -0.07398802 -0.94379861  0.32966195</code></pre>
+<pre><code>## [1] -0.8333583  1.0140553  0.2805254  1.4033654  1.0580948  0.3120627</code></pre>
 <pre class="r"><code>ts_wn100 &lt;- data.frame(Time = seq(0, 99, 1), WN = wn_sim_100)
 
 head(ts_wn100); tail(ts_wn100)</code></pre>
-<pre><code>##   Time          WN
-## 1    0 -0.51412739
-## 2    1 -1.41178960
-## 3    2 -0.10955893
-## 4    3 -0.07398802
-## 5    4 -0.94379861
-## 6    5  0.32966195</code></pre>
-<pre><code>##     Time          WN
-## 95    94 -1.81254617
-## 96    95  2.09587082
-## 97    96  1.04737437
-## 98    97 -0.05450496
-## 99    98  1.67384540
-## 100   99  1.71981846</code></pre>
+<pre><code>##   Time         WN
+## 1    0 -0.8333583
+## 2    1  1.0140553
+## 3    2  0.2805254
+## 4    3  1.4033654
+## 5    4  1.0580948
+## 6    5  0.3120627</code></pre>
+<pre><code>##     Time         WN
+## 95    94  0.1729552
+## 96    95  1.1674964
+## 97    96 -0.5647851
+## 98    97 -0.5251206
+## 99    98  0.1787511
+## 100   99  1.1456842</code></pre>
 <p> </p>
 <p>From the <code>ts_wn100</code> data frame, a plot can be generated with the help of <code>ggplot2</code> graphics.</p>
 <p> </p>
@@ -277,24 +380,24 @@ ggplot(data = ts_wn100, aes(x = Time, y = WN)) +
 wn_sim10000 &lt;- arima.sim(model = list(order = c(0, 0, 0)), n = 10000)
 
 head(wn_sim10000)</code></pre>
-<pre><code>## [1]  0.2240580 -0.7204908 -1.3379883  0.7201660  1.2127393  0.5778171</code></pre>
+<pre><code>## [1] -1.3416160 -2.0917630 -0.9199639 -1.2969639 -0.6874203 -0.7232486</code></pre>
 <pre class="r"><code>ts_wn10000 &lt;- data.frame(Time = seq(0, 9999, 1), WN = wn_sim10000)
 
 head(ts_wn10000); tail(ts_wn10000)</code></pre>
 <pre><code>##   Time         WN
-## 1    0  0.2240580
-## 2    1 -0.7204908
-## 3    2 -1.3379883
-## 4    3  0.7201660
-## 5    4  1.2127393
-## 6    5  0.5778171</code></pre>
+## 1    0 -1.3416160
+## 2    1 -2.0917630
+## 3    2 -0.9199639
+## 4    3 -1.2969639
+## 5    4 -0.6874203
+## 6    5 -0.7232486</code></pre>
 <pre><code>##       Time         WN
-## 9995  9994  0.2211270
-## 9996  9995 -0.4301686
-## 9997  9996 -1.0781653
-## 9998  9997 -0.1829265
-## 9999  9998 -0.7229135
-## 10000 9999  0.8539614</code></pre>
+## 9995  9994 -0.2686607
+## 9996  9995  0.6225617
+## 9997  9996 -0.3849075
+## 9998  9997  0.7504948
+## 9999  9998 -1.2778687
+## 10000 9999  0.1074248</code></pre>
 <pre class="r"><code># Ggplot2 line plot of simulated white noise observations:
 
 ggplot(data = ts_wn10000, aes(x = Time, y = WN)) + 
@@ -319,24 +422,24 @@ ggplot(data = ts_wn10000, aes(x = Time, y = WN)) +
 wn_2 &lt;- arima.sim(model = list(order = c(0, 0, 0)), n = 50, mean = 4, sd = 2)
 
 head(wn_2)</code></pre>
-<pre><code>## [1] 3.584714 8.916459 6.215850 6.092862 1.560069 3.509155</code></pre>
+<pre><code>## [1] 5.774795 4.005328 0.233911 3.116922 3.786954 4.811082</code></pre>
 <pre class="r"><code>ts_wn_2 &lt;- data.frame(Time = seq(0, 49, 1), WN = wn_2)
 
 head(ts_wn_2); tail(ts_wn_2)</code></pre>
 <pre><code>##   Time       WN
-## 1    0 3.584714
-## 2    1 8.916459
-## 3    2 6.215850
-## 4    3 6.092862
-## 5    4 1.560069
-## 6    5 3.509155</code></pre>
+## 1    0 5.774795
+## 2    1 4.005328
+## 3    2 0.233911
+## 4    3 3.116922
+## 5    4 3.786954
+## 6    5 4.811082</code></pre>
 <pre><code>##    Time       WN
-## 45   44 5.715614
-## 46   45 4.980499
-## 47   46 2.947658
-## 48   47 3.143497
-## 49   48 4.875055
-## 50   49 2.563878</code></pre>
+## 45   44 4.501007
+## 46   45 3.668701
+## 47   46 6.973405
+## 48   47 5.156340
+## 49   48 5.085812
+## 50   49 4.844296</code></pre>
 <pre class="r"><code># Ggplot2 line plot of simulated white noise observations:
 
 ggplot(data = ts_wn_2, aes(x = Time, y = WN)) + 
@@ -357,16 +460,16 @@ arima(wn_2, order = c(0, 0, 0))</code></pre>
 ## 
 ## Coefficients:
 ##       intercept
-##          3.9747
-## s.e.     0.3166
+##          4.4938
+## s.e.     0.2810
 ## 
-## sigma^2 estimated as 5.011:  log likelihood = -111.24,  aic = 226.48</code></pre>
+## sigma^2 estimated as 3.948:  log likelihood = -105.28,  aic = 214.55</code></pre>
 <pre class="r"><code># Mean and variance of white noise:
 
 mean(wn_2)</code></pre>
-<pre><code>## [1] 3.974654</code></pre>
+<pre><code>## [1] 4.493833</code></pre>
 <pre class="r"><code>var(wn_2)</code></pre>
-<pre><code>## [1] 5.113558</code></pre>
+<pre><code>## [1] 4.028461</code></pre>
 </div>
 
 

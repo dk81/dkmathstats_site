@@ -70,9 +70,7 @@ h6 {
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -97,6 +95,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -111,7 +112,6 @@ body {
   padding-top: 65px;
   margin-top: -65px;
 }
-
 .section h2 {
   padding-top: 65px;
   margin-top: -65px;
@@ -131,6 +131,43 @@ body {
 .section h6 {
   padding-top: 65px;
   margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -152,19 +189,85 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
 });
 </script>
 
 <!-- code folding -->
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -268,18 +371,18 @@ remember_lyrics_df &lt;- data_frame(Text = remember_lyrics) # tibble aka neater 
 
 head(remember_lyrics_df, n = 10)</code></pre>
 <pre><code>## # A tibble: 10 x 1
-##                                                             Text
-##                                                            &lt;chr&gt;
-##  1                                         You ready?! Let&#39;s go!
+##    Text                                                         
+##    &lt;chr&gt;                                                        
+##  1 You ready?! Let&#39;s go!                                        
 ##  2 Yeah, for those of you that want to know what we&#39;re all about
-##  3                                 It&#39;s like this y&#39;all (c&#39;mon!)
-##  4                                                              
-##  5                                                              
-##  6                This is ten percent luck, twenty percent skill
-##  7                    Fifteen percent concentrated power of will
-##  8                     Five percent pleasure, fifty percent pain
-##  9            And a hundred percent reason to remember the name!
-## 10</code></pre>
+##  3 It&#39;s like this y&#39;all (c&#39;mon!)                                
+##  4 &quot;&quot;                                                           
+##  5 &quot;&quot;                                                           
+##  6 This is ten percent luck, twenty percent skill               
+##  7 Fifteen percent concentrated power of will                   
+##  8 Five percent pleasure, fifty percent pain                    
+##  9 And a hundred percent reason to remember the name!           
+## 10 &quot;&quot;</code></pre>
 <p> </p>
 <p>The key function that will help in obtaining word counts is the <code>unnest_tokens()</code> function. Each word from the song lyrics will be in a row.</p>
 <p> </p>
@@ -292,18 +395,18 @@ unnest_tokens(output = word, input = Text)
 
 head(remember_words, n = 10)</code></pre>
 <pre><code>## # A tibble: 10 x 1
-##     word
+##    word 
 ##    &lt;chr&gt;
-##  1   you
+##  1 you  
 ##  2 ready
 ##  3 let&#39;s
-##  4    go
-##  5  yeah
-##  6   for
+##  4 go   
+##  5 yeah 
+##  6 for  
 ##  7 those
-##  8    of
-##  9   you
-## 10  that</code></pre>
+##  8 of   
+##  9 you  
+## 10 that</code></pre>
 <p> </p>
 <p><u><strong>Word Counts In Fort Minor - Remember The Name</strong></u></p>
 <p> </p>
@@ -326,23 +429,23 @@ remember_wordcounts &lt;- remember_words %&gt;% count(word, sort = TRUE)
 
 head(remember_wordcounts, n = 15)</code></pre>
 <pre><code>## # A tibble: 15 x 2
-##            word     n
-##           &lt;chr&gt; &lt;int&gt;
-##  1      percent    28
-##  2      hundred     6
-##  3        skill     6
-##  4       twenty     5
+##    word             n
+##    &lt;chr&gt;        &lt;int&gt;
+##  1 percent         28
+##  2 hundred          6
+##  3 skill            6
+##  4 twenty           5
 ##  5 concentrated     4
-##  6      fifteen     4
-##  7        fifty     4
-##  8         luck     4
-##  9         pain     4
-## 10     pleasure     4
-## 11        power     4
-## 12       reason     4
-## 13     remember     4
-## 14          ten     4
-## 15        heard     3</code></pre>
+##  6 fifteen          4
+##  7 fifty            4
+##  8 luck             4
+##  9 pain             4
+## 10 pleasure         4
+## 11 power            4
+## 12 reason           4
+## 13 remember         4
+## 14 ten              4
+## 15 heard            3</code></pre>
 <pre class="r"><code># Plot of Word Counts (Top 15 Words):
 
 remember_wordcounts[1:15, ] %&gt;% 
@@ -380,18 +483,18 @@ unnest_tokens(bigram, input = Text, token = &quot;ngrams&quot;, n = 2)
 
 remember_bigrams</code></pre>
 <pre><code>## # A tibble: 667 x 1
-##         bigram
-##          &lt;chr&gt;
-##  1   you ready
+##    bigram     
+##    &lt;chr&gt;      
+##  1 you ready  
 ##  2 ready let&#39;s
-##  3    let&#39;s go
-##  4     go yeah
-##  5    yeah for
-##  6   for those
-##  7    those of
-##  8      of you
-##  9    you that
-## 10   that want
+##  3 let&#39;s go   
+##  4 go yeah    
+##  5 yeah for   
+##  6 for those  
+##  7 those of   
+##  8 of you     
+##  9 you that   
+## 10 that want  
 ## # ... with 657 more rows</code></pre>
 <p> </p>
 <p>Just like with the single words, we want to remove stop words in the bigrams. We can’t easily remove the stop words in the bigrams and the two word phrases are in one column. The <code>separate()</code> function from R’s tidyr package is used to separate the words into two separate words. From R’s dplyr package, the <code>filter()</code> function is used to remove words that are stop words.</p>
@@ -412,23 +515,23 @@ count(word1, word2, sort = TRUE)
 
 head(bigrams_remember_counts, n = 15)</code></pre>
 <pre><code>## # A tibble: 15 x 3
-##           word1        word2     n
-##           &lt;chr&gt;        &lt;chr&gt; &lt;int&gt;
-##  1      hundred      percent     6
-##  2      percent        skill     5
-##  3       twenty      percent     5
-##  4 concentrated        power     4
-##  5      fifteen      percent     4
-##  6        fifty      percent     4
-##  7         luck       twenty     4
-##  8      percent concentrated     4
-##  9      percent         luck     4
-## 10      percent         pain     4
-## 11      percent     pleasure     4
-## 12      percent       reason     4
-## 13     pleasure        fifty     4
-## 14        skill      fifteen     4
-## 15          ten      percent     4</code></pre>
+##    word1        word2            n
+##    &lt;chr&gt;        &lt;chr&gt;        &lt;int&gt;
+##  1 hundred      percent          6
+##  2 percent      skill            5
+##  3 twenty       percent          5
+##  4 concentrated power            4
+##  5 fifteen      percent          4
+##  6 fifty        percent          4
+##  7 luck         twenty           4
+##  8 percent      concentrated     4
+##  9 percent      luck             4
+## 10 percent      pain             4
+## 11 percent      pleasure         4
+## 12 percent      reason           4
+## 13 pleasure     fifty            4
+## 14 skill        fifteen          4
+## 15 ten          percent          4</code></pre>
 <p> </p>
 <p>The words are united with the use of the <code>unite()</code> function along with their counts. A bar graph with the help of ggplot2 can be generated.</p>
 <p> </p>
@@ -439,18 +542,18 @@ unite(bigram, word1, word2, sep = &quot; &quot;)
 
 remember_bigrams_counts</code></pre>
 <pre><code>## # A tibble: 52 x 2
-##                  bigram     n
-##  *                &lt;chr&gt; &lt;int&gt;
-##  1      hundred percent     6
-##  2        percent skill     5
-##  3       twenty percent     5
-##  4   concentrated power     4
-##  5      fifteen percent     4
-##  6        fifty percent     4
-##  7          luck twenty     4
+##    bigram                   n
+##    &lt;chr&gt;                &lt;int&gt;
+##  1 hundred percent          6
+##  2 percent skill            5
+##  3 twenty percent           5
+##  4 concentrated power       4
+##  5 fifteen percent          4
+##  6 fifty percent            4
+##  7 luck twenty              4
 ##  8 percent concentrated     4
-##  9         percent luck     4
-## 10         percent pain     4
+##  9 percent luck             4
+## 10 percent pain             4
 ## # ... with 42 more rows</code></pre>
 <pre class="r"><code># We can now make a plot of the word counts.
 
@@ -487,18 +590,18 @@ unnest_tokens(bigram, input = Text, token = &quot;ngrams&quot;, n = 3)
 
 remember_trigrams</code></pre>
 <pre><code>## # A tibble: 666 x 1
-##             bigram
-##              &lt;chr&gt;
+##    bigram         
+##    &lt;chr&gt;          
 ##  1 you ready let&#39;s
-##  2  ready let&#39;s go
-##  3   let&#39;s go yeah
-##  4     go yeah for
-##  5  yeah for those
-##  6    for those of
-##  7    those of you
-##  8     of you that
-##  9   you that want
-## 10    that want to
+##  2 ready let&#39;s go 
+##  3 let&#39;s go yeah  
+##  4 go yeah for    
+##  5 yeah for those 
+##  6 for those of   
+##  7 those of you   
+##  8 of you that    
+##  9 you that want  
+## 10 that want to   
 ## # ... with 656 more rows</code></pre>
 <p> </p>
 <p>The code below is very similar to the one for the bigrams. R’s separate function is used to separate the three words. The <code>filter()</code> function is used to remove the stop words from the trigrams. Lastly, the <code>unite()</code> function is used to put the filtered words back into trigrams.</p>
@@ -519,23 +622,23 @@ count(word1, word2, word3, sort = TRUE)
 
 head(remember_trigrams_filt, n = 15)</code></pre>
 <pre><code>## # A tibble: 15 x 4
-##       word1        word2        word3     n
-##       &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt; &lt;int&gt;
-##  1   twenty      percent        skill     5
-##  2  fifteen      percent concentrated     4
-##  3    fifty      percent         pain     4
-##  4  hundred      percent       reason     4
-##  5     luck       twenty      percent     4
-##  6  percent concentrated        power     4
-##  7  percent         luck       twenty     4
-##  8  percent     pleasure        fifty     4
-##  9  percent        skill      fifteen     4
-## 10 pleasure        fifty      percent     4
-## 11    skill      fifteen      percent     4
-## 12      ten      percent         luck     4
-## 13   eighty      percent         fear     1
-## 14   fuckin     nihilist    porcupine     1
-## 15  hundred      percent       forget     1</code></pre>
+##    word1    word2        word3            n
+##    &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt;        &lt;int&gt;
+##  1 twenty   percent      skill            5
+##  2 fifteen  percent      concentrated     4
+##  3 fifty    percent      pain             4
+##  4 hundred  percent      reason           4
+##  5 luck     twenty       percent          4
+##  6 percent  concentrated power            4
+##  7 percent  luck         twenty           4
+##  8 percent  pleasure     fifty            4
+##  9 percent  skill        fifteen          4
+## 10 pleasure fifty        percent          4
+## 11 skill    fifteen      percent          4
+## 12 ten      percent      luck             4
+## 13 eighty   percent      fear             1
+## 14 fuckin   nihilist     porcupine        1
+## 15 hundred  percent      forget           1</code></pre>
 <p> </p>
 <pre class="r"><code># Unite the words with the unite() function:
 
@@ -544,18 +647,18 @@ unite(bigram, word1, word2, word3, sep = &quot; &quot;)
 
 remember_trigrams_counts</code></pre>
 <pre><code>## # A tibble: 23 x 2
-##                          bigram     n
-##  *                        &lt;chr&gt; &lt;int&gt;
-##  1         twenty percent skill     5
+##    bigram                           n
+##    &lt;chr&gt;                        &lt;int&gt;
+##  1 twenty percent skill             5
 ##  2 fifteen percent concentrated     4
-##  3           fifty percent pain     4
-##  4       hundred percent reason     4
-##  5          luck twenty percent     4
-##  6   percent concentrated power     4
-##  7          percent luck twenty     4
-##  8       percent pleasure fifty     4
-##  9        percent skill fifteen     4
-## 10       pleasure fifty percent     4
+##  3 fifty percent pain               4
+##  4 hundred percent reason           4
+##  5 luck twenty percent              4
+##  6 percent concentrated power       4
+##  7 percent luck twenty              4
+##  8 percent pleasure fifty           4
+##  9 percent skill fifteen            4
+## 10 pleasure fifty percent           4
 ## # ... with 13 more rows</code></pre>
 <p> </p>
 <p>Filtered trigrams can be plotted with the help of the ggplot2 graphics.</p>
@@ -601,14 +704,14 @@ remember_words_nrc &lt;- remember_wordcounts %&gt;%
 
 head(remember_words_nrc)</code></pre>
 <pre><code>## # A tibble: 6 x 3
-##     word     n sentiment
-##    &lt;chr&gt; &lt;int&gt;     &lt;chr&gt;
-## 1   luck     4  positive
-## 2   pain     4  negative
-## 3 reason     4  positive
-## 4   shit     2  negative
-## 5   shot     2  negative
-## 6  birth     1  positive</code></pre>
+##   word       n sentiment
+##   &lt;chr&gt;  &lt;int&gt; &lt;chr&gt;    
+## 1 luck       4 positive 
+## 2 pain       4 negative 
+## 3 reason     4 positive 
+## 4 shit       2 negative 
+## 5 shot       2 negative 
+## 6 birth      1 positive</code></pre>
 <pre class="r"><code># Sentiment Plot with nrc Lexicon
 
 remember_words_nrc %&gt;%
@@ -638,14 +741,14 @@ remember_words_bing &lt;- remember_wordcounts %&gt;%
 
 head(remember_words_bing)</code></pre>
 <pre><code>## # A tibble: 6 x 3
-##       word     n sentiment
-##      &lt;chr&gt; &lt;int&gt;     &lt;chr&gt;
-## 1    skill     6  positive
-## 2     luck     4  positive
-## 3     pain     4  negative
-## 4 pleasure     4  positive
-## 5     shit     2  negative
-## 6     blow     1  negative</code></pre>
+##   word         n sentiment
+##   &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;    
+## 1 skill        6 positive 
+## 2 luck         4 positive 
+## 3 pain         4 negative 
+## 4 pleasure     4 positive 
+## 5 shit         2 negative 
+## 6 blow         1 negative</code></pre>
 <pre class="r"><code># Sentiment Plot with bing Lexicon
 
 remember_words_bing %&gt;%
@@ -689,18 +792,18 @@ loseyourself_lyrics_df &lt;- data_frame(Text = loseyourself_lyrics ) # tibble ak
 
 head(loseyourself_lyrics_df, n = 10)</code></pre>
 <pre><code>## # A tibble: 10 x 1
-##                                                                       Text
-##                                                                      &lt;chr&gt;
-##  1                          Look, if you had, one shot, or one opportunity
-##  2                      To seize everything you ever wanted. In one moment
-##  3                              Would you capture it, or just let it slip?
-##  4                                                                      Yo
-##  5                                                                        
-##  6                        His palms are sweaty, knees weak, arms are heavy
-##  7                   There&#39;s vomit on his sweater already, mom&#39;s spaghetti
+##    Text                                                                   
+##    &lt;chr&gt;                                                                  
+##  1 Look, if you had, one shot, or one opportunity                         
+##  2 To seize everything you ever wanted. In one moment                     
+##  3 Would you capture it, or just let it slip?                             
+##  4 Yo                                                                     
+##  5 &quot;&quot;                                                                     
+##  6 His palms are sweaty, knees weak, arms are heavy                       
+##  7 There&#39;s vomit on his sweater already, mom&#39;s spaghetti                  
 ##  8 He&#39;s nervous, but on the surface he looks calm and ready to drop bombs,
-##  9                          But he keeps on forgetting what he wrote down,
-## 10                                            The whole crowd goes so loud</code></pre>
+##  9 But he keeps on forgetting what he wrote down,                         
+## 10 The whole crowd goes so loud</code></pre>
 <pre class="r"><code># Unnest tokens: each word in the lyrics in a row:
 
 loseyourself_words &lt;- loseyourself_lyrics_df %&gt;%
@@ -710,18 +813,18 @@ unnest_tokens(output = word, input = Text)
 
 head(loseyourself_lyrics_df, n = 10)</code></pre>
 <pre><code>## # A tibble: 10 x 1
-##                                                                       Text
-##                                                                      &lt;chr&gt;
-##  1                          Look, if you had, one shot, or one opportunity
-##  2                      To seize everything you ever wanted. In one moment
-##  3                              Would you capture it, or just let it slip?
-##  4                                                                      Yo
-##  5                                                                        
-##  6                        His palms are sweaty, knees weak, arms are heavy
-##  7                   There&#39;s vomit on his sweater already, mom&#39;s spaghetti
+##    Text                                                                   
+##    &lt;chr&gt;                                                                  
+##  1 Look, if you had, one shot, or one opportunity                         
+##  2 To seize everything you ever wanted. In one moment                     
+##  3 Would you capture it, or just let it slip?                             
+##  4 Yo                                                                     
+##  5 &quot;&quot;                                                                     
+##  6 His palms are sweaty, knees weak, arms are heavy                       
+##  7 There&#39;s vomit on his sweater already, mom&#39;s spaghetti                  
 ##  8 He&#39;s nervous, but on the surface he looks calm and ready to drop bombs,
-##  9                          But he keeps on forgetting what he wrote down,
-## 10                                            The whole crowd goes so loud</code></pre>
+##  9 But he keeps on forgetting what he wrote down,                         
+## 10 The whole crowd goes so loud</code></pre>
 <p> </p>
 <p><strong><u>Word Counts In Eminem - Lose Yourself</u></strong></p>
 <p> </p>
@@ -739,23 +842,23 @@ loseyourself_wordcounts &lt;- loseyourself_words %&gt;% count(word, sort = TRUE)
 
 head(loseyourself_wordcounts, n = 15)</code></pre>
 <pre><code>## # A tibble: 15 x 2
-##           word     n
-##          &lt;chr&gt; &lt;int&gt;
-##  1        shot     9
-##  2      moment     8
+##    word            n
+##    &lt;chr&gt;       &lt;int&gt;
+##  1 shot            9
+##  2 moment          8
 ##  3 opportunity     8
-##  4          yo     8
-##  5          da     7
-##  6        blow     6
-##  7      chance     6
-##  8    lifetime     6
-##  9        lose     6
-## 10        miss     6
-## 11       music     6
-## 12        home     3
-## 13        life     3
-## 14     capture     2
-## 15       coast     2</code></pre>
+##  4 yo              8
+##  5 da              7
+##  6 blow            6
+##  7 chance          6
+##  8 lifetime        6
+##  9 lose            6
+## 10 miss            6
+## 11 music           6
+## 12 home            3
+## 13 life            3
+## 14 capture         2
+## 15 coast           2</code></pre>
 <p> </p>
 <p><strong><u>Word Counts Bar Graph Plot</u></strong></p>
 <p> </p>
@@ -788,18 +891,18 @@ unnest_tokens(bigram, input = Text, token = &quot;ngrams&quot;, n = 2)
 
 loseyourself_bigrams</code></pre>
 <pre><code>## # A tibble: 806 x 1
-##             bigram
-##              &lt;chr&gt;
-##  1         look if
-##  2          if you
-##  3         you had
-##  4         had one
-##  5        one shot
-##  6         shot or
-##  7          or one
+##    bigram         
+##    &lt;chr&gt;          
+##  1 look if        
+##  2 if you         
+##  3 you had        
+##  4 had one        
+##  5 one shot       
+##  6 shot or        
+##  7 or one         
 ##  8 one opportunity
-##  9  opportunity to
-## 10        to seize
+##  9 opportunity to 
+## 10 to seize       
 ## # ... with 796 more rows</code></pre>
 <pre class="r"><code># Remove stop words from bigrams with tidyr&#39;s separate function
 # along with the filter() function
@@ -817,23 +920,23 @@ count(word1, word2, sort = TRUE)
 
 head(bigrams_loseyourself_counts, n = 15)</code></pre>
 <pre><code>## # A tibble: 15 x 3
-##          word1     word2     n
-##          &lt;chr&gt;     &lt;chr&gt; &lt;int&gt;
-##  1    lifetime        yo     6
-##  2          da        da     4
-##  3          da       dum     2
-##  4         dum        da     2
-##  5        baby      mama     1
-##  6       blaow      snap     1
-##  7         buy   diapers     1
-##  8        call      rage     1
-##  9     clock&#39;s       run     1
-## 10        cold   product     1
-## 11        cold     water     1
-## 12        dogs     caged     1
-## 13     drama&#39;s screaming     1
-## 14        drop     bombs     1
-## 15 everybody&#39;s    joking     1</code></pre>
+##    word1       word2         n
+##    &lt;chr&gt;       &lt;chr&gt;     &lt;int&gt;
+##  1 lifetime    yo            6
+##  2 da          da            4
+##  3 da          dum           2
+##  4 dum         da            2
+##  5 baby        mama          1
+##  6 blaow       snap          1
+##  7 buy         diapers       1
+##  8 call        rage          1
+##  9 clock&#39;s     run           1
+## 10 cold        product       1
+## 11 cold        water         1
+## 12 dogs        caged         1
+## 13 drama&#39;s     screaming     1
+## 14 drop        bombs         1
+## 15 everybody&#39;s joking        1</code></pre>
 <pre class="r"><code># Unite the words with the unite() function:
 
 loseyourself_bigrams_counts &lt;- bigrams_loseyourself_counts %&gt;%
@@ -841,17 +944,17 @@ unite(bigram, word1, word2, sep = &quot; &quot;)
 
 loseyourself_bigrams_counts</code></pre>
 <pre><code>## # A tibble: 57 x 2
-##          bigram     n
-##  *        &lt;chr&gt; &lt;int&gt;
-##  1  lifetime yo     6
-##  2        da da     4
-##  3       da dum     2
-##  4       dum da     2
-##  5    baby mama     1
-##  6   blaow snap     1
-##  7  buy diapers     1
-##  8    call rage     1
-##  9  clock&#39;s run     1
+##    bigram           n
+##    &lt;chr&gt;        &lt;int&gt;
+##  1 lifetime yo      6
+##  2 da da            4
+##  3 da dum           2
+##  4 dum da           2
+##  5 baby mama        1
+##  6 blaow snap       1
+##  7 buy diapers      1
+##  8 call rage        1
+##  9 clock&#39;s run      1
 ## 10 cold product     1
 ## # ... with 47 more rows</code></pre>
 <p> </p>
@@ -897,14 +1000,14 @@ loseyourself_words_nrc &lt;- loseyourself_wordcounts %&gt;%
 
 head(loseyourself_words_nrc)</code></pre>
 <pre><code>## # A tibble: 6 x 3
-##          word     n sentiment
-##         &lt;chr&gt; &lt;int&gt;     &lt;chr&gt;
-## 1        shot     9  negative
-## 2 opportunity     8  positive
-## 3        lose     6  negative
-## 4       music     6  positive
-## 5     capture     2  negative
-## 6       coast     2  positive</code></pre>
+##   word            n sentiment
+##   &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;    
+## 1 shot            9 negative 
+## 2 opportunity     8 positive 
+## 3 lose            6 negative 
+## 4 music           6 positive 
+## 5 capture         2 negative 
+## 6 coast           2 positive</code></pre>
 <pre class="r"><code># Sentiment Plot with nrc Lexicon
 
 loseyourself_words_nrc %&gt;%
@@ -933,14 +1036,14 @@ loseyourself_words_bing &lt;- remember_wordcounts %&gt;%
 
 head(loseyourself_words_bing)</code></pre>
 <pre><code>## # A tibble: 6 x 3
-##     word     n sentiment
-##    &lt;chr&gt; &lt;int&gt;     &lt;chr&gt;
-## 1   luck     4  positive
-## 2   pain     4  negative
-## 3 reason     4  positive
-## 4   shit     2  negative
-## 5   shot     2  negative
-## 6  birth     1  positive</code></pre>
+##   word       n sentiment
+##   &lt;chr&gt;  &lt;int&gt; &lt;chr&gt;    
+## 1 luck       4 positive 
+## 2 pain       4 negative 
+## 3 reason     4 positive 
+## 4 shit       2 negative 
+## 5 shot       2 negative 
+## 6 birth      1 positive</code></pre>
 <pre class="r"><code># Sentiment Plot with bing Lexicon
 
 loseyourself_words_bing %&gt;%

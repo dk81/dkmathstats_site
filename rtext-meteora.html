@@ -70,9 +70,7 @@ h6 {
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -97,6 +95,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -111,7 +112,6 @@ body {
   padding-top: 65px;
   margin-top: -65px;
 }
-
 .section h2 {
   padding-top: 65px;
   margin-top: -65px;
@@ -131,6 +131,43 @@ body {
 .section h6 {
   padding-top: 65px;
   margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -152,19 +189,85 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
 });
 </script>
 
 <!-- code folding -->
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -284,23 +387,23 @@ meteora_lyrics_df &lt;- data_frame(Text = meteora_lyrics) # tibble aka neater da
 
 head(meteora_lyrics_df, n = 15)</code></pre>
 <pre><code>## # A tibble: 15 x 1
-##                                            Text
-##                                           &lt;chr&gt;
+##    Text                                        
+##    &lt;chr&gt;                                       
 ##  1 Sometimes I need to remember just to breathe
-##  2    Sometimes I need you to stay away from me
-##  3     Sometimes I&#39;m in disbelief I didn&#39;t know
-##  4                     Somehow I need you to go
-##  5                                             
-##  6                                   Don&#39;t stay
-##  7                          Forget our memories
-##  8                     Forget our possibilities
-##  9               What you were changing me into
-## 10                 Just give me myself back and
-## 11                                   Don&#39;t stay
-## 12                          Forget our memories
-## 13                     Forget our possibilities
-## 14         Take all your faithlessness with you
-## 15                 Just give me myself back and</code></pre>
+##  2 Sometimes I need you to stay away from me   
+##  3 Sometimes I&#39;m in disbelief I didn&#39;t know    
+##  4 Somehow I need you to go                    
+##  5 &quot;&quot;                                          
+##  6 Don&#39;t stay                                  
+##  7 Forget our memories                         
+##  8 Forget our possibilities                    
+##  9 What you were changing me into              
+## 10 Just give me myself back and                
+## 11 Don&#39;t stay                                  
+## 12 Forget our memories                         
+## 13 Forget our possibilities                    
+## 14 Take all your faithlessness with you        
+## 15 Just give me myself back and</code></pre>
 <pre class="r"><code>meteora_words &lt;- meteora_lyrics_df %&gt;% 
   unnest_tokens(output = word, input = Text)</code></pre>
 <p><a name="word-counts"></a></p>
@@ -326,23 +429,23 @@ meteora_wordcounts &lt;- meteora_words %&gt;% count(word, sort = TRUE)
  
 head(meteora_wordcounts, n = 15)</code></pre>
 <pre><code>## # A tibble: 15 x 2
-##         word     n
-##        &lt;chr&gt; &lt;int&gt;
-##  1      feel    27
-##  2     wanna    27
-##  3      pain    25
-##  4    forget    14
-##  5    inside    14
-##  6      time    14
-##  7      stay    13
-##  8      heal    12
+##    word          n
+##    &lt;chr&gt;     &lt;int&gt;
+##  1 feel         27
+##  2 wanna        27
+##  3 pain         25
+##  4 forget       14
+##  5 inside       14
+##  6 time         14
+##  7 stay         13
+##  8 heal         12
 ##  9 listening    11
-## 10  memories    11
-## 11     heart    10
-## 12  nobody&#39;s    10
-## 13     stand     9
-## 14     trust     9
-## 15    caught     8</code></pre>
+## 10 memories     11
+## 11 heart        10
+## 12 nobody&#39;s     10
+## 13 stand         9
+## 14 trust         9
+## 15 caught        8</code></pre>
 <p> </p>
 <p>Now that we have word counts, the results can be displayed in the form of a bar graph with the use of R’s ggplot2 package.</p>
 <p>In the code below, the <code>filter()</code> function is used to extract words with a count greater than 8. In <code>geom_col()</code>, I make the bars blue with the fill argument. Labels are added the <code>labs()</code> and geom_text add on functions.</p>
@@ -391,14 +494,14 @@ meteora_words_bing &lt;- meteora_wordcounts %&gt;%
  
 head(meteora_words_bing)</code></pre>
 <pre><code>## # A tibble: 6 x 3
-##     word     n sentiment
-##    &lt;chr&gt; &lt;int&gt;     &lt;chr&gt;
-## 1   pain    25  negative
-## 2   heal    12  positive
-## 3  trust     9  positive
-## 4 easier     8  positive
-## 5   numb     8  negative
-## 6  tired     8  negative</code></pre>
+##   word       n sentiment
+##   &lt;chr&gt;  &lt;int&gt; &lt;chr&gt;    
+## 1 pain      25 negative 
+## 2 heal      12 positive 
+## 3 trust      9 positive 
+## 4 easier     8 positive 
+## 5 numb       8 negative 
+## 6 tired      8 negative</code></pre>
 <p> </p>
 <p>The words with their counts and sentiment are plotted with ggplot2.</p>
 <p> </p>
@@ -450,14 +553,14 @@ meteora_words_AFINN &lt;- meteora_wordcounts %&gt;%
  
 head(meteora_words_AFINN)</code></pre>
 <pre><code>## # A tibble: 6 x 4
-##     word     n score is_positive
-##    &lt;chr&gt; &lt;int&gt; &lt;int&gt;       &lt;lgl&gt;
-## 1   pain    25    -2       FALSE
-## 2 forget    14    -1       FALSE
-## 3  trust     9     1        TRUE
-## 4   numb     8    -1       FALSE
-## 5  tired     8    -2       FALSE
-## 6   stop     7    -1       FALSE</code></pre>
+##   word       n score is_positive
+##   &lt;chr&gt;  &lt;int&gt; &lt;int&gt; &lt;lgl&gt;      
+## 1 pain      25    -2 FALSE      
+## 2 forget    14    -1 FALSE      
+## 3 trust      9     1 TRUE       
+## 4 numb       8    -1 FALSE      
+## 5 tired      8    -2 FALSE      
+## 6 stop       7    -1 FALSE</code></pre>
 <p> </p>
 <p>The most frequent word is pain which has an AFINN sentiment score of -2. Through the use of dplyr’s <code>mutate()</code> function, I have added an extra column called is_positive which classifies the word as positive or negative depending on the word score. This is_positive variable will be helpful for plotting.</p>
 <p>Plotting the results under the AFINN lexicon is not much different that the one for bing.</p>
@@ -506,7 +609,7 @@ meteora_words_AFINN %&gt;%
 <p><u><strong>nrc Lexicon</strong></u></p>
 <p> </p>
 <p>With the nrc lexicon, there are no sentiment scores associated with the words. Words under this lexicon have the sentiment of either negative, positive, trust, fear, anger or sadness.</p>
-<p>The <code>inner_join()</code> functions from R’s dplyr is used to extract words from the lyrics that are also in <code>get_sentiments(&quot;nrc&quot;)</code>. Next, the <code>filter()</code> function is used to extract the words which have the sentiment as positive or negative.</p>
+<p>The <code>inner_join()</code> functions from R’s dplyr is used to extract words from the lyrics that are also in <code>get_sentiments("nrc")</code>. Next, the <code>filter()</code> function is used to extract the words which have the sentiment as positive or negative.</p>
 <p> </p>
 <pre class="r"><code>### nrc sentiment:
 # get_sentiments(&quot;nrc&quot;)
@@ -517,14 +620,14 @@ meteora_words_nrc &lt;- meteora_wordcounts %&gt;%
 
 head(meteora_words_nrc)</code></pre>
 <pre><code>## # A tibble: 6 x 3
-##     word     n sentiment
-##    &lt;chr&gt; &lt;int&gt;     &lt;chr&gt;
-## 1   pain    25  negative
-## 2 forget    14  negative
-## 3   heal    12  positive
-## 4   numb     8  negative
-## 5   real     8  positive
-## 6  tired     8  negative</code></pre>
+##   word       n sentiment
+##   &lt;chr&gt;  &lt;int&gt; &lt;chr&gt;    
+## 1 pain      25 negative 
+## 2 forget    14 negative 
+## 3 heal      12 positive 
+## 4 numb       8 negative 
+## 5 real       8 positive 
+## 6 tired      8 negative</code></pre>
 <p> </p>
 <p>Once the counts are extracted, the counts can be plotted with the <code>ggplot2</code> package.</p>
 <p> </p>
@@ -565,23 +668,23 @@ meteora_lyrics_df &lt;- data_frame(Text = meteora_lyrics) # tibble aka neater da
 
 head(meteora_lyrics_df, n = 15) </code></pre>
 <pre><code>## # A tibble: 15 x 1
-##                                            Text
-##                                           &lt;chr&gt;
+##    Text                                        
+##    &lt;chr&gt;                                       
 ##  1 Sometimes I need to remember just to breathe
-##  2    Sometimes I need you to stay away from me
-##  3     Sometimes I&#39;m in disbelief I didn&#39;t know
-##  4                     Somehow I need you to go
-##  5                                             
-##  6                                   Don&#39;t stay
-##  7                          Forget our memories
-##  8                     Forget our possibilities
-##  9               What you were changing me into
-## 10                 Just give me myself back and
-## 11                                   Don&#39;t stay
-## 12                          Forget our memories
-## 13                     Forget our possibilities
-## 14         Take all your faithlessness with you
-## 15                 Just give me myself back and</code></pre>
+##  2 Sometimes I need you to stay away from me   
+##  3 Sometimes I&#39;m in disbelief I didn&#39;t know    
+##  4 Somehow I need you to go                    
+##  5 &quot;&quot;                                          
+##  6 Don&#39;t stay                                  
+##  7 Forget our memories                         
+##  8 Forget our possibilities                    
+##  9 What you were changing me into              
+## 10 Just give me myself back and                
+## 11 Don&#39;t stay                                  
+## 12 Forget our memories                         
+## 13 Forget our possibilities                    
+## 14 Take all your faithlessness with you        
+## 15 Just give me myself back and</code></pre>
 <pre class="r"><code>meteora_bigrams &lt;- meteora_lyrics_df %&gt;% 
   unnest_tokens(bigram, input = Text, token = &quot;ngrams&quot;, n = 2)
 
@@ -589,18 +692,18 @@ head(meteora_lyrics_df, n = 15) </code></pre>
 
 meteora_bigrams</code></pre>
 <pre><code>## # A tibble: 3,758 x 1
-##               bigram
-##                &lt;chr&gt;
-##  1       sometimes i
-##  2            i need
-##  3           need to
-##  4       to remember
-##  5     remember just
-##  6           just to
-##  7        to breathe
+##    bigram           
+##    &lt;chr&gt;            
+##  1 sometimes i      
+##  2 i need           
+##  3 need to          
+##  4 to remember      
+##  5 remember just    
+##  6 just to          
+##  7 to breathe       
 ##  8 breathe sometimes
-##  9       sometimes i
-## 10            i need
+##  9 sometimes i      
+## 10 i need           
 ## # ... with 3,748 more rows</code></pre>
 <p> </p>
 <p>The bigrams have been extracted from the lyrics. In order to produce word counts, stop words need to be removed. To do this, the separate function from R’s tidyr package will separate the bigrams into two separate words and then the filter functions will filter out the stop words.</p>
@@ -625,23 +728,23 @@ meteora_bigrams_wordcounts &lt;- bigrams_filtered %&gt;%
 
 head(meteora_bigrams_wordcounts, n = 15)</code></pre>
 <pre><code>## # A tibble: 15 x 3
-##        word1     word2     n
-##        &lt;chr&gt;     &lt;chr&gt; &lt;int&gt;
-##  1  nobody&#39;s listening    10
-##  2     wanna      feel     8
-##  3     wanna      heal     8
-##  4     heart      stop     6
-##  5  memories    forget     6
-##  6      stay    forget     6
-##  7     wrong      move     6
-##  8     anger      held     3
-##  9     blood     sweat     3
-## 10    damage   anymore     3
-## 11     habit   tonight     3
-## 12      hill  struggle     3
-## 13 listening      call     3
-## 14      pain      head     3
-## 15      pain       til     3</code></pre>
+##    word1     word2         n
+##    &lt;chr&gt;     &lt;chr&gt;     &lt;int&gt;
+##  1 nobody&#39;s  listening    10
+##  2 wanna     feel          8
+##  3 wanna     heal          8
+##  4 heart     stop          6
+##  5 memories  forget        6
+##  6 stay      forget        6
+##  7 wrong     move          6
+##  8 anger     held          3
+##  9 blood     sweat         3
+## 10 damage    anymore       3
+## 11 habit     tonight       3
+## 12 hill      struggle      3
+## 13 listening call          3
+## 14 pain      head          3
+## 15 pain      til           3</code></pre>
 <p> </p>
 <p>Notice how these counts include the separate words. The <code>unite()</code> function here will unite the two words into bigrams along with their counts.</p>
 <p> </p>
@@ -652,18 +755,18 @@ meteora_bigrams_wordcounts &lt;- meteora_bigrams_wordcounts %&gt;%
 
 meteora_bigrams_wordcounts</code></pre>
 <pre><code>## # A tibble: 80 x 2
-##                bigram     n
-##  *              &lt;chr&gt; &lt;int&gt;
+##    bigram                 n
+##    &lt;chr&gt;              &lt;int&gt;
 ##  1 nobody&#39;s listening    10
-##  2         wanna feel     8
-##  3         wanna heal     8
-##  4         heart stop     6
-##  5    memories forget     6
-##  6        stay forget     6
-##  7         wrong move     6
-##  8         anger held     3
-##  9        blood sweat     3
-## 10     damage anymore     3
+##  2 wanna feel             8
+##  3 wanna heal             8
+##  4 heart stop             6
+##  5 memories forget        6
+##  6 stay forget            6
+##  7 wrong move             6
+##  8 anger held             3
+##  9 blood sweat            3
+## 10 damage anymore         3
 ## # ... with 70 more rows</code></pre>
 <p> </p>
 <p>Now that we have counts of the bigrams, these counts can be plotted with ggplot2.</p>

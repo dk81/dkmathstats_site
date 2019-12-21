@@ -70,9 +70,7 @@ h6 {
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -97,6 +95,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -111,7 +112,6 @@ body {
   padding-top: 65px;
   margin-top: -65px;
 }
-
 .section h2 {
   padding-top: 65px;
   margin-top: -65px;
@@ -131,6 +131,43 @@ body {
 .section h6 {
   padding-top: 65px;
   margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -152,19 +189,85 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
 });
 </script>
 
 <!-- code folding -->
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -242,7 +345,7 @@ $(document).ready(function () {
 <h3><u>The addicts Dataset</u></h3>
 <p> </p>
 <p>This addicts dataset can be downloaded from the website <a href="http://web1.sph.emory.edu/dkleinb/allDatasets/surv2datasets/addicts.dta" class="uri">http://web1.sph.emory.edu/dkleinb/allDatasets/surv2datasets/addicts.dta</a>. This is a .dta file or a STATA file so the haven package in R is needed to deal with this file type.</p>
-<p>This information is from the Survival Analysis - A Self Learning Text (3rd Edition, 2012). A 1991 Australian study by Caplehorn et al. compared two methadone clinics for heroin addicts. The patient’s survival time (in days) is the amount of time the patient spent at the clinic before dropping out.</p>
+<p>This information is from the Survival Analysis - A Self Learning Text (3rd Edition, 2012). A 1991 Australian study by Caplehorn et al. compared two methadone clinics for heroin addicts. The patient’s survival time (in days) is the amount of time the patient spent at the clinic before dropping out.</p>
 <p>In the addicts dataset, the variables are defined as:</p>
 <p>ID - Patient ID</p>
 <p>SURVT - The time in days until the patient dropped out of the clinic or was censored (missing information).</p>
@@ -269,13 +372,9 @@ $(document).ready(function () {
 # Dataset can be found at http://web1.sph.emory.edu/dkleinb/surv3.htm.
 
 library(haven) #For importing STATA files.
-library(survival)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;survival&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:faraway&#39;:
-## 
-##     rats</code></pre>
-<pre class="r"><code>url &lt;- &quot;http://web1.sph.emory.edu/dkleinb/allDatasets/surv2datasets/addicts.dta&quot;
+library(survival)
+
+url &lt;- &quot;http://web1.sph.emory.edu/dkleinb/allDatasets/surv2datasets/addicts.dta&quot;
 
 # Import data and turn it into a data frame
 addicts &lt;- data.frame(read_dta(url))</code></pre>
@@ -330,22 +429,22 @@ summary(addicts)</code></pre>
 ##  Max.   :1.0000   Max.   :110.0</code></pre>
 <pre class="r"><code>str(addicts)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    238 obs. of  6 variables:
-##  $ id    : atomic  1 2 3 4 5 6 7 8 9 10 ...
+##  $ id    : num  1 2 3 4 5 6 7 8 9 10 ...
 ##   ..- attr(*, &quot;label&quot;)= chr &quot;Subject ID&quot;
 ##   ..- attr(*, &quot;format.stata&quot;)= chr &quot;%10.0g&quot;
-##  $ clinic: atomic  1 1 1 1 1 1 1 1 1 1 ...
+##  $ clinic: num  1 1 1 1 1 1 1 1 1 1 ...
 ##   ..- attr(*, &quot;label&quot;)= chr &quot;Coded 1 or 2&quot;
 ##   ..- attr(*, &quot;format.stata&quot;)= chr &quot;%10.0g&quot;
-##  $ status: atomic  1 1 1 1 1 1 1 0 1 1 ...
+##  $ status: num  1 1 1 1 1 1 1 0 1 1 ...
 ##   ..- attr(*, &quot;label&quot;)= chr &quot;status (0=censored, 1=endpoint)&quot;
 ##   ..- attr(*, &quot;format.stata&quot;)= chr &quot;%10.0g&quot;
-##  $ survt : atomic  428 275 262 183 259 714 438 796 892 393 ...
+##  $ survt : num  428 275 262 183 259 714 438 796 892 393 ...
 ##   ..- attr(*, &quot;label&quot;)= chr &quot;survival time in days&quot;
 ##   ..- attr(*, &quot;format.stata&quot;)= chr &quot;%10.0g&quot;
-##  $ prison: atomic  0 1 0 0 1 0 1 1 0 1 ...
+##  $ prison: num  0 1 0 0 1 0 1 1 0 1 ...
 ##   ..- attr(*, &quot;label&quot;)= chr &quot;0=none, 1=prison record&quot;
 ##   ..- attr(*, &quot;format.stata&quot;)= chr &quot;%10.0g&quot;
-##  $ dose  : atomic  50 55 55 30 65 55 65 60 50 65 ...
+##  $ dose  : num  50 55 55 30 65 55 65 60 50 65 ...
 ##   ..- attr(*, &quot;label&quot;)= chr &quot;methadone dose (mg/day)&quot;
 ##   ..- attr(*, &quot;format.stata&quot;)= chr &quot;%10.0g&quot;</code></pre>
 <p> </p>
@@ -498,9 +597,9 @@ legend(&quot;topright&quot;, c(&quot;Clinic 1&quot;, &quot;Clinic 2&quot;), lty 
 # Plotting Survival Curves Using ggplot2 and ggfortify:
 
 library(ggplot2)
-library(ggfortify)</code></pre>
-<pre><code>## Warning: package &#39;ggfortify&#39; was built under R version 3.4.4</code></pre>
-<pre class="r"><code>model_fit &lt;- survfit(Surv(survt, status) ~ clinic, data = addicts)
+library(ggfortify)
+
+model_fit &lt;- survfit(Surv(survt, status) ~ clinic, data = addicts)
 
 autoplot(model_fit) + 
  labs(x = &quot;\n Survival Time (Days) &quot;, y = &quot;Survival Probabilities \n&quot;, 

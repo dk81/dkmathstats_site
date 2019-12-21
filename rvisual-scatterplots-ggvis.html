@@ -29,8 +29,8 @@
 <script src="site_libs/vega-1.4.3/vega.min.js"></script>
 <script src="site_libs/lodash-2.2.1/lodash.min.js"></script>
 <script>var lodash = _.noConflict();</script>
-<link href="site_libs/ggvis-0.4.3/css/ggvis.css" rel="stylesheet" />
-<script src="site_libs/ggvis-0.4.3/js/ggvis.js"></script>
+<link href="site_libs/ggvis-0.4.4/css/ggvis.css" rel="stylesheet" />
+<script src="site_libs/ggvis-0.4.4/js/ggvis.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -79,9 +79,7 @@ h6 {
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -106,6 +104,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -120,7 +121,6 @@ body {
   padding-top: 65px;
   margin-top: -65px;
 }
-
 .section h2 {
   padding-top: 65px;
   margin-top: -65px;
@@ -140,6 +140,43 @@ body {
 .section h6 {
   padding-top: 65px;
   margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -161,19 +198,85 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
 });
 </script>
 
 <!-- code folding -->
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -352,27 +455,27 @@ ggvis(x = ~pop_size, y = ~internet_users) %&gt;%
   add_axis(&quot;x&quot;, title = &quot;Population Size (In Hundred Thousands)&quot;,  title_offset = 50) %&gt;%
   add_axis(&quot;y&quot;, title = &quot;Number of Internet Users (In Hundred Thousands)&quot;,title_offset = 50)</code></pre>
 <pre><code>## Guessing formula = internet_users ~ pop_size</code></pre>
-<div id="plot_id478673711-container" class="ggvis-output-container">
-<div id="plot_id478673711" class="ggvis-output"></div>
+<div id="plot_id397878249-container" class="ggvis-output-container">
+<div id="plot_id397878249" class="ggvis-output"></div>
 <div class="plot-gear-icon">
 <nav class="ggvis-control">
 <a class="ggvis-dropdown-toggle" title="Controls" onclick="return false;"></a>
 <ul class="ggvis-dropdown">
 <li>
 Renderer: 
-<a id="plot_id478673711_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id478673711" data-renderer="svg">SVG</a>
+<a id="plot_id397878249_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id397878249" data-renderer="svg">SVG</a>
  | 
-<a id="plot_id478673711_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id478673711" data-renderer="canvas">Canvas</a>
+<a id="plot_id397878249_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id397878249" data-renderer="canvas">Canvas</a>
 </li>
 <li>
-<a id="plot_id478673711_download" class="ggvis-download" data-plot-id="plot_id478673711">Download</a>
+<a id="plot_id397878249_download" class="ggvis-download" data-plot-id="plot_id397878249">Download</a>
 </li>
 </ul>
 </nav>
 </div>
 </div>
 <script type="text/javascript">
-var plot_id478673711_spec = {
+var plot_id397878249_spec = {
   "data": [
     {
       "name": ".0",
@@ -576,7 +679,7 @@ var plot_id478673711_spec = {
   },
   "handlers": null
 };
-ggvis.getPlot("plot_id478673711").parseSpec(plot_id478673711_spec);
+ggvis.getPlot("plot_id397878249").parseSpec(plot_id397878249_spec);
 </script>
 <p> </p>
 <p>Above is the visual of the scatterplot and a linear model (“line of best fit”). If we want the linear model in a more mathematical form such as <span class="math inline">\(y = mx + b\)</span> we run this code.</p>
@@ -627,27 +730,27 @@ internet_user_data %&gt;%
   add_axis(&quot;x&quot;, title = &quot;Number of Internet Users (In Hundred Thousands)&quot;, title_offset = 50) %&gt;%
   add_axis(&quot;y&quot;, title = &quot;Number of Facebook Users (In Hundred Thousands)&quot;,title_offset = 50)</code></pre>
 <pre><code>## Guessing formula = facebook_users ~ internet_users</code></pre>
-<div id="plot_id369879377-container" class="ggvis-output-container">
-<div id="plot_id369879377" class="ggvis-output"></div>
+<div id="plot_id803224229-container" class="ggvis-output-container">
+<div id="plot_id803224229" class="ggvis-output"></div>
 <div class="plot-gear-icon">
 <nav class="ggvis-control">
 <a class="ggvis-dropdown-toggle" title="Controls" onclick="return false;"></a>
 <ul class="ggvis-dropdown">
 <li>
 Renderer: 
-<a id="plot_id369879377_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id369879377" data-renderer="svg">SVG</a>
+<a id="plot_id803224229_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id803224229" data-renderer="svg">SVG</a>
  | 
-<a id="plot_id369879377_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id369879377" data-renderer="canvas">Canvas</a>
+<a id="plot_id803224229_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id803224229" data-renderer="canvas">Canvas</a>
 </li>
 <li>
-<a id="plot_id369879377_download" class="ggvis-download" data-plot-id="plot_id369879377">Download</a>
+<a id="plot_id803224229_download" class="ggvis-download" data-plot-id="plot_id803224229">Download</a>
 </li>
 </ul>
 </nav>
 </div>
 </div>
 <script type="text/javascript">
-var plot_id369879377_spec = {
+var plot_id803224229_spec = {
   "data": [
     {
       "name": ".0",
@@ -851,7 +954,7 @@ var plot_id369879377_spec = {
   },
   "handlers": null
 };
-ggvis.getPlot("plot_id369879377").parseSpec(plot_id369879377_spec);
+ggvis.getPlot("plot_id803224229").parseSpec(plot_id803224229_spec);
 </script>
 <p> </p>
 <p>The slope here is positive (upward sloping) and is less steep (more flat). Let’s find out what the linear model is.</p>

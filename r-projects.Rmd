@@ -25,7 +25,6 @@ This page contains links on a bunch of R programming projects.
 
 * <a href="#jupyter">R Work In Jupyter Notebook</a>
 
-* <a href="#ml">Machine Learning Experimental Work</a>
 
 &nbsp;
 
@@ -35,29 +34,14 @@ This page contains links on a bunch of R programming projects.
 
 &nbsp;
 
-[Mode Function In R](./rmath-mode-function.html)
-
-[Cartesian Products In R](./rmath-cartesian-prod.html)
-
-[Vector Cross Products In R](./rmath-cross-prod-r.html)
 
 [Fibonacci Sequence Numbers In R](./rmath-fibonacci.html)
 
 [The Quadratic Formula In R](./rmath-quad-formula-r.html)
 
-[Plotting Math Functions In R](./rmath-plotting-math-functions.html)
-
 [Plotting Uniform Distributions In R With ggplot2](./rmath-uniform-plots.html)
 
-[Examples Of The Inverse CDF Method In R (Monte Carlo Methods)](./rmath-inverse-cdf-examples.html)
-
-[The Bisection Method In R](./rmath-bisection-method.html)
-
 [Random Walks In R](./rmath-random-walks.html)
-
-[Creating Multiple Random Walks In R](./rmath-multiple-rwalks.html)
-
-[The k-Means Algorithm In R For Clustering Data](./rmath-kmeans.html)
 
 [Poisson Regression](./rmath-poisson-regression.html)
 
@@ -129,12 +113,6 @@ This page contains links on a bunch of R programming projects.
 
 [Data Cleaning In R With The tidyr Package](./ranalysis-tidyr-clean.html)
 
-[Data Manipulation In R Using The dplyr Package](./ranalysis-dplyr.html)
-
-[Analyzing Big Data & Baby Names In R Using data.table](./ranalysis-babynames_datatable.html)
-
-[R's sapply() Function With Examples](./ranalysis-sapply.html)
-
 [A Look At R's stringr Package](./ranalysis-sapply.html)
 
 [Data Manipulation In R: The melt Function](./ranalysis-meltFunction.html)
@@ -142,8 +120,6 @@ This page contains links on a bunch of R programming projects.
 [Reading In Various File Types In R](./ranalysis-readfile-types.html)
 
 [Analyzing the German Soccer (Bundesliga) League Using R & The dplyr Package](./ranalysis-bundesligR.html)
-
-[Analyzing Soccer Data From The 2010 World Cup In R and the dplyr Package](./ranalysis-soccer2010.html)
 
 [Using R & Quandl To Look At Financial Data](./ranalysis-quandlwork.html)
 
@@ -194,16 +170,6 @@ After the repository is loaded, go to the RCode folder and you can find the topi
 
 &nbsp;
 
-<a name="ml"></a>
 
-### <u>Machine Learning Experimental Work</u>
 
-&nbsp;
 
-[Decision Trees In R](./rmachine-decisiontrees.html)
-
-[k-Means Clustering In R](./rmachine-kmeans01.html)
-
-[K Nearest Neighbours](./rmachine-knearestneighbours.html)
-
-[Logistic Regression In R](./rmachine-logisticRegression.html)

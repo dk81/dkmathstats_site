@@ -370,16 +370,9 @@ $(document).ready(function () {
 <p>From the R documentation, here is information about the variables in the immer dataset.</p>
 <p>Loc: Location Var: The variety of barley (“manchuria”, “svansota”, “velvet”, “trebi” and “peatland”). Y1: Yield in 1931. Y2: Yield in 1932.</p>
 <p> </p>
-<pre class="r"><code>library(MASS)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;MASS&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:plotly&#39;:
-## 
-##     select</code></pre>
-<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
-## 
-##     select</code></pre>
-<pre class="r"><code>barley &lt;- immer
+<pre class="r"><code>library(MASS)
+
+barley &lt;- immer
 
 head(barley)</code></pre>
 <pre><code>##   Loc Var    Y1    Y2

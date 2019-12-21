@@ -6,9 +6,12 @@ title: "dkmathstats Website"
 
 Hi there. Welcome to my website. Topics include mathematics, statistics, R programming, Python programming with data science.
 
-
+---
 
 This site is run with R Markdown with the use of this [guide](http://nickstrayer.me/RMarkdown_Sites_tutorial/).
 
+---
+
+I have more items such as R and Python code from my Github [here](https://github.com/dk81).
 
 

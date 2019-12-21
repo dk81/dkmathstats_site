@@ -512,13 +512,9 @@ head(balloons_data)</code></pre>
 <p> </p>
 <p>It appears that this balloons_data comes in as a single column with values that have four commas. This single column could be separated with the separate function from the tidyr package in R.</p>
 <p> </p>
-<pre class="r"><code>library(tidyr)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;tidyr&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:reshape2&#39;:
-## 
-##     smiths</code></pre>
-<pre class="r"><code>col_names &lt;- c(&quot;Color&quot;, &quot;size&quot;, &quot;act&quot;, &quot;age&quot;, &quot;inflated&quot;)
+<pre class="r"><code>library(tidyr)
+
+col_names &lt;- c(&quot;Color&quot;, &quot;size&quot;, &quot;act&quot;, &quot;age&quot;, &quot;inflated&quot;)
 
 sep_data &lt;- separate(balloons_data, col = &quot;V1&quot;, into = col_names, sep = &quot;,&quot;)
 
