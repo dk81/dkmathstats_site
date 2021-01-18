@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -22,6 +22,15 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+      </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -84,7 +93,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -233,6 +241,7 @@ $(document).ready(function () {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -244,18 +253,6 @@ $(document).ready(function () {
   display: none;
 }
 </style>
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
 
 <!-- code folding -->
 
@@ -322,6 +319,35 @@ $(document).ready(function () {
 <p>This site is run with R Markdown with the use of this <a href="http://nickstrayer.me/RMarkdown_Sites_tutorial/">guide</a>.</p>
 <hr />
 <p>I have more items such as R and Python code from my Github <a href="https://github.com/dk81">here</a>.</p>
+<hr />
+<p><strong>R Shiny Projects</strong></p>
+<p> </p>
+<p><a href="https://dkmathstats.shinyapps.io/monteCarlo_estimatePi/">Monte Carlo Simulation R Shiny App with shinydashboard For Estimating π</a></p>
+<ul>
+<li>A simple application done with R, RShiny and the <code>shinydashboard</code> package. A Monte Carlo simulation is used to generate uniform random variables within a square to estimate the value of <span class="math inline">\(\pi\)</span>.</li>
+</ul>
+<p> </p>
+<p><a href="https://dkmathstats.shinyapps.io/bundesligaTables_app/">German Bundesliga Soccer Final Season Tables Application</a></p>
+<ul>
+<li>This easy to use RShiny app uses the <code>BundesligR</code> package along with manual data collection for displaying the final season tables for the German Bundesliga soccer league from 1964 to the 2019-2020 seasons.</li>
+<li>Users can search for the final season tables by year or search for a team with the team picker to see how a team performed over the years.</li>
+</ul>
+<p> </p>
+<p><a href="https://dkmathstats.shinyapps.io/mathTools/">Math Tools Application (Incomplete But Useable)</a></p>
+<p>This RShiny project with <code>flexdashboard</code> features a collection of mathematics tools.</p>
+<p>The app has these math tools.</p>
+<ul>
+<li>Polynomial Functions Plotting Tool</li>
+<li>Line Plotter</li>
+<li>Trigonometric Functions Plotting Tool</li>
+<li>Perimeter Calculators</li>
+<li>Area Calculators</li>
+<li>Surface Area Calculators</li>
+<li>Volume Calculators</li>
+<li>Compound Interest Calculator <strong>(Not Ready)</strong></li>
+<li>Annual vs Weekly vs Monthly Wages Calculator</li>
+<li>Quadratic Formula Calculator</li>
+</ul>
 
 
 
@@ -340,6 +366,23 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

@@ -5,67 +5,10 @@ output: html_document
 
 &nbsp;
 
-Hi there. I am open to providing math tutoring services in Toronto. 
-
-
-If you are interested in math tutoring services please e-mail me at dku8691@protonmail.com. It would be preferred to have a detailed e-mail title requesting for math tutoring in the Toronto area.
-
-
-&nbsp;
-
-**Updated on December 13, 2020**
-
-Hi there. I put an update for my tutoring availability. I prefer not to tutor students who have last minute tutoring requests for exam preparation. It is preferable that the list of topics is not super huge as a lot of review and preparation needs to go into it. (Yes I am a little rusty on some stuff.)
-
-Pricing: $30 CAD / Hour Online
-
-&nbsp;
 
 ---
 
-## <u>Math Tutoring Topics</u>
-
-
-&nbsp;
-
-**University Level**
-
-For the courses with (Maybe), I can tutor in these subjects but I would need some review.
-
-<u>First Year Courses</u>
-
-* Introductory Calculus 
-* Introduction To Mathematics For Finance
-* Introductory Probability & Statistics
-
-&nbsp;
-
-<u>Upper Year Courses</u>
-
-* Probability Theory (Maybe)
-* Introduction To Stochastic Calculus (Maybe)
-* Stochastic Calculus For Finance (Maybe)
-
-&nbsp;
-
-**High School Level**
-
-* Grade 12 Data Management
-* Grade 12 Calculus & Vectors
-* Grade 12 Advanced Functions
-* Grade 9 - 11 Mathematics
-
-&nbsp;
-
-**<u>Middle School Level**</u>
-
-* Grade 6 to 8 Mathematics with topics in algebra, order of operations, probability.
-
-&nbsp;
-
----
-
-## <u>My Math Tutoring Resume</u>
+## <u>My Math Resume</u>
 
 
 &nbsp;

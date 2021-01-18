@@ -12,6 +12,6 @@ title: "About Me"
 
 ---
 
-**My Resume, Math Tutoring History & Math Tutoring In Toronto**
+**Math Resume**
 
-[Resume & Math Tutoring In Toronto](./mathTutoringToronto.html)
+[Math Resume](./mathTutoringToronto.html)

@@ -15,3 +15,39 @@ This site is run with R Markdown with the use of this [guide](http://nickstrayer
 I have more items such as R and Python code from my Github [here](https://github.com/dk81).
 
 
+---
+
+**R Shiny Projects**
+
+&nbsp;
+
+[Monte Carlo Simulation R Shiny App with shinydashboard For Estimating π](https://dkmathstats.shinyapps.io/monteCarlo_estimatePi/) 
+
+* A simple application done with R, RShiny and the `shinydashboard` package. A Monte Carlo simulation is used to generate uniform random variables within a square to estimate the value of $\pi$.
+
+&nbsp;
+
+[German Bundesliga Soccer Final Season Tables Application](https://dkmathstats.shinyapps.io/bundesligaTables_app/)
+
+* This easy to use RShiny app uses the `BundesligR` package along with manual data collection for displaying the final season tables for the German Bundesliga soccer league from 1964 to the 2019-2020 seasons.
+* Users can search for the final season tables by year or search for a team with the team picker to see how a team performed over the years.
+
+&nbsp;
+
+[Math Tools Application (Incomplete But Useable)](https://dkmathstats.shinyapps.io/mathTools/)
+
+This RShiny project with `flexdashboard` features a collection of mathematics tools. 
+
+The app has these math tools.
+
+* Polynomial Functions Plotting Tool
+* Line Plotter
+* Trigonometric Functions Plotting Tool
+* Perimeter Calculators
+* Area Calculators
+* Surface Area Calculators
+* Volume Calculators
+* Compound Interest Calculator **(Not Ready)**
+* Annual vs Weekly vs Monthly Wages Calculator
+* Quadratic Formula Calculator
+
