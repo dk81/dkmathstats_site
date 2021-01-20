@@ -1,5 +1,5 @@
 ---
-title: "Math Tutoring In Toronto"
+title: "Math Credential Details"
 output: html_document
 ---
 
@@ -10,6 +10,7 @@ output: html_document
 
 ## <u>My Math Resume</u>
 
+Hi. I have included my math resume below. My current specialties are in mathematics up to high school, introductory probability and statistics. I do know some topics from machine learning and data science along with programming in R and Python.
 
 &nbsp;
 	

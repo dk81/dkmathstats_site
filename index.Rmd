@@ -34,7 +34,7 @@ I have more items such as R and Python code from my Github [here](https://github
 
 &nbsp;
 
-[Math Tools Application (Incomplete But Useable)](https://dkmathstats.shinyapps.io/mathTools/)
+[Math Tools Application](https://dkmathstats.shinyapps.io/mathTools/)
 
 This RShiny project with `flexdashboard` features a collection of mathematics tools. 
 
@@ -47,7 +47,7 @@ The app has these math tools.
 * Area Calculators
 * Surface Area Calculators
 * Volume Calculators
-* Compound Interest Calculator **(Not Ready)**
+* Compound Interest Calculator 
 * Annual vs Weekly vs Monthly Wages Calculator
 * Quadratic Formula Calculator
 
