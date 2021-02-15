@@ -30,7 +30,7 @@
   div.column{display: inline-block; vertical-align: top; width: 50%;}
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
-      </style>
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -76,6 +76,7 @@ h6 {
   text-align: left;
 }
 </style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 
@@ -322,9 +323,28 @@ $(document).ready(function () {
 <hr />
 <p><strong>R Shiny Projects</strong></p>
 <p> </p>
-<p><a href="https://dkmathstats.shinyapps.io/monteCarlo_estimatePi/">Monte Carlo Simulation R Shiny App with shinydashboard For Estimating π</a></p>
+<p><a href="https://dkmathstats.shinyapps.io/mathTools/">Quandl Finance R Shiny Web Application</a></p>
+<p>In this RShiny web application, I use R, RShiny and Quandl to present various financial data. The datasets that are used are free and cover these topics:</p>
 <ul>
-<li>A simple application done with R, RShiny and the <code>shinydashboard</code> package. A Monte Carlo simulation is used to generate uniform random variables within a square to estimate the value of <span class="math inline">\(\pi\)</span>.</li>
+<li>Inflation Rates (Year Over Year)</li>
+<li>Consumer Price Index</li>
+<li>Gold &amp; Silver Prices</li>
+<li>Bitcoin Price Provided By Blockchain.com</li>
+<li>Canadian Mortgage and Housing Corporation Prices</li>
+</ul>
+<p> </p>
+<p><a href="https://dkmathstats.shinyapps.io/mathTools/">Math Tools R Shiny Web Application</a></p>
+<p>This RShiny project with <code>flexdashboard</code> features a collection of mathematics tools.</p>
+<p>The app has these math tools.</p>
+<ul>
+<li>Polynomial Functions Plotting Tool</li>
+<li>Line Plotter</li>
+<li>Trigonometric Functions Plotting Tool</li>
+<li>Geometry Calculators</li>
+<li>Compound Interest Calculator</li>
+<li>Annual vs Weekly vs Monthly Wages Calculator</li>
+<li>Quadratic Formula Calculator</li>
+<li>Foreign Exchange Calculator</li>
 </ul>
 <p> </p>
 <p><a href="https://dkmathstats.shinyapps.io/bundesligaTables_app/">German Bundesliga Soccer Final Season Tables Application</a></p>
@@ -333,21 +353,11 @@ $(document).ready(function () {
 <li>Users can search for the final season tables by year or search for a team with the team picker to see how a team performed over the years.</li>
 </ul>
 <p> </p>
-<p><a href="https://dkmathstats.shinyapps.io/mathTools/">Math Tools Application</a></p>
-<p>This RShiny project with <code>flexdashboard</code> features a collection of mathematics tools.</p>
-<p>The app has these math tools.</p>
+<p><a href="https://dkmathstats.shinyapps.io/monteCarlo_estimatePi/">Monte Carlo Simulation R Shiny App with shinydashboard For Estimating π</a></p>
 <ul>
-<li>Polynomial Functions Plotting Tool</li>
-<li>Line Plotter</li>
-<li>Trigonometric Functions Plotting Tool</li>
-<li>Perimeter Calculators</li>
-<li>Area Calculators</li>
-<li>Surface Area Calculators</li>
-<li>Volume Calculators</li>
-<li>Compound Interest Calculator</li>
-<li>Annual vs Weekly vs Monthly Wages Calculator</li>
-<li>Quadratic Formula Calculator</li>
+<li>A simple application done with R, RShiny and the <code>shinydashboard</code> package. A Monte Carlo simulation is used to generate uniform random variables within a square to estimate the value of <span class="math inline">\(\pi\)</span>.</li>
 </ul>
+<p> </p>
 
 
 
@@ -358,7 +368,7 @@ $(document).ready(function () {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();

@@ -21,9 +21,32 @@ I have more items such as R and Python code from my Github [here](https://github
 
 &nbsp;
 
-[Monte Carlo Simulation R Shiny App with shinydashboard For Estimating π](https://dkmathstats.shinyapps.io/monteCarlo_estimatePi/) 
+[Quandl Finance R Shiny Web Application](https://dkmathstats.shinyapps.io/mathTools/)
 
-* A simple application done with R, RShiny and the `shinydashboard` package. A Monte Carlo simulation is used to generate uniform random variables within a square to estimate the value of $\pi$.
+In this RShiny web application, I use R, RShiny and Quandl to present various financial data. The datasets that are used are free and cover these topics:
+
+* Inflation Rates (Year Over Year)
+* Consumer Price Index
+* Gold & Silver Prices
+* Bitcoin Price Provided By Blockchain.com
+* Canadian Mortgage and Housing Corporation Prices
+
+&nbsp;
+
+[Math Tools R Shiny Web Application](https://dkmathstats.shinyapps.io/mathTools/)
+
+This RShiny project with `flexdashboard` features a collection of mathematics tools. 
+
+The app has these math tools.
+
+* Polynomial Functions Plotting Tool
+* Line Plotter
+* Trigonometric Functions Plotting Tool
+* Geometry Calculators
+* Compound Interest Calculator 
+* Annual vs Weekly vs Monthly Wages Calculator
+* Quadratic Formula Calculator
+* Foreign Exchange Calculator
 
 &nbsp;
 
@@ -34,20 +57,9 @@ I have more items such as R and Python code from my Github [here](https://github
 
 &nbsp;
 
-[Math Tools Application](https://dkmathstats.shinyapps.io/mathTools/)
 
-This RShiny project with `flexdashboard` features a collection of mathematics tools. 
+[Monte Carlo Simulation R Shiny App with shinydashboard For Estimating π](https://dkmathstats.shinyapps.io/monteCarlo_estimatePi/) 
 
-The app has these math tools.
+* A simple application done with R, RShiny and the `shinydashboard` package. A Monte Carlo simulation is used to generate uniform random variables within a square to estimate the value of $\pi$.
 
-* Polynomial Functions Plotting Tool
-* Line Plotter
-* Trigonometric Functions Plotting Tool
-* Perimeter Calculators
-* Area Calculators
-* Surface Area Calculators
-* Volume Calculators
-* Compound Interest Calculator 
-* Annual vs Weekly vs Monthly Wages Calculator
-* Quadratic Formula Calculator
-
+&nbsp;
