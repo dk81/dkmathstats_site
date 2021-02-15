@@ -21,7 +21,7 @@ I have more items such as R and Python code from my Github [here](https://github
 
 &nbsp;
 
-[Quandl Finance R Shiny Web Application](https://dkmathstats.shinyapps.io/mathTools/)
+[Quandl Finance R Shiny Web Application](https://dkmathstats.shinyapps.io/quandl_financedata_app/)
 
 In this RShiny web application, I use R, RShiny and Quandl to present various financial data. The datasets that are used are free and cover these topics:
 
