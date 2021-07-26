@@ -1,0 +1,84 @@
+---
+title: "stablecoinsImportance"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**July 25, 2021 - Notes on Stablecoins in Crypto**
+
+This article comes from a post that I posted on a blog website. Parts of this has been edited and updated here.
+
+&nbsp;
+
+## What Are Stablecoins?
+---
+
+A stablecoin is a crypto coin (asset) that has a price that remains stable for the most part. Stablecoins have low volatility as price swings in these stablecoins are low. 
+
+Examples of stablecoins in crypto include:
+
+* Tether (USDT)
+* USD Coin (USDC)
+* Binance USD (BUSD)
+* Dai (DAI)
+* TerraUSD (UST)
+* Paxos Standard (PAX)
+* TrueUSD (TUSD)
+
+&nbsp;
+
+The dollar based stablecoins usually have prices of $1 with plus or minus three cents or so.
+
+&nbsp;
+
+## Stablecoin Types
+---
+
+According to https://defirate.com/stablecoins/, there are two stablecoin types. These are fiat-collateralized stablecoins and crypto-collateraized ones.
+
+Stablecoins that are fiat-collaterized retain their 1 to 1 peg. This is done by using trusted third parties to hold and equivalent amount of legal tender in reserves. Fiat collaterzied stablecoins include:
+
+* Tether (USDT)
+* USD Coin (USDC)
+* Paxos Standard (PAX)
+* TrueUSD (TUSD)
+* Gemini Dollar (GUSD)
+
+&nbsp;
+
+**Crypto-collaterized stablecoins** are over-collaterialized. This is for accounting for price volatility. According to https://defirate.com/stablecoins/, a common ratio of 150% is set. As one example, at least $150 worth of ETH would be collateral in order to issue $100 of the DAI stablecoin.
+Stablecoins in this category include:
+
+* Maker Dai (DAI)
+* Synthetix (sUSD)
+* Reserve Tokens (RSV)
+
+&nbsp;
+
+## Using Stablecoins
+---
+
+At first, I never understood the purpose of stablecoins. I asked myself why would I want something that would not have massive gains. Stablecoins can be used to protect the crypto portfolio from sudden drops in price.
+
+If almost all crypto prices crash and have their prices go down by 40%, stablecoins will still hold a lot of their value. Think of stablecoins as shields against market crashes. Converting crypto gains into stablecoins sounds like a good strategy. After price drops or even crashes, the held stablecoins can be used to buy the dips in hopes/expectations of the cryptos going back up in price.
+
+---
+
+I would not be the best person to ask for how much stablecoins you should have. Maybe 10-20% of the portfolio in stablecoins. That way you have stablecoins on hand to buy any crypto that is heavily discounted and expected to go up.
+
+&nbsp;
+
+## References & Links:
+---
+
+* https://defirate.com/stablecoins/
+* https://www.youtube.com/watch?v=GsSSLDzKCOE
+* https://www.youtube.com/watch?v=Q3tunUaDwN0
+
+&nbsp;
+
+
+

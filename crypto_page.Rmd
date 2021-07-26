@@ -1,0 +1,47 @@
+---
+title: "Crypto Related Items"
+---
+
+&nbsp;
+
+**Started on July 25, 2021**
+
+This page features some works and information from me related to cryptocurrencies. I am somewhat new to the space and will continue to learn. 
+
+**Do invest and trade cryptos, stocks and the likes at your own risk.**
+
+---
+
+**Articles, Opinion Pieces**
+
+[Notes on Stablecoins](./stableCoins_notes.html)
+
+
+
+&nbsp;
+
+---
+
+**Projects**
+
+[Binance For Crypto Data & Candlestick Charts In Python](https://github.com/dk81/jupyterNotebook/blob/master/binance_crypto_data.ipynb)
+
+The python-binance package along with mplfinance was used to obtain cryptocurrency information from Binance. A candlestick price chart for the BTCUSDT trading pair was produced. 
+
+A more generalized Python function was created which takes in a user trading pair, a start date, an end date and a timeframe of either 1day, 1week or 1 month. The function uses the inputs and outputs a corresponding candlestick price chart.
+
+&nbsp;
+
+[Kucoin Crypto Data & Candlestick Charts In Python](https://github.com/dk81/jupyterNotebook/blob/master/kucoin_crypto_python.ipynb)
+
+This project is similar to the Binance crypto data project. The Kucoin crypto exchange API is used to connect to Python. Candlestick price charts are produced in this project with the use of the mplfinance Python library.
+
+A more generalized Python function was created. This function takes in a Kucoin trading pair, a start date, an end date, a timeframe of either 1min, 1 hour, 1day, 1week or 1week and the number of time periods. The function uses the inputs to create a dataframe and uses the data to output a corresponding OHLC candlestick price chart.
+
+---
+
+
+
+
+
+&nbsp;

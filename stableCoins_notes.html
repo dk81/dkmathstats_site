@@ -11,7 +11,7 @@
 
 
 
-<title>About Me</title>
+<title>stablecoinsImportance</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,6 +19,15 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -30,14 +39,9 @@
   div.column{display: inline-block; vertical-align: top; width: 50%;}
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
-      </style>
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -50,32 +54,7 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 
@@ -86,10 +65,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -106,40 +81,13 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 60px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 65px;
-  margin-top: -65px;
-}
-.section h2 {
-  padding-top: 65px;
-  margin-top: -65px;
-}
-.section h3 {
-  padding-top: 65px;
-  margin-top: -65px;
-}
-.section h4 {
-  padding-top: 65px;
-  margin-top: -65px;
-}
-.section h5 {
-  padding-top: 65px;
-  margin-top: -65px;
-}
-.section h6 {
-  padding-top: 65px;
-  margin-top: -65px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -167,7 +115,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -179,7 +127,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -190,10 +138,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -205,7 +166,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -285,9 +245,6 @@ $(document).ready(function () {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="about.html">About</a>
-</li>
-<li>
   <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
 </li>
 <li>
@@ -295,6 +252,9 @@ $(document).ready(function () {
 </li>
 <li>
   <a href="python_projects.html">Python Items</a>
+</li>
+<li>
+  <a href="crypto_page.html">Crypto Items</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -304,25 +264,72 @@ $(document).ready(function () {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
-<h1 class="title toc-ignore">About Me</h1>
+<h1 class="title toc-ignore">stablecoinsImportance</h1>
 
 </div>
 
 
+<p><strong>July 25, 2021 - Notes on Stablecoins in Crypto</strong></p>
+<p>This article comes from a post that I posted on a blog website. Parts of this has been edited and updated here.</p>
 <p> </p>
+<div id="what-are-stablecoins" class="section level2">
+<h2>## What Are Stablecoins?</h2>
+<p>A stablecoin is a crypto coin (asset) that has a price that remains stable for the most part. Stablecoins have low volatility as price swings in these stablecoins are low.</p>
+<p>Examples of stablecoins in crypto include:</p>
 <ul>
-<li><strong>Name:</strong> David</li>
-<li><strong>Interests:</strong> Mathematics, Statistics, R Programming, Python programming</li>
-<li><strong>E-Mail:</strong> <a href="mailto:dku8691@protonmail.com" class="email">dku8691@protonmail.com</a></li>
+<li>Tether (USDT)</li>
+<li>USD Coin (USDC)</li>
+<li>Binance USD (BUSD)</li>
+<li>Dai (DAI)</li>
+<li>TerraUSD (UST)</li>
+<li>Paxos Standard (PAX)</li>
+<li>TrueUSD (TUSD)</li>
 </ul>
 <p> </p>
+<p>The dollar based stablecoins usually have prices of $1 with plus or minus three cents or so.</p>
+<p> </p>
+</div>
+<div id="stablecoin-types" class="section level2">
+<h2>## Stablecoin Types</h2>
+<p>According to <a href="https://defirate.com/stablecoins/" class="uri">https://defirate.com/stablecoins/</a>, there are two stablecoin types. These are fiat-collateralized stablecoins and crypto-collateraized ones.</p>
+<p>Stablecoins that are fiat-collaterized retain their 1 to 1 peg. This is done by using trusted third parties to hold and equivalent amount of legal tender in reserves. Fiat collaterzied stablecoins include:</p>
+<ul>
+<li>Tether (USDT)</li>
+<li>USD Coin (USDC)</li>
+<li>Paxos Standard (PAX)</li>
+<li>TrueUSD (TUSD)</li>
+<li>Gemini Dollar (GUSD)</li>
+</ul>
+<p> </p>
+<p><strong>Crypto-collaterized stablecoins</strong> are over-collaterialized. This is for accounting for price volatility. According to <a href="https://defirate.com/stablecoins/" class="uri">https://defirate.com/stablecoins/</a>, a common ratio of 150% is set. As one example, at least $150 worth of ETH would be collateral in order to issue $100 of the DAI stablecoin. Stablecoins in this category include:</p>
+<ul>
+<li>Maker Dai (DAI)</li>
+<li>Synthetix (sUSD)</li>
+<li>Reserve Tokens (RSV)</li>
+</ul>
+<p> </p>
+</div>
+<div id="using-stablecoins" class="section level2">
+<h2>## Using Stablecoins</h2>
+<p>At first, I never understood the purpose of stablecoins. I asked myself why would I want something that would not have massive gains. Stablecoins can be used to protect the crypto portfolio from sudden drops in price.</p>
+<p>If almost all crypto prices crash and have their prices go down by 40%, stablecoins will still hold a lot of their value. Think of stablecoins as shields against market crashes. Converting crypto gains into stablecoins sounds like a good strategy. After price drops or even crashes, the held stablecoins can be used to buy the dips in hopes/expectations of the cryptos going back up in price.</p>
 <hr />
-<p><strong>Math Resume</strong></p>
-<p><a href="./mathTutoringToronto.html">Math Resume</a></p>
+<p>I would not be the best person to ask for how much stablecoins you should have. Maybe 10-20% of the portfolio in stablecoins. That way you have stablecoins on hand to buy any crypto that is heavily discounted and expected to go up.</p>
+<p> </p>
+</div>
+<div id="references-links" class="section level2">
+<h2>## References &amp; Links:</h2>
+<ul>
+<li><a href="https://defirate.com/stablecoins/" class="uri">https://defirate.com/stablecoins/</a></li>
+<li><a href="https://www.youtube.com/watch?v=GsSSLDzKCOE" class="uri">https://www.youtube.com/watch?v=GsSSLDzKCOE</a></li>
+<li><a href="https://www.youtube.com/watch?v=Q3tunUaDwN0" class="uri">https://www.youtube.com/watch?v=Q3tunUaDwN0</a></li>
+</ul>
+<p> </p>
+</div>
 
 
 
@@ -333,7 +340,7 @@ $(document).ready(function () {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -351,7 +358,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>
