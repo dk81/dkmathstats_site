@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Coinbase Data in R &amp; Candlestick Charts</title>
+
+<script src="site_libs/jquery-3.5.1/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.9.4.1/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="site_libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-1.57.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="site_libs/plotly-main-1.57.1/plotly-latest.min.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming</a>
+</li>
+<li>
+  <a href="python_projects.html">Python Items</a>
+</li>
+<li>
+  <a href="crypto_page.html">Crypto Items</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Coinbase Data in R &amp; Candlestick Charts</h1>
+
+</div>
+
+
+<p>In this personal project, I use R programming to obtain cryptocurrency price data from Coinbase. Coinbase is a well-known cryptocurrency exchange for buying, selling and trading cryptocurrencies.</p>
+<p>Reference: <a href="https://www.cryptodatadownload.com/blog/how-to-download-coinbase-price-data-R.html" class="uri">https://www.cryptodatadownload.com/blog/how-to-download-coinbase-price-data-R.html</a></p>
+<div id="topics" class="section level2">
+<h2>## Topics</h2>
+<ul>
+<li>Cryptodatadownload Blog Post On Obtaining Data Into R</li>
+<li>Creating A Function For Producing Candlestick Charts From Coinbase Data</li>
+</ul>
+<p> </p>
+</div>
+<div id="cryptodatadownload-blog-post-on-obtaining-data-into-r" class="section level2">
+<h2>## Cryptodatadownload Blog Post On Obtaining Data Into R</h2>
+<p>Blog Post: <a href="https://www.cryptodatadownload.com/blog/how-to-download-coinbase-price-data-R.html" class="uri">https://www.cryptodatadownload.com/blog/how-to-download-coinbase-price-data-R.html</a></p>
+<p>From the blog post, a script is provided where there is a function which takes a crypto pair and filename as inputs.</p>
+<p>The Coinbase API is called and a .csv file is created based on the filename input. The later sections will build upon this script.</p>
+<p>The script below is better if it is run in RStudio.</p>
+<pre class="r"><code># Reference: https://www.cryptodatadownload.com/blog/how-to-download-coinbase-price-data-R.html
+
+#Import libraries needed
+# Use install.packages(&quot;glue&quot;) if needed
+library(jsonlite)
+library(glue)
+
+# Create a function to retrieve daily data
+retreive_daily_data &lt;- function(pair) {
+  url = glue(&quot;https://api.pro.coinbase.com/products/{pair}/candles?granularity=86400&quot;)
+  columnNames &lt;- c(&#39;unix&#39;, &#39;low&#39;, &#39;high&#39;, &#39;open&#39;, &#39;close&#39;, glue(&#39;{pair} volume&#39;))
+  mydata &lt;- fromJSON(url)
+  df &lt;- as.data.frame(mydata)
+  colnames(df) &lt;- columnNames  # rename the columns
+  
+  write.csv(df, file = filename)
+}
+
+newPair &lt;- &quot;BTC-USD&quot;
+fileName &lt;- glue(&quot;dailyData{newPair}.csv&quot;)
+runFunc &lt;- retreive_daily_data(newPair, filename = fileName)
+runFunc</code></pre>
+<p> </p>
+</div>
+<div id="creating-a-function-for-producing-candlestick-charts-from-coinbase-data" class="section level2">
+<h2>## Creating A Function For Producing Candlestick Charts From Coinbase Data</h2>
+<p>What if I do not want to write a .csv file and want to work with the data right away?</p>
+<p>I have modified the blog post script. It is a function which takes in a crypto trading pair as the only input. The function extracts crypto data from Coinbase’s API.</p>
+<p>Column names are renamed and UNIX times are converted into a datetime.</p>
+<p>Candlestick price charts are produced as the output with the use of plotly. Plotly is nice as it is interactive compared to ggplot2.</p>
+<p> </p>
+<p><strong>About Granularity</strong></p>
+<p>Reference: <a href="https://docs.pro.coinbase.com/?r=1#get-historic-rates\" class="uri">https://docs.pro.coinbase.com/?r=1#get-historic-rates\</a></p>
+<p>At first, I was confused about the granularity part. I asked myself why it was 86400. This 86400 represents 86400 seconds in a day. Setting the granularity to 86400 means that the obtained data would be daily price data.</p>
+<p>Setting the granularity to 60 means price data every minute. Having the granularity at 300 would be every 5 minutes price data.</p>
+<p>For the candlestick plotting, I am doing daily data. The granularity is at 86400.</p>
+<pre class="r"><code>library(tidyr)
+library(dplyr)
+library(ggplot2)
+library(plotly)
+library(jsonlite)
+library(glue)</code></pre>
+<pre class="r"><code># Function Creation:
+coinbase_candlestick_plot &lt;- function(pair){
+  
+  # Obtain url given the crypto pair
+  url = glue(&quot;https://api.pro.coinbase.com/products/{pair}/candles?granularity=86400&quot;)
+  crypto_data &lt;- fromJSON(url)
+  df &lt;- as.data.frame(crypto_data)
+  
+  # Renaming column names:
+  columnNames &lt;- c(&#39;unix&#39;, &#39;low&#39;, &#39;high&#39;, &#39;open&#39;, &#39;close&#39;, glue(&#39;{pair} volume&#39;))
+  colnames(df) &lt;- columnNames
+  
+  # Change unix epoch time into date, change column names.
+  df$unix &lt;- as.POSIXct(df$unix, origin = &#39;1970-01-01&#39;, tz = &#39;GMT&#39;)
+  
+  colnames(df) &lt;- c(&#39;Date&#39;, &#39;Low&#39;, &#39;High&#39;, &#39;Open&#39;, &#39;Close&#39;, &#39;Volume&#39;)
+  
+  # Plotly Candlestick Chart
+  df %&gt;% plot_ly(x = ~Date, type=&quot;candlestick&quot;,
+                                 open = ~Open, close = ~Close,
+                                 high = ~High, low = ~Low) %&gt;% 
+  layout(title = paste(&quot;Basic Candlestick Chart Of&quot;, pair, &quot;\n&quot;),
+        xaxis = list(rangeslider = list(visible = F)),
+        yaxis = list(title = paste0(pair, &#39; Price \n&#39;)))
+}</code></pre>
+<p> </p>
+<hr />
+<div id="some-function-calls" class="section level3">
+<h3>Some Function Calls</h3>
+<p>Not that the function for the plot is created. Some function calls can be performed to produce some candlestick price charts on various crypto trading pairs.</p>
+<p>There are many crypto trading pairs out there on Coinbase. You can use <a href="https://coinmarketcap.com/exchanges/coinbase-exchange/">Coinmarketcap’s website</a> or Coingecko to look at available crypto trading pairs.</p>
+<p> </p>
+<pre class="r"><code># Function call #1 (Ethereum priced in USDT/Tether):
+
+coinbase_candlestick_plot(&quot;ETH-USDT&quot;)</code></pre>
+<div id="htmlwidget-b953f043587c42b87e21" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b953f043587c42b87e21">{"x":{"visdat":{"594532f7daf":["function () ","plotlyVisDat"]},"cur_data":"594532f7daf","attrs":{"594532f7daf":{"x":{},"open":{},"close":{},"high":{},"low":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"candlestick"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Basic Candlestick Chart Of ETH-USDT <br />","xaxis":{"domain":[0,1],"automargin":true,"rangeslider":{"visible":false},"title":"Date"},"yaxis":{"domain":[0,1],"automargin":true,"title":"ETH-USDT Price <br />"},"hovermode":"closest","showlegend":false},"source":"A","config":{"showSendToCloud":false},"data":[{"x":["2021-07-28 00:00:00.000000","2021-07-27 00:00:00.000000","2021-07-26 00:00:00.000000","2021-07-25 00:00:00.000000","2021-07-24 00:00:00.000000","2021-07-23 00:00:00.000000","2021-07-22 00:00:00.000000","2021-07-21 00:00:00.000000","2021-07-20 00:00:00.000000","2021-07-19 00:00:00.000000","2021-07-18 00:00:00.000000","2021-07-17 00:00:00.000000","2021-07-16 00:00:00.000000","2021-07-15 00:00:00.000000","2021-07-14 00:00:00.000000","2021-07-13 00:00:00.000000","2021-07-12 00:00:00.000000","2021-07-11 00:00:00.000000","2021-07-10 00:00:00.000000","2021-07-09 00:00:00.000000","2021-07-08 00:00:00.000000","2021-07-07 00:00:00.000000","2021-07-06 00:00:00.000000","2021-07-05 00:00:00.000000","2021-07-04 00:00:00.000000","2021-07-03 00:00:00.000000","2021-07-02 00:00:00.000000","2021-07-01 00:00:00.000000","2021-06-30 00:00:00.000000","2021-06-29 00:00:00.000000","2021-06-28 00:00:00.000000","2021-06-27 00:00:00.000000","2021-06-26 00:00:00.000000","2021-06-25 00:00:00.000000","2021-06-24 00:00:00.000000","2021-06-23 00:00:00.000000","2021-06-22 00:00:00.000000","2021-06-21 00:00:00.000000","2021-06-20 00:00:00.000000","2021-06-19 00:00:00.000000","2021-06-18 00:00:00.000000","2021-06-17 00:00:00.000000","2021-06-16 00:00:00.000000","2021-06-15 00:00:00.000000","2021-06-14 00:00:00.000000","2021-06-13 00:00:00.000000","2021-06-12 00:00:00.000000","2021-06-11 00:00:00.000000","2021-06-10 00:00:00.000000","2021-06-09 00:00:00.000000","2021-06-08 00:00:00.000000","2021-06-07 00:00:00.000000","2021-06-06 00:00:00.000000","2021-06-05 00:00:00.000000","2021-06-04 00:00:00.000000","2021-06-03 00:00:00.000000","2021-06-02 00:00:00.000000","2021-06-01 00:00:00.000000","2021-05-31 00:00:00.000000","2021-05-30 00:00:00.000000","2021-05-29 00:00:00.000000","2021-05-28 00:00:00.000000","2021-05-27 00:00:00.000000","2021-05-26 00:00:00.000000","2021-05-25 00:00:00.000000","2021-05-24 00:00:00.000000","2021-05-23 00:00:00.000000","2021-05-22 00:00:00.000000","2021-05-21 00:00:00.000000","2021-05-20 00:00:00.000000","2021-05-19 00:00:00.000000","2021-05-18 00:00:00.000000","2021-05-17 00:00:00.000000","2021-05-16 00:00:00.000000","2021-05-15 00:00:00.000000","2021-05-14 00:00:00.000000","2021-05-13 00:00:00.000000","2021-05-12 00:00:00.000000","2021-05-11 00:00:00.000000","2021-05-10 00:00:00.000000","2021-05-09 00:00:00.000000","2021-05-08 00:00:00.000000","2021-05-07 00:00:00.000000","2021-05-06 00:00:00.000000","2021-05-05 00:00:00.000000","2021-05-04 00:00:00.000000"],"open":[2298.66,2226.64,2190.7,2185.44,2129.9,2025.43,1995.51,1787.35,1816.55,1891.27,1901.47,1875.85,1920.75,1996.5,1941.79,2031.55,2139.37,2115.4,2146.78,2115.03,2314.49,2319.47,2198.11,2318.24,2224.81,2159.41,2105.08,2274.15,2164.24,2084.28,1986.18,1830.7,1808.55,1991.28,1968.71,1877.52,1887.23,2246.25,2165.08,2231.42,2369.64,2365.48,2537.1,2580.87,2515.27,2370,2355,2467.32,2610.95,2502.82,2590.84,2717.32,2629.74,2691.74,2858.91,2700.23,2636.36,2705.49,2377.97,2276.63,2409.64,2741.3,2885.26,2708.63,2647.23,2096.39,2290.29,2431.63,2764.33,2440.76,3375.12,3284.19,3580.35,3646.18,4072.22,3717.15,3819.7,4173.1,3936.73,3925.86,3912.65,3478.78,3491.23,3525.7,3243.1,3295],"close":[2286.88,2302.76,2229.2,2189.34,2184.7,2126.6,2026.56,1995.99,1786.39,1818.06,1890.63,1901.36,1875.75,1918.13,1993.18,1941.61,2031.67,2140.87,2114.16,2147.79,2115.13,2316.5,2319.28,2198.15,2322.12,2226.3,2155.56,2109.78,2274.82,2164.8,2083.78,1986.56,1829.71,1810.38,1994.03,1969.07,1879.37,1886.43,2245.46,2164.73,2232.37,2370.49,2364.37,2542.17,2581.02,2511.18,2370,2353.09,2469.03,2611.91,2503.49,2594.32,2717.4,2629.19,2689.86,2857.21,2703.2,2635.26,2705.49,2382.78,2279.81,2410,2738.81,2884.28,2705.64,2647.27,2093.52,2294.01,2429.85,2767.19,2439.25,3374.43,3281.34,3582.43,3639.2,4073.71,3718.58,3829.13,4171.51,3945.94,3921.53,3909.9,3483.09,3490.42,3524.34,3242.5],"high":[2344.59,2319.34,2432.16,2196.26,2198.34,2130.41,2045.85,2031.81,1840.58,1918.01,1993.27,1918.95,1964.95,2040,2019.69,2046.1,2168.14,2173.27,2192.17,2188.04,2325.39,2408.75,2348.63,2322.6,2389.13,2239.7,2158.62,2274.15,2288.04,2244.42,2144.49,1986.56,1852.56,2019.66,2035.43,2044.65,1994.28,2260.17,2276.86,2277.84,2376.63,2460.68,2555.3,2639.53,2608.4,2548.22,2452.15,2497.06,2623.21,2625.97,2620.35,2847.32,2742.73,2816.14,2859.36,2890.94,2803.1,2740.18,2720.93,2476.49,2572.96,2761.53,2889,2910.85,2750.01,2680.17,2380.08,2484.89,2935.74,3001.99,3439.15,3563.57,3584.88,3878.34,4131.59,4173.09,4036.07,4374.28,4179.58,4205.87,3983.97,3955.8,3588,3606.11,3545.37,3525],"low":[2244.02,2150.41,2171.96,2107.6,2106.84,1995.75,1947.23,1754.57,1719.72,1805,1879.08,1845.69,1850,1881.85,1865.3,1917.53,2007.73,2082.01,2075,2049,2085.72,2293.69,2193.9,2158.78,2189.75,2113.66,2018.6,2074.77,2088.82,2074.19,1961.36,1807.77,1717.62,1792.5,1886.35,1822.31,1700.72,1866.24,2042.06,2161.64,2139.06,2307,2351.06,2509.41,2461.83,2308.06,2258.53,2322.12,2426.61,2405.9,2300,2565.83,2613.98,2535.37,2551.83,2663.19,2551.38,2508.93,2272.85,2179.38,2206.25,2320.75,2635.44,2643.6,2381.01,2081.39,1729.06,2153.82,2100,2154.31,1834.68,3240.5,3118.02,3328.81,3632.91,3692.62,3500,3748.8,3772.11,3644.94,3726.38,3450.67,3354.99,3376.99,3206.4,3171.83],"type":"candlestick","line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p> </p>
+<pre class="r"><code># Function call #2 (Solana/SOL priced in USDT/Tether) :
+
+coinbase_candlestick_plot(&quot;SOL-USDT&quot;)</code></pre>
+<div id="htmlwidget-97bee90ba5be393a042c" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-97bee90ba5be393a042c">{"x":{"visdat":{"594db82290":["function () ","plotlyVisDat"]},"cur_data":"594db82290","attrs":{"594db82290":{"x":{},"open":{},"close":{},"high":{},"low":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"candlestick"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Basic Candlestick Chart Of SOL-USDT <br />","xaxis":{"domain":[0,1],"automargin":true,"rangeslider":{"visible":false},"title":"Date"},"yaxis":{"domain":[0,1],"automargin":true,"title":"SOL-USDT Price <br />"},"hovermode":"closest","showlegend":false},"source":"A","config":{"showSendToCloud":false},"data":[{"x":["2021-07-28 00:00:00.000000","2021-07-27 00:00:00.000000","2021-07-26 00:00:00.000000","2021-07-25 00:00:00.000000","2021-07-24 00:00:00.000000","2021-07-23 00:00:00.000000","2021-07-22 00:00:00.000000","2021-07-21 00:00:00.000000","2021-07-20 00:00:00.000000","2021-07-19 00:00:00.000000","2021-07-18 00:00:00.000000","2021-07-17 00:00:00.000000","2021-07-16 00:00:00.000000","2021-07-15 00:00:00.000000","2021-07-14 00:00:00.000000","2021-07-13 00:00:00.000000","2021-07-12 00:00:00.000000","2021-07-11 00:00:00.000000","2021-07-10 00:00:00.000000","2021-07-09 00:00:00.000000","2021-07-08 00:00:00.000000","2021-07-07 00:00:00.000000","2021-07-06 00:00:00.000000","2021-07-05 00:00:00.000000","2021-07-04 00:00:00.000000","2021-07-03 00:00:00.000000","2021-07-02 00:00:00.000000","2021-07-01 00:00:00.000000","2021-06-30 00:00:00.000000","2021-06-29 00:00:00.000000","2021-06-28 00:00:00.000000","2021-06-27 00:00:00.000000","2021-06-26 00:00:00.000000","2021-06-25 00:00:00.000000","2021-06-24 00:00:00.000000","2021-06-23 00:00:00.000000","2021-06-22 00:00:00.000000","2021-06-21 00:00:00.000000","2021-06-20 00:00:00.000000","2021-06-19 00:00:00.000000","2021-06-18 00:00:00.000000","2021-06-17 00:00:00.000000"],"open":[28.088,28.151,28.137,28.576,28.343,27.772,26.544,23.502,24.579,26.533,26.789,26.214,28.364,31.259,29.042,30.651,32.131,31.75,33.285,32.912,36.576,34.231,33.164,34.066,34.517,34.072,33.169,35.291,33.689,33.012,31.788,29.509,28.487,31.169,30.968,26.818,26.605,35.31,35.299,36.711,39.152,39.71],"close":[28.099,28.081,28.264,28.142,28.541,28.511,27.665,26.628,23.408,24.502,26.629,26.759,26.288,28.542,31.315,29.13,30.701,32.15,31.726,33.288,33.09,36.581,34.16,32.954,34.103,34.528,34.054,33.2,35.488,33.904,33.012,31.789,29.705,28.906,31.18,31.154,26.933,26.674,35.31,35.148,36.754,39.178],"high":[28.748,28.969,31.103,28.899,29.501,28.639,28.112,27.424,24.945,26.533,27.758,27.74,29.436,31.491,31.437,31.086,32.672,32.555,34.196,34.429,36.884,38.064,35.02,34.434,35.5,35.376,34.129,35.442,35.998,35.797,34.294,31.95,30.071,32.969,32.889,32.75,28.763,35.31,35.921,37.278,39.348,39.937],"low":[27.37,26.915,27.6,26.548,28.07,26.392,25.946,22.829,22.15,24,26.278,26,26.22,28,27.5,28.866,30.065,31.368,31.076,32.049,32.726,33.911,33.034,32.455,33.679,33.284,31.428,32.209,31.6,32.739,31.007,29.326,26.728,27.99,28.5,25.692,20.281,26.122,31.393,34.934,35,38.358],"type":"candlestick","line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p> </p>
+<pre class="r"><code># Function call #3 (Polkadot/DOT priced in USDT/Tether) :
+
+coinbase_candlestick_plot(&quot;DOT-USDT&quot;)</code></pre>
+<div id="htmlwidget-256c2346891d105fe977" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-256c2346891d105fe977">{"x":{"visdat":{"59454d1131":["function () ","plotlyVisDat"]},"cur_data":"59454d1131","attrs":{"59454d1131":{"x":{},"open":{},"close":{},"high":{},"low":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"candlestick"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Basic Candlestick Chart Of DOT-USDT <br />","xaxis":{"domain":[0,1],"automargin":true,"rangeslider":{"visible":false},"title":"Date"},"yaxis":{"domain":[0,1],"automargin":true,"title":"DOT-USDT Price <br />"},"hovermode":"closest","showlegend":false},"source":"A","config":{"showSendToCloud":false},"data":[{"x":["2021-07-28 00:00:00.000000","2021-07-27 00:00:00.000000","2021-07-26 00:00:00.000000","2021-07-25 00:00:00.000000","2021-07-24 00:00:00.000000","2021-07-23 00:00:00.000000","2021-07-22 00:00:00.000000","2021-07-21 00:00:00.000000","2021-07-20 00:00:00.000000","2021-07-19 00:00:00.000000","2021-07-18 00:00:00.000000","2021-07-17 00:00:00.000000","2021-07-16 00:00:00.000000","2021-07-15 00:00:00.000000","2021-07-14 00:00:00.000000","2021-07-13 00:00:00.000000","2021-07-12 00:00:00.000000","2021-07-11 00:00:00.000000","2021-07-10 00:00:00.000000","2021-07-09 00:00:00.000000","2021-07-08 00:00:00.000000","2021-07-07 00:00:00.000000","2021-07-06 00:00:00.000000","2021-07-05 00:00:00.000000","2021-07-04 00:00:00.000000","2021-07-03 00:00:00.000000","2021-07-02 00:00:00.000000","2021-07-01 00:00:00.000000","2021-06-30 00:00:00.000000","2021-06-29 00:00:00.000000","2021-06-28 00:00:00.000000","2021-06-27 00:00:00.000000","2021-06-26 00:00:00.000000","2021-06-25 00:00:00.000000","2021-06-24 00:00:00.000000","2021-06-23 00:00:00.000000","2021-06-22 00:00:00.000000","2021-06-21 00:00:00.000000","2021-06-20 00:00:00.000000","2021-06-19 00:00:00.000000","2021-06-18 00:00:00.000000","2021-06-17 00:00:00.000000","2021-06-16 00:00:00.000000"],"open":[14.38,13.927,13.696,13.731,13.354,13.218,12.324,10.932,11.445,12.7,12.265,12.011,13.021,13.777,14.143,14.784,15.425,15.312,15.664,15.286,16.798,16.154,15.201,15.916,15.508,15.236,15.279,16.34,16.28,15.765,14.995,14.585,14.45,16.544,15.817,14.606,15.791,20.75,20.189,21.451,22.469,23.239,23.48],"close":[14.441,14.355,13.918,13.745,13.792,13.384,13.184,12.334,10.938,11.46,12.656,12.301,11.972,13.083,13.777,14.183,14.784,15.492,15.299,15.682,15.306,16.849,16.116,15.243,15.942,15.508,15.331,15.251,16.354,16.273,15.802,15.016,14.59,14.425,16.247,15.927,14.662,15.747,20.655,20.253,21.369,22.507,23.073],"high":[14.747,14.52,15.28,13.835,14.034,13.522,13.377,12.809,11.565,12.7,12.947,12.733,13.304,14.093,14.211,15.088,15.632,15.7,15.998,15.905,16.877,17.649,16.171,15.924,16.552,15.739,15.43,16.34,16.607,17.036,16.033,15.195,14.97,16.735,16.591,16.81,22.896,21.593,20.966,21.65,22.489,24.041,23.691],"low":[13.936,13.407,13.657,13.105,13.129,12.313,11.815,10.676,10.386,11.363,12.26,11.731,11.972,12.739,13.172,14.029,14.426,15.14,15.051,14.849,15.001,16.091,15.2,14.739,15.176,15.033,14.635,14.847,15.1,15.74,14.607,14.059,13.701,14.425,14.77,13.99,13.107,15.685,18.892,20.25,20.193,22.056,22.603],"type":"candlestick","line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

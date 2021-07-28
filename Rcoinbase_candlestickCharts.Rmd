@@ -1,0 +1,157 @@
+---
+title: "Coinbase Data in R & Candlestick Charts"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+In this personal project, I use R programming to obtain cryptocurrency price data from Coinbase. Coinbase is a well-known cryptocurrency exchange for buying, selling and trading cryptocurrencies.
+
+Reference: https://www.cryptodatadownload.com/blog/how-to-download-coinbase-price-data-R.html
+
+## Topics
+---
+
+* Cryptodatadownload Blog Post On Obtaining Data Into R
+* Creating A Function For Producing Candlestick Charts From Coinbase Data
+
+&nbsp;
+
+## Cryptodatadownload Blog Post On Obtaining Data Into R
+---
+
+Blog Post: https://www.cryptodatadownload.com/blog/how-to-download-coinbase-price-data-R.html
+
+From the blog post, a script is provided where there is a function which takes a crypto pair and filename as inputs.
+
+The Coinbase API is called and a .csv file is created based on the filename input. The later sections will build upon this script. 
+
+The script below is better if it is run in RStudio.
+
+```{r, eval = FALSE}
+# Reference: https://www.cryptodatadownload.com/blog/how-to-download-coinbase-price-data-R.html
+
+#Import libraries needed
+# Use install.packages("glue") if needed
+library(jsonlite)
+library(glue)
+
+# Create a function to retrieve daily data
+retreive_daily_data <- function(pair) {
+  url = glue("https://api.pro.coinbase.com/products/{pair}/candles?granularity=86400")
+  columnNames <- c('unix', 'low', 'high', 'open', 'close', glue('{pair} volume'))
+  mydata <- fromJSON(url)
+  df <- as.data.frame(mydata)
+  colnames(df) <- columnNames  # rename the columns
+  
+  write.csv(df, file = filename)
+}
+
+newPair <- "BTC-USD"
+fileName <- glue("dailyData{newPair}.csv")
+runFunc <- retreive_daily_data(newPair, filename = fileName)
+runFunc
+```
+
+&nbsp;
+
+## Creating A Function For Producing Candlestick Charts From Coinbase Data
+---
+
+What if I do not want to write a .csv file and want to work with the data right away? 
+
+I have modified the blog post script. It is a function which takes in a crypto trading pair as the only input. The function extracts crypto data from Coinbase's API.
+
+Column names are renamed and UNIX times are converted into a datetime. 
+
+Candlestick price charts are produced as the output with the use of plotly. Plotly is nice as it is interactive compared to ggplot2.
+
+&nbsp;
+
+**About Granularity**
+
+Reference: https://docs.pro.coinbase.com/?r=1#get-historic-rates\
+
+At first, I was confused about the granularity part. I asked myself why it was 86400. This 86400 represents 86400 seconds in a day. Setting the granularity to 86400 means that the obtained data would be daily price data.
+
+Setting the granularity to 60 means price data every minute. Having the granularity at 300 would be every 5 minutes price data.
+
+For the candlestick plotting, I am doing daily data. The granularity is at 86400.
+
+```{r, echo = TRUE, error = FALSE, warning = FALSE, message = FALSE}
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+library(plotly)
+library(jsonlite)
+library(glue)
+```
+
+```{r}
+
+# Function Creation:
+coinbase_candlestick_plot <- function(pair){
+  
+  # Obtain url given the crypto pair
+  url = glue("https://api.pro.coinbase.com/products/{pair}/candles?granularity=86400")
+  crypto_data <- fromJSON(url)
+  df <- as.data.frame(crypto_data)
+  
+  # Renaming column names:
+  columnNames <- c('unix', 'low', 'high', 'open', 'close', glue('{pair} volume'))
+  colnames(df) <- columnNames
+  
+  # Change unix epoch time into date, change column names.
+  df$unix <- as.POSIXct(df$unix, origin = '1970-01-01', tz = 'GMT')
+  
+  colnames(df) <- c('Date', 'Low', 'High', 'Open', 'Close', 'Volume')
+  
+  # Plotly Candlestick Chart
+  df %>% plot_ly(x = ~Date, type="candlestick",
+                                 open = ~Open, close = ~Close,
+                                 high = ~High, low = ~Low) %>% 
+  layout(title = paste("Basic Candlestick Chart Of", pair, "\n"),
+        xaxis = list(rangeslider = list(visible = F)),
+        yaxis = list(title = paste0(pair, ' Price \n')))
+}
+```
+
+&nbsp;
+
+---
+
+### Some Function Calls
+
+Not that the function for the plot is created. Some function calls can be performed to produce some candlestick price charts on various crypto trading pairs.
+
+There are many crypto trading pairs out there on Coinbase. You can use [Coinmarketcap's website](https://coinmarketcap.com/exchanges/coinbase-exchange/) or Coingecko to look at available crypto trading pairs.
+
+&nbsp;
+
+```{r}
+
+# Function call #1 (Ethereum priced in USDT/Tether):
+
+coinbase_candlestick_plot("ETH-USDT")
+```
+
+&nbsp;
+
+```{r}
+
+# Function call #2 (Solana/SOL priced in USDT/Tether) :
+
+coinbase_candlestick_plot("SOL-USDT")
+```
+
+&nbsp;
+
+```{r}
+
+# Function call #3 (Polkadot/DOT priced in USDT/Tether) :
+
+coinbase_candlestick_plot("DOT-USDT")
+```

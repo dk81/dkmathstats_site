@@ -278,11 +278,18 @@ $(document).ready(function () {
 <p>This page features some works and information from me related to cryptocurrencies. I am somewhat new to the space and will continue to learn.</p>
 <p><strong>Do invest and trade cryptos, stocks and the likes at your own risk.</strong></p>
 <hr />
-<p><strong>Articles, Opinion Pieces</strong></p>
-<p><a href="./stableCoins_notes.html">Notes on Stablecoins</a></p>
+<div id="articles-opinion-pieces" class="section level3">
+<h3>Articles, Opinion Pieces</h3>
+<p> </p>
+<ul>
+<li><a href="./stableCoins_notes.html">Notes on Stablecoins</a></li>
+</ul>
 <p> </p>
 <hr />
-<p><strong>Projects</strong></p>
+</div>
+<div id="projects" class="section level3">
+<h3>Projects</h3>
+<p> </p>
 <p><a href="https://github.com/dk81/jupyterNotebook/blob/master/binance_crypto_data.ipynb">Binance For Crypto Data &amp; Candlestick Charts In Python</a></p>
 <p>The python-binance package along with mplfinance was used to obtain cryptocurrency information from Binance. A candlestick price chart for the BTCUSDT trading pair was produced.</p>
 <p>A more generalized Python function was created which takes in a user trading pair, a start date, an end date and a timeframe of either 1day, 1week or 1 month. The function uses the inputs and outputs a corresponding candlestick price chart.</p>
@@ -290,8 +297,13 @@ $(document).ready(function () {
 <p><a href="https://github.com/dk81/jupyterNotebook/blob/master/kucoin_crypto_python.ipynb">Kucoin Crypto Data &amp; Candlestick Charts In Python</a></p>
 <p>This project is similar to the Binance crypto data project. The Kucoin crypto exchange API is used to connect to Python. Candlestick price charts are produced in this project with the use of the mplfinance Python library.</p>
 <p>A more generalized Python function was created. This function takes in a Kucoin trading pair, a start date, an end date, a timeframe of either 1min, 1 hour, 1day, 1week or 1week and the number of time periods. The function uses the inputs to create a dataframe and uses the data to output a corresponding OHLC candlestick price chart.</p>
+<p> </p>
+<p><a href="./Rcoinbase_candlestickCharts.html">Coinbase Crypto Data In R &amp; Candlestick Price Charts</a></p>
+<p>This <a href="https://www.cryptodatadownload.com/blog/how-to-download-coinbase-price-data-R.html">reference page</a> contains a nice script on extracting cryptocurrency data into R and writing the data into a <code>.csv</code> file.</p>
+<p>I wanted to go a few steps further by modifying the script in order to have the obtained crypto data into a dataframe in R. Once the dataframe is cleaned up, candlestick charts can be produced with the use of <a href="https://plotly.com/r/candlestick-charts/">plotly for R</a>.</p>
 <hr />
 <p> </p>
+</div>
 
 
 
