@@ -36,6 +36,7 @@ In this RShiny web application, I use R, RShiny and Quandl to present various fi
 * Gold & Silver Prices
 * Bitcoin Price Provided By Blockchain.com
 * Canadian Mortgage and Housing Corporation Prices
+* Bitfinex Exchange For Crypto Price Data
 
 &nbsp;
 

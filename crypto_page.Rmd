@@ -51,6 +51,12 @@ on extracting cryptocurrency data into R and writing the data into a `.csv` file
 
 I wanted to go a few steps further by modifying the script in order to have the obtained crypto data into a dataframe in R. Once the dataframe is cleaned up, candlestick charts can be produced with the use of [plotly for R](https://plotly.com/r/candlestick-charts/).
 
+&nbsp;
+
+[Quandl Financial Data - Bitfinex Crypto Price Data](https://dkmathstats.shinyapps.io/quandl_financedata_app/)
+
+In late July 2021, I have included a new section in my Quandl Financial Data RShiny app. This new section features crypto price data from the Bitfinex crypto exchange. The free datasets are from Quandl's website. 
+
 ---
 
 
