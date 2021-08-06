@@ -57,6 +57,12 @@ I wanted to go a few steps further by modifying the script in order to have the 
 
 In late July 2021, I have included a new section in my Quandl Financial Data RShiny app. This new section features crypto price data from the Bitfinex crypto exchange. The free datasets are from Quandl's website. 
 
+&nbsp;
+
+[The `coinmarketcapr` Package In R For Crypto Data](./coinmarketcap_Rpage.html)
+
+In this page, I explore the `coinmarketcapr` R package for obtaining crypto data. Note that I use the free API service.
+
 ---
 
 

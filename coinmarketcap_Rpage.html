@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>coinmarketcap_R_page</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Programming</a>
+</li>
+<li>
+  <a href="python_projects.html">Python Items</a>
+</li>
+<li>
+  <a href="crypto_page.html">Crypto Items</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">coinmarketcap_R_page</h1>
+
+</div>
+
+
+<div id="coinmarketcap-crypto-data-into-r" class="section level2">
+<h2>## Coinmarketcap Crypto Data into R</h2>
+<p>Hi there. In this page, I go over working with Coinmarketcap cryptocurrency data in R. The main library is <code>coinmarketcapr</code>. For installation you use <code>install.packages("coinmarketcapr")</code>.</p>
+<p>Documentation/References:</p>
+<ul>
+<li><a href="https://cran.r-project.org/web/packages/coinmarketcapr/coinmarketcapr.pdf" class="uri">https://cran.r-project.org/web/packages/coinmarketcapr/coinmarketcapr.pdf</a></li>
+<li><a href="https://amrrs.github.io/coinmarketcapr/reference/index.html" class="uri">https://amrrs.github.io/coinmarketcapr/reference/index.html</a></li>
+<li><a href="https://www.youtube.com/watch?v=IYgkHUmly58" class="uri">https://www.youtube.com/watch?v=IYgkHUmly58</a></li>
+</ul>
+<p> </p>
+</div>
+<div id="setup-of-coinmarketcap-api" class="section level2">
+<h2>## Setup Of Coinmarketcap API</h2>
+<p>To be able to access the Coinmarketcap API, you do need an API key. Registration to Coinmarketcap is free if you choose the basic free subscription. The pricing link is <a href="https://coinmarketcap.com/api/pricing/">here</a>.</p>
+<p>Under the free subscription you do not get full features so some of the functions presented here will not work. Paying more per month will allow for more access to more market data endpoints and for commercial use.</p>
+<p>Once an API key is obtained, start with loading the <code>coinmarketcapr</code> package and using <code>setup()</code> with the API key.</p>
+<p> </p>
+<pre class="r"><code># Load packages:
+library(coinmarketcapr)
+
+# Setup:
+
+setup(api_key = &quot;&lt;api_key&gt;&quot;)</code></pre>
+<p> </p>
+</div>
+<div id="various-functions-in-coinmarketcapr" class="section level2">
+<h2>## Various Functions In coinmarketcapr</h2>
+<p>This section deals with various functions in the <code>coinmarketcapr</code> package. I wanted to explore this package.</p>
+<p> </p>
+<p><strong>Get API Info</strong></p>
+<pre class="r"><code># Obtain global market cap details into a dataframe:
+
+# Obtaining API info
+# Returns API Key details and usage stats, outputs dataframe with API key info.
+
+get_api_info()</code></pre>
+<pre><code>##    plan_credit_limit_daily plan_credit_limit_daily_reset
+## 1:                     333        In 3 hours, 54 minutes
+##    plan_credit_limit_daily_reset_timestamp plan_credit_limit_monthly
+## 1:                              2021-08-07                     10000
+##    plan_credit_limit_monthly_reset plan_credit_limit_monthly_reset_timestamp
+## 1: In 25 days, 3 hours, 54 minutes                                2021-09-01
+##    plan_rate_limit_minute usage_current_minute_requests_made
+## 1:                     30                                  0
+##    usage_current_minute_requests_left usage_current_day_credits_used
+## 1:                                 30                              9
+##    usage_current_day_credits_left usage_current_month_credits_used
+## 1:                            324                              210
+##    usage_current_month_credits_left
+## 1:                             9790</code></pre>
+<p> </p>
+<p><strong>Active Cryptos With Latest Market Data</strong></p>
+<pre class="r"><code># Obtaining active Cryptocurrencies with latest market data, currency is USD as default
+# Output is a big dataframe.
+
+crypto_listings &lt;- get_crypto_listings(currency = &quot;USD&quot;, latest = TRUE)
+
+head(crypto_listings)</code></pre>
+<pre><code>##      id         name symbol         slug num_market_pairs date_added
+## 1:    1      Bitcoin    BTC      bitcoin             8938 2013-04-28
+## 2: 1027     Ethereum    ETH     ethereum             5640 2015-08-07
+## 3:  825       Tether   USDT       tether            16451 2015-02-25
+## 4: 1839 Binance Coin    BNB binance-coin              538 2017-07-25
+## 5: 2010      Cardano    ADA      cardano              283 2017-10-01
+## 6:   52          XRP    XRP          xrp              627 2013-08-04
+##                                                                                                                       tags
+## 1:                                      mineable,pow,sha-256,store-of-value,state-channels,coinbase-ventures-portfolio,...
+## 2:                    mineable,pow,smart-contracts,ethereum,coinbase-ventures-portfolio,three-arrows-capital-portfolio,...
+## 3:                                        payments,stablecoin,stablecoin-asset-backed,avalanche-ecosystem,solana-ecosystem
+## 4:    marketplace,centralized-exchange,payments,binance-smart-chain,alameda-research-portfolio,multicoin-capital-portfolio
+## 5:                                                                 mineable,dpos,pos,platform,research,smart-contracts,...
+## 6: medium-of-exchange,enterprise-solutions,binance-chain,arrington-xrp-capital,galaxy-digital-portfolio,a16z-portfolio,...
+##     max_supply circulating_supply total_supply cmc_rank        last_updated
+## 1: 2.10000e+07           18778193     18778193        1 2021-08-06 20:04:00
+## 2:          NA          116996930    116996930        2 2021-08-06 20:04:00
+## 3:          NA        62001013281  63468847060        3 2021-08-06 20:03:00
+## 4: 1.68137e+08          168137036    168137036        4 2021-08-06 20:03:00
+## 5: 4.50000e+10        32112443766  32959337588        5 2021-08-06 20:03:00
+## 6: 1.00000e+11        46363275151  99990326429        6 2021-08-06 20:04:00
+##    platform_id platform_name platform_symbol platform_slug
+## 1:          NA          &lt;NA&gt;            &lt;NA&gt;          &lt;NA&gt;
+## 2:          NA          &lt;NA&gt;            &lt;NA&gt;          &lt;NA&gt;
+## 3:        1027      Ethereum             ETH      ethereum
+## 4:          NA          &lt;NA&gt;            &lt;NA&gt;          &lt;NA&gt;
+## 5:          NA          &lt;NA&gt;            &lt;NA&gt;          &lt;NA&gt;
+## 6:          NA          &lt;NA&gt;            &lt;NA&gt;          &lt;NA&gt;
+##                        platform_token_address    USD_price USD_volume_24h
+## 1:                                       &lt;NA&gt; 4.292174e+04    37962715007
+## 2:                                       &lt;NA&gt; 2.936934e+03    27054730531
+## 3: 0xdac17f958d2ee523a2206206994597c13d831ec7 1.000166e+00    69002699960
+## 4:                                       &lt;NA&gt; 3.431555e+02     1580943461
+## 5:                                       &lt;NA&gt; 1.410246e+00     1864507561
+## 6:                                       &lt;NA&gt; 7.514224e-01     2461340210
+##    USD_percent_change_1h USD_percent_change_24h USD_percent_change_7d
+## 1:            0.17564716             4.44514165             7.8248419
+## 2:            0.58505076             4.60431927            23.3565910
+## 3:           -0.00072023            -0.01605977            -0.0153554
+## 4:           -0.73375983             1.51556217             8.9369488
+## 5:           -0.03516782             1.74553905            10.0795191
+## 6:            0.48498386             2.80193874             1.3809539
+##    USD_percent_change_30d USD_percent_change_60d USD_percent_change_90d
+## 1:            24.01043338            20.35837583           -27.25721803
+## 2:            24.16916020             7.73737170           -23.06513775
+## 3:             0.00764765            -0.03749172             0.02686356
+## 4:             1.68572186           -11.71996224           -47.45190688
+## 5:            -0.43556725           -15.95053604           -12.66593211
+## 6:            12.74767104           -19.19466608           -52.28860499
+##    USD_market_cap    USD_last_updated
+## 1:   805992716235 2021-08-06 20:04:00
+## 2:   343612232405 2021-08-06 20:04:00
+## 3:    62011332480 2021-08-06 20:03:00
+## 4:    57697143145 2021-08-06 20:03:00
+## 5:    45286455833 2021-08-06 20:03:00
+## 6:    34838405264 2021-08-06 20:04:00</code></pre>
+<p> </p>
+<p><strong>Crypto Map</strong></p>
+<p>It appears that the information from <code>get_crypto_map()</code> is a subset from <code>get_crypto_listings()</code>.</p>
+<pre class="r"><code># get_crpyto_map() gets all active cryptos supported by platform incl unique id for each crypto
+
+get_crypto_map()</code></pre>
+<pre><code>##          id               name  symbol               slug rank is_active
+##    1:     1            Bitcoin     BTC            bitcoin    1         1
+##    2:     2           Litecoin     LTC           litecoin   15         1
+##    3:     3           Namecoin     NMC           namecoin  686         1
+##    4:     4          Terracoin     TRC          terracoin 1828         1
+##    5:     5           Peercoin     PPC           peercoin  638         1
+##   ---                                                                   
+## 5943: 11173            BabySun BabySun            babysun 2943         1
+## 5944: 11174         Dirty Doge   DDOGE         dirty-doge 3073         1
+## 5945: 11175          SafeVault   VAULT          safevault 3189         1
+## 5946: 11178 Wrapped LUNA Token   WLUNA wrapped-luna-token 2804         1
+## 5947: 11180      Rewards Token REWARDS      rewards-token 3180         1
+##       first_historical_data last_historical_data platform_id
+##    1:   2013-04-28 18:47:00  2021-08-06 19:59:00          NA
+##    2:   2013-04-28 18:47:00  2021-08-06 19:59:00          NA
+##    3:   2013-04-28 18:47:00  2021-08-06 19:59:00          NA
+##    4:   2013-04-28 18:47:00  2021-08-06 19:59:00          NA
+##    5:   2013-04-28 18:47:00  2021-08-06 19:59:00          NA
+##   ---                                                       
+## 5943:   2021-08-05 19:48:00  2021-08-06 19:58:00        1839
+## 5944:   2021-08-05 23:15:00  2021-08-06 19:50:00        1839
+## 5945:   2021-08-06 11:03:00  2021-08-06 19:58:00        1839
+## 5946:   2021-08-06 16:00:00  2021-08-06 19:55:00        1027
+## 5947:   2021-08-06 19:57:00  2021-08-06 19:57:00        1839
+##             platform_name platform_symbol platform_slug
+##    1:                &lt;NA&gt;            &lt;NA&gt;          &lt;NA&gt;
+##    2:                &lt;NA&gt;            &lt;NA&gt;          &lt;NA&gt;
+##    3:                &lt;NA&gt;            &lt;NA&gt;          &lt;NA&gt;
+##    4:                &lt;NA&gt;            &lt;NA&gt;          &lt;NA&gt;
+##    5:                &lt;NA&gt;            &lt;NA&gt;          &lt;NA&gt;
+##   ---                                                  
+## 5943: Binance Smart Chain             BNB  binance-coin
+## 5944: Binance Smart Chain             BNB  binance-coin
+## 5945: Binance Smart Chain             BNB  binance-coin
+## 5946:            Ethereum             ETH      ethereum
+## 5947: Binance Smart Chain             BNB  binance-coin
+##                           platform_token_address
+##    1:                                       &lt;NA&gt;
+##    2:                                       &lt;NA&gt;
+##    3:                                       &lt;NA&gt;
+##    4:                                       &lt;NA&gt;
+##    5:                                       &lt;NA&gt;
+##   ---                                           
+## 5943: 0xca40882bec9B7e77401652E6d0bfeC9C168BB56B
+## 5944: 0x37f963a1a358308a0daac0f8ebeb23ca18cf00b9
+## 5945: 0xe2e6e66551E5062Acd56925B48bBa981696CcCC2
+## 5946: 0xd2877702675e6ceb975b4a1dff9fb7baf4c91ea9
+## 5947: 0x7B5B3BC6890c1dE78FeDE739C1b02D2e51B1b58c</code></pre>
+<p> </p>
+<p><strong>Crypto Market Pairs</strong></p>
+<p>Using <code>get_crypto_marketpairs()</code> did not work for me. It is supposed to get a list of active market pairs that Coinmarketcap has given a crypto. I tried <code>get_crypto_marketpairs(slug = "bitcoin")</code> and got no results. I think it does not work under the free API subscription.</p>
+<p>If you put BTC, you can get something like BTCUSDT, BTCETH and so on as market pairs.</p>
+<p> </p>
+<p><strong>Get Crypto Metadata</strong></p>
+<p>Using <code>get_crypto_meta()</code> will retrieve static metadata for one or more cryptos. The description part for the crypto gives insights on what the crypto is about.</p>
+<pre class="r"><code># Get Crypto Metadata:
+
+# Bitcoin:
+get_crypto_meta(symbol = &quot;BTC&quot;)</code></pre>
+<pre><code>##    id    name symbol category
+## 1:  1 Bitcoin    BTC     coin
+##                                                                                                                                                                                                                                                                                                                                                                                                   description
+## 1: Bitcoin (BTC) is a cryptocurrency . Users are able to generate BTC through the process of mining. Bitcoin has a current supply of 18,778,193. The last known price of Bitcoin is 42,941.26536699 USD and is up 5.23 over the last 24 hours. It is currently trading on 8938 active market(s) with $37,999,772,955.16 traded over the last 24 hours. More information can be found at https://bitcoin.org/.
+##       slug                                                      logo subreddit
+## 1: bitcoin https://s2.coinmarketcap.com/static/img/coins/64x64/1.png   bitcoin
+##    notice     tags tag_names tag_groups _https___bitcoin_org__ platform
+## 1:        mineable  Mineable      OTHER   https://bitcoin.org/       NA
+##    date_added twitter_username is_hidden
+## 1: 2013-04-28                          0</code></pre>
+<pre class="r"><code># DAG is Constellation
+get_crypto_meta(symbol = &quot;DAG&quot;)</code></pre>
+<pre><code>##      id          name symbol category
+## 1: 2868 Constellation    DAG     coin
+##                                                                                                                                                                                                                                                                                                                                                                                                                            description
+## 1: Constellation (DAG) is a cryptocurrency launched in 2018. Constellation has a current supply of 3,711,998,690.36 with 1,266,911,931.0440834 in circulation. The last known price of Constellation is 0.21477047 USD and is down -6.11 over the last 24 hours. It is currently trading on 9 active market(s) with $4,170,418.70 traded over the last 24 hours. More information can be found at https://www.constellationnetwork.io.
+##             slug                                                         logo
+## 1: constellation https://s2.coinmarketcap.com/static/img/coins/64x64/2868.png
+##        subreddit notice tags tag_names          tag_groups
+## 1: constellation         dag       DAG CONSENSUS_ALGORITHM
+##    _https___www_constellationnetwork_io_ platform date_added twitter_username
+## 1:   https://www.constellationnetwork.io       NA 2018-06-20    Conste11ation
+##    is_hidden
+## 1:         0</code></pre>
+<p> </p>
+<p><strong>Open, High, Low, Close, Volume (OHLCV)</strong></p>
+<p>I tried obtaining OHLCV price data on Bitcoin with <code>get_crypto_ohlcv(currency = "USD", latest = TRUE, symbol = "BTC")</code> but it did not work.</p>
+<p>I think you need the <a href="https://coinmarketcap.com/api/pricing/">startup plan from Coinmarketcap</a>. If access was granted I would use the price data to produce candlestick charts with plotly in R.</p>
+<p> </p>
+<p><strong>Get Crypto Quotes</strong></p>
+<p>Using <code>get_crypto_quotes()</code> retrieves the latest/historical market quotes based on the crypto inputs.</p>
+<pre class="r"><code># Get Crypto Quotes:
+
+get_crypto_quotes(symbol = c(&quot;BTC&quot;, &quot;ETH&quot;))</code></pre>
+<pre><code>##      id     name symbol     slug num_market_pairs date_added     tags
+## 1:    1  Bitcoin    BTC  bitcoin             8938 2013-04-28 mineable
+## 2: 1027 Ethereum    ETH ethereum             5640 2015-08-07 mineable
+##    max_supply circulating_supply total_supply is_active platform cmc_rank
+## 1:   21000000           18778193     18778193         1       NA        1
+## 2:         NA          116996930    116996930         1       NA        2
+##    is_fiat        last_updated      quote
+## 1:       0 2021-08-06 20:04:00 &lt;list[10]&gt;
+## 2:       0 2021-08-06 20:04:00 &lt;list[10]&gt;</code></pre>
+<p> </p>
+<p><strong>Get Exchange Map</strong></p>
+<p>I am not entirely sure on this <code>get_exchange_map()</code>. It did not work for me. In the documentation .pdf it mentions about returning a paginated list of all crypto exchanges by Coinmarketcap ID.</p>
+<p> </p>
+<p><strong>Get Exchange Meta</strong></p>
+<p>Using <code>get_exchange_meta()</code> will return metadata for one or more crypto exchanges. Information includes launch date, official website, URL and social links. The function <code>get_exchange_meta(slug = "binance")</code> did not work for me as I think it does not work for the free API service.</p>
+<p> </p>
+<p><strong>Get Global Marketcap</strong></p>
+<p>For extracting the global market cap of the market, use <code>get_global_marketcap()</code>. The marketcap for a crypto is the total volume multiplied by the price. Global market cap would be the total marketcaps for all cryptos.</p>
+<pre class="r"><code># Global marketcap:
+
+get_global_marketcap(currency = &quot;USD&quot;, latest = TRUE)</code></pre>
+<pre><code>##    active_cryptocurrencies total_cryptocurrencies active_market_pairs
+## 1:                    5961                  11178               44830
+##    active_exchanges total_exchanges eth_dominance btc_dominance
+## 1:              391            1434      19.65323      46.20175
+##    eth_dominance_yesterday btc_dominance_yesterday
+## 1:                19.60705                45.81098
+##    eth_dominance_24h_percentage_change btc_dominance_24h_percentage_change
+## 1:                          0.04618065                           0.3907733
+##    defi_volume_24h defi_volume_24h_reported defi_market_cap
+## 1:     11476690878              11476690878     90651854245
+##    defi_24h_percentage_change stablecoin_volume_24h
+## 1:                  -13.88324           79305501649
+##    stablecoin_volume_24h_reported stablecoin_market_cap
+## 1:                    79305501649          113712198551
+##    stablecoin_24h_percentage_change derivatives_volume_24h
+## 1:                         2.536051              1.615e+11
+##    derivatives_volume_24h_reported derivatives_24h_percentage_change
+## 1:                       1.615e+11                         -11.19311
+##    USD_total_market_cap USD_total_volume_24h USD_total_volume_24h_reported
+## 1:         1.743026e+12          99814443527                   99814443527
+##    USD_altcoin_volume_24h USD_altcoin_volume_24h_reported
+## 1:            61812295978                     61812295978
+##    USD_altcoin_market_cap USD_defi_volume_24h USD_defi_volume_24h_reported
+## 1:           937717316855         11476690878                  11476690878
+##    USD_defi_24h_percentage_change USD_defi_market_cap USD_stablecoin_volume_24h
+## 1:                      -13.88324         90651854245               79305501649
+##    USD_stablecoin_volume_24h_reported USD_stablecoin_24h_percentage_change
+## 1:                        79305501649                             2.536051
+##    USD_stablecoin_market_cap USD_derivatives_volume_24h
+## 1:              113712198551                  1.615e+11
+##    USD_derivatives_volume_24h_reported USD_derivatives_24h_percentage_change
+## 1:                           1.615e+11                             -11.19311
+##       USD_last_updated USD_total_market_cap_yesterday
+## 1: 2021-08-06 20:04:11                   1.666489e+12
+##    USD_total_volume_24h_yesterday
+## 1:                    98558407207
+##    USD_total_market_cap_yesterday_percentage_change
+## 1:                                         4.592696
+##    USD_total_volume_24h_yesterday_percentage_change        last_updated
+## 1:                                         1.274408 2021-08-06 20:04:11</code></pre>
+<p> </p>
+<p><strong>Get Valid Currencies</strong></p>
+<p>Use <code>get_valid_currencies()</code> to determine which currencies are supported by CoinMarketCap. This can help with the next function after this which is for price conversions.</p>
+<pre class="r"><code># Valid (fiat) currencies:
+
+get_valid_currencies()</code></pre>
+<pre><code>##  [1] &quot;AUD&quot; &quot;BRL&quot; &quot;CAD&quot; &quot;CHF&quot; &quot;CLP&quot; &quot;CNY&quot; &quot;CZK&quot; &quot;DKK&quot; &quot;EUR&quot; &quot;GBP&quot; &quot;HKD&quot; &quot;HUF&quot;
+## [13] &quot;IDR&quot; &quot;ILS&quot; &quot;INR&quot; &quot;JPY&quot; &quot;KRW&quot; &quot;MXN&quot; &quot;MYR&quot; &quot;NOK&quot; &quot;NZD&quot; &quot;PHP&quot; &quot;PKR&quot; &quot;PLN&quot;
+## [25] &quot;RUB&quot; &quot;SEK&quot; &quot;SGD&quot; &quot;THB&quot; &quot;TRY&quot; &quot;TWD&quot; &quot;ZAR&quot; &quot;USD&quot;</code></pre>
+<p> </p>
+<p><strong>Price Conversion</strong></p>
+<p>I think this function is one of the most useful functions in the <code>coinmarketcapr</code> package. You can convert from a crypto to fiat value with <code>get_price_conversion()</code>. You can also do crypto to crypto as shown in the third example.</p>
+<pre class="r"><code># Convert 0.06 Bitcoin into USD
+get_price_conversion(amount = 0.06, symbol = &quot;BTC&quot;, convert = &quot;USD&quot;)</code></pre>
+<pre><code>##    id symbol    name amount        last_updated USD_price    USD_last_updated
+## 1:  1    BTC Bitcoin   0.06 2021-08-06 20:04:00  2575.304 2021-08-06 20:04:00</code></pre>
+<pre class="r"><code># From 5 Ether to Canadian Dollars
+get_price_conversion(amount = 5, symbol = &quot;ETH&quot;, convert = &quot;CAD&quot;)</code></pre>
+<pre><code>##      id symbol     name amount        last_updated CAD_price
+## 1: 1027    ETH Ethereum      5 2021-08-06 20:04:00  18442.28
+##       CAD_last_updated
+## 1: 2021-08-06 20:04:00</code></pre>
+<pre class="r"><code># 1 ETH to BTC (Bitcoin):
+get_price_conversion(amount = 1, symbol = &quot;ETH&quot;, convert = &quot;BTC&quot;)</code></pre>
+<pre><code>##      id symbol     name amount        last_updated  BTC_price
+## 1: 1027    ETH Ethereum      1 2021-08-06 20:04:00 0.06842532
+##       BTC_last_updated
+## 1: 2021-08-06 20:04:00</code></pre>
+<p> </p>
+<p><strong>Plot Top Currencies</strong></p>
+<p>To plot the top currencies you can use <code>plot_top_currencies()</code>. This did not work for me in the free API service.</p>
+<p> </p>
+</div>
+<div id="price-conversion-program" class="section level2">
+<h2>## Price Conversion Program</h2>
+<p>With the use of the <code>get_price_conversion()</code> from <code>coinmarketcapr</code>, I can create a program that takes inputs and output a requested crypto/fiat currency. The program will convert an amount in crypto only and convert that to an amount based in another crypto or fiat currency.</p>
+<p>This price conversion program is an extension on <code>get_price_conversion()</code>. I add some checks to let the user know if the crypto ticker or fiat currency abbreviation is invalid. Valid tickers/abbreviations will produce an output.</p>
+<p>The <code>dplyr</code> library from R is used for the checks in the if statement. <code>dplyr</code> in R is like <code>pandas</code> in Python for working with dataframes. In Python, I can use the <code>or</code> keyword but in R I need this <code>||</code> operator for or.</p>
+<p>The first if statement checks if the user inputted a valid crypto ticker for the <code>from_currency</code>. Assuming that the first if statement is passed, the second nested if statement checks if the <code>to_currency()</code> input is a valid crypto ticker or fiat currency.</p>
+<p>The <code>%in%</code> keyword helps check if the input does match Coinmarketcap’s valid fiat currency or crypto.</p>
+<p>If the inputs pass the if statements and comes out as true, the function will convert the crypto amount from one to another.</p>
+<pre class="r"><code>library(dplyr)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code># Buliding upon the price conversion function from the library. 
+# From_currency is crypto and to_currency 
+
+crypto_price_converter &lt;- function(amt_to_convert = 1, from_currency = &quot;BTC&quot;, to_currency = &quot;USD&quot;){
+  
+  # Obtain valid fiat currencies:
+  valid_fiat &lt;- get_valid_currencies()
+  
+  # Valid Coinmarketcap crypto tickers from get_crypto_map()
+  cmc_cryptos &lt;- get_crypto_map()$symbol
+  
+  # Check if inputted currencies are in Coinmarketcap&#39;s crypto &amp; fiat currency lists
+  if (from_currency %in% cmc_cryptos){
+    if((to_currency %in% cmc_cryptos) || (to_currency %in% valid_fiat)){
+      return(get_price_conversion(amount = amt_to_convert, symbol = from_currency, convert = to_currency))
+    } else{
+      print(&quot;Invalid converted currency. Please enter a valid crypto/fiat ticker.&quot;)
+    }
+  } else {
+    print(&quot;Please enter in a valid crypto ticker.&quot;)
+  }
+}</code></pre>
+<p> </p>
+<pre class="r"><code># Function Call 1 - 1 Bitcoin to USD
+crypto_price_converter(amt_to_convert = 1, from_currency = &quot;BTC&quot;, to_currency = &quot;USD&quot;)</code></pre>
+<pre><code>##    id symbol    name amount        last_updated USD_price    USD_last_updated
+## 1:  1    BTC Bitcoin      1 2021-08-06 20:04:00  42921.74 2021-08-06 20:04:00</code></pre>
+<p> </p>
+<pre class="r"><code># Function Call 2 - 10 ETH To CAD
+
+crypto_price_converter(amt_to_convert = 10, from_currency = &quot;ETH&quot;, to_currency = &quot;CAD&quot;)</code></pre>
+<pre><code>##      id symbol     name amount        last_updated CAD_price
+## 1: 1027    ETH Ethereum     10 2021-08-06 20:04:00  36884.57
+##       CAD_last_updated
+## 1: 2021-08-06 20:04:00</code></pre>
+<p> </p>
+<pre class="r"><code># Function Call 3 - 200 Solana (SOL) in terms of BTC
+
+crypto_price_converter(amt_to_convert = 200, from_currency = &quot;SOL&quot;, to_currency = &quot;BTC&quot;)</code></pre>
+<pre><code>##      id symbol   name amount        last_updated BTC_price    BTC_last_updated
+## 1: 5426    SOL Solana    200 2021-08-06 20:04:00 0.1860791 2021-08-06 20:04:00</code></pre>
+<p> </p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

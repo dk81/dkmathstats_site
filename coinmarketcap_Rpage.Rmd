@@ -1,0 +1,285 @@
+---
+title: "coinmarketcap_R_page"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Coinmarketcap Crypto Data into R
+---
+
+Hi there. In this page, I go over working with Coinmarketcap cryptocurrency data in R. The main library is `coinmarketcapr`. For installation you use `install.packages("coinmarketcapr")`.
+
+Documentation/References:
+
+* https://cran.r-project.org/web/packages/coinmarketcapr/coinmarketcapr.pdf
+* https://amrrs.github.io/coinmarketcapr/reference/index.html
+* https://www.youtube.com/watch?v=IYgkHUmly58
+
+&nbsp;
+
+## Setup Of Coinmarketcap API
+---
+
+To be able to access the Coinmarketcap API, you do need an API key. Registration to Coinmarketcap is free if you choose the basic free subscription. The pricing link is [here](https://coinmarketcap.com/api/pricing/).
+
+Under the free subscription you do not get full features so some of the functions presented here will not work. Paying more per month will allow for more access to more market data endpoints and for commercial use.
+
+Once an API key is obtained, start with loading the `coinmarketcapr` package and using `setup()` with the API key.
+
+&nbsp;
+
+```{r, warning = FALSE}
+# Load packages:
+library(coinmarketcapr)
+
+# Setup:
+
+setup(api_key = "<api_key>")
+```
+
+
+```{r, include = FALSE}
+# Load packages:
+library(coinmarketcapr)
+
+# Setup:
+
+setup(api_key = "9228a5e9-1100-4e86-8498-0854680d71ad")
+```
+
+
+&nbsp;
+
+
+## Various Functions In coinmarketcapr
+---
+
+This section deals with various functions in the `coinmarketcapr` package. I wanted to explore this package.
+
+&nbsp;
+
+**Get API Info**
+
+```{r}
+# Obtain global market cap details into a dataframe:
+
+# Obtaining API info
+# Returns API Key details and usage stats, outputs dataframe with API key info.
+
+get_api_info()
+
+```
+
+&nbsp;
+
+**Active Cryptos With Latest Market Data**
+
+```{r}
+# Obtaining active Cryptocurrencies with latest market data, currency is USD as default
+# Output is a big dataframe.
+
+crypto_listings <- get_crypto_listings(currency = "USD", latest = TRUE)
+
+head(crypto_listings)
+
+```
+
+&nbsp;
+
+
+**Crypto Map**
+
+It appears that the information from `get_crypto_map()` is a subset from `get_crypto_listings()`. 
+
+```{r}
+# get_crpyto_map() gets all active cryptos supported by platform incl unique id for each crypto
+
+get_crypto_map()
+
+```
+
+&nbsp;
+
+**Crypto Market Pairs**
+
+Using `get_crypto_marketpairs()` did not work for me. It is supposed to get a list of active market pairs that Coinmarketcap has given a crypto. I tried `get_crypto_marketpairs(slug = "bitcoin")` and got no results. I think it does not work under the free API subscription.
+
+If you put BTC, you can get something like BTCUSDT, BTCETH and so on as market pairs.
+
+&nbsp;
+
+**Get Crypto Metadata**
+
+Using `get_crypto_meta()` will retrieve static metadata for one or more cryptos. The description part for the crypto gives insights on what the crypto is about.
+
+```{r}
+# Get Crypto Metadata:
+
+# Bitcoin:
+get_crypto_meta(symbol = "BTC")
+
+# DAG is Constellation
+get_crypto_meta(symbol = "DAG")
+
+```
+
+&nbsp;
+
+**Open, High, Low, Close, Volume (OHLCV)**
+
+I tried obtaining OHLCV price data on Bitcoin with `get_crypto_ohlcv(currency = "USD", latest = TRUE, symbol = "BTC")` but it did not work. 
+
+I think you need the [startup plan from Coinmarketcap](https://coinmarketcap.com/api/pricing/). If access was granted I would use the price data to produce candlestick charts with plotly in R.
+
+&nbsp;
+
+**Get Crypto Quotes**
+
+Using `get_crypto_quotes()` retrieves the latest/historical market quotes based on the crypto inputs.
+
+```{r}
+# Get Crypto Quotes:
+
+get_crypto_quotes(symbol = c("BTC", "ETH"))
+
+```
+
+&nbsp;
+
+**Get Exchange Map**
+
+I am not entirely sure on this `get_exchange_map()`. It did not work for me. In the documentation .pdf it mentions about returning a paginated list of all crypto exchanges by Coinmarketcap ID.
+
+&nbsp;
+
+
+**Get Exchange Meta**
+
+Using `get_exchange_meta()` will return metadata for one or more crypto exchanges. Information includes launch date, official website, URL and social links. The function `get_exchange_meta(slug = "binance")` did not work for me as I think it does not work for the free API service. 
+
+&nbsp;
+
+**Get Global Marketcap**
+
+For extracting the global market cap of the market, use `get_global_marketcap()`. The marketcap for a crypto is the total volume multiplied by the price. Global market cap would be the total marketcaps for all cryptos.
+
+```{r}
+# Global marketcap:
+
+get_global_marketcap(currency = "USD", latest = TRUE)
+```
+
+&nbsp;
+
+**Get Valid Currencies**
+
+Use `get_valid_currencies()` to determine which currencies are supported by CoinMarketCap. This can help with the next function after this which is for price conversions.
+
+```{r}
+# Valid (fiat) currencies:
+
+get_valid_currencies()
+```
+
+&nbsp;
+
+**Price Conversion**
+
+I think this function is one of the most useful functions in the `coinmarketcapr` package. You can convert from a crypto to fiat value with `get_price_conversion()`. You can also do crypto to crypto as shown in the third example.
+
+```{r}
+# Convert 0.06 Bitcoin into USD
+get_price_conversion(amount = 0.06, symbol = "BTC", convert = "USD")
+
+# From 5 Ether to Canadian Dollars
+get_price_conversion(amount = 5, symbol = "ETH", convert = "CAD")
+
+# 1 ETH to BTC (Bitcoin):
+get_price_conversion(amount = 1, symbol = "ETH", convert = "BTC")
+```
+
+&nbsp;
+
+**Plot Top Currencies**
+
+To plot the top currencies you can use `plot_top_currencies()`. This did not work for me in the free API service. 
+
+
+
+&nbsp;
+
+## Price Conversion Program
+---
+
+With the use of the `get_price_conversion()` from `coinmarketcapr`, I can create a program that takes inputs and output a requested crypto/fiat currency. The program will convert an amount in crypto only and convert that to an amount based in another crypto or fiat currency.
+
+This price conversion program is an extension on `get_price_conversion()`. I add some checks to let the user know if the crypto ticker or fiat currency abbreviation is invalid. Valid tickers/abbreviations will produce an output. 
+
+The `dplyr` library from R is used for the checks in the if statement. `dplyr` in R is like `pandas` in Python for working with dataframes. In Python, I can use the `or` keyword but in R I need this `||` operator for or. 
+
+The first if statement checks if the user inputted a valid crypto ticker for the `from_currency`. Assuming that the first if statement is passed, the second nested if statement checks if the `to_currency()` input is a valid crypto ticker or fiat currency.
+
+The `%in%` keyword helps check if the input does match Coinmarketcap's valid fiat currency or crypto.
+
+If the inputs pass the if statements and comes out as true, the function will convert the crypto amount from one to another.
+
+```{r, warning = FALSE}
+library(dplyr)
+
+# Buliding upon the price conversion function from the library. 
+# From_currency is crypto and to_currency 
+
+crypto_price_converter <- function(amt_to_convert = 1, from_currency = "BTC", to_currency = "USD"){
+  
+  # Obtain valid fiat currencies:
+  valid_fiat <- get_valid_currencies()
+  
+  # Valid Coinmarketcap crypto tickers from get_crypto_map()
+  cmc_cryptos <- get_crypto_map()$symbol
+  
+  # Check if inputted currencies are in Coinmarketcap's crypto & fiat currency lists
+  if (from_currency %in% cmc_cryptos){
+    if((to_currency %in% cmc_cryptos) || (to_currency %in% valid_fiat)){
+      return(get_price_conversion(amount = amt_to_convert, symbol = from_currency, convert = to_currency))
+    } else{
+      print("Invalid converted currency. Please enter a valid crypto/fiat ticker.")
+    }
+  } else {
+    print("Please enter in a valid crypto ticker.")
+  }
+}
+
+```
+
+
+&nbsp;
+
+```{r}
+# Function Call 1 - 1 Bitcoin to USD
+crypto_price_converter(amt_to_convert = 1, from_currency = "BTC", to_currency = "USD")
+
+```
+
+
+&nbsp;
+
+```{r}
+# Function Call 2 - 10 ETH To CAD
+
+crypto_price_converter(amt_to_convert = 10, from_currency = "ETH", to_currency = "CAD")
+
+```
+
+&nbsp;
+
+```{r}
+# Function Call 3 - 200 Solana (SOL) in terms of BTC
+
+crypto_price_converter(amt_to_convert = 200, from_currency = "SOL", to_currency = "BTC")
+```
+
+&nbsp;
+
