@@ -1,0 +1,254 @@
+---
+title: "Kraken Crypto Data Into R"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Hi there. In this post, I cover the topic of obtaining crypto data from the Kraken exchange into R.
+
+This is based from this blog post from [CryptoDownload](https://www.cryptodatadownload.com/blog/how-to-download-kraken-data-R.html). In addition I use this [reference page](https://quantnomad.com/2019/04/22/example-of-candlestick-chart-in-r-using-plotly/) for including subplots and a Relative Strength (RSI) plot.
+
+&nbsp;
+
+## Importing Data Into R
+---
+
+The [blog post](https://www.cryptodatadownload.com/blog/how-to-download-kraken-data-R.html) from Crypto Download contains template code for obtain crypto price data from the Kraken exchagne and writing it to a .csv file given a crypto trading pair. 
+
+In this post, I want to not write the data into a .csv and produce price charts with `plotly` in R.
+
+Start with importing these packages in R. Install the packages if you do not have them. You can use `install.packages("pkg_name")`.
+
+```{r, echo = TRUE, error = FALSE, warning = FALSE, message = FALSE}
+# Reset global variables
+rm(list = ls())  
+
+#Import libraries
+library(jsonlite)
+library(glue)
+library(anytime)
+library(dplyr)
+library(plotly)
+```
+
+
+&nbsp;
+
+
+The `glue` function helps combine text and expressions that contain text. This is for the URL.
+
+Having `fromJSON()` is for converting from JSON into a R object. A data frame can be made afterwards.
+
+```{r}
+#### Working with data without writing the data:
+
+crypto_pair <- "BTCUSD"
+
+url = glue("https://api.kraken.com/0/public/OHLC?pair={crypto_pair}&interval=1440")
+
+mydata <- fromJSON(url)
+
+df <- as.data.frame(mydata['result'])
+
+```
+
+&nbsp;
+
+
+
+## Some Data Cleaning
+---
+
+Once the dataframe is obtained, some data cleaning is needed. Column names can be renamed along with creating new columns and removing some columns.
+
+
+```{r}
+# Rename columns and remove misc Column
+
+columnNames <- c('unix', 'open', 'high', 'low', 'close', 'vwap', 'volume', 'tradecount', 'misc')
+
+colnames(df) <- columnNames  
+
+df <- subset(df, select=-c(misc))  
+
+```
+
+&nbsp;
+
+```{r}
+# Convert to numeric columns:
+df[, c(1:7)] <- sapply(df[, c(1:7)], as.numeric)  
+  
+# Create Volume column where volume = close price * Volume
+df$USD_Volume <- with(df, df$volume * df$close) 
+  
+# Unix Epoch timestamp into UTC timezone:
+df$date <- anytime(df$unix, asUTC = TRUE) 
+
+```
+
+&nbsp;
+
+The Relative Strength Indicator (RSI) is an indicator which represents whether something is overbought or oversold. A RSI value over 70 represents something that is overbought and a RSI value below 30 something that is oversold.
+
+This RSI function is from the `TTR` package. The `TTR` package contains many financial technical indicators and tools in R.
+
+```{r}
+# Add RSI column based on closing prices:
+# RSI(price, n = num_periods for MAvg, maType)
+# Overbought/oversold (over 70/below 30)
+
+df$rsi <- TTR::RSI(df$close, n = 14)
+
+```
+
+
+
+&nbsp;
+
+## Creating Price Charts With RSI
+---
+
+This plot is an upgrade from the price charts I did with the Coinbase one. There are two plots in one. The plot on the top is for the closing price of BTCUSDT. In the bottom plot, I have the RSI measures over time. The faint blue lines represent RSI values of 30 and 70. RSI values below the bottom blue line represent oversold and RSI values above the top blue line represent overbought.
+
+
+
+```{r}
+### Plotly plots: closing prices and Volume:
+# Reference: https://quantnomad.com/2019/04/22/example-of-candlestick-chart-in-r-using-plotly/
+
+# Line Chart
+plot1 <- df %>% plot_ly(x = ~date, y = ~close, type = 'scatter', mode = 'lines', name = 'Close Price')
+
+# RSI - Relative Strength Index on Closing Price:
+plot2 <- df %>% plot_ly(x = ~date, y = ~rsi, type = 'scatter', mode = 'lines', name = 'RSI') %>% 
+            add_lines(x = ~date, y = 30, 
+                      line = list(color = "lightblue", width = 2),
+                      showlegend = FALSE) %>% 
+            add_lines(x = ~date, y = 70, 
+                      line = list(color = "lightblue", width = 2),
+                      showlegend = FALSE) 
+
+#Subplots:
+subplot(plot1, plot2, nrows = 2, shareX = TRUE, heights = c(0.7, 0.3)) %>%
+  layout(title = paste0("Price of ", crypto_pair),
+         xaxis = list(title = "\n Date"),
+         yaxis = list(title = "Closing Price \n"),
+         autosize = TRUE, 
+         width = 900, height = 700)
+```
+
+
+&nbsp;
+
+
+## Putting It All Together In A Function
+---
+
+The previous steps can be combined altogether into a function. The main input is a valid crypto pair for Kraken. I have included a timeframe option where the user can choose either a hourly, daily or weekly timeframe. There is a RSI timeframe input for those who want to customized the number of periods for the RSI measure. The default is 14 but you can adjust it to something like 2 or 4.
+
+&nbsp;
+
+```{r}
+### Creating It As A Function:
+
+produce_crypto_chart <- function(crypto_pair, timeframe = 'daily', rsi_timeframe = 14) {
+  
+  if (timeframe == "hourly"){
+    granularity = 60
+  } else if (timeframe == "daily"){
+    granularity = 1440 
+  } else if (timeframe == "weekly") {
+    granularity = 1440 * 7
+  } else {
+    print("Please enter one of hourly, daily or weekly for the timeframe.")
+  }
+  
+  # Obtain data with URL:
+  url = glue("https://api.kraken.com/0/public/OHLC?pair={crypto_pair}&interval={granularity}")
+  
+  columnNames <- c('unix', 'open', 'high', 'low', 'close', 'vwap', 'volume', 'tradecount', 'misc')
+  
+  mydata <- fromJSON(url)
+  df <- as.data.frame(mydata['result'])
+  
+  # Rename columns and remove misc Column
+  colnames(df) <- columnNames  
+  df <- subset(df, select=-c(misc))  
+  
+  # Convert to numeric columns:
+  df[, c(1:7)] <- sapply(df[, c(1:7)], as.numeric)  
+  
+  # Create Volume column where volume = close price * Volume
+  df$USD_Volume <- with(df, df$volume * df$close) 
+  
+  # Unix Epoch timestamp into UTC timezone:
+  df$date <- anytime(df$unix, asUTC = TRUE) 
+  
+  # Add RSI column based on closing prices:
+  # RSI(price, n = num_periods for MAvg, maType)
+  # Overbought/oversold (over 70/below 30)
+  
+  df$rsi <- TTR::RSI(df$close, rsi_timeframe)
+  
+  ### Plotly plots: closing prices and Volume:
+  # Reference: https://quantnomad.com/2019/04/22/example-of-candlestick-chart-in-r-using-plotly/
+  
+  # Line Chart
+  plot1 <- df %>% plot_ly(x = ~date, y = ~close, type = 'scatter', mode = 'lines', name = 'Close Price')
+  
+  # RSI - Relative Strength Index on Closing Price:
+  plot2 <- df %>% plot_ly(x = ~date, y = ~rsi, type = 'scatter', mode = 'lines', name = 'RSI') %>% 
+    add_lines(x = ~date, y = 30, 
+              line = list(color = "lightblue", width = 2),
+              showlegend = FALSE) %>% 
+    add_lines(x = ~date, y = 70, 
+              line = list(color = "lightblue", width = 2),
+              showlegend = FALSE)
+  
+  #Subplots:
+  crypto_plot <- subplot(plot1, plot2, nrows = 2, shareX = TRUE, heights = c(0.7, 0.3)) %>%
+                        layout(title = paste0("Price of ", crypto_pair),
+                               xaxis = list(title = "\n Date"),
+                               yaxis = list(title = "Closing Price \n"),
+                               autosize = TRUE, width = 900, height = 600)
+  
+  return(crypto_plot)
+}
+
+```
+
+&nbsp;
+
+**Function Calls**
+
+```{r, warning = FALSE}
+# Function Call #1 - Ethereum priced in Tether (USDT)
+
+produce_crypto_chart(crypto_pair = "ETHUSDT", timeframe = 'daily', rsi_timeframe = 14)
+
+```
+
+$$\\[1in]$$
+
+```{r, warning = FALSE}
+# Function Call #2 - Litecoin priced in USDT
+
+produce_crypto_chart(crypto_pair = "LTCUSDT", timeframe = 'daily', rsi_timeframe = 14)
+
+```
+
+$$\\[1in]$$
+
+```{r, warning = FALSE}
+# Function Call #3 - LINK priced in USDT
+
+produce_crypto_chart(crypto_pair = "LINKUSDT", timeframe = 'daily', rsi_timeframe = 14)
+
+```
+
+
+&nbsp;

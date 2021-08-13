@@ -7,7 +7,6 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-
 In this personal project, I use R programming to obtain cryptocurrency price data from Coinbase. Coinbase is a well-known cryptocurrency exchange for buying, selling and trading cryptocurrencies.
 
 Reference: https://www.cryptodatadownload.com/blog/how-to-download-coinbase-price-data-R.html
