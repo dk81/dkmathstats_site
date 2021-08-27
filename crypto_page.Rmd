@@ -69,7 +69,7 @@ Like in the Coinbase project in R, I work with crypto data from the Kraken excha
 
 [Crypto Fear & Greed Index Data In R](./feargreed_crypto.html)
 
-Obtaining crypto fear and greed index data into R. Plotting the fear and greed index in plotly and obtaining counts from extreme fear to extreme greed.
+Obtaining crypto fear and greed index data into R. Plotting the fear and greed index in `plotly` and obtaining counts from extreme fear to extreme greed.
 
 &nbsp;
 
