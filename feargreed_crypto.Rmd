@@ -1,0 +1,191 @@
+---
+title: "feargreed_crypto"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Fear & Greed Crypto Index In R
+---
+
+Hi there. In this post, I transfer crypto fear and greed index data into R. The website where I extract the data is from is [here](https://alternative.me/crypto/fear-and-greed-index/).
+
+The crypto fear and greed index is one indicator which gauges to sentiment of people in the crypto market. People in the crypto market can be very emotional. Greed tends to occur when the market is rising and people get FOMO (Fear of Missing Out). Fear can occur when people panic and sell when there is bad news and sharp downturns in price.
+
+Extreme fear in the market can be good buying opportunities.
+
+Extreme greed in the market could mean that the market is due for a correction (drop in price).
+
+Reference: https://alternative.me/crypto/fear-and-greed-index/#api
+
+&nbsp;
+
+## Obtaining The Data
+---
+
+Start with loading these libraries into R. Use `install.packages('pkg_name')` if you need to install a certain package into R.
+
+```{r, warning = FALSE, results = FALSE, message = FALSE}
+# Load packages, use install.packages("rjson") to install rjson
+library(httr)
+library(plotly)
+library(jsonlite)
+```
+
+&nbsp;
+
+
+
+```{r, warnings = FALSE}
+# Reference: https://alternative.me/crypto/fear-and-greed-index/#api
+
+url <- "https://api.alternative.me/fng/?limit=0"
+
+# Obtaining fear and greed crypto data
+response <- httr::GET(url)
+
+raw_content <- httr::content(response)
+
+fear_greed_data <- jsonlite::fromJSON(rawToChar(response$content))
+
+fear_greed_df <- fear_greed_data$data
+
+# Check fear and greed data with head():
+
+head(fear_greed_df)
+```
+
+&nbsp;
+
+**Changing Data Types**
+
+The fear and greed index values are in a character format. Timestamps are in a character format as well. Both of these need to be converted into numeric values. 
+
+The numeric timestamps need to be converted into a date format. This is done with combining `as.POSIXct()` with `as.Date()`.
+
+```{r, warnings = FALSE}
+# Convert into numeric for value and timestamp columns
+
+fear_greed_df$value <- as.numeric(fear_greed_df$value)
+fear_greed_df$timestamp <- as.numeric(fear_greed_df$timestamp)
+
+# Convert timestamp into date format:
+# Example: as.Date(as.POSIXct(1629763200, origin = "1970-01-01"))
+
+fear_greed_df$timestamp <- as.Date(as.POSIXct(fear_greed_df$timestamp, origin = "1970-01-01"))
+
+# Check dataframe:
+
+head(fear_greed_df)
+str(fear_greed_df)
+
+```
+
+&nbsp;
+
+
+## Fear & Greed Crypto Index As A Line Plot
+---
+
+```{r}
+###### Line Graph Plotting:
+
+fear_greed_df %>% 
+  plot_ly(x = ~timestamp, y = ~value, type = 'scatter', mode = 'lines',
+          width = 900, height = 700) %>%
+  layout(title = "Crypto Fear & Greed Index",
+         xaxis = list(title = "\n Date"),
+         yaxis = list(title = "Index Value \n"))
+
+```
+
+
+&nbsp;
+
+## Bar Graph Of Fear & Greed Indicator Counts
+---
+
+Creating the bar graph for fear & greed indicator counts is actually a bit involved. The `table()` function in R is used to obtain counts for each fear and greed indicator
+
+
+```{r}
+fg_counts <- data.frame(table(fear_greed_df$value_classification))
+fg_counts
+```
+
+&nbsp;
+
+Next, I rename the columns in the `fg_counts` dataframe. The `factor()` function is for ordering the fear and greed indicators. I have this order.
+
+* Extreme Fear (lowest numeric index number)
+* Fear
+* Neutral
+* Greed
+* Extreme Greed
+
+&nbsp;
+
+```{r}
+# Change column names
+colnames(fg_counts) <- c('Label', 'Count')
+
+# Reorder Categories (Extreme Fear to Extreme Greed):
+fg_counts$Label <- factor(fg_counts$Label, 
+                          label = c("Extreme Fear", "Fear", "Neutral", "Greed", "Extreme Greed"))
+```
+
+&nbsp;
+
+The dataframe is ready to be used for the bar graph in plotly. I have added the count values as text at the top of the bars with `text = ~Count` and `textposition = 'auto'`. 
+
+Individual colours for the bars were included to this bargraph. This is done with the use of `marker =` with a list of colours. The colours are in the RGB format.
+
+&nbsp;
+
+```{r}
+# From Feb 1, 2018 to Aug 27, 2021
+
+fg_bargraph <- fg_counts %>% 
+                plot_ly(x = ~Label, y = ~Count, width = 900, height = 500,
+                        name = "Fear & Greed Index Counts \n Since Feb 1, 2018", type = "bar",
+                        text = ~Count, textposition = 'auto',
+                        marker = list(color = c('rgba(222,45,38,0.8)', 'rgba(206, 140, 104, 1)',
+                                                'rgba(216, 211, 105, 1)', 'rgba(178, 212, 122, 1)',
+                                                'rgba(83, 124, 17, 1)'))) %>%
+                layout(title = "Fear & Greed Index Day Counts \n Since Feb 1, 2018",
+                       xaxis = list(title = "\n Label"),
+                       yaxis = list(title = "\n Number of Days"))
+
+fg_bargraph
+
+```
+
+&nbsp;
+
+## Pie Chart For Fear & Greed Indicator Counts
+---
+
+Developing the pie chart in R with plotly is not too difficult. Do specify the type as pie with `type = 'pie'`. To obtain percentages and counts make sure to have `textinfo = 'label+percent+value'`. From the documentation https://plotly.com/python/pie-charts/ they do not have this mentioned. I got lucky and guessed it right with `textinfo = 'label+percent+value'`.
+
+
+
+```{r}
+#### Pie Chart
+# label+percent+value to obtain labels, counts and percents
+
+fg_piechart <- fg_counts %>%
+               plot_ly(name = "Fear & Greed Index From Feb 1, 2018 To Aug 27, 2021", type = 'pie',
+                       labels = ~Label, values = ~Count,
+                       width = 900, height = 500,
+                       textinfo='label+percent+value',
+                       insidetextorientation='radial')  %>%
+                layout(title = "Fear & Greed Index Day Counts Feb 1, 2018 To Aug 27, 2021 \n")
+
+fg_piechart
+```
+
+&nbsp;
+
+<center>Thank you for reading.</center>
