@@ -6,6 +6,7 @@ title: "Crypto Related Items"
 
 **Started on July 25, 2021**
 
+
 This page features some works and information from me related to cryptocurrencies. I am somewhat new to the space and will continue to learn. 
 
 **Do invest and trade cryptos, stocks and the likes at your own risk.**
@@ -17,7 +18,7 @@ This page features some works and information from me related to cryptocurrencie
 &nbsp;
 
 * [Notes on Stablecoins](./stableCoins_notes.html)
-
+* [Canada Crypto Offerings As Of September 2021](./canadaCryptos_sept2021.html)
 
 &nbsp;
 
