@@ -1,0 +1,23 @@
+---
+title: "Cryptos With Low Transaction Fees"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Hi there. In this page I would like to cover cryptos that have low transaction fees. 
+
+&nbsp;
+
+## Topics
+---
+
+* Bitcoin & Ethereum Transaction Fees Too Much
+* Low Transaction Fees Cryptos
+* Short Notes On Directed Acyclic Graphs (DAG)
+* Some Are Centralized, Some Are Not
+
+&nbsp;
+

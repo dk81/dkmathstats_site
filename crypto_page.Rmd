@@ -28,31 +28,33 @@ This page features some works and information from me related to cryptocurrencie
 
 &nbsp;
 
-[Binance For Crypto Data & Candlestick Charts In Python](https://github.com/dk81/jupyterNotebook/blob/master/binance_crypto_data.ipynb)
+[Crypto Prices Dashboard With Crypto Fear & Greed Index](https://dkmathstats.shinyapps.io/cryptoPrices_R)
 
-The python-binance package along with mplfinance was used to obtain cryptocurrency information from Binance. A candlestick price chart for the BTCUSDT trading pair was produced. 
-
-A more generalized Python function was created which takes in a user trading pair, a start date, an end date and a timeframe of either 1day, 1week or 1 month. The function uses the inputs and outputs a corresponding candlestick price chart.
-
-&nbsp;
-
-[Kucoin Crypto Data & Candlestick Charts In Python](https://github.com/dk81/jupyterNotebook/blob/master/kucoin_crypto_python.ipynb)
-
-This project is similar to the Binance crypto data project. The Kucoin crypto exchange API is used to connect to Python. Candlestick price charts are produced in this project with the use of the mplfinance Python library.
-
-&nbsp;
-
-[Coinbase Crypto Data In R & Candlestick Price Charts](./Rcoinbase_candlestickCharts.html)
-
-This [reference page](https://www.cryptodatadownload.com/blog/how-to-download-coinbase-price-data-R.html) contains a nice script on extracting cryptocurrency data into R and writing the data into a `.csv` file. 
-
-I wanted to go a few steps further by modifying the script in order to have the obtained crypto data into a dataframe in R. Once the dataframe is cleaned up, candlestick charts can be produced with the use of [plotly for R](https://plotly.com/r/candlestick-charts/).
+This interactive dashboard produced in R, RShiny and flexdashboard features crypto prices from Coinbase and Kraken. There is a crypto fear and greed index where the data is extracted from [alternative.me](https://alternative.me/crypto/fear-and-greed-index/). You can find available price data for many of the popular cryptocurrencies along with a good handful of altcoins.
 
 &nbsp;
 
 [Quandl Financial Data - Bitfinex Crypto Price Data](https://dkmathstats.shinyapps.io/quandl_financedata_app/)
 
 In late July 2021, I have included a new section in my Quandl Financial Data RShiny app. This new section features crypto price data from the Bitfinex crypto exchange. The free datasets are from Quandl's website. 
+
+&nbsp;
+
+[Binance For Crypto Data & Candlestick Charts In Python](https://github.com/dk81/jupyterNotebook/blob/master/binance_crypto_data.ipynb)
+
+The python-binance package along with mplfinance was used to obtain cryptocurrency information from Binance. A candlestick price chart for the BTCUSDT trading pair was produced. 
+
+&nbsp;
+
+[Kucoin Crypto Data & Candlestick Charts In Python](https://github.com/dk81/jupyterNotebook/blob/master/kucoin_crypto_python.ipynb)
+
+This project is similar to the Binance crypto data project. The Kucoin crypto exchange API is used to connect to Python. Candlestick price charts are produced with the mplfinance Python library.
+
+&nbsp;
+
+[Coinbase Crypto Data In R & Candlestick Price Charts](./Rcoinbase_candlestickCharts.html)
+
+This [reference page](https://www.cryptodatadownload.com/blog/how-to-download-coinbase-price-data-R.html) contains a nice script on extracting cryptocurrency data into R and writing the data into a `.csv` file. I wanted to go a few steps further by modifying the script for user input.
 
 &nbsp;
 
@@ -64,15 +66,15 @@ In this page, I explore the `coinmarketcapr` R package for obtaining crypto data
 
 [Kraken Crypto Data Into R](./RKraken_cryptopriceCharts.html)
 
-Like in the Coinbase project in R, I work with crypto data from the Kraken exchange. With the price chart I add a second plot for the Relative Strength Indicator (RSI) measure.
+Like the Coinbase project in R, I obtain data from the Kraken exchange. I add a second plot for the Relative Strength Indicator (RSI) measure.
 
 &nbsp;
 
 [Crypto Fear & Greed Index Data In R](./feargreed_crypto.html)
 
-Obtaining crypto fear and greed index data into R. Plotting the fear and greed index in `plotly` and obtaining counts from extreme fear to extreme greed.
+Using R to obtain fear and greed index data and plotting the index values over time in `plotly`.
 
-&nbsp;
+
 
 ---
 
