@@ -27,6 +27,12 @@ I have more items such as R and Python code from my Github [here](https://github
 
 &nbsp;
 
+[Crypto Prices Dashboard With Crypto Fear & Greed Index](https://dkmathstats.shinyapps.io/cryptoPrices_R)
+
+This interactive dashboard produced in R, RShiny and flexdashboard features crypto prices from Coinbase and Kraken. There is a crypto fear and greed index where the data is extracted from alternative.me. You can find available price data for many of the popular cryptocurrencies along with a good handful of altcoins.
+
+&nbsp;
+
 [Quandl Finance R Shiny Web Application](https://dkmathstats.shinyapps.io/quandl_financedata_app/)
 
 In this RShiny web application, I use R, RShiny and Quandl to present various financial data. The datasets that are used are free and cover these topics:

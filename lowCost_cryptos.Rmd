@@ -9,15 +9,124 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Hi there. In this page I would like to cover cryptos that have low transaction fees. 
 
+Note that some of this content is opinion. Also, I am sure that I miss some other low cost cryptos. Invest at your risk.
+
 &nbsp;
 
 ## Topics
 ---
 
-* Bitcoin & Ethereum Transaction Fees Too Much
+* Bitcoin & Ethereum Transaction Fees Are Too High
 * Low Transaction Fees Cryptos
-* Short Notes On Directed Acyclic Graphs (DAG)
 * Some Are Centralized, Some Are Not
+* Short Notes On Directed Acyclic Graphs (DAG)
+* Withdrawal Fees From Exchanges
+* Litecoin For Canadian Crypto Users For Transfers
 
 &nbsp;
 
+
+## Bitcoin & Ethereum Transaction Fees Are Too High
+---
+
+As a retail investor, I do not have that much funds to play around with that I am willing to risk. In addition, the thought of risking amounts in the five figures and above does scare me. As someone with a few thousand to play around with I want to be careful with trading and investing in the crypto space. 
+
+High transaction fees does eat up a bit of the investing budget. Instead of paying $10 or more per transaction, that money could be used for debt repayment, savings, rent, etc. A cryptocurrency that has low transaction/network fees is a big plus. Something that has higher transaction fees than something like Interac is not good. For me I seek alternatives to these high transaction fees. From my own explorative research and from some websites, I have compiled a list of cryptos with low transaction fees.
+
+&nbsp;
+
+## Low Transaction Fees Cryptos
+---
+
+**Well Known Cryptos**
+
+* Litecoin
+* XRP
+* Solana
+* Cardano
+* Terra (LUNA)
+* Cosmos
+* Polkadot (sort of low fees)
+* Polygon
+* Stellar (XLM)
+* TRON
+* Vechain
+* Bitcoin Cash
+* Monero
+* THETA (Sort of low fees)
+* TFUEL
+
+
+&nbsp;
+
+**Other Cryptos**
+
+* Harmony (ONE)
+* DASH
+* ICON (ICX)
+* WAVES
+* Ziliqa (ZIL)
+* Hathor (HTR)
+* HIVE (Of Course)
+* Nano
+* VITE
+* NIMIQ
+
+
+&nbsp;
+
+Note that there are a few cryptos that I have not tried to know if the transaction fees are low. These include Avalanche, Algorand and Tezos.
+
+In the Other Cryptos list, a few are low cap coins that I have a position in or have looked at. Hathor (HTR) is a crypto project from Brazil that uses a Directed Acyclic Graph (DAG) for its network. NIMIQ is a low cap coin that is browser-first, fast and has low fees. VITE uses a DAG along with Snapshot Chain technology for fast transactions per second, instant confirmation, zero fee transaction. It also has a built in decentralized exchange (DEX). [Note that I am not invested into VITE but am looking into it.]
+
+&nbsp;
+
+## Some Are Centralized, Some Are Not
+---
+
+There are people who care only for the fast speeds and low fees. Some may be more picky and want more. More as in decentralized, fast with low network fees. Do be mindful that some of the projects listed above are centralized. It is important to do research and not rush into things.
+
+&nbsp;
+
+## Short Notes On Directed Acyclic Graphs (DAG)
+---
+
+Some of the low costs cryptos use Directed Acyclic Graphs or a DAG. DAGs are from the mathematical field of Graph Theory. I myself would not know much about graph theory or DAGs. Also, I do not think many math/computer science people are specialized in DAGs. From this video I just know some bare basics of a DAG. 
+
+&nbsp;
+
+**Projects That Use a DAG That I Know Of**
+
+* Hedera Hashgraph (HBAR)
+* Hathor (HTR)
+* NANO (Block Lattice)
+* VITE
+* IOTA
+* XDAG
+* Constellation (DAG)
+* Obyte
+
+
+
+&nbsp;
+
+
+## Withdrawal Fees From Exchanges
+---
+
+Transaction fees are one thing but you have to consider withdrawal fees as well from different exchanges. You find a crypto you like on an exchange but when it comes for withdrawal you find the fees to be crazy. A certain crypto can have low transaction fees but can have high withdrawal fees on a certain exchange(s). 
+
+I like to use [withdrawlfees.com](https://withdrawalfees.com/) and [coinmarketfees.com](https://coinmarketfees.com/) for checking withdrawal fees on various exchanges. These two websites are good for finding the lowest withdrawal fees for certain coins. These websites are not perfect though, so it is a good idea to change the fees pages on the exchange website yourself. From there you should be able to find withdrawal fees and minimum withdrawals for coins. (Some exchanges are not that transparent with the fees info unfortunately.)
+
+&nbsp;
+
+## Litecoin, XRP, XLM For Canadian Crypto Users For Transfers
+---
+
+Canadians do not have many crypto options on the Canadian crypto platforms. For access to lower cap coins, crypto funds have to be exchanged from the Canadian platform into more global exchanges such as Binance, Kucoin, Bitfinex, Gemini, Coinbase, FTX, etc. 
+
+You typically would not want to exchange Bitcoin or Ethereum as the transaction fees are high. It would be better to use Litecoin or maybe XRP or XLM (Stellar Lumens) to transfer funds are the fees are much lower. Once the funds are sent to the bigger exchange, you can make the necessary conversions to obtain the desired crypto. Litecoin, XRP, XLM are also good for transferring funds to your Canadian exchange and withdrawal funds into fiat (CAD).
+
+&nbsp;
+
+<center>Thank you for reading.</center>
