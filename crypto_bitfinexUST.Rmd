@@ -1,0 +1,45 @@
+---
+title: "bitfinex_USTFree_Withdrawal"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Free Withdrawal Of TerraUSD (UST) On Bitfinex
+---
+
+Hi there. In this page, I would like to point out that withdrawal of TerraUSD (UST) is **free** on the Bitfinex exchange (at time of writing). Free as in no withdrawal fees. 
+
+The contents of this page was also posted to a blog with some edits. Invest, trade and transfer funds at your own risk.
+
+&nbsp;
+
+[Bitfinex Fees Link](https://www.bitfinex.com/fees/) with a screenshot showing the free withdrawal of TerraUSD (UST). (Sorry for small image, use the link.)
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("images/bitfinex_freewithdraws_image.png")
+```
+
+&nbsp;
+
+## Withdrawal Limits For TerraUSD (UST)
+---
+
+It is a bit annoying that the minimum withdrawal limits information is not really accessible. You would have to have more than 0 for a certain crypto on the exchange and check the minimum limit for that crypto. 
+
+For TerraUSD (UST) the minimum withdrawal limit is 4.99176359 TERRAUST which is equivalent to 5USD. 
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("images/bitfinex_USTwithdrawal_image")
+```
+
+&nbsp;
+
+When it comes to transferring UST to your Terra Station wallet, you do not need a Memo. Also you do not have to checkmark the `Add a note to this withdrawal for your records... `. It is enough to have the Terra Station address at the top of the Terra Station window and an amount of UST above 5USD. It is a good idea to do a small test transaction of just over 5UST to check that transferring funds from Bitfinex to Terra Station works. 
+
+
+&nbsp;
+
+<center>Thank you for reading.</center>
