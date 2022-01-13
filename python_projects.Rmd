@@ -88,7 +88,7 @@ This page contains a list of Python programming projects done in Jupyter noteboo
 
 <a name="manip"></a>
 
-### <u>Data Manipulation In Python</u>
+### <u>Data Manipulation & Data Analysis In Python</u>
 
 &nbsp;
 
@@ -99,6 +99,11 @@ This page contains a list of Python programming projects done in Jupyter noteboo
 * Finding The Most Common Baby Names In A Dataset With Python
 
 * Looking At A Wages and Education of Young Males Dataset In Python With pandas & matplotlib
+
+* Common Baby Names
+
+* Ontario Sunshine List 2020
+
 
 &nbsp;
 

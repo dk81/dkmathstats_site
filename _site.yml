@@ -11,7 +11,7 @@ navbar:
       href: r-projects.html
     - text: "Python Items"     
       href: python_projects.html
-    - text: "Crypto Items"     
+    - text: "Crypto Data Analysis Projects"     
       href: crypto_page.html
 output:
   html_document:
