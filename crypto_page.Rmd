@@ -20,6 +20,7 @@ This page features some works and information from me related to cryptocurrencie
 * [Notes on Stablecoins](./stableCoins_notes.html)
 * [Canada Crypto Offerings As Of September 2021](./canadaCryptos_sept2021.html)
 * [Cryptos With Low Transaction Fees](./lowCost_cryptos.html)
+* [Decentralized Finance (DeFi) As Do It Yourself (DIY) Crypto](./defi_DIYCrypto_website.html)
 
 &nbsp;
 

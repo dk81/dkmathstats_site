@@ -1,0 +1,56 @@
+---
+title: "defi_DIYCrypto"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Decentralized Finance (DeFi) As Do It Yourself (DIY) Crypto
+---
+
+&nbsp;
+
+Hi there. In this page, I talk about Decentralized Finance (DeFi) as Do It Yourself (DIY) crypto.
+
+&nbsp;
+
+## Decentralized Finance 
+---
+
+Decentralized Finance or DeFi for short is finance without relying on middlemen such as brokerages, exchanges or banks. DeFi users can use these services with an internet connection, a compatible crypto wallet and crypto funds. As there are no brokerages, exchanges or banks DeFi users are responsible for their own finances and funds.  Applications in DeFi include:
+
+* Decentralized Exchanges (DExs) for exchanging cryptos that may not be available on larger centralized exchanges
+* Providing liquidity to liquidity pools to earn rewards on trading fees 
+* Staking to grow the amount of staked cryptos with compound interest at a rate better than banks
+* Participating in no-loss crypto lotteries
+
+&nbsp;
+
+Guy from the Youtube channel Coin Bureau has described DeFi as something like non-custodial finance in a video. I view it more as it Do It Yourself (DIY) Finance. The services are there in the form of decentralized exchanges and users use these services to do their own crypto swaps or financial activities. Only you manage your funds and use the DeFi services. Personal responsibility is key as funds can be lost through mistakes or from hacks there. Recovery of funds is not possible after a mistake or a hack. This is one major con when it comes to DeFi.
+
+
+&nbsp;
+
+## No Know Your Client (KYC) Needed For The Most Part
+---
+
+When it comes to DeFi, the applications there do not really require giving away personal information. There is no login or signup button but you do have to connect your crypto wallet to the DeFi application. Common crypto wallets include Metamask, Ledger hardware wallet and a wallet that has WalletConnect.
+
+
+&nbsp;
+
+## Relating Vending Machines To Decentralized Exchanges
+---
+
+Decentralized Exchanges in DeFi are like vending machines. A vending machine is for public use where anyone can purchase an available item provided that there is enough money into the machine. Once there is enough money for an item that the user has selected, the vending machine will grant access to that item for the user. The vending machine does not require your personal information and it does what it's supposed to when enough money is there. 
+
+Just like with vending machines, DeFi applications are not perfect. There are times when a vending machine does not work or needs to be fixed. In DeFi, there are also cases when the application needs fixing because of a bug or even hacks. Funds may not be safe in DeFi. Be careful.
+
+If you think about it, the idea of a smart contract in some cryptos and DeFi apps is like how vending machines work. When there is enough money in the machine for the user's requested item, the vending machine takes the money and outputs the requested item to the buyer. The machine would return the money if there is not enough funds for the requested item (assuming a good machine). Vending machines operate 24/7 just like Decentralized Finance.
+
+
+&nbsp;
+
+<center>Thank you for reading.</center>
