@@ -1,5 +1,6 @@
 ---
 title: "dkmathstats Website"
+output: html_document
 ---
 
 &nbsp;

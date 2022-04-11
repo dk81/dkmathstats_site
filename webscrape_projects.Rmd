@@ -1,0 +1,47 @@
+---
+title: "webScrape_projects"
+output: html_document
+---
+
+&nbsp;
+
+This page contains links on a bunch of webscraping projects in Python & in R.
+
+&nbsp;
+
+# <u>Python Webscraping</u>
+
+&nbsp;
+
+[ATP Men's Tennis Ranks Webscrape With Selenium](https://github.com/dk81/web_scrape_python/blob/main/atp_tennis_ranks_webscrape_selenium.ipynb)
+
+[WTA Women's Tennis With Selenium](https://github.com/dk81/web_scrape_python/blob/main/wta_tennis_webscrape_selenium.ipynb)
+
+[Web Scrape English Premier League Table](https://github.com/dk81/web_scrape_python/blob/main/epl_table_webscrape.ipynb)
+
+[Bundesliga German Football Table Web Scraping](https://github.com/dk81/web_scrape_python/blob/main/bundesliga_webscrape.ipynb)
+
+[La Liga Spanish Football Webscraping In Python](https://github.com/dk81/web_scrape_python/blob/main/laliga_spanishsoccer_webscrape.ipynb)
+
+[DJ Magazine Top 100 DJs 2021](https://github.com/dk81/web_scrape_python/blob/main/DJMag_top100_2021.ipynb)
+
+[Winter Olympics 2022 Medal Counts Web Scraping](https://github.com/dk81/web_scrape_python/blob/main/Winter_Olympics2022_MedalCounts_webscrape.ipynb)
+
+[Youtube Webscrape In Selenium](https://github.com/dk81/web_scrape_python/blob/main/youtube_webscrape_selenium.ipynb)
+
+[Tradingview Stocks Webscrape](https://github.com/dk81/web_scrape_python/blob/main/tradingview_stocks_webscrape.ipynb)
+
+[Tradingview Cryptos Webscrape](https://github.com/dk81/web_scrape_python/blob/main/tradingview_cryptos_webscrape.ipynb)
+
+[Pandas ReadHTML Table](https://github.com/dk81/web_scrape_python/blob/main/soccerTables_pandasReadHTML.ipynb)
+
+&nbsp;
+
+
+# <u>R Webscraping Projects</u>
+
+Under construction.
+
+&nbsp;
+
+

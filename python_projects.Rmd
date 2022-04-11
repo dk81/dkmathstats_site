@@ -5,7 +5,7 @@ output: html_document
 
 &nbsp;
 
-This page contains a list of Python programming projects done in Jupyter notebook. The projects can be found through my Binder link of https://mybinder.org/v2/gh/dk81/jupyterNotebook/master.
+This page contains a list of Python programming projects.
 
 &nbsp;
 
@@ -13,33 +13,15 @@ This page contains a list of Python programming projects done in Jupyter noteboo
 
 &nbsp;
 
-* <a href="#general">General Python Concepts</a>
 
 * <a href="#mathstats">Math And Stats In Python</a>
 
 * <a href="#visual">Data Visualization In Python</a>
 
-* <a href="#manip">Data Manipulation In Python</a>
-
-* <a href="#ml">Machine Learning Experimental Work In Python</a>
+* <a href="#crypto">Crypto Projects In Python</a>
 
 &nbsp;
 
-<a name="general"></a>
-
-### <u>General Python Concepts</u>
-
-&nbsp;
-
-* Lambda Functions In Python
-
-* The map() Function
-
-* List Comprehension In Python
-
-* An Example Of Python's enumerate() Function
-
-&nbsp;
 
 <a name="mathstats"></a>
 
@@ -47,19 +29,19 @@ This page contains a list of Python programming projects done in Jupyter noteboo
 
 &nbsp;
 
-* Arithmetic Sequences & Series In Python
+* [Arithmetic Sequences & Series In Python](https://github.com/dk81/python_math/blob/master/arithmeticSeries.py)
 
-* Norms & Dot Products In Python
+* [Mean, Median, Mode & Variance In Python](https://github.com/dk81/python_math/blob/master/mean_medianMode.py)
 
-* Mean, Median, Mode & Variance In Python
+* [Brownian Motion Plot In Python](https://github.com/dk81/python_math/blob/master/brownianMotion.py)
 
-* The Bisection Method In Python
+* [The Bisection Method In Python](https://github.com/dk81/python_math/blob/master/bisection_method.py)
 
-* Linear Algebra With Python & Numpy
+* [Linear Algebra With Python & Numpy](https://github.com/dk81/python_math/blob/master/numpy_linearalgebra_work.py)
 
-* Simple Linear Regression In Python
+* [Sum Of Mario Party Dice](https://github.com/dk81/python_math/blob/master/sum_MarioParty_dice.ipynb)
 
-* Random Walk Plots In Python
+* [Random Walk Plots In Python](https://github.com/dk81/python_math/blob/master/randomWalk.py)
 
 &nbsp;
 
@@ -69,52 +51,70 @@ This page contains a list of Python programming projects done in Jupyter noteboo
 
 &nbsp;
 
-* Histograms In Python
+* [Histograms In Python](https://github.com/dk81/python_datavisualization/blob/master/histograms.ipynb)
 
-* Bar Graphs In Python
+* [Bar Graphs In Python](https://github.com/dk81/python_datavisualization/blob/master/barGraphs.ipynb)
 
-* A Pie Chart In Python
+* [A Pie Chart In Python](https://github.com/dk81/python_datavisualization/blob/master/pieChart.ipynb)
 
-* Plots With Python & Seaborn
+* [Plots With Python & Seaborn](https://github.com/dk81/python_datavisualization/blob/master/seaborn-plots.ipynb)
 
-* A Rock, Paper, Scissors Table Plot In Python
+* [A Rock, Paper, Scissors Table Plot In Python](https://github.com/dk81/python_datavisualization/blob/master/rock-paper-scissors.ipynb)
 
-* A Rock, Paper, Scissors, Lizard, Spock Table Plot In Python
+* [A Rock, Paper, Scissors, Lizard, Spock Table Plot In Python](https://github.com/dk81/python_datavisualization/blob/master/rock-paper-scissors-lizard-spock.ipynb)
 
-* A Pokemon Types Table In Python
-
-
-&nbsp;
-
-<a name="manip"></a>
-
-### <u>Data Manipulation & Data Analysis In Python</u>
-
-&nbsp;
-
-* Some Work With pandas In Python
-
-* Experimental Work With Python's pandas & matplotlib
-
-* Finding The Most Common Baby Names In A Dataset With Python
-
-* Looking At A Wages and Education of Young Males Dataset In Python With pandas & matplotlib
-
-* Common Baby Names
-
-* Ontario Sunshine List 2020
+* [A Pokemon Types Table In Python](https://github.com/dk81/python_datavisualization/blob/master/pokemon-types-table.ipynb)
 
 
 &nbsp;
 
-<a name="ml"></a>
+<a name="crypto"></a>
 
-### <u>Machine Learning Experimental Work In Python</u>
+### <u>Crypto Projects In Python</u>
 
 &nbsp;
 
-* K-Means Clustering On A Professor Salaries Dataset
 
-* K-Means Clustering On A Wages Dataset
+[Binance For Crypto Data & Candlestick Charts In Python](https://github.com/dk81/crypto_python/blob/main/binance_crypto_data.ipynb)
+
+The python-binance package along with mplfinance was used to obtain cryptocurrency information from Binance. A candlestick price chart for the BTCUSDT trading pair was produced. 
+
+&nbsp;
+
+[Kucoin Crypto Data & Candlestick Charts In Python](https://github.com/dk81/crypto_python/blob/main/kucoin_crypto_python.ipynb)
+
+This project is similar to the Binance crypto data project. The Kucoin crypto exchange API is used to connect to Python. Candlestick price charts are produced with the mplfinance Python library.
+
+&nbsp;
+
+[Coinbase Crypto Data In Python & Candlestick Price Charts](https://github.com/dk81/crypto_python/blob/main/coinbase_cryptodata_python.ipynb)
+
+Python being used to extract Coinbase crypto price data with the Coinbase API.
+
+&nbsp;
+
+[Crypto Fear & Greed Index Data In Python](https://github.com/dk81/crypto_python/blob/main/feargreed_stockscrypto.ipynb)
+
+Using Python to extract cryptocurrency fear and greed index data and plotting the index values in a line plot.
+
+&nbsp;
+
+
+[Bitcoin Line Plots On Price & Marketcap In Python](https://github.com/dk81/crypto_python/blob/main/bitcoin_price_mcap_plots.ipynb)
+
+Python and plotly to plot simple line plots on Bitcoin's historical price and marketcap.
+
+&nbsp;
+
+[Yahoo Finance For Stocks & Crypto In Python](https://github.com/dk81/crypto_python/blob/main/yahoo_finance_python_stocks_crypto.ipynb)
+
+Exploring the `yfinance` package in Python and plotting prices of stocks & cryptocurrency.
+
+&nbsp;
+
+[Coingecko Price Data Webscrape In Python](https://github.com/dk81/crypto_python/blob/main/coingecko_crypto_webscrape.ipynb)
+
+Using Python and BeautifulSoup to webscrape cryptocurrency prices from the Coingecko website.
+
 
 &nbsp;

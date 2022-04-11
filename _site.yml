@@ -7,12 +7,14 @@ navbar:
       href: index.html
     - text: "Math & Stats Pages"
       href: mathstats_pages.html
-    - text: "R Programming"     
+    - text: "R Items"     
       href: r-projects.html
     - text: "Python Items"     
       href: python_projects.html
-    - text: "Crypto Related Topics"     
+    - text: "Crypto Topics"     
       href: crypto_page.html
+    - text: "Webscrape Projects"     
+      href: webscrape_projects.html
 output:
   html_document:
     theme: flatly

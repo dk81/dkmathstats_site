@@ -1,5 +1,6 @@
 ---
 title: "Crypto Related Items"
+output: html_document
 ---
 
 &nbsp;
@@ -42,13 +43,13 @@ In late July 2021, I have included a new section in my Quandl Financial Data RSh
 
 &nbsp;
 
-[Binance For Crypto Data & Candlestick Charts In Python](https://github.com/dk81/jupyterNotebook/blob/master/binance_crypto_data.ipynb)
+[Binance For Crypto Data & Candlestick Charts In Python](https://github.com/dk81/crypto_python/blob/main/binance_crypto_data.ipynb)
 
 The python-binance package along with mplfinance was used to obtain cryptocurrency information from Binance. A candlestick price chart for the BTCUSDT trading pair was produced. 
 
 &nbsp;
 
-[Kucoin Crypto Data & Candlestick Charts In Python](https://github.com/dk81/jupyterNotebook/blob/master/kucoin_crypto_python.ipynb)
+[Kucoin Crypto Data & Candlestick Charts In Python](https://github.com/dk81/crypto_python/blob/main/kucoin_crypto_python.ipynb)
 
 This project is similar to the Binance crypto data project. The Kucoin crypto exchange API is used to connect to Python. Candlestick price charts are produced with the mplfinance Python library.
 
@@ -57,6 +58,12 @@ This project is similar to the Binance crypto data project. The Kucoin crypto ex
 [Coinbase Crypto Data In R & Candlestick Price Charts](./Rcoinbase_candlestickCharts.html)
 
 This [reference page](https://www.cryptodatadownload.com/blog/how-to-download-coinbase-price-data-R.html) contains a nice script on extracting cryptocurrency data into R and writing the data into a `.csv` file. I wanted to go a few steps further by modifying the script for user input.
+
+&nbsp;
+
+[Coinbase Crypto Data In Python & Candlestick Price Charts](https://github.com/dk81/crypto_python/blob/main/coinbase_cryptodata_python.ipynb)
+
+Python being used to extract Coinbase crypto price data with the Coinbase API.
 
 &nbsp;
 
@@ -76,7 +83,31 @@ Like the Coinbase project in R, I obtain data from the Kraken exchange. I add a 
 
 Using R to obtain fear and greed index data and plotting the index values over time in `plotly`.
 
+&nbsp;
 
+
+[Crypto Fear & Greed Index Data In Python](https://github.com/dk81/crypto_python/blob/main/feargreed_stockscrypto.ipynb)
+
+Using Python to extract cryptocurrency fear and greed index data and plotting the index values in a line plot.
+
+&nbsp;
+
+
+[Bitcoin Line Plots On Price & Marketcap In Python](https://github.com/dk81/crypto_python/blob/main/bitcoin_price_mcap_plots.ipynb)
+
+Python and plotly to plot simple line plots on Bitcoin's historical price and marketcap.
+
+&nbsp;
+
+[Yahoo Finance For Stocks & Crypto In Python](https://github.com/dk81/crypto_python/blob/main/yahoo_finance_python_stocks_crypto.ipynb)
+
+Exploring the `yfinance` package in Python and plotting prices of stocks & cryptocurrency.
+
+&nbsp;
+
+[Coingecko Price Data Webscrape In Python](https://github.com/dk81/crypto_python/blob/main/coingecko_crypto_webscrape.ipynb)
+
+Using Python and BeautifulSoup to webscrape cryptocurrency prices from the Coingecko website.
 
 ---
 
