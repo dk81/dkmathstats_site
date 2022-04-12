@@ -1,0 +1,141 @@
+---
+title: "DJ Magazine Top DJs 2021 Webscrape"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this project, I showcase how to webscrape the top 100 DJs of 2021 according to DJ Magazine. 
+
+**Setup**
+
+Load in the packages `rvest`, `dplyr`, `tidyr` and `stringr`. The page contents can be loaded with the use of `read_html()`.
+
+```{r cars, warning = FALSE, message = FALSE}
+# DJ Magazine Top 100 2021 Webscraping
+
+# Load libraries:
+library(rvest)
+library(dplyr)
+library(tidyr)
+library(stringr)
+
+# Link:
+url <- "https://djmag.com/top100djs/"
+
+# DJ Mag 2021 Page:
+dj_mag2021_page <- read_html(url)
+```
+
+&nbsp;
+
+## Obtain DJ Name, Rank, Rank Movement & Interview URL Links
+---
+
+From the `rvest` package I use `html_nodes()` along with the class name from clicking Inspect on the page. This project was one of my earlier webscraping projects so I do not use xpath. 
+
+I found that there was no name to extract rank from the page. It was better just to use `seq(1, 100)` for the Rank column.
+
+&nbsp;
+
+**Artist/DJ Name**
+
+```{r}
+# Rank can be obtained without webscraping, I can use seq(1, 100) for Rank column
+
+# DJ/Artist Name:
+names <- dj_mag2021_page %>%
+         html_nodes("[class='top100dj-name']") %>%
+         html_text2()
+```
+
+
+&nbsp;
+
+**Rank Movement**
+
+```{r}
+# Movement:
+rank_movement <- dj_mag2021_page %>%
+                 html_nodes("[class='top100dj-movement']") %>%
+                 html_text2()
+```
+
+&nbsp;
+
+**DJ Magazine 2021 Interview Links**
+
+The interview links
+
+```{r}
+# 2021 DJMag Interview URL Links:
+dj_interview_urls <- dj_mag2021_page %>%
+                     html_nodes("[class='top100dj-name']") %>%
+                     html_element('a') %>%
+                     html_attr('href')
+
+dj_interview_urls <- paste0("https://djmag.com/", dj_interview_urls)
+```
+
+&nbsp;
+
+## Create Dataframe
+---
+
+With the extracted parts, the dataframe can be made.
+
+```{r}
+# Create Dataframe:
+
+dj_mag_2021_df <- data.frame(Rank = seq(1, 100),
+                             DJ = names,
+                             Rank_Change = rank_movement,
+                             Interview_URL = dj_interview_urls)
+
+head(dj_mag_2021_df, 10)
+```
+
+&nbsp;
+
+
+**New Entries**
+
+```{r}
+## Filter for New Entries:
+new_entries <- dj_mag_2021_df %>% filter(Rank_Change == 'New Entry')
+
+new_entries
+```
+
+
+```{r}
+## DJs with Re-Entry (Fell out of top 100 and are back in top 100 in 2021)
+re_entries <- dj_mag_2021_df %>% filter(Rank_Change == 'Re-entry')
+
+re_entries
+```
+
+```{r}
+## DJs who moved up:
+up_movers <- dj_mag_2021_df %>% filter(grepl('Up', Rank_Change))
+
+head(up_movers, 10)
+```
+
+```{r}
+## DJs who moved down:
+down_movers <- dj_mag_2021_df %>% filter(grepl('Down', Rank_Change))
+
+head(down_movers, 10)
+```
+
+```{r}
+## Non-Movers 
+non_movers <- dj_mag_2021_df %>% filter(Rank_Change == 'Non Mover')
+
+non_movers
+```
+
+

@@ -1,0 +1,197 @@
+---
+title: "Bundesliga German Football Table Webscraping In R"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this project, I webscrape the most recent Bundesliga football table with R and the `rvest` package.
+
+**Setup**
+
+```{r, warning = FALSE, message = FALSE}
+### Bundesliga Web Scraping In R
+# Reference: https://stackoverflow.com/questions/45450981/rvest-scrape-2-classes-in-1-tag
+
+# Load libraries:
+
+library(dplyr)
+library(tidyr)
+library(rvest)
+```
+
+&nbsp;
+
+To extract the table I use `html_elements('tbody')`.
+
+```{r}
+bundesliga <- read_html("https://www.bundesliga.com/en/bundesliga/table")
+
+page <- bundesliga %>% html_elements('tbody')
+```
+
+&nbsp;
+
+
+## Extract Teams, Rank, Matches, Points, Wins, Draws, Losses, Goals, Goal Differences
+---
+
+In this section, I use `html_nodes()` from the `rvest` package. I extract the class names in `html_nodes()` to obtain the parts from the football table.
+
+**Teams**
+
+```{r}
+# Teams are in the class 'team':
+
+teams <- page %>% 
+         html_nodes("[class='team']") %>%
+         html_text2()
+```
+
+&nbsp;
+
+**Rank**
+
+```{r}
+# Rank & convert into integer:
+
+team_rank <- page %>% 
+             html_nodes("[class='rank']") %>%
+             html_text2() %>% 
+             readr::parse_integer()
+```
+
+&nbsp;
+
+**Matches Played**
+
+```{r}
+# Matches played
+
+matches <- page %>% 
+           html_nodes("[class='matches']") %>%
+           html_text2() %>% 
+           readr::parse_integer()
+```
+
+&nbsp;
+
+**Points**
+
+```{r}
+# Points
+
+points <- page %>% 
+  html_nodes("[class='pts']") %>%
+  html_text2() %>% 
+  readr::parse_integer()
+```
+
+&nbsp;
+
+**Wins**
+
+```{r}
+# Wins:
+
+wins <- page %>% 
+           html_nodes("[class='d-none d-lg-table-cell wins']") %>%
+           html_text2() %>% 
+           readr::parse_integer()
+
+```
+
+&nbsp;
+
+**Draws**
+
+```{r}
+# Draws:
+
+draws <- page %>% 
+           html_nodes("[class='d-none d-lg-table-cell draws']") %>%
+           html_text2() %>% 
+           readr::parse_integer()
+```
+
+&nbsp;
+
+**Losses**
+
+```{r}
+
+# Losses:
+losses <- page %>% 
+          html_nodes("[class='d-none d-lg-table-cell looses']") %>%
+          html_text2() %>% 
+          readr::parse_integer()
+```
+
+&nbsp;
+
+**Goals**
+
+```{r}
+# Goals:
+
+goals <- page %>% 
+         html_nodes("[class='d-none d-md-table-cell goals']") %>%
+         html_text2() 
+```
+
+&nbsp;
+
+**Goal Difference**
+
+```{r}
+# Goal Difference:
+
+goal_diff <- page %>% 
+             html_nodes("[class='difference']") %>%
+             html_text2() %>% 
+             readr::parse_integer()
+```
+
+
+&nbsp;
+
+## Creating Dataframe
+
+&nbsp;
+
+
+
+```{r}
+### Create Bundesliga dataframe:
+
+bundes_df <- data.frame(Rank = team_rank, Team = teams, Points = points,
+                        Played = matches, Wins = wins, Draws = draws,
+                        Losses = losses, Goals = goals, 
+                        Goal_Difference = goal_diff)
+
+## Goals Column Separate Into Goals For and Goals Against:
+
+bundes_df <- bundes_df %>% separate(Goals, c("Goals For", "Goals Against"))
+
+bundes_df
+
+```
+
+&nbsp;
+
+If you would like to save the dataframe into a .csv file you can use this code chunk.
+
+```{r, message = FALSE}
+## Save Bundesliga Table Into A .csv file.
+
+write.csv(bundes_df, paste("Bundesliga_", Sys.Date(), sep = ""))
+
+```
+
+&nbsp;
+
+## 
+
+&nbsp;

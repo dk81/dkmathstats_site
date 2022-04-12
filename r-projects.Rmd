@@ -23,7 +23,7 @@ This page contains links on a bunch of R programming projects.
 
 * <a href="#textmining">Text Mining & Text Analysis In R</a>
 
-* <a href="#jupyter">R Work In Jupyter Notebook</a>
+
 
 
 &nbsp;
@@ -143,32 +143,8 @@ This page contains links on a bunch of R programming projects.
 
 [Using R Programming & Text Analysis On The Dr. Seuss - The Cat In The Hat Kids Book](./rtext-catHat.html)
 
-<a name="jupyter"></a>
-
-&nbsp;
-
-### <u>R Work Done In Jupyter Notebook</u>
-
-&nbsp;
-
-For R work done in the Jupyter notebook, please refer to the link:
-https://mybinder.org/v2/gh/dk81/jupyterNotebook/master
-
-After the repository is loaded, go to the RCode folder and you can find the topics as shown below.
 
 
-* Analyzing A babynames Dataset In R With dplyr
-
-* Analyzing A Baby Names Dataset In R - A Graphical Approach
-
-* Plotting Normal Distributions In R Using ggplot2
-
-* Creating A Pokemon (Gen 6+) Types Table In R
-
-* Using R & Text Analysis To Analyzing Cancer Survivor Stories
-
-
-&nbsp;
 
 
 

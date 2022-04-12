@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>DJ Magazine Top DJs 2021 Webscrape</title>
+
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Items</a>
+</li>
+<li>
+  <a href="python_projects.html">Python Items</a>
+</li>
+<li>
+  <a href="crypto_page.html">Crypto Topics</a>
+</li>
+<li>
+  <a href="webscrape_projects.html">Webscrape Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">DJ Magazine Top DJs 2021 Webscrape</h1>
+
+</div>
+
+
+<p>In this project, I showcase how to webscrape the top 100 DJs of 2021 according to DJ Magazine.</p>
+<p><strong>Setup</strong></p>
+<p>Load in the packages <code>rvest</code>, <code>dplyr</code>, <code>tidyr</code> and <code>stringr</code>. The page contents can be loaded with the use of <code>read_html()</code>.</p>
+<pre class="r"><code># DJ Magazine Top 100 2021 Webscraping
+
+# Load libraries:
+library(rvest)
+library(dplyr)
+library(tidyr)
+library(stringr)
+
+# Link:
+url &lt;- &quot;https://djmag.com/top100djs/&quot;
+
+# DJ Mag 2021 Page:
+dj_mag2021_page &lt;- read_html(url)</code></pre>
+<p> </p>
+<div id="obtain-dj-name-rank-rank-movement-interview-url-links" class="section level2">
+<h2>## Obtain DJ Name, Rank, Rank Movement &amp; Interview URL Links</h2>
+<p>From the <code>rvest</code> package I use <code>html_nodes()</code> along with the class name from clicking Inspect on the page. This project was one of my earlier webscraping projects so I do not use xpath.</p>
+<p>I found that there was no name to extract rank from the page. It was better just to use <code>seq(1, 100)</code> for the Rank column.</p>
+<p> </p>
+<p><strong>Artist/DJ Name</strong></p>
+<pre class="r"><code># Rank can be obtained without webscraping, I can use seq(1, 100) for Rank column
+
+# DJ/Artist Name:
+names &lt;- dj_mag2021_page %&gt;%
+         html_nodes(&quot;[class=&#39;top100dj-name&#39;]&quot;) %&gt;%
+         html_text2()</code></pre>
+<p> </p>
+<p><strong>Rank Movement</strong></p>
+<pre class="r"><code># Movement:
+rank_movement &lt;- dj_mag2021_page %&gt;%
+                 html_nodes(&quot;[class=&#39;top100dj-movement&#39;]&quot;) %&gt;%
+                 html_text2()</code></pre>
+<p> </p>
+<p><strong>DJ Magazine 2021 Interview Links</strong></p>
+<p>The interview links</p>
+<pre class="r"><code># 2021 DJMag Interview URL Links:
+dj_interview_urls &lt;- dj_mag2021_page %&gt;%
+                     html_nodes(&quot;[class=&#39;top100dj-name&#39;]&quot;) %&gt;%
+                     html_element(&#39;a&#39;) %&gt;%
+                     html_attr(&#39;href&#39;)
+
+dj_interview_urls &lt;- paste0(&quot;https://djmag.com/&quot;, dj_interview_urls)</code></pre>
+<p> </p>
+</div>
+<div id="create-dataframe" class="section level2">
+<h2>## Create Dataframe</h2>
+<p>With the extracted parts, the dataframe can be made.</p>
+<pre class="r"><code># Create Dataframe:
+
+dj_mag_2021_df &lt;- data.frame(Rank = seq(1, 100),
+                             DJ = names,
+                             Rank_Change = rank_movement,
+                             Interview_URL = dj_interview_urls)
+
+head(dj_mag_2021_df, 10)</code></pre>
+<pre><code>##    Rank                        DJ Rank_Change
+## 1     1              David Guetta   Non Mover
+## 2     2             Martin Garrix        Up 1
+## 3     3          Armin Van Buuren        Up 1
+## 4     4                      Alok        Up 1
+## 5     5 Dimitri Vegas &amp; Like Mike      Down 3
+## 6     6                  Afrojack        Up 1
+## 7     7                Don Diablo      Down 1
+## 8     8            Oliver Heldens      Stay 8
+## 9     9             Timmy Trumpet        Up 1
+## 10   10                Steve Aoki      Down 1
+##                                                  Interview_URL
+## 1        https://djmag.com//top-100-djs/poll-2021-david-guetta
+## 2       https://djmag.com//top-100-djs/poll-2021-martin-garrix
+## 3    https://djmag.com//top-100-djs/poll-2021-armin-van-buuren
+## 4                https://djmag.com//top-100-djs/poll-2021-alok
+## 5  https://djmag.com//top-100-djs/poll-2021-dimitri-vegas-mike
+## 6            https://djmag.com//top-100-djs/poll-2021-afrojack
+## 7          https://djmag.com//top-100-djs/poll-2021-don-diablo
+## 8      https://djmag.com//top-100-djs/poll-2021-oliver-heldens
+## 9       https://djmag.com//top-100-djs/poll-2021-timmy-trumpet
+## 10         https://djmag.com//top-100-djs/poll-2021-steve-aoki</code></pre>
+<p> </p>
+<p><strong>New Entries</strong></p>
+<pre class="r"><code>## Filter for New Entries:
+new_entries &lt;- dj_mag_2021_df %&gt;% filter(Rank_Change == &#39;New Entry&#39;)
+
+new_entries</code></pre>
+<pre><code>##    Rank                DJ Rank_Change
+## 1    39            MORTEN   New Entry
+## 2    55             Beauz   New Entry
+## 3    69           Panta Q   New Entry
+## 4    72           Naeleck   New Entry
+## 5    78      Virtual Riot   New Entry
+## 6    83             KAAZE   New Entry
+## 7    90          Giftback   New Entry
+## 8    91 Christina Novelli   New Entry
+## 9    93              KAKA   New Entry
+## 10   96            Luminn   New Entry
+## 11   97            Alexso   New Entry
+## 12   99       Dexter King   New Entry
+## 13  100              VIZE   New Entry
+##                                                 Interview_URL
+## 1             https://djmag.com//top-100-djs/poll-2021-morten
+## 2              https://djmag.com//top-100-djs/poll-2021-beauz
+## 3            https://djmag.com//top-100-djs/poll-2021-panta-q
+## 4            https://djmag.com//top-100-djs/poll-2021-naeleck
+## 5       https://djmag.com//top-100-djs/poll-2021-virtual-riot
+## 6              https://djmag.com//top-100-djs/poll-2021-kaaze
+## 7           https://djmag.com//top-100-djs/poll-2021-giftback
+## 8  https://djmag.com//top-100-djs/poll-2021-christina-novelli
+## 9               https://djmag.com//top-100-djs/poll-2021-kaka
+## 10            https://djmag.com//top-100-djs/poll-2021-luminn
+## 11            https://djmag.com//top-100-djs/poll-2021-alexso
+## 12       https://djmag.com//top-100-djs/poll-2021-dexter-king
+## 13              https://djmag.com//top-100-djs/poll-2021-vize</code></pre>
+<pre class="r"><code>## DJs with Re-Entry (Fell out of top 100 and are back in top 100 in 2021)
+re_entries &lt;- dj_mag_2021_df %&gt;% filter(Rank_Change == &#39;Re-entry&#39;)
+
+re_entries</code></pre>
+<pre><code>##   Rank             DJ Rank_Change
+## 1   37  Carnage/GORDO    Re-entry
+## 2   88          MaRLo    Re-entry
+## 3   98 Daddy’s Groove    Re-entry
+##                                             Interview_URL
+## 1   https://djmag.com//top-100-djs/poll-2021-carnagegordo
+## 2          https://djmag.com//top-100-djs/poll-2021-marlo
+## 3 https://djmag.com//top-100-djs/poll-2021-daddy-s-groove</code></pre>
+<pre class="r"><code>## DJs who moved up:
+up_movers &lt;- dj_mag_2021_df %&gt;% filter(grepl(&#39;Up&#39;, Rank_Change))
+
+head(up_movers, 10)</code></pre>
+<pre><code>##    Rank               DJ Rank_Change
+## 1     2    Martin Garrix        Up 1
+## 2     3 Armin Van Buuren        Up 1
+## 3     4             Alok        Up 1
+## 4     6         Afrojack        Up 1
+## 5     9    Timmy Trumpet        Up 1
+## 6    11            KSHMR        Up 1
+## 7    12            R3hab        Up 1
+## 8    15           Tiësto        Up 1
+## 9    16    Calvin Harris        Up 2
+## 10   17  Vintage Culture       Up 13
+##                                                Interview_URL
+## 1     https://djmag.com//top-100-djs/poll-2021-martin-garrix
+## 2  https://djmag.com//top-100-djs/poll-2021-armin-van-buuren
+## 3              https://djmag.com//top-100-djs/poll-2021-alok
+## 4          https://djmag.com//top-100-djs/poll-2021-afrojack
+## 5     https://djmag.com//top-100-djs/poll-2021-timmy-trumpet
+## 6             https://djmag.com//top-100-djs/poll-2021-kshmr
+## 7             https://djmag.com//top-100-djs/poll-2021-r3hab
+## 8            https://djmag.com//top-100-djs/poll-2021-ti-sto
+## 9     https://djmag.com//top-100-djs/poll-2021-calvin-harris
+## 10  https://djmag.com//top-100-djs/poll-2021-vintage-culture</code></pre>
+<pre class="r"><code>## DJs who moved down:
+down_movers &lt;- dj_mag_2021_df %&gt;% filter(grepl(&#39;Down&#39;, Rank_Change))
+
+head(down_movers, 10)</code></pre>
+<pre><code>##    Rank                        DJ Rank_Change
+## 1     5 Dimitri Vegas &amp; Like Mike      Down 3
+## 2     7                Don Diablo      Down 1
+## 3    10                Steve Aoki      Down 1
+## 4    13                Marshmello      Down 2
+## 5    21            Above &amp; Beyond      Down 2
+## 6    24                  Skrillex      Down 9
+## 7    25          Lost Frequencies      Down 4
+## 8    29          The Chainsmokers      Down 2
+## 9    31                Eric Prydz      Down 9
+## 10   33                  DJ Snake      Down 8
+##                                                  Interview_URL
+## 1  https://djmag.com//top-100-djs/poll-2021-dimitri-vegas-mike
+## 2          https://djmag.com//top-100-djs/poll-2021-don-diablo
+## 3          https://djmag.com//top-100-djs/poll-2021-steve-aoki
+## 4          https://djmag.com//top-100-djs/poll-2021-marshmello
+## 5        https://djmag.com//top-100-djs/poll-2021-above-beyond
+## 6            https://djmag.com//top-100-djs/poll-2021-skrillex
+## 7    https://djmag.com//top-100-djs/poll-2021-lost-frequencies
+## 8        https://djmag.com//top-100-djs/poll-2021-chainsmokers
+## 9          https://djmag.com//top-100-djs/poll-2021-eric-prydz
+## 10           https://djmag.com//top-100-djs/poll-2021-dj-snake</code></pre>
+<pre class="r"><code>## Non-Movers 
+non_movers &lt;- dj_mag_2021_df %&gt;% filter(Rank_Change == &#39;Non Mover&#39;)
+
+non_movers</code></pre>
+<pre><code>##   Rank                            DJ Rank_Change
+## 1    1                  David Guetta   Non Mover
+## 2   14                           W&amp;W   Non Mover
+## 3   74                          Kura   Non Mover
+## 4   87 Sunnery James &amp; Ryan Marciano   Non Mover
+##                                                          Interview_URL
+## 1                https://djmag.com//top-100-djs/poll-2021-david-guetta
+## 2                          https://djmag.com//top-100-djs/poll-2021-ww
+## 3                        https://djmag.com//top-100-djs/poll-2021-kura
+## 4 https://djmag.com//top-100-djs/poll-2021-sunnery-james-ryan-marciano</code></pre>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

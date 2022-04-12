@@ -11,7 +11,7 @@
 
 
 
-<title>R Programming</title>
+<title>Bundesliga German Football Table Webscraping In R</title>
 
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -271,92 +271,163 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">R Programming</h1>
+<h1 class="title toc-ignore">Bundesliga German Football Table Webscraping In R</h1>
 
 </div>
 
 
+<p>In this project, I webscrape the most recent Bundesliga football table with R and the <code>rvest</code> package.</p>
+<p><strong>Setup</strong></p>
+<pre class="r"><code>### Bundesliga Web Scraping In R
+# Reference: https://stackoverflow.com/questions/45450981/rvest-scrape-2-classes-in-1-tag
+
+# Load libraries:
+
+library(dplyr)
+library(tidyr)
+library(rvest)</code></pre>
 <p> </p>
-<p>This page contains links on a bunch of R programming projects.</p>
+<p>To extract the table I use <code>html_elements('tbody')</code>.</p>
+<pre class="r"><code>bundesliga &lt;- read_html(&quot;https://www.bundesliga.com/en/bundesliga/table&quot;)
+
+page &lt;- bundesliga %&gt;% html_elements(&#39;tbody&#39;)</code></pre>
 <p> </p>
-<div id="categories" class="section level1">
-<h1><u>Categories</u></h1>
+<div id="extract-teams-rank-matches-points-wins-draws-losses-goals-goal-differences" class="section level2">
+<h2>## Extract Teams, Rank, Matches, Points, Wins, Draws, Losses, Goals, Goal Differences</h2>
+<p>In this section, I use <code>html_nodes()</code> from the <code>rvest</code> package. I extract the class names in <code>html_nodes()</code> to obtain the parts from the football table.</p>
+<p><strong>Teams</strong></p>
+<pre class="r"><code># Teams are in the class &#39;team&#39;:
+
+teams &lt;- page %&gt;% 
+         html_nodes(&quot;[class=&#39;team&#39;]&quot;) %&gt;%
+         html_text2()</code></pre>
 <p> </p>
-<ul>
-<li><p><a href="#mathstats">Math And Stats In R</a></p></li>
-<li><p><a href="#rvisual">Data Visualization In R</a></p></li>
-<li><p><a href="#visualprojects">Data Visualization Projects In R</a></p></li>
-<li><p><a href="#rdata">Data Analysis &amp; Data Manipulation In R</a></p></li>
-<li><p><a href="#textmining">Text Mining &amp; Text Analysis In R</a></p></li>
-</ul>
+<p><strong>Rank</strong></p>
+<pre class="r"><code># Rank &amp; convert into integer:
+
+team_rank &lt;- page %&gt;% 
+             html_nodes(&quot;[class=&#39;rank&#39;]&quot;) %&gt;%
+             html_text2() %&gt;% 
+             readr::parse_integer()</code></pre>
 <p> </p>
-<p><a name="mathstats"></a></p>
-<div id="math-and-stats-in-r" class="section level3">
-<h3><u>Math And Stats In R</u></h3>
+<p><strong>Matches Played</strong></p>
+<pre class="r"><code># Matches played
+
+matches &lt;- page %&gt;% 
+           html_nodes(&quot;[class=&#39;matches&#39;]&quot;) %&gt;%
+           html_text2() %&gt;% 
+           readr::parse_integer()</code></pre>
 <p> </p>
-<p><a href="./rmath-fibonacci.html">Fibonacci Sequence Numbers In R</a></p>
-<p><a href="./rmath-quad-formula-r.html">The Quadratic Formula In R</a></p>
-<p><a href="./rmath-uniform-plots.html">Plotting Uniform Distributions In R With ggplot2</a></p>
-<p><a href="./rmath-random-walks.html">Random Walks In R</a></p>
-<p><a href="./rmath-poisson-regression.html">Poisson Regression</a></p>
-<p><a href="./rtimeseries-simWhiteNoise.html">Simulating White Noise</a></p>
-<p><a name="rvisual"></a></p>
+<p><strong>Points</strong></p>
+<pre class="r"><code># Points
+
+points &lt;- page %&gt;% 
+  html_nodes(&quot;[class=&#39;pts&#39;]&quot;) %&gt;%
+  html_text2() %&gt;% 
+  readr::parse_integer()</code></pre>
+<p> </p>
+<p><strong>Wins</strong></p>
+<pre class="r"><code># Wins:
+
+wins &lt;- page %&gt;% 
+           html_nodes(&quot;[class=&#39;d-none d-lg-table-cell wins&#39;]&quot;) %&gt;%
+           html_text2() %&gt;% 
+           readr::parse_integer()</code></pre>
+<p> </p>
+<p><strong>Draws</strong></p>
+<pre class="r"><code># Draws:
+
+draws &lt;- page %&gt;% 
+           html_nodes(&quot;[class=&#39;d-none d-lg-table-cell draws&#39;]&quot;) %&gt;%
+           html_text2() %&gt;% 
+           readr::parse_integer()</code></pre>
+<p> </p>
+<p><strong>Losses</strong></p>
+<pre class="r"><code># Losses:
+losses &lt;- page %&gt;% 
+          html_nodes(&quot;[class=&#39;d-none d-lg-table-cell looses&#39;]&quot;) %&gt;%
+          html_text2() %&gt;% 
+          readr::parse_integer()</code></pre>
+<p> </p>
+<p><strong>Goals</strong></p>
+<pre class="r"><code># Goals:
+
+goals &lt;- page %&gt;% 
+         html_nodes(&quot;[class=&#39;d-none d-md-table-cell goals&#39;]&quot;) %&gt;%
+         html_text2() </code></pre>
+<p> </p>
+<p><strong>Goal Difference</strong></p>
+<pre class="r"><code># Goal Difference:
+
+goal_diff &lt;- page %&gt;% 
+             html_nodes(&quot;[class=&#39;difference&#39;]&quot;) %&gt;%
+             html_text2() %&gt;% 
+             readr::parse_integer()</code></pre>
 <p> </p>
 </div>
-<div id="data-visualization-in-r" class="section level3">
-<h3><u>Data Visualization In R</u></h3>
+<div id="creating-dataframe" class="section level2">
+<h2>Creating Dataframe</h2>
 <p> </p>
-<p><a href="./rvisual-linear-model.html">Fitting A Linear Model In R Using ggplot2</a></p>
-<p><a href="./rvisual-bargraphs.html">Making Bar Graphs In R Using ggplot2</a></p>
-<p><a href="./rvisual-sideways-bargraph.html">A Sideways Bar Graph Example In R</a></p>
-<p><a href="./rvisual-sidebyside-bar.html">Side By Side Bar Graphs Using R and ggplot2</a></p>
-<p><a href="./rvisual-adv-bargraphs.html">An Advanced Bar Graph Example Using R And ggplot2</a></p>
-<p><a href="./rvisual-histograms.html">Histograms In R</a></p>
-<p><a href="./rvisual-heatmaps.html">Heatmaps In R With ggplot2</a></p>
-<p><a href="./rvisual-piecharts.html">Pie Charts In R</a></p>
-<p><a href="./rvisual-boxplots.html">Boxplots In R</a></p>
-<p><a href="./rvisual-line-plots.html">Line Plots In R &amp; ggplot2</a></p>
-<p><a href="./rvisual-corrplots.html">Correlation Plots Using The corrplot and ggplot2 Packages In R</a></p>
-<p><a href="./rvisual-ggvis-guide.html">Data Visualization In R With The ggvis Package</a></p>
-<p><a href="./rvisual-scatterplots-ggvis.html">Scatterplots In R Using The ggvis Package</a></p>
-<p><a href="./rvisual-twoway-table.html">Working With A Two-By-Two Table In R</a></p>
-<p><a href="./rvisual-multiple-plots.html">Multiple Plots In One Graph With R</a></p>
-<p><a href="./rvisual-cont-prob-dists.html">Plotting Continuous Probability Distributions In R With ggplot2</a></p>
-<p><a href="./rvisual-timeseries-plot.html">Plotting Time Series Data using ggplot2 &amp; plotly Packages In R</a></p>
+<pre class="r"><code>### Create Bundesliga dataframe:
+
+bundes_df &lt;- data.frame(Rank = team_rank, Team = teams, Points = points,
+                        Played = matches, Wins = wins, Draws = draws,
+                        Losses = losses, Goals = goals, 
+                        Goal_Difference = goal_diff)
+
+## Goals Column Separate Into Goals For and Goals Against:
+
+bundes_df &lt;- bundes_df %&gt;% separate(Goals, c(&quot;Goals For&quot;, &quot;Goals Against&quot;))
+
+bundes_df</code></pre>
+<pre><code>##    Rank                                Team Points Played Wins Draws Losses
+## 1     1        FCB Bayern FC Bayern München     69     29   22     3      4
+## 2     2      BVB Dortmund Borussia Dortmund     60     29   19     3      7
+## 3     3  B04 Leverkusen Bayer 04 Leverkusen     52     29   15     7      7
+## 4     4              RBL Leipzig RB Leipzig     51     29   15     6      8
+## 5     5            SCF Freiburg SC Freiburg     48     29   13     9      7
+## 6     6       TSG Hoffenheim TSG Hoffenheim     44     29   13     5     11
+## 7     7 FCU Union Berlin 1. FC Union Berlin     44     29   12     8      9
+## 8     8                 KOE Köln 1. FC Köln     43     29   11    10      8
+## 9     9   SGE Frankfurt Eintracht Frankfurt     39     29   10     9     10
+## 10   10           M05 Mainz 1. FSV Mainz 05     38     29   11     5     13
+## 11   11  BMG M&#39;gladbach Borussia M&#39;gladbach     37     29   10     7     12
+## 12   12          BOC Bochum VfL Bochum 1848     36     29   10     6     13
+## 13   13         WOB Wolfsburg VfL Wolfsburg     34     29   10     4     15
+## 14   14            FCA Augsburg FC Augsburg     32     29    8     8     13
+## 15   15         VFB Stuttgart VfB Stuttgart     27     29    6     9     14
+## 16   16     DSC Bielefeld Arminia Bielefeld     26     29    5    11     13
+## 17   17     BSC Hertha Berlin Hertha Berlin     26     29    7     5     17
+## 18   18      SGF Fürth SpVgg Greuther Fürth     16     29    3     7     19
+##    Goals For Goals Against Goal_Difference
+## 1         86            29              57
+## 2         70            42              28
+## 3         68            42              26
+## 4         64            31              33
+## 5         46            34              12
+## 6         50            45               5
+## 7         38            39              -1
+## 8         41            43              -2
+## 9         40            40               0
+## 10        43            36               7
+## 11        41            52             -11
+## 12        30            40             -10
+## 13        33            45             -12
+## 14        34            46             -12
+## 15        36            53             -17
+## 16        23            43             -20
+## 17        31            66             -35
+## 18        24            72             -48</code></pre>
 <p> </p>
-<p><a name="visualprojects"></a></p>
+<p>If you would like to save the dataframe into a .csv file you can use this code chunk.</p>
+<pre class="r"><code>## Save Bundesliga Table Into A .csv file.
+
+write.csv(bundes_df, paste(&quot;Bundesliga_&quot;, Sys.Date(), sep = &quot;&quot;))</code></pre>
+<p> </p>
 </div>
-<div id="data-visualization-projects-in-r" class="section level3">
-<h3><u>Data Visualization Projects In R</u></h3>
+<div id="section" class="section level2">
+<h2></h2>
 <p> </p>
-<p><a href="./rvisual-rockpaperscissors.html">Making A Rock, Paper, Scissors Table In R</a></p>
-<p><a href="./rvisual-rpsls.html">Creating A Rock, Paper, Scissors, Lizard, Spock Table In R</a></p>
-<p><a href="./rvisual-kaplan-meier.html">Plotting Kaplan-Meier Survival Times Curves In R With ggplot2</a></p>
-<p> </p>
-<p><a name="rdata"></a></p>
-</div>
-<div id="data-analysis-data-manipulation-in-r" class="section level3">
-<h3><u>Data Analysis &amp; Data Manipulation In R</u></h3>
-<p> </p>
-<p><a href="./ranalysis-tidyr-clean.html">Data Cleaning In R With The tidyr Package</a></p>
-<p><a href="./ranalysis-sapply.html">A Look At R’s stringr Package</a></p>
-<p><a href="./ranalysis-meltFunction.html">Data Manipulation In R: The melt Function</a></p>
-<p><a href="./ranalysis-readfile-types.html">Reading In Various File Types In R</a></p>
-<p><a href="./ranalysis-bundesligR.html">Analyzing the German Soccer (Bundesliga) League Using R &amp; The dplyr Package</a></p>
-<p><a href="./ranalysis-quandlwork.html">Using R &amp; Quandl To Look At Financial Data</a></p>
-<p> </p>
-<p><a name="textmining"></a></p>
-</div>
-<div id="text-mining-text-analysis-in-r" class="section level3">
-<h3><u>Text Mining &amp; Text Analysis In R</u></h3>
-<p> </p>
-<p><a href="./rtext-freq-words.html">Finding The Most Frequent Words In Text With R</a></p>
-<p><a href="./rtext-meteora.html">Text Analysis In R On Linkin Park - Meteora Song Lyrics</a></p>
-<p><a href="./rtext-raplyrics.html">Text Mining/Analysis On A Few Rap Lyrics With R Programming</a></p>
-<p><a href="./rtext-foxsocks.html">Text Analysis In R On Dr.Seuss Fox In Socks</a></p>
-<p><a href="./rtext-greeneggs.html">Wordcounts &amp; Wordclouds In Dr. Seuss - Green Eggs &amp; Ham Book</a></p>
-<p><a href="./rtext-catHat.html">Using R Programming &amp; Text Analysis On The Dr. Seuss - The Cat In The Hat Kids Book</a></p>
-</div>
 </div>
 
 

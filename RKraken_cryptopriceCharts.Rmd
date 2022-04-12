@@ -16,7 +16,7 @@ This is based from this blog post from [CryptoDownload](https://www.cryptodatado
 ## Importing Data Into R
 ---
 
-The [blog post](https://www.cryptodatadownload.com/blog/how-to-download-kraken-data-R.html) from Crypto Download contains template code for obtain crypto price data from the Kraken exchagne and writing it to a .csv file given a crypto trading pair. 
+The [blog post](https://www.cryptodatadownload.com/blog/how-to-download-kraken-data-R.html) from Crypto Download contains template code for obtain crypto price data from the Kraken exchange and writing it to a .csv file given a crypto trading pair. 
 
 In this post, I want to not write the data into a .csv and produce price charts with `plotly` in R.
 

@@ -40,7 +40,13 @@ This page contains links on a bunch of webscraping projects in Python & in R.
 
 # <u>R Webscraping Projects</u>
 
-Under construction.
+&nbsp;
+
+[Bundesliga German Football Table Webscraping](./R_bundesliga_webscrape.html)
+
+[A State of Trance Radio Show Top 1000 Tracks Of All Time](./R_asot_top1000_webscrape.html)
+
+[DJ Magazine Top 100 DJs 2021](./R_DJMag2021_webscrape.html)
 
 &nbsp;
 

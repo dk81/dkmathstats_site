@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>ASOT Top1000 Tracks Webscrape</title>
+
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Items</a>
+</li>
+<li>
+  <a href="python_projects.html">Python Items</a>
+</li>
+<li>
+  <a href="crypto_page.html">Crypto Topics</a>
+</li>
+<li>
+  <a href="webscrape_projects.html">Webscrape Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">ASOT Top1000 Tracks Webscrape</h1>
+
+</div>
+
+
+<div id="a-state-of-trance-top-1000-tracks-of-all-time" class="section level2">
+<h2>## A State of Trance Top 1000 Tracks Of All Time</h2>
+<p>This is a short webscraping project where I obtain the top 1000 tracks of all time on A State of Trance radioshow hosted by Armin van Burren.</p>
+<pre class="r"><code># A State of Trance Top 1000 Of All Time
+# List Released on January 11, 2021
+
+# Load libraries:
+library(rvest)
+library(dplyr)
+library(tidyr)
+library(stringr)</code></pre>
+<p> </p>
+</div>
+<div id="extracting-the-tracks" class="section level2">
+<h2>## Extracting The Tracks</h2>
+<p>This code chunk below is reading the html page and extracting the tracks into the <code>songs</code> variable.</p>
+<pre class="r"><code># Link:
+url &lt;- &quot;https://www.astateoftrance.com/news/armin-van-buuren-reveals-all-time-a-state-of-trance-top-1000-list/&quot;
+
+# ASOT Top 1000:
+url_page &lt;- read_html(url)
+
+# Obtain div tag with class columns:
+
+songs &lt;- url_page %&gt;%
+         html_nodes(&quot;[class=&#39;columns&#39;]&quot;) </code></pre>
+<p> </p>
+<p>Tracks are found in the p tags of the songs.</p>
+<pre class="r"><code># Tracks are found in the p tags of songs. More specifically in index 6 and 7.
+
+tracks &lt;- songs %&gt;% html_elements(&#39;p&#39;) 
+tracks &lt;- tracks[c(6, 7)] %&gt;% html_text2()</code></pre>
+<p> </p>
+<pre class="r"><code># Obtain top 50, extract from nested list
+top_50 &lt;-  str_split(tracks[1], pattern = &quot;\n&quot;) 
+top_50 &lt;- top_50[[1]]
+
+top_50</code></pre>
+<pre><code>##  [1] &quot;1 Armin van Buuren feat. Susana – Shivers &quot;                                           
+##  [2] &quot;2 Tiësto – Adagio For Strings &quot;                                                       
+##  [3] &quot;3 GAIA – Tuvan &quot;                                                                      
+##  [4] &quot;4 Delerium feat. Sarah McLachlan – Silence (Tiësto’s In Search Of Sunrise Remix)&quot;     
+##  [5] &quot;5 Armin van Buuren – Communication (Part 3)&quot;                                          
+##  [6] &quot;6 Gouryella – Anahera &quot;                                                               
+##  [7] &quot;7 RAM – RAMsterdam (Jorn van Deynhoven Remix)&quot;                                        
+##  [8] &quot;8 Dash Berlin with Cerf &amp; Mitiska &amp; Jaren – Man On The Run &quot;                          
+##  [9] &quot;9 Gareth Emery feat. Christina Novelli – Concrete Angel &quot;                             
+## [10] &quot;10 RAM &amp; Susana – RAMelia (Tribute To Amelia) &quot;                                       
+## [11] &quot;11 Above &amp; Beyond feat. Richard Bedford – Sun &amp; Moon (Above &amp; Beyond Club Mix)&quot;       
+## [12] &quot;12 Gareth Emery &amp; STANDERWICK feat. HALIENE – Saving Light &quot;                          
+## [13] &quot;13 4 Strings – Take Me Away (Into The Night) &quot;                                        
+## [14] &quot;14 Armin van Buuren feat. Justine Suissa – Burned With Desire (Rising Star Vocal Mix)&quot;
+## [15] &quot;15 Rank 1 – Airwave &quot;                                                                 
+## [16] &quot;16 Paul van Dyk – For An Angel (PvD E-Werk Club Mix )&quot;                                
+## [17] &quot;17 Above &amp; Beyond pres. OceanLab – Satellite &quot;                                        
+## [18] &quot;18 Motorcycle – As The Rush Comes (Gabriel &amp; Dresden Sweeping Strings Mix&quot;            
+## [19] &quot;19 Aly &amp; Fila feat. Jwaydan – We Control The Sunlight &quot;                               
+## [20] &quot;20 Armin van Buuren feat. Sharon Den Adel – In And Out Of Love &quot;                      
+## [21] &quot;21 Veracocha – Carte Blanche &quot;                                                        
+## [22] &quot;22 Above &amp; Beyond &amp; Gareth Emery pres. OceanLab – On A Good Day (Metropolis) &quot;        
+## [23] &quot;23 MaRLo &amp; Feenixpawl – Lighter Than Air &quot;                                            
+## [24] &quot;24 Dash Berlin – Till The Sky Falls Down &quot;                                            
+## [25] &quot;25 Chicane feat. Maire Brennan Of Clannad – Saltwater &quot;                               
+## [26] &quot;26 Above &amp; Beyond with Andy Moor – Air For Life &quot;                                     
+## [27] &quot;27 Paul van Dyk feat. Hemstock &amp; Jennings – Nothing But You (PvD Club Mix)&quot;           
+## [28] &quot;28 Dash Berlin feat. Emma Hewitt – Waiting &quot;                                          
+## [29] &quot;29 Roger Shah presents Sunlounger feat. Zara – Lost (Club Mix)&quot;                       
+## [30] &quot;30 GAIA – Empire Of Hearts &quot;                                                          
+## [31] &quot;31 Andain – Beautiful Things (Gabriel &amp; Dresden Unplugged Mix)&quot;                       
+## [32] &quot;32 Armin van Buuren feat. Trevor Guthrie – This Is What It Feels Like (W&amp;W Remix)&quot;    
+## [33] &quot;33 Robert Miles – Children (Dream Version)&quot;                                           
+## [34] &quot;34 Alex M.O.R.P.H. feat. Sylvia Tosun – An Angel’s Love &quot;                             
+## [35] &quot;35 Gareth Emery feat. Bo Bruce – U (Bryan Kearney Remix)&quot;                             
+## [36] &quot;36 Armin van Buuren feat. Miri Ben-Ari – Intense &quot;                                    
+## [37] &quot;37 Key4050 &amp; Plumb – I Love You &quot;                                                     
+## [38] &quot;38 Richard Durand &amp; Christina Novelli – The Air I Breathe (Club Mix)&quot;                 
+## [39] &quot;39 John O’Callaghan feat. Audrey Gallagher – Big Sky (Agnelli &amp; Nelson Remix)&quot;        
+## [40] &quot;40 Armin van Buuren feat. Jan Vayne – Serenity &quot;                                      
+## [41] &quot;41 Push – Universal Nation &quot;                                                          
+## [42] &quot;42 Giuseppe Ottaviani – Through Your Eyes &quot;                                           
+## [43] &quot;43 Luminary – Amsterdam (Smith &amp; Pledger Remix)&quot;                                      
+## [44] &quot;44 Energy 52 – Café Del Mar ’98 (Original Three ‘N One Mix)&quot;                          
+## [45] &quot;45 Aly &amp; Fila – It’s All About The Melody &quot;                                           
+## [46] &quot;46 System F – Out Of The Blue &quot;                                                       
+## [47] &quot;47 Gareth Emery feat. Lucy Saunders – Sanctuary &quot;                                     
+## [48] &quot;48 Above &amp; Beyond feat. Zoë Johnston – Good For Me (Above &amp; Beyond Club Mix)&quot;         
+## [49] &quot;49 ATB – Ecstasy (Clubb Mix)&quot;                                                         
+## [50] &quot;50 Tiësto – Suburban Train &quot;</code></pre>
+<p> </p>
+<pre class="r"><code># Ranked 51-1000
+other_tracks &lt;- str_split(tracks[2], pattern = &quot;\n&quot;)
+other_tracks &lt;- other_tracks[[1]]
+
+# Combine all:
+combined &lt;- c(top_50, other_tracks)
+
+# Dataframe:
+df &lt;- data.frame(Rank = seq(1, 1000), Track = combined)
+
+head(df, 20)</code></pre>
+<pre><code>##    Rank
+## 1     1
+## 2     2
+## 3     3
+## 4     4
+## 5     5
+## 6     6
+## 7     7
+## 8     8
+## 9     9
+## 10   10
+## 11   11
+## 12   12
+## 13   13
+## 14   14
+## 15   15
+## 16   16
+## 17   17
+## 18   18
+## 19   19
+## 20   20
+##                                                                                    Track
+## 1                                             1 Armin van Buuren feat. Susana – Shivers 
+## 2                                                         2 Tiësto – Adagio For Strings 
+## 3                                                                        3 GAIA – Tuvan 
+## 4       4 Delerium feat. Sarah McLachlan – Silence (Tiësto’s In Search Of Sunrise Remix)
+## 5                                            5 Armin van Buuren – Communication (Part 3)
+## 6                                                                 6 Gouryella – Anahera 
+## 7                                          7 RAM – RAMsterdam (Jorn van Deynhoven Remix)
+## 8                            8 Dash Berlin with Cerf &amp; Mitiska &amp; Jaren – Man On The Run 
+## 9                               9 Gareth Emery feat. Christina Novelli – Concrete Angel 
+## 10                                        10 RAM &amp; Susana – RAMelia (Tribute To Amelia) 
+## 11        11 Above &amp; Beyond feat. Richard Bedford – Sun &amp; Moon (Above &amp; Beyond Club Mix)
+## 12                           12 Gareth Emery &amp; STANDERWICK feat. HALIENE – Saving Light 
+## 13                                         13 4 Strings – Take Me Away (Into The Night) 
+## 14 14 Armin van Buuren feat. Justine Suissa – Burned With Desire (Rising Star Vocal Mix)
+## 15                                                                  15 Rank 1 – Airwave 
+## 16                                 16 Paul van Dyk – For An Angel (PvD E-Werk Club Mix )
+## 17                                         17 Above &amp; Beyond pres. OceanLab – Satellite 
+## 18             18 Motorcycle – As The Rush Comes (Gabriel &amp; Dresden Sweeping Strings Mix
+## 19                                19 Aly &amp; Fila feat. Jwaydan – We Control The Sunlight 
+## 20                       20 Armin van Buuren feat. Sharon Den Adel – In And Out Of Love</code></pre>
+<p> </p>
+</div>
+<div id="extension-having-rank-artist-song-as-three-separate-columns" class="section level2">
+<h2>Extension: Having Rank, Artist &amp; Song As Three Separate Columns</h2>
+<p>The format before was just rank and track. This extension part will separate the artist and song from the hyphen. One small detail to note is that the hyphen from the A State of Trance list is a different hyphen from my keyboard. You have to copy and paste this hyphen in the <code>sep =</code> argument in <code>separate()</code>.</p>
+<p> </p>
+<pre class="r"><code># Separate by hyphen. That is the hyphen from the site (-) not my keyboard hyphen (-):
+asot_top_1000_df &lt;- df %&gt;% 
+                    separate(col = Track, into = c(&quot;Artist&quot;, &quot;Song&quot;), sep = &#39;–&#39;)  
+
+# Remove number in artist column:
+# Reference: https://stackoverflow.com/questions/32767164/use-gsub-remove-all-string-before-first-white-space-in-r
+asot_top_1000_df$Artist &lt;- str_replace(asot_top_1000_df$Artist, &quot;^[\\S]+&quot;, &quot;&quot;) %&gt;% trimws()
+
+# Preview table:
+head(asot_top_1000_df)</code></pre>
+<pre><code>##   Rank                         Artist
+## 1    1  Armin van Buuren feat. Susana
+## 2    2                         Tiësto
+## 3    3                           GAIA
+## 4    4 Delerium feat. Sarah McLachlan
+## 5    5               Armin van Buuren
+## 6    6                      Gouryella
+##                                             Song
+## 1                                       Shivers 
+## 2                            Adagio For Strings 
+## 3                                         Tuvan 
+## 4  Silence (Tiësto’s In Search Of Sunrise Remix)
+## 5                         Communication (Part 3)
+## 6                                       Anahera</code></pre>
+<pre class="r"><code>tail(asot_top_1000_df)</code></pre>
+<pre><code>##      Rank            Artist                                   Song
+## 995   995           Elevven                          One Last Time
+## 996   996 Late Night Alumni  Empty Streets (Lumïsade Balearic Mix)
+## 997   997               ATN                             Miss A Day
+## 998   998       Nic Chagall                             Monday Bar
+## 999   999        Mark Otten   So Serene (Menno de Jong Fierce Dub)
+## 1000 1000    Robert Nickson                                Circles</code></pre>
+<p> </p>
+</div>
+<div id="most-frequent-artists-in-asot-top-1000" class="section level2">
+<h2>### Most Frequent Artists In ASOT Top 1000</h2>
+<p>The <code>count()</code> function from <code>dplyr</code> can be used to obtain counts.</p>
+<pre class="r"><code># Top 20 Most Frequent Artists in ASOT Top 1000
+# Armin van Buuren, Above &amp; Beyond, GAIA, Giuesppe Ottaviani, Ørjan Nilsen, Aly &amp; Fila, Gareth Emery
+asot_top_1000_df %&gt;% 
+  count(Artist) %&gt;% 
+  arrange(desc(n)) %&gt;%
+  head(20)</code></pre>
+<pre><code>##                                  Artist  n
+## 1                      Armin van Buuren 31
+## 2                        Above &amp; Beyond 13
+## 3                                  GAIA 12
+## 4     Above &amp; Beyond feat. Zoë Johnston 10
+## 5                    Giuseppe Ottaviani 10
+## 6                          Ørjan Nilsen 10
+## 7         Above &amp; Beyond pres. OceanLab  9
+## 8                          Andrew Rayel  9
+## 9                         Ferry Corsten  9
+## 10 Above &amp; Beyond feat. Richard Bedford  8
+## 11                            Gouryella  8
+## 12                           Aly &amp; Fila  7
+## 13                         Gareth Emery  7
+## 14                               Tiësto  7
+## 15                   Jorn van Deynhoven  6
+## 16                           Solarstone  6
+## 17                         Super8 &amp; Tab  6
+## 18                                  W&amp;W  6
+## 19                          Cosmic Gate  5
+## 20                            4 Strings  4</code></pre>
+<pre class="r"><code># Save table as .csv file:
+write.csv(asot_top_1000_df, file = &#39;ASOT_Top1000_Tracks.csv&#39;, row.names = FALSE)</code></pre>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
