@@ -1,0 +1,238 @@
+---
+title: "La Liga Spanish Soccer Table Webscraping"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this webscraping project in R, I webscrape the most recent La Liga Spanish football table. 
+
+**Setup**
+
+The packages that are needed for webscraping and dealing with text are `dplyr`, `tidyr`, `rvest`, `stringr`. `writexl` package is for saving dataframes into Excel files and `.csv` files.
+
+From `rvest`, the `read_html()` function is used for extracting the HTML page from the La Liga website.
+
+```{r, warning = FALSE, message = FALSE}
+## La Liga Spanish Soccer Table Web Scraping
+# Reference: https://stackoverflow.com/questions/45450981/rvest-scrape-2-classes-in-1-tag
+  
+# Load libraries:
+  
+library(dplyr)
+library(tidyr)
+library(rvest)
+library(stringr)
+library(writexl)
+
+
+## Extract La Liga Football League tables page.
+
+page <- read_html("https://www.laliga.com/en-GB/laliga-santander/standing")
+```
+
+&nbsp;
+
+## Extract Table Components
+
+When it comes to extracting the table components from the La Liga standings table, I use xpaths along with `html_nodes()` for the job. In this case extracting ranks, club names and the rest outputs 60 items. I only need the first 20. This is why you see something like `rank <- rank[1:20]`.
+
+**Ranks**
+
+```{r}
+# Extract the first 20 elements when I extract each part. There are 20 La Liga teams
+# Rank:
+rank <- page %>% 
+        html_nodes(xpath = '//*[@class="styled__StandingTableBody-e89col-5 cDiDQb"]/div/div[1]/div/div[1]/div[1]') %>%
+        html_text2() %>%
+        readr::parse_integer()
+rank <- rank[1:20]
+
+```
+
+&nbsp;
+
+**Club Names**
+
+```{r}
+# Club Names 
+club_names <- page %>% 
+              html_nodes(xpath = '//*[@class="styled__StandingTableBody-e89col-5 cDiDQb"]/div/div[1]/div/div[1]/div[2]/div[2]/p') %>%
+              html_text2()
+club_names <- club_names[1:20]
+
+club_names
+```
+
+&nbsp;
+
+**Club Abbreviation**
+
+```{r}
+# Club Abbreviations:
+# Club Names 
+club_tickers <- page %>% 
+                html_nodes(xpath = '//*[@class="styled__StandingTableBody-e89col-5 cDiDQb"]/div/div[1]/div/div[1]/div[2]/div[1]/p') %>%
+                html_text2()
+club_tickers <- club_tickers[1:20]
+
+club_tickers
+
+```
+
+&nbsp;
+
+**Points**
+
+```{r}
+# Points:
+points <- page %>% 
+          html_nodes(xpath = '//*[@class="styled__StandingTableBody-e89col-5 cDiDQb"]/div/div[1]/div/div[1]/div[3]') %>%
+          html_text2() %>%
+          readr::parse_integer()
+points <- points[1:20]
+
+points
+```
+
+&nbsp;
+
+**Played Matches**
+
+```{r}
+# Played Matches Amount:
+played <- page %>% 
+          html_nodes(xpath = '//*[@class="styled__StandingTableBody-e89col-5 cDiDQb"]/div/div[1]/div/div[1]/div[4]') %>%
+          html_text2() %>%
+          readr::parse_integer()
+played <- played[1:20]
+```
+
+&nbsp;
+
+**Wins**
+
+```{r}
+# Wins
+wins <- page %>% 
+        html_nodes(xpath = '//*[@class="styled__StandingTableBody-e89col-5 cDiDQb"]/div/div[1]/div/div[1]/div[5]') %>%
+        html_text2() %>%
+        readr::parse_integer()
+wins <- wins[1:20]
+```
+
+&nbsp;
+
+**Draws**
+
+```{r}
+# Draws
+draws <- page %>% 
+         html_nodes(xpath = '//*[@class="styled__StandingTableBody-e89col-5 cDiDQb"]/div/div[1]/div/div[1]/div[6]') %>%
+         html_text2() %>%
+         readr::parse_integer()
+draws <- draws[1:20]
+```
+
+&nbsp;
+
+**Losses**
+
+```{r}
+# Losses
+losses <- page %>% 
+          html_nodes(xpath = '//*[@class="styled__StandingTableBody-e89col-5 cDiDQb"]/div/div[1]/div/div[1]/div[7]') %>%
+          html_text2() %>%
+          readr::parse_integer()
+losses <- losses[1:20]
+```
+
+&nbsp;
+
+**Goals For**
+
+```{r}
+# Goals For
+goals_for <- page %>% 
+             html_nodes(xpath = '//*[@class="styled__StandingTableBody-e89col-5 cDiDQb"]/div/div[1]/div/div[1]/div[8]') %>%
+             html_text2() %>%
+             readr::parse_integer()
+goals_for <- goals_for[1:20]
+```
+
+&nbsp;
+
+**Goals Against**
+
+```{r}
+# Goals Against
+goals_against <- page %>% 
+                 html_nodes(xpath = '//*[@class="styled__StandingTableBody-e89col-5 cDiDQb"]/div/div[1]/div/div[1]/div[9]') %>%
+                 html_text2() %>%
+                 readr::parse_integer()
+goals_against <- goals_against[1:20]
+```
+
+&nbsp;
+
+**Goal Difference**
+
+```{r}
+# Goals Difference
+goal_diff <- page %>% 
+             html_nodes(xpath = '//*[@class="styled__StandingTableBody-e89col-5 cDiDQb"]/div/div[1]/div/div[1]/div[10]') %>%
+             html_text2() %>%
+             readr::parse_integer()
+goal_diff <- goal_diff[1:20]
+```
+
+&nbsp;
+
+## Create Dataframe For La Liga Football Table
+
+```{r}
+### Create Dataframe based on raw data:
+
+laliga_table <- data.frame(
+  Rank = rank,
+  Club = club_names,
+  Club_Abbrev = club_tickers,
+  Points = points,
+  Played = played,
+  Wins = wins,
+  Draws = draws,
+  Losses = losses,
+  Goals_For = goals_for,
+  Goals_Against = goals_against,
+  Goal_Diff = goal_diff
+)
+
+## Preview table:
+
+head(laliga_table, 10)
+```
+
+
+&nbsp;
+
+```{r}
+Sys.Date()
+```
+
+&nbsp;
+
+## Optional - Save Dataframe as Excel File or .csv File
+
+```{r}
+### Save Raw data Dataframe as Excel File:
+
+library(writexl)
+
+write_xlsx(laliga_table, paste("LaLiga_Table", Sys.Date(), ".xlsx", sep = ""))
+
+## Save dataframe as .csv File Option:
+
+write.csv(laliga_table, paste("LaLiga_Table", Sys.Date(), ".csv", sep = ""), row.names = FALSE)  
+```

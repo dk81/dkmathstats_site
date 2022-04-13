@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>La Liga Spanish Soccer Table Webscraping</title>
+
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Items</a>
+</li>
+<li>
+  <a href="python_projects.html">Python Items</a>
+</li>
+<li>
+  <a href="crypto_page.html">Crypto Topics</a>
+</li>
+<li>
+  <a href="webscrape_projects.html">Webscrape Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">La Liga Spanish Soccer Table Webscraping</h1>
+
+</div>
+
+
+<p>In this webscraping project in R, I webscrape the most recent La Liga Spanish football table.</p>
+<p><strong>Setup</strong></p>
+<p>The packages that are needed for webscraping and dealing with text are <code>dplyr</code>, <code>tidyr</code>, <code>rvest</code>, <code>stringr</code>. <code>writexl</code> package is for saving dataframes into Excel files and <code>.csv</code> files.</p>
+<p>From <code>rvest</code>, the <code>read_html()</code> function is used for extracting the HTML page from the La Liga website.</p>
+<pre class="r"><code>## La Liga Spanish Soccer Table Web Scraping
+# Reference: https://stackoverflow.com/questions/45450981/rvest-scrape-2-classes-in-1-tag
+  
+# Load libraries:
+  
+library(dplyr)
+library(tidyr)
+library(rvest)
+library(stringr)
+library(writexl)
+
+
+## Extract La Liga Football League tables page.
+
+page &lt;- read_html(&quot;https://www.laliga.com/en-GB/laliga-santander/standing&quot;)</code></pre>
+<p> </p>
+<div id="extract-table-components" class="section level2">
+<h2>Extract Table Components</h2>
+<p>When it comes to extracting the table components from the La Liga standings table, I use xpaths along with <code>html_nodes()</code> for the job. In this case extracting ranks, club names and the rest outputs 60 items. I only need the first 20. This is why you see something like <code>rank &lt;- rank[1:20]</code>.</p>
+<p><strong>Ranks</strong></p>
+<pre class="r"><code># Extract the first 20 elements when I extract each part. There are 20 La Liga teams
+# Rank:
+rank &lt;- page %&gt;% 
+        html_nodes(xpath = &#39;//*[@class=&quot;styled__StandingTableBody-e89col-5 cDiDQb&quot;]/div/div[1]/div/div[1]/div[1]&#39;) %&gt;%
+        html_text2() %&gt;%
+        readr::parse_integer()
+rank &lt;- rank[1:20]</code></pre>
+<p> </p>
+<p><strong>Club Names</strong></p>
+<pre class="r"><code># Club Names 
+club_names &lt;- page %&gt;% 
+              html_nodes(xpath = &#39;//*[@class=&quot;styled__StandingTableBody-e89col-5 cDiDQb&quot;]/div/div[1]/div/div[1]/div[2]/div[2]/p&#39;) %&gt;%
+              html_text2()
+club_names &lt;- club_names[1:20]
+
+club_names</code></pre>
+<pre><code>##  [1] &quot;Real Madrid&quot;               &quot;FC Barcelona&quot;             
+##  [3] &quot;Sevilla FC&quot;                &quot;Atlético de Madrid&quot;       
+##  [5] &quot;Real Betis&quot;                &quot;Real Sociedad&quot;            
+##  [7] &quot;Villarreal CF&quot;             &quot;Athletic Club&quot;            
+##  [9] &quot;Valencia CF&quot;               &quot;CA Osasuna&quot;               
+## [11] &quot;RCD Espanyol de Barcelona&quot; &quot;RC Celta&quot;                 
+## [13] &quot;Rayo Vallecano&quot;            &quot;Getafe CF&quot;                
+## [15] &quot;Elche CF&quot;                  &quot;Granada CF&quot;               
+## [17] &quot;RCD Mallorca&quot;              &quot;Cádiz CF&quot;                 
+## [19] &quot;Levante UD&quot;                &quot;Deportivo Alavés&quot;</code></pre>
+<p> </p>
+<p><strong>Club Abbreviation</strong></p>
+<pre class="r"><code># Club Abbreviations:
+# Club Names 
+club_tickers &lt;- page %&gt;% 
+                html_nodes(xpath = &#39;//*[@class=&quot;styled__StandingTableBody-e89col-5 cDiDQb&quot;]/div/div[1]/div/div[1]/div[2]/div[1]/p&#39;) %&gt;%
+                html_text2()
+club_tickers &lt;- club_tickers[1:20]
+
+club_tickers</code></pre>
+<pre><code>##  [1] &quot;RMA&quot; &quot;BAR&quot; &quot;SEV&quot; &quot;ATM&quot; &quot;BET&quot; &quot;RSO&quot; &quot;VIL&quot; &quot;ATH&quot; &quot;VAL&quot; &quot;OSA&quot; &quot;ESP&quot; &quot;CEL&quot;
+## [13] &quot;RAY&quot; &quot;GET&quot; &quot;ELC&quot; &quot;GRA&quot; &quot;MLL&quot; &quot;CAD&quot; &quot;LEV&quot; &quot;ALA&quot;</code></pre>
+<p> </p>
+<p><strong>Points</strong></p>
+<pre class="r"><code># Points:
+points &lt;- page %&gt;% 
+          html_nodes(xpath = &#39;//*[@class=&quot;styled__StandingTableBody-e89col-5 cDiDQb&quot;]/div/div[1]/div/div[1]/div[3]&#39;) %&gt;%
+          html_text2() %&gt;%
+          readr::parse_integer()
+points &lt;- points[1:20]
+
+points</code></pre>
+<pre><code>##  [1] 72 60 60 57 56 54 46 45 42 41 39 36 34 32 32 29 29 28 22 22</code></pre>
+<p> </p>
+<p><strong>Played Matches</strong></p>
+<pre class="r"><code># Played Matches Amount:
+played &lt;- page %&gt;% 
+          html_nodes(xpath = &#39;//*[@class=&quot;styled__StandingTableBody-e89col-5 cDiDQb&quot;]/div/div[1]/div/div[1]/div[4]&#39;) %&gt;%
+          html_text2() %&gt;%
+          readr::parse_integer()
+played &lt;- played[1:20]</code></pre>
+<p> </p>
+<p><strong>Wins</strong></p>
+<pre class="r"><code># Wins
+wins &lt;- page %&gt;% 
+        html_nodes(xpath = &#39;//*[@class=&quot;styled__StandingTableBody-e89col-5 cDiDQb&quot;]/div/div[1]/div/div[1]/div[5]&#39;) %&gt;%
+        html_text2() %&gt;%
+        readr::parse_integer()
+wins &lt;- wins[1:20]</code></pre>
+<p> </p>
+<p><strong>Draws</strong></p>
+<pre class="r"><code># Draws
+draws &lt;- page %&gt;% 
+         html_nodes(xpath = &#39;//*[@class=&quot;styled__StandingTableBody-e89col-5 cDiDQb&quot;]/div/div[1]/div/div[1]/div[6]&#39;) %&gt;%
+         html_text2() %&gt;%
+         readr::parse_integer()
+draws &lt;- draws[1:20]</code></pre>
+<p> </p>
+<p><strong>Losses</strong></p>
+<pre class="r"><code># Losses
+losses &lt;- page %&gt;% 
+          html_nodes(xpath = &#39;//*[@class=&quot;styled__StandingTableBody-e89col-5 cDiDQb&quot;]/div/div[1]/div/div[1]/div[7]&#39;) %&gt;%
+          html_text2() %&gt;%
+          readr::parse_integer()
+losses &lt;- losses[1:20]</code></pre>
+<p> </p>
+<p><strong>Goals For</strong></p>
+<pre class="r"><code># Goals For
+goals_for &lt;- page %&gt;% 
+             html_nodes(xpath = &#39;//*[@class=&quot;styled__StandingTableBody-e89col-5 cDiDQb&quot;]/div/div[1]/div/div[1]/div[8]&#39;) %&gt;%
+             html_text2() %&gt;%
+             readr::parse_integer()
+goals_for &lt;- goals_for[1:20]</code></pre>
+<p> </p>
+<p><strong>Goals Against</strong></p>
+<pre class="r"><code># Goals Against
+goals_against &lt;- page %&gt;% 
+                 html_nodes(xpath = &#39;//*[@class=&quot;styled__StandingTableBody-e89col-5 cDiDQb&quot;]/div/div[1]/div/div[1]/div[9]&#39;) %&gt;%
+                 html_text2() %&gt;%
+                 readr::parse_integer()
+goals_against &lt;- goals_against[1:20]</code></pre>
+<p> </p>
+<p><strong>Goal Difference</strong></p>
+<pre class="r"><code># Goals Difference
+goal_diff &lt;- page %&gt;% 
+             html_nodes(xpath = &#39;//*[@class=&quot;styled__StandingTableBody-e89col-5 cDiDQb&quot;]/div/div[1]/div/div[1]/div[10]&#39;) %&gt;%
+             html_text2() %&gt;%
+             readr::parse_integer()
+goal_diff &lt;- goal_diff[1:20]</code></pre>
+<p> </p>
+</div>
+<div id="create-dataframe-for-la-liga-football-table" class="section level2">
+<h2>Create Dataframe For La Liga Football Table</h2>
+<pre class="r"><code>### Create Dataframe based on raw data:
+
+laliga_table &lt;- data.frame(
+  Rank = rank,
+  Club = club_names,
+  Club_Abbrev = club_tickers,
+  Points = points,
+  Played = played,
+  Wins = wins,
+  Draws = draws,
+  Losses = losses,
+  Goals_For = goals_for,
+  Goals_Against = goals_against,
+  Goal_Diff = goal_diff
+)
+
+## Preview table:
+
+head(laliga_table, 10)</code></pre>
+<pre><code>##    Rank               Club Club_Abbrev Points Played Wins Draws Losses
+## 1     1        Real Madrid         RMA     72     31   22     6      3
+## 2     2       FC Barcelona         BAR     60     30   17     9      4
+## 3     3         Sevilla FC         SEV     60     31   16    12      3
+## 4     4 Atlético de Madrid         ATM     57     31   17     6      8
+## 5     5         Real Betis         BET     56     31   17     5      9
+## 6     6      Real Sociedad         RSO     54     31   15     9      7
+## 7     7      Villarreal CF         VIL     46     31   12    10      9
+## 8     8      Athletic Club         ATH     45     31   11    12      8
+## 9     9        Valencia CF         VAL     42     31   10    12      9
+## 10   10         CA Osasuna         OSA     41     31   11     8     12
+##    Goals_For Goals_Against Goal_Diff
+## 1         63            26        37
+## 2         60            31        29
+## 3         44            22        22
+## 4         57            38        19
+## 5         56            37        19
+## 6         32            30         2
+## 7         49            30        19
+## 8         36            30         6
+## 9         43            44        -1
+## 10        31            40        -9</code></pre>
+<p> </p>
+<pre class="r"><code>Sys.Date()</code></pre>
+<pre><code>## [1] &quot;2022-04-13&quot;</code></pre>
+<p> </p>
+</div>
+<div id="optional---save-dataframe-as-excel-file-or-.csv-file" class="section level2">
+<h2>Optional - Save Dataframe as Excel File or .csv File</h2>
+<pre class="r"><code>### Save Raw data Dataframe as Excel File:
+
+library(writexl)
+
+write_xlsx(laliga_table, paste(&quot;LaLiga_Table&quot;, Sys.Date(), &quot;.xlsx&quot;, sep = &quot;&quot;))
+
+## Save dataframe as .csv File Option:
+
+write.csv(laliga_table, paste(&quot;LaLiga_Table&quot;, Sys.Date(), &quot;.csv&quot;, sep = &quot;&quot;), row.names = FALSE)  </code></pre>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

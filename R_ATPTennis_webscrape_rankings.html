@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>ATP Men’s Tennis Rankings Webscrape</title>
+
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Items</a>
+</li>
+<li>
+  <a href="python_projects.html">Python Items</a>
+</li>
+<li>
+  <a href="crypto_page.html">Crypto Topics</a>
+</li>
+<li>
+  <a href="webscrape_projects.html">Webscrape Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">ATP Men’s Tennis Rankings Webscrape</h1>
+
+</div>
+
+
+<p>In this webscrape project in R, I extract the latest men’s tennis rankings from the ATP website.</p>
+<p><strong>Setup</strong></p>
+<pre class="r"><code># Reference: https://stackoverflow.com/questions/45450981/rvest-scrape-2-classes-in-1-tag
+  
+# Load libraries:
+  
+library(dplyr)
+library(tidyr)
+library(rvest)
+library(stringr)</code></pre>
+<p> </p>
+<p><strong>Load Page</strong></p>
+<pre class="r"><code>#---------------------------------------
+### ATP Men&#39;s Tennis:
+# When extracting text, there is \r which appears. This is removed each time with gsub &amp; trimws functions
+#---------------------------------------
+
+# Obtain singles rankings for men, just top 100:
+
+atp_link &lt;- read_html(&quot;https://www.atptour.com/en/rankings/singles&quot;)
+
+page &lt;- atp_link %&gt;% html_elements(&#39;tbody&#39;)</code></pre>
+<p> </p>
+<div id="extract-table-components" class="section level2">
+<h2>Extract Table Components</h2>
+<p> </p>
+<p>When it comes to extracting table components in R and <code>rvest</code>, I use <code>html_nodes()</code> to extract selected data given their class names. The class names are found after right clicking on a page and clicking Inspect to see the HTML of the page.</p>
+<p><strong>Ranks</strong></p>
+<pre class="r"><code># Ranks, remove \r and whitespace. Convert into numeric from string.
+
+men_ranks &lt;- page %&gt;%
+  html_nodes(&quot;[class=&#39;rank-cell border-left-4 border-right-dash-1&#39;]&quot;) %&gt;%
+  html_text2()
+
+men_ranks</code></pre>
+<pre><code>##   [1] &quot;\r 1\r&quot;   &quot;\r 2\r&quot;   &quot;\r 3\r&quot;   &quot;\r 4\r&quot;   &quot;\r 5\r&quot;   &quot;\r 6\r&quot;  
+##   [7] &quot;\r 7\r&quot;   &quot;\r 8\r&quot;   &quot;\r 9\r&quot;   &quot;\r 10\r&quot;  &quot;\r 11\r&quot;  &quot;\r 12\r&quot; 
+##  [13] &quot;\r 13\r&quot;  &quot;\r 14\r&quot;  &quot;\r 15\r&quot;  &quot;\r 16\r&quot;  &quot;\r 17\r&quot;  &quot;\r 18\r&quot; 
+##  [19] &quot;\r 19\r&quot;  &quot;\r 20\r&quot;  &quot;\r 21\r&quot;  &quot;\r 22\r&quot;  &quot;\r 23\r&quot;  &quot;\r 24\r&quot; 
+##  [25] &quot;\r 25\r&quot;  &quot;\r 26\r&quot;  &quot;\r 27\r&quot;  &quot;\r 28\r&quot;  &quot;\r 29\r&quot;  &quot;\r 30\r&quot; 
+##  [31] &quot;\r 31\r&quot;  &quot;\r 32\r&quot;  &quot;\r 33\r&quot;  &quot;\r 34\r&quot;  &quot;\r 35\r&quot;  &quot;\r 36\r&quot; 
+##  [37] &quot;\r 37\r&quot;  &quot;\r 38\r&quot;  &quot;\r 39\r&quot;  &quot;\r 40\r&quot;  &quot;\r 41\r&quot;  &quot;\r 42\r&quot; 
+##  [43] &quot;\r 43\r&quot;  &quot;\r 44\r&quot;  &quot;\r 45\r&quot;  &quot;\r 46\r&quot;  &quot;\r 47\r&quot;  &quot;\r 48\r&quot; 
+##  [49] &quot;\r 49\r&quot;  &quot;\r 50\r&quot;  &quot;\r 51\r&quot;  &quot;\r 52\r&quot;  &quot;\r 53\r&quot;  &quot;\r 54\r&quot; 
+##  [55] &quot;\r 55\r&quot;  &quot;\r 56\r&quot;  &quot;\r 57\r&quot;  &quot;\r 58\r&quot;  &quot;\r 59\r&quot;  &quot;\r 60\r&quot; 
+##  [61] &quot;\r 61\r&quot;  &quot;\r 62\r&quot;  &quot;\r 63\r&quot;  &quot;\r 64\r&quot;  &quot;\r 65\r&quot;  &quot;\r 66\r&quot; 
+##  [67] &quot;\r 67\r&quot;  &quot;\r 68\r&quot;  &quot;\r 69\r&quot;  &quot;\r 70\r&quot;  &quot;\r 71\r&quot;  &quot;\r 72\r&quot; 
+##  [73] &quot;\r 73\r&quot;  &quot;\r 74\r&quot;  &quot;\r 75\r&quot;  &quot;\r 76\r&quot;  &quot;\r 77\r&quot;  &quot;\r 78\r&quot; 
+##  [79] &quot;\r 79\r&quot;  &quot;\r 80\r&quot;  &quot;\r 81\r&quot;  &quot;\r 82\r&quot;  &quot;\r 83\r&quot;  &quot;\r 84\r&quot; 
+##  [85] &quot;\r 85\r&quot;  &quot;\r 86\r&quot;  &quot;\r 87\r&quot;  &quot;\r 88\r&quot;  &quot;\r 89\r&quot;  &quot;\r 90\r&quot; 
+##  [91] &quot;\r 91\r&quot;  &quot;\r 92\r&quot;  &quot;\r 93\r&quot;  &quot;\r 94\r&quot;  &quot;\r 95\r&quot;  &quot;\r 96\r&quot; 
+##  [97] &quot;\r 97\r&quot;  &quot;\r 98\r&quot;  &quot;\r 99\r&quot;  &quot;\r 100\r&quot;</code></pre>
+<p> </p>
+<p>As you can see there are a lot of <code>\r</code>s that surround the webscraped items. I use gsub the remove the <code>\r</code>s and convert the string into numbers.</p>
+<pre class="r"><code>men_ranks &lt;- gsub(&#39;[\r]&#39;, &#39; &#39;, men_ranks) %&gt;% trimws(which = &quot;both&quot;)
+men_ranks &lt;- as.numeric(men_ranks)</code></pre>
+<p> </p>
+<p><strong>Countries</strong></p>
+<pre class="r"><code># Obtain countries (Abbreviated), found in alt atttribute in image part.
+
+men_country &lt;- page %&gt;%
+  html_nodes(&quot;[class=&#39;country-item&#39;]&quot;) %&gt;%
+  html_element(&#39;img&#39;) %&gt;%
+  html_attr(&#39;alt&#39;)</code></pre>
+<p> </p>
+<p><strong>Players</strong></p>
+<pre class="r"><code># Players:
+
+atp_players &lt;- page %&gt;%
+  html_nodes(&quot;[class=&#39;player-cell border-left-dash-1 border-right-dash-1&#39;]&quot;) %&gt;%
+  html_text2() 
+
+atp_players &lt;- gsub(&#39;[\r]&#39;, &#39; &#39;, atp_players) %&gt;% trimws(which = &quot;both&quot;)</code></pre>
+<p> </p>
+<p><strong>Player Ages</strong></p>
+<pre class="r"><code># Player Age:
+
+atp_age &lt;- page %&gt;%
+  html_nodes(&quot;[class=&#39;age-cell border-left-dash-1 border-right-4&#39;]&quot;) %&gt;%
+  html_text2() 
+
+atp_age &lt;- gsub(&#39;[\r]&#39;, &#39; &#39;, atp_age) %&gt;% trimws(which = &quot;both&quot;)
+atp_age &lt;- as.numeric(atp_age)</code></pre>
+<p> </p>
+<p><strong>ATP Ranking Points</strong></p>
+<pre class="r"><code># ATP points (Remove /r, white space, remove comma &amp; convert into numeric)
+
+atp_pts &lt;- page %&gt;%
+  html_nodes(&quot;[class=&#39;points-cell border-right-dash-1&#39;]&quot;) %&gt;%
+  html_text2() 
+
+atp_pts &lt;- gsub(&#39;[\r]&#39;, &#39; &#39;, atp_pts) %&gt;% trimws(which = &quot;both&quot;)
+atp_pts &lt;- gsub(&#39;,&#39;, &#39;&#39;, atp_pts)
+atp_pts &lt;- as.numeric(atp_pts)</code></pre>
+<p> </p>
+<p><strong>Tournaments Played</strong></p>
+<pre class="r"><code># Tournaments Played
+
+atp_played &lt;- page %&gt;%
+  html_nodes(&quot;[class=&#39;tourn-cell border-left-dash-1 border-right-dash-1&#39;]&quot;) %&gt;%
+  html_text2() 
+
+atp_played &lt;- gsub(&#39;[\r]&#39;, &#39; &#39;, atp_played ) %&gt;% trimws(which = &quot;both&quot;)
+atp_played &lt;- as.numeric(atp_played)</code></pre>
+<p> </p>
+<p><strong>Points Dropping</strong></p>
+<pre class="r"><code># Points Dropping
+
+atp_drop_pts &lt;- page %&gt;%
+  html_nodes(&quot;[class=&#39;pts-cell border-left-dash-1 border-right-dash-1&#39;]&quot;) %&gt;%
+  html_text2() 
+
+atp_drop_pts &lt;- gsub(&#39;[\r]&#39;, &#39; &#39;, atp_drop_pts) %&gt;% trimws(which = &quot;both&quot;)
+atp_drop_pts &lt;- as.numeric(atp_drop_pts)</code></pre>
+<pre><code>## Warning: NAs introduced by coercion</code></pre>
+<p> </p>
+<p><strong>Next Best</strong></p>
+<pre class="r"><code># Next Best
+
+atp_next_best &lt;- page %&gt;%
+  html_nodes(&quot;[class=&#39;next-cell border-left-dash-1 border-right-4&#39;]&quot;) %&gt;%
+  html_text2() 
+
+atp_next_best &lt;- gsub(&#39;[\r]&#39;, &#39; &#39;, atp_next_best) %&gt;% trimws(which = &quot;both&quot;)
+atp_next_best &lt;- as.numeric(atp_next_best)</code></pre>
+<p> </p>
+</div>
+<div id="create-dataframe" class="section level2">
+<h2>Create Dataframe</h2>
+<p>Once the parts of the table have been extracted we can form the dataframe.</p>
+<pre class="r"><code>### Create Men&#39;s Ranking Table Dataframe now:
+
+atp_ranks_table &lt;- data.frame(
+  Rank = men_ranks,
+  Player = atp_players,
+  Country = men_country,
+  Points = atp_pts,
+  Tournaments_Played = atp_played,
+  Pts_Drop = atp_drop_pts,
+  Next_Best = atp_next_best
+)
+
+#Show top 15 players
+head(atp_ranks_table, 15)</code></pre>
+<pre><code>##    Rank                Player Country Points Tournaments_Played Pts_Drop
+## 1     1        Novak Djokovic     SRB   8420                 13       90
+## 2     2       Daniil Medvedev     RUS   8410                 23      180
+## 3     3      Alexander Zverev     GER   7195                 23       90
+## 4     4          Rafael Nadal     ESP   7115                 12      180
+## 5     5    Stefanos Tsitsipas     GRE   5980                 26       NA
+## 6     6     Matteo Berrettini     ITA   4945                 22        0
+## 7     7           Casper Ruud     NOR   4380                 27      360
+## 8     8         Andrey Rublev     RUS   4375                 27      600
+## 9     9 Felix Auger-Aliassime     CAN   3625                 26        0
+## 10   10        Cameron Norrie     GBR   3440                 27        0
+## 11   11        Carlos Alcaraz     ESP   3320                 19        0
+## 12   12         Jannik Sinner     ITA   3054                 33       45
+## 13   13          Taylor Fritz     USA   2875                 30       45
+## 14   14        Hubert Hurkacz     POL   2873                 28       45
+## 15   15      Denis Shapovalov     CAN   2693                 26        0
+##    Next_Best
+## 1          0
+## 2          0
+## 3          0
+## 4          0
+## 5         45
+## 6          0
+## 7         90
+## 8         45
+## 9          0
+## 10         0
+## 11         0
+## 12        20
+## 13        35
+## 14        10
+## 15         0</code></pre>
+<p> </p>
+</div>
+<div id="optional-save-dataframe-as-.csv-file" class="section level2">
+<h2>Optional: Save Dataframe As .csv File</h2>
+<pre class="r"><code>Sys.Date()</code></pre>
+<pre><code>## [1] &quot;2022-04-13&quot;</code></pre>
+<pre class="r"><code>## Save Top 100 Male Tennis Players Table into a .csv File:
+
+write.csv(atp_ranks_table, paste(&quot;ATP_Top100_&quot;, Sys.Date(), sep = &quot;&quot;), row.names = FALSE)</code></pre>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

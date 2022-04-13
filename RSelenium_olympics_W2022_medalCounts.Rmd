@@ -1,0 +1,180 @@
+---
+title: "RSelenium - Olympics 2022 Medal Counts"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this R webscraping project, I use RSelenium to extract the medal counts from the 2022 Winter Olympics.
+
+&nbsp;
+
+```{r, warning=FALSE, message = FALSE}
+# Winter Olympics 2022 Medals Count Web Scraping Using RSelenium
+# First RSelenium project, started on Feb 27, 2022
+# Reference: http://joshuamccrain.com/tutorials/web_scraping_R_selenium.html
+# Reference 2: https://www.youtube.com/watch?v=U1BrIPmhx10
+
+# Installation of RSelenium: devtools::install_github("ropensci/RSelenium")
+# Install Java JDK for RSelenium: https://www.youtube.com/watch?v=IJ-PJbvJBGs&t=0s
+
+# Load libraries:
+library(RSelenium)
+library(rvest)
+library(tidyverse)
+library(dplyr)
+```
+
+&nbsp;
+
+
+**Setup**
+
+```{r}
+# Restart R to run all code below again if code does not work.
+# Open Firefox browser:
+rD <- rsDriver(browser = "firefox", port = 4545L, verbose = F)
+
+remDr <- rD[["client"]]
+
+# Go to Olympics Winter 2022 medal counts:
+url <- "https://olympics.com/beijing-2022/olympic-games/en/results/all-sports/medal-standings.htm"
+remDr$navigate(url)
+```
+
+
+&nbsp;
+
+**Dealing With Cookies Notification**
+
+```{r}
+# Click to accept cookies.
+# xpath is //*[@id="onetrust-accept-btn-handler"]
+remDr$findElements(using = "id", value = "onetrust-accept-btn-handler")[[1]]$clickElement()
+```
+
+
+&nbsp;
+
+
+**Load Page**
+
+```{r}
+# Load page:
+html <- remDr$getPageSource()[[1]]
+
+webElem <- remDr$findElement("css", "body")
+webElem$sendKeysToElement(list(key = "end"))
+
+Sys.sleep(1)
+
+# Parse page:
+medals_page <- read_html(html)
+
+Sys.sleep(1)
+```
+
+&nbsp;
+
+## Extract Data
+
+After loading the page, we can extract all the parts of the table. In this one, I use xpaths. 
+
+
+
+&nbsp;
+
+**NOC/Country/Association**
+
+```{r}
+
+## NOC/Country/Association:
+country <- medals_page %>%
+  html_nodes(xpath = '//*[@data-cy="country-name"]') %>%
+  html_text2()
+
+Sys.sleep(1)
+```
+
+&nbsp;
+
+**Number of Gold Medals**
+
+```{r}
+## Number of Gold Medals:
+gold_medals <- medals_page %>%
+  html_nodes(xpath = '//*[@class="Medalstyles__Medal-sc-1tu6huk-1 oyScw"]') %>%
+  html_text2() %>%
+  readr::parse_integer()
+
+Sys.sleep(1)
+```
+
+
+&nbsp;
+
+**Number of Silver Medals**
+
+```{r}
+## Silver Medals Count:
+silver_medals <- medals_page %>%
+  html_nodes(xpath = '//*[@class="Medalstyles__Medal-sc-1tu6huk-1 lfKhON"]') %>%
+  html_text2() %>%
+  readr::parse_integer()
+
+Sys.sleep(1)
+```
+
+&nbsp;
+
+**Number of Bronze Medals**
+
+```{r}
+## Bronze Medals Count:
+bronze_medals <- medals_page %>%
+  html_nodes(xpath = '//*[@class="Medalstyles__Medal-sc-1tu6huk-1 gOpEiF"]') %>%
+  html_text2() %>%
+  readr::parse_integer()
+
+Sys.sleep(1)
+```
+
+&nbsp;
+
+**Total Medals**
+
+```{r}
+# Total Medals Count for Country:
+total_medals <- medals_page %>%
+  html_nodes(xpath = '//*[@class="Medalstyles__Medal-sc-1tu6huk-1 ghnLFg"]') %>%
+  html_text2() %>%
+  readr::parse_integer()
+
+Sys.sleep(1)
+```
+
+&nbsp;
+
+
+
+## Create Dataframe
+
+Once the parts are obtained, the dataframe can be made with the use of `data.frame()`.
+
+```{r dataframe}
+#### Create Dataframe:
+
+olympics_medals_w2022_df <- data.frame(
+  NOC = country,
+  Gold_Medals = gold_medals,
+  Silver_Medals = silver_medals,
+  Bronze_Medals = bronze_medals,
+  Total_Medals = total_medals,
+)
+
+# Show table
+olympics_medals_w2022_df
+
+```

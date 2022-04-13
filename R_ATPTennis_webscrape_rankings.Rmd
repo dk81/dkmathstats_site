@@ -1,0 +1,220 @@
+---
+title: "ATP Men's Tennis Rankings Webscrape"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+In this webscrape project in R, I extract the latest men's tennis rankings from the ATP website. 
+
+**Setup**
+
+```{r, warning=FALSE, message = FALSE}
+# Reference: https://stackoverflow.com/questions/45450981/rvest-scrape-2-classes-in-1-tag
+  
+# Load libraries:
+  
+library(dplyr)
+library(tidyr)
+library(rvest)
+library(stringr)
+
+
+```
+&nbsp;
+
+
+**Load Page**
+
+```{r}
+#---------------------------------------
+### ATP Men's Tennis:
+# When extracting text, there is \r which appears. This is removed each time with gsub & trimws functions
+#---------------------------------------
+
+# Obtain singles rankings for men, just top 100:
+
+atp_link <- read_html("https://www.atptour.com/en/rankings/singles")
+
+page <- atp_link %>% html_elements('tbody')
+
+```
+
+&nbsp;
+
+## Extract Table Components
+
+&nbsp;
+
+When it comes to extracting table components in R and `rvest`, I use `html_nodes()` to extract selected data given their class names. The class names are found after right clicking on a page and clicking Inspect to see the HTML of the page.
+
+**Ranks**
+
+```{r}
+# Ranks, remove \r and whitespace. Convert into numeric from string.
+
+men_ranks <- page %>%
+  html_nodes("[class='rank-cell border-left-4 border-right-dash-1']") %>%
+  html_text2()
+
+men_ranks
+```
+
+&nbsp;
+
+As you can see there are a lot of `\r`s that surround the webscraped items. I use gsub the remove the `\r`s and convert the string into numbers.
+
+```{r}
+men_ranks <- gsub('[\r]', ' ', men_ranks) %>% trimws(which = "both")
+men_ranks <- as.numeric(men_ranks)
+```
+
+&nbsp;
+
+**Countries**
+
+```{r}
+# Obtain countries (Abbreviated), found in alt atttribute in image part.
+
+men_country <- page %>%
+  html_nodes("[class='country-item']") %>%
+  html_element('img') %>%
+  html_attr('alt')
+
+```
+
+&nbsp;
+
+**Players**
+
+```{r}
+# Players:
+
+atp_players <- page %>%
+  html_nodes("[class='player-cell border-left-dash-1 border-right-dash-1']") %>%
+  html_text2() 
+
+atp_players <- gsub('[\r]', ' ', atp_players) %>% trimws(which = "both")
+
+```
+
+&nbsp;
+
+**Player Ages**
+
+```{r}
+# Player Age:
+
+atp_age <- page %>%
+  html_nodes("[class='age-cell border-left-dash-1 border-right-4']") %>%
+  html_text2() 
+
+atp_age <- gsub('[\r]', ' ', atp_age) %>% trimws(which = "both")
+atp_age <- as.numeric(atp_age)
+
+```
+
+&nbsp;
+
+**ATP Ranking Points**
+
+```{r}
+# ATP points (Remove /r, white space, remove comma & convert into numeric)
+
+atp_pts <- page %>%
+  html_nodes("[class='points-cell border-right-dash-1']") %>%
+  html_text2() 
+
+atp_pts <- gsub('[\r]', ' ', atp_pts) %>% trimws(which = "both")
+atp_pts <- gsub(',', '', atp_pts)
+atp_pts <- as.numeric(atp_pts)
+
+```
+
+&nbsp;
+
+**Tournaments Played**
+
+```{r}
+# Tournaments Played
+
+atp_played <- page %>%
+  html_nodes("[class='tourn-cell border-left-dash-1 border-right-dash-1']") %>%
+  html_text2() 
+
+atp_played <- gsub('[\r]', ' ', atp_played ) %>% trimws(which = "both")
+atp_played <- as.numeric(atp_played)
+```
+
+&nbsp;
+
+**Points Dropping**
+
+```{r}
+# Points Dropping
+
+atp_drop_pts <- page %>%
+  html_nodes("[class='pts-cell border-left-dash-1 border-right-dash-1']") %>%
+  html_text2() 
+
+atp_drop_pts <- gsub('[\r]', ' ', atp_drop_pts) %>% trimws(which = "both")
+atp_drop_pts <- as.numeric(atp_drop_pts)
+
+```
+
+&nbsp;
+
+**Next Best**
+
+```{r}
+# Next Best
+
+atp_next_best <- page %>%
+  html_nodes("[class='next-cell border-left-dash-1 border-right-4']") %>%
+  html_text2() 
+
+atp_next_best <- gsub('[\r]', ' ', atp_next_best) %>% trimws(which = "both")
+atp_next_best <- as.numeric(atp_next_best)
+```
+
+&nbsp;
+
+## Create Dataframe
+
+Once the parts of the table have been extracted we can form the dataframe.
+
+```{r}
+
+### Create Men's Ranking Table Dataframe now:
+
+atp_ranks_table <- data.frame(
+  Rank = men_ranks,
+  Player = atp_players,
+  Country = men_country,
+  Points = atp_pts,
+  Tournaments_Played = atp_played,
+  Pts_Drop = atp_drop_pts,
+  Next_Best = atp_next_best
+)
+
+#Show top 15 players
+head(atp_ranks_table, 15)
+```
+
+&nbsp;
+
+## Optional: Save Dataframe As .csv File
+
+```{r}
+Sys.Date()
+```
+
+
+```{r}
+## Save Top 100 Male Tennis Players Table into a .csv File:
+
+write.csv(atp_ranks_table, paste("ATP_Top100_", Sys.Date(), sep = ""), row.names = FALSE)
+```

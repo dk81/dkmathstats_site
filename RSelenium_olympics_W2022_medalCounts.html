@@ -11,7 +11,7 @@
 
 
 
-<title>WebScrape Projects In Python &amp; R</title>
+<title>RSelenium - Olympics 2022 Medal Counts</title>
 
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -271,38 +271,149 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">WebScrape Projects In Python &amp; R</h1>
+<h1 class="title toc-ignore">RSelenium - Olympics 2022 Medal Counts</h1>
 
 </div>
 
 
+<p>In this R webscraping project, I use RSelenium to extract the medal counts from the 2022 Winter Olympics.</p>
 <p> </p>
-<p>This page contains links on a bunch of webscraping projects in Python &amp; in R.</p>
+<pre class="r"><code># Winter Olympics 2022 Medals Count Web Scraping Using RSelenium
+# First RSelenium project, started on Feb 27, 2022
+# Reference: http://joshuamccrain.com/tutorials/web_scraping_R_selenium.html
+# Reference 2: https://www.youtube.com/watch?v=U1BrIPmhx10
+
+# Installation of RSelenium: devtools::install_github(&quot;ropensci/RSelenium&quot;)
+# Install Java JDK for RSelenium: https://www.youtube.com/watch?v=IJ-PJbvJBGs&amp;t=0s
+
+# Load libraries:
+library(RSelenium)
+library(rvest)
+library(tidyverse)</code></pre>
 <p> </p>
-<div id="python-webscraping" class="section level1">
-<h1><u>Python Webscraping</u></h1>
+<p><strong>Setup</strong></p>
+<pre class="r"><code># Restart R to run all code below again if code does not work.
+# Open Firefox browser:
+rD &lt;- rsDriver(browser = &quot;firefox&quot;, port = 4545L, verbose = F)
+
+remDr &lt;- rD[[&quot;client&quot;]]
+
+# Go to Olympics Winter 2022 medal counts:
+url &lt;- &quot;https://olympics.com/beijing-2022/olympic-games/en/results/all-sports/medal-standings.htm&quot;
+remDr$navigate(url)</code></pre>
 <p> </p>
-<p><a href="https://github.com/dk81/web_scrape_python/blob/main/atp_tennis_ranks_webscrape_selenium.ipynb">ATP Men’s Tennis Ranks Webscrape With Selenium</a></p>
-<p><a href="https://github.com/dk81/web_scrape_python/blob/main/wta_tennis_webscrape_selenium.ipynb">WTA Women’s Tennis With Selenium</a></p>
-<p><a href="https://github.com/dk81/web_scrape_python/blob/main/epl_table_webscrape.ipynb">Web Scrape English Premier League Table</a></p>
-<p><a href="https://github.com/dk81/web_scrape_python/blob/main/bundesliga_webscrape.ipynb">Bundesliga German Football Table Web Scraping</a></p>
-<p><a href="https://github.com/dk81/web_scrape_python/blob/main/laliga_spanishsoccer_webscrape.ipynb">La Liga Spanish Football Webscraping In Python</a></p>
-<p><a href="https://github.com/dk81/web_scrape_python/blob/main/DJMag_top100_2021.ipynb">DJ Magazine Top 100 DJs 2021</a></p>
-<p><a href="https://github.com/dk81/web_scrape_python/blob/main/Winter_Olympics2022_MedalCounts_webscrape.ipynb">Winter Olympics 2022 Medal Counts Web Scraping</a></p>
-<p><a href="https://github.com/dk81/web_scrape_python/blob/main/youtube_webscrape_selenium.ipynb">Youtube Webscrape In Selenium</a></p>
-<p><a href="https://github.com/dk81/web_scrape_python/blob/main/tradingview_stocks_webscrape.ipynb">Tradingview Stocks Webscrape</a></p>
-<p><a href="https://github.com/dk81/web_scrape_python/blob/main/tradingview_cryptos_webscrape.ipynb">Tradingview Cryptos Webscrape</a></p>
-<p><a href="https://github.com/dk81/web_scrape_python/blob/main/soccerTables_pandasReadHTML.ipynb">Pandas ReadHTML Table</a></p>
+<p><strong>Dealing With Cookies Notification</strong></p>
+<pre class="r"><code># Click to accept cookies.
+# xpath is //*[@id=&quot;onetrust-accept-btn-handler&quot;]
+remDr$findElements(using = &quot;id&quot;, value = &quot;onetrust-accept-btn-handler&quot;)[[1]]$clickElement()</code></pre>
+<p> </p>
+<p><strong>Load Page</strong></p>
+<pre class="r"><code># Load page:
+html &lt;- remDr$getPageSource()[[1]]
+
+webElem &lt;- remDr$findElement(&quot;css&quot;, &quot;body&quot;)
+webElem$sendKeysToElement(list(key = &quot;end&quot;))
+
+Sys.sleep(2)
+
+# Parse page:
+medals_page &lt;- read_html(html)
+
+# Obtain table:
+medals_table &lt;- medals_page %&gt;% html_nodes(xpath = &#39;//*[@id=&quot;medal-standing-table&quot;]&#39;)
+
+Sys.sleep(2)</code></pre>
+<p> </p>
+<div id="extract-data" class="section level2">
+<h2>Extract Data</h2>
+<p>After loading the page and the table into R, we can extract all the parts of the table. In this one, I use xpaths.</p>
+<p><strong>Rank</strong></p>
+<pre class="r"><code>### Extract data:
+# Each country has its own row. (tr tag)
+
+## Obtain Rank:
+rank &lt;- medals_page %&gt;%
+  html_nodes(xpath = &#39;//*[@id=&quot;medal-standing-table&quot;]/tbody/tr/td[1]/strong&#39;) %&gt;%
+  html_text2() %&gt;%
+  readr::parse_integer()
+
+Sys.sleep(1)</code></pre>
+<p> </p>
+<p><strong>NOC/Country/Association</strong></p>
+<pre class="r"><code>## NOC/Country/Association:
+country &lt;- medals_page %&gt;%
+  html_nodes(xpath = &#39;//*[@id=&quot;medal-standing-table&quot;]/tbody/tr/td[2]/div/a/abbr&#39;) %&gt;%
+  html_text2()
+
+Sys.sleep(1)</code></pre>
+<p> </p>
+<p><strong>Number of Gold Medals</strong></p>
+<pre class="r"><code>## Number of Gold Medals:
+gold_medals &lt;- medals_page %&gt;%
+  html_nodes(xpath = &#39;//*[@id=&quot;medal-standing-table&quot;]/tbody/tr/td[3]&#39;) %&gt;%
+  html_text2() %&gt;%
+  readr::parse_integer()
+
+Sys.sleep(1)</code></pre>
+<p> </p>
+<p><strong>Number of Silver Medals</strong></p>
+<pre class="r"><code>## Silver Medals Count:
+silver_medals &lt;- medals_page %&gt;%
+  html_nodes(xpath = &#39;//*[@id=&quot;medal-standing-table&quot;]/tbody/tr/td[4]&#39;) %&gt;%
+  html_text2() %&gt;%
+  readr::parse_integer()
+
+Sys.sleep(1)</code></pre>
+<p> </p>
+<p><strong>Number of Bronze Medals</strong></p>
+<pre class="r"><code>## Bronze Medals Count:
+bronze_medals &lt;- medals_page %&gt;%
+  html_nodes(xpath = &#39;//*[@id=&quot;medal-standing-table&quot;]/tbody/tr/td[5]&#39;) %&gt;%
+  html_text2() %&gt;%
+  readr::parse_integer()
+
+Sys.sleep(1)</code></pre>
+<p> </p>
+<p><strong>Total Medals</strong></p>
+<pre class="r"><code># Total Medals Count for Country:
+total_medals &lt;- medals_page %&gt;%
+  html_nodes(xpath = &#39;//*[@id=&quot;medal-standing-table&quot;]/tbody/tr/td[6]/a/strong&#39;) %&gt;%
+  html_text2() %&gt;%
+  readr::parse_integer()
+
+Sys.sleep(1)</code></pre>
+<p> </p>
+<p><strong>Rank By Total Medals</strong></p>
+<pre class="r"><code># Rank by Total Medals Count:
+rank_total_medals &lt;- medals_page %&gt;%
+  html_nodes(xpath = &#39;//*[@id=&quot;medal-standing-table&quot;]/tbody/tr/td[7]&#39;) %&gt;%
+  html_text2() %&gt;%
+  readr::parse_integer()
+
+Sys.sleep(1)</code></pre>
 <p> </p>
 </div>
-<div id="r-webscraping-projects" class="section level1">
-<h1><u>R Webscraping Projects</u></h1>
-<p> </p>
-<p><a href="./R_bundesliga_webscrape.html">Bundesliga German Football Table Webscraping</a></p>
-<p><a href="./R_ATPTennis_webscrape_rankings.html">ATP Men’s Tennis Rankings</a></p>
-<p><a href="./R_asot_top1000_webscrape.html">A State of Trance Radio Show Top 1000 Tracks Of All Time</a></p>
-<p><a href="./R_DJMag2021_webscrape.html">DJ Magazine Top 100 DJs 2021</a></p>
-<p> </p>
+<div id="create-dataframe" class="section level2">
+<h2>Create Dataframe</h2>
+<p>Once the parts are obtained, the dataframe can be made with the use of <code>data.frame()</code>.</p>
+<pre class="r"><code>#### Create Dataframe:
+
+olympics_medals_w2022_df &lt;- data.frame(
+  Rank = rank,
+  NOC = country,
+  Gold_Medals = gold_medals,
+  Silver_Medals = silver_medals,
+  Bronze_Medals = bronze_medals,
+  Total_Medals = total_medals,
+  Rank_By_Total_Medals = rank_total_medals
+)
+
+# Show table
+olympics_medals_w2022_df</code></pre>
+<pre><code>## [1] Rank                 NOC                  Gold_Medals         
+## [4] Silver_Medals        Bronze_Medals        Total_Medals        
+## [7] Rank_By_Total_Medals
+## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
 </div>
 
 
