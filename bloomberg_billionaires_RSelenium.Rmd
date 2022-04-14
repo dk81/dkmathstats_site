@@ -1,0 +1,363 @@
+---
+title: "Bloomberg Billionaires Webscrape With RSelenium"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.width=20, fig.height=15) 
+```
+
+In this R webscraping project, I use RSelenium to extract the latest list of Billionaires net worth according to Bloomberg. Note that the [Bloomberg Billionaires index](https://www.bloomberg.com/billionaires/) does update every week.
+
+With the loaded libraries I use RSelenium, rvest, tidyverse, tidyr along with stringi for working with text and ggplot2 for the data analysis portion. One main resource I used for learning some aspects of RSelenium is [here](http://joshuamccrain.com/tutorials/web_scraping_R_selenium.html).
+
+&nbsp;
+
+## Contents
+
+* <a href="#setup">Setup</a>
+
+* <a href="#extract">Extracting Data From Bloomberg Website</a>
+
+* <a href="#dataframe">Creating The Dataframe </a>
+
+* <a href="#analysis">Data Analysis - Uncovering Insights</a>
+
+
+&nbsp;
+
+<a name="setup"></a>
+
+## Setup
+
+```{r initial, message = FALSE, warning = FALSE}
+## Bloomberg Billionaires Index Webscraping With RSelenium
+# Made on Feb 28, 2022, updated on Apr 14, 2022
+
+# Load libraries:
+library(RSelenium)
+library(rvest)
+library(tidyverse)
+library(stringi)
+library(tidyr)
+library(ggplot2)
+
+```
+
+
+&nbsp;
+
+This next code chunk tells R to open a new window of Firefox web browser. Then it goes to the Bloomberg Billionaires Index website and the reads in the page.
+
+
+```{r initial2}
+# Restart R (CTRL + SHIFT + F10) before running code below again if code does not work.
+# Open Firefox browser:
+rD <- rsDriver(browser = "firefox", port = 4545L, verbose = F)
+
+remDr <- rD$client
+
+# Bloomberg Billionaires Page, it updates each day.
+
+url <- "https://www.bloomberg.com/billionaires/"
+
+remDr$navigate(url)
+
+# No need to click to accept cookies actually.
+# Scroll down after more ranks appear (About 2 down arrows for each rank)
+webElem <- remDr$findElement("css", "body")
+
+Sys.sleep(3)
+
+## Extract Billionaires Data:
+# Format: Rank, Billionaire, Last Change in $, YTD $ Change, Country/Region, Industry
+
+# Get html:
+html <- remDr$getPageSource()[[1]]
+page <- read_html(html)
+
+```
+
+&nbsp;
+
+<a name="extract"></a>
+
+## Extract Table Components
+
+The webpage HTML has been extracted into R. We can obtain parts of the table. I use xpaths with `html_nodes()`.
+
+**Rank**
+
+```{r rank}
+### Get Rank
+rank <- page %>% 
+        html_nodes(xpath = '/html/body/div[6]/section[2]/div/div/div[1]') %>%
+        html_text2()
+
+rank[1:105]
+```
+
+The rank output is close to ideal. The Rank text in index one needs to be removed and there are empty strings to be removed. In the next code chunk I remove the first index element and remove empty strings. The texts are converted into numeric numbers with `as.numeric()`. Empty strings are removed with billionaires names, total net worth and the other columns.
+
+```{r}
+
+# Remove Rank (index 1) and blanks (stringi pkg):
+rank <- rank[seq(2, length(rank))]
+rank <- as.numeric(stri_remove_empty(rank))
+```
+
+&nbsp;
+
+**Billionaire Names**
+
+```{r}
+### Billionaires Name
+billionaires <- page %>% 
+                html_nodes(xpath = '/html/body/div[6]/section[2]/div/div/div[2]') %>%
+                html_text2() 
+billionaires <- billionaires[seq(2, length(billionaires))] %>% stri_remove_empty()
+```
+
+&nbsp;
+
+**Total Net Worth**
+
+```{r}
+### Total Net Worth:
+total_net_worth <- page %>% 
+                   html_nodes(xpath = '/html/body/div[6]/section[2]/div/div/div[3]') %>%
+                   html_text2() %>%
+                   stri_remove_empty()
+total_net_worth <- total_net_worth[seq(2, length(total_net_worth))] %>% stri_remove_empty()
+```
+
+&nbsp;
+
+**Last Change In $**
+
+```{r}
+### Last Change in $
+last_change <- page %>% 
+               html_nodes(xpath = '/html/body/div[6]/section[2]/div/div/div[4]') %>%
+               html_text2() %>%
+               stri_remove_empty()
+last_change <- last_change[seq(2, length(last_change))] %>% stri_remove_empty()
+```
+
+&nbsp;
+
+**Year to Date Change In $**
+
+```{r}
+### YTD Change $
+ytd_change <- page %>% 
+              html_nodes(xpath = '/html/body/div[6]/section[2]/div/div/div[5]') %>%
+              html_text2() %>%
+              stri_remove_empty()
+ytd_change <- ytd_change[seq(2, length(ytd_change))] %>% stri_remove_empty()
+```
+
+&nbsp;
+
+**Country/Region**
+
+```{r}
+### Country/Region
+region <- page %>% 
+          html_nodes(xpath = '/html/body/div[6]/section[2]/div/div/div[6]') %>%
+          html_text2()  
+region <- region[seq(2, length(region))] %>% stri_remove_empty()
+```
+
+&nbsp;
+
+**Industry**
+
+```{r}
+### Industry
+industry <- page %>% 
+            html_nodes(xpath = '/html/body/div[6]/section[2]/div/div/div[7]') %>%
+            html_text2()  
+industry <- industry[seq(2, length(industry))] %>% stri_remove_empty()
+```
+
+&nbsp;
+
+<a name="dataframe"></a>
+
+## Assemble Dataframe
+
+```{r}
+# Create dataframe:
+
+bloomberg_billionaires_df <- data.frame(
+  Rank = rank,
+  Name = billionaires,
+  Total_Net_Worth = total_net_worth,
+  Last_Change = last_change,
+  YTD_Change = ytd_change,
+  Region = region,
+  Industry = industry
+)
+
+# Preview dataframe:
+head(bloomberg_billionaires_df, 10)
+
+tail(bloomberg_billionaires_df, 10)
+```
+
+&nbsp;
+
+```{r}
+Sys.Date()
+```
+
+&nbsp;
+
+```{r}
+# String for file name:
+paste0("Bloomberg_Billionaires_", Sys.Date(), '.csv')
+```
+
+&nbsp;
+
+You can use the following line to save the dataframe into a .csv file.
+
+```{r}
+# Optional - Save Dataframe:
+write.csv(bloomberg_billionaires_df, paste0("Bloomberg_Billionaires_", Sys.Date(), '.csv'), row.names = FALSE)
+```
+
+&nbsp;
+
+<a name="analysis"></a>
+
+## Data Analysis - Uncovering Insights
+
+In this data analysis, I uncover insights from Bloomberg billionaires. 
+
+```{r}
+### Data Analysis Portion:
+
+
+## Billionaires Count by Region:
+by_region <- bloomberg_billionaires_df %>%
+             group_by(Region) %>%
+             summarise(Count = n()) %>%
+             arrange(desc(Count)) %>%
+             data.frame()
+```
+
+&nbsp;
+
+Apologies for the small plot output, I was trying to find ways to fix the size in RMarkdown. Solutions are hard to find. 
+
+
+```{r}
+## Create bar graph in ggplot2, Billionaires Count by Region:
+
+# Sorting by counts for the Region
+by_region$Region <- factor(by_region$Region, 
+                           levels = by_region$Region[order(by_region$Count)])
+```
+
+&nbsp;
+
+```{r, fig.width = 8.5, fig.height = 8, out.width = '50%', out.height = "50%", fig.asp = .618, fig.align = "center"}
+# Billionaires Count by Region (Top 10 Regions):
+ggplot(head(by_region, 10), aes(x = Region, y = Count)) +
+  geom_bar(stat = "identity", fill = "#238c6d") + 
+  coord_flip() +
+  geom_text(aes(label = Count), hjust = 1.2, colour = "white", fontface = "bold") +
+  labs(x = "\n Region \n", y = "\n Count \n", 
+       title = paste0("\n Bloomberg_Billionaires_", Sys.Date(), "\n")) +
+  theme(plot.title = element_text(hjust = 0.5, size = 15), 
+        axis.title.x = element_text(face="bold", colour="#063970", size = 12),
+        axis.title.y = element_text(face="bold", colour="#063970", size = 12))
+```
+
+&nbsp;
+
+**Canadian Billionaires**
+
+```{r canada}
+## Canadian Billionaires (CZ from Binance highest for Canada):
+bloomberg_billionaires_df %>% filter(Region == 'Canada')
+```
+
+&nbsp;
+
+**American Billionaires**
+
+```{r usa}
+## American Billionaires (Top 10):
+bloomberg_billionaires_df %>% 
+  filter(Region == 'United States') %>%
+  head(10)
+```
+
+&nbsp;
+
+**Billionaires By Category**
+
+```{r category}
+## Billionaires Count by Category
+by_category <- bloomberg_billionaires_df %>%
+               group_by(Industry) %>%
+               summarise(Count = n()) %>%
+               arrange(desc(Count)) %>%
+               data.frame()
+
+head(by_category, 10)
+```
+
+&nbsp;
+
+```{r, fig.width = 8.5, fig.height = 8, out.width = '50%', out.height = "50%", fig.asp = .618, fig.align = "center"}
+## Bar Graph Of Billionaires By Category:
+
+# Sorting by counts for the Category
+by_category$Industry <- factor(by_category$Industry, 
+                               levels = by_category$Industry[order(by_category$Count)])
+
+# Top 10 Billionaires Count by Industry, labels added, blue bars
+ggplot(head(by_category, 10), aes(x = Industry, y = Count)) +
+  geom_bar(stat = "identity", fill = "#555387") + 
+  coord_flip() +
+  geom_text(aes(label = Count), hjust = 1.2, colour = "white", fontface = "bold") +
+  labs(x = "\n Industry \n", y = "\n Count \n", 
+       title = paste0("\n Bloomberg_Billionaires_", Sys.Date(), "\n")) +
+  theme(plot.title = element_text(hjust = 0.5, size = 15), 
+        axis.title.x = element_text(face="bold", colour="#063970", size = 12),
+        axis.title.y = element_text(face="bold", colour="#063970", size = 12))
+```
+
+&nbsp;
+
+**Technology Billionaires**
+
+```{r}
+## Technology Billionaires (Top 10):
+bloomberg_billionaires_df %>% filter(Industry == 'Technology') %>% head(10)
+```
+
+&nbsp;
+
+**Finance Billionaires**
+
+```{r}
+## Finance Billionaires (Top 10):
+bloomberg_billionaires_df %>% filter(Industry == 'Finance') %>% head(10)
+```
+
+&nbsp;
+
+**Retail Billionaires**
+
+```{r}
+## Retail Billonaires (Top 10):
+bloomberg_billionaires_df %>% filter(Industry == 'Retail') %>% head(10)
+```
+
+&nbsp;

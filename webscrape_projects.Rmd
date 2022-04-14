@@ -42,6 +42,12 @@ This page contains links on a bunch of webscraping projects in Python & in R.
 
 &nbsp;
 
+[Bloomberg Billionaires Index](./bloomberg_billionaires_RSelenium.html)
+
+[La Liga Spanish Football Table Webscraping](./R_LaLiga_Soccer_table.html)
+
+[English Premier League Table Webscraping](./R_EPL_Table_Webscrape.html)
+
 [Bundesliga German Football Table Webscraping](./R_bundesliga_webscrape.html)
 
 [ATP Men's Tennis Rankings](./R_ATPTennis_webscrape_rankings.html)

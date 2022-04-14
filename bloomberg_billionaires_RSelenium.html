@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Bloomberg Billionaires Webscrape With RSelenium</title>
+
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">dkmathstats Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="mathstats_pages.html">Math &amp; Stats Pages</a>
+</li>
+<li>
+  <a href="r-projects.html">R Items</a>
+</li>
+<li>
+  <a href="python_projects.html">Python Items</a>
+</li>
+<li>
+  <a href="crypto_page.html">Crypto Topics</a>
+</li>
+<li>
+  <a href="webscrape_projects.html">Webscrape Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Bloomberg Billionaires Webscrape With RSelenium</h1>
+
+</div>
+
+
+<p>In this R webscraping project, I use RSelenium to extract the latest list of Billionaires net worth according to Bloomberg. Note that the <a href="https://www.bloomberg.com/billionaires/">Bloomberg Billionaires index</a> does update every week.</p>
+<p>With the loaded libraries I use RSelenium, rvest, tidyverse, tidyr along with stringi for working with text and ggplot2 for the data analysis portion. One main resource I used for learning some aspects of RSelenium is <a href="http://joshuamccrain.com/tutorials/web_scraping_R_selenium.html">here</a>.</p>
+<p> </p>
+<div id="contents" class="section level2">
+<h2>Contents</h2>
+<ul>
+<li><p><a href="#setup">Setup</a></p></li>
+<li><p><a href="#extract">Extracting Data From Bloomberg Website</a></p></li>
+<li><p><a href="#dataframe">Creating The Dataframe </a></p></li>
+<li><p><a href="#analysis">Data Analysis - Uncovering Insights</a></p></li>
+</ul>
+<p> </p>
+<p><a name="setup"></a></p>
+</div>
+<div id="setup" class="section level2">
+<h2>Setup</h2>
+<pre class="r"><code>## Bloomberg Billionaires Index Webscraping With RSelenium
+# Made on Feb 28, 2022, updated on Apr 14, 2022
+
+# Load libraries:
+library(RSelenium)
+library(rvest)
+library(tidyverse)
+library(stringi)
+library(tidyr)
+library(ggplot2)</code></pre>
+<p> </p>
+<p>This next code chunk tells R to open a new window of Firefox web browser. Then it goes to the Bloomberg Billionaires Index website and the reads in the page.</p>
+<pre class="r"><code># Restart R (CTRL + SHIFT + F10) before running code below again if code does not work.
+# Open Firefox browser:
+rD &lt;- rsDriver(browser = &quot;firefox&quot;, port = 4545L, verbose = F)
+
+remDr &lt;- rD$client
+
+# Bloomberg Billionaires Page, it updates each day.
+
+url &lt;- &quot;https://www.bloomberg.com/billionaires/&quot;
+
+remDr$navigate(url)
+
+# No need to click to accept cookies actually.
+# Scroll down after more ranks appear (About 2 down arrows for each rank)
+webElem &lt;- remDr$findElement(&quot;css&quot;, &quot;body&quot;)
+
+Sys.sleep(3)
+
+## Extract Billionaires Data:
+# Format: Rank, Billionaire, Last Change in $, YTD $ Change, Country/Region, Industry
+
+# Get html:
+html &lt;- remDr$getPageSource()[[1]]
+page &lt;- read_html(html)</code></pre>
+<p> </p>
+<p><a name="extract"></a></p>
+</div>
+<div id="extract-table-components" class="section level2">
+<h2>Extract Table Components</h2>
+<p>The webpage HTML has been extracted into R. We can obtain parts of the table. I use xpaths with <code>html_nodes()</code>.</p>
+<p><strong>Rank</strong></p>
+<pre class="r"><code>### Get Rank
+rank &lt;- page %&gt;% 
+        html_nodes(xpath = &#39;/html/body/div[6]/section[2]/div/div/div[1]&#39;) %&gt;%
+        html_text2()
+
+rank[1:105]</code></pre>
+<pre><code>##   [1] &quot;Rank&quot; &quot;1&quot;    &quot;2&quot;    &quot;3&quot;    &quot;4&quot;    &quot;5&quot;    &quot;6&quot;    &quot;7&quot;    &quot;8&quot;    &quot;9&quot;   
+##  [11] &quot;10&quot;   &quot;11&quot;   &quot;12&quot;   &quot;13&quot;   &quot;14&quot;   &quot;15&quot;   &quot;16&quot;   &quot;17&quot;   &quot;18&quot;   &quot;19&quot;  
+##  [21] &quot;20&quot;   &quot;21&quot;   &quot;22&quot;   &quot;23&quot;   &quot;24&quot;   &quot;25&quot;   &quot;26&quot;   &quot;27&quot;   &quot;28&quot;   &quot;29&quot;  
+##  [31] &quot;30&quot;   &quot;31&quot;   &quot;32&quot;   &quot;33&quot;   &quot;34&quot;   &quot;35&quot;   &quot;36&quot;   &quot;37&quot;   &quot;38&quot;   &quot;39&quot;  
+##  [41] &quot;40&quot;   &quot;41&quot;   &quot;42&quot;   &quot;43&quot;   &quot;44&quot;   &quot;45&quot;   &quot;46&quot;   &quot;47&quot;   &quot;48&quot;   &quot;49&quot;  
+##  [51] &quot;50&quot;   &quot;&quot;     &quot;51&quot;   &quot;52&quot;   &quot;53&quot;   &quot;54&quot;   &quot;55&quot;   &quot;56&quot;   &quot;57&quot;   &quot;58&quot;  
+##  [61] &quot;59&quot;   &quot;60&quot;   &quot;61&quot;   &quot;62&quot;   &quot;63&quot;   &quot;64&quot;   &quot;65&quot;   &quot;66&quot;   &quot;67&quot;   &quot;68&quot;  
+##  [71] &quot;69&quot;   &quot;70&quot;   &quot;71&quot;   &quot;72&quot;   &quot;73&quot;   &quot;74&quot;   &quot;75&quot;   &quot;76&quot;   &quot;77&quot;   &quot;78&quot;  
+##  [81] &quot;79&quot;   &quot;80&quot;   &quot;81&quot;   &quot;82&quot;   &quot;83&quot;   &quot;84&quot;   &quot;85&quot;   &quot;86&quot;   &quot;87&quot;   &quot;88&quot;  
+##  [91] &quot;89&quot;   &quot;90&quot;   &quot;91&quot;   &quot;92&quot;   &quot;93&quot;   &quot;94&quot;   &quot;95&quot;   &quot;96&quot;   &quot;97&quot;   &quot;98&quot;  
+## [101] &quot;99&quot;   &quot;100&quot;  &quot;&quot;     &quot;101&quot;  &quot;102&quot;</code></pre>
+<p>The rank output is close to ideal. The Rank text in index one needs to be removed and there are empty strings to be removed. In the next code chunk I remove the first index element and remove empty strings. The texts are converted into numeric numbers with <code>as.numeric()</code>. Empty strings are removed with billionaires names, total net worth and the other columns.</p>
+<pre class="r"><code># Remove Rank (index 1) and blanks (stringi pkg):
+rank &lt;- rank[seq(2, length(rank))]
+rank &lt;- as.numeric(stri_remove_empty(rank))</code></pre>
+<p> </p>
+<p><strong>Billionaire Names</strong></p>
+<pre class="r"><code>### Billionaires Name
+billionaires &lt;- page %&gt;% 
+                html_nodes(xpath = &#39;/html/body/div[6]/section[2]/div/div/div[2]&#39;) %&gt;%
+                html_text2() 
+billionaires &lt;- billionaires[seq(2, length(billionaires))] %&gt;% stri_remove_empty()</code></pre>
+<p> </p>
+<p><strong>Total Net Worth</strong></p>
+<pre class="r"><code>### Total Net Worth:
+total_net_worth &lt;- page %&gt;% 
+                   html_nodes(xpath = &#39;/html/body/div[6]/section[2]/div/div/div[3]&#39;) %&gt;%
+                   html_text2() %&gt;%
+                   stri_remove_empty()
+total_net_worth &lt;- total_net_worth[seq(2, length(total_net_worth))] %&gt;% stri_remove_empty()</code></pre>
+<p> </p>
+<p><strong>Last Change In $</strong></p>
+<pre class="r"><code>### Last Change in $
+last_change &lt;- page %&gt;% 
+               html_nodes(xpath = &#39;/html/body/div[6]/section[2]/div/div/div[4]&#39;) %&gt;%
+               html_text2() %&gt;%
+               stri_remove_empty()
+last_change &lt;- last_change[seq(2, length(last_change))] %&gt;% stri_remove_empty()</code></pre>
+<p> </p>
+<p><strong>Year to Date Change In $</strong></p>
+<pre class="r"><code>### YTD Change $
+ytd_change &lt;- page %&gt;% 
+              html_nodes(xpath = &#39;/html/body/div[6]/section[2]/div/div/div[5]&#39;) %&gt;%
+              html_text2() %&gt;%
+              stri_remove_empty()
+ytd_change &lt;- ytd_change[seq(2, length(ytd_change))] %&gt;% stri_remove_empty()</code></pre>
+<p> </p>
+<p><strong>Country/Region</strong></p>
+<pre class="r"><code>### Country/Region
+region &lt;- page %&gt;% 
+          html_nodes(xpath = &#39;/html/body/div[6]/section[2]/div/div/div[6]&#39;) %&gt;%
+          html_text2()  
+region &lt;- region[seq(2, length(region))] %&gt;% stri_remove_empty()</code></pre>
+<p> </p>
+<p><strong>Industry</strong></p>
+<pre class="r"><code>### Industry
+industry &lt;- page %&gt;% 
+            html_nodes(xpath = &#39;/html/body/div[6]/section[2]/div/div/div[7]&#39;) %&gt;%
+            html_text2()  
+industry &lt;- industry[seq(2, length(industry))] %&gt;% stri_remove_empty()</code></pre>
+<p> </p>
+<p><a name="dataframe"></a></p>
+</div>
+<div id="assemble-dataframe" class="section level2">
+<h2>Assemble Dataframe</h2>
+<pre class="r"><code># Create dataframe:
+
+bloomberg_billionaires_df &lt;- data.frame(
+  Rank = rank,
+  Name = billionaires,
+  Total_Net_Worth = total_net_worth,
+  Last_Change = last_change,
+  YTD_Change = ytd_change,
+  Region = region,
+  Industry = industry
+)
+
+# Preview dataframe:
+head(bloomberg_billionaires_df, 10)</code></pre>
+<pre><code>##    Rank            Name Total_Net_Worth Last_Change YTD_Change        Region
+## 1     1       Elon Musk           $259B     +$8.38B    -$11.0B United States
+## 2     2      Jeff Bezos           $180B     +$4.85B    -$12.2B United States
+## 3     3 Bernard Arnault           $142B     +$1.53B    -$36.0B        France
+## 4     4      Bill Gates           $130B     +$1.37B    -$8.13B United States
+## 5     5  Warren Buffett           $125B     -$1.23B    +$16.4B United States
+## 6     6    Gautam Adani           $118B      +$805M    +$41.9B         India
+## 7     7      Larry Page           $116B     +$1.70B    -$12.1B United States
+## 8     8     Sergey Brin           $111B     +$1.60B    -$12.0B United States
+## 9     9   Steve Ballmer           $101B     +$1.85B    -$4.77B United States
+## 10   10   Larry Ellison           $100B     +$1.08B    -$6.71B United States
+##       Industry
+## 1   Technology
+## 2   Technology
+## 3     Consumer
+## 4   Technology
+## 5  Diversified
+## 6   Industrial
+## 7   Technology
+## 8   Technology
+## 9   Technology
+## 10  Technology</code></pre>
+<pre class="r"><code>tail(bloomberg_billionaires_df, 10)</code></pre>
+<pre><code>##     Rank                  Name Total_Net_Worth Last_Change YTD_Change
+## 491  491 Margot Perot &amp; family          $5.33B     +$50.0M    -$50.0M
+## 492  492         Horst Pudwill          $5.32B     +$40.1M    -$2.06B
+## 493  493       Charles Johnson          $5.31B     +$65.9M     -$729M
+## 494  494           Mary Malone          $5.29B     +$30.3M     +$100M
+## 495  495            Mat Ishbia          $5.28B      +$113M    -$1.99B
+## 496  496             Zhang Lei          $5.27B     +$36.4M    -$1.18B
+## 497  497       Mark Scheinberg          $5.25B     +$50.0M    -$75.0M
+## 498  498              Zhao Yan          $5.24B      -$126M    -$2.41B
+## 499  499       Stephane Bancel          $5.23B      +$308M    -$2.56B
+## 500  500        Autry Stephens          $5.22B          $0     +$724M
+##            Region        Industry
+## 491 United States     Diversified
+## 492       Germany        Consumer
+## 493 United States         Finance
+## 494 United States Food &amp; Beverage
+## 495 United States         Finance
+## 496         China         Finance
+## 497   Isle of Man   Entertainment
+## 498         China     Health Care
+## 499        France     Health Care
+## 500 United States          Energy</code></pre>
+<p> </p>
+<pre class="r"><code>Sys.Date()</code></pre>
+<pre><code>## [1] &quot;2022-04-14&quot;</code></pre>
+<p> </p>
+<pre class="r"><code># String for file name:
+paste0(&quot;Bloomberg_Billionaires_&quot;, Sys.Date(), &#39;.csv&#39;)</code></pre>
+<pre><code>## [1] &quot;Bloomberg_Billionaires_2022-04-14.csv&quot;</code></pre>
+<p> </p>
+<p>You can use the following line to save the dataframe into a .csv file.</p>
+<pre class="r"><code># Optional - Save Dataframe:
+write.csv(bloomberg_billionaires_df, paste0(&quot;Bloomberg_Billionaires_&quot;, Sys.Date(), &#39;.csv&#39;), row.names = FALSE)</code></pre>
+<p> </p>
+<p><a name="analysis"></a></p>
+</div>
+<div id="data-analysis---uncovering-insights" class="section level2">
+<h2>Data Analysis - Uncovering Insights</h2>
+<p>In this data analysis, I uncover insights from Bloomberg billionaires.</p>
+<pre class="r"><code>### Data Analysis Portion:
+
+
+## Billionaires Count by Region:
+by_region &lt;- bloomberg_billionaires_df %&gt;%
+             group_by(Region) %&gt;%
+             summarise(Count = n()) %&gt;%
+             arrange(desc(Count)) %&gt;%
+             data.frame()</code></pre>
+<p> </p>
+<p>Apologies for the small plot output, I was trying to find ways to fix the size in RMarkdown. Solutions are hard to find.</p>
+<pre class="r"><code>## Create bar graph in ggplot2, Billionaires Count by Region:
+
+# Sorting by counts for the Region
+by_region$Region &lt;- factor(by_region$Region, 
+                           levels = by_region$Region[order(by_region$Count)])</code></pre>
+<p> </p>
+<pre class="r"><code># Billionaires Count by Region (Top 10 Regions):
+ggplot(head(by_region, 10), aes(x = Region, y = Count)) +
+  geom_bar(stat = &quot;identity&quot;, fill = &quot;#238c6d&quot;) + 
+  coord_flip() +
+  geom_text(aes(label = Count), hjust = 1.2, colour = &quot;white&quot;, fontface = &quot;bold&quot;) +
+  labs(x = &quot;\n Region \n&quot;, y = &quot;\n Count \n&quot;, 
+       title = paste0(&quot;\n Bloomberg_Billionaires_&quot;, Sys.Date(), &quot;\n&quot;)) +
+  theme(plot.title = element_text(hjust = 0.5, size = 15), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;#063970&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;#063970&quot;, size = 12))</code></pre>
+<p><img src="bloomberg_billionaires_RSelenium_files/figure-html/unnamed-chunk-14-1.png" width="50%" height="50%" style="display: block; margin: auto;" /></p>
+<p> </p>
+<p><strong>Canadian Billionaires</strong></p>
+<pre class="r"><code>## Canadian Billionaires (CZ from Binance highest for Canada):
+bloomberg_billionaires_df %&gt;% filter(Region == &#39;Canada&#39;)</code></pre>
+<pre><code>##    Rank              Name Total_Net_Worth Last_Change YTD_Change Region
+## 1    36    Changpeng Zhao          $33.6B      +$676M    -$62.2B Canada
+## 2   137    Sherry Brydson          $13.9B      +$327M     -$648M Canada
+## 3   259    Taylor Thomson          $8.57B      +$184M     -$420M Canada
+## 4   260     Peter Thomson          $8.57B      +$184M     -$420M Canada
+## 5   261     David Thomson          $8.57B      +$181M     -$419M Canada
+## 6   265    James Pattison          $8.47B      +$114M     -$200M Canada
+## 7   339 Anthony von Mandl          $7.18B     +$34.0M     -$770M Canada
+## 8   371    Linda Campbell          $6.73B      +$129M     -$334M Canada
+## 9   372    Gaye Farncombe          $6.73B      +$129M     -$334M Canada
+## 10  381        J K Irving          $6.58B     +$16.5M     -$197M Canada
+## 11  382       Chip Wilson          $6.57B      +$211M    -$46.1M Canada
+## 12  391       Joseph Tsai          $6.41B     +$11.5M     -$672M Canada
+## 13  392     Arthur Irving          $6.40B      +$154M    +$1.45B Canada
+## 14  425    David Cheriton          $5.99B      +$117M     -$259M Canada
+## 15  434    Alain Bouchard          $5.93B     +$63.5M     +$435M Canada
+## 16  476        Tobi Lutke          $5.47B      +$113M    -$6.27B Canada
+##           Industry
+## 1          Finance
+## 2  Media &amp; Telecom
+## 3  Media &amp; Telecom
+## 4  Media &amp; Telecom
+## 5  Media &amp; Telecom
+## 6  Media &amp; Telecom
+## 7         Consumer
+## 8  Media &amp; Telecom
+## 9  Media &amp; Telecom
+## 10     Commodities
+## 11          Retail
+## 12      Technology
+## 13          Energy
+## 14      Technology
+## 15          Retail
+## 16      Technology</code></pre>
+<p> </p>
+<p><strong>American Billionaires</strong></p>
+<pre class="r"><code>## American Billionaires (Top 10):
+bloomberg_billionaires_df %&gt;% 
+  filter(Region == &#39;United States&#39;) %&gt;%
+  head(10)</code></pre>
+<pre><code>##    Rank            Name Total_Net_Worth Last_Change YTD_Change        Region
+## 1     1       Elon Musk           $259B     +$8.38B    -$11.0B United States
+## 2     2      Jeff Bezos           $180B     +$4.85B    -$12.2B United States
+## 3     4      Bill Gates           $130B     +$1.37B    -$8.13B United States
+## 4     5  Warren Buffett           $125B     -$1.23B    +$16.4B United States
+## 5     7      Larry Page           $116B     +$1.70B    -$12.1B United States
+## 6     8     Sergey Brin           $111B     +$1.60B    -$12.0B United States
+## 7     9   Steve Ballmer           $101B     +$1.85B    -$4.77B United States
+## 8    10   Larry Ellison           $100B     +$1.08B    -$6.71B United States
+## 9    13 Mark Zuckerberg          $79.0B      +$298M    -$46.5B United States
+## 10   16      Jim Walton          $70.0B     +$1.59B    +$5.51B United States
+##       Industry
+## 1   Technology
+## 2   Technology
+## 3   Technology
+## 4  Diversified
+## 5   Technology
+## 6   Technology
+## 7   Technology
+## 8   Technology
+## 9   Technology
+## 10      Retail</code></pre>
+<p> </p>
+<p><strong>Billionaires By Category</strong></p>
+<pre class="r"><code>## Billionaires Count by Category
+by_category &lt;- bloomberg_billionaires_df %&gt;%
+               group_by(Industry) %&gt;%
+               summarise(Count = n()) %&gt;%
+               arrange(desc(Count)) %&gt;%
+               data.frame()
+
+head(by_category, 10)</code></pre>
+<pre><code>##           Industry Count
+## 1       Technology    73
+## 2       Industrial    59
+## 3          Finance    57
+## 4      Diversified    47
+## 5         Consumer    38
+## 6           Retail    33
+## 7           Energy    32
+## 8  Food &amp; Beverage    32
+## 9      Real Estate    31
+## 10     Health Care    29</code></pre>
+<p> </p>
+<pre class="r"><code>## Bar Graph Of Billionaires By Category:
+
+# Sorting by counts for the Category
+by_category$Industry &lt;- factor(by_category$Industry, 
+                               levels = by_category$Industry[order(by_category$Count)])
+
+# Top 10 Billionaires Count by Industry, labels added, blue bars
+ggplot(head(by_category, 10), aes(x = Industry, y = Count)) +
+  geom_bar(stat = &quot;identity&quot;, fill = &quot;#555387&quot;) + 
+  coord_flip() +
+  geom_text(aes(label = Count), hjust = 1.2, colour = &quot;white&quot;, fontface = &quot;bold&quot;) +
+  labs(x = &quot;\n Industry \n&quot;, y = &quot;\n Count \n&quot;, 
+       title = paste0(&quot;\n Bloomberg_Billionaires_&quot;, Sys.Date(), &quot;\n&quot;)) +
+  theme(plot.title = element_text(hjust = 0.5, size = 15), 
+        axis.title.x = element_text(face=&quot;bold&quot;, colour=&quot;#063970&quot;, size = 12),
+        axis.title.y = element_text(face=&quot;bold&quot;, colour=&quot;#063970&quot;, size = 12))</code></pre>
+<p><img src="bloomberg_billionaires_RSelenium_files/figure-html/unnamed-chunk-15-1.png" width="50%" height="50%" style="display: block; margin: auto;" /></p>
+<p> </p>
+<p><strong>Technology Billionaires</strong></p>
+<pre class="r"><code>## Technology Billionaires (Top 10):
+bloomberg_billionaires_df %&gt;% filter(Industry == &#39;Technology&#39;) %&gt;% head(10)</code></pre>
+<pre><code>##    Rank            Name Total_Net_Worth Last_Change YTD_Change        Region
+## 1     1       Elon Musk           $259B     +$8.38B    -$11.0B United States
+## 2     2      Jeff Bezos           $180B     +$4.85B    -$12.2B United States
+## 3     4      Bill Gates           $130B     +$1.37B    -$8.13B United States
+## 4     7      Larry Page           $116B     +$1.70B    -$12.1B United States
+## 5     8     Sergey Brin           $111B     +$1.60B    -$12.0B United States
+## 6     9   Steve Ballmer           $101B     +$1.85B    -$4.77B United States
+## 7    10   Larry Ellison           $100B     +$1.08B    -$6.71B United States
+## 8    13 Mark Zuckerberg          $79.0B      +$298M    -$46.5B United States
+## 9    23    Michael Dell          $51.0B      +$579M    -$3.96B United States
+## 10   25 MacKenzie Scott          $48.5B     +$1.65B    -$7.78B United States
+##      Industry
+## 1  Technology
+## 2  Technology
+## 3  Technology
+## 4  Technology
+## 5  Technology
+## 6  Technology
+## 7  Technology
+## 8  Technology
+## 9  Technology
+## 10 Technology</code></pre>
+<p> </p>
+<p><strong>Finance Billionaires</strong></p>
+<pre class="r"><code>## Finance Billionaires (Top 10):
+bloomberg_billionaires_df %&gt;% filter(Industry == &#39;Finance&#39;) %&gt;% head(10)</code></pre>
+<pre><code>##    Rank               Name Total_Net_Worth Last_Change YTD_Change        Region
+## 1    34 Stephen Schwarzman          $34.9B      +$788M    -$2.94B United States
+## 2    36     Changpeng Zhao          $33.6B      +$676M    -$62.2B        Canada
+## 3    42        Ken Griffin          $30.5B     +$84.8M    +$9.19B United States
+## 4    49       James Simons          $26.0B      +$175M     +$525M United States
+## 5    65    Abigail Johnson          $22.1B     +$42.3M    -$3.90B United States
+## 6    72    Thomas Peterffy          $20.7B      +$214M    -$4.11B United States
+## 7    75  Sam Bankman-Fried          $20.5B      +$805M    +$4.28B United States
+## 8   112        Vicky Safra          $16.3B          $0     +$150M        Greece
+## 9   114       David Tepper          $16.2B     +$50.0M    +$1.32B United States
+## 10  116          Ray Dalio          $16.1B          $0     +$510M United States
+##    Industry
+## 1   Finance
+## 2   Finance
+## 3   Finance
+## 4   Finance
+## 5   Finance
+## 6   Finance
+## 7   Finance
+## 8   Finance
+## 9   Finance
+## 10  Finance</code></pre>
+<p> </p>
+<p><strong>Retail Billionaires</strong></p>
+<pre class="r"><code>## Retail Billonaires (Top 10):
+bloomberg_billionaires_df %&gt;% filter(Industry == &#39;Retail&#39;) %&gt;% head(10)</code></pre>
+<pre><code>##    Rank               Name Total_Net_Worth Last_Change YTD_Change        Region
+## 1    16         Jim Walton          $70.0B     +$1.59B    +$5.51B United States
+## 2    17         Rob Walton          $69.2B     +$1.56B    +$5.12B United States
+## 3    18       Alice Walton          $67.6B     +$1.54B    +$5.00B United States
+## 4    26     Amancio Ortega          $47.4B      +$433M    -$20.1B         Spain
+## 5    47     Dieter Schwarz          $27.1B      +$272M    -$1.85B       Germany
+## 6    55      Tadashi Yanai          $24.6B      +$589M    -$5.01B         Japan
+## 7    59       Lukas Walton          $23.8B      +$537M    +$1.66B United States
+## 8    64        Henry Cheng          $22.2B     +$49.3M     -$770M     Hong Kong
+## 9    69 Radhakishan Damani          $21.4B     +$25.3M    -$3.22B         India
+## 10   90        John Menard          $18.6B      +$237M    -$7.09B United States
+##    Industry
+## 1    Retail
+## 2    Retail
+## 3    Retail
+## 4    Retail
+## 5    Retail
+## 6    Retail
+## 7    Retail
+## 8    Retail
+## 9    Retail
+## 10   Retail</code></pre>
+<p> </p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
