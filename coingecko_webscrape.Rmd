@@ -1,0 +1,236 @@
+---
+title: "Coingecko Cryptos Webscrape"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Hello. In this webscrape project in R, I extract recent cryptocurrency price data from Coingecko.
+
+&nbsp;
+
+## Contents
+
+* <a href="#setup">Setup</a>
+
+* <a href="#extract">Extracting Crypto Price Data From Coingecko</a>
+
+* <a href="#dataframe">Creating The Dataframe </a>
+
+* <a href="#analysis">Data Analysis</a>
+
+## Setup
+
+<a name="setup"></a>
+
+The setup consists of loading four libraries. These libraries are `dplyr`, `tidyr`, `rvest` and `stringr`.
+
+```{r message = FALSE, warning = FALSE}
+# Coingecko Web Scrape In R
+# Reference: https://stackoverflow.com/questions/45450981/rvest-scrape-2-classes-in-1-tag
+# https://www.statology.org/remove-dollar-sign-in-r/
+
+# Load libraries:
+
+library(dplyr)
+library(tidyr)
+library(rvest)
+library(stringr)
+```
+
+&nbsp;
+
+
+## Obtain Data
+
+<a name="extract"></a>
+
+From the `rvest` package one of the main functions that is needed is `read_html()`. Once the html page is loaded do extract the `tbody` part of the html page.
+
+```{r}
+## Extract top 100 cryptos on Coingecko.com
+
+page <- read_html("https://www.coingecko.com/")
+
+table <- page %>% html_element('tbody')
+```
+
+&nbsp;
+
+**Rank**
+
+```{r}
+# Get Rank:
+rank <- table %>%
+  html_nodes(
+    "[class='table-number tw-text-left text-xs cg-sticky-col cg-sticky-second-col tw-max-w-14 lg:tw-w-14']"
+  ) %>%
+  html_text2() %>%
+  readr::parse_integer()
+
+# Show top 30
+rank[0:30]
+```
+
+&nbsp;
+
+**Crypto Name**
+
+```{r}
+# Name
+crypto_name <- table %>%
+  html_nodes("[class='tw-hidden lg:tw-flex font-bold tw-items-center tw-justify-between']") %>%
+  html_text2()
+
+crypto_name[0:30]
+```
+
+&nbsp;
+
+**Ticker Symbol**
+
+```{r}
+# Ticker
+ticker <- table %>%
+  html_nodes("[class='d-lg-none font-bold tw-w-12']") %>%
+  html_text2()
+
+ticker[0:30]
+```
+
+&nbsp;
+
+**Prices**
+
+```{r}
+# Extract price:
+price <- table %>%
+  html_nodes('[class="td-price price text-right pl-0"]') %>%
+  html_text2()
+
+price[0:30]
+```
+
+&nbsp;
+
+**One Hour Percentage Changes**
+
+```{r}
+# 1 Hour Change
+change_1h <- table %>%
+  html_nodes("[class='td-change1h change1h stat-percent text-right col-market']") %>%
+  html_text2()
+
+change_1h[0:30]
+```
+
+&nbsp;
+
+**Twenty Four Hour Percentage Changes**
+
+```{r}
+# 24 Hour Change
+change_24h <- table %>%
+  html_nodes("[class='td-change24h change24h stat-percent text-right col-market']") %>%
+  html_text2
+
+change_24h[0:30]
+```
+
+&nbsp;
+
+**Seven Day Percentage Changes**
+
+```{r}
+# 7 Day Change
+change_7d <- table %>%
+  html_nodes("[class='td-change7d change7d stat-percent text-right col-market']") %>%
+  html_text2()
+
+change_7d[0:30]
+```
+
+&nbsp;
+
+**24 Hour Volume**
+
+```{r}
+# 24 Hour Volume
+volume_24h <- table %>%
+  html_nodes("[class='td-liquidity_score lit text-right col-market']") %>%
+  html_text2()
+
+volume_24h[0:30]
+```
+
+&nbsp;
+
+**Market Cap**
+
+```{r}
+# Market Cap
+market_cap <- table %>%
+  html_nodes("[class='td-market_cap cap col-market cap-price text-right']") %>%
+  html_text2()
+
+market_cap[0:30]
+```
+
+&nbsp;
+
+## Create Dataframe
+
+
+<a name="dataframe"></a>
+
+Once the table parts have been obtained, the dataframe can be assembled with the use of `data.frame()`.
+
+```{r dataframe}
+# Put together as dataframe:
+
+cg_data <- data.frame(
+  Rank = rank,
+  Crypto = crypto_name,
+  Ticker = ticker,
+  Price = price,
+  Change_1h = change_1h,
+  Change_24h = change_24h,
+  Change_7d = change_7d,
+  Volume_24h = volume_24h,
+  Market_Cap = market_cap
+)
+
+# Preview dataframe
+
+head(cg_data, 10)
+
+tail(cg_data, 10)
+```
+
+&nbsp;
+
+```{r}
+# Data types for columns
+str(cg_data)
+```
+
+As an optional thing, you can save the Top100 Crypto prices dataframe into a `.csv` file with `write.csv()`.
+
+```{r}
+# Data when function is declared
+Sys.Date()
+```
+
+&nbsp;
+
+```{r save}
+
+# Save into .csv file:
+
+write.csv(cg_data, paste("Coingecko_Prices_", Sys.Date(), '.csv', sep = ""), row.names = FALSE)
+```
+
+&nbsp;
+

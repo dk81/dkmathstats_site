@@ -25,6 +25,10 @@ This page contains links on a bunch of webscraping projects in Python & in R.
 
 [DJ Magazine Top 100 DJs 2021](https://github.com/dk81/web_scrape_python/blob/main/DJMag_top100_2021.ipynb)
 
+[Pokemon Stats Webscrape](https://github.com/dk81/pokemon_python/blob/main/Pokemondb_Table_Webscrape.ipynb)
+
+[Pokemon Legends Areceus Moves Webscrape](https://github.com/dk81/pokemon_python/blob/main/Pokemon_Legends_Arceus_Moves_Webscrape.ipynb)
+
 [Winter Olympics 2022 Medal Counts Web Scraping](https://github.com/dk81/web_scrape_python/blob/main/Winter_Olympics2022_MedalCounts_webscrape.ipynb)
 
 [Youtube Webscrape In Selenium](https://github.com/dk81/web_scrape_python/blob/main/youtube_webscrape_selenium.ipynb)
@@ -41,6 +45,8 @@ This page contains links on a bunch of webscraping projects in Python & in R.
 # <u>R Webscraping Projects</u>
 
 &nbsp;
+
+[Coingecko Cryptocurrency Prices](./coingecko_webscrape.html)
 
 [Bloomberg Billionaires Index](./bloomberg_billionaires_RSelenium.html)
 
