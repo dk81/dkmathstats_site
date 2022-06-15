@@ -21,6 +21,20 @@ I have more items such as R and Python code from my Github [here](https://github
 
 ---
 
+**Python Streamlit Projects**
+
+[Crypto Fear & Greed Index](https://share.streamlit.io/dk81/streamlit_apps/main/crypto_fear_greed.py)
+
+[Math Flashcards](https://share.streamlit.io/dk81/streamlit_apps/main/math_flashcards.py)
+
+[Football Tables Dashboard](https://share.streamlit.io/dk81/streamlit_apps/main/football_tables_dashboard.py)
+
+[Crypto Price Plots](https://share.streamlit.io/dk81/streamlit_apps/main/crypto_price_plot.py)
+
+
+
+&nbsp;
+
 **R Shiny Projects**
 
 &nbsp;

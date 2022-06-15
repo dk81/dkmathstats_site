@@ -13,6 +13,7 @@
 
 <title>dkmathstats Website</title>
 
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -56,6 +57,7 @@ if (window.hljs) {
 
 
 
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 
 
@@ -80,6 +82,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -232,7 +237,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -277,23 +282,50 @@ $(document).ready(function () {
 
 
 <p> </p>
-<p>Hi there. Welcome to my website. Topics include mathematics, statistics, R programming, Python programming with data science.</p>
-<p>This site is run with R Markdown with the use of this <a href="http://nickstrayer.me/RMarkdown_Sites_tutorial/">guide</a>.</p>
-<p>I have more items such as R and Python code from my Github <a href="https://github.com/dk81">here</a>.</p>
+<p>Hi there. Welcome to my website. Topics include mathematics,
+statistics, R programming, Python programming with data science.</p>
+<p>This site is run with R Markdown with the use of this <a
+href="http://nickstrayer.me/RMarkdown_Sites_tutorial/">guide</a>.</p>
+<p>I have more items such as R and Python code from my Github <a
+href="https://github.com/dk81">here</a>.</p>
 <hr />
 <p><strong>Contact</strong></p>
 <ul>
 <li><strong>Name:</strong> David</li>
-<li><strong>E-Mail:</strong> <a href="mailto:dku8691@protonmail.com" class="email">dku8691@protonmail.com</a></li>
+<li><strong>E-Mail:</strong> <a href="mailto:dku8691@protonmail.com"
+class="email">dku8691@protonmail.com</a></li>
 </ul>
 <hr />
+<p><strong>Python Streamlit Projects</strong></p>
+<p><a
+href="https://share.streamlit.io/dk81/streamlit_apps/main/crypto_fear_greed.py">Crypto
+Fear &amp; Greed Index</a></p>
+<p><a
+href="https://share.streamlit.io/dk81/streamlit_apps/main/math_flashcards.py">Math
+Flashcards</a></p>
+<p><a
+href="https://share.streamlit.io/dk81/streamlit_apps/main/football_tables_dashboard.py">Football
+Tables Dashboard</a></p>
+<p><a
+href="https://share.streamlit.io/dk81/streamlit_apps/main/crypto_price_plot.py">Crypto
+Price Plots</a></p>
+<p> </p>
 <p><strong>R Shiny Projects</strong></p>
 <p> </p>
-<p><a href="https://dkmathstats.shinyapps.io/cryptoPrices_R">Crypto Prices Dashboard With Crypto Fear &amp; Greed Index</a></p>
-<p>This interactive dashboard produced in R, RShiny and flexdashboard features crypto prices from Coinbase and Kraken. There is a crypto fear and greed index where the data is extracted from alternative.me. You can find available price data for many of the popular cryptocurrencies along with a good handful of altcoins.</p>
+<p><a href="https://dkmathstats.shinyapps.io/cryptoPrices_R">Crypto
+Prices Dashboard With Crypto Fear &amp; Greed Index</a></p>
+<p>This interactive dashboard produced in R, RShiny and flexdashboard
+features crypto prices from Coinbase and Kraken. There is a crypto fear
+and greed index where the data is extracted from alternative.me. You can
+find available price data for many of the popular cryptocurrencies along
+with a good handful of altcoins.</p>
 <p> </p>
-<p><a href="https://dkmathstats.shinyapps.io/quandl_financedata_app/">Quandl Finance R Shiny Web Application</a></p>
-<p>In this RShiny web application, I use R, RShiny and Quandl to present various financial data. The datasets that are used are free and cover these topics:</p>
+<p><a
+href="https://dkmathstats.shinyapps.io/quandl_financedata_app/">Quandl
+Finance R Shiny Web Application</a></p>
+<p>In this RShiny web application, I use R, RShiny and Quandl to present
+various financial data. The datasets that are used are free and cover
+these topics:</p>
 <ul>
 <li>Inflation Rates (Year Over Year)</li>
 <li>Consumer Price Index</li>
@@ -303,8 +335,10 @@ $(document).ready(function () {
 <li>Bitfinex Exchange For Crypto Price Data</li>
 </ul>
 <p> </p>
-<p><a href="https://dkmathstats.shinyapps.io/mathTools/">Math Tools R Shiny Web Application</a></p>
-<p>This RShiny project with <code>flexdashboard</code> features a collection of mathematics tools.</p>
+<p><a href="https://dkmathstats.shinyapps.io/mathTools/">Math Tools R
+Shiny Web Application</a></p>
+<p>This RShiny project with <code>flexdashboard</code> features a
+collection of mathematics tools.</p>
 <p>The app has these math tools.</p>
 <ul>
 <li>Polynomial Functions Plotting Tool</li>
@@ -316,15 +350,28 @@ $(document).ready(function () {
 <li>Quadratic Formula Calculator</li>
 </ul>
 <p> </p>
-<p><a href="https://dkmathstats.shinyapps.io/bundesligaTables_app/">German Bundesliga Soccer Final Season Tables Application</a></p>
+<p><a
+href="https://dkmathstats.shinyapps.io/bundesligaTables_app/">German
+Bundesliga Soccer Final Season Tables Application</a></p>
 <ul>
-<li>This easy to use RShiny app uses the <code>BundesligR</code> package along with manual data collection for displaying the final season tables for the German Bundesliga soccer league from 1964 to the 2019-2020 seasons.</li>
-<li>Users can search for the final season tables by year or search for a team with the team picker to see how a team performed over the years.</li>
+<li>This easy to use RShiny app uses the <code>BundesligR</code> package
+along with manual data collection for displaying the final season tables
+for the German Bundesliga soccer league from 1964 to the 2019-2020
+seasons.</li>
+<li>Users can search for the final season tables by year or search for a
+team with the team picker to see how a team performed over the
+years.</li>
 </ul>
 <p> </p>
-<p><a href="https://dkmathstats.shinyapps.io/monteCarlo_estimatePi/">Monte Carlo Simulation R Shiny App with shinydashboard For Estimating π</a></p>
+<p><a
+href="https://dkmathstats.shinyapps.io/monteCarlo_estimatePi/">Monte
+Carlo Simulation R Shiny App with shinydashboard For Estimating
+π</a></p>
 <ul>
-<li>A simple application done with R, RShiny and the <code>shinydashboard</code> package. A Monte Carlo simulation is used to generate uniform random variables within a square to estimate the value of <span class="math inline">\(\pi\)</span>.</li>
+<li>A simple application done with R, RShiny and the
+<code>shinydashboard</code> package. A Monte Carlo simulation is used to
+generate uniform random variables within a square to estimate the value
+of <span class="math inline">\(\pi\)</span>.</li>
 </ul>
 <p> </p>
 
